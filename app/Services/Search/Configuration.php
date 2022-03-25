@@ -4,6 +4,7 @@ namespace App\Services\Search;
 
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
@@ -23,6 +24,8 @@ use function json_encode;
 use function sha1;
 use function sprintf;
 use function str_starts_with;
+
+use const JSON_THROW_ON_ERROR;
 
 class Configuration {
     protected const METADATA   = 'metadata';
@@ -66,7 +69,9 @@ class Configuration {
     public function getRelations(): array {
         $properties = $this->getFlatProperties(
             static function (string $key, ?Property $property): ?string {
-                return $property?->getName();
+                return $property !== null && !($property instanceof Properties)
+                    ? $property->getName()
+                    : null;
             },
         );
         $properties = (new Collection($properties))
@@ -74,12 +79,10 @@ class Configuration {
             ->map(static function (string $property): ModelProperty {
                 return new ModelProperty($property);
             })
-            ->filter(static function (ModelProperty $property): bool {
-                return $property->isRelation();
-            })
-            ->map(static function (ModelProperty $property): string {
+            ->map(static function (ModelProperty $property): ?string {
                 return $property->getRelationName();
             })
+            ->filter()
             ->unique()
             ->values()
             ->all();
@@ -122,9 +125,9 @@ class Configuration {
     }
 
     /**
-     * @param array<string,Property>           $properties
-     * @param Closure(string,Property): string $keyer
-     * @param Closure(Value): bool|null        $filter
+     * @param array<string,Property>             $properties
+     * @param Closure(string,?Property): ?string $keyer
+     * @param Closure(Value): bool|null          $filter
      *
      * @return array<string,Value>
      */
@@ -138,19 +141,24 @@ class Configuration {
 
         foreach ($properties as $name => $property) {
             $key = $keyer($name, $property);
-            $key = $prefix ? "{$prefix}.{$key}" : $key;
+            $key = $key !== null && $prefix ? "{$prefix}.{$key}" : $key;
 
-            if ($property instanceof Value) {
-                if ($filter === null || $filter($property)) {
-                    $flat[$key] = $property;
-                } else {
-                    // ignore
-                }
-            } elseif ($property instanceof Relation) {
-                $processed = $this->getFlatPropertiesProcess($property->getProperties(), $keyer, $filter, $key);
+            if ($property instanceof Properties || $property instanceof Relation) {
+                $processed = $this->getFlatPropertiesProcess(
+                    $property->getProperties(),
+                    $keyer,
+                    $filter,
+                    $key ?? $prefix,
+                );
 
                 if ($processed) {
                     $flat = array_merge($flat, $processed);
+                }
+            } elseif ($property instanceof Value) {
+                if ($key !== null && ($filter === null || $filter($property))) {
+                    $flat[$key] = $property;
+                } else {
+                    // ignore
                 }
             } else {
                 // ignore
@@ -167,7 +175,7 @@ class Configuration {
 
         foreach ($path as $segment) {
             if (isset($properties[$segment])) {
-                if ($properties[$segment] instanceof Relation) {
+                if ($properties[$segment] instanceof Properties || $properties[$segment] instanceof Relation) {
                     $properties = $properties[$segment]->getProperties();
                 } elseif ($properties[$segment] instanceof Property) {
                     $property   = $properties[$segment];
@@ -187,7 +195,7 @@ class Configuration {
     }
 
     public function getIndexName(): string {
-        $hash = sha1(json_encode($this->getMappings()));
+        $hash = sha1(json_encode($this->getMappings(), JSON_THROW_ON_ERROR));
         $name = "{$this->getIndexAlias()}@{$hash}";
 
         return $name;
@@ -225,7 +233,7 @@ class Configuration {
         $mappings = [];
 
         foreach ($properties as $name => $property) {
-            if ($property instanceof Relation) {
+            if ($property instanceof Properties || $property instanceof Relation) {
                 $mappings[$name] = [
                     'properties' => $this->getMappingsProcess($property->getProperties()),
                 ];
@@ -243,11 +251,11 @@ class Configuration {
     }
 
     public static function getMetadataName(string $name = ''): string {
-        return static::METADATA.($name ? ".{$name}" : '');
+        return self::METADATA.($name ? ".{$name}" : '');
     }
 
     public static function getPropertyName(string $name = ''): string {
-        return static::PROPERTIES.($name ? ".{$name}" : '');
+        return self::PROPERTIES.($name ? ".{$name}" : '');
     }
 
     /**
