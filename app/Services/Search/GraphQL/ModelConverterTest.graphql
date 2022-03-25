@@ -6,8 +6,17 @@ input ModelConverterTestModelsSearchChildSort {
   another: String
   nested: ModelConverterTestModelsSearchChildNestedSort
 }
+input ModelConverterTestModelsSearchArrayNestedSort {
+  name: String
+}
+input ModelConverterTestModelsSearchArraySort {
+  name: String
+  test: String
+  nested: ModelConverterTestModelsSearchArrayNestedSort
+}
 input ModelConverterTestModelsSearchSort {
   name: String
   test: String
   child: ModelConverterTestModelsSearchChildSort
+  array: ModelConverterTestModelsSearchArraySort
 }

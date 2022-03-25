@@ -2,15 +2,14 @@
 
 namespace App\Services\Search\Properties;
 
-class Relation extends Property {
+class Properties extends Property {
     /**
      * @param non-empty-array<string,Property> $properties
      */
     public function __construct(
-        string $name,
         protected array $properties,
     ) {
-        parent::__construct($name);
+        parent::__construct('properties');
     }
 
     /**

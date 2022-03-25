@@ -210,6 +210,14 @@ trait SearchableImpl {
         $values = [];
 
         foreach ($properties as $name => $property) {
+            // Array?
+            if ($property instanceof Properties) {
+                $values[$name] = $this->toSearchableArrayProcess($model, $property->getProperties());
+
+                continue;
+            }
+
+            // Value?
             $value = (new ModelProperty($property->getName()))->getValue($model);
 
             if ($property instanceof Relation) {

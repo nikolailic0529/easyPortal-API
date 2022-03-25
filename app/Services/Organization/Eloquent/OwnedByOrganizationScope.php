@@ -5,6 +5,7 @@ namespace App\Services\Organization\Eloquent;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Uuid;
 use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use App\Utils\Eloquent\ModelProperty;
@@ -122,7 +123,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
         }
 
         return $owners
-            ? [self::SEARCH_METADATA_PREFIX => $owners]
+            ? [self::SEARCH_METADATA_PREFIX => new Properties($owners)]
             : [];
     }
     // </editor-fold>

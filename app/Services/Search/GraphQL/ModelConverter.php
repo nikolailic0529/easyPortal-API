@@ -4,6 +4,7 @@ namespace App\Services\Search\GraphQL;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
@@ -46,7 +47,7 @@ class ModelConverter {
         $fields = [];
 
         foreach ($properties as $property => $value) {
-            if ($value instanceof Relation) {
+            if ($value instanceof Properties || $value instanceof Relation) {
                 $types    = array_merge($types, $this->convert([...$path, $property], $value->getProperties()));
                 $fields[] = [
                     'name' => $property,
