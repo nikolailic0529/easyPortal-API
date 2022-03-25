@@ -1,6 +1,6 @@
 extend type OrgMutations {
     role(id: ID @eq): OrgRoleMutations
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["org-administer"])
     @mutation(
         builder: "App\\GraphQL\\Mutations\\Org\\Role\\Builder"

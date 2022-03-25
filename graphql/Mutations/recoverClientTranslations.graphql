@@ -6,7 +6,7 @@ extend type Mutation {
     recoverClientTranslations(
         input: RecoverClientTranslationsInput!
     ): RecoverClientTranslationsPayload
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authRoot
 }
 

@@ -5192,12 +5192,12 @@ scalar Url
 
 type Application {
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     jobs: [ApplicationJob!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5211,7 +5211,7 @@ type Application {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
@@ -5258,7 +5258,7 @@ type Application {
             ]
         )
     ): [ApplicationLog!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5268,7 +5268,7 @@ type Application {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
@@ -5297,7 +5297,7 @@ type Application {
             ]
         )
     ): ApplicationLogsAggregated
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5313,12 +5313,12 @@ type Application {
     name: String!
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     services: [ApplicationService!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5327,12 +5327,12 @@ type Application {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     settingGroups: [ApplicationSettingGroup!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5341,12 +5341,12 @@ type Application {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     settings: [ApplicationSetting!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5355,7 +5355,7 @@ type Application {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
@@ -5365,7 +5365,7 @@ type Application {
             apply: ["App\\Rules\\Locale"]
         )
     ): [ApplicationTranslation!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5468,14 +5468,14 @@ type ApplicationMaintenance {
 
 type ApplicationMaintenanceMutations {
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     schedule(
         input: ApplicationMaintenanceScheduleInput!
     ): ApplicationMaintenanceSchedulePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5484,12 +5484,12 @@ type ApplicationMaintenanceMutations {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     stop: ApplicationMaintenanceStopPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -5720,7 +5720,7 @@ type Asset {
 
 type AssetMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
 
@@ -5729,7 +5729,7 @@ type AssetMutations {
     setNickname(
         input: AssetSetNicknameInput!
     ): AssetSetNicknamePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -5741,12 +5741,12 @@ type AssetMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: AssetSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-sync"]
     )
@@ -6098,12 +6098,12 @@ type Contact {
 
 type ContractMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: ContractSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-sync"]
     )
@@ -6530,12 +6530,12 @@ type CustomerLocation {
 
 type CustomerMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: CustomerSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-sync"]
     )
@@ -6963,12 +6963,12 @@ type Location {
 
 type Map {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
     assets: [MapPoint!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view", "assets-view"]
     )
@@ -6980,12 +6980,12 @@ type Map {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customers: [MapPoint!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
@@ -7086,14 +7086,14 @@ type Me {
 
 type MeMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     update(
         input: MeUpdateInput!
     ): MeUpdatePayload
-    @authOrganization
+    @authOrg
     @authMe
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Me\\Update"
@@ -7125,14 +7125,14 @@ implements
 
 type MessageMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     create(
         input: MessageCreateInput!
     ): MessageCreatePayload!
-    @authOrganization
+    @authOrg
     @authMe
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Message\\Create"
@@ -7146,7 +7146,7 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -7154,7 +7154,7 @@ type Mutation {
         id: ID
         @eq
     ): AssetMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\Asset"
@@ -7166,7 +7166,7 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -7174,7 +7174,7 @@ type Mutation {
         id: ID
         @eq
     ): ContractMutations
-    @authOrganization
+    @authOrg
     @authMe
     @builder(
         method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
@@ -7184,14 +7184,14 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
     createContractNote(
         input: CreateContractNoteInput!
     ): CreateContractNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -7208,20 +7208,20 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     createQuoteNote(
         input: CreateQuoteNoteInput!
     ): CreateQuoteNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -7229,21 +7229,21 @@ type Mutation {
         id: ID
         @eq
     ): CustomerMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\Customer"
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     deleteApplicationTranslations(
         input: DeleteApplicationTranslationsInput!
     ): DeleteApplicationTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7252,40 +7252,40 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     deleteClientSettings(
         input: DeleteClientSettingsInput!
     ): DeleteClientSettingsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     deleteClientTranslations(
         input: DeleteClientTranslationsInput!
     ): DeleteClientTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view","org-administer"])> User must be authenticated and have any of these permissions.
     """
     deleteContractNote(
         input: DeleteContractNoteInput!
     ): DeleteContractNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view", "org-administer"]
     )
@@ -7302,14 +7302,14 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","org-administer","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     deleteQuoteNote(
         input: DeleteQuoteNoteInput!
     ): DeleteQuoteNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view", "org-administer"]
     )
@@ -7317,14 +7317,14 @@ type Mutation {
     """
     Dispatch/Run application service.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     dispatchApplicationService(
         input: DispatchApplicationServiceInput!
     ): DispatchApplicationServicePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7333,49 +7333,49 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     importOems(
         input: ImportOemsInput!
     ): ImportOemsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     me: MeMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Me"
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     message: MessageMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     org: OrgMutations
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7384,7 +7384,7 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -7392,7 +7392,7 @@ type Mutation {
         id: ID
         @eq
     ): OrganizationMutations
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -7403,7 +7403,7 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -7411,7 +7411,7 @@ type Mutation {
         id: ID
         @eq
     ): QuoteMutations
-    @authOrganization
+    @authOrg
     @authMe
     @builder(
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
@@ -7421,12 +7421,12 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     quoteRequest: QuoteRequestMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\QuoteRequest"
@@ -7435,12 +7435,12 @@ type Mutation {
     """
     Force delete all custom settings, may be useful to restore the corrupted file.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     recoverApplicationSettings: recoverApplicationSettingsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7452,14 +7452,14 @@ type Mutation {
     Force delete all translations for a given locale, may be useful to restore the
     corrupted file.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     recoverApplicationTranslations(
         input: RecoverApplicationTranslationsInput!
     ): RecoverApplicationTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7470,12 +7470,12 @@ type Mutation {
     """
     Force delete all custom settings, may be useful to restore the corrupted file.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     recoverClientSettings: RecoverClientSettingsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7484,66 +7484,66 @@ type Mutation {
     Force delete all client translations for a given locale, may be useful to
     restore the corrupted file.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     recoverClientTranslations(
         input: RecoverClientTranslationsInput!
     ): RecoverClientTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["requests-asset-change"])> User must be authenticated and have any of these permissions.
     """
     requestAssetChange(
         input: RequestAssetChangeInput!
     ): RequestAssetChangePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["requests-asset-change"]
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["requests-contract-change"])> User must be authenticated and have any of these permissions.
     """
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["requests-contract-change"]
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["requests-customer-change"])> User must be authenticated and have any of these permissions.
     """
     requestCustomerChange(
         input: RequestCustomerChangeInput!
     ): RequestCustomerChangePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["requests-customer-change"]
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     requestOrgChange(
         input: RequestOrgChangeInput!
     ): RequestOrgChangePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7552,14 +7552,14 @@ type Mutation {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["requests-quote-change"])> User must be authenticated and have any of these permissions.
     """
     requestQuoteChange(
         input: RequestQuoteChangeInput!
     ): RequestQuoteChangePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["requests-quote-change"]
     )
@@ -7567,14 +7567,14 @@ type Mutation {
     """
     Reset application service progress.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     resetApplicationService(
         input: ResetApplicationServiceInput!
     ): ResetApplicationServicePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7585,14 +7585,14 @@ type Mutation {
     """
     Send reset password link to the user.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     resetOrgUserPassword(
         input: ResetOrgUserPasswordInput!
     ): ResetOrgUserPasswordPayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7658,14 +7658,14 @@ type Mutation {
     """
     Stop application service.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     stopApplicationService(
         input: StopApplicationServiceInput!
     ): StopApplicationServicePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7674,14 +7674,14 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     updateApplicationSettings(
         input: [UpdateApplicationSettingsInput!]!
     ): UpdateApplicationSettingsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7690,14 +7690,14 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     updateApplicationTranslations(
         input: UpdateApplicationTranslationsInput!
     ): UpdateApplicationTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
@@ -7706,46 +7706,46 @@ type Mutation {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     updateClientSettings(
         input: [UpdateClientSettingsInput!]!
     ): UpdateClientSettingsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authRoot> Authenticated user must be a root.
     """
     updateClientTranslations(
         input: UpdateClientTranslationsInput!
     ): UpdateClientTranslationsPayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authRoot
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
     updateContractNote(
         input: UpdateContractNoteInput!
     ): UpdateContractNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -7755,41 +7755,41 @@ type Mutation {
     @throttle(
         name: "auth"
     )
-    @authOrganization
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail"
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     updateMePassword(
         input: UpdateMePasswordInput!
     ): UpdateMePasswordPayload
-    @authOrganization
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMePassword"
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     updateQuoteNote(
         input: UpdateQuoteNoteInput!
     ): UpdateQuoteNotePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -7797,7 +7797,7 @@ type Mutation {
         id: ID
         @eq
     ): UserMutations
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -7850,7 +7850,7 @@ type OemGroup {
 
 type OrgMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
@@ -7858,7 +7858,7 @@ type OrgMutations {
         id: ID
         @eq
     ): OrgRoleMutations
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7867,14 +7867,14 @@ type OrgMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     update(
         input: OrgUpdateInput!
     ): OrgUpdatePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7883,7 +7883,7 @@ type OrgMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
@@ -7891,7 +7891,7 @@ type OrgMutations {
         id: ID
         @eq
     ): OrgUserMutations
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7917,14 +7917,14 @@ implements
 
 type OrgRoleMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     create(
         input: OrgRoleCreateInput!
     ): OrgRoleCreatePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7933,12 +7933,12 @@ type OrgRoleMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     delete: OrgRoleDeletePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7947,14 +7947,14 @@ type OrgRoleMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     update(
         input: OrgRoleUpdateInput!
     ): OrgRoleUpdatePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -7997,14 +7997,14 @@ type OrgUserMutations {
     - User is disabled/banned
     - User is Root
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     invite(
         input: OrgUserInviteInput!
     ): OrgUserInvitePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -8013,14 +8013,14 @@ type OrgUserMutations {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
     """
     update(
         input: OrgUserUpdateInput!
     ): OrgUserUpdatePayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["org-administer"]
     )
@@ -8343,7 +8343,7 @@ type OrganizationBranding {
 
 type OrganizationMutations {
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -8351,7 +8351,7 @@ type OrganizationMutations {
         id: ID
         @eq
     ): OrganizationUserMutations
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -8380,14 +8380,14 @@ type OrganizationUserMutations {
     - User is disabled/banned
     - User is Root
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     invite(
         input: OrganizationUserInviteInput!
     ): OrganizationUserInvitePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -8445,7 +8445,7 @@ type Query {
     """
     Asset.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8453,7 +8453,7 @@ type Query {
         id: ID!
         @eq
     ): Asset
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8462,7 +8462,7 @@ type Query {
     """
     List of all possible asset coverages.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8492,7 +8492,7 @@ type Query {
             ]
         )
     ): [Coverage!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8504,7 +8504,7 @@ type Query {
     """
     List of all possible asset statuses.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8534,7 +8534,7 @@ type Query {
             ]
         )
     ): [Status!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8546,7 +8546,7 @@ type Query {
     """
     List of all possible asset types.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8576,7 +8576,7 @@ type Query {
             ]
         )
     ): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8588,7 +8588,7 @@ type Query {
     """
     List of all assets
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8636,14 +8636,14 @@ type Query {
             ]
         )
     ): [Asset!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8673,7 +8673,7 @@ type Query {
             ]
         )
     ): AssetsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8682,7 +8682,7 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8708,14 +8708,14 @@ type Query {
         search: SearchString!
         @search
     ): [Asset!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8723,7 +8723,7 @@ type Query {
         search: SearchString!
         @search
     ): AssetsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["assets-view", "customers-view"]
     )
@@ -8734,7 +8734,7 @@ type Query {
     """
     List of all organizations audits.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -8782,7 +8782,7 @@ type Query {
             ]
         )
     ): [Audit!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -8793,7 +8793,7 @@ type Query {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -8823,7 +8823,7 @@ type Query {
             ]
         )
     ): AuditsAggregated
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -8836,7 +8836,7 @@ type Query {
     """
     List of all cities.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -8866,7 +8866,7 @@ type Query {
             ]
         )
     ): [City!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -8882,7 +8882,7 @@ type Query {
     """
     List of all possible contact types.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -8912,7 +8912,7 @@ type Query {
             ]
         )
     ): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all(
         builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
@@ -8922,7 +8922,7 @@ type Query {
     """
     Contract.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8930,7 +8930,7 @@ type Query {
         id: ID!
         @eq
     ): Document
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -8942,7 +8942,7 @@ type Query {
     """
     List of all possible contract statuses.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8972,7 +8972,7 @@ type Query {
             ]
         )
     ): [Status!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -8984,7 +8984,7 @@ type Query {
     """
     List of all possible contract types.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9014,7 +9014,7 @@ type Query {
             ]
         )
     ): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -9026,7 +9026,7 @@ type Query {
     """
     List of all contracts.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9074,7 +9074,7 @@ type Query {
             ]
         )
     ): [Document!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -9084,7 +9084,7 @@ type Query {
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9114,7 +9114,7 @@ type Query {
             ]
         )
     ): DocumentsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -9126,7 +9126,7 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9155,14 +9155,14 @@ type Query {
             method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch"
         )
     ): [Document!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9173,7 +9173,7 @@ type Query {
             method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch"
         )
     ): DocumentsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["contracts-view", "customers-view"]
     )
@@ -9184,7 +9184,7 @@ type Query {
     """
     List of all countries.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9214,7 +9214,7 @@ type Query {
             ]
         )
     ): [Country!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -9222,7 +9222,7 @@ type Query {
     """
     List of all currencies.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9252,7 +9252,7 @@ type Query {
             ]
         )
     ): [Currency!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -9260,7 +9260,7 @@ type Query {
     """
     Customer.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9268,7 +9268,7 @@ type Query {
         id: ID!
         @eq
     ): Customer
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
@@ -9277,7 +9277,7 @@ type Query {
     """
     List of all possible customer statuses.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9307,7 +9307,7 @@ type Query {
             ]
         )
     ): [Status!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
@@ -9319,7 +9319,7 @@ type Query {
     """
     List of Customers.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9367,14 +9367,14 @@ type Query {
             ]
         )
     ): [Customer!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9404,7 +9404,7 @@ type Query {
             ]
         )
     ): CustomersAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
@@ -9413,7 +9413,7 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9439,14 +9439,14 @@ type Query {
         search: SearchString!
         @search
     ): [Customer!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9454,7 +9454,7 @@ type Query {
         search: SearchString!
         @search
     ): CustomersAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["customers-view"]
     )
@@ -9465,7 +9465,7 @@ type Query {
     """
     List of all languages.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9495,7 +9495,7 @@ type Query {
             ]
         )
     ): [Language!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -9503,7 +9503,7 @@ type Query {
     """
     List of all possible location types.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9533,7 +9533,7 @@ type Query {
             ]
         )
     ): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all(
         builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
@@ -9541,7 +9541,7 @@ type Query {
     @cached
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9615,7 +9615,7 @@ type Query {
             ]
         )
     ): Map!
-    @authOrganization
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Queries\\Map\\Map"
@@ -9629,7 +9629,7 @@ type Query {
     """
     List of all OEMs
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -9659,7 +9659,7 @@ type Query {
             ]
         )
     ): [Oem!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -9672,7 +9672,7 @@ type Query {
     """
     Organization.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -9680,7 +9680,7 @@ type Query {
         id: ID!
         @eq
     ): Organization
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -9691,7 +9691,7 @@ type Query {
     """
     List of all organizations.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -9739,7 +9739,7 @@ type Query {
             ]
         )
     ): [Organization!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -9748,7 +9748,7 @@ type Query {
     @paginated
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -9778,7 +9778,7 @@ type Query {
             ]
         )
     ): OrganizationsAggregated
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -9789,12 +9789,12 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     permissions: [Permission!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
@@ -9805,7 +9805,7 @@ type Query {
     """
     Quote.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9813,7 +9813,7 @@ type Query {
         id: ID!
         @eq
     ): Document
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -9825,12 +9825,12 @@ type Query {
     """
     List of all possible quote request durations.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     quoteRequestDurations: [QuoteRequestDuration!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -9838,7 +9838,7 @@ type Query {
     """
     List of all possible quote statuses.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9868,7 +9868,7 @@ type Query {
             ]
         )
     ): [Status!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -9880,7 +9880,7 @@ type Query {
     """
     List of all possible quote types.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9910,7 +9910,7 @@ type Query {
             ]
         )
     ): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -9922,7 +9922,7 @@ type Query {
     """
     List of all quotes.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -9970,7 +9970,7 @@ type Query {
             ]
         )
     ): [Document!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -9980,7 +9980,7 @@ type Query {
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10010,7 +10010,7 @@ type Query {
             ]
         )
     ): DocumentsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -10022,7 +10022,7 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10051,14 +10051,14 @@ type Query {
             method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
         )
     ): [Document!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
     @paginated
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10069,7 +10069,7 @@ type Query {
             method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
         )
     ): DocumentsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-view", "customers-view"]
     )
@@ -10080,12 +10080,12 @@ type Query {
     """
     List of all shared roles.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     roles: [Role!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10097,7 +10097,7 @@ type Query {
     @all
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10123,7 +10123,7 @@ type Query {
             method: "App\\GraphQL\\Queries\\Search"
         )
     ): [SearchResult!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: [
             "customers-view"
@@ -10137,7 +10137,7 @@ type Query {
     )
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view","contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10148,7 +10148,7 @@ type Query {
             method: "App\\GraphQL\\Queries\\Search"
         )
     ): SearchResultsAggregated
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: [
             "customers-view"
@@ -10164,7 +10164,7 @@ type Query {
     """
     List of all Service Groups.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -10194,7 +10194,7 @@ type Query {
             ]
         )
     ): [ServiceGroup!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -10202,7 +10202,7 @@ type Query {
     """
     List of all Service Levels.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -10232,7 +10232,7 @@ type Query {
             ]
         )
     ): [ServiceLevel!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -10240,7 +10240,7 @@ type Query {
     """
     List of all possible tags.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
@@ -10273,7 +10273,7 @@ type Query {
             ]
         )
     ): [Tag!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -10281,12 +10281,12 @@ type Query {
     """
     List of all possible teams.
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     teams: [Team!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
@@ -10295,12 +10295,12 @@ type Query {
     """
     List of all Timezones
 
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
     timezones: [String!]!
-    @authOrganization
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
@@ -10308,7 +10308,7 @@ type Query {
     @cached
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -10316,7 +10316,7 @@ type Query {
         id: ID!
         @eq
     ): User
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10330,7 +10330,7 @@ type Query {
     """
     List of all users.
 
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -10369,7 +10369,7 @@ type Query {
             ]
         )
     ): [User!]!
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10381,7 +10381,7 @@ type Query {
     @paginated
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -10402,7 +10402,7 @@ type Query {
             ]
         )
     ): UsersAggregated
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10418,12 +10418,12 @@ type Query {
 
 type QuoteMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["quotes-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: QuoteSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["quotes-sync"]
     )
@@ -10522,14 +10522,14 @@ type QuoteRequestDuration {
 
 type QuoteRequestMutations {
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["requests-quote-add"])> User must be authenticated and have any of these permissions.
     """
     create(
         input: QuoteRequestCreateInput!
     ): QuoteRequestCreatePayload!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["requests-quote-add"]
     )
@@ -10781,24 +10781,24 @@ type User {
     id: ID!
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     invitations: [Invitation!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
     @relation
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     invitations_count: Int!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
@@ -10812,24 +10812,24 @@ type User {
     office_phone: PhoneNumber
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     organizations: [UserOrganization!]!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
     @relation
 
     """
-    @require <authOrganization> Authenticated user must be a member of the current organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     organizations_count: Int!
-    @authOrganization
+    @authOrg
     @authMe(
         permissions: ["administer", "org-administer"]
     )
@@ -10845,7 +10845,7 @@ type User {
 
 type UserMutations {
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
@@ -10855,7 +10855,7 @@ type UserMutations {
             key: "organization_id"
         )
     ): UserOrganizationMutations
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10866,14 +10866,14 @@ type UserMutations {
     )
 
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     update(
         input: UserUpdateInput!
     ): UserUpdatePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -10900,14 +10900,14 @@ type UserOrganization {
 
 type UserOrganizationMutations {
     """
-    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
 
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     update(
         input: UserOrganizationUpdateInput!
     ): UserOrganizationUpdatePayload
-    @authOrganization(
+    @authOrg(
         root: true
     )
     @authMe(
@@ -11038,7 +11038,7 @@ repeatable on
 """
 Authenticated user must be a member of the current organization.
 """
-directive @authOrganization(
+directive @authOrg(
     """
     Authenticated user must be a member of the root organization.
     """

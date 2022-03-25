@@ -1,6 +1,6 @@
 extend type Mutation {
     customer(id: ID @eq): CustomerMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\Customer"

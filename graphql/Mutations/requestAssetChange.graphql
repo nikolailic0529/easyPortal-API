@@ -2,7 +2,7 @@ extend type Mutation {
     requestAssetChange(
         input: RequestAssetChangeInput!
     ): RequestAssetChangePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["requests-asset-change"])
 }
 

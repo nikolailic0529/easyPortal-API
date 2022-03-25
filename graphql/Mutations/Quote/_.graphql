@@ -1,6 +1,6 @@
 extend type Mutation {
     quote(id: ID @eq): QuoteMutations
-    @authOrganization
+    @authOrg
     @authMe
     @builder(
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"

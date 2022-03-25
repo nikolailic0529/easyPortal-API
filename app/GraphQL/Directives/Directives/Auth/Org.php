@@ -7,7 +7,7 @@ use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
-abstract class Organization extends AuthDirective implements FieldMiddleware {
+abstract class Org extends AuthDirective implements FieldMiddleware {
     public function __construct(
         protected CurrentOrganization $organization,
     ) {
@@ -19,7 +19,7 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
             """
             Authenticated user must be a member of the current organization.
             """
-            directive @authOrganization(
+            directive @authOrg(
               """
               Authenticated user must be a member of the root organization.
               """

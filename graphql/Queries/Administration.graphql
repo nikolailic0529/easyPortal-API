@@ -4,13 +4,13 @@ extend type Query {
         where: OrganizationsQuery @searchBy
         order: OrganizationsSort @sortBy
     ): [Organization!]!
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @paginated
 
     "Organization."
     organization(id: ID! @eq): Organization
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @find
 
@@ -19,7 +19,7 @@ extend type Query {
         where: AuditsQuery @searchBy
         order: AuditsSort @sortBy
     ): [Audit!]!
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @paginated(
         model: "App\\Models\\Audits\\Audit"
@@ -30,20 +30,20 @@ extend type Query {
         where: UsersQuery @searchBy
         order: UsersSort @sortBy
     ): [User!]!
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
     @paginated
 
     user(id: ID! @eq): User
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
     @find
 
     "List of all shared roles."
     roles: [Role!]!
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
     @all

@@ -2,7 +2,7 @@ extend type Mutation {
     requestQuoteChange(
         input: RequestQuoteChangeInput!
     ): RequestQuoteChangePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["requests-quote-change"])
 }
 

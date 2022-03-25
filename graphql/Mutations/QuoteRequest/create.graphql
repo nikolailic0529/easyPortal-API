@@ -2,7 +2,7 @@ extend type QuoteRequestMutations {
     create(
         input: QuoteRequestCreateInput!
     ): QuoteRequestCreatePayload!
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["requests-quote-add"])
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"

@@ -1,6 +1,6 @@
 extend type Mutation {
     quoteRequest: QuoteRequestMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\QuoteRequest"

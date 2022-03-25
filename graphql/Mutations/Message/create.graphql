@@ -2,7 +2,7 @@ extend type MessageMutations {
     create(
         input: MessageCreateInput!
     ): MessageCreatePayload!
-    @authOrganization
+    @authOrg
     @authMe
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Message\\Create"

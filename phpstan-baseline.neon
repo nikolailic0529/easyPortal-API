@@ -426,29 +426,29 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Organization\\:\\:getRequirements\\(\\) should return array\\<string\\> but returns array\\<string\\|null\\>\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Org\\:\\:getRequirements\\(\\) should return array\\<string\\> but returns array\\<string\\|null\\>\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/Organization.php
+			path: app/GraphQL/Directives/Directives/Auth/Org.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrganizationTest\\:\\:testResolveField\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrgTest\\:\\:testResolveField\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/OrganizationTest.php
+			path: app/GraphQL/Directives/Directives/Auth/OrgTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrganizationTest\\:\\:testResolveField\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrgTest\\:\\:testResolveField\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/OrganizationTest.php
+			path: app/GraphQL/Directives/Directives/Auth/OrgTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrganizationTest\\:\\:testResolveFieldRootOnly\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrgTest\\:\\:testResolveFieldRootOnly\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/OrganizationTest.php
+			path: app/GraphQL/Directives/Directives/Auth/OrgTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrganizationTest\\:\\:testResolveFieldRootOnly\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\OrgTest\\:\\:testResolveFieldRootOnly\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/OrganizationTest.php
+			path: app/GraphQL/Directives/Directives/Auth/OrgTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\RootTest\\:\\:testResolveField\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"

@@ -3,28 +3,28 @@ extend type Query {
 
     "List of all OEMs"
     oems(where: OemsQuery @searchBy): [Oem!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
 
     "List of all currencies."
     currencies(where: CurrenciesQuery @searchBy): [Currency!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
 
     "List of all languages."
     languages(where: LanguagesQuery @searchBy): [Language!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
 
     "List of all countries."
     countries(where: CountriesQuery @searchBy): [Country!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -33,14 +33,14 @@ extend type Query {
     cities(
         where: CitiesQuery @searchBy
     ): [City!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
 
     "List of all possible location types."
     locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all(
         builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
@@ -49,7 +49,7 @@ extend type Query {
 
     "List of all possible contact types."
     contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all(
         builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
@@ -61,7 +61,7 @@ extend type Query {
         where: TagsQuery @searchBy
         order: _ @sortBy
     ): [Tag!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -70,7 +70,7 @@ extend type Query {
     serviceGroups(
         where: ServiceGroupsQuery @searchBy
     ): [ServiceGroup!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
@@ -79,14 +79,14 @@ extend type Query {
     serviceLevels(
         where: ServiceLevelsQuery @searchBy
     ): [ServiceLevel!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached
 
     "List of all Timezones"
     timezones: [String!]!
-    @authOrganization
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
@@ -95,7 +95,7 @@ extend type Query {
 
     "List of all possible quote request durations."
     quoteRequestDurations: [QuoteRequestDuration!]!
-    @authOrganization
+    @authOrg
     @authMe
     @all
     @cached

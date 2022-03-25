@@ -1,6 +1,6 @@
 extend type Mutation {
     organization(id: ID @eq): OrganizationMutations
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authMe(permissions: ["administer"])
     @mutation(
         model: "App\\Models\\Organization"

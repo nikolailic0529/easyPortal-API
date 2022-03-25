@@ -1,6 +1,6 @@
 extend type Mutation {
     me: MeMutations
-    @authOrganization
+    @authOrg
     @authMe
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Me"

@@ -2,7 +2,7 @@ extend type AssetMutations {
     setNickname(
         input: AssetSetNicknameInput!
     ): AssetSetNicknamePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["assets-view", "customers-view"])
     @authMe(permissions: ["assets-edit-nickname"])
     @mutationMutate(

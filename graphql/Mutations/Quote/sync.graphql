@@ -1,6 +1,6 @@
 extend type QuoteMutations {
     sync: QuoteSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["quotes-sync"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Document\\Sync"

@@ -1,6 +1,6 @@
 extend type CustomerMutations {
     sync: CustomerSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["customers-sync"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Customer\\Sync"

@@ -1,6 +1,6 @@
 extend type ContractMutations {
     sync: ContractSyncPayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["contracts-sync"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Document\\Sync"

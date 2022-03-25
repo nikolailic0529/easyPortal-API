@@ -1,6 +1,6 @@
 extend type OrgRoleMutations {
     delete: OrgRoleDeletePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["org-administer"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Delete"

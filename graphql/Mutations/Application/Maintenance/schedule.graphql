@@ -2,7 +2,7 @@ extend type ApplicationMaintenanceMutations {
     schedule(
         input: ApplicationMaintenanceScheduleInput!
     ): ApplicationMaintenanceSchedulePayload
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Schedule")
 }

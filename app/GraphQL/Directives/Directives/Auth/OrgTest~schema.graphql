@@ -1,0 +1,22 @@
+type Query {
+    value: String! @authOrg @mock
+
+    root: Test! @authOrg(root: true) @mock
+}
+
+"""
+Description.
+"""
+type Test @authOrg {
+    one: String!
+
+    two: String! @authOrg
+
+    root: String! @authOrg(root: true)
+}
+
+extend type Test @authOrg {
+    extension: String!
+
+    extensionRoot: String! @authOrg(root: true)
+}

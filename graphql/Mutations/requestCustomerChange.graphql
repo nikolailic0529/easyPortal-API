@@ -2,7 +2,7 @@ extend type Mutation {
     requestCustomerChange(
         input: RequestCustomerChangeInput!
     ): RequestCustomerChangePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["requests-customer-change"])
 }
 

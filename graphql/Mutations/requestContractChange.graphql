@@ -2,7 +2,7 @@ extend type Mutation {
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["requests-contract-change"])
 }
 

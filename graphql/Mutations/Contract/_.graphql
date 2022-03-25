@@ -1,6 +1,6 @@
 extend type Mutation {
     contract(id: ID @eq): ContractMutations
-    @authOrganization
+    @authOrg
     @authMe
     @builder(
         method: "App\\GraphQL\\Queries\\Contracts\\Contracts"

@@ -1,0 +1,85 @@
+type Query {
+    """
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
+    """
+    root: Test!
+    @authOrg(
+        root: true
+    )
+    @mock
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+    """
+    value: String!
+    @authOrg
+    @mock
+}
+
+"""
+Description.
+
+@require <authOrg> Authenticated user must be a member of the current organization.
+"""
+type Test
+@authOrg
+{
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+    """
+    extension: String!
+    @authOrg
+
+    """
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
+    """
+    extensionRoot: String!
+    @authOrg(
+        root: true
+    )
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+    """
+    one: String!
+    @authOrg
+
+    """
+    @require <authOrg(root)> Authenticated user must be a member of the root organization.
+    """
+    root: String!
+    @authOrg(
+        root: true
+    )
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+    """
+    two: String!
+    @authOrg
+}
+
+"""
+Authenticated user must be a member of the current organization.
+"""
+directive @authOrg(
+    """
+    Authenticated user must be a member of the root organization.
+    """
+    root: Boolean! = false
+)
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+)
+on
+    | FIELD_DEFINITION

@@ -2,7 +2,7 @@ extend type OrgRoleMutations {
     create(
         input: OrgRoleCreateInput!
     ): OrgRoleCreatePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["org-administer"])
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Create"

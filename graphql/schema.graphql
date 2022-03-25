@@ -26,7 +26,7 @@ type Query {
         @search
         @builder(method: "App\\GraphQL\\Queries\\Search")
     ): [SearchResult!]!
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
     @paginated(
         builder: "App\\GraphQL\\Queries\\Search@builder"
@@ -47,14 +47,14 @@ type Query {
         "Assets filters."
         assets:  AssetsQuery @searchBy
     ): Map!
-    @authOrganization
+    @authOrg
     @authMe
     @field(resolver: "App\\GraphQL\\Queries\\Map\\Map")
 
     # Organization
     # ============================================================================
     permissions: [Permission!]!
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["administer", "org-administer"])
     @field(
         resolver: "App\\GraphQL\\Queries\\Permissions"
@@ -62,7 +62,7 @@ type Query {
 
     "List of all possible teams."
     teams: [Team!]!
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["administer", "org-administer"])
     @all
 }

@@ -2,7 +2,7 @@ extend type Mutation {
     updateQuoteNote(
         input: UpdateQuoteNoteInput!
     ): UpdateQuoteNotePayload
-    @authOrganization
+    @authOrg
     @authMe(permissions: ["quotes-view", "customers-view"])
 }
 

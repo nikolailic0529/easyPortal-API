@@ -17,9 +17,9 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Organization
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Org
  */
-class OrganizationTest extends TestCase {
+class OrgTest extends TestCase {
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -52,7 +52,7 @@ class OrganizationTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @authOrganization @field(resolver: "{$resolver}")
+                    value: String! @authOrg @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -93,7 +93,7 @@ class OrganizationTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @authOrganization(root: true) @field(resolver: "{$resolver}")
+                    value: String! @authOrg(root: true) @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )

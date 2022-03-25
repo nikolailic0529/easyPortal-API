@@ -5,7 +5,7 @@ extend type Mutation {
     stopApplicationService(
         input: StopApplicationServiceInput!
     ): StopApplicationServicePayload
-    @authOrganization(root: true)
+    @authOrg(root: true)
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\StopApplicationService")
 }
