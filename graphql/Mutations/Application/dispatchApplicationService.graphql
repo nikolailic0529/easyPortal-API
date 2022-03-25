@@ -5,7 +5,7 @@ extend type Mutation {
     dispatchApplicationService(
         input: DispatchApplicationServiceInput!
     ): DispatchApplicationServicePayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\DispatchApplicationService")
 }

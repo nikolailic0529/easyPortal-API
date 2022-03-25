@@ -2,7 +2,7 @@ extend type Mutation {
     deleteApplicationTranslations(
         input: DeleteApplicationTranslationsInput!
     ): DeleteApplicationTranslationsPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\DeleteApplicationTranslations")
 }

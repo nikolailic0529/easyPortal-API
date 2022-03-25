@@ -6,7 +6,7 @@ extend type Mutation {
     recoverApplicationTranslations(
         input: RecoverApplicationTranslationsInput!
     ): RecoverApplicationTranslationsPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationTranslations")
 }

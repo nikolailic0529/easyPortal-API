@@ -3,7 +3,7 @@ extend type Mutation {
     Force delete all custom settings, may be useful to restore the corrupted file.
     """
     recoverClientSettings: RecoverClientSettingsPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
 }
 

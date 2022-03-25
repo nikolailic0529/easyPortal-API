@@ -5,7 +5,7 @@ extend type Mutation {
     resetApplicationService(
         input: ResetApplicationServiceInput!
     ): ResetApplicationServicePayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\ResetApplicationService")
 }

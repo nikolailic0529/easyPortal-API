@@ -2,7 +2,7 @@ extend type Mutation {
     updateApplicationSettings(
         input: [UpdateApplicationSettingsInput!]!
     ): UpdateApplicationSettingsPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationSettings")
 }

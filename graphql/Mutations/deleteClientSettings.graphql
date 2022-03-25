@@ -2,7 +2,7 @@ extend type Mutation {
     deleteClientSettings(
         input: DeleteClientSettingsInput!
     ): DeleteClientSettingsPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
 }
 

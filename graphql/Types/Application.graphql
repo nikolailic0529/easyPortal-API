@@ -9,29 +9,29 @@ type Application {
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
 
     settings: [ApplicationSetting!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
 
     settingGroups: [ApplicationSettingGroup!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
 
     services: [ApplicationService!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
 
     jobs: [ApplicationJob!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
 
     translations (
         locale: String! @rules(apply: ["App\\Rules\\Locale"])
     ): [ApplicationTranslation!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
 
@@ -39,7 +39,7 @@ type Application {
         where: ApplicationLogsQuery @searchBy
         order: ApplicationLogsSort @sortBy
     ): [ApplicationLog!]!
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @paginated(
         model: "App\\Services\\Logger\\Models\\Log"

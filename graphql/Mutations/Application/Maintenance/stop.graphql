@@ -1,6 +1,6 @@
 extend type ApplicationMaintenanceMutations {
     stop: ApplicationMaintenanceStopPayload
-    @authOrg(root: true)
+    @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Stop")
 }

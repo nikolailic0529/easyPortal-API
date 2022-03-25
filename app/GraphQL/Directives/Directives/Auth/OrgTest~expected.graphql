@@ -1,17 +1,8 @@
 type Query {
     """
-    @require <authOrg(root)> Authenticated user must be a member of the root organization.
-    """
-    root: Test!
-    @authOrg(
-        root: true
-    )
-    @mock
-
-    """
     @require <authOrg> Authenticated user must be a member of the current organization.
     """
-    value: String!
+    value: Test!
     @authOrg
     @mock
 }
@@ -31,26 +22,16 @@ type Test
     @authOrg
 
     """
-    @require <authOrg(root)> Authenticated user must be a member of the root organization.
+    @require <authOrg> Authenticated user must be a member of the current organization.
     """
     extensionRoot: String!
-    @authOrg(
-        root: true
-    )
+    @authOrg
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
     """
     one: String!
     @authOrg
-
-    """
-    @require <authOrg(root)> Authenticated user must be a member of the root organization.
-    """
-    root: String!
-    @authOrg(
-        root: true
-    )
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -62,12 +43,7 @@ type Test
 """
 Authenticated user must be a member of the current organization.
 """
-directive @authOrg(
-    """
-    Authenticated user must be a member of the root organization.
-    """
-    root: Boolean! = false
-)
+directive @authOrg
 on
     | FIELD_DEFINITION
     | OBJECT
