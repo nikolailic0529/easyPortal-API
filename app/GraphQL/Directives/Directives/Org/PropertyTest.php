@@ -6,6 +6,7 @@ use App\GraphQL\Directives\Definitions\OrgPropertyDirective;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
@@ -158,6 +159,9 @@ class PropertyTest extends TestCase {
                     PropertyIsNotRelation::class,
                     static function (): EloquentBuilder {
                         return PropertyTest_ModelWithScopeNotRelation::query();
+                    },
+                    static function (): Organization {
+                        return Organization::factory()->make();
                     },
                 ],
                 'unsupported relation' => [
@@ -376,7 +380,7 @@ class PropertyTest_ModelWithoutScope extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class PropertyTest_ModelWithScopeNotRelation extends Model {
+class PropertyTest_ModelWithScopeNotRelation extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 }
 
@@ -384,13 +388,16 @@ class PropertyTest_ModelWithScopeNotRelation extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class PropertyTest_ModelWithScopeRelationUnsupported extends Model {
+class PropertyTest_ModelWithScopeRelationUnsupported extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByOrganizationColumn(): string {
         return 'organization.id';
     }
 
+    /**
+     * @return BelongsTo<static>
+     */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);
     }
@@ -400,7 +407,7 @@ class PropertyTest_ModelWithScopeRelationUnsupported extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class PropertyTest_ModelWithScopeRelationSupported extends Model {
+class PropertyTest_ModelWithScopeRelationSupported extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 
     /**
@@ -410,10 +417,13 @@ class PropertyTest_ModelWithScopeRelationSupported extends Model {
      */
     protected $table = 'model_with_relation_supported';
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByOrganizationColumn(): string {
         return 'organization.id';
     }
 
+    /**
+     * @return BelongsToMany<PropertyTest_ModelWithoutScope>
+     */
     public function organization(): BelongsToMany {
         return $this->belongsToMany(
             PropertyTest_ModelWithoutScope::class,

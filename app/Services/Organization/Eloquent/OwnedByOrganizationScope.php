@@ -44,16 +44,8 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
         }
 
         // Hide data related to another organization
-        $property     = null;
+        $property     = $this->getProperty($this->organization, $model);
         $organization = $this->organization->getKey();
-
-        if ($model instanceof OwnedByOrganization) {
-            $property = new ModelProperty($model::getOwnedByOrganizationColumn());
-        } else if ($model instanceof OwnedByReseller) {
-            $property = new ModelProperty($model::getOwnedByResellerColumn());
-        } else {
-            // empty
-        }
 
         if ($property === null) {
             $builder->whereRaw('0 = 1');
@@ -99,7 +91,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
 
         if ($model instanceof OwnedByOrganization) {
             $property = self::SEARCH_METADATA_ORGANIZATION;
-        } else if ($model instanceof OwnedByReseller) {
+        } elseif ($model instanceof OwnedByReseller) {
             $property = self::SEARCH_METADATA_RESELLER;
         } else {
             // empty
@@ -125,6 +117,23 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
         return $owners
             ? [self::SEARCH_METADATA_PREFIX => new Properties($owners)]
             : [];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    public static function getProperty(CurrentOrganization $organization, Model $model): ?ModelProperty {
+        $property = null;
+
+        if ($model instanceof OwnedByOrganization) {
+            $property = new ModelProperty($model::getOwnedByOrganizationColumn());
+        } elseif ($model instanceof OwnedByReseller) {
+            $property = new ModelProperty($model::getOwnedByResellerColumn());
+        } else {
+            // empty
+        }
+
+        return $property;
     }
     // </editor-fold>
 }
