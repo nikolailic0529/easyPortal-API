@@ -4,6 +4,6 @@
 # @ses https://github.com/nunomaduro/larastan/issues/941
 services:
     -
-        class: Tests\PhpStan\Larastan\Container\ContainerExtension
+        class: App\PhpStan\Extensions\Container\ContainerExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension

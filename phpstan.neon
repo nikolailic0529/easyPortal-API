@@ -17,9 +17,9 @@ parameters:
     # Stubs
     stubFiles:
         - ./vendor/nuwave/lighthouse/_ide_helper.php
-        - ./.phpstan/Factory.php
-        - ./.phpstan/Geotools.php
-        - ./.phpstan/Faker.php
+        - ./.phpstan/Stubs/Factory.php
+        - ./.phpstan/Stubs/Geotools.php
+        - ./.phpstan/Stubs/Faker.php
 
 includes:
     # Extensions
@@ -31,8 +31,8 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
     # App
-    - ./tests/PhpStan/Larastan/Date/extension.neon
-    - ./tests/PhpStan/Larastan/Container/extension.neon
+    - .phpstan/Extensions/Date/extension.neon
+    - .phpstan/Extensions/Container/extension.neon
 
     # Baseline
     - phpstan-baseline-well-known.neon

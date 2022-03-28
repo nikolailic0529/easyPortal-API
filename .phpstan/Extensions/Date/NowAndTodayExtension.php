@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\PhpStan\Larastan\Date;
+namespace App\PhpStan\Extensions\Date;
 
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;

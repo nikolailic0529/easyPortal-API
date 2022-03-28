@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\PhpStan\Larastan\Container;
+namespace App\PhpStan\Extensions\Container;
 
 use Illuminate\Container\Container;
 use NunoMaduro\Larastan\Concerns;
