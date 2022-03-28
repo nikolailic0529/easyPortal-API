@@ -57,16 +57,11 @@ use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\UserSearch;
-use App\Services\Keycloak\Keycloak;
-use App\Services\Keycloak\UserProvider;
 use App\Utils\Validation\Validator;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
-use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Validation\Factory as ValidatorFactoryContract;
 use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -122,19 +117,8 @@ class AppServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      */
-    public function boot(Dispatcher $dispatcher): void {
+    public function boot(): void {
         $this->bootMorphMap();
-        $this->bootKeycloak();
-    }
-
-    protected function bootKeycloak(): void {
-        $this->app->singleton(Keycloak::class);
-        $this->app->make(AuthManager::class)->provider(
-            UserProvider::class,
-            static function (Application $app) {
-                return $app->make(UserProvider::class);
-            },
-        );
     }
 
     protected function bootMorphMap(): void {
