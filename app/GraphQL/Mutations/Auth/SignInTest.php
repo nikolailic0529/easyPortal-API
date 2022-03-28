@@ -15,11 +15,16 @@ use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignIn
+ *
+ * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type UserFactory from \Tests\WithUser
  */
 class SignInTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -28,21 +33,89 @@ class SignInTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array{email: string,password:string}|null $input
+     * @param OrganizationFactory                            $orgFactory
+     * @param UserFactory                                    $userFactory
+     * @param OrganizationFactory                            $rootOrgFactory
+     * @param Closure(static,?Organization,?User): void|null $prepare
+     * @param array{email: string, password: string}|null    $input
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $rootOrgFactory = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $this->setRootOrganization(Organization::factory()->create());
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $org  = $this->setRootOrganization(
+            $this->setOrganization($orgFactory) ?? $rootOrgFactory,
+        );
+        $user = $this->setUser($userFactory, $org);
 
         if ($prepare) {
-            $prepare($this);
+            $prepare($this, $org, $user);
+        }
+
+        $input ??= [
+            'email'    => $this->faker->email(),
+            'password' => $this->faker->password(8),
+        ];
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation signIn($input: AuthSignInInput) {
+                    auth {
+                        signIn(input: $input) {
+                            result
+                            me {
+                                id
+                            }
+                            org {
+                                id
+                            }
+                        }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'input' => $input,
+                ],
+            )
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     * @dataProvider dataProviderInvokeDeprecated
+     *
+     * @deprecated   Outdated and will be removed soon.
+     *
+     * @param OrganizationFactory                            $orgFactory
+     * @param UserFactory                                    $userFactory
+     * @param OrganizationFactory                            $rootOrgFactory
+     * @param Closure(static,?Organization,?User): void|null $prepare
+     * @param array{email: string, password: string}|null    $input
+     */
+    public function testInvokeDeprecated(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $rootOrgFactory = null,
+        Closure $prepare = null,
+        array $input = null,
+    ): void {
+        // Prepare
+        $org  = $this->setRootOrganization(
+            $this->setOrganization($orgFactory) ?? $rootOrgFactory,
+        );
+        $user = $this->setUser($userFactory, $org);
+
+        if ($prepare) {
+            $prepare($this, $org, $user);
         }
 
         $input ??= [
@@ -78,19 +151,111 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
+            new AnyOrganizationDataProvider('99ab2b12-70f9-402e-9068-72226b808be7'),
+            new GuestDataProvider('auth'),
+            new ArrayDataProvider([
+                'no user'                           => [
+                    new GraphQLError('auth', new InvalidCredentials()),
+                ],
+                'local user with valid password'    => [
+                    new GraphQLSuccess(
+                        'auth',
+                        new JsonFragmentSchema('signIn', self::class),
+                        new JsonFragment('signIn', [
+                            'result' => true,
+                            'me'     => [
+                                'id' => 'e7c5d710-3524-4d98-8d67-ce8f53dd54f8',
+                            ],
+                            'org'    => [
+                                'id' => '99ab2b12-70f9-402e-9068-72226b808be7',
+                            ],
+                        ]),
+                    ),
+                    static function (): Organization {
+                        return Organization::factory()->create([
+                            'id' => '99ab2b12-70f9-402e-9068-72226b808be7',
+                        ]);
+                    },
+                    static function (TestCase $test): void {
+                        User::factory()->create([
+                            'id'       => 'e7c5d710-3524-4d98-8d67-ce8f53dd54f8',
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app()->make(Hasher::class)->make('12345'),
+                        ]);
+                    },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => '12345',
+                    ],
+                ],
+                'local user with invalid password'  => [
+                    new GraphQLError('auth', new InvalidCredentials()),
+                    static function (): Organization {
+                        return Organization::factory()->create([
+                            'id' => 'd1fc1395-a0fc-4280-bd8a-538de37b7e13',
+                        ]);
+                    },
+                    static function (): void {
+                        User::factory()->create([
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => '12345',
+                        ]);
+                    },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => 'invalid',
+                    ],
+                ],
+                'keycloak user with valid password' => [
+                    new GraphQLError('auth', new InvalidCredentials()),
+                    static function (): ?Organization {
+                        return null;
+                    },
+                    static function (TestCase $test, ?Organization $organization): void {
+                        User::factory()->create([
+                            'type'     => UserType::keycloak(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app()->make(Hasher::class)->make('12345'),
+                        ]);
+                    },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => '12345',
+                    ],
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderInvokeDeprecated(): array {
+        return (new CompositeDataProvider(
             new AnyOrganizationDataProvider(),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'no user'                           => [
                     new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (): ?Organization {
+                        return null;
+                    },
                     static function (): void {
                         // empty
                     },
                 ],
                 'local user with valid password'    => [
-                    new GraphQLSuccess('signIn', self::class),
+                    new GraphQLSuccess('signIn', null, new JsonFragment('me', [
+                        'id' => '4ce45f8a-0b57-43cb-b6f0-2a3864418650',
+                    ])),
+                    static function (): Organization {
+                        return Organization::factory()->create();
+                    },
                     static function (TestCase $test): void {
                         User::factory()->create([
+                            'id'       => '4ce45f8a-0b57-43cb-b6f0-2a3864418650',
                             'type'     => UserType::local(),
                             'email'    => 'test@example.com',
                             'password' => $test->app()->make(Hasher::class)->make('12345'),
@@ -103,6 +268,9 @@ class SignInTest extends TestCase {
                 ],
                 'local user with invalid password'  => [
                     new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (): Organization {
+                        return Organization::factory()->create();
+                    },
                     static function (TestCase $test): void {
                         User::factory()->create([
                             'type'     => UserType::local(),
@@ -117,6 +285,9 @@ class SignInTest extends TestCase {
                 ],
                 'keycloak user with valid password' => [
                     new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (): ?Organization {
+                        return null;
+                    },
                     static function (TestCase $test): void {
                         User::factory()->create([
                             'type'     => UserType::keycloak(),

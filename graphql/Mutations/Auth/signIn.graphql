@@ -1,8 +1,36 @@
+extend type AuthMutations {
+    signIn(
+        input: AuthSignInInput
+    ): AuthSignInPayload
+    @throttle(name: "auth")
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
+    )
+}
+
+input AuthSignInInput {
+    email: Email! @isEmail
+    password: String!
+}
+
+type AuthSignInPayload implements Payload {
+    result: Boolean!
+
+    me: Me
+    @field(resolver: "App\\GraphQL\\Queries\\Me")
+
+    org: Organization
+    @field(resolver: "App\\GraphQL\\Queries\\Org")
+}
+
+# Deprecated
 extend type Mutation {
     "Sign In for local users."
     signIn(
         input: SignInInput
     ): SignInPayload
+    @deprecated(reason: "Please use `mutation { auth { signIn } }`.")
     @throttle(name: "auth")
     @authGuest
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
@@ -15,4 +43,5 @@ input SignInInput {
 
 type SignInPayload {
     me: Me
+    @field(resolver: "App\\GraphQL\\Queries\\Me")
 }

@@ -43,6 +43,13 @@ input AuthOrganizationAuthorizeInput {
     state: String!
 }
 
+input AuthSignInInput {
+    email: Email!
+    @isEmail
+
+    password: String!
+}
+
 input AuthSignUpByInviteInput {
     family_name: String!
     given_name: String!
@@ -5995,6 +6002,20 @@ type AuthMutations {
         model: "App\\Models\\Organization"
     )
 
+    """
+    @require <authGuest> Current visitor must be a guest.
+    """
+    signIn(
+        input: AuthSignInInput
+    ): AuthSignInPayload
+    @throttle(
+        name: "auth"
+    )
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
+    )
+
     signOut: AuthSignOutPayload
     @mutationCall(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
@@ -6064,6 +6085,23 @@ implements
     The link where the User should be redirected to Sign In.
     """
     url: Url!
+}
+
+type AuthSignInPayload
+implements
+    & Payload
+{
+    me: Me
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
+
+    org: Organization
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org"
+    )
+
+    result: Boolean!
 }
 
 type AuthSignOutPayload
@@ -7920,6 +7958,9 @@ type Mutation {
     signIn(
         input: SignInInput
     ): SignInPayload
+    @deprecated(
+        reason: "Please use `mutation { auth { signIn } }`."
+    )
     @throttle(
         name: "auth"
     )
@@ -9955,6 +9996,9 @@ type Query {
     Authenticated user or `null` otherwise.
     """
     me: Me
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
 
     """
     List of all OEMs
@@ -9998,6 +10042,9 @@ type Query {
     Current organization.
     """
     org: Organization
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org"
+    )
 
     """
     Organization.
@@ -11019,6 +11066,9 @@ type SetApplicationLocalePayload {
 
 type SignInPayload {
     me: Me
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
 }
 
 type Status {

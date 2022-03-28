@@ -1296,41 +1296,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SendResetPasswordLinkTest.php
 
 		-
-			message: "#^Cannot access offset 'email' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignIn.php
-
-		-
-			message: "#^Cannot access offset 'password' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignIn.php
-
-		-
-			message: "#^Parameter \\#1 \\$email of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:signIn\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignIn.php
-
-		-
-			message: "#^Parameter \\#2 \\$password of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:signIn\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignIn.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignInTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignInTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignInTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignInTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignInTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignInTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignOutTest\\:\\:testInvoke\\(\\) has parameter \\$keyCloakFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignOutTest.php

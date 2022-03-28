@@ -2,28 +2,24 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\GraphQL\Queries\Me;
 use App\Services\Keycloak\Keycloak;
 
 class SignIn {
     public function __construct(
         protected Keycloak $keycloak,
-        protected Me $query,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $args
-     *
-     * @return array<string, mixed>
+     * @param array{input: array{email: string, password: string}} $args
      */
-    public function __invoke(mixed $root, array $args): array {
-        return [
-            'me' => $this->query->getMe($this->keycloak->signIn(
-                $args['input']['email'],
-                $args['input']['password'],
-            )),
-        ];
+    public function __invoke(mixed $root, array $args): bool {
+        $user = $this->keycloak->signIn(
+            $args['input']['email'],
+            $args['input']['password'],
+        );
+
+        return $user !== null;
     }
 }

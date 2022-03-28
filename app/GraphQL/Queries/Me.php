@@ -13,7 +13,6 @@ use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use DateTimeInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Me {
     public function __construct(
@@ -23,11 +22,8 @@ class Me {
         // empty
     }
 
-    /**
-     * @param array<string, mixed> $args
-     */
-    public function __invoke(mixed $root, array $args, GraphQLContext $context): ?User {
-        return $this->getMe($context->user());
+    public function __invoke(): ?User {
+        return $this->getMe($this->auth->getUser());
     }
 
     public function root(?User $user): bool {
