@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Keycloak;
+namespace App\Services\Keycloak\Auth;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
@@ -12,6 +12,8 @@ use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
+use App\Services\Keycloak\Utils\Jwt;
+use App\Services\Keycloak\Utils\Map;
 use App\Services\Organization\RootOrganization;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;

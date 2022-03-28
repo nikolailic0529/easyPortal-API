@@ -1,10 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Keycloak;
+namespace App\Services\Keycloak\Utils;
 
 use App\Services\Keycloak\Exceptions\JwtDecodingFailed;
 use App\Services\Keycloak\Exceptions\JwtUnknownAlgorithm;
 use App\Services\Keycloak\Exceptions\JwtVerificationFailed;
+use App\Services\Keycloak\Keycloak;
 use DateInterval;
 use DateTimeZone;
 use Exception;

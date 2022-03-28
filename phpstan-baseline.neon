@@ -12066,6 +12066,131 @@ parameters:
 			path: app/Services/I18n/Translation/TranslationLoader.php
 
 		-
+			message: "#^Cannot call method first\\(\\) on mixed\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:retrieveByCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:validateCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Offset 'map' on array\\{property\\: string, required\\: bool, default\\: mixed, if\\: string\\|null, map\\: callable\\(\\)\\: mixed\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, mixed given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:createTokenUser\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$subject of method Lcobucci\\\\JWT\\\\Token\\:\\:isRelatedTo\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$token of method App\\\\Services\\\\Keycloak\\\\Utils\\\\Jwt\\:\\:decode\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>, mixed\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>\\|void\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder, App\\\\Models\\\\Organization\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#3 \\$organization of method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:createTokenUser\\(\\) expects App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\Organization\\|array\\|float\\|int\\|string\\|false\\|null given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Parameter \\#3 \\$organization of method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:updateTokenUser\\(\\) expects App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\Organization\\|array\\|float\\|int\\|string\\|false\\|null given\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:\\$map \\(array\\<string, array\\{property\\: string, required\\: bool, default\\: mixed, if\\: string\\|null, map\\: callable\\(\\)\\: mixed\\}\\>\\) does not accept default value of type array\\{email\\: array\\{property\\: 'email', required\\: true, default\\: null, if\\: null\\}, email_verified\\: array\\{property\\: 'email_verified', required\\: false, default\\: false, if\\: null\\}, given_name\\: array\\{property\\: 'given_name', required\\: true, default\\: null, if\\: null\\}, family_name\\: array\\{property\\: 'family_name', required\\: true, default\\: null, if\\: null\\}, phone_number\\: array\\{property\\: 'phone', required\\: false, default\\: null, if\\: null\\}, phone_number_verified\\: array\\{property\\: 'phone_verified', required\\: false, default\\: null, if\\: 'phone_number'\\}, photo\\: array\\{property\\: 'photo', required\\: false, default\\: null, if\\: null\\}, enabled\\: array\\{property\\: 'enabled', required\\: false, default\\: false, if\\: null\\}, \\.\\.\\.\\}\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Property App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProvider\\:\\:\\$map type has no signature specified for callable\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProvider.php
+
+		-
+			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
+			count: 2
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Instanceof between Closure and Closure will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:getToken\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testGetProperties\\(\\) has parameter \\$claims with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testGetProperties\\(\\) has parameter \\$expected with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testRetrieveByCredentialsEmail\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testRetrieveByCredentialsEmail\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testRetrieveByCredentialsToken\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testRetrieveByCredentialsToken\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testValidateCredentials\\(\\) has parameter \\$authenticatableFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Auth\\\\UserProviderTest\\:\\:testValidateCredentials\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
+			message: "#^Property App\\\\Models\\\\User\\:\\:\\$enabled \\(bool\\) does not accept mixed\\.$#"
+			count: 1
+			path: app/Services/Keycloak/Auth/UserProviderTest.php
+
+		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
@@ -12366,26 +12491,6 @@ parameters:
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$timezone of class DateTimeZone constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jwt.php
-
-		-
 			message: "#^Parameter \\#1 \\$options of class League\\\\OAuth2\\\\Client\\\\Token\\\\AccessToken constructor expects array, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Keycloak.php
@@ -12416,129 +12521,24 @@ parameters:
 			path: app/Services/Keycloak/OAuth2/ResourceOwner.php
 
 		-
-			message: "#^Cannot call method first\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:retrieveByCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:validateCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Offset 'map' on array\\{property\\: string, required\\: bool, default\\: mixed, if\\: string\\|null, map\\: callable\\(\\)\\: mixed\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_filter expects array, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of method App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:createTokenUser\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$subject of method Lcobucci\\\\JWT\\\\Token\\:\\:isRelatedTo\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$token of method App\\\\Services\\\\Keycloak\\\\Jwt\\:\\:decode\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>, mixed\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Organization\\>\\|void\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder, App\\\\Models\\\\Organization\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#3 \\$organization of method App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:createTokenUser\\(\\) expects App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\Organization\\|array\\|float\\|int\\|string\\|false\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Parameter \\#3 \\$organization of method App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:updateTokenUser\\(\\) expects App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\Organization\\|array\\|float\\|int\\|string\\|false\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:\\$map \\(array\\<string, array\\{property\\: string, required\\: bool, default\\: mixed, if\\: string\\|null, map\\: callable\\(\\)\\: mixed\\}\\>\\) does not accept default value of type array\\{email\\: array\\{property\\: 'email', required\\: true, default\\: null, if\\: null\\}, email_verified\\: array\\{property\\: 'email_verified', required\\: false, default\\: false, if\\: null\\}, given_name\\: array\\{property\\: 'given_name', required\\: true, default\\: null, if\\: null\\}, family_name\\: array\\{property\\: 'family_name', required\\: true, default\\: null, if\\: null\\}, phone_number\\: array\\{property\\: 'phone', required\\: false, default\\: null, if\\: null\\}, phone_number_verified\\: array\\{property\\: 'phone_verified', required\\: false, default\\: null, if\\: 'phone_number'\\}, photo\\: array\\{property\\: 'photo', required\\: false, default\\: null, if\\: null\\}, enabled\\: array\\{property\\: 'enabled', required\\: false, default\\: false, if\\: null\\}, \\.\\.\\.\\}\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Keycloak\\\\UserProvider\\:\\:\\$map type has no signature specified for callable\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
+			message: "#^Cannot cast mixed to string\\.$#"
 			count: 2
-			path: app/Services/Keycloak/UserProviderTest.php
+			path: app/Services/Keycloak/Utils/Jwt.php
 
 		-
-			message: "#^Instanceof between Closure and Closure will always evaluate to true\\.$#"
+			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, mixed given\\.$#"
 			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
+			path: app/Services/Keycloak/Utils/Jwt.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:getToken\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
 			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
+			path: app/Services/Keycloak/Utils/Jwt.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testGetProperties\\(\\) has parameter \\$claims with no signature specified for Closure\\.$#"
+			message: "#^Parameter \\#1 \\$timezone of class DateTimeZone constructor expects string, mixed given\\.$#"
 			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testGetProperties\\(\\) has parameter \\$expected with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testRetrieveByCredentialsEmail\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testRetrieveByCredentialsEmail\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testRetrieveByCredentialsToken\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testRetrieveByCredentialsToken\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testValidateCredentials\\(\\) has parameter \\$authenticatableFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\UserProviderTest\\:\\:testValidateCredentials\\(\\) has parameter \\$credentialsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$enabled \\(bool\\) does not accept mixed\\.$#"
-			count: 1
-			path: app/Services/Keycloak/UserProviderTest.php
+			path: app/Services/Keycloak/Utils/Jwt.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Action\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"

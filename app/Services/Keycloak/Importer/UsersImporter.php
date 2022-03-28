@@ -13,7 +13,7 @@ use App\Services\Keycloak\Exceptions\FailedToImport;
 use App\Services\Keycloak\Exceptions\FailedToImportObject;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Keycloak\Exceptions\ImportError;
-use App\Services\Keycloak\Map;
+use App\Services\Keycloak\Utils\Map;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;

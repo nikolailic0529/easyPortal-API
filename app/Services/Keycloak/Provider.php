@@ -2,6 +2,7 @@
 
 namespace App\Services\Keycloak;
 
+use App\Services\Keycloak\Auth\UserProvider;
 use App\Services\Keycloak\Commands\PermissionsSync;
 use App\Services\Keycloak\Commands\UsersSync;
 use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;

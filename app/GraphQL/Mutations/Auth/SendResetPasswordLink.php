@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Services\Keycloak\UserProvider;
+use App\Services\Keycloak\Auth\UserProvider;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory;
 
