@@ -2,6 +2,7 @@
 
 namespace App\Services\Organization\Eloquent;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
@@ -95,7 +96,8 @@ class OwnedByScopeTest extends TestCase {
         };
         $reseller = static function () use ($id): Organization {
             return Organization::factory()->make([
-                'id' => $id,
+                'id'   => $id,
+                'type' => OrganizationType::reseller(),
             ]);
         };
 
@@ -204,7 +206,8 @@ class OwnedByScopeTest extends TestCase {
         };
         $reseller = static function () use ($id): Organization {
             return Organization::factory()->make([
-                'id' => $id,
+                'id'   => $id,
+                'type' => OrganizationType::reseller(),
             ]);
         };
 
