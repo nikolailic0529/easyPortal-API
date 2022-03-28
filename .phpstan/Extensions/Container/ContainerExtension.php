@@ -2,7 +2,7 @@
 
 namespace App\PhpStan\Extensions\Container;
 
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 use NunoMaduro\Larastan\Concerns;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -31,7 +31,8 @@ final class ContainerExtension implements DynamicMethodReturnTypeExtension {
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool {
-        return $methodReflection->getName() === 'make';
+        return $methodReflection->getName() === 'make'
+            || $methodReflection->getName() === 'get';
     }
 
     public function getTypeFromMethodCall(

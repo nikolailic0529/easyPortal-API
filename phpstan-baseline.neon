@@ -31,26 +31,6 @@ parameters:
 			path: app/Exceptions/GraphQL/ErrorReporter.php
 
 		-
-			message: "#^Cannot call method channel\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^Method App\\\\Exceptions\\\\Handler\\:\\:getTranslator\\(\\) should return Illuminate\\\\Contracts\\\\Translation\\\\Translator\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
 			message: "#^Method App\\\\Exceptions\\\\Handler\\:\\:translate\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Exceptions/Handler.php
@@ -576,31 +556,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
 		-
-			message: "#^Cannot call method getDirectiveName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Cannot call method getNodeDirective\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Cannot call method getNodeName\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Cannot call method getNodeTypeName\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Cannot call method getTypeDefinitionNode\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Mutation\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
@@ -612,6 +567,16 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Mutation\\:\\:getResolver\\(\\) return type has no signature specified for Closure\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
+
+		-
+			message: "#^Parameter \\#1 \\$directive of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getDirectiveName\\(\\) expects class\\-string\\<Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
+
+		-
+			message: "#^Parameter \\#2 \\$class of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getNodeDirective\\(\\) expects class\\-string\\<T of Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
@@ -649,11 +614,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\MutationTest_Builder\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/MutationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Rules\\\\CustomRule\\:\\:getRule\\(\\) should return Illuminate\\\\Contracts\\\\Validation\\\\Rule but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Rules/CustomRule.php
 
 		-
 			message: "#^Property Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:\\$directiveArgs \\(array\\<string, mixed\\>\\) in isset\\(\\) is not nullable\\.$#"
@@ -859,11 +819,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\RelationTest\\:\\:testResolveField\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/RelationTest.php
-
-		-
-			message: "#^Cannot call method update\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\Base\\:\\:getBuilderArguments\\(\\) should return array\\<string\\> but returns array\\<string, mixed\\>\\.$#"
@@ -1336,19 +1291,9 @@ parameters:
 			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslationsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$disc of class App\\\\Services\\\\I18n\\\\Storages\\\\AppTranslations constructor expects App\\\\Services\\\\Filesystem\\\\Disks\\\\AppDisk, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslationsTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Asset/SetNicknameTest.php
-
-		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Asset/Sync.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Asset\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool\\} but returns mixed\\.$#"
@@ -1494,11 +1439,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$password of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:signIn\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignIn.php
-
-		-
-			message: "#^Cannot call method make\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/Auth/SignInTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignInTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
@@ -1856,11 +1796,6 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
 		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Customer/Sync.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Customer\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool, warranty\\: bool\\} but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Customer/Sync.php
@@ -2014,11 +1949,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$factory of method Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Note\\>\\:\\:for\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\User\\|null given\\.$#"
 			count: 2
 			path: app/GraphQL/Mutations/DeleteQuoteNoteTest.php
-
-		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Document/Sync.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Document\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool, assets\\: bool\\} but returns mixed\\.$#"
@@ -3366,22 +3296,12 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateClientTranslations.php
 
 		-
-			message: "#^Anonymous function should return App\\\\Services\\\\Filesystem\\\\Disks\\\\ClientDisk but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslationsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\UpdateClientTranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateClientTranslationsTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\UpdateClientTranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslationsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$disc of class App\\\\Services\\\\I18n\\\\Storages\\\\ClientTranslations constructor expects App\\\\Services\\\\Filesystem\\\\Disks\\\\ClientDisk, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateClientTranslationsTest.php
 
@@ -3721,11 +3641,6 @@ parameters:
 			path: app/GraphQL/Provider.php
 
 		-
-			message: "#^Parameter \\#1 \\$config of static method App\\\\GraphQL\\\\Provider\\:\\:getGateCallback\\(\\) expects Illuminate\\\\Contracts\\\\Config\\\\Repository, mixed given\\.$#"
-			count: 2
-			path: app/GraphQL/Provider.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, array\\<string, GraphQL\\\\Validator\\\\Rules\\\\ValidationRule\\>\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/Providers/ValidationRulesProvider.php
@@ -3916,27 +3831,12 @@ parameters:
 			path: app/GraphQL/Queries/Application/ApplicationTest.php
 
 		-
-			message: "#^Cannot call method config\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Jobs.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\Jobs\\:\\:__invoke\\(\\) should return array\\<string, mixed\\> but returns array\\<int, array\\<string, mixed\\>\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Jobs.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\Jobs\\:\\:getDescription\\(\\) should return string\\|null but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Jobs.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\GraphQL\\\\Queries\\\\Application\\\\Jobs\\:\\:getDescription\\(\\) expects App\\\\Services\\\\Queue\\\\Job, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Jobs.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getName\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Jobs.php
 
@@ -4001,7 +3901,17 @@ parameters:
 			path: app/GraphQL/Queries/Application/MaintenanceTest.php
 
 		-
-			message: "#^Cannot call method config\\(\\) on mixed\\.$#"
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Application/Services.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Progressable will always evaluate to false\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Application/Services.php
+
+		-
+			message: "#^Instanceof between \\*NEVER\\* and App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable will always evaluate to false\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Services.php
 
@@ -4012,26 +3922,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\Services\\:\\:getDescription\\(\\) should return string\\|null but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getName\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, mixed given\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getProgress\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Parameter \\#1 \\$jobs of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getStates\\(\\) expects array\\<LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, array\\<class\\-string\\<App\\\\Services\\\\Queue\\\\CronJob\\>, mixed\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/Services.php
-
-		-
-			message: "#^Parameter \\#1 \\$service of method App\\\\GraphQL\\\\Queries\\\\Application\\\\Services\\:\\:getDescription\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Services.php
 
@@ -4196,16 +4086,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetTypes.php
 
 		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Assets/AssetTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetTypesTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetTypesTest.php
@@ -4341,11 +4221,6 @@ parameters:
 			path: app/GraphQL/Queries/Client/Settings.php
 
 		-
-			message: "#^Cannot call method save\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Client/SettingsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Client\\\\SettingsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/SettingsTest.php
@@ -4366,22 +4241,12 @@ parameters:
 			path: app/GraphQL/Queries/Client/Translations.php
 
 		-
-			message: "#^Anonymous function should return App\\\\Services\\\\Filesystem\\\\Disks\\\\ClientDisk but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Client/TranslationsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Client\\\\TranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/TranslationsTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Client\\\\TranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Client/TranslationsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$disc of class App\\\\Services\\\\I18n\\\\Storages\\\\ClientTranslations constructor expects App\\\\Services\\\\Filesystem\\\\Disks\\\\ClientDisk, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/TranslationsTest.php
 
@@ -4444,16 +4309,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractTypes.php
-
-		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Contracts/ContractTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractTypesTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTypesTest\\:\\:testInvoke\\(\\) has parameter \\$contactFactory with no signature specified for Closure\\.$#"
@@ -4591,16 +4446,6 @@ parameters:
 			path: app/GraphQL/Queries/Customers/CustomerStatuses.php
 
 		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Customers/CustomerStatusesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerStatusesTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerStatusesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomerStatusesTest.php
@@ -4714,16 +4559,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomerTypes.php
-
-		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
@@ -4876,16 +4711,6 @@ parameters:
 			path: app/GraphQL/Queries/Data/ContactTypes.php
 
 		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Data/ContactTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ContactTypesTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ContactTypesTest\\:\\:testInvoke\\(\\) has parameter \\$contactFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/ContactTypesTest.php
@@ -4906,16 +4731,6 @@ parameters:
 			path: app/GraphQL/Queries/Data/ContactTypesTest.php
 
 		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Data/CountriesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/CountriesTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\CountriesTest\\:\\:testInvoke\\(\\) has parameter \\$countriesFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/CountriesTest.php
@@ -4934,16 +4749,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\CountriesTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/CountriesTest.php
-
-		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Data/CurrenciesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/CurrenciesTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\CurrenciesTest\\:\\:testQuery\\(\\) has parameter \\$currenciesFactory with no signature specified for Closure\\.$#"
@@ -4989,16 +4794,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\LocationTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/LocationTypes.php
-
-		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Data/LocationTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/LocationTypesTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\LocationTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
@@ -5269,16 +5064,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuoteTypes.php
-
-		-
-			message: "#^Cannot call method addLines\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Quotes/QuoteTypesTest.php
-
-		-
-			message: "#^Cannot call method getFallback\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuoteTypesTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
@@ -5784,11 +5569,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Filesystem\\\\ModelDiskFactory\\:\\:getDisk\\(\\) expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Note\\|App\\\\Models\\\\QuoteRequest\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/FilesController.php
-
-		-
-			message: "#^Cannot call method getDisk\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/FilesControllerTest.php
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
@@ -9031,32 +8811,17 @@ parameters:
 			path: app/Notifications/OrganizationUserInvitation.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Providers/AppServiceProvider.php
-
-		-
-			message: "#^Cannot call method provider\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Providers/AppServiceProvider.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'Carbon\\\\\\\\CarbonImmutable' and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
 			count: 1
 			path: app/Providers/AppServiceProviderTest.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
+			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Auth\\\\Notifications\\\\ResetPassword\\:\\:createUrlUsing\\(\\) expects Closure\\(mixed, string\\)\\: string, Closure\\(App\\\\Models\\\\User, string\\)\\: string given\\.$#"
 			count: 1
 			path: app/Providers/AuthServiceProvider.php
 
 		-
-			message: "#^Cannot call method to\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Providers/AuthServiceProvider.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Auth\\\\Notifications\\\\ResetPassword\\:\\:createUrlUsing\\(\\) expects Closure\\(mixed, string\\)\\: string, Closure\\(App\\\\Models\\\\User, string\\)\\: mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
 			count: 1
 			path: app/Providers/AuthServiceProvider.php
 
@@ -9349,16 +9114,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Auth\\\\AuthTest\\:\\:testIsRoot\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Auth/AuthTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Contracts\\\\Auth\\\\Access\\\\Gate\\:\\:after\\(\\) expects callable\\(\\)\\: mixed, array\\{mixed, 'after'\\} given\\.$#"
-			count: 1
-			path: app/Services/Auth/Provider.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Contracts\\\\Auth\\\\Access\\\\Gate\\:\\:before\\(\\) expects callable\\(\\)\\: mixed, array\\{mixed, 'before'\\} given\\.$#"
-			count: 1
-			path: app/Services/Auth/Provider.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:__construct\\(\\) has parameter \\$retrievers with generic interface App\\\\Services\\\\DataLoader\\\\Cache\\\\KeyRetriever but does not specify its types\\: TModel$#"
@@ -12966,37 +12721,12 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetsImporterCronJob.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\AssetsImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/AssetsImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomersImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\CustomersImporter but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/CustomersImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DistributorsImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DistributorsImporter but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DistributorsImporterCronJob.php
-
-		-
 			message: "#^Cannot access offset 'result' on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
 		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DocumentSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentsImporterCronJob\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter does not specify its types\\: TState$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DocumentsImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentsImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentsImporterCronJob.php
 
@@ -13016,11 +12746,6 @@ parameters:
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ImporterCronJob\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
 			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
@@ -13029,11 +12754,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ResellersImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellersImporter but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ResellersImporterCronJob.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsImporter\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter does not specify its types\\: TItem, TChunkData, TState$#"
@@ -14211,11 +13931,6 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/AssetsData.php
-
-		-
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:\\$map \\(array\\<string, string\\>\\) does not accept array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
@@ -14261,21 +13976,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Cannot call method clean\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Cannot call method getMap\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Cannot call method setDefaultMap\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
@@ -14288,6 +13988,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$haystack of function mb_stripos expects string, mixed given\\.$#"
 			count: 2
+			path: app/Services/DataLoader/Testing/Data/Data.php
+
+		-
+			message: "#^Parameter \\#1 \\$map of method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:setDefaultMap\\(\\) expects array\\<string, string\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
@@ -14304,31 +14009,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Cannot call method beginTransaction\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Cannot call method generate\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Cannot call method restore\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Cannot call method rollBack\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/DocumentsData.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
@@ -14384,11 +14064,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$contents of method Illuminate\\\\Contracts\\\\Filesystem\\\\Filesystem\\:\\:put\\(\\) expects resource\\|string, string\\|false given\\.$#"
 			count: 2
 			path: app/Services/Filesystem/JsonStorageTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\ModelDiskFactory\\:\\:getDisk\\(\\) should return App\\\\Services\\\\Filesystem\\\\Disks\\\\ModelDisk but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Filesystem/ModelDiskFactory.php
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatePropertiesTest__Model\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
@@ -14796,17 +14471,7 @@ parameters:
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\Processor but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -14854,11 +14519,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$uri of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:getRedirectUri\\(\\) expects string, mixed given\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Keycloak.php
-
-		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Migrations/SyncPermissions.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\OAuth2\\\\Provider\\:\\:checkResponse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
@@ -14942,11 +14602,6 @@ parameters:
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 2
-			path: app/Services/Keycloak/UserProviderTest.php
-
-		-
-			message: "#^Cannot call method make\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/Services/Keycloak/UserProviderTest.php
 
@@ -15321,11 +14976,6 @@ parameters:
 			path: app/Services/Maintenance/Maintenance.php
 
 		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Services/Maintenance/Maintenance.php
-
-		-
 			message: "#^Cannot call method sub\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Maintenance.php
@@ -15341,12 +14991,17 @@ parameters:
 			path: app/Services/Maintenance/Maintenance.php
 
 		-
-			message: "#^Parameter \\#1 \\$queueable of method LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\:\\:config\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Contracts\\\\ConfigurableQueueable, mixed given\\.$#"
+			message: "#^Parameter \\$timeZone of method Cron\\\\CronExpression\\:\\:getNextRunDate\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Maintenance.php
 
 		-
-			message: "#^Parameter \\$timeZone of method Cron\\\\CronExpression\\:\\:getNextRunDate\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/Services/Maintenance/Maintenance.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Maintenance.php
 
@@ -15386,16 +15041,6 @@ parameters:
 			path: app/Services/Notificator/Notification.php
 
 		-
-			message: "#^Cannot call method forLocale\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Services/Notificator/Notification.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/Notificator/Notification.php
@@ -15428,11 +15073,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$callback of method Illuminate\\\\Notifications\\\\Messages\\\\MailMessage\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Notifications\\\\Messages\\\\MailMessage, string\\|null\\)\\: Illuminate\\\\Notifications\\\\Messages\\\\MailMessage\\)\\|null, Closure\\(Illuminate\\\\Notifications\\\\Messages\\\\MailMessage, string\\)\\: Illuminate\\\\Notifications\\\\Messages\\\\MailMessage given\\.$#"
 			count: 5
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of method App\\\\Services\\\\Notificator\\\\Notification\\:\\:getMailMessage\\(\\) expects Illuminate\\\\Contracts\\\\Config\\\\Repository, mixed given\\.$#"
-			count: 1
 			path: app/Services/Notificator/Notification.php
 
 		-
@@ -15656,11 +15296,6 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
@@ -15851,12 +15486,12 @@ parameters:
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) should return App\\\\Services\\\\Queue\\\\CronJob but returns mixed\\.$#"
+			message: "#^Call to function is_null\\(\\) with null will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Queue/ServiceResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Queue\\:\\:getName\\(\\) expects LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job, mixed given\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Services/Queue/ServiceResolver.php
 
@@ -15891,12 +15526,12 @@ parameters:
 			path: app/Services/Recalculator/Exceptions/RecalculateError.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\CustomersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Customer, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns mixed\\.$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\CustomersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Customer, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Cron/CustomersRecalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\LocationsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Location, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\> but returns mixed\\.$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\LocationsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Location, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Cron/LocationsRecalculator.php
 
@@ -15911,11 +15546,6 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\Recalculator\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
-
-		-
 			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
@@ -15926,17 +15556,12 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\ResellersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Reseller, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\> but returns mixed\\.$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Cron\\\\ResellersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Reseller, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Cron/ResellersRecalculator.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/CustomerRecalculate.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/CustomerRecalculate.php
 
@@ -15947,11 +15572,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\LocationRecalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/LocationRecalculate.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\LocationRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/LocationRecalculate.php
 
@@ -15976,11 +15596,6 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Recalculate.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Recalculate\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/Recalculate.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Recalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Recalculate.php
@@ -16001,19 +15616,9 @@ parameters:
 			path: app/Services/Recalculator/Jobs/ResellerRecalculate.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\ResellerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/ResellerRecalculate.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Recalculator/Jobs/ResellerRecalculateTest\\.php\\:23\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/ResellerRecalculateTest.php
-
-		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Listeners/DataImportedListener.php
 
 		-
 			message: "#^Cannot call method map\\(\\) on array\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
@@ -16166,7 +15771,7 @@ parameters:
 			path: app/Services/Recalculator/Service.php
 
 		-
-			message: "#^Cannot access constant class on mixed\\.$#"
+			message: "#^Instanceof between App\\\\Services\\\\Search\\\\Contracts\\\\Scope and App\\\\Services\\\\Search\\\\Contracts\\\\Scope will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/Builder.php
 
@@ -16254,11 +15859,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:__construct\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/UnionBuilder.php
-
-		-
-			message: "#^Cannot call method setModel\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Commands/IndexesRebuild.php
 
 		-
 			message: "#^Anonymous function should return string but returns string\\|null\\.$#"
@@ -17451,22 +17051,12 @@ parameters:
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
 		-
-			message: "#^Cannot call method setModel\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Jobs/Cron/Indexer.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Cron\\\\Indexer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Cron/Indexer.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Cron\\\\Indexer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/Search/Jobs/Cron/Indexer.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Cron\\\\Indexer\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Cron/Indexer.php
 
@@ -17486,22 +17076,12 @@ parameters:
 			path: app/Services/Search/Jobs/Cron/Indexer.php
 
 		-
-			message: "#^Cannot call method setModel\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Jobs/Index.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Index\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Index.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Index\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
-			count: 1
-			path: app/Services/Search/Jobs/Index.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Jobs\\\\Index\\:\\:getService\\(\\) should return App\\\\Services\\\\Service\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Index.php
 
@@ -17521,6 +17101,11 @@ parameters:
 			path: app/Services/Search/Jobs/Index.php
 
 		-
+			message: "#^Parameter \\#1 \\$keys of method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setKeys\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string\\> given\\.$#"
+			count: 1
+			path: app/Services/Search/Jobs/Index.php
+
+		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Jobs\\\\Index\\:\\:init\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\>\\|class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Index.php
@@ -17531,7 +17116,7 @@ parameters:
 			path: app/Services/Search/Jobs/Index.php
 
 		-
-			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Jobs\\\\Index\\:\\:init\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Listeners/IndexExpiredListener.php
 
@@ -17544,21 +17129,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Search\\\\Listeners\\\\IndexExpiredListenerTest\\:\\:dataProviderSubscribe\\(\\) should return array\\<string, array\\<Closure\\(\\)\\: object\\>\\> but returns array\\{App\\\\Services\\\\DataLoader\\\\Events\\\\DataImported\\: array\\{Closure\\(\\)\\: App\\\\Services\\\\DataLoader\\\\Events\\\\DataImported\\}, App\\\\Services\\\\Recalculator\\\\Events\\\\ModelsRecalculated\\: array\\{Closure\\(App\\\\Services\\\\Search\\\\Listeners\\\\IndexExpiredListenerTest\\)\\: App\\\\Services\\\\Recalculator\\\\Events\\\\ModelsRecalculated\\}\\}\\.$#"
 			count: 1
 			path: app/Services/Search/Listeners/IndexExpiredListenerTest.php
-
-		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Migrations/IndexesRebuild.php
-
-		-
-			message: "#^Cannot call method getSearchableModelJob\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Migrations/IndexesRebuild.php
-
-		-
-			message: "#^Cannot call method getSearchableModels\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Migrations/IndexesRebuild.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:trashed\\(\\)\\.$#"
@@ -17632,11 +17202,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Processor/ProcessorTest.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
@@ -17886,22 +17451,7 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Cannot call method channel\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Provider.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Provider.php
-
-		-
-			message: "#^Cannot call method getSearchableModels\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Provider.php
-
-		-
-			message: "#^Cannot call method toInputObjectTypes\\(\\) on mixed\\.$#"
+			message: "#^Parameter \\#1 \\$array of function array_filter expects array, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Provider.php
 
@@ -17959,11 +17509,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/ServiceTest.php
-
-		-
-			message: "#^Cannot call method getConfiguration\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Settings/Bootstrapers/LoadConfiguration.php
 
 		-
 			message: "#^Cannot access offset string on mixed\\.$#"
@@ -18057,11 +17602,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/Settings/Settings.php
 
@@ -19546,26 +19086,6 @@ parameters:
 			path: database/factories/UserSearchFactory.php
 
 		-
-			message: "#^Cannot call method run\\(\\) on mixed\\.$#"
-			count: 1
-			path: database/migrations/2021_08_03_075958_quote_request_durations_seed.php
-
-		-
-			message: "#^Cannot call method dispatch\\(\\) on mixed\\.$#"
-			count: 1
-			path: database/migrations/2021_09_07_095202_sync_keycloak_users.php
-
-		-
-			message: "#^Cannot call method run\\(\\) on mixed\\.$#"
-			count: 1
-			path: database/migrations/2021_09_20_214825_teams_seed.php
-
-		-
-			message: "#^Cannot call method call\\(\\) on mixed\\.$#"
-			count: 3
-			path: database/migrations/2021_09_30_051826_locations_structure_update_recalculate.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: database/migrations/2022_03_02_110511_coverages_types_statuses_convert_name.php
@@ -19581,64 +19101,14 @@ parameters:
 			path: database/migrations/2022_03_02_110511_coverages_types_statuses_convert_name.php
 
 		-
-			message: "#^Cannot call method setIterator\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/AssetsIteratorImporterDataWithoutDocuments.php
-
-		-
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\AssetsIteratorImporterDataWithoutDocuments\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/AssetsIteratorImporterDataWithoutDocuments.php
 
 		-
-			message: "#^Cannot call method setCustomerId\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/CustomerAssetsImporterDataWithoutDocuments.php
-
-		-
-			message: "#^Cannot call method setCustomerId\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/CustomerDocumentsImporterData.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/CustomersImporterData.php
-
-		-
-			message: "#^Cannot call method setIterator\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
-
-		-
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
-
-		-
-			message: "#^Cannot call method setResellerId\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/ResellerAssetsImporterDataWithoutDocuments.php
-
-		-
-			message: "#^Cannot call method setResellerId\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/ResellerDocumentsImporterData.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Loaders/CustomerLoaderCreateWithDocuments.php
-
-		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Loaders/ResellerLoaderCreateWithDocuments.php
-
-		-
-			message: "#^Cannot call method table\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/DataProviders/Builders/QueryBuilderDataProvider.php
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
@@ -19836,11 +19306,6 @@ parameters:
 			path: tests/Mixins/TranslatorMixin.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^Dynamic call to static method Illuminate\\\\Translation\\\\Translator\\:\\:replaceLines\\(\\)\\.$#"
 			count: 1
 			path: tests/TestCase.php
@@ -19887,6 +19352,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 
