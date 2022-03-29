@@ -1,0 +1,19 @@
+extend type OrgMutations {
+    set(
+        input: OrgSetInput!
+    ): OrgSetPayload
+    @authMe
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Set"
+    )
+}
+
+input OrgSetInput {
+    organization_id: ID! @isOrganizationId
+}
+
+type OrgSetPayload implements Payload {
+    result: Boolean!
+    org: Organization
+    @field(resolver: "App\\GraphQL\\Queries\\Org")
+}

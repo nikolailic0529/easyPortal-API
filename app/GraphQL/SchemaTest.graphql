@@ -278,6 +278,11 @@ input OrgRoleUpdateInput {
     @isOrgPermissionId
 }
 
+input OrgSetInput {
+    organization_id: ID!
+    @isOrganizationId
+}
+
 input OrgUpdateBrandingInput {
     dark_theme: Boolean
     @isNullable
@@ -7681,15 +7686,10 @@ type Mutation {
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
-
-    @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
+    @require <authMe> User must be authenticated.
     """
     org: OrgMutations
-    @authOrg
-    @authMe(
-        permissions: ["org-administer"]
-    )
+    @authMe
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Org"
     )
@@ -8224,6 +8224,17 @@ type OrgMutations {
     )
 
     """
+    @require <authMe> User must be authenticated.
+    """
+    set(
+        input: OrgSetInput!
+    ): OrgSetPayload
+    @authMe
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Org\\Set"
+    )
+
+    """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
@@ -8326,6 +8337,18 @@ implements
 {
     result: Boolean!
     role: Role!
+}
+
+type OrgSetPayload
+implements
+    & Payload
+{
+    org: Organization
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org"
+    )
+
+    result: Boolean!
 }
 
 type OrgUpdatePayload
@@ -11615,6 +11638,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isOrgRoleId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isOrganizationId
 on
     | INPUT_FIELD_DEFINITION
 

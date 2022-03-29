@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\UserType;
 use App\Services\Organization\Eloquent\OwnedByScope;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Tests\TestCase;
 
@@ -17,9 +18,12 @@ class UserTest extends TestCase {
      */
     public function testIsRoot(): void {
         foreach (UserType::getValues() as $type) {
-            self::assertEquals($type === UserType::local(), User::factory()->make([
-                'type' => $type,
-            ])->isRoot());
+            self::assertEquals(
+                $type === UserType::local(),
+                User::factory()->make([
+                    'type' => $type,
+                ])->isRoot(),
+            );
         }
     }
 
@@ -90,5 +94,38 @@ class UserTest extends TestCase {
             Note::class             => 1,
             ChangeRequest::class    => 1,
         ]);
+    }
+
+    /**
+     * @covers ::getOrganizations
+     */
+    public function testGetOrganizations(): void {
+        // Disable unwanted scopes
+        GlobalScopes::setDisabled(
+            OwnedByScope::class,
+            true,
+        );
+
+        // Create
+        $user = User::factory()->create();
+        $org  = Organization::factory()->create();
+
+        OrganizationUser::factory()->create([
+            'enabled'         => true,
+            'user_id'         => $user,
+            'organization_id' => $org,
+        ]);
+
+        OrganizationUser::factory()->create([
+            'enabled'         => false,
+            'user_id'         => $user,
+            'organization_id' => Organization::factory()->create(),
+        ]);
+
+        // Test
+        self::assertEquals(
+            [$org->getKey()],
+            $user->getOrganizations()->map(new GetKey())->values()->all(),
+        );
     }
 }

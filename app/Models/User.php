@@ -125,9 +125,7 @@ class User extends Model implements
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $hidden = [
         // Not used, just for case.
@@ -136,9 +134,7 @@ class User extends Model implements
     ];
 
     /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $visible = [
         'given_name',
@@ -159,9 +155,7 @@ class User extends Model implements
     /**
      * The attributes that should be cast to native types.
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
      */
     protected $casts = self::CASTS;
 
@@ -188,11 +182,17 @@ class User extends Model implements
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    /**
+     * @return HasMany<UserSearch>
+     */
     #[CascadeDelete(false)]
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
     }
 
+    /**
+     * @return BelongsTo<Organization, User>
+     */
     #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
@@ -202,25 +202,52 @@ class User extends Model implements
         $this->organization()->associate($organization);
     }
 
-    public function getOrganization(): ?Organization {
-        return $this->organization;
-    }
-
+    /**
+     * @return HasMany<Invitation>
+     */
     #[CascadeDelete(false)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
 
+    /**
+     * @return HasMany<OrganizationUser>
+     */
     #[CascadeDelete(true)]
     public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }
 
     /**
-     * @param BaseCollection|array<OrganizationUser> $organizations
+     * @param BaseCollection<int,OrganizationUser>|array<OrganizationUser> $organizations
      */
     public function setOrganizationsAttribute(BaseCollection|array $organizations): void {
         $this->syncHasMany('organizations', $organizations);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="HasOrganization">
+    // =========================================================================
+    public function getOrganization(): ?Organization {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): bool {
+        $this->organization = $organization;
+        $result             = $this->save();
+
+        return $result;
+    }
+
+    public function getOrganizations(): BaseCollection {
+        return $this->organizations
+            ->filter(static function (OrganizationUser $user): bool {
+                return $user->enabled;
+            })
+            ->loadMissing('organization')
+            ->map(static function (OrganizationUser $user): Organization {
+                return $user->organization;
+            });
     }
     // </editor-fold>
 

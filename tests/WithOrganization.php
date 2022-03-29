@@ -8,6 +8,7 @@ use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
 
 /**
  * @mixin TestCase
@@ -24,26 +25,46 @@ trait WithOrganization {
         }
 
         if ($organization) {
-            $this->app->bind(CurrentOrganization::class, function () use ($organization): CurrentOrganization {
-                $root = $this->app->make(RootOrganization::class);
-                $auth = $this->app->make(Auth::class);
+            $this->app->bind(WithOrganizationToken::class, static function () use ($organization): Organization {
+                return $organization;
+            });
+            $this->app->bind(CurrentOrganization::class, function (): CurrentOrganization {
+                $root      = $this->app->make(RootOrganization::class);
+                $auth      = $this->app->make(Auth::class);
+                $container = $this->app;
 
-                return new class($root, $auth, $organization) extends CurrentOrganization {
+                return new class($root, $auth, $container) extends CurrentOrganization {
                     public function __construct(
                         RootOrganization $root,
                         Auth $auth,
-                        protected Organization $organization,
+                        protected Container $container,
                     ) {
                         parent::__construct($root, $auth);
                     }
 
                     protected function getCurrent(): ?Organization {
-                        return $this->organization;
+                        return $this->container->get(WithOrganizationToken::class);
+                    }
+
+                    public function set(Organization $organization): bool {
+                        $result = parent::set($organization);
+
+                        if ($result) {
+                            $this->container->bind(
+                                WithOrganizationToken::class,
+                                static function () use ($organization): Organization {
+                                    return $organization;
+                                },
+                            );
+                        }
+
+                        return $result;
                     }
                 };
             });
         } else {
             unset($this->app[CurrentOrganization::class]);
+            unset($this->app[WithOrganizationToken::class]);
         }
 
         return $organization;
