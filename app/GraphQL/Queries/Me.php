@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Audits\Audit;
+use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Team;
 use App\Models\User;
@@ -13,6 +14,7 @@ use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use DateTimeInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Collection;
 
 class Me {
     public function __construct(
@@ -43,8 +45,7 @@ class Me {
         if ($user instanceof User) {
             $me = $user;
         } elseif ($user) {
-            $me     = new User();
-            $me->id = $user->getAuthIdentifier();
+            $me = (new User())->setKey($user->getAuthIdentifier());
         } else {
             // empty
         }
@@ -87,5 +88,14 @@ class Me {
         }
 
         return $team;
+    }
+
+    /**
+     * @return Collection<int, Organization>
+     */
+    public function orgs(User $user): Collection {
+        return GlobalScopes::callWithout(OwnedByScope::class, static function () use ($user): Collection {
+            return $user->getOrganizations();
+        });
     }
 }

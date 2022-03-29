@@ -7312,6 +7312,12 @@ type Me {
     locale: String
     mobile_phone: PhoneNumber
     office_phone: PhoneNumber
+
+    orgs: [Organization!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me@orgs"
+    )
+
     permissions: [String!]
     phone: PhoneNumber
     photo: Url

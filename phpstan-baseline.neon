@@ -4736,14 +4736,9 @@ parameters:
 			path: app/GraphQL/Queries/Map/Assets.php
 
 		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$id \\(string\\) does not accept mixed\\.$#"
+			message: "#^Parameter \\#1 \\$key of method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:setKey\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Me.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 11
-			path: app/GraphQL/Queries/MeTest.php
 
 		-
 			message: "#^Cannot call method subDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
@@ -4756,37 +4751,12 @@ parameters:
 			path: app/GraphQL/Queries/MeTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:dataProviderInvoke\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\)\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\), App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null\\}\\> but returns array\\<array\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/MeTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testSearches\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testSearches\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testSearches\\(\\) has parameter \\$userSearchesFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testTeam\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:testTeam\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MeTest\\:\\:dataProviderSearches\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\)\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\), App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\GraphQL\\\\Queries\\\\MeTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: void\\)\\|null\\}\\> but returns array\\<array\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/MeTest.php
 
