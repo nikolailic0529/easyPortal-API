@@ -128,6 +128,7 @@ class UpdateTest extends TestCase {
                             result
                             org {
                                 id
+                                type
                                 name
                                 email
                                 locale

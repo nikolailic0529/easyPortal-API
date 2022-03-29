@@ -1,6 +1,7 @@
 type Org {
     id: ID!
     name: String!
+    type: OrganizationType!
     email: Email
     locale: String
     timezone: String

@@ -4,6 +4,7 @@ type Organization {
     root: Boolean!
     @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
 
+    type: OrganizationType!
     locale: String
     website_url: Url
     email: Email

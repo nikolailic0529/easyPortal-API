@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
+use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
@@ -75,6 +76,7 @@ class OrgTest extends TestCase {
                     org {
                         id
                         name
+                        type
                         locale
                         website_url
                         email
@@ -261,12 +263,15 @@ class OrgTest extends TestCase {
                 new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'unknown'  => [
-                        new GraphQLSuccess('org', $expected),
+                        new GraphQLSuccess('org', array_merge($expected, [
+                            'type' => OrganizationType::reseller(),
+                        ])),
                         null,
                         null,
                     ],
                     'reseller' => [
                         new GraphQLSuccess('org', array_merge($expected, [
+                            'type'        => OrganizationType::reseller(),
                             'kpi'         => [
                                 'assets_total' => 1,
                             ],

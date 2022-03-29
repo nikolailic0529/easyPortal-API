@@ -19,6 +19,10 @@ enum CachedMode {
     Threshold
 }
 
+enum OrganizationType {
+    Reseller
+}
+
 enum SearchByTypeFlag {
     yes
 }
@@ -3730,6 +3734,12 @@ input SearchByConditionOrganizationsQuery {
     """
     Property condition.
     """
+    type: SearchByEnumOrganizationType
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     website_url: SearchByScalarUrlOrNull
     @searchByProperty
 }
@@ -4248,6 +4258,35 @@ input SearchByConditionUsersQuery {
     """
     not: SearchByConditionUsersQuery
     @searchByOperatorNot
+}
+
+"""
+Available operators for `enum OrganizationType` (only one operator allowed at a time).
+"""
+input SearchByEnumOrganizationType {
+    """
+    Equal (`=`).
+    """
+    equal: OrganizationType
+    @searchByOperatorEqual
+
+    """
+    Within a set of values.
+    """
+    in: [OrganizationType!]
+    @searchByOperatorIn
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: OrganizationType
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [OrganizationType!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -9528,6 +9567,7 @@ type Org {
     )
 
     timezone: String
+    type: OrganizationType!
     website_url: Url
 }
 
@@ -9889,6 +9929,7 @@ type Organization {
     )
 
     timezone: String
+    type: OrganizationType!
 
     """
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Currency;
+use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -23,6 +24,7 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
+use function array_merge;
 use function json_encode;
 
 /**
@@ -67,6 +69,7 @@ class OrganizationTest extends TestCase {
                 query organization($id: ID!){
                     organization(id: $id) {
                         id
+                        type
                         name
                         email
                         root
@@ -494,7 +497,9 @@ class OrganizationTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'reseller' => [
-                    new GraphQLSuccess('organization', $expected),
+                    new GraphQLSuccess('organization', array_merge($expected, [
+                        'type' => OrganizationType::reseller(),
+                    ])),
                     $factory(static function (Kpi $kpi): Reseller {
                         $reseller = Reseller::factory()
                             ->hasContacts(1, [
