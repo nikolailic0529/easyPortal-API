@@ -406,6 +406,7 @@ class ClientTest extends TestCase {
     // =========================================================================
     protected function prepareClient(bool $withToken = false): void {
         $this->setSettings([
+            'ep.keycloak.enabled'       => true,
             'ep.keycloak.url'           => $this->faker->url(),
             'ep.keycloak.client_id'     => $this->faker->word(),
             'ep.keycloak.client_secret' => $this->faker->uuid(),
