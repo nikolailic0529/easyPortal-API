@@ -786,11 +786,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SendResetPasswordLinkTest.php
 
 		-
-			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignInTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignOutTest\\:\\:testInvoke\\(\\) has parameter \\$keyCloakFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignOutTest.php

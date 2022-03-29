@@ -5554,11 +5554,6 @@ input SetApplicationLocaleInput {
     )
 }
 
-input SignInInput {
-    email: Email!
-    password: String!
-}
-
 """
 Sort clause for input ApplicationLogsSort (only one property allowed at a time).
 """
@@ -10523,25 +10518,6 @@ type Mutation {
     )
 
     """
-    Sign In for local users.
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signIn(
-        input: SignInInput
-    ): SignInPayload
-    @deprecated(
-        reason: "Please use `mutation { auth { signIn } }`."
-    )
-    @throttle(
-        name: "auth"
-    )
-    @authGuest
-    @field(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
-    )
-
-    """
     Stop application service.
 
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
@@ -13794,13 +13770,6 @@ type ServiceLevel {
 
 type SetApplicationLocalePayload {
     result: Boolean!
-}
-
-type SignInPayload {
-    me: Me
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Me"
-    )
 }
 
 type Status {

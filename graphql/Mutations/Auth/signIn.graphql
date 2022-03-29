@@ -23,25 +23,3 @@ type AuthSignInPayload implements Payload {
     org: Org
     @field(resolver: "App\\GraphQL\\Queries\\Org")
 }
-
-# Deprecated
-extend type Mutation {
-    "Sign In for local users."
-    signIn(
-        input: SignInInput
-    ): SignInPayload
-    @deprecated(reason: "Please use `mutation { auth { signIn } }`.")
-    @throttle(name: "auth")
-    @authGuest
-    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
-}
-
-input SignInInput {
-    email: Email!
-    password: String!
-}
-
-type SignInPayload {
-    me: Me
-    @field(resolver: "App\\GraphQL\\Queries\\Me")
-}
