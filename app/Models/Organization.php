@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Support\Collection as BaseCollection;
 
 // @phpcs:disable Generic.Files.LineLength.TooLong
 
@@ -204,13 +203,6 @@ class Organization extends Model implements
     #[CascadeDelete(true)]
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
-    }
-
-    /**
-     * @param BaseCollection|array<OrganizationUser> $users
-     */
-    public function setOrganizationUsersAttribute(BaseCollection|array $users): void {
-        $this->syncHasMany('organizationUsers', $users);
     }
 
     protected function getLocationsModel(): Model {

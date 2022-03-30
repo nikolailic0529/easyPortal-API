@@ -7226,11 +7226,6 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:setOrganizationUsersAttribute\\(\\) has parameter \\$users with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Organization\\:\\:statuses\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Organization.php
