@@ -11,12 +11,12 @@ type Customer {
 
     locations_count: Int!
     locations(
-        where: CustomerLocationsQuery @searchBy
-        order: CustomerLocationsSort @sortBy
-    ): [CustomerLocation!]!
+        where: CompanyLocationsQuery @searchBy
+        order: CompanyLocationsSort @sortBy
+    ): [CompanyLocation!]!
     @relation
 
-    headquarter: CustomerLocation @relation
+    headquarter: CompanyLocation @relation
 
     changed_at: DateTime
     synced_at: DateTime!

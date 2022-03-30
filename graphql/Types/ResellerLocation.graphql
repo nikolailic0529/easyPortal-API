@@ -1,6 +1,0 @@
-type ResellerLocation {
-    id: ID!
-    location_id: ID!
-    location: Location @relation
-    types: [Type!]! @relation
-}

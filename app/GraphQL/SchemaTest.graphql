@@ -926,6 +926,40 @@ input SearchByComplexRelationCompaniesQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input CompanyLocationsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCompanyLocationsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Complex operator marker.
+    """
+    relation: SearchByTypeFlag! = yes
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionCompanyLocationsQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input ContactsQuery.
 
 See also:
@@ -1025,40 +1059,6 @@ input SearchByComplexRelationCoveragesQuery {
     Additional conditions.
     """
     where: SearchByConditionCoveragesQuery
-}
-
-"""
-Conditions for the related objects (`has()`/`doesntHave()`) for input CustomerLocationsQuery.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationCustomerLocationsQuery {
-    """
-    Count conditions.
-    """
-    count: SearchByScalarInt
-
-    """
-    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-    """
-    exists: Boolean
-
-    """
-    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-    """
-    notExists: Boolean! = false
-
-    """
-    Complex operator marker.
-    """
-    relation: SearchByTypeFlag! = yes
-
-    """
-    Additional conditions.
-    """
-    where: SearchByConditionCustomerLocationsQuery
 }
 
 """
@@ -1297,40 +1297,6 @@ input SearchByComplexRelationProductsQuery {
     Additional conditions.
     """
     where: SearchByConditionProductsQuery
-}
-
-"""
-Conditions for the related objects (`has()`/`doesntHave()`) for input ResellerLocationsQuery.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationResellerLocationsQuery {
-    """
-    Count conditions.
-    """
-    count: SearchByScalarInt
-
-    """
-    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-    """
-    exists: Boolean
-
-    """
-    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-    """
-    notExists: Boolean! = false
-
-    """
-    Complex operator marker.
-    """
-    relation: SearchByTypeFlag! = yes
-
-    """
-    Additional conditions.
-    """
-    where: SearchByConditionResellerLocationsQuery
 }
 
 """
@@ -2014,12 +1980,12 @@ input SearchByConditionCompaniesQuery {
     """
     Property condition.
     """
-    headquarter: SearchByComplexRelationResellerLocationsQuery
+    headquarter: SearchByComplexRelationCompanyLocationsQuery
 
     """
     Property condition.
     """
-    locations: SearchByComplexRelationResellerLocationsQuery
+    locations: SearchByComplexRelationCompanyLocationsQuery
 
     """
     Not.
@@ -2030,6 +1996,46 @@ input SearchByConditionCompaniesQuery {
     Property condition.
     """
     statuses: SearchByComplexRelationStatusesQuery
+}
+
+"""
+Available conditions for input CompanyLocationsQuery (only one property allowed at a time).
+"""
+input SearchByConditionCompanyLocationsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionCompanyLocationsQuery!]
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionCompanyLocationsQuery!]
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+
+    """
+    Property condition.
+    """
+    location: SearchByComplexRelationLocationsQuery
+
+    """
+    Property condition.
+    """
+    location_id: SearchByScalarID
+
+    """
+    Not.
+    """
+    not: SearchByConditionCompanyLocationsQuery
+
+    """
+    Property condition.
+    """
+    types: SearchByComplexRelationTypesQuery
 }
 
 """
@@ -2268,46 +2274,6 @@ input SearchByConditionCurrenciesQuery {
 }
 
 """
-Available conditions for input CustomerLocationsQuery (only one property allowed at a time).
-"""
-input SearchByConditionCustomerLocationsQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionCustomerLocationsQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionCustomerLocationsQuery!]
-
-    """
-    Property condition.
-    """
-    id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    location: SearchByComplexRelationLocationsQuery
-
-    """
-    Property condition.
-    """
-    location_id: SearchByScalarID
-
-    """
-    Not.
-    """
-    not: SearchByConditionCustomerLocationsQuery
-
-    """
-    Property condition.
-    """
-    types: SearchByComplexRelationTypesQuery
-}
-
-"""
 Available conditions for input CustomerStatusesQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomerStatusesQuery {
@@ -2369,7 +2335,7 @@ input SearchByConditionCustomersQuery {
     """
     Property condition.
     """
-    headquarter: SearchByComplexRelationCustomerLocationsQuery
+    headquarter: SearchByComplexRelationCompanyLocationsQuery
 
     """
     Property condition.
@@ -2379,7 +2345,7 @@ input SearchByConditionCustomersQuery {
     """
     Property condition.
     """
-    locations: SearchByComplexRelationCustomerLocationsQuery
+    locations: SearchByComplexRelationCompanyLocationsQuery
 
     """
     Property condition.
@@ -3080,46 +3046,6 @@ input SearchByConditionQuoteTypesQuery {
     Property condition.
     """
     quotes: SearchByComplexRelationDocumentsQuery
-}
-
-"""
-Available conditions for input ResellerLocationsQuery (only one property allowed at a time).
-"""
-input SearchByConditionResellerLocationsQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionResellerLocationsQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionResellerLocationsQuery!]
-
-    """
-    Property condition.
-    """
-    id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    location: SearchByComplexRelationLocationsQuery
-
-    """
-    Property condition.
-    """
-    location_id: SearchByScalarID
-
-    """
-    Not.
-    """
-    not: SearchByConditionResellerLocationsQuery
-
-    """
-    Property condition.
-    """
-    types: SearchByComplexRelationTypesQuery
 }
 
 """
@@ -4354,6 +4280,16 @@ input SortByClauseCitiesSort {
 }
 
 """
+Sort clause for input CompanyLocationsSort (only one property allowed at a time).
+"""
+input SortByClauseCompanyLocationsSort {
+    """
+    Property clause.
+    """
+    location: SortByClauseLocationsSort
+}
+
+"""
 Sort clause for input ContactsSort (only one property allowed at a time).
 """
 input SortByClauseContactsSort {
@@ -4396,16 +4332,6 @@ input SortByClauseCountriesSort {
     Property clause.
     """
     name: SortByDirection
-}
-
-"""
-Sort clause for input CustomerLocationsSort (only one property allowed at a time).
-"""
-input SortByClauseCustomerLocationsSort {
-    """
-    Property clause.
-    """
-    location: SortByClauseLocationsSort
 }
 
 """
@@ -4467,7 +4393,7 @@ input SortByClauseCustomersSort {
     """
     Property clause.
     """
-    headquarter: SortByClauseCustomerLocationsSort
+    headquarter: SortByClauseCompanyLocationsSort
 
     """
     Property clause.
@@ -4814,16 +4740,6 @@ input SortByClauseProductsSort {
     Property clause.
     """
     sku: SortByDirection
-}
-
-"""
-Sort clause for input ResellerLocationsSort (only one property allowed at a time).
-"""
-input SortByClauseResellerLocationsSort {
-    """
-    Property clause.
-    """
-    location: SortByClauseLocationsSort
 }
 
 """
@@ -6075,6 +5991,18 @@ type ClientTranslation {
     value: String!
 }
 
+type CompanyLocation {
+    id: ID!
+
+    location: Location
+    @relation
+
+    location_id: ID!
+
+    types: [Type!]!
+    @relation
+}
+
 type Contact {
     email: Email
     id: ID!
@@ -6408,7 +6336,7 @@ type Customer {
     contracts_count: Int!
     @orgProperty
 
-    headquarter: CustomerLocation
+    headquarter: CompanyLocation
     @relation
 
     id: ID!
@@ -6417,10 +6345,10 @@ type Customer {
     @orgRelation
 
     locations(
-        order: [SortByClauseCustomerLocationsSort!]
+        order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
-        where: SearchByConditionCustomerLocationsQuery
+        where: SearchByConditionCompanyLocationsQuery
         @searchBy(
             operators: [
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
@@ -6444,7 +6372,7 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
-    ): [CustomerLocation!]!
+    ): [CompanyLocation!]!
     @relation
 
     locations_count: Int!
@@ -6572,18 +6500,6 @@ type CustomerChangeRequestMutation {
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Customer\\ChangeRequest\\Create"
     )
-}
-
-type CustomerLocation {
-    id: ID!
-
-    location: Location
-    @relation
-
-    location_id: ID!
-
-    types: [Type!]!
-    @relation
 }
 
 type CustomerMutation {
@@ -10874,7 +10790,7 @@ type Reseller {
     contacts_count: Int!
     customers_count: Int!
 
-    headquarter: ResellerLocation
+    headquarter: CompanyLocation
     @relation
 
     id: ID!
@@ -10883,10 +10799,10 @@ type Reseller {
     @orgRelation
 
     locations(
-        order: [SortByClauseResellerLocationsSort!]
+        order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
-        where: SearchByConditionResellerLocationsQuery
+        where: SearchByConditionCompanyLocationsQuery
         @searchBy(
             operators: [
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
@@ -10910,25 +10826,13 @@ type Reseller {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
-    ): [ResellerLocation!]!
+    ): [CompanyLocation!]!
     @relation
 
     locations_count: Int!
     name: String!
 
     statuses: [Status!]!
-    @relation
-}
-
-type ResellerLocation {
-    id: ID!
-
-    location: Location
-    @relation
-
-    location_id: ID!
-
-    types: [Type!]!
     @relation
 }
 

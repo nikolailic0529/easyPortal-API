@@ -5,5 +5,5 @@ input CustomersSort {
     assets_count: Int! @orgProperty
     quotes_count: Int! @orgProperty
     contracts_count: Int! @orgProperty
-    headquarter: CustomerLocationsSort!
+    headquarter: CompanyLocationsSort!
 }

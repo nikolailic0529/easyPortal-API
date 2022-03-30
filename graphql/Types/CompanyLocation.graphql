@@ -1,4 +1,4 @@
-type CustomerLocation {
+type CompanyLocation {
     id: ID!
     location_id: ID!
     location: Location @relation

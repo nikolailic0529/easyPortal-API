@@ -3,8 +3,8 @@ input CustomersQuery {
     name: String!
     statuses: StatusesQuery!
     statuses_count: Int!
-    locations: CustomerLocationsQuery
-    headquarter: CustomerLocationsQuery
+    locations: CompanyLocationsQuery
+    headquarter: CompanyLocationsQuery
     contacts_count: Int!
     contacts: ContactsQuery
     assets: AssetsQuery
