@@ -460,6 +460,7 @@ class OrganizationTest extends TestCase {
                     ])
                     ->create([
                         'id'                               => $company,
+                        'type'                             => OrganizationType::get($company->getMorphClass()),
                         'name'                             => $company->name,
                         'locale'                           => 'en',
                         'website_url'                      => 'https://www.example.com',
@@ -502,11 +503,6 @@ class OrganizationTest extends TestCase {
                     ])),
                     $factory(static function (Kpi $kpi): Reseller {
                         $reseller = Reseller::factory()
-                            ->hasContacts(1, [
-                                'name'        => 'contact1',
-                                'email'       => 'contact1@test.com',
-                                'phone_valid' => false,
-                            ])
                             ->hasStatuses(1, [
                                 'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'name'        => 'active',

@@ -232,7 +232,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "003b32d8-2216-4550-ae14-f18ab482e3c7",
-            "reseller",
+            "Reseller",
             "Little-Huel",
             "2022-02-02 00:00:14",
             "2022-02-02 00:00:14"
@@ -457,7 +457,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0048aae2-ac36-4ab5-a667-c74c3c72b50b",
-            "reseller",
+            "Reseller",
             "Paucek, McKenzie and Gottlieb",
             "2022-02-02 00:00:33",
             "2022-02-02 00:00:33"
@@ -730,7 +730,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0059c2eb-e149-4858-94eb-e4ae3525e37e",
-            "reseller",
+            "Reseller",
             "Ankunding Group",
             "2022-02-02 00:00:56",
             "2022-02-02 00:00:56"
@@ -907,7 +907,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "005a0ef4-d12a-4d72-93d7-da042004eeb6",
-            "reseller",
+            "Reseller",
             "Homenick, Ernser and Jacobson",
             "2022-02-02 00:01:11",
             "2022-02-02 00:01:11"
@@ -1068,7 +1068,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "008a65ba-701e-44a7-8923-8d228c97bf7e",
-            "reseller",
+            "Reseller",
             "Walsh-Cummings",
             "2022-02-02 00:01:25",
             "2022-02-02 00:01:25"
@@ -1743,7 +1743,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "009e19b8-90e1-4a0a-bd2b-d68f9af5db90",
-            "reseller",
+            "Reseller",
             "Friesen, Hegmann and Vandervort",
             "2022-02-02 00:02:21",
             "2022-02-02 00:02:21"
@@ -1928,7 +1928,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "009f8d61-de1c-4cbc-a158-4c3b855889cd",
-            "reseller",
+            "Reseller",
             "Schmeler PLC",
             "2022-02-02 00:02:37",
             "2022-02-02 00:02:37"
@@ -2089,7 +2089,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83",
-            "reseller",
+            "Reseller",
             "Fadel-Hoppe",
             "2022-02-02 00:02:51",
             "2022-02-02 00:02:51"
@@ -2274,7 +2274,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00b36fdb-7835-40d5-b942-686d764e9baa",
-            "reseller",
+            "Reseller",
             "Dicki-Beatty",
             "2022-02-02 00:03:07",
             "2022-02-02 00:03:07"
@@ -2435,7 +2435,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00b8d679-b5fc-49f3-b4de-167ad2f34e93",
-            "reseller",
+            "Reseller",
             "Barton-Blanda",
             "2022-02-02 00:03:21",
             "2022-02-02 00:03:21"
@@ -2630,7 +2630,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00da719b-7d05-4dd1-addb-8946051f3f89",
-            "reseller",
+            "Reseller",
             "Ortiz-Johns",
             "2022-02-02 00:03:37",
             "2022-02-02 00:03:37"
@@ -2815,7 +2815,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00ea64b4-c5a2-4afc-b902-ba5962a9ba1d",
-            "reseller",
+            "Reseller",
             "Bernhard-Jaskolski",
             "2022-02-02 00:03:53",
             "2022-02-02 00:03:53"
@@ -2976,7 +2976,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00f45edc-c98a-4a92-a472-8335d829100e",
-            "reseller",
+            "Reseller",
             "Mohr-Cummings",
             "2022-02-02 00:04:07",
             "2022-02-02 00:04:07"
@@ -3233,7 +3233,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00f64498-4aa3-49e9-bfcd-6054d95e0f0d",
-            "reseller",
+            "Reseller",
             "O'Kon PLC",
             "2022-02-02 00:04:29",
             "2022-02-02 00:04:29"
@@ -3394,7 +3394,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0114bd6e-ebe7-4cc1-b47f-ccdd5e4b77c6",
-            "reseller",
+            "Reseller",
             "Stiedemann and Sons",
             "2022-02-02 00:04:43",
             "2022-02-02 00:04:43"
@@ -3565,7 +3565,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0123d583-0e8c-41ca-bd5a-f0682dbb538e",
-            "reseller",
+            "Reseller",
             "Gutmann, Langosh and Murphy",
             "2022-02-02 00:04:57",
             "2022-02-02 00:04:57"
@@ -3726,7 +3726,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "012701e7-e4d8-46c5-9074-93ee69f0d02d",
-            "reseller",
+            "Reseller",
             "O'Kon-Howe",
             "2022-02-02 00:05:11",
             "2022-02-02 00:05:11"
@@ -3911,7 +3911,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "013638be-54c1-41d3-bcc0-f2d3dc855a7f",
-            "reseller",
+            "Reseller",
             "Collins and Sons",
             "2022-02-02 00:05:27",
             "2022-02-02 00:05:27"
@@ -4072,7 +4072,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0145ea46-012f-45d2-8440-71bdaa79fea5",
-            "reseller",
+            "Reseller",
             "Bogan-Medhurst",
             "2022-02-02 00:05:41",
             "2022-02-02 00:05:41"
@@ -4233,7 +4233,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0152510c-9f5a-4503-ac90-f460bf984f11",
-            "reseller",
+            "Reseller",
             "Leannon, Kessler and Wiegand",
             "2022-02-02 00:05:55",
             "2022-02-02 00:05:55"
@@ -4404,7 +4404,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "01577398-c7d4-490a-b1aa-85053bb36bb6",
-            "reseller",
+            "Reseller",
             "Koepp-Huels",
             "2022-02-02 00:06:09",
             "2022-02-02 00:06:09"
@@ -4565,7 +4565,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0163199f-31d8-4514-ab3c-569f28009637",
-            "reseller",
+            "Reseller",
             "Lynch-Cummerata",
             "2022-02-02 00:06:23",
             "2022-02-02 00:06:23"
@@ -4766,7 +4766,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "01827078-e639-431c-8ff9-493c8240704c",
-            "reseller",
+            "Reseller",
             "Stokes LLC",
             "2022-02-02 00:06:40",
             "2022-02-02 00:06:40"
@@ -4927,7 +4927,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "01840600-a3ee-421f-a959-299cf6ddfabf",
-            "reseller",
+            "Reseller",
             "Rohan-Boyer",
             "2022-02-02 00:06:54",
             "2022-02-02 00:06:54"
@@ -5104,7 +5104,7 @@
         "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "018a1f3b-3ed2-43dc-97aa-0be915d9d57b",
-            "reseller",
+            "Reseller",
             "Dach, Gusikowski and Wintheiser",
             "2022-02-02 00:07:09",
             "2022-02-02 00:07:09"
