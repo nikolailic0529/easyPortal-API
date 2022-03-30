@@ -85,23 +85,6 @@ class OrgTest extends TestCase {
                     name
                     code
                 }
-                locations_count
-                locations {
-                    location_id
-                    location {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
-                    }
-                    types {
-                        id
-                        name
-                    }
-                }
                 branding {
                     dark_theme
                     main_color
@@ -122,61 +105,6 @@ class OrgTest extends TestCase {
                         text
                     }
                     dashboard_image_url
-                }
-                statuses {
-                    id
-                    key
-                    name
-                }
-                contacts_count
-                contacts {
-                    name
-                    email
-                    phone_valid
-                }
-                headquarter {
-                    location_id
-                    location {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
-                    }
-                    types {
-                        id
-                        name
-                    }
-                }
-                kpi {
-                    assets_total
-                    assets_active
-                    assets_active_percent
-                    assets_active_on_contract
-                    assets_active_on_warranty
-                    assets_active_exposed
-                    customers_active
-                    customers_active_new
-                    contracts_active
-                    contracts_active_amount
-                    contracts_active_new
-                    contracts_expiring
-                    contracts_expired
-                    quotes_active
-                    quotes_active_amount
-                    quotes_active_new
-                    quotes_expiring
-                    quotes_expired
-                    quotes_ordered
-                    quotes_accepted
-                    quotes_requested
-                    quotes_received
-                    quotes_rejected
-                    quotes_awaiting
-                    service_revenue_total_amount
-                    service_revenue_total_amount_change
                 }
             }
         }')->assertThat($expected);
@@ -247,68 +175,21 @@ class OrgTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'   => [
                         new GraphQLSuccess('org', [
-                            'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name'            => 'org1',
-                            'root'            => false,
-                            'locale'          => 'en',
-                            'website_url'     => 'https://www.example.com',
-                            'email'           => 'test@example.com',
-                            'analytics_code'  => 'analytics_code',
-                            'currency_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            'timezone'        => 'Europe/London',
-                            'currency'        => [
+                            'id'             => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name'           => 'org1',
+                            'root'           => false,
+                            'locale'         => 'en',
+                            'website_url'    => 'https://www.example.com',
+                            'email'          => 'test@example.com',
+                            'analytics_code' => 'analytics_code',
+                            'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                            'timezone'       => 'Europe/London',
+                            'currency'       => [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ],
-                            'locations_count' => 1,
-                            'locations'       => [
-                                [
-                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'location'    => [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
-                                    ],
-                                    'types'       => [
-                                        [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                            'name' => 'headquarter',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                            'contacts_count'  => 1,
-                            'contacts'        => [
-                                [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ],
-                            ],
-                            'headquarter'     => [
-                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'location'    => [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => 47.91634204,
-                                    'longitude' => -2.26318359,
-                                ],
-                                'types'       => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'headquarter',
-                                    ],
-                                ],
-                            ],
-                            'branding'        => [
+                            'branding'       => [
                                 'dark_theme'              => true,
                                 'main_color'              => '#00000F',
                                 'secondary_color'         => '#0000F0',
@@ -332,41 +213,6 @@ class OrgTest extends TestCase {
                                         'text'   => 'underline',
                                     ],
                                 ],
-                            ],
-                            'statuses'        => [
-                                [
-                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                    'key'  => 'active',
-                                    'name' => 'active',
-                                ],
-                            ],
-                            'kpi'             => [
-                                'assets_total'                        => 1,
-                                'assets_active'                       => 2,
-                                'assets_active_percent'               => 3.0,
-                                'assets_active_on_contract'           => 4,
-                                'assets_active_on_warranty'           => 5,
-                                'assets_active_exposed'               => 6,
-                                'customers_active'                    => 7,
-                                'customers_active_new'                => 8,
-                                'contracts_active'                    => 9,
-                                'contracts_active_amount'             => 10.0,
-                                'contracts_active_new'                => 11,
-                                'contracts_expiring'                  => 12,
-                                'contracts_expired'                   => 13,
-                                'quotes_active'                       => 14,
-                                'quotes_active_amount'                => 15.0,
-                                'quotes_active_new'                   => 16,
-                                'quotes_expiring'                     => 17,
-                                'quotes_expired'                      => 18,
-                                'quotes_ordered'                      => 19,
-                                'quotes_accepted'                     => 20,
-                                'quotes_requested'                    => 21,
-                                'quotes_received'                     => 22,
-                                'quotes_rejected'                     => 23,
-                                'quotes_awaiting'                     => 24,
-                                'service_revenue_total_amount'        => 25.0,
-                                'service_revenue_total_amount_change' => 26.0,
                             ],
                         ]),
                         [

@@ -1,0 +1,6 @@
+input CompaniesQuery {
+    statuses: StatusesQuery
+    contacts: ContactsQuery
+    locations: ResellerLocationsQuery
+    headquarter: ResellerLocationsQuery
+}

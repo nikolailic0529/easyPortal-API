@@ -11,4 +11,14 @@ type Reseller {
         order: ResellerLocationsSort @sortBy
     ): [ResellerLocation!]!
     @relation
+
+    statuses: [Status!]! @relation
+
+    contacts_count: Int!
+    contacts (
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]! @relation
+
+    kpi: Kpi @orgRelation
 }
