@@ -4,5 +4,5 @@ input CountriesQuery {
     name: String!
     cities: CitiesQuery
     assets: AssetsQuery
-    customers: CustomersQuery
+    customers: CompaniesQuery
 }

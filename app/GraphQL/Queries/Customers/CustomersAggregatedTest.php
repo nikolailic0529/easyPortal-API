@@ -58,7 +58,7 @@ class CustomersAggregatedTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                query ($where: SearchByConditionCustomersQuery) {
+                query ($where: SearchByConditionCompaniesQuery) {
                     customersAggregated(where: $where) {
                         count
                         assets

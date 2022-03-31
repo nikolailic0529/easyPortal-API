@@ -3,11 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
-use App\Models\Kpi;
-use App\Models\Location;
-use App\Models\Organization as ModelsOrganization;
-use App\Models\Reseller;
-use App\Models\ResellerLocation;
+use App\Models\Organization;
 use App\Services\I18n\Eloquent\TranslatedString;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -21,7 +17,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
@@ -30,7 +25,6 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrgTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -44,13 +38,11 @@ class OrgTest extends TestCase {
      *
      * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        mixed $settingsFactory = null,
         bool $isRootOrganization = false,
         Closure $organizationCallback = null,
     ): void {
@@ -62,7 +54,6 @@ class OrgTest extends TestCase {
         }
 
         $this->setUser($userFactory, $org);
-        $this->setSettings($settingsFactory);
 
         if ($org && $organizationCallback) {
             $organizationCallback($this, $org);
@@ -131,13 +122,13 @@ class OrgTest extends TestCase {
                 new ArrayDataProvider([
                     'org' => [
                         new UnknownValue(),
-                        static function (TestCase $test): ?ModelsOrganization {
+                        static function (): Organization {
                             $currency     = Currency::factory()->create([
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ]);
-                            $organization = ModelsOrganization::factory()
+                            $organization = Organization::factory()
                                 ->for($currency)
                                 ->create([
                                     'id'                               => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
@@ -215,82 +206,10 @@ class OrgTest extends TestCase {
                                 ],
                             ],
                         ]),
-                        [
-                            'ep.headquarter_type' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
                         false,
-                        static function (TestCase $test, ModelsOrganization $organization): void {
-                            $kpi      = Kpi::factory()->create([
-                                'assets_total'                        => 1,
-                                'assets_active'                       => 2,
-                                'assets_active_percent'               => 3.0,
-                                'assets_active_on_contract'           => 4,
-                                'assets_active_on_warranty'           => 5,
-                                'assets_active_exposed'               => 6,
-                                'customers_active'                    => 7,
-                                'customers_active_new'                => 8,
-                                'contracts_active'                    => 9,
-                                'contracts_active_amount'             => 10.0,
-                                'contracts_active_new'                => 11,
-                                'contracts_expiring'                  => 12,
-                                'contracts_expired'                   => 13,
-                                'quotes_active'                       => 14,
-                                'quotes_active_amount'                => 15.0,
-                                'quotes_active_new'                   => 16,
-                                'quotes_expiring'                     => 17,
-                                'quotes_expired'                      => 18,
-                                'quotes_ordered'                      => 19,
-                                'quotes_accepted'                     => 20,
-                                'quotes_requested'                    => 21,
-                                'quotes_received'                     => 22,
-                                'quotes_rejected'                     => 23,
-                                'quotes_awaiting'                     => 24,
-                                'service_revenue_total_amount'        => 25.0,
-                                'service_revenue_total_amount_change' => 26.0,
-                            ]);
-                            $location = Location::factory()->create([
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => '47.91634204',
-                                'longitude' => '-2.26318359',
-                            ]);
-                            $reseller = Reseller::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->hasStatuses(1, [
-                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                    'name'        => 'active',
-                                    'key'         => 'active',
-                                    'object_type' => (new Reseller())->getMorphClass(),
-                                ])
-                                ->create([
-                                    'id'     => $organization->getKey(),
-                                    'kpi_id' => $kpi,
-                                ]);
-                            ResellerLocation::factory()
-                                ->hasTypes(1, [
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'name' => 'headquarter',
-                                ])
-                                ->create([
-                                    'reseller_id' => $reseller,
-                                    'location_id' => $location,
-                                ]);
-
-                            $location->resellers()->attach($reseller);
-                        },
                     ],
                     'root' => [
                         new GraphQLSuccess('org', new JsonFragment('root', true)),
-                        [],
                         true,
                     ],
                 ]),

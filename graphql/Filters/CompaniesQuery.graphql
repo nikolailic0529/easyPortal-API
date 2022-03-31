@@ -1,6 +1,15 @@
 input CompaniesQuery {
-    statuses: StatusesQuery
-    contacts: ContactsQuery
+    id: ID!
+    name: String!
+    statuses_count: Int!
+    statuses: StatusesQuery!
+    locations_count: Int! @orgProperty
     locations: CompanyLocationsQuery
     headquarter: CompanyLocationsQuery
+    contacts_count: Int!
+    contacts: ContactsQuery
+    assets_count: Int! @orgProperty
+    assets: AssetsQuery
+    contracts: DocumentsQuery
+    quotes: DocumentsQuery
 }

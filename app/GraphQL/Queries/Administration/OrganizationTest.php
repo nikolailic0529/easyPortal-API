@@ -4,10 +4,8 @@ namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Currency;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\ResellerLocation;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
@@ -23,7 +21,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
 use function json_encode;
@@ -34,7 +31,6 @@ use function json_encode;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -46,20 +42,16 @@ class OrganizationTest extends TestCase {
      *
      * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
-
-        $this->setSettings($settingsFactory);
 
         $organizationId = 'wrong';
         if ($prepare) {
@@ -109,83 +101,43 @@ class OrganizationTest extends TestCase {
                             dashboard_image_url
                         }
                         company {
-                            ... on Reseller {
+                            id
+                            name
+                            statuses {
                                 id
+                                key
                                 name
-                                statuses {
-                                    id
-                                    key
-                                    name
-                                }
-                                kpi {
-                                    assets_total
-                                    assets_active
-                                    assets_active_percent
-                                    assets_active_on_contract
-                                    assets_active_on_warranty
-                                    assets_active_exposed
-                                    customers_active
-                                    customers_active_new
-                                    contracts_active
-                                    contracts_active_amount
-                                    contracts_active_new
-                                    contracts_expiring
-                                    contracts_expired
-                                    quotes_active
-                                    quotes_active_amount
-                                    quotes_active_new
-                                    quotes_expiring
-                                    quotes_expired
-                                    quotes_ordered
-                                    quotes_accepted
-                                    quotes_requested
-                                    quotes_received
-                                    quotes_rejected
-                                    quotes_awaiting
-                                    service_revenue_total_amount
-                                    service_revenue_total_amount_change
-                                }
-                                assets_count
-                                locations_count
-                                locations {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
-                                }
-                                contacts_count
-                                contacts {
-                                    name
-                                    email
-                                    phone_valid
-                                }
-                                headquarter {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
-                                }
                             }
+                            kpi {
+                                assets_total
+                                assets_active
+                                assets_active_percent
+                                assets_active_on_contract
+                                assets_active_on_warranty
+                                assets_active_exposed
+                                customers_active
+                                customers_active_new
+                                contracts_active
+                                contracts_active_amount
+                                contracts_active_new
+                                contracts_expiring
+                                contracts_expired
+                                quotes_active
+                                quotes_active_amount
+                                quotes_active_new
+                                quotes_expiring
+                                quotes_expired
+                                quotes_ordered
+                                quotes_accepted
+                                quotes_requested
+                                quotes_received
+                                quotes_rejected
+                                quotes_awaiting
+                                service_revenue_total_amount
+                                service_revenue_total_amount_change
+                            }
+                            changed_at
+                            synced_at
                         }
                     }
                 }
@@ -397,64 +349,16 @@ class OrganizationTest extends TestCase {
                 ],
             ],
             'company'        => [
-                'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                'name'            => 'org',
-                'assets_count'    => 0,
-                'locations_count' => 1,
-                'locations'       => [
-                    [
-                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                        'location'    => [
-                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'state'     => 'state1',
-                            'postcode'  => '19911',
-                            'line_one'  => 'line_one_data',
-                            'line_two'  => 'line_two_data',
-                            'latitude'  => 47.91634204,
-                            'longitude' => -2.26318359,
-                        ],
-                        'types'       => [
-                            [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'headquarter',
-                            ],
-                        ],
-                    ],
-                ],
-                'contacts_count'  => 1,
-                'contacts'        => [
-                    [
-                        'name'        => 'contact1',
-                        'email'       => 'contact1@test.com',
-                        'phone_valid' => false,
-                    ],
-                ],
-                'headquarter'     => [
-                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                    'location'    => [
-                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                        'state'     => 'state1',
-                        'postcode'  => '19911',
-                        'line_one'  => 'line_one_data',
-                        'line_two'  => 'line_two_data',
-                        'latitude'  => 47.91634204,
-                        'longitude' => -2.26318359,
-                    ],
-                    'types'       => [
-                        [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'name' => 'headquarter',
-                        ],
-                    ],
-                ],
-                'statuses'        => [
+                'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                'name'       => 'org',
+                'statuses'   => [
                     [
                         'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                         'key'  => 'active',
                         'name' => 'active',
                     ],
                 ],
-                'kpi'             => [
+                'kpi'        => [
                     'assets_total'                        => 1,
                     'assets_active'                       => 2,
                     'assets_active_percent'               => 3.0,
@@ -482,11 +386,13 @@ class OrganizationTest extends TestCase {
                     'service_revenue_total_amount'        => 25.0,
                     'service_revenue_total_amount_change' => 26.0,
                 ],
+                'changed_at' => '2021-10-19T10:15:00+00:00',
+                'synced_at'  => '2021-10-19T10:25:00+00:00',
             ],
         ];
 
         /**
-         * @param Closure(Kpi, Location): Reseller $companyFactory
+         * @param Closure(Kpi): Reseller $companyFactory
          */
         $factory = static function (Closure $companyFactory): Closure {
             return static function () use ($companyFactory): Organization {
@@ -523,16 +429,7 @@ class OrganizationTest extends TestCase {
                     'name' => 'currency1',
                     'code' => 'CUR',
                 ]);
-                $location = Location::factory()->create([
-                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                    'state'     => 'state1',
-                    'postcode'  => '19911',
-                    'line_one'  => 'line_one_data',
-                    'line_two'  => 'line_two_data',
-                    'latitude'  => '47.91634204',
-                    'longitude' => '-2.26318359',
-                ]);
-                $company  = $companyFactory($kpi, $location);
+                $company  = $companyFactory($kpi);
 
                 $organization = Organization::factory()
                     ->for($currency)
@@ -580,12 +477,7 @@ class OrganizationTest extends TestCase {
             new ArrayDataProvider([
                 'reseller' => [
                     new GraphQLSuccess('organization', $expected),
-                    [
-                        'ep.headquarter_type' => [
-                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                        ],
-                    ],
-                    $factory(static function (Kpi $kpi, Location $location): Reseller {
+                    $factory(static function (Kpi $kpi): Reseller {
                         $reseller = Reseller::factory()
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
@@ -606,16 +498,6 @@ class OrganizationTest extends TestCase {
                                 'synced_at'       => '2021-10-19 10:25:00',
                                 'contacts_count'  => 1,
                                 'locations_count' => 1,
-                            ]);
-
-                        ResellerLocation::factory()
-                            ->hasTypes(1, [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'headquarter',
-                            ])
-                            ->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $location,
                             ]);
 
                         return $reseller;

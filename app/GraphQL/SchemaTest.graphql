@@ -1062,40 +1062,6 @@ input SearchByComplexRelationCoveragesQuery {
 }
 
 """
-Conditions for the related objects (`has()`/`doesntHave()`) for input CustomersQuery.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationCustomersQuery {
-    """
-    Count conditions.
-    """
-    count: SearchByScalarInt
-
-    """
-    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-    """
-    exists: Boolean
-
-    """
-    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-    """
-    notExists: Boolean! = false
-
-    """
-    Complex operator marker.
-    """
-    relation: SearchByTypeFlag! = yes
-
-    """
-    Additional conditions.
-    """
-    where: SearchByConditionCustomersQuery
-}
-
-"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input DistributorsQuery.
 
 See also:
@@ -1297,40 +1263,6 @@ input SearchByComplexRelationProductsQuery {
     Additional conditions.
     """
     where: SearchByConditionProductsQuery
-}
-
-"""
-Conditions for the related objects (`has()`/`doesntHave()`) for input ResellersQuery.
-
-See also:
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationResellersQuery {
-    """
-    Count conditions.
-    """
-    count: SearchByScalarInt
-
-    """
-    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
-    """
-    exists: Boolean
-
-    """
-    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
-    """
-    notExists: Boolean! = false
-
-    """
-    Complex operator marker.
-    """
-    relation: SearchByTypeFlag! = yes
-
-    """
-    Additional conditions.
-    """
-    where: SearchByConditionResellersQuery
 }
 
 """
@@ -1665,7 +1597,7 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
-    customer: SearchByComplexRelationCustomersQuery
+    customer: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -1700,7 +1632,7 @@ input SearchByConditionAssetWarrantiesQuery {
     """
     Property condition.
     """
-    reseller: SearchByComplexRelationResellersQuery
+    reseller: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -1755,7 +1687,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    customer: SearchByComplexRelationCustomersQuery
+    customer: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -1940,7 +1872,7 @@ input SearchByConditionCitiesQuery {
     """
     Property condition.
     """
-    customers: SearchByComplexRelationCustomersQuery
+    customers: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -1975,7 +1907,28 @@ input SearchByConditionCompaniesQuery {
     """
     Property condition.
     """
+    assets: SearchByComplexRelationAssetsQuery
+
+    """
+    Property condition.
+    """
+    assets_count: SearchByScalarInt
+    @orgProperty
+
+    """
+    Property condition.
+    """
     contacts: SearchByComplexRelationContactsQuery
+
+    """
+    Property condition.
+    """
+    contacts_count: SearchByScalarInt
+
+    """
+    Property condition.
+    """
+    contracts: SearchByComplexRelationDocumentsQuery
 
     """
     Property condition.
@@ -1985,7 +1938,23 @@ input SearchByConditionCompaniesQuery {
     """
     Property condition.
     """
+    id: SearchByScalarID
+
+    """
+    Property condition.
+    """
     locations: SearchByComplexRelationCompanyLocationsQuery
+
+    """
+    Property condition.
+    """
+    locations_count: SearchByScalarInt
+    @orgProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
 
     """
     Not.
@@ -1995,7 +1964,17 @@ input SearchByConditionCompaniesQuery {
     """
     Property condition.
     """
+    quotes: SearchByComplexRelationDocumentsQuery
+
+    """
+    Property condition.
+    """
     statuses: SearchByComplexRelationStatusesQuery
+
+    """
+    Property condition.
+    """
+    statuses_count: SearchByScalarInt
 }
 
 """
@@ -2085,7 +2064,7 @@ input SearchByConditionContactsQuery {
     """
     Property condition.
     """
-    customers: SearchByComplexRelationCustomersQuery
+    customers: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -2205,7 +2184,7 @@ input SearchByConditionCountriesQuery {
     """
     Property condition.
     """
-    customers: SearchByComplexRelationCustomersQuery
+    customers: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -2290,87 +2269,12 @@ input SearchByConditionCustomerStatusesQuery {
     """
     Property condition.
     """
-    customers: SearchByComplexRelationCustomersQuery
+    customers: SearchByComplexRelationCompaniesQuery
 
     """
     Not.
     """
     not: SearchByConditionCustomerStatusesQuery
-}
-
-"""
-Available conditions for input CustomersQuery (only one property allowed at a time).
-"""
-input SearchByConditionCustomersQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionCustomersQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionCustomersQuery!]
-
-    """
-    Property condition.
-    """
-    assets: SearchByComplexRelationAssetsQuery
-
-    """
-    Property condition.
-    """
-    contacts: SearchByComplexRelationContactsQuery
-
-    """
-    Property condition.
-    """
-    contacts_count: SearchByScalarInt
-
-    """
-    Property condition.
-    """
-    contracts: SearchByComplexRelationDocumentsQuery
-
-    """
-    Property condition.
-    """
-    headquarter: SearchByComplexRelationCompanyLocationsQuery
-
-    """
-    Property condition.
-    """
-    id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    locations: SearchByComplexRelationCompanyLocationsQuery
-
-    """
-    Property condition.
-    """
-    name: SearchByScalarString
-
-    """
-    Not.
-    """
-    not: SearchByConditionCustomersQuery
-
-    """
-    Property condition.
-    """
-    quotes: SearchByComplexRelationDocumentsQuery
-
-    """
-    Property condition.
-    """
-    statuses: SearchByComplexRelationStatusesQuery
-
-    """
-    Property condition.
-    """
-    statuses_count: SearchByScalarInt
 }
 
 """
@@ -2530,7 +2434,7 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    customer: SearchByComplexRelationCustomersQuery
+    customer: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -2590,7 +2494,7 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    reseller: SearchByComplexRelationResellersQuery
+    reseller: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -2710,7 +2614,7 @@ input SearchByConditionLocationsQuery {
     """
     Property condition.
     """
-    customers: SearchByComplexRelationCustomersQuery
+    customers: SearchByComplexRelationCompaniesQuery
 
     """
     Property condition.
@@ -3046,36 +2950,6 @@ input SearchByConditionQuoteTypesQuery {
     Property condition.
     """
     quotes: SearchByComplexRelationDocumentsQuery
-}
-
-"""
-Available conditions for input ResellersQuery (only one property allowed at a time).
-"""
-input SearchByConditionResellersQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionResellersQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionResellersQuery!]
-
-    """
-    Property condition.
-    """
-    id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    name: SearchByScalarString
-
-    """
-    Not.
-    """
-    not: SearchByConditionResellersQuery
 }
 
 """
@@ -4176,7 +4050,7 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
-    customer: SortByClauseCustomersSort
+    customer: SortByClauseCompaniesSort
 
     """
     Property clause.
@@ -4280,6 +4154,49 @@ input SortByClauseCitiesSort {
 }
 
 """
+Sort clause for input CompaniesSort (only one property allowed at a time).
+"""
+input SortByClauseCompaniesSort {
+    """
+    Property clause.
+    """
+    assets_count: SortByDirection
+    @orgProperty
+
+    """
+    Property clause.
+    """
+    contacts_count: SortByDirection
+
+    """
+    Property clause.
+    """
+    contracts_count: SortByDirection
+    @orgProperty
+
+    """
+    Property clause.
+    """
+    headquarter: SortByClauseCompanyLocationsSort
+
+    """
+    Property clause.
+    """
+    locations_count: SortByDirection
+
+    """
+    Property clause.
+    """
+    name: SortByDirection
+
+    """
+    Property clause.
+    """
+    quotes_count: SortByDirection
+    @orgProperty
+}
+
+"""
 Sort clause for input CompanyLocationsSort (only one property allowed at a time).
 """
 input SortByClauseCompanyLocationsSort {
@@ -4367,49 +4284,6 @@ input SortByClauseCustomersSearchSort {
     Property clause.
     """
     name: SortByDirection
-}
-
-"""
-Sort clause for input CustomersSort (only one property allowed at a time).
-"""
-input SortByClauseCustomersSort {
-    """
-    Property clause.
-    """
-    assets_count: SortByDirection
-    @orgProperty
-
-    """
-    Property clause.
-    """
-    contacts_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    contracts_count: SortByDirection
-    @orgProperty
-
-    """
-    Property clause.
-    """
-    headquarter: SortByClauseCompanyLocationsSort
-
-    """
-    Property clause.
-    """
-    locations_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-
-    """
-    Property clause.
-    """
-    quotes_count: SortByDirection
-    @orgProperty
 }
 
 """
@@ -4549,7 +4423,7 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
-    customer: SortByClauseCustomersSort
+    customer: SortByClauseCompaniesSort
 
     """
     Property clause.
@@ -4584,7 +4458,7 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
-    reseller: SortByClauseResellersSort
+    reseller: SortByClauseCompaniesSort
 
     """
     Property clause.
@@ -4740,21 +4614,6 @@ input SortByClauseProductsSort {
     Property clause.
     """
     sku: SortByDirection
-}
-
-"""
-Sort clause for input ResellersSort (only one property allowed at a time).
-"""
-input SortByClauseResellersSort {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
 }
 
 """
@@ -4964,6 +4823,21 @@ input UserUpdateInput {
     @isMax(
         value: 7
     )
+}
+
+interface Company {
+    changed_at: DateTime
+    id: ID!
+
+    kpi: Kpi
+    @orgRelation
+
+    name: String!
+
+    statuses: [Status!]!
+    @relation
+
+    synced_at: DateTime!
 }
 
 interface Payload {
@@ -6116,7 +5990,10 @@ type Currency {
     @translate
 }
 
-type Customer {
+type Customer
+implements
+    & Company
+{
     """
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
@@ -8346,7 +8223,7 @@ type Organization {
     """
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
-    company: OrganizationCompany
+    company: Company
     @authMe(
         permissions: ["administer"]
     )
@@ -9470,10 +9347,10 @@ type Query {
         )
         @paginatedOffset
 
-        order: [SortByClauseCustomersSort!]
+        order: [SortByClauseCompaniesSort!]
         @sortBy
 
-        where: SearchByConditionCustomersQuery
+        where: SearchByConditionCompaniesQuery
         @searchBy(
             operators: [
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
@@ -9510,7 +9387,7 @@ type Query {
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customersAggregated(
-        where: SearchByConditionCustomersQuery
+        where: SearchByConditionCompaniesQuery
         @searchBy(
             operators: [
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
@@ -10753,8 +10630,103 @@ type RequestQuoteChangePayload {
     created: ChangeRequest!
 }
 
-type Reseller {
+type Reseller
+implements
+    & Company
+{
+    """
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
+    """
+    assets(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseAssetsSort!]
+        @sortBy
+
+        where: SearchByConditionAssetsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): [Asset!]!
+    @authMe(
+        permissions: ["assets-view"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
+    """
+    assetsAggregated(
+        where: SearchByConditionAssetsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): AssetsAggregated
+    @authMe(
+        permissions: ["assets-view"]
+    )
+    @aggregated(
+        relation: "assets"
+    )
+
     assets_count: Int!
+    @orgProperty
+
+    changed_at: DateTime
 
     contacts(
         order: [SortByClauseContactsSort!]
@@ -10788,6 +10760,96 @@ type Reseller {
     @relation
 
     contacts_count: Int!
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contracts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDocumentsSort!]
+        @sortBy
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): [Document!]!
+    @authMe(
+        permissions: ["contracts-view"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contractsAggregated(
+        where: SearchByConditionDocumentsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): DocumentsAggregated
+    @authMe(
+        permissions: ["contracts-view"]
+    )
+    @aggregated(
+        relation: "contracts"
+    )
+
     customers_count: Int!
 
     headquarter: CompanyLocation
@@ -10832,8 +10894,99 @@ type Reseller {
     locations_count: Int!
     name: String!
 
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotes(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDocumentsSort!]
+        @sortBy
+
+        where: SearchByConditionDocumentsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): [Document!]!
+    @authMe(
+        permissions: ["quotes-view"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quotesAggregated(
+        where: SearchByConditionDocumentsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): DocumentsAggregated
+    @authMe(
+        permissions: ["quotes-view"]
+    )
+    @aggregated(
+        relation: "quotes"
+    )
+
     statuses: [Status!]!
     @relation
+
+    synced_at: DateTime!
 }
 
 type ResetApplicationServicePayload {
@@ -11150,9 +11303,6 @@ union ApplicationSettingValues =
     | Status
     | StringValue
     | Type
-
-union OrganizationCompany =
-    | Reseller
 
 union SearchResult =
     | Asset

@@ -347,6 +347,14 @@ class CustomerTest extends TestCase {
                                             name
                                         }
                                     }
+                                    contacts_count
+                                    contacts {
+                                        name
+                                        email
+                                        phone_valid
+                                    }
+                                    changed_at
+                                    synced_at
                                 }
                                 type_id
                                 type {
@@ -519,6 +527,14 @@ class CustomerTest extends TestCase {
                                         name
                                     }
                                 }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                changed_at
+                                synced_at
                             }
                             currency {
                                 id
@@ -725,6 +741,14 @@ class CustomerTest extends TestCase {
                                         name
                                     }
                                 }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                changed_at
+                                synced_at
                             }
                             currency {
                                 id
@@ -1102,6 +1126,10 @@ class CustomerTest extends TestCase {
                                                         'types'       => [],
                                                     ],
                                                 ],
+                                                'contacts_count'  => 0,
+                                                'contacts'        => [],
+                                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                                'synced_at'       => '2021-10-19T10:25:00+00:00',
                                             ],
                                             'type_id'       => null,
                                             'type'          => null,
@@ -1165,6 +1193,9 @@ class CustomerTest extends TestCase {
                                 'customers_count' => 0,
                                 'locations_count' => 1,
                                 'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
                             ]);
 
                             $location->resellers()->attach($reseller);
@@ -1605,6 +1636,9 @@ class CustomerTest extends TestCase {
                 'customers_count' => 0,
                 'locations_count' => 1,
                 'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'changed_at'      => '2021-10-19 10:15:00',
+                'synced_at'       => '2021-10-19 10:25:00',
             ]);
             Document::factory()->for($reseller)->create();
             $customer = Customer::factory()
@@ -1747,6 +1781,10 @@ class CustomerTest extends TestCase {
                                                     'types'       => [],
                                                 ],
                                             ],
+                                            'contacts_count'  => 0,
+                                            'contacts'        => [],
+                                            'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                            'synced_at'       => '2021-10-19T10:25:00+00:00',
                                         ],
                                         'currency'       => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -1854,6 +1892,9 @@ class CustomerTest extends TestCase {
                                 'customers_count' => 0,
                                 'locations_count' => 1,
                                 'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
                             ]);
 
                             ResellerLocation::factory()->create([
@@ -2066,6 +2107,9 @@ class CustomerTest extends TestCase {
                 'customers_count' => 0,
                 'locations_count' => 1,
                 'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'changed_at'      => '2021-10-19 10:15:00',
+                'synced_at'       => '2021-10-19 10:25:00',
             ]);
             $type     = Type::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -2116,6 +2160,9 @@ class CustomerTest extends TestCase {
                 'customers_count' => 0,
                 'locations_count' => 1,
                 'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'changed_at'      => '2021-10-19 10:15:00',
+                'synced_at'       => '2021-10-19 10:25:00',
             ]);
 
             ResellerLocation::factory()->create([
@@ -2345,6 +2392,10 @@ class CustomerTest extends TestCase {
                                 'types'       => [],
                             ],
                         ],
+                        'contacts_count'  => 0,
+                        'contacts'        => [],
+                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                        'synced_at'       => '2021-10-19T10:25:00+00:00',
                     ],
                     'currency'       => [
                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',

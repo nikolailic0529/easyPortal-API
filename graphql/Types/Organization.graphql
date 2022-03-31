@@ -15,7 +15,7 @@ type Organization {
     branding: OrganizationBranding!
     @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-    company: OrganizationCompany
+    company: Company
     @authMe(permissions: ["administer"])
     @relation
 

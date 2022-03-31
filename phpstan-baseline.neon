@@ -2716,11 +2716,6 @@ parameters:
 			path: app/GraphQL/Queries/MeTest.php
 
 		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/OrgTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\OrgTest\\:\\:testInvoke\\(\\) has parameter \\$organizationCallback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/OrgTest.php

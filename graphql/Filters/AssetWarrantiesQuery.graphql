@@ -4,11 +4,11 @@ input AssetWarrantiesQuery {
     end: Date
     asset: AssetsQuery
     customer_id: ID
-    customer: CustomersQuery
+    customer: CompaniesQuery
     document_id: ID
     document: DocumentsQuery
     reseller_id: ID
-    reseller: ResellersQuery
+    reseller: CompaniesQuery
     service_group_id: ID
     serviceLevels: ServiceLevelsQuery
 }

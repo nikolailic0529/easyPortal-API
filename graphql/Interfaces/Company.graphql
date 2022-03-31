@@ -1,0 +1,8 @@
+interface Company {
+    id: ID!
+    name: String!
+    changed_at: DateTime
+    synced_at: DateTime!
+    kpi: Kpi @orgRelation
+    statuses: [Status!]! @relation
+}
