@@ -115,6 +115,28 @@ class AuthTest extends TestCase {
 
         self::assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::getOrganizationUserPermissions
+     */
+    public function testGetOrganizationUserPermissions(): void {
+        $org  = Organization::factory()->make();
+        $auth = Mockery::mock(Auth::class);
+        $auth->makePartial();
+        $auth
+            ->shouldReceive('getAvailablePermissions')
+            ->with($org)
+            ->once()
+            ->andReturn(['a', 'b', 'c']);
+        $user = Mockery::mock(User::class);
+        $user
+            ->shouldReceive('getOrganizationPermissions')
+            ->with($org)
+            ->once()
+            ->andReturn(['a', 'b', 'd']);
+
+        self::assertEquals(['a', 'b'], $auth->getOrganizationUserPermissions($org, $user));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -174,12 +196,12 @@ class AuthTest extends TestCase {
 
         return [
             'organization'      => [
-                [$b],
+                [$b->getName()],
                 [$a, $b],
                 false,
             ],
             'root organization' => [
-                [$a, $b],
+                [$a->getName(), $b->getName()],
                 [$a, $b],
                 true,
             ],

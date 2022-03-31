@@ -241,10 +241,10 @@ class User extends Model implements
 
     public function getOrganizations(): BaseCollection {
         return $this->organizations
-            ->filter(static function (OrganizationUser $user): bool {
-                return $user->enabled;
-            })
             ->loadMissing('organization')
+            ->filter(function (OrganizationUser $user): bool {
+                return $this->isEnabled($user->organization);
+            })
             ->map(static function (OrganizationUser $user): Organization {
                 return $user->organization;
             });
@@ -258,6 +258,50 @@ class User extends Model implements
      */
     public function getPermissions(): array {
         return $this->permissions ?? [];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setPermissions(array $permissions): bool {
+        $this->permissions = $permissions;
+        $result            = $this->save();
+
+        return $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getOrganizationPermissions(Organization $organization): array {
+        // Organization?
+        if (!$this->isEnabled($organization)) {
+            return [];
+        }
+
+        // Member of Organization?
+        /** @var OrganizationUser|null $member */
+        $member = $this->organizations
+            ->first(static function (OrganizationUser $user) use ($organization): bool {
+                return $user->organization_id === $organization->getKey();
+            });
+        $role   = $member?->role;
+
+        if (!$role) {
+            return [];
+        }
+
+        // Permissions
+        $permissions = $role->permissions
+            ->map(static function (Permission $permission): string {
+                return $permission->key;
+            })
+            ->unique()
+            ->values()
+            ->all();
+
+        // Return
+        return $permissions;
     }
     // </editor-fold>
 

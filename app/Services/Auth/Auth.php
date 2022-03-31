@@ -11,7 +11,7 @@ use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 
-use function array_map;
+use function array_intersect;
 
 class Auth {
     public function __construct(
@@ -52,7 +52,7 @@ class Auth {
     }
 
     /**
-     * @return array<Permission>
+     * @return array<string>
      */
     public function getAvailablePermissions(Organization $organization): array {
         $isRoot      = $this->rootOrganization->is($organization);
@@ -63,7 +63,7 @@ class Auth {
                 continue;
             }
 
-            $permissions[] = $permission;
+            $permissions[] = $permission->getName();
         }
 
         return $permissions;
@@ -72,9 +72,10 @@ class Auth {
     /**
      * @return array<string>
      */
-    public function getAvailablePermissionsNames(Organization $organization): array {
-        $permissions = $this->getAvailablePermissions($organization);
-        $permissions = array_map('strval', $permissions);
+    public function getOrganizationUserPermissions(Organization $organization, User $user): array {
+        $userPermissions = $user->getOrganizationPermissions($organization);
+        $orgPermissions  = $this->getAvailablePermissions($organization);
+        $permissions     = array_intersect($userPermissions, $orgPermissions);
 
         return $permissions;
     }

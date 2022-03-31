@@ -128,4 +128,103 @@ class UserTest extends TestCase {
             $user->getOrganizations()->map(new GetKey())->values()->all(),
         );
     }
+
+    /**
+     * @covers ::getOrganizationPermissions
+     */
+    public function testGetOrganizationPermissions(): void {
+        // Disable unwanted scopes
+        GlobalScopes::setDisabled(
+            OwnedByScope::class,
+            true,
+        );
+
+        // Create
+        $a    = Permission::factory()->create();
+        $b    = Permission::factory()->create();
+        $org  = Organization::factory()->create();
+        $user = User::factory()->create();
+        $role = Role::factory()->create([
+            'organization_id' => $org,
+            'permissions'     => [$a, $b],
+        ]);
+
+        OrganizationUser::factory()->create([
+            'enabled'         => true,
+            'user_id'         => $user,
+            'role_id'         => $role,
+            'organization_id' => $org,
+        ]);
+
+        // Test
+        self::assertEqualsCanonicalizing(
+            [$a->key, $b->key],
+            $user->getOrganizationPermissions($org),
+        );
+    }
+
+    /**
+     * @covers ::getOrganizationPermissions
+     */
+    public function testGetOrganizationPermissionsDisabled(): void {
+        // Disable unwanted scopes
+        GlobalScopes::setDisabled(
+            OwnedByScope::class,
+            true,
+        );
+
+        // Create
+        $a    = Permission::factory()->create();
+        $b    = Permission::factory()->create();
+        $org  = Organization::factory()->create();
+        $user = User::factory()->create();
+        $role = Role::factory()->create([
+            'organization_id' => $org,
+            'permissions'     => [$a, $b],
+        ]);
+
+        OrganizationUser::factory()->create([
+            'enabled'         => false,
+            'user_id'         => $user,
+            'role_id'         => $role,
+            'organization_id' => $org,
+        ]);
+
+        // Test
+        self::assertEquals(
+            [],
+            $user->getOrganizationPermissions($org),
+        );
+    }
+
+    /**
+     * @covers ::getOrganizationPermissions
+     */
+    public function testGetOrganizationPermissionsNoRole(): void {
+        // Disable unwanted scopes
+        GlobalScopes::setDisabled(
+            OwnedByScope::class,
+            true,
+        );
+
+        // Create
+        $org  = Organization::factory()->create();
+        $user = User::factory()->create();
+        $role = Role::factory()->create([
+            'organization_id' => $org,
+        ]);
+
+        OrganizationUser::factory()->create([
+            'enabled'         => true,
+            'user_id'         => $user,
+            'role_id'         => $role,
+            'organization_id' => $org,
+        ]);
+
+        // Test
+        self::assertEquals(
+            [],
+            $user->getOrganizationPermissions($org),
+        );
+    }
 }

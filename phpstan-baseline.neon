@@ -7826,11 +7826,6 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:setPermissionsAttribute\\(\\) has parameter \\$permissions with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Role\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: app/Models/Role.php
@@ -7897,6 +7892,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			count: 1
+			path: app/Models/Role.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Role\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Permission\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Permission\\> given\\.$#"
 			count: 1
 			path: app/Models/Role.php
 

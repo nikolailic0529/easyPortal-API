@@ -56,7 +56,7 @@ class PermissionIdTest extends TestCase {
         if ($org && $value) {
             $this->override(Auth::class, static function (MockInterface $mock) use ($org, $permissions): void {
                 $mock
-                    ->shouldReceive('getAvailablePermissionsNames')
+                    ->shouldReceive('getAvailablePermissions')
                     ->with($org)
                     ->twice()
                     ->andReturn($permissions);

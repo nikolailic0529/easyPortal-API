@@ -34,7 +34,7 @@ class PermissionId implements Rule {
         }
 
         // Permission?
-        $available = $this->auth->getAvailablePermissionsNames($organization);
+        $available = $this->auth->getAvailablePermissions($organization);
         $exists    = Permission::query()
             ->whereKey($value)
             ->whereIn('key', $available)

@@ -198,6 +198,11 @@ class UserProviderTest extends TestCase {
             ->with($user, $token, $org)
             ->once()
             ->andReturn($organization);
+        $provider
+            ->shouldReceive('getPermissions')
+            ->with($user, $token, $organization)
+            ->once()
+            ->andReturn([]);
 
         // Test
         $actual = $provider->getProperties($user, $token, $org);
@@ -329,9 +334,11 @@ class UserProviderTest extends TestCase {
         $org      = Organization::factory()->make();
         $user     = User::factory()->create();
         $token    = $this->getToken();
-        $provider = new class() extends UserProvider {
+        $provider = new class($this->app->make(Auth::class)) extends UserProvider {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Auth $auth,
+            ) {
                 // empty
             }
 
@@ -385,7 +392,7 @@ class UserProviderTest extends TestCase {
 
         $auth = Mockery::mock(Auth::class);
         $auth
-            ->shouldReceive('getAvailablePermissionsNames')
+            ->shouldReceive('getOrganizationUserPermissions')
             ->once()
             ->andReturn([
                 $permissionA->key,
@@ -410,59 +417,6 @@ class UserProviderTest extends TestCase {
 
         self::assertEqualsCanonicalizing(
             [$permissionA->key, $permissionB->key],
-            $provider->getPermissions($user, $token, $org),
-        );
-    }
-
-    /**
-     * @see https://github.com/laravel/framework/issues/43015
-     * @see https://github.com/fakharanwar/easyPortal-API/issues/909
-     *
-     * @covers ::getPermissions
-     */
-    public function testGetPermissionsRoleWithoutPermissions(): void {
-        $org         = Organization::factory()->create();
-        $user        = User::factory()->create();
-        $role        = Role::factory()->create();
-        $permissionA = Permission::factory()->create([
-            'key' => 'permission-a',
-        ]);
-
-        OrganizationUser::factory()->create([
-            'organization_id' => $org,
-            'user_id'         => $user,
-            'role_id'         => $role,
-            'enabled'         => true,
-        ]);
-
-        $auth = Mockery::mock(Auth::class);
-        $auth
-            ->shouldReceive('getAvailablePermissionsNames')
-            ->once()
-            ->andReturn([
-                $permissionA->key,
-            ]);
-        $token    = $this->getToken();
-        $provider = new class($auth) extends UserProvider {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Auth $auth,
-            ) {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
-                return parent::getPermissions($user, $token, $organization);
-            }
-        };
-
-        self::assertEqualsCanonicalizing(
-            [
-                // empty
-            ],
             $provider->getPermissions($user, $token, $org),
         );
     }

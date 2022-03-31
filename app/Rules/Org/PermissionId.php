@@ -26,7 +26,7 @@ class PermissionId implements Rule {
         }
 
         $organization = $this->organization->get();
-        $available    = $this->auth->getAvailablePermissionsNames($organization);
+        $available    = $this->auth->getAvailablePermissions($organization);
         $exists       = Permission::query()
             ->whereKey($value)
             ->whereIn('key', $available)

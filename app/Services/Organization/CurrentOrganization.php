@@ -22,7 +22,7 @@ class CurrentOrganization extends OrganizationProvider {
     public function set(Organization $organization): bool {
         return GlobalScopes::callWithout(OwnedByScope::class, function () use ($organization): bool {
             $result = false;
-            $user   = $this->getUser();
+            $user   = $this->auth->getUser();
 
             if ($user) {
                 $isMember = $user->getOrganizations()
@@ -32,6 +32,14 @@ class CurrentOrganization extends OrganizationProvider {
 
                 if ($isMember) {
                     $result = $user->setOrganization($organization);
+
+                    if ($result) {
+                        $permissions = $this->auth->getOrganizationUserPermissions($organization, $user);
+                        $result      = $user->setPermissions($permissions);
+                    } else {
+                        $user->setOrganization(null);
+                        $user->setPermissions([]);
+                    }
                 }
             }
 
@@ -40,15 +48,6 @@ class CurrentOrganization extends OrganizationProvider {
     }
 
     protected function getCurrent(): ?Organization {
-        return $this->getUser()?->getOrganization();
-    }
-
-    protected function getUser(): ?HasOrganization {
-        $user = $this->auth->getUser();
-        $user = $user instanceof HasOrganization
-            ? $user
-            : null;
-
-        return $user;
+        return $this->auth->getUser()?->getOrganization();
     }
 }

@@ -20,7 +20,7 @@ class Permissions {
      */
     public function __invoke(): Collection {
         $organization = $this->organization->get();
-        $available    = $this->auth->getAvailablePermissionsNames($organization);
+        $available    = $this->auth->getAvailablePermissions($organization);
         $permissions  = Permission::query()
             ->whereIn('key', $available)
             ->get();
