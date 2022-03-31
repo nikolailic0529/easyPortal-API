@@ -25,6 +25,7 @@ class ModelPropertyTest extends TestCase {
      * @covers ::getPath
      * @covers ::isRelation
      * @covers ::isAttribute
+     * @covers ::getFullName
      * @covers ::getRelationName
      * @covers ::getRelationPath
      */
@@ -33,6 +34,7 @@ class ModelPropertyTest extends TestCase {
         $a = new ModelProperty('a');
 
         self::assertEquals('a', $a->getName());
+        self::assertEquals('a', $a->getFullName());
         self::assertEquals(['a'], $a->getPath());
         self::assertTrue($a->isAttribute());
         self::assertFalse($a->isRelation());
@@ -43,6 +45,7 @@ class ModelPropertyTest extends TestCase {
         $b = new ModelProperty('a.b.c');
 
         self::assertEquals('c', $b->getName());
+        self::assertEquals('a.b.c', $b->getFullName());
         self::assertEquals(['a', 'b', 'c'], $b->getPath());
         self::assertTrue($b->isRelation());
         self::assertFalse($b->isAttribute());

@@ -190,6 +190,16 @@ class LoaderTest extends TestCase {
                     ]));
                 },
             ],
+            'self key reference'             => [
+                null,
+                null,
+                static function (): EloquentBuilder {
+                    return LoaderTest_ModelWithSelfKeyReference::query();
+                },
+                static function (): Organization {
+                    return Organization::factory()->make();
+                },
+            ],
             'without select without parents' => [
                 [
                     'query'    => <<<'SQL'
@@ -502,5 +512,24 @@ class LoaderTest_ModelWithScopeRelationSupported extends Model implements OwnedB
             'parentKey',
             'relatedKey',
         );
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class LoaderTest_ModelWithSelfKeyReference extends Model implements OwnedByOrganization {
+    use OwnedByOrganizationImpl;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $table = 'model_with_self_key_reference';
+
+    public static function getOwnedByOrganizationColumn(): string {
+        return (new static())->getKeyName();
     }
 }

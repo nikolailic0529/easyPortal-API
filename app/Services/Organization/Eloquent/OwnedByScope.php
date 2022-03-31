@@ -44,7 +44,7 @@ class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
         }
 
         // Hide data related to another organization
-        $property     = $this->getProperty($this->organization, $model);
+        $property     = $this::getProperty($this->organization, $model);
         $organization = $this->organization->getKey();
 
         if ($property === null) {

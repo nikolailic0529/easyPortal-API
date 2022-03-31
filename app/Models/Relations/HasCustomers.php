@@ -7,22 +7,26 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 
 use function count;
 
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
- * @property Collection<string, TPivot> $customersPivots
+ * @property-read Collection<int, Customer> $customers
+ * @property BaseCollection<string, TPivot> $customersPivots
  *
  * @mixin Model
  */
 trait HasCustomers {
     use SyncBelongsToMany;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     #[CascadeDelete(false)]
     public function customers(): BelongsToMany {
         $pivot = $this->getCustomersPivot();
@@ -46,9 +50,9 @@ trait HasCustomers {
     }
 
     /**
-     * @param array<string,TPivot>|Collection<string,TPivot> $customers
+     * @param array<string,TPivot>|BaseCollection<string,TPivot> $customers
      */
-    public function setCustomersPivotsAttribute(Collection|array $customers): void {
+    public function setCustomersPivotsAttribute(BaseCollection|array $customers): void {
         $this->syncBelongsToManyPivots('customers', $customers);
         $this->customers_count = count($customers);
     }
@@ -57,4 +61,5 @@ trait HasCustomers {
      * @return TPivot
      */
     abstract protected function getCustomersPivot(): Pivot;
+    // </editor-fold>
 }

@@ -546,11 +546,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/Loader.php
 
 		-
-			message: "#^Cannot call method toBase\\(\\) on Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/Loader.php
-
-		-
 			message: "#^Cannot call static method query\\(\\) on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/Loader.php
@@ -628,6 +623,11 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$parents of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\Loader\\:\\:getQuery\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null, array\\{\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\LoaderTest_ModelWithoutScope\\>\\|null given\\.$#"
 			count: 2
+			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
 		-
@@ -7701,6 +7701,11 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Reseller.php
+
+		-
 			message: "#^Method App\\\\Models\\\\ResellerCustomer\\:\\:kpi\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/ResellerCustomer.php
@@ -12937,11 +12942,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereRaw\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByScope.php
-
-		-
-			message: "#^Dynamic call to static method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getProperty\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Organization/Eloquent/OwnedByScope.php
 

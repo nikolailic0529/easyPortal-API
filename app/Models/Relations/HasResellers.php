@@ -7,14 +7,16 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * @template TPivot of \App\Utils\Eloquent\Pivot
  *
- * @property Collection<string,TPivot> $resellersPivots
+ * @property-read Collection<int, Reseller> $resellers
+ * @property BaseCollection<string,TPivot>  $resellersPivots
  *
  * @mixin Model
  */
@@ -51,9 +53,9 @@ trait HasResellers {
     }
 
     /**
-     * @param array<string,TPivot>|Collection<string,TPivot> $resellers
+     * @param array<string,TPivot>|BaseCollection<string,TPivot> $resellers
      */
-    public function setResellersPivotsAttribute(Collection|array $resellers): void {
+    public function setResellersPivotsAttribute(BaseCollection|array $resellers): void {
         $this->syncBelongsToManyPivots('resellers', $resellers);
     }
 

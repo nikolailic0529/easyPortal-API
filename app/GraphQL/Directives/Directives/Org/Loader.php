@@ -60,13 +60,17 @@ class Loader implements ModelsLoader {
         }
 
         // Load
-        $builder  = $parents->first()::query();
-        $owner    = $this->getOwner();
-        $values   = $this->getQuery($builder, $parents)->toBase()->get()->keyBy($owner);
+        $builder = $parents->first()::query();
+        $builder = $this->getQuery($builder, $parents);
+
+        if ($builder === null) {
+            return;
+        }
+
+        $values   = $builder->toBase()->get()->keyBy($this->getOwner());
         $property = $this->getProperty();
 
         foreach ($parents as $parent) {
-            /** @var Model $parent */
             $value = $values->get($parent->getKey());
             $value = $value instanceof stdClass
                 ? ($value->{$property} ?? null)
@@ -108,6 +112,10 @@ class Loader implements ModelsLoader {
                 'Property `%s` is not supported.',
                 $this->getProperty(),
             ));
+        }
+
+        if ($property->getFullName() === $model->getKeyName()) {
+            return null;
         }
 
         // Relation?
