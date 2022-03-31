@@ -8,7 +8,6 @@ use App\Models\OrganizationUser;
 use App\Models\Permission;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
@@ -30,8 +29,6 @@ use function array_keys;
 use function sprintf;
 
 class UserProvider implements UserProviderContract {
-    use AvailablePermissions;
-
     public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
     public const    CREDENTIAL_ORGANIZATION     = 'organization';
     public const    CREDENTIAL_PASSWORD         = 'password';
@@ -431,7 +428,7 @@ class UserProvider implements UserProviderContract {
             }
 
             // Available permissions
-            $available   = $this->getAvailablePermissions($organization);
+            $available   = $this->getAuth()->getAvailablePermissionsNames($organization);
             $permissions = $role->permissions
                 ->toBase()
                 ->map(static function (Permission $permission): string {

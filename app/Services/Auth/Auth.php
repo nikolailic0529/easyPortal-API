@@ -11,6 +11,8 @@ use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 
+use function array_map;
+
 class Auth {
     public function __construct(
         protected Factory $auth,
@@ -63,6 +65,16 @@ class Auth {
 
             $permissions[] = $permission;
         }
+
+        return $permissions;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getAvailablePermissionsNames(Organization $organization): array {
+        $permissions = $this->getAvailablePermissions($organization);
+        $permissions = array_map('strval', $permissions);
 
         return $permissions;
     }

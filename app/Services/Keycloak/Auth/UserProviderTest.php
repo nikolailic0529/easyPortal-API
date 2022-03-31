@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Models\RolePermission;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
@@ -263,8 +262,8 @@ class UserProviderTest extends TestCase {
      *
      * @dataProvider dataProviderGetOrganization
      *
-     * @param Closure(static, string, Organization, User): array<mixed>  $claimsFactory
-     * @param Closure(static, Organization): ?Organization               $organizationFactory
+     * @param Closure(static, string, Organization, User): array<mixed> $claimsFactory
+     * @param Closure(static, Organization): ?Organization              $organizationFactory
      */
     public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
         $org      = Organization::factory()->create([
@@ -386,15 +385,11 @@ class UserProviderTest extends TestCase {
 
         $auth = Mockery::mock(Auth::class);
         $auth
-            ->shouldReceive('getAvailablePermissions')
+            ->shouldReceive('getAvailablePermissionsNames')
             ->once()
             ->andReturn([
-                new class($permissionA->key) extends AuthPermission {
-                    // empty
-                },
-                new class($permissionB->key) extends AuthPermission {
-                    // empty
-                },
+                $permissionA->key,
+                $permissionB->key,
             ]);
         $token    = $this->getToken();
         $provider = new class($auth) extends UserProvider {
@@ -442,12 +437,10 @@ class UserProviderTest extends TestCase {
 
         $auth = Mockery::mock(Auth::class);
         $auth
-            ->shouldReceive('getAvailablePermissions')
+            ->shouldReceive('getAvailablePermissionsNames')
             ->once()
             ->andReturn([
-                new class($permissionA->key) extends AuthPermission {
-                    // empty
-                },
+                $permissionA->key,
             ]);
         $token    = $this->getToken();
         $provider = new class($auth) extends UserProvider {
