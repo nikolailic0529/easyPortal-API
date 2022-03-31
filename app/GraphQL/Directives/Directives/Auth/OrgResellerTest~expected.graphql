@@ -1,7 +1,7 @@
 type Query {
     """
     @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-    the organization must be a Reseller.
+    the organization must be a Reseller (or a root organization).
     """
     value: Test!
     @authOrgReseller
@@ -12,35 +12,35 @@ type Query {
 Description.
 
 @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-the organization must be a Reseller.
+the organization must be a Reseller (or a root organization).
 """
 type Test
 @authOrgReseller
 {
     """
     @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-    the organization must be a Reseller.
+    the organization must be a Reseller (or a root organization).
     """
     extension: String!
     @authOrgReseller
 
     """
     @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-    the organization must be a Reseller.
+    the organization must be a Reseller (or a root organization).
     """
     extensionRoot: String!
     @authOrgReseller
 
     """
     @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-    the organization must be a Reseller.
+    the organization must be a Reseller (or a root organization).
     """
     one: String!
     @authOrgReseller
 
     """
     @require <authOrgReseller> Authenticated user must be a member of the current organization, and
-    the organization must be a Reseller.
+    the organization must be a Reseller (or a root organization).
     """
     two: String!
     @authOrgReseller
@@ -48,7 +48,7 @@ type Test
 
 """
 Authenticated user must be a member of the current organization, and
-the organization must be a Reseller.
+the organization must be a Reseller (or a root organization).
 """
 directive @authOrgReseller
 on

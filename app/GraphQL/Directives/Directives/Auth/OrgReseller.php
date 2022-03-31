@@ -10,7 +10,7 @@ abstract class OrgReseller extends Org {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
             Authenticated user must be a member of the current organization, and
-            the organization must be a Reseller.
+            the organization must be a Reseller (or a root organization).
             """
             directive @authOrgReseller on FIELD_DEFINITION | OBJECT
             GRAPHQL;
@@ -18,6 +18,6 @@ abstract class OrgReseller extends Org {
 
     protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
         return parent::isAuthorized($user, $root)
-            && $this->organization->getType() === OrganizationType::reseller();
+            && ($this->organization->isRoot() || $this->organization->getType() === OrganizationType::reseller());
     }
 }

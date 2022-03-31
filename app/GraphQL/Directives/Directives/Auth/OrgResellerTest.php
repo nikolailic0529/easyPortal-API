@@ -126,6 +126,48 @@ class OrgResellerTest extends TestCase {
                 },
                 true,
             ],
+            'organization not reseller - user'                   => [
+                new GraphQLUnauthorized('value'),
+                static function () {
+                    $org = Organization::factory()->make();
+
+                    $org->mergeCasts([
+                        'type' => OrgResellerTest_OrganizationType::class,
+                    ]);
+
+                    $org->type = 'Unknown'; // @phpstan-ignore-line special for test
+                    $org->save();
+
+                    return $org;
+                },
+                static function (TestCase $test, ?Organization $organization) {
+                    return User::factory()->create([
+                        'organization_id' => $organization,
+                    ]);
+                },
+                false,
+            ],
+            'root organization - not reseller - user'            => [
+                new GraphQLSuccess('value'),
+                static function () {
+                    $org = Organization::factory()->make();
+
+                    $org->mergeCasts([
+                        'type' => OrgResellerTest_OrganizationType::class,
+                    ]);
+
+                    $org->type = 'Unknown'; // @phpstan-ignore-line special for test
+                    $org->save();
+
+                    return $org;
+                },
+                static function (TestCase $test, ?Organization $organization) {
+                    return User::factory()->create([
+                        'organization_id' => $organization,
+                    ]);
+                },
+                true,
+            ],
             'organization - user from another organization'      => [
                 new GraphQLUnauthorized('value'),
                 static function () {
@@ -167,4 +209,17 @@ class OrgResellerTest extends TestCase {
         ];
     }
     // </editor-fold>
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class OrgResellerTest_OrganizationType extends OrganizationType {
+    public static function unknown(): static {
+        return static::make('Unknown');
+    }
 }
