@@ -10739,7 +10739,8 @@ type Query {
     """
     Customer.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10747,7 +10748,7 @@ type Query {
         id: ID!
         @eq
     ): Customer
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10776,7 +10777,8 @@ type Query {
     """
     List of all possible customer statuses.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10784,7 +10786,7 @@ type Query {
         where: SearchByConditionCustomerStatusesQuery
         @searchBy
     ): [Status!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10796,7 +10798,8 @@ type Query {
     """
     List of Customers.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10822,14 +10825,15 @@ type Query {
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): [Customer!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10837,7 +10841,7 @@ type Query {
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): CustomersAggregated
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10846,7 +10850,8 @@ type Query {
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10872,14 +10877,15 @@ type Query {
         search: SearchString!
         @search
     ): [Customer!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10887,7 +10893,7 @@ type Query {
         search: SearchString!
         @search
     ): CustomersSearchAggregated
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -12383,6 +12389,15 @@ repeatable on
 Authenticated user must be a member of the current organization.
 """
 directive @authOrg
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Authenticated user must be a member of the current organization, and
+the organization must be a Reseller (or a root organization).
+"""
+directive @authOrgReseller
 on
     | FIELD_DEFINITION
     | OBJECT

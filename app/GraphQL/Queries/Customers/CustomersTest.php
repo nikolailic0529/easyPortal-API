@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
@@ -180,7 +180,7 @@ class CustomersTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customers'),
+                new AuthOrgResellerDataProvider('customers'),
                 new OrgUserDataProvider('customers', [
                     'customers-view',
                 ]),

@@ -28,7 +28,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -1001,7 +1001,7 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new AuthOrgResellerDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
@@ -1442,7 +1442,7 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customer'),
+                new AuthOrgResellerDataProvider('customer'),
                 new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
@@ -1734,7 +1734,7 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new AuthOrgResellerDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
@@ -2568,7 +2568,7 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new AuthOrgResellerDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
@@ -2780,7 +2780,7 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new AuthOrgResellerDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
             new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
@@ -2971,7 +2971,7 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new AuthOrgResellerDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
             new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
