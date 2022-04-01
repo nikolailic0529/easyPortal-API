@@ -4,33 +4,11 @@ namespace App\Console;
 
 use App\Console\Commands\TestCommand;
 use App\Dev\IdeHelper\ModelsCommand;
-use App\Services\DataLoader\Commands\AssetsAnalyze;
-use App\Services\DataLoader\Commands\AssetsCount;
-use App\Services\DataLoader\Commands\AssetsImport;
-use App\Services\DataLoader\Commands\AssetUpdate;
-use App\Services\DataLoader\Commands\CustomersImport;
-use App\Services\DataLoader\Commands\CustomerUpdate;
-use App\Services\DataLoader\Commands\DistributorsImport;
-use App\Services\DataLoader\Commands\DistributorUpdate;
-use App\Services\DataLoader\Commands\DocumentsImport;
-use App\Services\DataLoader\Commands\DocumentUpdate;
-use App\Services\DataLoader\Commands\OemsImport;
-use App\Services\DataLoader\Commands\ResellersImport;
-use App\Services\DataLoader\Commands\ResellerUpdate;
-use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
-use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
-use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
-use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;
+
 use function base_path;
 
 class Kernel extends ConsoleKernel {
@@ -44,21 +22,6 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
-        // App
-        DistributorsImport::class,
-        ResellersImport::class,
-        CustomersImport::class,
-        DocumentsImport::class,
-        AssetsImport::class,
-        OemsImport::class,
-        DistributorUpdate::class,
-        ResellerUpdate::class,
-        CustomerUpdate::class,
-        DocumentUpdate::class,
-        AssetUpdate::class,
-        AssetsCount::class,
-        AssetsAnalyze::class,
-
         // Dev
         ModelsCommand::class,
         TestCommand::class,
@@ -71,16 +34,6 @@ class Kernel extends ConsoleKernel {
      */
     protected array $schedule = [
         QueueSnapshotCronJob::class,
-        DistributorsImporterCronJob::class,
-        DistributorsUpdaterCronJob::class,
-        ResellersImporterCronJob::class,
-        ResellersUpdaterCronJob::class,
-        CustomersImporterCronJob::class,
-        CustomersUpdaterCronJob::class,
-        DocumentsImporterCronJob::class,
-        DocumentsUpdaterCronJob::class,
-        AssetsImporterCronJob::class,
-        AssetsUpdaterCronJob::class,
     ];
 
     /**

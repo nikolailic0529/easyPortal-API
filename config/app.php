@@ -190,6 +190,7 @@ return [
         App\Services\Search\Provider::class,
         App\Services\Recalculator\Provider::class,
         App\Services\Keycloak\Provider::class,
+        App\Services\DataLoader\Provider::class,
     ],
 
     /*
