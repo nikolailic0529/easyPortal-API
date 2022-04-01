@@ -14,7 +14,7 @@ use function app;
 use function count;
 
 /**
- * @template T of \App\Utils\Eloquent\Model
+ * @template TPivot of \App\Utils\Eloquent\Model
  *
  * @property int $locations_count
  *
@@ -23,6 +23,9 @@ use function count;
 trait HasLocations {
     use SyncHasMany;
 
+    /**
+     * @return HasMany<TPivot>
+     */
     #[CascadeDelete(true)]
     public function locations(): HasMany {
         return $this->hasMany(
@@ -32,13 +35,16 @@ trait HasLocations {
     }
 
     /**
-     * @param Collection<int,T>|array<T> $locations
+     * @param Collection<int,TPivot>|array<TPivot> $locations
      */
     public function setLocationsAttribute(Collection|array $locations): void {
         $this->syncHasMany('locations', $locations);
         $this->locations_count = count($locations);
     }
 
+    /**
+     * @return HasOne<TPivot>
+     */
     #[CascadeDelete(false)]
     public function headquarter(): HasOne {
         $type = (array) app()->make(Repository::class)->get('ep.headquarter_type');
@@ -54,7 +60,7 @@ trait HasLocations {
     }
 
     /**
-     * @return T
+     * @return TPivot
      */
     abstract protected function getLocationsModel(): Model;
 

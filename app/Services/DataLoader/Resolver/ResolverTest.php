@@ -51,25 +51,18 @@ class ResolverTest extends TestCase {
         self::assertNotNull($provider->resolve(
             $key,
             static function () use ($key): Model {
-                return new class($key) extends Model {
-                    /** @noinspection PhpMissingParentConstructorInspection */
-                    public function __construct(string $key) {
-                        $this->setAttribute($this->getKeyName(), $key);
-                    }
-                };
+                return (new class() extends Model {
+                    // empty
+                })->setKey($key);
             },
         ));
         self::assertNotNull($provider->resolve($key));
 
         // If resolver(s) passed it will be used to create model
         $uuid  = $this->faker->uuid();
-        $value = new class($uuid) extends Model {
-            public function __construct(string $key) {
-                parent::__construct();
-
-                $this->setAttribute($this->getKeyName(), $key);
-            }
-        };
+        $value = (new class() extends Model {
+            // empty
+        })->setKey($uuid);
 
         self::assertSame($value, $provider->resolve(
             $uuid,
@@ -177,12 +170,9 @@ class ResolverTest extends TestCase {
                 }
             },
         ]);
-        $model      = new class($keys['a']) extends Model {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(string $uuid = null) {
-                $this->setAttribute($this->getKeyName(), $uuid);
-            }
-        };
+        $model      = (new class() extends Model {
+            // empty
+        })->setKey($keys['a']);
         $items      = new EloquentCollection([$model]);
         $builder    = Mockery::mock($model->query());
         $builder->makePartial();

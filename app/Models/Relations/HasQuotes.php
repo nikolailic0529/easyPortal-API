@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 trait HasQuotes {
     use HasDocuments;
 
+    /**
+     * @return HasMany<Document>
+     */
     #[CascadeDelete(false)]
     public function quotes(): HasMany {
         return $this

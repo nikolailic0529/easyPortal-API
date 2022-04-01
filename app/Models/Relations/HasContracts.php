@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 trait HasContracts {
     use HasDocuments;
 
+    /**
+     * @return HasMany<Document>
+     */
     #[CascadeDelete(false)]
     public function contracts(): HasMany {
         return $this

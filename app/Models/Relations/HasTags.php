@@ -16,6 +16,9 @@ use Illuminate\Support\Collection;
 trait HasTags {
     use SyncBelongsToMany;
 
+    /**
+     * @return BelongsToMany<Tag>
+     */
     #[CascadeDelete(true)]
     public function tags(): BelongsToMany {
         $pivot = $this->getTagsPivot();

@@ -2,9 +2,10 @@
 
 namespace App\Utils\Eloquent;
 
+use App\Utils\Eloquent\Contracts\Constructor;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
-abstract class Model extends LaraASPModel {
+abstract class Model extends LaraASPModel implements Constructor {
     use ModelTraits;
 
     protected const CASTS = [

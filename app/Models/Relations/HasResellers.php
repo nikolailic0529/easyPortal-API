@@ -25,6 +25,9 @@ trait HasResellers {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    /**
+     * @return BelongsToMany<Reseller>
+     */
     #[CascadeDelete(false)]
     public function resellers(): BelongsToMany {
         $pivot = $this->getResellersPivot();
@@ -41,6 +44,9 @@ trait HasResellers {
             ->withTimestamps();
     }
 
+    /**
+     * @return HasMany<TPivot>
+     */
     #[CascadeDelete(true)]
     public function resellersPivots(): HasMany {
         $resellers = $this->resellers();

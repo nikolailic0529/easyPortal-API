@@ -263,7 +263,9 @@ class UpdateTest extends TestCase {
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $organization = $organization->fresh();
+            self::assertNotNull($organization);
+
+            $organization = $organization->refresh();
 
             self::assertEquals($data['locale'], $organization->locale);
             self::assertEquals($data['currency_id'], $organization->currency_id);

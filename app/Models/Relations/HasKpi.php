@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasKpi {
+    /**
+     * @return BelongsTo<Kpi, self>
+     */
     #[CascadeDelete(true)]
     public function kpi(): BelongsTo {
         return $this->belongsTo(Kpi::class);

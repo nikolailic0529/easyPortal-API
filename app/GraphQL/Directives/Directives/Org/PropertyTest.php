@@ -396,7 +396,7 @@ class PropertyTest_ModelWithScopeRelationUnsupported extends Model implements Ow
     }
 
     /**
-     * @return BelongsTo<static>
+     * @return BelongsTo<self, self>
      */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);

@@ -26,20 +26,17 @@ class AuditContext {
 
         if (isset($context['properties']) && !$this->gate->check('administer')) {
             $model                 = Relation::getMorphedModel($audit->object_type) ?? $audit->object_type;
-            $context['properties'] = (new class(new $model()) extends Model {
-                public function __construct(
-                    protected Model $model,
-                ) {
-                    parent::__construct();
-                }
-
+            $model                 = new $model();
+            $context['properties'] = (new class() extends Model {
                 /**
-                 * @inheritDoc
+                 * @param array<mixed> $values
+                 *
+                 * @return array<mixed>
                  */
-                public function getArrayableItems(array $values): array {
-                    return $this->model->getArrayableItems($values);
+                public function getModelArrayableItems(Model $model, array $values): array {
+                    return $model->getArrayableItems($values);
                 }
-            })->getArrayableItems($context['properties']);
+            })->getModelArrayableItems($model, $context['properties']);
         }
 
         return json_encode($context);

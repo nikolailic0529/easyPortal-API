@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasLocation {
+    /**
+     * @return BelongsTo<Location, self>
+     */
     #[CascadeDelete(false)]
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);

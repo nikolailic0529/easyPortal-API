@@ -14,6 +14,9 @@ use function sprintf;
  * @mixin Model
  */
 trait HasTypeNullable {
+    /**
+     * @return BelongsTo<Type, self>
+     */
     #[CascadeDelete(false)]
     public function type(): BelongsTo {
         return $this->belongsTo(Type::class);

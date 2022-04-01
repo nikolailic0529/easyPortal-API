@@ -11,6 +11,9 @@ use Illuminate\Support\Collection;
 trait HasFiles {
     use SyncMorphMany;
 
+    /**
+     * @return MorphMany<File>
+     */
     #[CascadeDelete(true)]
     public function files(): MorphMany {
         return $this->morphMany(File::class, 'object');

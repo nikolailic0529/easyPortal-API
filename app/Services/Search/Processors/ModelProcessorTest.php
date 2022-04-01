@@ -475,7 +475,7 @@ class ModelProcessorTest extends TestCase {
             protected $table = 'test_models';
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(array $attributes = []) {
                 // empty
             }
 

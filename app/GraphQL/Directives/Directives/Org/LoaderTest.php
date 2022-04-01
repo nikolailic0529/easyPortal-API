@@ -10,6 +10,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
+use App\Utils\Eloquent\Contracts\Constructor;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -475,7 +476,7 @@ class LoaderTest_ModelWithScopeRelationUnsupported extends Model implements Owne
     }
 
     /**
-     * @return BelongsTo<static>
+     * @return BelongsTo<self, self>
      */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);
@@ -519,7 +520,7 @@ class LoaderTest_ModelWithScopeRelationSupported extends Model implements OwnedB
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class LoaderTest_ModelWithSelfKeyReference extends Model implements OwnedByOrganization {
+class LoaderTest_ModelWithSelfKeyReference extends Model implements OwnedByOrganization, Constructor {
     use OwnedByOrganizationImpl;
 
     /**

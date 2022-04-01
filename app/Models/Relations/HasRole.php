@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasRole {
+    /**
+     * @return BelongsTo<Role, self>
+     */
     #[CascadeDelete(false)]
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);

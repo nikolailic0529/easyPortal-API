@@ -19,6 +19,9 @@ use function count;
 trait HasContacts {
     use SyncMorphMany;
 
+    /**
+     * @return MorphMany<Contact>
+     */
     #[CascadeDelete(true)]
     public function contacts(): MorphMany {
         return $this->morphMany(Contact::class, 'object');

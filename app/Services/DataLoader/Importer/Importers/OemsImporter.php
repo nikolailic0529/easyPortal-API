@@ -89,23 +89,17 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         $serviceLevel = $this->getServiceLevel($oem, $serviceGroup, $parsed);
 
         // Save translations (temporary implementation)
-        $helper = new class($serviceLevel) extends ServiceLevel {
-            public function __construct(
-                protected ServiceLevel $model,
-            ) {
-                parent::__construct();
-            }
-
+        $helper = new class() extends ServiceLevel {
             /**
-             * @inheritDoc
+             * @return array<string>
              */
-            public function getTranslatableProperties(): array {
-                return $this->model->getTranslatableProperties();
+            public function getModelTranslatableProperties(ServiceLevel $model): array {
+                return $model->getTranslatableProperties();
             }
 
-            public function getTranslatedPropertyKey(string $property): string {
-                $keys = $this->model->getTranslatedPropertyKeys($property);
-                $key  = reset($keys);
+            public function getModelTranslatedPropertyKey(ServiceLevel $model, string $property): ?string {
+                $keys = $model->getTranslatedPropertyKeys($property);
+                $key  = reset($keys) ?: null;
 
                 return $key;
             }
@@ -114,9 +108,13 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
             $translations = [];
 
-            foreach ($helper->getTranslatableProperties() as $property) {
+            foreach ($helper->getModelTranslatableProperties($serviceLevel) as $property) {
                 if (isset($properties[$property]) && $properties[$property]) {
-                    $translations[$helper->getTranslatedPropertyKey($property)] = $properties[$property];
+                    $translation = $helper->getModelTranslatedPropertyKey($serviceLevel, $property);
+
+                    if ($translation) {
+                        $translations[$translation] = $properties[$property];
+                    }
                 }
             }
 
@@ -287,12 +285,12 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         // Create
         $created = false;
         $factory = static function (ServiceGroup $group) use (&$created, $oem, $parsed): ServiceGroup {
-            $sku          = $parsed->serviceGroup->sku;
-            $created      = !$group->exists;
-            $group->key ??= "{$oem->getTranslatableKey()}/{$sku}";
-            $group->oem   = $oem;
-            $group->sku   = $sku;
-            $group->name  = $parsed->serviceGroup->name;
+            $sku         = $parsed->serviceGroup->sku;
+            $created     = !$group->exists;
+            $group->key  ??= "{$oem->getTranslatableKey()}/{$sku}";
+            $group->oem  = $oem;
+            $group->sku  = $sku;
+            $group->name = $parsed->serviceGroup->name;
 
             $group->save();
 
@@ -321,7 +319,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         $factory = static function (ServiceLevel $level) use (&$created, $oem, $group, $parsed): ServiceLevel {
             $sku                 = $parsed->serviceLevel->sku;
             $created             = !$level->exists;
-            $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
+            $level->key          ??= "{$group->getTranslatableKey()}/{$sku}";
             $level->oem          = $oem;
             $level->sku          = $sku;
             $level->name         = $parsed->serviceLevel->name ?? $sku;

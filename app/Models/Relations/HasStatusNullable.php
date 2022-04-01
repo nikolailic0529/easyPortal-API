@@ -14,6 +14,9 @@ use function sprintf;
  * @mixin Model
  */
 trait HasStatusNullable {
+    /**
+     * @return BelongsTo<Status, self>
+     */
     #[CascadeDelete(false)]
     public function status(): BelongsTo {
         return $this->belongsTo(Status::class);
