@@ -367,6 +367,9 @@ class SearchableImplTest extends TestCase {
             ->once()
             ->andReturn($engine);
 
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
+
+        // Test
         $model->queueMakeSearchable(new Collection([$model]));
     }
 
@@ -393,6 +396,8 @@ class SearchableImplTest extends TestCase {
                 ->with($models)
                 ->once();
         });
+
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
 
         // Test
         $model->queueRemoveFromSearch($models);

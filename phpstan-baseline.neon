@@ -246,11 +246,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
@@ -272,11 +267,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
 
@@ -306,17 +296,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
 
 		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:makeSearchable\\(\\)$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
@@ -346,11 +326,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
@@ -367,11 +342,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
@@ -3881,11 +3851,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetsAggregatedTest.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
@@ -3907,11 +3872,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
@@ -3952,7 +3912,7 @@ parameters:
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:makeSearchable\\(\\)$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
 		-
@@ -4106,11 +4066,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsSearch.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
@@ -4132,11 +4087,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
@@ -4177,7 +4127,7 @@ parameters:
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:makeSearchable\\(\\)$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
 		-
@@ -4331,11 +4281,6 @@ parameters:
 			path: app/GraphQL/Queries/Customers/CustomersAggregatedTest.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
@@ -4357,11 +4302,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
 
@@ -4402,7 +4342,7 @@ parameters:
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:makeSearchable\\(\\)$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
 
 		-
@@ -4796,11 +4736,6 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesSearch.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
@@ -4822,11 +4757,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
@@ -4867,7 +4797,7 @@ parameters:
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:makeSearchable\\(\\)$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
 		-
@@ -4891,11 +4821,6 @@ parameters:
 			path: app/GraphQL/Queries/Search.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
@@ -4917,11 +4842,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
 
@@ -4962,7 +4882,7 @@ parameters:
 
 		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:makeSearchable\\(\\)$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
 
 		-
@@ -12811,11 +12731,6 @@ parameters:
 			path: app/Services/Search/Builders/Builder.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
@@ -12837,11 +12752,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -12872,11 +12782,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, App\\\\Models\\\\Customer given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -13201,12 +13106,12 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:431\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:431\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -13226,27 +13131,27 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:462\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:462\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:462\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:501\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:501\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -13291,17 +13196,17 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:431\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:462\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:501\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -13336,17 +13241,17 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:431\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:462\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:501\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -13496,11 +13401,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -13552,11 +13452,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:makeSearchable\\(\\) should return T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) but returns App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\|\\(T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\)\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -13712,11 +13607,6 @@ parameters:
 
 		-
 			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:160\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Unable to resolve the template type T in call to method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 

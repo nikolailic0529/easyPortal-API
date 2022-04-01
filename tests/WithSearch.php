@@ -3,7 +3,6 @@
 namespace Tests;
 
 use App\Services\Search\Eloquent\Searchable;
-use App\Utils\Eloquent\Model;
 use Elasticsearch\Client;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -61,15 +60,14 @@ trait WithSearch {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @template T of (Model&Searchable)|Collection<Model&Searchable>
+     * @template T of Searchable|Collection<array-key, Searchable>
      *
      * @param T $models
      *
      * @return T
      */
-    protected function makeSearchable(Collection|Model $models): Collection|Model {
-        if ($models instanceof Model) {
-            /** @var Searchable $models */
+    protected function makeSearchable(Collection|Searchable $models): Collection|Searchable {
+        if ($models instanceof Searchable) {
             $config   = $models->getSearchConfiguration();
             $index    = $config->getIndexName();
             $alias    = $config->getIndexAlias();
