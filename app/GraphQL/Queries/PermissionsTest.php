@@ -4,9 +4,9 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Organization;
 use App\Models\Permission;
+use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
-use App\Services\Auth\Permissions\Markers\IsRoot;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
