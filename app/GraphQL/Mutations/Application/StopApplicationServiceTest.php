@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -87,8 +87,8 @@ class StopApplicationServiceTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('stopApplicationService'),
-            new RootUserDataProvider('stopApplicationService'),
+            new AuthOrgRootDataProvider('stopApplicationService'),
+            new AuthRootDataProvider('stopApplicationService'),
             new ArrayDataProvider([
                 'no service' => [
                     new GraphQLError('stopApplicationService', new ServiceNotFound('unknown-service')),

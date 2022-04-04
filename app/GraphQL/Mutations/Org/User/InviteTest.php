@@ -20,8 +20,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
@@ -165,8 +165,8 @@ class InviteTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('org'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([

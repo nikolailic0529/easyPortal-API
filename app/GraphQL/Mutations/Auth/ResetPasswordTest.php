@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -89,8 +89,8 @@ class ResetPasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
-            new GuestDataProvider('resetPassword'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('resetPassword'),
             new ArrayDataProvider([
                 'no user'                              => [
                     new GraphQLSuccess('resetPassword', self::class, [

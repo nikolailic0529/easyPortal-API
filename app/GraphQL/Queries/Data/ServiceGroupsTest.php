@@ -8,8 +8,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -57,8 +57,8 @@ class ServiceGroupsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('serviceGroups'),
-            new UserDataProvider('serviceGroups'),
+            new AuthOrgDataProvider('serviceGroups'),
+            new AuthMeDataProvider('serviceGroups'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('serviceGroups', self::class, [

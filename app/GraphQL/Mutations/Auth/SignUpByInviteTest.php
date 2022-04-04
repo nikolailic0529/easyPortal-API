@@ -16,8 +16,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -100,8 +100,8 @@ class SignUpByInviteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
-            new GuestDataProvider('auth'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('auth'),
             new ArrayDataProvider([
                 'ok'                                                                      => [
                     new GraphQLSuccess(

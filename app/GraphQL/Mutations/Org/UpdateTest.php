@@ -13,8 +13,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -385,8 +385,8 @@ class UpdateTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([

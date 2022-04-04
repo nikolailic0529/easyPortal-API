@@ -9,8 +9,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -76,8 +76,8 @@ class CitiesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('cities'),
-            new UserDataProvider('cities'),
+            new AuthOrgDataProvider('cities'),
+            new AuthMeDataProvider('cities'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('cities', self::class, [

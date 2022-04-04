@@ -11,8 +11,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
@@ -74,8 +74,8 @@ class DeleteContractNoteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('deleteContractNote'),
-                new OrganizationUserDataProvider('deleteContractNote', [
+                new AuthOrgDataProvider('deleteContractNote'),
+                new OrgUserDataProvider('deleteContractNote', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -112,8 +112,8 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('deleteContractNote'),
-                new OrganizationUserDataProvider('deleteContractNote', [
+                new AuthOrgDataProvider('deleteContractNote'),
+                new OrgUserDataProvider('deleteContractNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -150,8 +150,8 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('deleteContractNote'),
-                new OrganizationUserDataProvider('deleteContractNote', [
+                new AuthOrgDataProvider('deleteContractNote'),
+                new OrgUserDataProvider('deleteContractNote', [
                     'org-administer',
                 ]),
                 new ArrayDataProvider([

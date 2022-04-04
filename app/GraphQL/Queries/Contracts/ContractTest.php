@@ -28,9 +28,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
@@ -307,8 +307,8 @@ class ContractTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -321,8 +321,8 @@ class ContractTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -351,8 +351,8 @@ class ContractTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -784,8 +784,8 @@ class ContractTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -798,8 +798,8 @@ class ContractTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -828,8 +828,8 @@ class ContractTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contract', [
+                new AuthOrgDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

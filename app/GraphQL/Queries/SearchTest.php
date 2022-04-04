@@ -15,9 +15,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 use Tests\WithSearch;
@@ -220,8 +220,8 @@ class SearchTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgRootDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'customers-view', 'assets-view', 'quotes-view', 'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -244,8 +244,8 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'customers-view', 'assets-view', 'quotes-view', 'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -292,8 +292,8 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -340,8 +340,8 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'assets-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
@@ -388,8 +388,8 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'quotes-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -436,8 +436,8 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'contracts-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('search'),
-                new OrganizationUserDataProvider('search', [
+                new AuthOrgDataProvider('search'),
+                new OrgUserDataProvider('search', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

@@ -14,8 +14,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 
@@ -120,8 +120,8 @@ class UsersTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'keycloak' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-                new OrganizationUserDataProvider('users', [
+                new AuthOrgRootDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+                new OrgUserDataProvider('users', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
@@ -262,8 +262,8 @@ class UsersTest extends TestCase {
                 ]),
             ),
             'root'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-                new OrganizationUserDataProvider('users', [
+                new AuthOrgRootDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+                new OrgUserDataProvider('users', [
                     'administer',
                 ]),
                 new ArrayDataProvider([

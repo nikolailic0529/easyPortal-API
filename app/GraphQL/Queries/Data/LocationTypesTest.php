@@ -9,8 +9,8 @@ use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -60,8 +60,8 @@ class LocationTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('locationTypes'),
-            new UserDataProvider('locationTypes'),
+            new AuthOrgDataProvider('locationTypes'),
+            new AuthMeDataProvider('locationTypes'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('locationTypes', LocationTypes::class, [

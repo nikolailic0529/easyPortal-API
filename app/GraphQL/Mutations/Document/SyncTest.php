@@ -17,8 +17,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -155,8 +155,8 @@ class SyncTest extends TestCase {
                         'ContractSyncInput',
                     ],
                 ]),
-                new RootOrganizationDataProvider('contract'),
-                new RootUserDataProvider('contract'),
+                new AuthOrgRootDataProvider('contract'),
+                new AuthRootDataProvider('contract'),
                 new ArrayDataProvider([
                     'ok'           => [
                         new GraphQLSuccess(
@@ -214,8 +214,8 @@ class SyncTest extends TestCase {
                         'QuoteSyncInput',
                     ],
                 ]),
-                new RootOrganizationDataProvider('quote'),
-                new RootUserDataProvider('quote'),
+                new AuthOrgRootDataProvider('quote'),
+                new AuthRootDataProvider('quote'),
                 new ArrayDataProvider([
                     'ok'           => [
                         new GraphQLSuccess(

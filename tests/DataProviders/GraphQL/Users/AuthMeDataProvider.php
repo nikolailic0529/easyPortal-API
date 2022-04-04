@@ -2,6 +2,7 @@
 
 namespace Tests\DataProviders\GraphQL\Users;
 
+use App\GraphQL\Directives\Definitions\AuthMeDirective;
 use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -12,8 +13,10 @@ use Tests\TestCase;
 
 /**
  * Any authenticated User can perform the action.
+ *
+ * @see AuthMeDirective
  */
-class UserDataProvider extends ArrayDataProvider {
+class AuthMeDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed' => [

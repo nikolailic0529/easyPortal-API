@@ -2,6 +2,7 @@
 
 namespace Tests\DataProviders\GraphQL\Users;
 
+use App\GraphQL\Directives\Definitions\AuthGuestDirective;
 use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -12,8 +13,10 @@ use Tests\TestCase;
 
 /**
  * Only Guest cat perform the action.
+ *
+ * @see AuthGuestDirective
  */
-class GuestDataProvider extends ArrayDataProvider {
+class AuthGuestDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is allowed'    => [

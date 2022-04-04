@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
-class RootOrganizationDataProvider extends ArrayDataProvider {
+class AuthOrgRootDataProvider extends ArrayDataProvider {
     public function __construct(string $root, string $id = null) {
         parent::__construct([
             'no organization is not allowed' => [

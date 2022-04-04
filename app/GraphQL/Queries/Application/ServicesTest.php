@@ -26,8 +26,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -154,8 +154,8 @@ class ServicesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('application'),
-            new RootUserDataProvider('application'),
+            new AuthOrgRootDataProvider('application'),
+            new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class => [
                     new GraphQLSuccess('application', self::class),

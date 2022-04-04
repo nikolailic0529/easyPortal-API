@@ -18,8 +18,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ForbiddenResponse;
-use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
 
 /**
@@ -93,8 +93,8 @@ class FilesControllerTest extends TestCase {
 
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider(),
-                new OrganizationUserDataProvider([
+                new AuthOrgDataProvider(),
+                new OrgUserDataProvider([
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -130,8 +130,8 @@ class FilesControllerTest extends TestCase {
                 ]),
             ),
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider(),
-                new OrganizationUserDataProvider([
+                new AuthOrgDataProvider(),
+                new OrgUserDataProvider([
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

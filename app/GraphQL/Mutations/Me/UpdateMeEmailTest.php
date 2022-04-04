@@ -12,8 +12,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -91,8 +91,8 @@ class UpdateMeEmailTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('updateMeEmail'),
-            new UserDataProvider('updateMeEmail'),
+            new AuthOrgDataProvider('updateMeEmail'),
+            new AuthMeDataProvider('updateMeEmail'),
             new ArrayDataProvider([
                 'keycloak'             => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [

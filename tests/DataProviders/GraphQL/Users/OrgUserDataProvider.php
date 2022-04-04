@@ -15,10 +15,8 @@ use Tests\TestCase;
 
 /**
  * Only user of current organization can perform action.
- *
- * @see \Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider
  */
-class OrganizationUserDataProvider extends ArrayDataProvider {
+class OrgUserDataProvider extends ArrayDataProvider {
     /**
      * @param array<string>       $permissions
      * @param Closure(User): void $callback

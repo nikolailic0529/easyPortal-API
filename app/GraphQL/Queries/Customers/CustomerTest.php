@@ -33,9 +33,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -913,8 +913,8 @@ class CustomerTest extends TestCase {
     public function dataProviderQueryAssets(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -928,8 +928,8 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1338,8 +1338,8 @@ class CustomerTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1353,8 +1353,8 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1621,8 +1621,8 @@ class CustomerTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1638,8 +1638,8 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -2427,8 +2427,8 @@ class CustomerTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -2444,8 +2444,8 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -2658,8 +2658,8 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-            new OrganizationUserDataProvider('customer', [
+            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
             new ArrayDataProvider([
@@ -2836,8 +2836,8 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-            new OrganizationUserDataProvider('customer', [
+            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
             new ArrayDataProvider([

@@ -10,8 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -118,8 +118,8 @@ class UpdateApplicationTranslationsTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('updateApplicationTranslations'),
-            new RootUserDataProvider('updateApplicationTranslations'),
+            new AuthOrgRootDataProvider('updateApplicationTranslations'),
+            new AuthRootDataProvider('updateApplicationTranslations'),
             new ArrayDataProvider([
                 'success - retrieve'                         => [
                     new GraphQLSuccess(

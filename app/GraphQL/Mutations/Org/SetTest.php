@@ -9,8 +9,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
@@ -78,8 +78,8 @@ class SetTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
-            new UserDataProvider('org'),
+            new UnknownOrgDataProvider(),
+            new AuthMeDataProvider('org'),
             new ArrayDataProvider([
                 'ok'                         => [
                     new GraphQLSuccess(

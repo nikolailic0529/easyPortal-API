@@ -8,8 +8,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -65,8 +65,8 @@ class DeleteMeSearchTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('deleteMeSearch'),
-            new UserDataProvider('deleteMeSearch'),
+            new AuthOrgDataProvider('deleteMeSearch'),
+            new AuthMeDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
                 'ok'             => [
                     new GraphQLSuccess('deleteMeSearch', self::class, [

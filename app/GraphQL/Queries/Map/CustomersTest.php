@@ -11,9 +11,9 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use League\Geotools\Coordinate\Coordinate;
 use League\Geotools\Geohash\Geohash;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
@@ -110,8 +110,8 @@ class CustomersTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('map'),
-                new OrganizationUserDataProvider('map', [
+                new AuthOrgRootDataProvider('map'),
+                new OrgUserDataProvider('map', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -298,8 +298,8 @@ class CustomersTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('map'),
-                new OrganizationUserDataProvider('map', [
+                new AuthOrgDataProvider('map'),
+                new OrgUserDataProvider('map', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

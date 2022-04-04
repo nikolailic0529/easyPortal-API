@@ -5,12 +5,12 @@ namespace Tests\DataProviders\Http\Users;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider as GraphQLOrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider as GraphQLOrgUserDataProvider;
 
 /**
  * Only User with permission(s) can perform the action.
  */
-class OrganizationUserDataProvider extends GraphQLOrganizationUserDataProvider {
+class OrgUserDataProvider extends GraphQLOrgUserDataProvider {
     /**
      * @inheritDoc
      */

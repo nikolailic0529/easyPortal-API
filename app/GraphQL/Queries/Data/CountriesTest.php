@@ -8,8 +8,8 @@ use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -65,8 +65,8 @@ class CountriesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('countries'),
-            new UserDataProvider('countries'),
+            new AuthOrgDataProvider('countries'),
+            new AuthMeDataProvider('countries'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('countries', self::class, [

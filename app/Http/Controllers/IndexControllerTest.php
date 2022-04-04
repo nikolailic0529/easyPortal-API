@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
-use Tests\DataProviders\Http\Organizations\UnknownOrganizationDataProvider;
+use Tests\DataProviders\Http\Organizations\UnknownOrgDataProvider;
 use Tests\TestCase;
 
 /**
@@ -77,7 +77,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
+            new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'Accept text/html'                      => [
                     new Response(
@@ -111,7 +111,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndexApplication(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
+            new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'Accept text/html'                      => [
                     new OkResponse(self::class),

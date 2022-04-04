@@ -28,9 +28,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
@@ -308,8 +308,8 @@ class QuoteTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgRootDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -322,8 +322,8 @@ class QuoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -352,8 +352,8 @@ class QuoteTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -784,8 +784,8 @@ class QuoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgRootDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -798,8 +798,8 @@ class QuoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -828,8 +828,8 @@ class QuoteTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('quote', [
+                new AuthOrgDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([

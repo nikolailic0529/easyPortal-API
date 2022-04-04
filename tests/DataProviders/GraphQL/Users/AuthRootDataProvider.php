@@ -2,6 +2,7 @@
 
 namespace Tests\DataProviders\GraphQL\Users;
 
+use App\GraphQL\Directives\Definitions\AuthRootDirective;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
@@ -14,8 +15,10 @@ use Tests\TestCase;
 
 /**
  * Only root cat perform the action.
+ *
+ * @see AuthRootDirective
  */
-class RootUserDataProvider extends ArrayDataProvider {
+class AuthRootDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed'  => [

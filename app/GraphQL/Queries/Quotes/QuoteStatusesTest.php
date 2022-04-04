@@ -9,8 +9,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -127,15 +127,15 @@ class QuoteStatusesTest extends TestCase {
 
         return (new MergeDataProvider([
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quoteStatuses'),
-                new OrganizationUserDataProvider('quoteStatuses', [
+                new AuthOrgDataProvider('quoteStatuses'),
+                new OrgUserDataProvider('quoteStatuses', [
                     'customers-view',
                 ]),
                 $provider,
             ),
             'quotes-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('quoteStatuses'),
-                new OrganizationUserDataProvider('quoteStatuses', [
+                new AuthOrgDataProvider('quoteStatuses'),
+                new OrgUserDataProvider('quoteStatuses', [
                     'quotes-view',
                 ]),
                 $provider,

@@ -15,8 +15,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
@@ -204,8 +204,8 @@ class UpdateContractNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('updateContractNote'),
-                new OrganizationUserDataProvider('updateContractNote', [
+                new AuthOrgDataProvider('updateContractNote'),
+                new OrgUserDataProvider('updateContractNote', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -492,8 +492,8 @@ class UpdateContractNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('updateContractNote'),
-                new OrganizationUserDataProvider('updateContractNote', [
+                new AuthOrgDataProvider('updateContractNote'),
+                new OrgUserDataProvider('updateContractNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

@@ -7,7 +7,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -53,7 +53,7 @@ class LocaleTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
+            new UnknownOrgDataProvider(),
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

@@ -26,8 +26,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
 use Psr\Http\Message\ResponseInterface;
-use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\ResponseTypes\CsvContentType;
 use Tests\ResponseTypes\XlsxContentType;
 use Tests\TestCase;
@@ -587,8 +587,8 @@ class ExportControllerTest extends TestCase {
      */
     public function dataProviderExport(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider(),
-            new OrganizationUserDataProvider([
+            new AuthOrgDataProvider(),
+            new OrgUserDataProvider([
                 'customers-view',
             ]),
             new ArrayDataProvider([

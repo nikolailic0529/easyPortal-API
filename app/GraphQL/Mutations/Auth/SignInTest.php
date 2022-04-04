@@ -11,8 +11,8 @@ use Illuminate\Contracts\Hashing\Hasher;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -151,8 +151,8 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider('99ab2b12-70f9-402e-9068-72226b808be7'),
-            new GuestDataProvider('auth'),
+            new UnknownOrgDataProvider('99ab2b12-70f9-402e-9068-72226b808be7'),
+            new AuthGuestDataProvider('auth'),
             new ArrayDataProvider([
                 'no user'                           => [
                     new GraphQLError('auth', new InvalidCredentials()),
@@ -234,8 +234,8 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvokeDeprecated(): array {
         return (new CompositeDataProvider(
-            new UnknownOrganizationDataProvider(),
-            new GuestDataProvider('signIn'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'no user'                           => [
                     new GraphQLError('signIn', new InvalidCredentials()),

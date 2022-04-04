@@ -13,7 +13,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -159,13 +159,13 @@ class PermissionsTest extends TestCase {
                 ]),
                 new MergeDataProvider([
                     'administer'     => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'administer',
                         ]),
                         $root,
                     ),
                     'org-administer' => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'org-administer',
                         ]),
                         $root,
@@ -185,13 +185,13 @@ class PermissionsTest extends TestCase {
                 ]),
                 new MergeDataProvider([
                     'administer'     => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'administer',
                         ]),
                         $normal,
                     ),
                     'org-administer' => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'org-administer',
                         ]),
                         $normal,

@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -121,8 +121,8 @@ class RequestOrgChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('requestOrgChange'),
-            new OrganizationUserDataProvider(
+            new AuthOrgDataProvider('requestOrgChange'),
+            new OrgUserDataProvider(
                 'requestOrgChange',
                 [
                     'org-administer',

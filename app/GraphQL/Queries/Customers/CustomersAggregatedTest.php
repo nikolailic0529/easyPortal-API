@@ -11,9 +11,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -49,7 +49,7 @@ class CustomersAggregatedTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionCustomersQuery) {
                     customersAggregated(where: $where) {
@@ -112,8 +112,8 @@ class CustomersAggregatedTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customersAggregated'),
-                new OrganizationUserDataProvider('customersAggregated', [
+                new AuthOrgRootDataProvider('customersAggregated'),
+                new OrgUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -128,8 +128,8 @@ class CustomersAggregatedTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customersAggregated'),
-                new OrganizationUserDataProvider('customersAggregated', [
+                new AuthOrgDataProvider('customersAggregated'),
+                new OrgUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

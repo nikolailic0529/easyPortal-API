@@ -8,8 +8,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -73,15 +73,15 @@ class AssetCoveragesTest extends TestCase {
 
         return (new MergeDataProvider([
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('assetCoverages'),
-                new OrganizationUserDataProvider('assetCoverages', [
+                new AuthOrgDataProvider('assetCoverages'),
+                new OrgUserDataProvider('assetCoverages', [
                     'customers-view',
                 ]),
                 $provider,
             ),
             'assets-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('assetCoverages'),
-                new OrganizationUserDataProvider('assetCoverages', [
+                new AuthOrgDataProvider('assetCoverages'),
+                new OrgUserDataProvider('assetCoverages', [
                     'assets-view',
                 ]),
                 $provider,

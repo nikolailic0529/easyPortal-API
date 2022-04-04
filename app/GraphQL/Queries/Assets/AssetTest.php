@@ -28,9 +28,9 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -341,8 +341,8 @@ class AssetTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('asset'),
-                new OrganizationUserDataProvider('asset', [
+                new AuthOrgRootDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
@@ -356,8 +356,8 @@ class AssetTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('asset'),
-                new OrganizationUserDataProvider('asset', [
+                new AuthOrgDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -371,8 +371,8 @@ class AssetTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider(
+                new AuthOrgDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider(
                     'asset',
                     [
                         'assets-view',

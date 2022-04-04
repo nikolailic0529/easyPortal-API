@@ -7,8 +7,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\TestCase;
@@ -100,8 +100,8 @@ class LocaleTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('locale'),
-            new RootUserDataProvider('locale'),
+            new AuthOrgRootDataProvider('locale'),
+            new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
                     new GraphQLSuccess('locale', null, [

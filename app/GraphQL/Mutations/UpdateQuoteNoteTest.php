@@ -15,8 +15,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
@@ -205,8 +205,8 @@ class UpdateQuoteNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('updateQuoteNote'),
-                new OrganizationUserDataProvider('updateQuoteNote', [
+                new AuthOrgDataProvider('updateQuoteNote'),
+                new OrgUserDataProvider('updateQuoteNote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -476,8 +476,8 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('updateQuoteNote'),
-                new OrganizationUserDataProvider('updateQuoteNote', [
+                new AuthOrgDataProvider('updateQuoteNote'),
+                new OrgUserDataProvider('updateQuoteNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

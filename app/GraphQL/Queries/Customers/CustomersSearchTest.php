@@ -12,9 +12,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 use Tests\WithSearch;
@@ -95,8 +95,8 @@ class CustomersSearchTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customersSearch'),
-                new OrganizationUserDataProvider('customersSearch', [
+                new AuthOrgRootDataProvider('customersSearch'),
+                new OrgUserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -109,8 +109,8 @@ class CustomersSearchTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('customersSearch'),
-                new OrganizationUserDataProvider('customersSearch', [
+                new AuthOrgDataProvider('customersSearch'),
+                new OrgUserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

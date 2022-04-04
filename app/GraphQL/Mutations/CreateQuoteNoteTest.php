@@ -13,8 +13,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -181,8 +181,8 @@ class CreateQuoteNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('createQuoteNote'),
-                new OrganizationUserDataProvider('createQuoteNote', [
+                new AuthOrgDataProvider('createQuoteNote'),
+                new OrgUserDataProvider('createQuoteNote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -283,8 +283,8 @@ class CreateQuoteNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new AnyOrganizationDataProvider('createQuoteNote'),
-                new OrganizationUserDataProvider('createQuoteNote', [
+                new AuthOrgDataProvider('createQuoteNote'),
+                new OrgUserDataProvider('createQuoteNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

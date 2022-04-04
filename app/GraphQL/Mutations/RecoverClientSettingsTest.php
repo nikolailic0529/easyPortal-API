@@ -8,8 +8,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -66,8 +66,8 @@ class RecoverClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('recoverClientSettings'),
-            new RootUserDataProvider('recoverClientSettings'),
+            new AuthOrgRootDataProvider('recoverClientSettings'),
+            new AuthRootDataProvider('recoverClientSettings'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('recoverClientSettings', RecoverClientSettings::class, [

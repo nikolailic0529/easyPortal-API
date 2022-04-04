@@ -15,8 +15,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
@@ -162,8 +162,8 @@ class UpdateTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('me'),
-            new UserDataProvider('me'),
+            new AuthOrgDataProvider('me'),
+            new AuthMeDataProvider('me'),
             new ArrayDataProvider([
                 'All possible properties'     => [
                     new GraphQLSuccess(
