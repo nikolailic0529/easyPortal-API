@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -120,7 +120,7 @@ class CustomerStatusesTest extends TestCase {
 
         return (new MergeDataProvider([
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('customerStatuses'),
+                new AnyOrganizationDataProvider('customerStatuses'),
                 new OrganizationUserDataProvider('customerStatuses', [
                     'customers-view',
                 ]),

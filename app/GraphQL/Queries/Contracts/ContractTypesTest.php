@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -158,14 +158,14 @@ class ContractTypesTest extends TestCase {
 
         return (new MergeDataProvider([
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contractTypes'),
+                new AnyOrganizationDataProvider('contractTypes'),
                 new OrganizationUserDataProvider('contractTypes', [
                     'customers-view',
                 ]),
                 $provider,
             ),
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contractTypes'),
+                new AnyOrganizationDataProvider('contractTypes'),
                 new OrganizationUserDataProvider('contractTypes', [
                     'contracts-view',
                 ]),

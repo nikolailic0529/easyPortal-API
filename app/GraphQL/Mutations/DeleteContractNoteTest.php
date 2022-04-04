@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
@@ -74,7 +74,7 @@ class DeleteContractNoteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteContractNote'),
+                new AnyOrganizationDataProvider('deleteContractNote'),
                 new OrganizationUserDataProvider('deleteContractNote', [
                     'contracts-view',
                 ]),
@@ -112,7 +112,7 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteContractNote'),
+                new AnyOrganizationDataProvider('deleteContractNote'),
                 new OrganizationUserDataProvider('deleteContractNote', [
                     'customers-view',
                 ]),
@@ -150,7 +150,7 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteContractNote'),
+                new AnyOrganizationDataProvider('deleteContractNote'),
                 new OrganizationUserDataProvider('deleteContractNote', [
                     'org-administer',
                 ]),

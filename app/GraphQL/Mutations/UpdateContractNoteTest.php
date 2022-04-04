@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -204,7 +204,7 @@ class UpdateContractNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('updateContractNote'),
+                new AnyOrganizationDataProvider('updateContractNote'),
                 new OrganizationUserDataProvider('updateContractNote', [
                     'contracts-view',
                 ]),
@@ -492,7 +492,7 @@ class UpdateContractNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('updateContractNote'),
+                new AnyOrganizationDataProvider('updateContractNote'),
                 new OrganizationUserDataProvider('updateContractNote', [
                     'customers-view',
                 ]),

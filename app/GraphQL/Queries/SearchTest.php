@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
@@ -244,7 +244,7 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('search'),
+                new AnyOrganizationDataProvider('search'),
                 new OrganizationUserDataProvider('search', [
                     'customers-view', 'assets-view', 'quotes-view', 'contracts-view',
                 ]),
@@ -292,7 +292,7 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('search'),
+                new AnyOrganizationDataProvider('search'),
                 new OrganizationUserDataProvider('search', [
                     'customers-view',
                 ]),
@@ -340,7 +340,7 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'assets-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('search'),
+                new AnyOrganizationDataProvider('search'),
                 new OrganizationUserDataProvider('search', [
                     'assets-view',
                 ]),
@@ -388,7 +388,7 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('search'),
+                new AnyOrganizationDataProvider('search'),
                 new OrganizationUserDataProvider('search', [
                     'quotes-view',
                 ]),
@@ -436,7 +436,7 @@ class SearchTest extends TestCase {
                 ]),
             ),
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('search'),
+                new AnyOrganizationDataProvider('search'),
                 new OrganizationUserDataProvider('search', [
                     'contracts-view',
                 ]),

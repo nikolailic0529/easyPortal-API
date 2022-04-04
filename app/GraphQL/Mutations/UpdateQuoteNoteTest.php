@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -205,7 +205,7 @@ class UpdateQuoteNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('updateQuoteNote'),
+                new AnyOrganizationDataProvider('updateQuoteNote'),
                 new OrganizationUserDataProvider('updateQuoteNote', [
                     'quotes-view',
                 ]),
@@ -476,7 +476,7 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('updateQuoteNote'),
+                new AnyOrganizationDataProvider('updateQuoteNote'),
                 new OrganizationUserDataProvider('updateQuoteNote', [
                     'customers-view',
                 ]),

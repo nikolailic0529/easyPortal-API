@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -246,7 +246,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
+                new AnyOrganizationDataProvider('contract'),
                 new OrganizationUserDataProvider('contract', [
                     'customers-view',
                 ]),
@@ -259,7 +259,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
+                new AnyOrganizationDataProvider('contract'),
                 new OrganizationUserDataProvider('contract', [
                     'contracts-view',
                 ]),
@@ -372,7 +372,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
+                new AnyOrganizationDataProvider('contract'),
                 new OrganizationUserDataProvider('contract', [
                     'customers-view',
                 ]),
@@ -385,7 +385,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
+                new AnyOrganizationDataProvider('contract'),
                 new OrganizationUserDataProvider('contract', [
                     'contracts-view',
                 ]),

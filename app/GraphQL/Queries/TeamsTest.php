@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -87,14 +87,14 @@ class TeamsTest extends TestCase {
 
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
-                new OrganizationDataProvider('teams'),
+                new AnyOrganizationDataProvider('teams'),
                 new OrganizationUserDataProvider('teams', [
                     'administer',
                 ]),
                 $provider,
             ),
             'org-administer' => new CompositeDataProvider(
-                new OrganizationDataProvider('teams'),
+                new AnyOrganizationDataProvider('teams'),
                 new OrganizationUserDataProvider('teams', [
                     'org-administer',
                 ]),

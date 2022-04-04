@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -263,7 +263,7 @@ class ContractsAggregatedTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregated'),
+                new AnyOrganizationDataProvider('contractsAggregated'),
                 new OrganizationUserDataProvider('contractsAggregated', [
                     'customers-view',
                 ]),
@@ -301,7 +301,7 @@ class ContractsAggregatedTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new AnyOrganizationDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new OrganizationUserDataProvider('contractsAggregated', [
                     'contracts-view',
                 ]),

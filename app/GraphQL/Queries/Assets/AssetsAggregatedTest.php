@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -191,7 +191,7 @@ class AssetsAggregatedTest extends TestCase {
                 ]),
             ),
             'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregated'),
+                new AnyOrganizationDataProvider('assetsAggregated'),
                 new OrganizationUserDataProvider('assetsAggregated', [
                     'assets-view',
                 ]),
@@ -233,7 +233,7 @@ class AssetsAggregatedTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregated'),
+                new AnyOrganizationDataProvider('assetsAggregated'),
                 new OrganizationUserDataProvider('assetsAggregated', [
                     'customers-view',
                 ]),

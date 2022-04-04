@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
@@ -74,7 +74,7 @@ class DeleteQuoteNoteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
+                new AnyOrganizationDataProvider('deleteQuoteNote'),
                 new OrganizationUserDataProvider('deleteQuoteNote', [
                     'quotes-view',
                 ]),
@@ -112,7 +112,7 @@ class DeleteQuoteNoteTest extends TestCase {
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
+                new AnyOrganizationDataProvider('deleteQuoteNote'),
                 new OrganizationUserDataProvider('deleteQuoteNote', [
                     'customers-view',
                 ]),
@@ -150,7 +150,7 @@ class DeleteQuoteNoteTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
+                new AnyOrganizationDataProvider('deleteQuoteNote'),
                 new OrganizationUserDataProvider('deleteQuoteNote', [
                     'org-administer',
                 ]),

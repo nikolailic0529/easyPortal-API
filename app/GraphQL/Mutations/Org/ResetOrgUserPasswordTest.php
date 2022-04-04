@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -62,7 +62,7 @@ class ResetOrgUserPasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('resetOrgUserPassword', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983'),
+            new AnyOrganizationDataProvider('resetOrgUserPassword', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983'),
             new OrganizationUserDataProvider('resetOrgUserPassword', [
                 'org-administer',
             ]),
