@@ -11,7 +11,7 @@ use Tests\TestCase;
 /**
  * Any guest or user can perform action.
  */
-class AnyUserDataProvider extends ArrayDataProvider {
+class UnknownUserDataProvider extends ArrayDataProvider {
     public function __construct() {
         parent::__construct([
             'guest is allowed' => [

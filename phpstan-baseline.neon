@@ -14903,11 +14903,6 @@ parameters:
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
 			count: 1
-			path: tests/DataProviders/GraphQL/Users/AnyUserDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
 			path: tests/DataProviders/GraphQL/Users/GuestDataProvider.php
 
 		-
@@ -14919,6 +14914,11 @@ parameters:
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
 			count: 2
 			path: tests/DataProviders/GraphQL/Users/RootUserDataProvider.php
+
+		-
+			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: tests/DataProviders/GraphQL/Users/UnknownUserDataProvider.php
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"

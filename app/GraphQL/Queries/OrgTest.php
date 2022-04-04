@@ -16,7 +16,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
@@ -183,7 +183,7 @@ class OrgTest extends TestCase {
         return (new MergeDataProvider([
             'any'        => new CompositeDataProvider(
                 new UnknownOrganizationDataProvider(),
-                new AnyUserDataProvider(),
+                new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('org', null),
@@ -234,7 +234,7 @@ class OrgTest extends TestCase {
                         },
                     ],
                 ]),
-                new AnyUserDataProvider(),
+                new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok'   => [
                         new GraphQLSuccess('org', Org::class, [

@@ -6,7 +6,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -58,7 +58,7 @@ class ApplicationTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
             new UnknownOrganizationDataProvider(),
-            new AnyUserDataProvider(),
+            new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('application', Application::class, null),
