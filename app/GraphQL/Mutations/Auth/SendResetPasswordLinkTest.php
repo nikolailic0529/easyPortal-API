@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Notification;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -79,7 +79,7 @@ class SendResetPasswordLinkTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrganizationDataProvider(),
             new GuestDataProvider('sendResetPasswordLink'),
             new ArrayDataProvider([
                 'no user'              => [

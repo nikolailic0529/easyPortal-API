@@ -14888,17 +14888,17 @@ parameters:
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
 			count: 1
-			path: tests/DataProviders/GraphQL/Organizations/AnyOrganizationDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
 			path: tests/DataProviders/GraphQL/Organizations/OrganizationDataProvider.php
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
 			count: 1
 			path: tests/DataProviders/GraphQL/Organizations/RootOrganizationDataProvider.php
+
+		-
+			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: tests/DataProviders/GraphQL/Organizations/UnknownOrganizationDataProvider.php
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"

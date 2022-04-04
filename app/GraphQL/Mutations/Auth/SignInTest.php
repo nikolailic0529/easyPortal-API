@@ -11,7 +11,7 @@ use Illuminate\Contracts\Hashing\Hasher;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -151,7 +151,7 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('99ab2b12-70f9-402e-9068-72226b808be7'),
+            new UnknownOrganizationDataProvider('99ab2b12-70f9-402e-9068-72226b808be7'),
             new GuestDataProvider('auth'),
             new ArrayDataProvider([
                 'no user'                           => [
@@ -234,7 +234,7 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvokeDeprecated(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrganizationDataProvider(),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'no user'                           => [

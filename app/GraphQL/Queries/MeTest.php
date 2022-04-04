@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrganizationDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
@@ -196,7 +196,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrganizationDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed'           => [
                     new GraphQLSuccess('me', null),
@@ -250,7 +250,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderSearches(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrganizationDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
                     new GraphQLSuccess('me', self::class, 'null'),
