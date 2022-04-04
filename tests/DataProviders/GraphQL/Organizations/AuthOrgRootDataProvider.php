@@ -18,17 +18,17 @@ use Tests\Providers\Users\RootUserProvider;
 class AuthOrgRootDataProvider extends ArrayDataProvider {
     public function __construct(string $root, string $id = null) {
         parent::__construct([
-            'no organization is not allowed' => [
+            'organization=null is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new NullProvider(),
                 new RootUserProvider(),
             ],
-            'organization is not allowed'    => [
+            'organization=any is not allowed'  => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new OrganizationProvider(),
                 new RootUserProvider(),
             ],
-            'root organization is allowed'   => [
+            'organization=root is allowed'     => [
                 new UnknownValue(),
                 new RootOrganizationProvider($id),
             ],

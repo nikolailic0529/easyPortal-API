@@ -2,6 +2,7 @@
 
 namespace Tests\DataProviders\GraphQL\Organizations;
 
+use App\Models\Enums\OrganizationType;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\Providers\NullProvider;
@@ -10,13 +11,13 @@ use Tests\Providers\Organizations\OrganizationProvider;
 class UnknownOrgDataProvider extends ArrayDataProvider {
     public function __construct(string $id = null) {
         parent::__construct([
-            'no organization is allowed' => [
+            'organization=null is allowed'     => [
                 new UnknownValue(),
                 new NullProvider(),
             ],
-            'organization is allowed'    => [
+            'organization=reseller is allowed' => [
                 new UnknownValue(),
-                new OrganizationProvider($id),
+                new OrganizationProvider($id, OrganizationType::reseller()),
             ],
         ]);
     }
