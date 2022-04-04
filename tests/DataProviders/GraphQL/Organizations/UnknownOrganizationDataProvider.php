@@ -18,7 +18,7 @@ class UnknownOrganizationDataProvider extends ArrayDataProvider {
             ],
             'organization is allowed'    => [
                 new UnknownValue(),
-                static function (TestCase $test) use ($id): ?Organization {
+                static function (TestCase $test) use ($id): Organization {
                     return Organization::factory()->create($id ? ['id' => $id] : []);
                 },
             ],

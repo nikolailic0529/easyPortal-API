@@ -42,7 +42,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
             $data += [
                 'user from another organization is not allowed'             => [
                     new ExpectedFinal($this->getUnauthorized($root)),
-                    static function (TestCase $test) use ($factory, $permissions): ?User {
+                    static function (TestCase $test) use ($factory, $permissions): User {
                         $organization = Organization::factory()->create();
                         $user         = $factory->create([
                             'organization_id' => $organization,
@@ -60,7 +60,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 ],
                 'user without permissions from organization is not allowed' => [
                     new ExpectedFinal($this->getUnauthorized($root)),
-                    static function (TestCase $test, ?Organization $organization) use ($factory): ?User {
+                    static function (TestCase $test, ?Organization $organization) use ($factory): User {
                         $user = $factory->create([
                             'organization_id' => $organization,
                             'permissions'     => [],
@@ -83,7 +83,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                     ) use (
                         $factory,
                         $permissions,
-                    ): ?User {
+                    ): User {
                         $user = $factory->create([
                             'organization_id' => $organization,
                             'permissions'     => $permissions,
@@ -103,7 +103,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
             $data += [
                 'user from another organization is not allowed' => [
                     new ExpectedFinal($this->getUnauthorized($root)),
-                    static function (TestCase $test) use ($factory): ?User {
+                    static function (TestCase $test) use ($factory): User {
                         $organization = Organization::factory()->create();
                         $user         = $factory->create([
                             'organization_id' => $organization,
@@ -120,7 +120,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                 ],
                 'user from organization is allowed'             => [
                     new UnknownValue(),
-                    static function (TestCase $test, ?Organization $organization) use ($factory): ?User {
+                    static function (TestCase $test, ?Organization $organization) use ($factory): User {
                         $user = $factory->create([
                             'organization_id' => $organization,
                         ]);

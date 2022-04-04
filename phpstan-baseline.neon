@@ -14886,51 +14886,6 @@ parameters:
 			path: tests/Data/Services/DataLoader/Importers/ResellersIteratorImporterData.php
 
 		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Organizations/OrganizationDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Organizations/RootOrganizationDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Organizations/UnknownOrganizationDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Users/GuestDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 5
-			path: tests/DataProviders/GraphQL/Users/OrganizationUserDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 2
-			path: tests/DataProviders/GraphQL/Users/RootUserDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Users/UnknownUserDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Users/UserDataProvider.php
-
-		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
-			path: tests/DataProviders/Http/Organizations/OrganizationDataProvider.php
-
-		-
 			message: "#^Method Tests\\\\GraphQL\\\\GraphQLError\\:\\:getResponseConstraints\\(\\) should return array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\> but returns array\\<int, LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Json\\\\JsonMatchesSchema\\|null\\>\\.$#"
 			count: 1
 			path: tests/GraphQL/GraphQLError.php

@@ -20,7 +20,7 @@ class RootOrganizationDataProvider extends ArrayDataProvider {
             ],
             'organization is not allowed'    => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
-                static function (TestCase $test) use ($id): ?Organization {
+                static function (TestCase $test) use ($id): Organization {
                     return Organization::factory()->create($id ? ['id' => $id] : []);
                 },
             ],
