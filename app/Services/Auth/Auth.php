@@ -5,13 +5,17 @@ namespace App\Services\Auth;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
+use App\Services\Auth\Contracts\Permissions\Composite;
 use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Support\Collection;
 
 use function array_intersect;
+use function array_pop;
+use function array_values;
 
 class Auth {
     public function __construct(
@@ -76,7 +80,46 @@ class Auth {
         $userPermissions = $user->getOrganizationPermissions($organization);
         $orgPermissions  = $this->getAvailablePermissions($organization);
         $permissions     = array_intersect($userPermissions, $orgPermissions);
+        $permissions     = $this->expand($permissions);
+        $permissions     = array_intersect($permissions, $orgPermissions);
+        $permissions     = array_values($permissions);
 
         return $permissions;
+    }
+
+    /**
+     * @param array<string> $permissions
+     *
+     * @return array<string>
+     */
+    private function expand(array $permissions): array {
+        $stack    = (new Collection($this->getPermissions()))
+            ->keyBy(static function (Permission $permission): string {
+                return $permission->getName();
+            })
+            ->only($permissions)
+            ->all();
+        $expanded = [];
+
+        while ($stack) {
+            // Added?
+            $permission = array_pop($stack);
+
+            if (isset($expanded[$permission->getName()])) {
+                continue;
+            }
+
+            // Add
+            $expanded[$permission->getName()] = $permission->getName();
+
+            // Composite?
+            if ($permission instanceof Composite) {
+                foreach ($permission->getPermissions() as $inherited) {
+                    $stack[] = $inherited;
+                }
+            }
+        }
+
+        return array_values($expanded);
     }
 }

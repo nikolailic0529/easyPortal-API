@@ -5,6 +5,7 @@ namespace App\Services\Auth;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Auth\Contracts\Permissions\Composite;
 use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Organization\RootOrganization;
@@ -120,22 +121,75 @@ class AuthTest extends TestCase {
      * @covers ::getOrganizationUserPermissions
      */
     public function testGetOrganizationUserPermissions(): void {
+        $a    = new class('a') extends Permission {
+            // empty
+        };
+        $b    = new class('b') extends Permission implements Composite {
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(): array {
+                return [
+                    new class('b') extends Permission {
+                        // empty
+                    },
+                    new class('e') extends Permission {
+                        // empty
+                    },
+                    new class('f') extends Permission {
+                        // empty
+                    },
+                ];
+            }
+        };
+        $c    = new class('c') extends Permission {
+            // empty
+        };
+        $d    = new class('d') extends Permission {
+            // empty
+        };
+        $e    = new class('e') extends Permission {
+            // empty
+        };
+        $f    = new class('f') extends Permission {
+            // empty
+        };
         $org  = Organization::factory()->make();
         $auth = Mockery::mock(Auth::class);
         $auth->makePartial();
         $auth
+            ->shouldReceive('getPermissions')
+            ->once()
+            ->andReturn([
+                $a, $b, $c, $d, $e, $f,
+            ]);
+        $auth
             ->shouldReceive('getAvailablePermissions')
             ->with($org)
             ->once()
-            ->andReturn(['a', 'b', 'c']);
+            ->andReturn([
+                $a->getName(),
+                $b->getName(),
+                $e->getName(),
+            ]);
         $user = Mockery::mock(User::class);
         $user
             ->shouldReceive('getOrganizationPermissions')
             ->with($org)
             ->once()
-            ->andReturn(['a', 'b', 'd']);
+            ->andReturn([
+                $a->getName(),
+                $b->getName(),
+            ]);
 
-        self::assertEquals(['a', 'b'], $auth->getOrganizationUserPermissions($org, $user));
+        self::assertEqualsCanonicalizing(
+            [
+                $a->getName(),
+                $b->getName(),
+                $e->getName(),
+            ],
+            $auth->getOrganizationUserPermissions($org, $user),
+        );
     }
     // </editor-fold>
 
