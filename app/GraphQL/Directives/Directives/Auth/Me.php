@@ -23,10 +23,10 @@ use function sprintf;
 
 abstract class Me extends AuthDirective {
     public function __construct(
+        Auth $auth,
         protected Gate $gate,
-        protected Auth $auth,
     ) {
-        parent::__construct();
+        parent::__construct($auth);
     }
 
     public static function definition(): string {
