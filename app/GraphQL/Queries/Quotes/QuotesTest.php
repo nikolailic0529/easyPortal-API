@@ -604,7 +604,7 @@ class QuotesTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('quotes'),
                 new OrgUserDataProvider('quotes', [
                     'quotes-view',
@@ -631,42 +631,7 @@ class QuotesTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('quotes'),
-                new OrgUserDataProvider('quotes', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('quotes', null),
-                        [
-                            'ep.contract_types' => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('quotes', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new OrgUserDataProvider('quotes', [
                     'quotes-view',

@@ -1742,7 +1742,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$factory of method Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Note\\>\\:\\:for\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Models\\\\User\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Mutations/DeleteQuoteNoteTest.php
 
 		-
@@ -3147,7 +3147,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 6
+			count: 5
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
@@ -3257,7 +3257,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 5
+			count: 4
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
@@ -14214,6 +14214,31 @@ parameters:
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\SmartSave\\\\BatchSave\\:\\:enable\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/SmartSave/BatchSave.php
+
+		-
+			message: "#^Access to an undefined property App\\\\Models\\\\Organization\\:\\:\\$type\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
+			message: "#^Call to static method customer\\(\\) on an unknown class App\\\\Models\\\\Enums\\\\OrganizationType\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
+			message: "#^Call to static method reseller\\(\\) on an unknown class App\\\\Models\\\\Enums\\\\OrganizationType\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
+			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByCustomer not found\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
+			message: "#^PHPDoc tag @return with type App\\\\Utils\\\\Eloquent\\\\Testing\\\\Database\\\\Factory\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> is not subtype of native type static\\(App\\\\Utils\\\\Eloquent\\\\Testing\\\\Database\\\\Factory\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"

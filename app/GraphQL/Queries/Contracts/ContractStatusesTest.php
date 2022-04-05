@@ -126,13 +126,6 @@ class ContractStatusesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('contractStatuses'),
-                new OrgUserDataProvider('contractStatuses', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
             'contracts-view' => new CompositeDataProvider(
                 new AuthOrgDataProvider('contractStatuses'),
                 new OrgUserDataProvider('contractStatuses', [

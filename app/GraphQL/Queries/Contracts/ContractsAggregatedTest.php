@@ -208,7 +208,7 @@ class ContractsAggregatedTest extends TestCase {
         };
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('contractsAggregated'),
                 new OrgUserDataProvider('contractsAggregated', [
                     'contracts-view',
@@ -262,45 +262,7 @@ class ContractsAggregatedTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('contractsAggregated'),
-                new OrgUserDataProvider('contractsAggregated', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
-                            'count'  => 2,
-                            'prices' => [
-                                [
-                                    'count'       => 2,
-                                    'amount'      => 10,
-                                    'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                    'currency'    => [
-                                        'id'   => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                        'name' => 'A',
-                                        'code' => 'A',
-                                    ],
-                                ],
-                            ],
-                        ]),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                $noPriceStatus,
-                            ],
-                            'ep.document_statuses_hidden'   => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'             => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $factory,
-                        $params,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new OrgUserDataProvider('contractsAggregated', [
                     'contracts-view',

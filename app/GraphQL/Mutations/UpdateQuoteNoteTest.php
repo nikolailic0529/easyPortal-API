@@ -204,7 +204,7 @@ class UpdateQuoteNoteTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'quotes-view'    => new CompositeDataProvider(
+            'quotes-view' => new CompositeDataProvider(
                 new AuthOrgDataProvider('updateQuoteNote'),
                 new OrgUserDataProvider('updateQuoteNote', [
                     'quotes-view',
@@ -466,73 +466,6 @@ class UpdateQuoteNoteTest extends TestCase {
                             'note'  => 'new note',
                             'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'files' => [
-                                [
-                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                    'content' => null,
-                                ],
-                            ],
-                        ],
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('updateQuoteNote'),
-                new OrgUserDataProvider('updateQuoteNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok'           => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
-                        $settings,
-                        $prepare,
-                        [
-                            'note'  => 'new note',
-                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files' => [
-                                [
-                                    'id'      => null,
-                                    'content' => UploadedFile::fake()->create('new.csv', 200),
-                                ],
-                            ],
-                        ],
-                    ],
-                    'unauthorized' => [
-                        new GraphQLUnauthorized('updateQuoteNote'),
-                        $settings,
-                        static function (TestCase $test, ?Organization $organization, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-                            $document = Document::factory()
-                                ->create([
-                                    'type_id'     => $type->getKey(),
-                                    'reseller_id' => $reseller->getKey(),
-                                ]);
-                            $user2    = User::factory()->create();
-                            $note     = Note::factory()
-                                ->for($user2)
-                                ->hasFiles(1, [
-                                    'name' => 'deleted',
-                                ])
-                                ->create([
-                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                    'document_id' => $document->getKey(),
-                                ]);
-                            File::factory()->create([
-                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                'name'        => 'keep.csv',
-                                'object_id'   => $note->getKey(),
-                                'object_type' => $note->getMorphClass(),
-                            ]);
-                        },
-                        [
-                            'note'   => 'new note',
-                            'pinned' => true,
-                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files'  => [
                                 [
                                     'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
                                     'content' => null,

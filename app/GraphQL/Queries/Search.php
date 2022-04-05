@@ -35,15 +35,15 @@ class Search {
             Document::class => 1,
         ];
 
-        if ($this->gate->any(['assets-view', 'customers-view'])) {
+        if ($this->gate->check(['assets-view'])) {
             $models[Asset::class] = [];
         }
 
-        if ($this->gate->any(['customers-view'])) {
+        if ($this->gate->check(['customers-view'])) {
             $models[Customer::class] = [];
         }
 
-        if ($this->gate->any(['customers-view']) || $this->gate->check(['contracts-view', 'quotes-view'])) {
+        if ($this->gate->check(['contracts-view', 'quotes-view'])) {
             $models[Document::class] = [];
         } elseif ($this->gate->check(['contracts-view'])) {
             $models[Document::class] = [DocumentTypeContractScope::class];

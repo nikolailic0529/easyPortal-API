@@ -232,7 +232,7 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',
@@ -245,20 +245,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('contract'),
-                new OrgUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
-                        $settings,
-                        $factory,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',
@@ -358,7 +345,7 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',
@@ -371,20 +358,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('contract'),
-                new OrgUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
-                        $settings,
-                        $factory,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',

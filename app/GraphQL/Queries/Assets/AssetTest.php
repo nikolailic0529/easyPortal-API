@@ -340,7 +340,7 @@ class AssetTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('asset'),
                 new OrgUserDataProvider('asset', [
                     'assets-view',
@@ -355,22 +355,7 @@ class AssetTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('asset'),
-                new OrgUserDataProvider('asset', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('asset', null),
-                        [],
-                        static function (TestCase $test, Organization $organization): Asset {
-                            return Asset::factory()->create();
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new OrgUserDataProvider(
                     'asset',

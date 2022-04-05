@@ -5805,7 +5805,7 @@ type AssetMutations {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
 
     @require <authMe(["assets-edit-nickname"])> User must be authenticated and have any of these permissions.
     """
@@ -5814,7 +5814,7 @@ type AssetMutations {
     ): AssetSetNicknamePayload
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @authMe(
         permissions: ["assets-edit-nickname"]
@@ -6272,7 +6272,7 @@ type Currency {
 
 type Customer {
     """
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assets(
         limit: Int! = 25
@@ -6319,13 +6319,13 @@ type Customer {
         )
     ): [Asset!]!
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @relation
     @paginatedRelation
 
     """
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
         where: SearchByConditionAssetsQuery
@@ -6354,7 +6354,7 @@ type Customer {
         )
     ): AssetsAggregated
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @aggregated(
         relation: "assets"
@@ -6399,7 +6399,7 @@ type Customer {
     contacts_count: Int!
 
     """
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contracts(
         limit: Int! = 25
@@ -6446,13 +6446,13 @@ type Customer {
         )
     ): [Document!]!
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @relation
     @paginatedRelation
 
     """
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
         where: SearchByConditionDocumentsQuery
@@ -6481,7 +6481,7 @@ type Customer {
         )
     ): DocumentsAggregated
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @aggregated(
         relation: "contracts"
@@ -6533,7 +6533,7 @@ type Customer {
     name: String!
 
     """
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotes(
         limit: Int! = 25
@@ -6580,13 +6580,13 @@ type Customer {
         )
     ): [Document!]!
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @relation
     @paginatedRelation
 
     """
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
         where: SearchByConditionDocumentsQuery
@@ -6615,7 +6615,7 @@ type Customer {
         )
     ): DocumentsAggregated
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @aggregated(
         relation: "quotes"
@@ -7244,12 +7244,12 @@ type Map {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assets: [MapPoint!]!
     @authOrg
     @authMe(
-        permissions: ["customers-view", "assets-view"]
+        permissions: ["assets-view"]
     )
     @field(
         resolver: "App\\GraphQL\\Queries\\Map\\Assets"
@@ -7471,14 +7471,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     createContractNote(
         input: CreateContractNoteInput!
     ): CreateContractNotePayload
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
 
     """
@@ -7495,14 +7495,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     createQuoteNote(
         input: CreateQuoteNoteInput!
     ): CreateQuoteNotePayload
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
 
     """
@@ -7568,14 +7568,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view","org-administer"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view","org-administer"])> User must be authenticated and have any of these permissions.
     """
     deleteContractNote(
         input: DeleteContractNoteInput!
     ): DeleteContractNotePayload
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view", "org-administer"]
+        permissions: ["contracts-view", "org-administer"]
     )
 
     """
@@ -7592,14 +7592,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","org-administer","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["org-administer","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     deleteQuoteNote(
         input: DeleteQuoteNoteInput!
     ): DeleteQuoteNotePayload
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view", "org-administer"]
+        permissions: ["quotes-view", "org-administer"]
     )
 
     """
@@ -8055,14 +8055,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     updateContractNote(
         input: UpdateContractNoteInput!
     ): UpdateContractNotePayload
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
 
     """
@@ -8099,14 +8099,14 @@ type Mutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     updateQuoteNote(
         input: UpdateQuoteNoteInput!
     ): UpdateQuoteNotePayload
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
 
     """
@@ -8831,7 +8831,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     asset(
         id: ID!
@@ -8839,7 +8839,7 @@ type Query {
     ): Asset
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @find
 
@@ -8848,7 +8848,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetCoverages(
         where: SearchByConditionAssetCoveragesQuery
@@ -8878,7 +8878,7 @@ type Query {
     ): [Coverage!]!
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @all(
         model: "App\\Models\\Coverage"
@@ -8890,7 +8890,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetStatuses(
         where: SearchByConditionAssetStatusesQuery
@@ -8920,7 +8920,7 @@ type Query {
     ): [Status!]!
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Assets\\AssetStatuses"
@@ -8932,7 +8932,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetTypes(
         where: SearchByConditionAssetTypesQuery
@@ -8962,7 +8962,7 @@ type Query {
     ): [Type!]!
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Assets\\AssetTypes"
@@ -8974,7 +8974,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assets(
         limit: Int! = 25
@@ -9022,14 +9022,14 @@ type Query {
     ): [Asset!]!
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @paginated
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
         where: SearchByConditionAssetsQuery
@@ -9059,7 +9059,7 @@ type Query {
     ): AssetsAggregated
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @aggregated(
         model: "App\\Models\\Asset"
@@ -9068,7 +9068,7 @@ type Query {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsSearch(
         limit: Int! = 25
@@ -9094,14 +9094,14 @@ type Query {
     ): [Asset!]!
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @paginated
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsSearchAggregated(
         search: SearchString!
@@ -9109,7 +9109,7 @@ type Query {
     ): AssetsAggregated
     @authOrg
     @authMe(
-        permissions: ["assets-view", "customers-view"]
+        permissions: ["assets-view"]
     )
     @aggregated(
         model: "App\\Models\\Asset"
@@ -9306,7 +9306,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contract(
         id: ID!
@@ -9314,7 +9314,7 @@ type Query {
     ): Document
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
@@ -9326,7 +9326,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractStatuses(
         where: SearchByConditionContractStatusesQuery
@@ -9356,7 +9356,7 @@ type Query {
     ): [Status!]!
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Contracts\\ContractStatuses"
@@ -9368,7 +9368,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractTypes(
         where: SearchByConditionContractTypesQuery
@@ -9398,7 +9398,7 @@ type Query {
     ): [Type!]!
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Contracts\\ContractTypes"
@@ -9410,7 +9410,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contracts(
         limit: Int! = 25
@@ -9458,7 +9458,7 @@ type Query {
     ): [Document!]!
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
@@ -9468,7 +9468,7 @@ type Query {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
         where: SearchByConditionDocumentsQuery
@@ -9498,7 +9498,7 @@ type Query {
     ): DocumentsAggregated
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
@@ -9510,7 +9510,7 @@ type Query {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsSearch(
         limit: Int! = 25
@@ -9539,14 +9539,14 @@ type Query {
     ): [Document!]!
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @paginated
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsSearchAggregated(
         search: SearchString!
@@ -9557,7 +9557,7 @@ type Query {
     ): DocumentsAggregated
     @authOrg
     @authMe(
-        permissions: ["contracts-view", "customers-view"]
+        permissions: ["contracts-view"]
     )
     @aggregated(
         model: "App\\Models\\Document"
@@ -10210,7 +10210,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quote(
         id: ID!
@@ -10218,7 +10218,7 @@ type Query {
     ): Document
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
@@ -10243,7 +10243,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quoteStatuses(
         where: SearchByConditionQuoteStatusesQuery
@@ -10273,7 +10273,7 @@ type Query {
     ): [Status!]!
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses"
@@ -10285,7 +10285,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quoteTypes(
         where: SearchByConditionQuoteTypesQuery
@@ -10315,7 +10315,7 @@ type Query {
     ): [Type!]!
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes"
@@ -10327,7 +10327,7 @@ type Query {
 
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotes(
         limit: Int! = 25
@@ -10375,7 +10375,7 @@ type Query {
     ): [Document!]!
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
@@ -10385,7 +10385,7 @@ type Query {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
         where: SearchByConditionDocumentsQuery
@@ -10415,7 +10415,7 @@ type Query {
     ): DocumentsAggregated
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @builder(
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
@@ -10427,7 +10427,7 @@ type Query {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesSearch(
         limit: Int! = 25
@@ -10456,14 +10456,14 @@ type Query {
     ): [Document!]!
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @paginated
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
-    @require <authMe(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesSearchAggregated(
         search: SearchString!
@@ -10474,7 +10474,7 @@ type Query {
     ): DocumentsAggregated
     @authOrg
     @authMe(
-        permissions: ["quotes-view", "customers-view"]
+        permissions: ["quotes-view"]
     )
     @aggregated(
         model: "App\\Models\\Document"

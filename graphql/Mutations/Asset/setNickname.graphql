@@ -3,7 +3,7 @@ extend type AssetMutations {
         input: AssetSetNicknameInput!
     ): AssetSetNicknamePayload
     @authOrg
-    @authMe(permissions: ["assets-view", "customers-view"])
+    @authMe(permissions: ["assets-view"])
     @authMe(permissions: ["assets-edit-nickname"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"

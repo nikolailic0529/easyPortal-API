@@ -111,44 +111,6 @@ class DeleteQuoteNoteTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('deleteQuoteNote'),
-                new OrgUserDataProvider('deleteQuoteNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok'             => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
-                            'deleted' => true,
-                        ]),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-                            if ($user) {
-                                $user->save();
-                                $data['user_id'] = $user->getKey();
-                            }
-
-                            return Note::factory()->for($user)->hasFiles(1)->create($data);
-                        },
-                        false,
-                    ],
-                    'Different User' => [
-                        new GraphQLUnauthorized('deleteQuoteNote'),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
-                        },
-                        true,
-                    ],
-                ]),
-            ),
             'org-administer' => new CompositeDataProvider(
                 new AuthOrgDataProvider('deleteQuoteNote'),
                 new OrgUserDataProvider('deleteQuoteNote', [

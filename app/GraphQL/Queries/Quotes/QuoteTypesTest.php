@@ -171,14 +171,7 @@ class QuoteTypesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('quoteTypes'),
-                new OrgUserDataProvider('quoteTypes', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'quotes-view'    => new CompositeDataProvider(
+            'quotes-view' => new CompositeDataProvider(
                 new AuthOrgDataProvider('quoteTypes'),
                 new OrgUserDataProvider('quoteTypes', [
                     'quotes-view',

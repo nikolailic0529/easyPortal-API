@@ -3,7 +3,7 @@ extend type Mutation {
         input: CreateContractNoteInput!
     ): CreateContractNotePayload
     @authOrg
-    @authMe(permissions: ["contracts-view", "customers-view"])
+    @authMe(permissions: ["contracts-view"])
 }
 
 input CreateContractNoteInput @validator {

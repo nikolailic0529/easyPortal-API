@@ -31,7 +31,7 @@ type Customer {
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy
     ): [Document!]!
-    @authMe(permissions: ["contracts-view", "customers-view"])
+    @authMe(permissions: ["contracts-view"])
     @relation
     @paginatedRelation
 
@@ -41,7 +41,7 @@ type Customer {
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy
     ): [Document!]!
-    @authMe(permissions: ["quotes-view", "customers-view"])
+    @authMe(permissions: ["quotes-view"])
     @relation
     @paginatedRelation
 
@@ -50,7 +50,7 @@ type Customer {
         where: AssetsQuery @searchBy
         order: AssetsSort @sortBy
     ): [Asset!]!
-    @authMe(permissions: ["assets-view", "customers-view"])
+    @authMe(permissions: ["assets-view"])
     @relation
     @paginatedRelation
 }

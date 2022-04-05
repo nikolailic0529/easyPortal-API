@@ -121,14 +121,7 @@ class AssetTypesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('assetTypes'),
-                new OrgUserDataProvider('assetTypes', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'assets-view'    => new CompositeDataProvider(
+            'assets-view' => new CompositeDataProvider(
                 new AuthOrgDataProvider('assetTypes'),
                 new OrgUserDataProvider('assetTypes', [
                     'assets-view',

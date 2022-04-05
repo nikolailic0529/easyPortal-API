@@ -261,7 +261,7 @@ class AssetsSearchTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'root'         => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('assetsSearch'),
                 new OrgUserDataProvider('assetsSearch', [
                     'assets-view',
@@ -276,22 +276,7 @@ class AssetsSearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('assetsSearch'),
-                new OrgUserDataProvider('assetsSearch', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('assetsSearch', null),
-                        [],
-                        static function (TestCase $test, Organization $organization): Asset {
-                            return Asset::factory()->create();
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
+            'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('assetsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new OrgUserDataProvider(
                     'assetsSearch',

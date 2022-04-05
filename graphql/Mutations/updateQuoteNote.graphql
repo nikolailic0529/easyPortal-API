@@ -3,7 +3,7 @@ extend type Mutation {
         input: UpdateQuoteNoteInput!
     ): UpdateQuoteNotePayload
     @authOrg
-    @authMe(permissions: ["quotes-view", "customers-view"])
+    @authMe(permissions: ["quotes-view"])
 }
 
 input UpdateQuoteNoteInput @validator(class:"App\\GraphQL\\Validators\\UpdateContractNoteInputValidator") {

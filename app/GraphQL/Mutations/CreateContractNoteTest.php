@@ -273,20 +273,6 @@ class CreateContractNoteTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('createContractNote'),
-                new OrgUserDataProvider('createContractNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('createContractNote', CreateContractNote::class),
-                        $settings,
-                        $prepare,
-                        $input,
-                    ],
-                ]),
-            ),
         ]))->getData();
     }
     // </editor-fold>

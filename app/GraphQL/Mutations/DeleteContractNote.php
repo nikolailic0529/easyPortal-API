@@ -22,7 +22,7 @@ class DeleteContractNote {
         return [
             'deleted' => $this->deleteNote(
                 $args['input']['id'],
-                ['org-administer', 'contracts-view', 'customers-view'],
+                ['org-administer', 'contracts-view'],
             ),
         ];
     }

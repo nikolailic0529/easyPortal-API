@@ -180,7 +180,7 @@ class CreateQuoteNoteTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'quotes-view'    => new CompositeDataProvider(
+            'quotes-view' => new CompositeDataProvider(
                 new AuthOrgDataProvider('createQuoteNote'),
                 new OrgUserDataProvider('createQuoteNote', [
                     'quotes-view',
@@ -279,20 +279,6 @@ class CreateQuoteNoteTest extends TestCase {
                             'ep.file.max_size' => 200,
                             'ep.file.formats'  => ['pdf'],
                         ],
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('createQuoteNote'),
-                new OrgUserDataProvider('createQuoteNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('createQuoteNote', CreateQuoteNote::class),
-                        $settings,
-                        $prepare,
-                        $input,
                     ],
                 ]),
             ),
