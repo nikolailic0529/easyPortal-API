@@ -2,6 +2,7 @@
 
 namespace App\Utils\Eloquent\Testing\Database;
 
+use App\Services\Organization\Testing\Database\OwnedBy;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory as BaseFactory;
 
@@ -14,5 +15,8 @@ use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory as BaseFac
  * @extends BaseFactory<TModel>
  */
 abstract class Factory extends BaseFactory {
-    // empty
+    /**
+     * @use OwnedBy<TModel>
+     */
+    use OwnedBy;
 }
