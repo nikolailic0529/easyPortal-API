@@ -15,6 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 /**
@@ -64,13 +65,13 @@ class PermissionsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $a      = new class('permission-a') extends AuthPermission implements IsRoot {
+        $a            = new class('permission-a') extends AuthPermission implements IsRoot {
             // empty,
         };
-        $b      = new class('permission-b') extends AuthPermission {
+        $b            = new class('permission-b') extends AuthPermission {
             // empty,
         };
-        $root   = new ArrayDataProvider([
+        $root         = new ArrayDataProvider([
             'ok' => [
                 new GraphQLSuccess('permissions', self::class, [
                     [
@@ -115,7 +116,7 @@ class PermissionsTest extends TestCase {
                 },
             ],
         ]);
-        $normal = new ArrayDataProvider([
+        $normal       = new ArrayDataProvider([
             'ok' => [
                 new GraphQLSuccess('permissions', self::class, [
                     [
@@ -141,6 +142,15 @@ class PermissionsTest extends TestCase {
                     ]);
 
                     return [$a, $b];
+                },
+            ],
+        ]);
+        $unauthorized = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLUnauthorized('permissions'),
+                null,
+                static function () use ($a): array {
+                    return [$a];
                 },
             ],
         ]);
@@ -188,7 +198,7 @@ class PermissionsTest extends TestCase {
                         new OrgUserDataProvider('permissions', [
                             'administer',
                         ]),
-                        $normal,
+                        $unauthorized,
                     ),
                     'org-administer' => new CompositeDataProvider(
                         new OrgUserDataProvider('permissions', [
