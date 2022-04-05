@@ -77,14 +77,26 @@ class Auth {
      * @return array<string>
      */
     public function getOrganizationUserPermissions(Organization $organization, User $user): array {
-        $userPermissions = $user->getOrganizationPermissions($organization);
-        $orgPermissions  = $this->getAvailablePermissions($organization);
-        $permissions     = array_intersect($userPermissions, $orgPermissions);
-        $permissions     = $this->expand($permissions);
-        $permissions     = array_intersect($permissions, $orgPermissions);
-        $permissions     = array_values($permissions);
+        $permissions = $user->getOrganizationPermissions($organization);
+        $permissions = $this->getActualPermissions($organization, $permissions);
 
         return $permissions;
+    }
+
+    /**
+     * @param array<string> $permissions
+     *
+     * @return array<string>
+     */
+    public function getActualPermissions(?Organization $organization, array $permissions): array {
+        $permissions = $this->expand($permissions);
+
+        if ($organization) {
+            $valid       = $this->getAvailablePermissions($organization);
+            $permissions = array_intersect($permissions, $valid);
+        }
+
+        return array_values($permissions);
     }
 
     /**

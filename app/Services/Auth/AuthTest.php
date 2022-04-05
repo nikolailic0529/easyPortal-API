@@ -121,6 +121,29 @@ class AuthTest extends TestCase {
      * @covers ::getOrganizationUserPermissions
      */
     public function testGetOrganizationUserPermissions(): void {
+        $permissions = ['a', 'b'];
+        $org  = Mockery::mock(Organization::class);
+        $user = Mockery::mock(User::class);
+        $user
+            ->shouldReceive('getOrganizationPermissions')
+            ->with($org)
+            ->once()
+            ->andReturn($permissions);
+        $auth = Mockery::mock(Auth::class);
+        $auth->makePartial();
+        $auth
+            ->shouldReceive('getActualPermissions')
+            ->with($org, $permissions)
+            ->once()
+            ->andReturn($permissions);
+
+        $auth->getOrganizationUserPermissions($org, $user);
+    }
+
+    /**
+     * @covers ::getActualPermissions
+     */
+    public function testGetActualPermissions(): void {
         $a    = new class('a') extends Permission {
             // empty
         };
@@ -172,15 +195,6 @@ class AuthTest extends TestCase {
                 $b->getName(),
                 $e->getName(),
             ]);
-        $user = Mockery::mock(User::class);
-        $user
-            ->shouldReceive('getOrganizationPermissions')
-            ->with($org)
-            ->once()
-            ->andReturn([
-                $a->getName(),
-                $b->getName(),
-            ]);
 
         self::assertEqualsCanonicalizing(
             [
@@ -188,7 +202,10 @@ class AuthTest extends TestCase {
                 $b->getName(),
                 $e->getName(),
             ],
-            $auth->getOrganizationUserPermissions($org, $user),
+            $auth->getActualPermissions($org, [
+                $a->getName(),
+                $b->getName(),
+            ]),
         );
     }
     // </editor-fold>
