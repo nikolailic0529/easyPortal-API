@@ -7,9 +7,9 @@ use App\Models\Currency;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Product;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 use function number_format;
 

@@ -5,9 +5,9 @@ namespace Database\Factories\Logs;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method Log create($attributes = [], ?Model $parent = null)
