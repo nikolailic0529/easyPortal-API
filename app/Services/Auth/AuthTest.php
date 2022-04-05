@@ -122,8 +122,8 @@ class AuthTest extends TestCase {
      */
     public function testGetOrganizationUserPermissions(): void {
         $permissions = ['a', 'b'];
-        $org  = Mockery::mock(Organization::class);
-        $user = Mockery::mock(User::class);
+        $org         = Mockery::mock(Organization::class);
+        $user        = Mockery::mock(User::class);
         $user
             ->shouldReceive('getOrganizationPermissions')
             ->with($org)

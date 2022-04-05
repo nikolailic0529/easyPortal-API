@@ -98,7 +98,7 @@ class SearchTest extends TestCase {
      * @return array<string,mixed>
      */
     public function dataProviderInvoke(): array {
-        $settings = [
+        $settings                = [
             'ep.document_statuses_hidden' => [
                 'fb377814-592d-492c-aa05-e9e01afd4a11',
             ],
@@ -109,7 +109,7 @@ class SearchTest extends TestCase {
                 '453a47d0-6607-4cf7-8d0a-bd57a962658a',
             ],
         ];
-        $factory  = static function (TestCase $test, Organization $organization): Collection {
+        $factory                 = static function (TestCase $test, Organization $organization): Collection {
             $status          = Status::factory()->create([
                 'id' => 'fb377814-592d-492c-aa05-e9e01afd4a11',
             ]);

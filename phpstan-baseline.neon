@@ -236,7 +236,12 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
@@ -466,6 +471,11 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
+
+		-
 			message: "#^Parameter \\#2 \\$class of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Manipulator\\:\\:getNodeDirective\\(\\) expects class\\-string\\<T of Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\Directive\\>, string given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
@@ -636,6 +646,11 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Org/Relation.php
+
+		-
 			message: "#^Parameter \\#1 \\$parents \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Org\\\\RelationLoader\\:\\:load\\(\\) should be contravariant with parameter \\$parents \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\) of method Nuwave\\\\Lighthouse\\\\Execution\\\\ModelsLoader\\\\ModelsLoader\\:\\:load\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/RelationLoader.php
@@ -661,7 +676,12 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/Base.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
@@ -11841,6 +11861,11 @@ parameters:
 			path: app/Services/Logger/Listeners/EloquentObject.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Services/Logger/Listeners/EloquentObject.php
+
+		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Listeners\\\\Listener\\:\\:getSafeListener\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Logger/Listeners/Listener.php
@@ -13396,6 +13421,11 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Services/Search/Processors/ModelProcessor.php
+
+		-
 			message: "#^Property App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,TState of App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:\\$model \\(class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) does not accept class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
@@ -14046,6 +14076,11 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
@@ -14121,6 +14156,11 @@ parameters:
 			path: app/Utils/Eloquent/Mixins/EloquentBuilderMixin.php
 
 		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Mixins/EloquentBuilderMixin.php
+
+		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Mixins\\\\QueryBuilderMixin\\:\\:whereMatchAgainst\\(\\) return type has no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Mixins/QueryBuilderMixin.php
@@ -14156,9 +14196,14 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
-			message: "#^Class App\\\\Utils\\\\Eloquent\\\\ModelHelper extends generic class LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper but does not specify its types\\: TModel$#"
+			message: "#^Method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
-			path: app/Utils/Eloquent/ModelHelper.php
+			path: app/Utils/Eloquent/ModelProperty.php
+
+		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/ModelProperty.php
 
 		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Customer\\> given\\.$#"
@@ -14472,6 +14517,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\EloquentState\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
+			path: app/Utils/Processor/EloquentProcessor.php
+
+		-
+			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessor.php
 
