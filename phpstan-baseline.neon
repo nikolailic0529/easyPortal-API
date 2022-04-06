@@ -3911,7 +3911,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
 		-
-			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:59\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
+			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:60\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
@@ -10052,6 +10052,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: array, Closure\\(App\\\\Models\\\\AssetWarranty\\)\\: array given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1461 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -16986,16 +16991,6 @@ parameters:
 			path: tests/Mixins/TranslatorMixin.php
 
 		-
-			message: "#^Dynamic call to static method Illuminate\\\\Translation\\\\Translator\\:\\:replaceLines\\(\\)\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Method Tests\\\\TestCase\\:\\:override\\(\\) should return Mockery\\\\MockInterface&T but returns Mockery\\\\MockInterface\\|T of mixed\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^Method Tests\\\\TestCase\\:\\:setOrganization\\(\\) has parameter \\$organization with no signature specified for Closure\\.$#"
 			count: 1
 			path: tests/TestCase.php
@@ -17021,27 +17016,12 @@ parameters:
 			path: tests/TestCase.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects Mockery\\\\MockInterface&T, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: mixed, Closure\\(array\\)\\: mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
 			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface&T, Tests\\\\TestCase\\)\\: T\\)\\|null\\) of method Tests\\\\TestCase\\:\\:override\\(\\) should be contravariant with parameter \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface, static\\(LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\)\\)\\: mixed\\)\\|null\\) of method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:override\\(\\)$#"
 			count: 1
 			path: tests/TestCase.php
 
