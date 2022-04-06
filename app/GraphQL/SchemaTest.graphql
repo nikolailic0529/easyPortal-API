@@ -94,7 +94,9 @@ input ApplicationMaintenanceScheduleInput {
 input AssetSetNicknameInput {
     nickname: String
     @isNullable
-    @isMax(value: 255)
+    @isMax(
+        value: 255
+    )
 }
 
 input AuthOrganizationAuthorizeInput {
@@ -109,7 +111,9 @@ input AuthSignUpByInviteInput {
 }
 
 input CreateContractNoteInput
-@validator(class: "App\\GraphQL\\Validators\\CreateContractNoteInputValidator")
+@validator(
+    class: "App\\GraphQL\\Validators\\CreateContractNoteInputValidator"
+)
 {
     contract_id: String!
     files: [Upload!]
@@ -124,7 +128,9 @@ input CreateMeSearchInput {
 }
 
 input CreateQuoteNoteInput
-@validator(class: "App\\GraphQL\\Validators\\CreateQuoteNoteInputValidator")
+@validator(
+    class: "App\\GraphQL\\Validators\\CreateQuoteNoteInputValidator"
+)
 {
     files: [Upload!]
     note: HtmlString!
@@ -136,7 +142,9 @@ input DeleteApplicationTranslationsInput {
     keys: [String!]!
 
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 }
 
 input DeleteClientSettingsInput {
@@ -147,7 +155,9 @@ input DeleteClientTranslationsInput {
     keys: [String!]!
 
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 }
 
 input DeleteContractNoteInput {
@@ -176,7 +186,9 @@ input DispatchApplicationServiceInput {
 
 input ImportOemsInput {
     file: Upload!
-    @rules(apply: ["App\\Rules\\Spreadsheet"])
+    @rules(
+        apply: ["App\\Rules\\Spreadsheet"]
+    )
 }
 
 input MeUpdateInput {
@@ -387,7 +399,9 @@ input QuoteRequestCreateAssetInput {
         value: null
     )
     @isNullable
-    @isMax(value: 255)
+    @isMax(
+        value: 255
+    )
 
     service_level_id: ID
     @isRequiredWithout(
@@ -426,13 +440,17 @@ input QuoteRequestCreateInput {
     @isPhoneNumber
 
     customer_custom: String
-    @isRequiredWithout(field: "input.customer_id")
+    @isRequiredWithout(
+        field: "input.customer_id"
+    )
     @isProhibitedUnless(
         field: "input.customer_id"
         value: null
     )
     @isNullable
-    @isMax(value: 255)
+    @isMax(
+        value: 255
+    )
 
     customer_id: ID
     @isRequiredWithout(
@@ -454,16 +472,22 @@ input QuoteRequestCreateInput {
     message: HtmlString
 
     oem_custom: String
-    @isRequiredWithout(field: "input.oem_id")
+    @isRequiredWithout(
+        field: "input.oem_id"
+    )
     @isProhibitedUnless(
         field: "input.oem_id"
         value: null
     )
     @isNullable
-    @isMax(value: 255)
+    @isMax(
+        value: 255
+    )
 
     oem_id: ID
-    @isRequiredWithout(field: "input.oem_custom")
+    @isRequiredWithout(
+        field: "input.oem_custom"
+    )
     @isProhibitedUnless(
         field: "input.oem_custom"
         value: null
@@ -472,16 +496,22 @@ input QuoteRequestCreateInput {
     @isOemId
 
     type_custom: String
-    @isRequiredWithout(field: "input.type_id")
+    @isRequiredWithout(
+        field: "input.type_id"
+    )
     @isProhibitedUnless(
         field: "input.type_id"
         value: null
     )
     @isNullable
-    @isMax(value: 255)
+    @isMax(
+        value: 255
+    )
 
     type_id: ID
-    @isRequiredWithout(field: "input.type_custom")
+    @isRequiredWithout(
+        field: "input.type_custom"
+    )
     @isProhibitedUnless(
         field: "input.type_custom"
         value: null
@@ -492,12 +522,16 @@ input QuoteRequestCreateInput {
 
 input RecoverApplicationTranslationsInput {
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 }
 
 input RecoverClientTranslationsInput {
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 }
 
 input RequestAssetChangeInput {
@@ -507,29 +541,43 @@ input RequestAssetChangeInput {
     )
 
     bcc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     cc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     files: [Upload!]
 
     from: Email!
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     message: HtmlString!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 
     subject: String!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 }
 
 input RequestContractChangeInput {
     bcc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     cc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     contract_id: ID!
     @rules(
@@ -539,21 +587,31 @@ input RequestContractChangeInput {
     files: [Upload!]
 
     from: Email!
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     message: HtmlString!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 
     subject: String!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 }
 
 input RequestCustomerChangeInput {
     bcc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     cc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     customer_id: ID!
     @rules(
@@ -563,48 +621,72 @@ input RequestCustomerChangeInput {
     files: [Upload!]
 
     from: Email!
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     message: HtmlString!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 
     subject: String!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 }
 
 input RequestOrgChangeInput {
     bcc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     cc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     files: [Upload!]
 
     from: Email!
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     message: HtmlString!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 
     subject: String!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 }
 
 input RequestQuoteChangeInput {
     bcc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     cc: [Email!]
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     files: [Upload!]
 
     from: Email!
-    @rules(apply: ["email"])
+    @rules(
+        apply: ["email"]
+    )
 
     message: HtmlString!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 
     quote_id: ID!
     @rules(
@@ -612,7 +694,9 @@ input RequestQuoteChangeInput {
     )
 
     subject: String!
-    @rules(apply: ["required"])
+    @rules(
+        apply: ["required"]
+    )
 }
 
 input ResetApplicationServiceInput {
@@ -630,7 +714,9 @@ input ResetPasswordInput {
     email: Email!
 
     password: String!
-    @rules(apply: ["min:8"])
+    @rules(
+        apply: ["min:8"]
+    )
 
     token: String!
 }
@@ -4005,7 +4091,9 @@ input SendResetPasswordLinkInput {
 
 input SetApplicationLocaleInput {
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 }
 
 input SignInInput {
@@ -5548,7 +5636,9 @@ input UpdateApplicationSettingsInput
 
 input UpdateApplicationTranslationsInput {
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 
     translations: [TranslationInput!]!
 }
@@ -5560,7 +5650,9 @@ input UpdateClientSettingsInput {
 
 input UpdateClientTranslationsInput {
     locale: String!
-    @rules(apply: ["App\\Rules\\Locale"])
+    @rules(
+        apply: ["App\\Rules\\Locale"]
+    )
 
     translations: [TranslationInput!]!
 }
@@ -5571,7 +5663,9 @@ input UpdateContractNoteFile {
 }
 
 input UpdateContractNoteInput
-@validator(class: "App\\GraphQL\\Validators\\UpdateContractNoteInputValidator")
+@validator(
+    class: "App\\GraphQL\\Validators\\UpdateContractNoteInputValidator"
+)
 {
     files: [UpdateContractNoteFile!]
     id: ID!
@@ -5580,7 +5674,9 @@ input UpdateContractNoteInput
 }
 
 input UpdateMeEmailInput
-@validator(class: "App\\GraphQL\\Validators\\UpdateMeEmailInputValidator")
+@validator(
+    class: "App\\GraphQL\\Validators\\UpdateMeEmailInputValidator"
+)
 {
     email: Email!
 }
@@ -5596,7 +5692,9 @@ input UpdateQuoteNoteFile {
 }
 
 input UpdateQuoteNoteInput
-@validator(class: "App\\GraphQL\\Validators\\UpdateContractNoteInputValidator")
+@validator(
+    class: "App\\GraphQL\\Validators\\UpdateContractNoteInputValidator"
+)
 {
     files: [UpdateQuoteNoteFile!]
     id: ID!
@@ -5672,25 +5770,33 @@ scalar BuilderValue
 The RGB Color (eg `#FF0000`).
 """
 scalar Color
-@scalar(class: "GraphQL\\Type\\Definition\\StringType")
+@scalar(
+    class: "GraphQL\\Type\\Definition\\StringType"
+)
 
 """
 ISO 8601 Date string with format Y-m-d (`2011-05-23`).
 """
 scalar Date
-@scalar(class: "App\\GraphQL\\Scalars\\Date")
+@scalar(
+    class: "App\\GraphQL\\Scalars\\Date"
+)
 
 """
 ISO 8601 Date Time string with format `Y-m-dTH:i:sP` (`2018-05-23T13:43:32+00:00`).
 """
 scalar DateTime
-@scalar(class: "App\\GraphQL\\Scalars\\DateTime")
+@scalar(
+    class: "App\\GraphQL\\Scalars\\DateTime"
+)
 
 """
 The Email.
 """
 scalar Email
-@scalar(class: "GraphQL\\Type\\Definition\\StringType")
+@scalar(
+    class: "GraphQL\\Type\\Definition\\StringType"
+)
 
 scalar EqValue
 
@@ -5698,19 +5804,25 @@ scalar EqValue
 Geohash (https://en.wikipedia.org/wiki/Geohash)
 """
 scalar Geohash
-@scalar(class: "App\\GraphQL\\Scalars\\Geohash")
+@scalar(
+    class: "App\\GraphQL\\Scalars\\Geohash"
+)
 
 """
 HTML (https://en.wikipedia.org/wiki/HTML).
 """
 scalar HtmlString
-@scalar(class: "App\\GraphQL\\Scalars\\HtmlString")
+@scalar(
+    class: "App\\GraphQL\\Scalars\\HtmlString"
+)
 
 """
 Phone number in E.164 format (https://en.wikipedia.org/wiki/E.164).
 """
 scalar PhoneNumber
-@scalar(class: "GraphQL\\Type\\Definition\\StringType")
+@scalar(
+    class: "GraphQL\\Type\\Definition\\StringType"
+)
 
 """
 The `SearchString` scalar type represents textual data, represented as UTF-8
@@ -5723,19 +5835,25 @@ the simple syntax:
 - `"abc cde"`: return objects that contains exact phrase `abc cde`;
 """
 scalar SearchString
-@scalar(class: "GraphQL\\Type\\Definition\\StringType")
+@scalar(
+    class: "GraphQL\\Type\\Definition\\StringType"
+)
 
 """
 Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec
 """
 scalar Upload
-@scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
+@scalar(
+    class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload"
+)
 
 """
 The URL.
 """
 scalar Url
-@scalar(class: "GraphQL\\Type\\Definition\\StringType")
+@scalar(
+    class: "GraphQL\\Type\\Definition\\StringType"
+)
 
 type Application {
     """
@@ -5744,12 +5862,18 @@ type Application {
     @require <root> Authenticated user must be a root.
     """
     jobs: [ApplicationJob!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Application\\Jobs"
+    )
 
     locale: String!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Application\\Locale"
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -5767,7 +5891,9 @@ type Application {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseApplicationLogsSort!]
@@ -5797,7 +5923,9 @@ type Application {
             ]
         )
     ): [ApplicationLog!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @paginated(
         builder: "App\\GraphQL\\Queries\\Application\\Logs"
@@ -5834,7 +5962,9 @@ type Application {
             ]
         )
     ): ApplicationLogsAggregated
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @aggregated(
         builder: "App\\GraphQL\\Queries\\Application\\Logs"
@@ -5853,7 +5983,9 @@ type Application {
     @require <root> Authenticated user must be a root.
     """
     services: [ApplicationService!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Queries\\Application\\Services"
@@ -5865,7 +5997,9 @@ type Application {
     @require <root> Authenticated user must be a root.
     """
     settingGroups: [ApplicationSettingGroup!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups"
@@ -5877,7 +6011,9 @@ type Application {
     @require <root> Authenticated user must be a root.
     """
     settings: [ApplicationSetting!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Queries\\Application\\Settings"
@@ -5890,9 +6026,13 @@ type Application {
     """
     translations(
         locale: String!
-        @rules(apply: ["App\\Rules\\Locale"])
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
     ): [ApplicationTranslation!]!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Queries\\Application\\Translations"
@@ -5937,7 +6077,9 @@ type ApplicationLog {
     JSON
     """
     context: String
-    @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\JsonResolver"
+    )
 
     created_at: DateTime!
 
@@ -5955,7 +6097,9 @@ type ApplicationLog {
     JSON
     """
     statistics: String
-    @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\JsonResolver"
+    )
 
     """
     Possible values:
@@ -5994,7 +6138,9 @@ type ApplicationMaintenanceMutations {
     schedule(
         input: ApplicationMaintenanceScheduleInput!
     ): ApplicationMaintenanceSchedulePayload
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Schedule"
@@ -6006,7 +6152,9 @@ type ApplicationMaintenanceMutations {
     @require <root> Authenticated user must be a root.
     """
     stop: ApplicationMaintenanceStopPayload
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\Maintenance\\Stop"
@@ -6197,7 +6345,9 @@ type Asset {
     type_id: ID
 
     warranties: [AssetWarranty!]!
-    @hasMany(relation: "contractWarranties")
+    @hasMany(
+        relation: "contractWarranties"
+    )
 
     warranty_changed_at: DateTime
     warranty_end: Date
@@ -6211,10 +6361,16 @@ type AssetMutations {
 
     @require <me(["assets-edit-nickname"])> User must be authenticated and have any of these permissions.
     """
-    setNickname(input: AssetSetNicknameInput!): AssetSetNicknamePayload
+    setNickname(
+        input: AssetSetNicknameInput!
+    ): AssetSetNicknamePayload
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @me(permissions: ["assets-edit-nickname"])
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @me(
+        permissions: ["assets-edit-nickname"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"
     )
@@ -6226,7 +6382,9 @@ type AssetMutations {
     """
     sync: AssetSyncPayload
     @organization
-    @me(permissions: ["assets-sync"])
+    @me(
+        permissions: ["assets-sync"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\Sync"
     )
@@ -6393,7 +6551,9 @@ type AuthMutations {
         @eq
     ): AuthOrganizationMutations
     @guest
-    @mutation(model: "App\\Models\\Organization")
+    @mutation(
+        model: "App\\Models\\Organization"
+    )
 
     signOut: AuthSignOutPayload
     @mutationCall(
@@ -6414,7 +6574,10 @@ type AuthMutations {
 
     @require <guest> Current visitor must be a guest.
     """
-    signUpByInvite(input: AuthSignUpByInviteInput, token: String!): AuthSignUpByInvitePayload
+    signUpByInvite(
+        input: AuthSignUpByInviteInput
+        token: String!
+    ): AuthSignUpByInvitePayload
     @guest
     @mutationCall(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
@@ -6433,7 +6596,9 @@ type AuthOrganizationMutations {
     """
     @require <guest> Current visitor must be a guest.
     """
-    authorize(input: AuthOrganizationAuthorizeInput!): AuthOrganizationAuthorizePayload
+    authorize(
+        input: AuthOrganizationAuthorizeInput!
+    ): AuthOrganizationAuthorizePayload
     @guest
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Auth\\Organization\\Authorize"
@@ -6517,13 +6682,19 @@ type City {
 
 type Client {
     settings: [ClientSetting!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Client\\Settings")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Client\\Settings"
+    )
 
     translations(
         locale: String!
-        @rules(apply: ["App\\Rules\\Locale"])
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
     ): [ClientTranslation!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Client\\Translations")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Client\\Translations"
+    )
 }
 
 type ClientSetting {
@@ -6564,7 +6735,9 @@ type ContractMutations {
     """
     sync: ContractSyncPayload
     @organization
-    @me(permissions: ["contracts-sync"])
+    @me(
+        permissions: ["contracts-sync"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Document\\Sync"
     )
@@ -6629,7 +6802,9 @@ type Customer {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseAssetsSort!]
@@ -6660,7 +6835,9 @@ type Customer {
             ]
         )
     ): [Asset!]!
-    @me(permissions: ["assets-view", "customers-view"])
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
     @hasMany
     @paginatedRelation
 
@@ -6693,8 +6870,12 @@ type Customer {
             ]
         )
     ): AssetsAggregated
-    @me(permissions: ["assets-view", "customers-view"])
-    @aggregated(relation: "assets")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @aggregated(
+        relation: "assets"
+    )
 
     assets_count: Int!
     @orgProperty
@@ -6748,7 +6929,9 @@ type Customer {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSort!]
@@ -6779,7 +6962,9 @@ type Customer {
             ]
         )
     ): [Document!]!
-    @me(permissions: ["contracts-view", "customers-view"])
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
     @hasMany
     @paginatedRelation
 
@@ -6812,8 +6997,12 @@ type Customer {
             ]
         )
     ): DocumentsAggregated
-    @me(permissions: ["contracts-view", "customers-view"])
-    @aggregated(relation: "contracts")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @aggregated(
+        relation: "contracts"
+    )
 
     headquarter: CustomerLocation
     @hasOne
@@ -6845,7 +7034,9 @@ type Customer {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSort!]
@@ -6876,7 +7067,9 @@ type Customer {
             ]
         )
     ): [Document!]!
-    @me(permissions: ["quotes-view", "customers-view"])
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
     @hasMany
     @paginatedRelation
 
@@ -6909,8 +7102,12 @@ type Customer {
             ]
         )
     ): DocumentsAggregated
-    @me(permissions: ["quotes-view", "customers-view"])
-    @aggregated(relation: "quotes")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @aggregated(
+        relation: "quotes"
+    )
 
     statuses: [Status!]!
     @belongsToMany
@@ -6941,7 +7138,9 @@ type CustomerMutations {
     """
     sync: CustomerSyncPayload
     @organization
-    @me(permissions: ["customers-sync"])
+    @me(
+        permissions: ["customers-sync"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Customer\\Sync"
     )
@@ -7105,7 +7304,9 @@ type Document {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseNotesSort!]
@@ -7161,7 +7362,9 @@ type Document {
             ]
         )
     ): NotesAggregated
-    @aggregated(relation: "notes")
+    @aggregated(
+        relation: "notes"
+    )
 
     number: String!
 
@@ -7343,9 +7546,15 @@ type Map {
     """
     assets: [MapPoint!]!
     @organization
-    @me(permissions: ["customers-view", "assets-view"])
-    @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
-    @cached(mode: Threshold)
+    @me(
+        permissions: ["customers-view", "assets-view"]
+    )
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Map\\Assets"
+    )
+    @cached(
+        mode: Threshold
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7354,9 +7563,15 @@ type Map {
     """
     customers: [MapPoint!]!
     @organization
-    @me(permissions: ["customers-view"])
-    @field(resolver: "App\\GraphQL\\Queries\\Map\\Customers")
-    @cached(mode: Threshold)
+    @me(
+        permissions: ["customers-view"]
+    )
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Map\\Customers"
+    )
+    @cached(
+        mode: Threshold
+    )
 }
 
 type MapBoundingBox {
@@ -7383,7 +7598,9 @@ type Me {
     email: Email!
 
     enabled: Boolean!
-    @field(resolver: "App\\GraphQL\\Queries\\Me@enabled")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me@enabled"
+    )
 
     family_name: String!
     given_name: String!
@@ -7398,10 +7615,14 @@ type Me {
     photo: Url
 
     previous_sign_in: DateTime
-    @field(resolver: "App\\GraphQL\\Queries\\Me@previousSignIn")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me@previousSignIn"
+    )
 
     root: Boolean!
-    @field(resolver: "App\\GraphQL\\Queries\\Me@root")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me@root"
+    )
 
     searches(
         order: [SortByClauseMeSearchSort!]
@@ -7432,7 +7653,9 @@ type Me {
     @hasMany
 
     team: Team
-    @field(resolver: "App\\GraphQL\\Queries\\Me@team")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me@team"
+    )
 
     timezone: String
     title: String
@@ -7444,7 +7667,9 @@ type MeMutations {
 
     @require <me> User must be authenticated.
     """
-    update(input: MeUpdateInput!): MeUpdatePayload
+    update(
+        input: MeUpdateInput!
+    ): MeUpdatePayload
     @organization
     @me
     @mutationMutate(
@@ -7470,7 +7695,9 @@ implements
 
 type Mutation {
     application: ApplicationMutations
-    @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\EmptyResolver"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7483,10 +7710,14 @@ type Mutation {
     ): AssetMutations
     @organization
     @me
-    @mutation(model: "App\\Models\\Asset")
+    @mutation(
+        model: "App\\Models\\Asset"
+    )
 
     auth: AuthMutations
-    @mutation(resolver: "App\\GraphQL\\Resolvers\\NullResolver")
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7499,33 +7730,49 @@ type Mutation {
     ): ContractMutations
     @organization
     @me
-    @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
-    @mutation(model: "App\\Models\\Document")
+    @builder(
+        method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+    )
+    @mutation(
+        model: "App\\Models\\Document"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
-    createContractNote(input: CreateContractNoteInput!): CreateContractNotePayload
+    createContractNote(
+        input: CreateContractNoteInput!
+    ): CreateContractNotePayload
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
 
     """
     @require <me> User must be authenticated.
     """
-    createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
+    createMeSearch(
+        input: CreateMeSearchInput!
+    ): CreateMeSearchPayload
     @me
-    @field(resolver: "App\\GraphQL\\Mutations\\Me\\CreateMeSearch")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Me\\CreateMeSearch"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
-    createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
+    createQuoteNote(
+        input: CreateQuoteNoteInput!
+    ): CreateQuoteNotePayload
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7538,15 +7785,21 @@ type Mutation {
     ): CustomerMutations
     @organization
     @me
-    @mutation(model: "App\\Models\\Customer")
+    @mutation(
+        model: "App\\Models\\Customer"
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
 
     @require <root> Authenticated user must be a root.
     """
-    deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
-    @organization(root: true)
+    deleteApplicationTranslations(
+        input: DeleteApplicationTranslationsInput!
+    ): DeleteApplicationTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\DeleteApplicationTranslations"
@@ -7557,8 +7810,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
-    @organization(root: true)
+    deleteClientSettings(
+        input: DeleteClientSettingsInput!
+    ): DeleteClientSettingsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7566,8 +7823,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
-    @organization(root: true)
+    deleteClientTranslations(
+        input: DeleteClientTranslationsInput!
+    ): DeleteClientTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7575,7 +7836,9 @@ type Mutation {
 
     @require <me(["contracts-view","customers-view","org-administer"])> User must be authenticated and have any of these permissions.
     """
-    deleteContractNote(input: DeleteContractNoteInput!): DeleteContractNotePayload
+    deleteContractNote(
+        input: DeleteContractNoteInput!
+    ): DeleteContractNotePayload
     @organization
     @me(
         permissions: ["contracts-view", "customers-view", "org-administer"]
@@ -7584,16 +7847,22 @@ type Mutation {
     """
     @require <me> User must be authenticated.
     """
-    deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+    deleteMeSearch(
+        input: DeleteMeSearchInput!
+    ): DeleteMeSearchPayload
     @me
-    @field(resolver: "App\\GraphQL\\Mutations\\Me\\DeleteMeSearch")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Me\\DeleteMeSearch"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["customers-view","org-administer","quotes-view"])> User must be authenticated and have any of these permissions.
     """
-    deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
+    deleteQuoteNote(
+        input: DeleteQuoteNoteInput!
+    ): DeleteQuoteNotePayload
     @organization
     @me(
         permissions: ["quotes-view", "customers-view", "org-administer"]
@@ -7606,8 +7875,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
-    @organization(root: true)
+    dispatchApplicationService(
+        input: DispatchApplicationServiceInput!
+    ): DispatchApplicationServicePayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\DispatchApplicationService"
@@ -7618,8 +7891,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    importOems(input: ImportOemsInput!): ImportOemsPayload
-    @organization(root: true)
+    importOems(
+        input: ImportOemsInput!
+    ): ImportOemsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7630,7 +7907,9 @@ type Mutation {
     me: MeMutations
     @organization
     @me
-    @mutation(resolver: "App\\GraphQL\\Queries\\Me")
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7639,8 +7918,12 @@ type Mutation {
     """
     org: OrgMutations
     @organization
-    @me(permissions: ["org-administer"])
-    @mutation(resolver: "App\\GraphQL\\Queries\\Org")
+    @me(
+        permissions: ["org-administer"]
+    )
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Org"
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -7651,9 +7934,15 @@ type Mutation {
         id: ID
         @eq
     ): OrganizationMutations
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @mutation(model: "App\\Models\\Organization")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @mutation(
+        model: "App\\Models\\Organization"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7666,8 +7955,12 @@ type Mutation {
     ): QuoteMutations
     @organization
     @me
-    @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
-    @mutation(model: "App\\Models\\Document")
+    @builder(
+        method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
+    )
+    @mutation(
+        model: "App\\Models\\Document"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -7677,7 +7970,9 @@ type Mutation {
     quoteRequest: QuoteRequestMutations
     @organization
     @me
-    @mutation(model: "App\\Models\\QuoteRequest")
+    @mutation(
+        model: "App\\Models\\QuoteRequest"
+    )
 
     """
     Force delete all custom settings, may be useful to restore the corrupted file.
@@ -7687,7 +7982,9 @@ type Mutation {
     @require <root> Authenticated user must be a root.
     """
     recoverApplicationSettings: recoverApplicationSettingsPayload
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationSettings"
@@ -7701,8 +7998,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
-    @organization(root: true)
+    recoverApplicationTranslations(
+        input: RecoverApplicationTranslationsInput!
+    ): RecoverApplicationTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationTranslations"
@@ -7716,7 +8017,9 @@ type Mutation {
     @require <root> Authenticated user must be a root.
     """
     recoverClientSettings: RecoverClientSettingsPayload
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7727,8 +8030,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
-    @organization(root: true)
+    recoverClientTranslations(
+        input: RecoverClientTranslationsInput!
+    ): RecoverClientTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7736,36 +8043,52 @@ type Mutation {
 
     @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
     """
-    requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
+    requestAssetChange(
+        input: RequestAssetChangeInput!
+    ): RequestAssetChangePayload
     @organization
-    @me(permissions: ["requests-asset-change"])
+    @me(
+        permissions: ["requests-asset-change"]
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["requests-contract-change"])> User must be authenticated and have any of these permissions.
     """
-    requestContractChange(input: RequestContractChangeInput!): RequestContractChangePayload
+    requestContractChange(
+        input: RequestContractChangeInput!
+    ): RequestContractChangePayload
     @organization
-    @me(permissions: ["requests-contract-change"])
+    @me(
+        permissions: ["requests-contract-change"]
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["requests-customer-change"])> User must be authenticated and have any of these permissions.
     """
-    requestCustomerChange(input: RequestCustomerChangeInput!): RequestCustomerChangePayload
+    requestCustomerChange(
+        input: RequestCustomerChangeInput!
+    ): RequestCustomerChangePayload
     @organization
-    @me(permissions: ["requests-customer-change"])
+    @me(
+        permissions: ["requests-customer-change"]
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    requestOrgChange(input: RequestOrgChangeInput!): RequestOrgChangePayload
+    requestOrgChange(
+        input: RequestOrgChangeInput!
+    ): RequestOrgChangePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @field(
         resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange"
     )
@@ -7775,9 +8098,13 @@ type Mutation {
 
     @require <me(["requests-quote-change"])> User must be authenticated and have any of these permissions.
     """
-    requestQuoteChange(input: RequestQuoteChangeInput!): RequestQuoteChangePayload
+    requestQuoteChange(
+        input: RequestQuoteChangeInput!
+    ): RequestQuoteChangePayload
     @organization
-    @me(permissions: ["requests-quote-change"])
+    @me(
+        permissions: ["requests-quote-change"]
+    )
 
     """
     Reset application service progress.
@@ -7786,8 +8113,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    resetApplicationService(input: ResetApplicationServiceInput!): ResetApplicationServicePayload
-    @organization(root: true)
+    resetApplicationService(
+        input: ResetApplicationServiceInput!
+    ): ResetApplicationServicePayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\ResetApplicationService"
@@ -7800,9 +8131,13 @@ type Mutation {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    resetOrgUserPassword(input: ResetOrgUserPasswordInput!): ResetOrgUserPasswordPayload
+    resetOrgUserPassword(
+        input: ResetOrgUserPasswordInput!
+    ): ResetOrgUserPasswordPayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @field(
         resolver: "App\\GraphQL\\Mutations\\Org\\ResetOrgUserPassword"
     )
@@ -7812,24 +8147,36 @@ type Mutation {
 
     @require <guest> Current visitor must be a guest.
     """
-    resetPassword(input: ResetPasswordInput): ResetPasswordPayload
-    @throttle(name: "auth")
+    resetPassword(
+        input: ResetPasswordInput
+    ): ResetPasswordPayload
+    @throttle(
+        name: "auth"
+    )
     @guest
-    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\ResetPassword"
+    )
 
     """
     Send reset password link if local user with given email exists.
 
     @require <guest> Current visitor must be a guest.
     """
-    sendResetPasswordLink(input: SendResetPasswordLinkInput): SendResetPasswordLinkPayload
-    @throttle(name: "auth")
+    sendResetPasswordLink(
+        input: SendResetPasswordLinkInput
+    ): SendResetPasswordLinkPayload
+    @throttle(
+        name: "auth"
+    )
     @guest
     @field(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SendResetPasswordLink"
     )
 
-    setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
+    setApplicationLocale(
+        input: SetApplicationLocaleInput!
+    ): SetApplicationLocalePayload
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\SetApplicationLocale"
     )
@@ -7839,10 +8186,16 @@ type Mutation {
 
     @require <guest> Current visitor must be a guest.
     """
-    signIn(input: SignInInput): SignInPayload
-    @throttle(name: "auth")
+    signIn(
+        input: SignInInput
+    ): SignInPayload
+    @throttle(
+        name: "auth"
+    )
     @guest
-    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
+    )
 
     """
     Stop application service.
@@ -7851,8 +8204,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    stopApplicationService(input: StopApplicationServiceInput!): StopApplicationServicePayload
-    @organization(root: true)
+    stopApplicationService(
+        input: StopApplicationServiceInput!
+    ): StopApplicationServicePayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\StopApplicationService"
@@ -7863,8 +8220,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
-    @organization(root: true)
+    updateApplicationSettings(
+        input: [UpdateApplicationSettingsInput!]!
+    ): UpdateApplicationSettingsPayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationSettings"
@@ -7875,8 +8236,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
-    @organization(root: true)
+    updateApplicationTranslations(
+        input: UpdateApplicationTranslationsInput!
+    ): UpdateApplicationTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations"
@@ -7887,8 +8252,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
-    @organization(root: true)
+    updateClientSettings(
+        input: [UpdateClientSettingsInput!]!
+    ): UpdateClientSettingsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7896,8 +8265,12 @@ type Mutation {
 
     @require <root> Authenticated user must be a root.
     """
-    updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
-    @organization(root: true)
+    updateClientTranslations(
+        input: UpdateClientTranslationsInput!
+    ): UpdateClientTranslationsPayload
+    @organization(
+        root: true
+    )
     @root
 
     """
@@ -7905,39 +8278,57 @@ type Mutation {
 
     @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
-    updateContractNote(input: UpdateContractNoteInput!): UpdateContractNotePayload
+    updateContractNote(
+        input: UpdateContractNoteInput!
+    ): UpdateContractNotePayload
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me> User must be authenticated.
     """
-    updateMeEmail(input: UpdateMeEmailInput!): UpdateMeEmailPayload
-    @throttle(name: "auth")
+    updateMeEmail(
+        input: UpdateMeEmailInput!
+    ): UpdateMeEmailPayload
+    @throttle(
+        name: "auth"
+    )
     @organization
     @me
-    @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me> User must be authenticated.
     """
-    updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
+    updateMePassword(
+        input: UpdateMePasswordInput!
+    ): UpdateMePasswordPayload
     @organization
     @me
-    @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMePassword")
+    @field(
+        resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMePassword"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
     @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
-    updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
+    updateQuoteNote(
+        input: UpdateQuoteNoteInput!
+    ): UpdateQuoteNotePayload
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -7948,9 +8339,15 @@ type Mutation {
         id: ID
         @eq
     ): UserMutations
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @mutation(model: "App\\Models\\User")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @mutation(
+        model: "App\\Models\\User"
+    )
 }
 
 type Note {
@@ -8002,7 +8399,9 @@ type OrgMutations {
         @eq
     ): OrgRoleMutations
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutation(
         builder: "App\\GraphQL\\Mutations\\Org\\Role\\Builder"
     )
@@ -8012,9 +8411,13 @@ type OrgMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    update(input: OrgUpdateInput!): OrgUpdatePayload
+    update(
+        input: OrgUpdateInput!
+    ): OrgUpdatePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Update"
     )
@@ -8029,8 +8432,12 @@ type OrgMutations {
         @eq
     ): OrgUserMutations
     @organization
-    @me(permissions: ["org-administer"])
-    @mutation(relation: "users")
+    @me(
+        permissions: ["org-administer"]
+    )
+    @mutation(
+        relation: "users"
+    )
 }
 
 type OrgRoleCreatePayload
@@ -8054,9 +8461,13 @@ type OrgRoleMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    create(input: OrgRoleCreateInput!): OrgRoleCreatePayload
+    create(
+        input: OrgRoleCreateInput!
+    ): OrgRoleCreatePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Create"
     )
@@ -8068,7 +8479,9 @@ type OrgRoleMutations {
     """
     delete: OrgRoleDeletePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Delete"
     )
@@ -8078,9 +8491,13 @@ type OrgRoleMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    update(input: OrgRoleUpdateInput!): OrgRoleUpdatePayload
+    update(
+        input: OrgRoleUpdateInput!
+    ): OrgRoleUpdatePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Update"
     )
@@ -8124,9 +8541,13 @@ type OrgUserMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    invite(input: OrgUserInviteInput!): OrgUserInvitePayload
+    invite(
+        input: OrgUserInviteInput!
+    ): OrgUserInvitePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Org\\User\\Invite"
     )
@@ -8136,9 +8557,13 @@ type OrgUserMutations {
 
     @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
     """
-    update(input: OrgUserUpdateInput!): OrgUserUpdatePayload
+    update(
+        input: OrgUserUpdateInput!
+    ): OrgUserUpdatePayload
     @organization
-    @me(permissions: ["org-administer"])
+    @me(
+        permissions: ["org-administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\User\\Update"
     )
@@ -8169,7 +8594,9 @@ type Organization {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseAuditsSort!]
@@ -8200,7 +8627,9 @@ type Organization {
             ]
         )
     ): [Audit!]!
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @paginated(
         builder: "App\\GraphQL\\Queries\\Organization@audits"
     )
@@ -8234,7 +8663,9 @@ type Organization {
             ]
         )
     ): AuditsAggregated
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @aggregated(
         builder: "App\\GraphQL\\Queries\\Organization@audits"
     )
@@ -8258,7 +8689,9 @@ type Organization {
     @require <me(["administer"])> User must be authenticated and have any of these permissions.
     """
     keycloak_scope: String
-    @me(permissions: ["administer"])
+    @me(
+        permissions: ["administer"]
+    )
 
     kpi: Kpi
     @hasOne
@@ -8272,10 +8705,14 @@ type Organization {
     """
     roles: [Role!]!
     @hasMany
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
 
     root: Boolean!
-    @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Organization@root"
+    )
 
     statuses: [Status!]!
     @belongsToMany
@@ -8296,7 +8733,9 @@ type Organization {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseUsersSort!]
@@ -8318,7 +8757,9 @@ type Organization {
             ]
         )
     ): [User!]!
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @hasMany
     @paginatedRelation
 
@@ -8342,8 +8783,12 @@ type Organization {
             ]
         )
     ): UsersAggregated
-    @me(permissions: ["administer", "org-administer"])
-    @aggregated(relation: "users")
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
+    @aggregated(
+        relation: "users"
+    )
 
     website_url: Url
 }
@@ -8374,9 +8819,15 @@ type OrganizationMutations {
         id: ID
         @eq
     ): OrganizationUserMutations
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @mutation(relation: "users")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @mutation(
+        relation: "users"
+    )
 }
 
 type OrganizationUserInvitePayload
@@ -8401,9 +8852,15 @@ type OrganizationUserMutations {
 
     @require <me(["administer"])> User must be authenticated and have any of these permissions.
     """
-    invite(input: OrganizationUserInviteInput!): OrganizationUserInvitePayload
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    invite(
+        input: OrganizationUserInviteInput!
+    ): OrganizationUserInvitePayload
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Organization\\User\\Invite"
     )
@@ -8447,7 +8904,9 @@ type Query {
     Application information.
     """
     application: Application!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Application")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Application\\Application"
+    )
 
     """
     Asset.
@@ -8461,7 +8920,9 @@ type Query {
         @eq
     ): Asset
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
     @find
 
     """
@@ -8498,8 +8959,12 @@ type Query {
         )
     ): [Coverage!]!
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @all(model: "App\\Models\\Coverage")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @all(
+        model: "App\\Models\\Coverage"
+    )
     @cached
 
     """
@@ -8536,8 +9001,12 @@ type Query {
         )
     ): [Status!]!
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Assets\\AssetStatuses")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Assets\\AssetStatuses"
+    )
     @cached
 
     """
@@ -8574,8 +9043,12 @@ type Query {
         )
     ): [Type!]!
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Assets\\AssetTypes")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Assets\\AssetTypes"
+    )
     @cached
 
     """
@@ -8596,7 +9069,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseAssetsSort!]
@@ -8628,7 +9103,9 @@ type Query {
         )
     ): [Asset!]!
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
     @paginated
 
     """
@@ -8663,8 +9140,12 @@ type Query {
         )
     ): AssetsAggregated
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @aggregated(model: "App\\Models\\Asset")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Asset"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -8682,7 +9163,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseAssetsSearchSort!]
@@ -8692,7 +9175,9 @@ type Query {
         @search
     ): [Asset!]!
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
     @paginated
 
     """
@@ -8705,8 +9190,12 @@ type Query {
         @search
     ): AssetsAggregated
     @organization
-    @me(permissions: ["assets-view", "customers-view"])
-    @aggregated(model: "App\\Models\\Asset")
+    @me(
+        permissions: ["assets-view", "customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Asset"
+    )
 
     """
     List of all organizations audits.
@@ -8726,7 +9215,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseAuditsSort!]
@@ -8757,9 +9248,15 @@ type Query {
             ]
         )
     ): [Audit!]!
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @paginated(model: "App\\Models\\Audits\\Audit")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @paginated(
+        model: "App\\Models\\Audits\\Audit"
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -8792,9 +9289,15 @@ type Query {
             ]
         )
     ): AuditsAggregated
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @aggregated(model: "App\\Models\\Audits\\Audit")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @aggregated(
+        model: "App\\Models\\Audits\\Audit"
+    )
 
     """
     List of all cities.
@@ -8838,7 +9341,9 @@ type Query {
     Client data (settings, translations, etc).
     """
     client: Client
-    @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\EmptyResolver"
+    )
 
     """
     List of all possible contact types.
@@ -8875,7 +9380,9 @@ type Query {
     ): [Type!]!
     @organization
     @me
-    @all(builder: "App\\GraphQL\\Queries\\Data\\ContactTypes")
+    @all(
+        builder: "App\\GraphQL\\Queries\\Data\\ContactTypes"
+    )
     @cached
 
     """
@@ -8890,8 +9397,12 @@ type Query {
         @eq
     ): Document
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+    )
     @find
 
     """
@@ -8928,8 +9439,12 @@ type Query {
         )
     ): [Status!]!
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Contracts\\ContractStatuses")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Contracts\\ContractStatuses"
+    )
     @cached
 
     """
@@ -8966,8 +9481,12 @@ type Query {
         )
     ): [Type!]!
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Contracts\\ContractTypes")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Contracts\\ContractTypes"
+    )
     @cached
 
     """
@@ -8988,7 +9507,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSort!]
@@ -9020,8 +9541,12 @@ type Query {
         )
     ): [Document!]!
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+    )
     @paginated
 
     """
@@ -9056,9 +9581,15 @@ type Query {
         )
     ): DocumentsAggregated
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Contracts\\Contracts")
-    @aggregated(model: "App\\Models\\Document")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Contracts\\Contracts"
+    )
+    @aggregated(
+        model: "App\\Models\\Document"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -9076,7 +9607,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSearchSort!]
@@ -9089,7 +9622,9 @@ type Query {
         )
     ): [Document!]!
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
     @paginated
 
     """
@@ -9105,8 +9640,12 @@ type Query {
         )
     ): DocumentsAggregated
     @organization
-    @me(permissions: ["contracts-view", "customers-view"])
-    @aggregated(model: "App\\Models\\Document")
+    @me(
+        permissions: ["contracts-view", "customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Document"
+    )
 
     """
     List of all countries.
@@ -9196,7 +9735,9 @@ type Query {
         @eq
     ): Customer
     @organization
-    @me(permissions: ["customers-view"])
+    @me(
+        permissions: ["customers-view"]
+    )
     @find
 
     """
@@ -9233,8 +9774,12 @@ type Query {
         )
     ): [Status!]!
     @organization
-    @me(permissions: ["customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses")
+    @me(
+        permissions: ["customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
+    )
     @cached
 
     """
@@ -9271,8 +9816,12 @@ type Query {
         )
     ): [Type!]!
     @organization
-    @me(permissions: ["customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes")
+    @me(
+        permissions: ["customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
+    )
     @cached
 
     """
@@ -9293,7 +9842,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseCustomersSort!]
@@ -9325,7 +9876,9 @@ type Query {
         )
     ): [Customer!]!
     @organization
-    @me(permissions: ["customers-view"])
+    @me(
+        permissions: ["customers-view"]
+    )
     @paginated
 
     """
@@ -9360,8 +9913,12 @@ type Query {
         )
     ): CustomersAggregated
     @organization
-    @me(permissions: ["customers-view"])
-    @aggregated(model: "App\\Models\\Customer")
+    @me(
+        permissions: ["customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Customer"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -9379,7 +9936,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseCustomersSearchSort!]
@@ -9389,7 +9948,9 @@ type Query {
         @search
     ): [Customer!]!
     @organization
-    @me(permissions: ["customers-view"])
+    @me(
+        permissions: ["customers-view"]
+    )
     @paginated
 
     """
@@ -9402,8 +9963,12 @@ type Query {
         @search
     ): CustomersAggregated
     @organization
-    @me(permissions: ["customers-view"])
-    @aggregated(model: "App\\Models\\Customer")
+    @me(
+        permissions: ["customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Customer"
+    )
 
     """
     List of all languages.
@@ -9478,7 +10043,9 @@ type Query {
     ): [Type!]!
     @organization
     @me
-    @all(builder: "App\\GraphQL\\Queries\\Data\\LocationTypes")
+    @all(
+        builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
+    )
     @cached
 
     """
@@ -9524,7 +10091,9 @@ type Query {
         Zoom level (1-12).
         """
         level: Int!
-        @rules(apply: ["App\\Rules\\MapLevel"])
+        @rules(
+            apply: ["App\\Rules\\MapLevel"]
+        )
 
         """
         Additional filters for the points.
@@ -9556,7 +10125,9 @@ type Query {
     ): Map!
     @organization
     @me
-    @field(resolver: "App\\GraphQL\\Queries\\Map\\Map")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Map\\Map"
+    )
 
     """
     Authenticated user or `null` otherwise.
@@ -9617,8 +10188,12 @@ type Query {
         id: ID!
         @eq
     ): Organization
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
     @find
 
     """
@@ -9639,7 +10214,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseOrganizationsSort!]
@@ -9670,8 +10247,12 @@ type Query {
             ]
         )
     ): [Organization!]!
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
     @paginated
 
     """
@@ -9705,9 +10286,15 @@ type Query {
             ]
         )
     ): OrganizationsAggregated
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @aggregated(model: "App\\Models\\Organization")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @aggregated(
+        model: "App\\Models\\Organization"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -9716,8 +10303,12 @@ type Query {
     """
     permissions: [Permission!]!
     @organization
-    @me(permissions: ["administer", "org-administer"])
-    @field(resolver: "App\\GraphQL\\Queries\\Permissions")
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Permissions"
+    )
 
     """
     Quote.
@@ -9731,8 +10322,12 @@ type Query {
         @eq
     ): Document
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
+    )
     @find
 
     """
@@ -9782,8 +10377,12 @@ type Query {
         )
     ): [Status!]!
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Quotes\\QuoteStatuses"
+    )
     @cached
 
     """
@@ -9820,8 +10419,12 @@ type Query {
         )
     ): [Type!]!
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @all(builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Quotes\\QuoteTypes"
+    )
     @cached
 
     """
@@ -9842,7 +10445,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSort!]
@@ -9874,8 +10479,12 @@ type Query {
         )
     ): [Document!]!
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
+    )
     @paginated
 
     """
@@ -9910,9 +10519,15 @@ type Query {
         )
     ): DocumentsAggregated
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
-    @aggregated(model: "App\\Models\\Document")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
+    )
+    @aggregated(
+        model: "App\\Models\\Document"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -9930,7 +10545,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseDocumentsSearchSort!]
@@ -9938,10 +10555,14 @@ type Query {
 
         search: String!
         @search
-        @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
+        @builder(
+            method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
+        )
     ): [Document!]!
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
     @paginated
 
     """
@@ -9952,11 +10573,17 @@ type Query {
     quotesSearchAggregated(
         search: String!
         @search
-        @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
+        @builder(
+            method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
+        )
     ): DocumentsAggregated
     @organization
-    @me(permissions: ["quotes-view", "customers-view"])
-    @aggregated(model: "App\\Models\\Document")
+    @me(
+        permissions: ["quotes-view", "customers-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Document"
+    )
 
     """
     List of all shared roles.
@@ -9966,9 +10593,15 @@ type Query {
     @require <me(["administer"])> User must be authenticated and have any of these permissions.
     """
     roles: [Role!]!
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Administration\\Roles"
+    )
     @all
 
     """
@@ -9987,12 +10620,16 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         search: SearchString!
         @search
-        @builder(method: "App\\GraphQL\\Queries\\Search")
+        @builder(
+            method: "App\\GraphQL\\Queries\\Search"
+        )
     ): [SearchResult!]!
     @organization
     @me(
@@ -10003,7 +10640,9 @@ type Query {
             "contracts-view"
         ]
     )
-    @paginated(builder: "App\\GraphQL\\Queries\\Search@builder")
+    @paginated(
+        builder: "App\\GraphQL\\Queries\\Search@builder"
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -10013,7 +10652,9 @@ type Query {
     searchAggregated(
         search: SearchString!
         @search
-        @builder(method: "App\\GraphQL\\Queries\\Search")
+        @builder(
+            method: "App\\GraphQL\\Queries\\Search"
+        )
     ): SearchResultsAggregated
     @organization
     @me(
@@ -10024,7 +10665,9 @@ type Query {
             "contracts-view"
         ]
     )
-    @aggregated(builder: "App\\GraphQL\\Queries\\Search@builder")
+    @aggregated(
+        builder: "App\\GraphQL\\Queries\\Search@builder"
+    )
 
     """
     List of all Service Groups.
@@ -10152,7 +10795,9 @@ type Query {
     """
     teams: [Team!]!
     @organization
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @all
 
     """
@@ -10165,7 +10810,9 @@ type Query {
     timezones: [String!]!
     @organization
     @me
-    @field(resolver: "App\\GraphQL\\Queries\\Data\\Timezones")
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Data\\Timezones"
+    )
     @cached
 
     """
@@ -10177,9 +10824,15 @@ type Query {
         id: ID!
         @eq
     ): User
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Administration\\Users"
+    )
     @find
 
     """
@@ -10200,7 +10853,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseUsersSort!]
@@ -10222,9 +10877,15 @@ type Query {
             ]
         )
     ): [User!]!
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Administration\\Users"
+    )
     @paginated
 
     """
@@ -10249,10 +10910,18 @@ type Query {
             ]
         )
     ): UsersAggregated
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @builder(method: "App\\GraphQL\\Queries\\Administration\\Users")
-    @aggregated(model: "App\\Models\\User")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @builder(
+        method: "App\\GraphQL\\Queries\\Administration\\Users"
+    )
+    @aggregated(
+        model: "App\\Models\\User"
+    )
 }
 
 type QuoteMutations {
@@ -10263,7 +10932,9 @@ type QuoteMutations {
     """
     sync: QuoteSyncPayload
     @organization
-    @me(permissions: ["quotes-sync"])
+    @me(
+        permissions: ["quotes-sync"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Document\\Sync"
     )
@@ -10363,9 +11034,13 @@ type QuoteRequestMutations {
 
     @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
     """
-    create(input: QuoteRequestCreateInput!): QuoteRequestCreatePayload!
+    create(
+        input: QuoteRequestCreateInput!
+    ): QuoteRequestCreatePayload!
     @organization
-    @me(permissions: ["requests-quote-add"])
+    @me(
+        permissions: ["requests-quote-add"]
+    )
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"
     )
@@ -10588,7 +11263,9 @@ type User {
     """
     invitations: [Invitation!]!
     @organization
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @hasMany
 
     job_title: String
@@ -10603,7 +11280,9 @@ type User {
     """
     organizations: [UserOrganization!]!
     @organization
-    @me(permissions: ["administer", "org-administer"])
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
     @hasMany
 
     phone: PhoneNumber
@@ -10620,20 +11299,34 @@ type UserMutations {
     """
     organization(
         id: ID
-        @eq(key: "organization_id")
+        @eq(
+            key: "organization_id"
+        )
     ): UserOrganizationMutations
-    @organization(root: true)
-    @me(permissions: ["administer"])
-    @mutation(relation: "organizations")
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
+    @mutation(
+        relation: "organizations"
+    )
 
     """
     @require <organization(root)> Authenticated user must be a member of the root organization.
 
     @require <me(["administer"])> User must be authenticated and have any of these permissions.
     """
-    update(input: UserUpdateInput!): UserUpdatePayload
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    update(
+        input: UserUpdateInput!
+    ): UserUpdatePayload
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\User\\Update"
     )
@@ -10659,9 +11352,15 @@ type UserOrganizationMutations {
 
     @require <me(["administer"])> User must be authenticated and have any of these permissions.
     """
-    update(input: UserOrganizationUpdateInput!): UserOrganizationUpdatePayload
-    @organization(root: true)
-    @me(permissions: ["administer"])
+    update(
+        input: UserOrganizationUpdateInput!
+    ): UserOrganizationUpdatePayload
+    @organization(
+        root: true
+    )
+    @me(
+        permissions: ["administer"]
+    )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\User\\Organization\\Update"
     )
@@ -10845,7 +11544,9 @@ repeatable on
 """
 Cache the resolved value of a field.
 """
-directive @cached(mode: CachedMode)
+directive @cached(
+    mode: CachedMode
+)
 on
     | FIELD_DEFINITION
 
@@ -11014,7 +11715,9 @@ directive @isLocale
 on
     | INPUT_FIELD_DEFINITION
 
-directive @isMax(value: Int!)
+directive @isMax(
+    value: Int!
+)
 on
     | INPUT_FIELD_DEFINITION
 
@@ -11046,7 +11749,10 @@ directive @isPhoneNumber
 on
     | INPUT_FIELD_DEFINITION
 
-directive @isProhibitedUnless(field: String!, value: String)
+directive @isProhibitedUnless(
+    field: String!
+    value: String
+)
 on
     | INPUT_FIELD_DEFINITION
 
@@ -11062,7 +11768,9 @@ directive @isRequired
 on
     | INPUT_FIELD_DEFINITION
 
-directive @isRequiredWithout(field: String!)
+directive @isRequiredWithout(
+    field: String!
+)
 on
     | INPUT_FIELD_DEFINITION
 

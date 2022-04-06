@@ -133,7 +133,9 @@ type Customer {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseCustomerLocation!]
@@ -171,7 +173,9 @@ type Customer {
             ]
         )
     ): CustomerLocationsAggregated
-    @aggregated(relation: "locations")
+    @aggregated(
+        relation: "locations"
+    )
 }
 
 type CustomerLocation {
@@ -250,7 +254,9 @@ on
 """
 Cache the resolved value of a field.
 """
-directive @cached(mode: CachedMode)
+directive @cached(
+    mode: CachedMode
+)
 on
     | FIELD_DEFINITION
 

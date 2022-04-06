@@ -136,13 +136,17 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
     ): [Asset!]!
     @paginated
 
     dataAggregated: AssetsAggregated
-    @aggregated(model: "App\\Models\\Asset")
+    @aggregated(
+        model: "App\\Models\\Asset"
+    )
 
     """
     @require <me> User must be authenticated.
@@ -158,7 +162,9 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
 
         order: [SortByClauseCustomer!]
@@ -200,7 +206,9 @@ type Query {
         )
     ): CustomersAggregated
     @me
-    @aggregated(model: "App\\Models\\Customer")
+    @aggregated(
+        model: "App\\Models\\Customer"
+    )
 
     type(
         limit: Int! = 25
@@ -213,13 +221,17 @@ type Query {
         @paginatedLimit
 
         offset: Int! = 0
-        @rules(apply: ["min:0"])
+        @rules(
+            apply: ["min:0"]
+        )
         @paginatedOffset
     ): [Type!]!
     @paginated
 
     typeAggregated: TypesAggregated
-    @aggregated(model: "App\\Models\\Type")
+    @aggregated(
+        model: "App\\Models\\Type"
+    )
 }
 
 type Type {
@@ -271,7 +283,9 @@ on
 """
 Cache the resolved value of a field.
 """
-directive @cached(mode: CachedMode)
+directive @cached(
+    mode: CachedMode
+)
 on
     | FIELD_DEFINITION
 

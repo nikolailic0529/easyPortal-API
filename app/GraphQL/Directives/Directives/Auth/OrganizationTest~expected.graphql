@@ -3,7 +3,9 @@ type Query {
     @require <organization(root)> Authenticated user must be a member of the root organization.
     """
     root: Test!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
     @mock
 
     """
@@ -32,7 +34,9 @@ type Test
     @require <organization(root)> Authenticated user must be a member of the root organization.
     """
     extensionRoot: String!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -44,7 +48,9 @@ type Test
     @require <organization(root)> Authenticated user must be a member of the root organization.
     """
     root: String!
-    @organization(root: true)
+    @organization(
+        root: true
+    )
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
