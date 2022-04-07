@@ -2,13 +2,12 @@
 
 namespace Tests\DataProviders\Http\Organizations;
 
-use App\Models\Enums\OrganizationType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\Providers\NullProvider;
-use Tests\Providers\Organizations\OrganizationProvider;
+use Tests\Providers\Organizations\ResellerOrganizationProvider;
 
 class AuthOrgDataProvider extends ArrayDataProvider {
     public function __construct(string $id = null) {
@@ -19,7 +18,7 @@ class AuthOrgDataProvider extends ArrayDataProvider {
             ],
             'organization=reseller is allowed' => [
                 new UnknownValue(),
-                new OrganizationProvider($id, OrganizationType::reseller()),
+                new ResellerOrganizationProvider($id),
             ],
         ]);
     }

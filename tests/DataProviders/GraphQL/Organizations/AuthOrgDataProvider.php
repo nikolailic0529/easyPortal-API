@@ -3,13 +3,12 @@
 namespace Tests\DataProviders\GraphQL\Organizations;
 
 use App\GraphQL\Directives\Definitions\AuthOrgDirective;
-use App\Models\Enums\OrganizationType;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\Providers\NullProvider;
-use Tests\Providers\Organizations\OrganizationProvider;
+use Tests\Providers\Organizations\ResellerOrganizationProvider;
 use Tests\Providers\Users\RootUserProvider;
 
 /**
@@ -25,7 +24,7 @@ class AuthOrgDataProvider extends ArrayDataProvider {
             ],
             'organization=reseller is allowed' => [
                 new UnknownValue(),
-                new OrganizationProvider($id, OrganizationType::reseller()),
+                new ResellerOrganizationProvider($id),
             ],
         ]);
     }

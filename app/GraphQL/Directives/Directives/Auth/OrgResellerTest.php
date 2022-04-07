@@ -12,6 +12,8 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function addslashes;
 
@@ -19,8 +21,8 @@ use function addslashes;
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\OrgReseller
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class OrgResellerTest extends TestCase {
     use WithGraphQLSchema;
