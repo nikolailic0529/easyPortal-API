@@ -29,7 +29,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -318,7 +318,7 @@ class ContractTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('contract'),
+                new OrgRootDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
@@ -765,7 +765,7 @@ class ContractTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('contract'),
+                new OrgRootDataProvider('contract'),
                 new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),

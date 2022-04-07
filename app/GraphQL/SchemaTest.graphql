@@ -7482,11 +7482,14 @@ type Mutation {
     )
 
     """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
     @require <authMe> User must be authenticated.
     """
     createMeSearch(
         input: CreateMeSearchInput!
     ): CreateMeSearchPayload
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Mutations\\Me\\CreateMeSearch"
@@ -7579,11 +7582,14 @@ type Mutation {
     )
 
     """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
     @require <authMe> User must be authenticated.
     """
     deleteMeSearch(
         input: DeleteMeSearchInput!
     ): DeleteMeSearchPayload
+    @authOrg
     @authMe
     @field(
         resolver: "App\\GraphQL\\Mutations\\Me\\DeleteMeSearch"

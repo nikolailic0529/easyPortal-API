@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use League\Geotools\Coordinate\Coordinate;
 use League\Geotools\Geohash\Geohash;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -112,7 +112,7 @@ class AssetsTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('map'),
+                new OrgRootDataProvider('map'),
                 new OrgUserDataProvider('map', [
                     'assets-view',
                 ]),
