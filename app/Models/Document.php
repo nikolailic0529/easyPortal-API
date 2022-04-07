@@ -87,7 +87,6 @@ use function count;
  * @method static Builder|Document newQuery()
  * @method static Builder|Document query()
  * @method static Builder|Document queryContracts()
- * @method static Builder|Document queryDocuments()
  * @method static Builder|Document queryQuotes()
  * @mixin Eloquent
  */

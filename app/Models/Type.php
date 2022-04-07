@@ -34,7 +34,6 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @property-read Collection<int, Contact>  $contacts
  * @property Collection<int, Document>      $contracts
  * @property-read Collection<int, Customer> $customers
- * @property-read Collection<int, Document> $documents
  * @property-read Collection<int, Location> $locations
  * @property-read Collection<int, Document> $quotes
  * @method static TypeFactory factory(...$parameters)
@@ -42,7 +41,6 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @method static Builder|Type newQuery()
  * @method static Builder|Type query()
  * @method static Builder|Type queryContracts()
- * @method static Builder|Type queryDocuments()
  * @method static Builder|Type queryQuotes()
  * @mixin Eloquent
  */
@@ -107,15 +105,5 @@ class Type extends PolymorphicModel implements Translatable {
     #[CascadeDelete(false)]
     public function customers(): HasMany {
         return $this->hasMany(Customer::class);
-    }
-
-    #[CascadeDelete(false)]
-    public function documents(): HasMany {
-        return $this
-            ->hasMany(Document::class)
-            ->where(static function (Builder $builder): Builder {
-                /** @var Builder|Document $builder */
-                return $builder->queryDocuments();
-            });
     }
 }
