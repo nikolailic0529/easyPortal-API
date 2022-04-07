@@ -8349,6 +8349,11 @@ type OrgSetPayload
 implements
     & Payload
 {
+    me: Me
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Me"
+    )
+
     org: Organization
     @field(
         resolver: "App\\GraphQL\\Queries\\Org"

@@ -16,7 +16,7 @@ use Tests\Providers\Users\UserProvider;
  * @see AuthMeDirective
  */
 class AuthMeDataProvider extends ArrayDataProvider {
-    public function __construct(string $root) {
+    public function __construct(string $root, string $id = null) {
         parent::__construct([
             'guest is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
@@ -24,7 +24,7 @@ class AuthMeDataProvider extends ArrayDataProvider {
             ],
             'user is allowed'      => [
                 new UnknownValue(),
-                new UserProvider(),
+                new UserProvider($id),
             ],
         ]);
     }

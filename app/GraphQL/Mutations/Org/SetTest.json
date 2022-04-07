@@ -7,9 +7,20 @@
         {
             "type": "object",
             "required": [
+                "me",
                 "org"
             ],
             "properties": {
+                "me": {
+                    "oneOf": [
+                        {
+                            "$ref": "../../Types/Me.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
                 "org": {
                     "oneOf": [
                         {

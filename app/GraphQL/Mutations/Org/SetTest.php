@@ -58,6 +58,10 @@ class SetTest extends TestCase {
                 org {
                     set(input: $input){
                         result
+                        me {
+                            id
+                            permissions
+                        }
                         org {
                             id
                         }
@@ -81,7 +85,7 @@ class SetTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new UnknownOrgDataProvider(),
-            new AuthMeDataProvider('org'),
+            new AuthMeDataProvider('org', '7c00a16c-0de9-469b-9ae8-7080bdc8e0a3'),
             new ArrayDataProvider([
                 'ok'                         => [
                     new GraphQLSuccess(
@@ -89,6 +93,10 @@ class SetTest extends TestCase {
                         new JsonFragmentSchema('set', self::class),
                         new JsonFragment('set', [
                             'result' => true,
+                            'me'     => [
+                                'id'          => '7c00a16c-0de9-469b-9ae8-7080bdc8e0a3',
+                                'permissions' => [],
+                            ],
                             'org'    => [
                                 'id' => 'eb2f569c-3f83-4f32-adb3-d49176b0fa81',
                             ],
@@ -100,6 +108,8 @@ class SetTest extends TestCase {
                         ]);
 
                         if ($user) {
+                            $user->setPermissions(['permission-a']);
+
                             OrganizationUser::factory()->create([
                                 'enabled'         => true,
                                 'user_id'         => $user,
