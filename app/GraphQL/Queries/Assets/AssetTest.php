@@ -324,11 +324,6 @@ class AssetTest extends TestCase {
                             cc
                             bcc
                             user_id
-                            user {
-                                id
-                                given_name
-                                family_name
-                            }
                             files {
                                 name
                             }
@@ -371,11 +366,7 @@ class AssetTest extends TestCase {
                     [
                         'assets-view',
                     ],
-                    static function (User $user): void {
-                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                        $user->given_name  = 'first';
-                        $user->family_name = 'last';
-                    },
+                    'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                 ),
                 new ArrayDataProvider([
                     'ok' => [
@@ -673,11 +664,6 @@ class AssetTest extends TestCase {
                                 'to'      => ['test@example.com'],
                                 'cc'      => ['cc@example.com'],
                                 'bcc'     => ['bcc@example.com'],
-                                'user'    => [
-                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                    'given_name'  => 'first',
-                                    'family_name' => 'last',
-                                ],
                                 'files'   => [
                                     [
                                         'name' => 'documents.csv',

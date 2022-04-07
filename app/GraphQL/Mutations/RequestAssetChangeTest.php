@@ -6,7 +6,6 @@ use App\Mail\RequestChange;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
@@ -113,11 +112,6 @@ class RequestAssetChangeTest extends TestCase {
                     cc
                     bcc
                     user_id
-                    user {
-                        id
-                        given_name
-                        family_name
-                    }
                     files {
                         name
                     }
@@ -165,11 +159,7 @@ class RequestAssetChangeTest extends TestCase {
                 [
                     'requests-asset-change',
                 ],
-                static function (User $user): void {
-                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                    $user->given_name  = 'first';
-                    $user->family_name = 'last';
-                },
+                'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
                 'ok'              => [
@@ -182,11 +172,6 @@ class RequestAssetChangeTest extends TestCase {
                             'to'      => ['test@example.com'],
                             'cc'      => ['cc@example.com'],
                             'bcc'     => ['bcc@example.com'],
-                            'user'    => [
-                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                'given_name'  => 'first',
-                                'family_name' => 'last',
-                            ],
                             'files'   => [
                                 [
                                     'name' => 'documents.csv',

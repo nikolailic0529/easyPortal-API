@@ -18,7 +18,6 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
-use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -287,17 +286,9 @@ class AssetsSearchTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new AuthOrgDataProvider('assetsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrgUserDataProvider(
-                    'assetsSearch',
-                    [
-                        'assets-view',
-                    ],
-                    static function (User $user): void {
-                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                        $user->given_name  = 'first';
-                        $user->family_name = 'last';
-                    },
-                ),
+                new OrgUserDataProvider('assetsSearch', [
+                    'assets-view',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(

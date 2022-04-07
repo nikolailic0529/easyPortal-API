@@ -2,7 +2,6 @@
 
 namespace Tests\DataProviders\Http\Users;
 
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider as GraphQLOrgUserDataProvider;
@@ -14,8 +13,8 @@ class OrgUserDataProvider extends GraphQLOrgUserDataProvider {
     /**
      * @inheritDoc
      */
-    public function __construct(array $permissions = [], Closure $callback = null) {
-        parent::__construct('', $permissions, $callback);
+    public function __construct(array $permissions = []) {
+        parent::__construct('', $permissions);
     }
 
     protected function getUnauthenticated(string $root): mixed {
