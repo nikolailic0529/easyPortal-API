@@ -22,6 +22,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 use function is_string;
 use function sprintf;
@@ -29,6 +30,8 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Loader
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class LoaderTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -94,13 +97,14 @@ class LoaderTest extends TestCase {
      * @dataProvider dataProviderHandleBuilder
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery
+     * @param OrganizationFactory                                                                 $orgFactory
      * @param array<string>|null                                                                  $parents
      */
     public function testGetQuery(
         Exception|string|array|null $expectedQuery,
         array|null $expectedBuilder,
         Closure $builderFactory,
-        Closure $organizationFactory = null,
+        mixed $orgFactory = null,
         array $parents = null,
     ): void {
         if ($expectedQuery instanceof Exception) {
@@ -111,7 +115,7 @@ class LoaderTest extends TestCase {
             self::expectException($expectedQuery);
         }
 
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         if ($parents) {
             $parents = (new Collection($parents))->map(static function (string $key): Model {

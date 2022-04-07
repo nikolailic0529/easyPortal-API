@@ -17,13 +17,15 @@ use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Set
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  * @phpstan-type        InvokeInputFactory Closure(static, ?Organization, ?User): array{organization_id: ?string}
  */
 class SetTest extends TestCase {
@@ -33,22 +35,22 @@ class SetTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $organizationFactory
+     * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
      * @param InvokeInputFactory  $inputFactory
      */
     public function testInvoke(
         Response $expected,
-        mixed $organizationFactory,
+        mixed $orgFactory,
         mixed $userFactory = null,
         Closure $inputFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $input = $inputFactory
-            ? $inputFactory($this, $organization, $user)
+            ? $inputFactory($this, $org, $user)
             : ['organization_id' => $this->faker->uuid()];
         $query = /** @lang GraphQL */
             <<<'GRAPHQL'

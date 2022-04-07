@@ -21,6 +21,9 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 use function array_key_exists;
@@ -28,6 +31,10 @@ use function array_key_exists;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\UpdateContractNote
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class UpdateContractNoteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -36,37 +43,39 @@ class UpdateContractNoteTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = [],
         string $filename = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         } else {
             // Lighthouse performs validation BEFORE permission check :(
             //
             // https://github.com/nuwave/lighthouse/issues/1780
             //
             // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
+            if (!$org) {
+                $org = $this->setOrganization(Organization::factory()->create());
             }
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     'ep.document_statuses_hidden' => [],
                     'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
@@ -77,13 +86,13 @@ class UpdateContractNoteTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
             $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid(),
+                'id' => $org ? $org->getKey() : $this->faker->uuid(),
             ]);
 
             Document::factory()
                 ->hasNotes(1, [
                     'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                    'organization_id' => $organization->getKey(),
+                    'organization_id' => $org->getKey(),
                 ])
                 ->create([
                     'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',

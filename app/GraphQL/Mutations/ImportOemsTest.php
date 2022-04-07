@@ -14,6 +14,8 @@ use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function __;
 
@@ -22,6 +24,9 @@ use function __;
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\ImportOems
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ImportOemsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -31,16 +36,18 @@ class ImportOemsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory           $orgFactory
+     * @param UserFactory                   $userFactory
      * @param Closure(static): UploadedFile $fileFactory
      */
     public function testInvoke(
         Response|array $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $fileFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Input
         $map   = [];

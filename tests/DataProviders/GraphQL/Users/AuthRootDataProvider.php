@@ -3,15 +3,14 @@
 namespace Tests\DataProviders\GraphQL\Users;
 
 use App\GraphQL\Directives\Definitions\AuthRootDirective;
-use App\Models\Enums\UserType;
-use App\Models\Organization;
-use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
-use Tests\TestCase;
+use Tests\Providers\Users\GuestUserProvider;
+use Tests\Providers\Users\RootUserProvider;
+use Tests\Providers\Users\UserProvider;
 
 /**
  * Only root cat perform the action.
@@ -23,27 +22,15 @@ class AuthRootDataProvider extends ArrayDataProvider {
         parent::__construct([
             'guest is not allowed'  => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
-                static function (): ?User {
-                    return null;
-                },
+                new GuestUserProvider(),
             ],
             'user is not allowed'   => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
-                static function (TestCase $test, ?Organization $organization): User {
-                    return User::factory()->create([
-                        'type'            => UserType::keycloak(),
-                        'organization_id' => $organization,
-                    ]);
-                },
+                new UserProvider(),
             ],
             'local root is allowed' => [
                 new UnknownValue(),
-                static function (TestCase $test, ?Organization $organization): User {
-                    return User::factory()->create([
-                        'type'            => UserType::local(),
-                        'organization_id' => $organization,
-                    ]);
-                },
+                new RootUserProvider(),
             ],
         ]);
     }

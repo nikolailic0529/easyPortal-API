@@ -14,10 +14,15 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\ResetOrgUserPassword
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ResetOrgUserPasswordTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -25,20 +30,24 @@ class ResetOrgUserPasswordTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $this->setUser($userFactory, $organization);
+        $org = $this->setOrganization($orgFactory);
 
-        if ($organization) {
-            $organization->keycloak_group_id = 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985';
-            $organization->save();
+        $this->setUser($userFactory, $org);
+
+        if ($org) {
+            $org->keycloak_group_id = 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985';
+            $org->save();
         }
 
         if ($clientFactory) {

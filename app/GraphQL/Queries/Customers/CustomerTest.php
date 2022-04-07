@@ -40,9 +40,16 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CustomerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -50,25 +57,27 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->id;
+            $customerId = $customerFactory($this, $org, $user)->id;
         }
 
         // Test
@@ -164,25 +173,27 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryAssets
      *
-     * @param array<string, mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQueryAssets(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -394,24 +405,26 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContracts
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQueryContracts(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Not empty?
@@ -598,24 +611,26 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryQuotes
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param array<mixed>        $settingsFactory
      */
     public function testQueryQuotes(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Not empty?
@@ -803,22 +818,24 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryAssetAggregate
      *
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $params
      */
     public function testQueryAssetAggregated(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $customerFactory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -858,26 +875,28 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContractsAggregate
      *
-     * @param array<string,mixed>  $settings
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
+     * @param array<string,mixed>  $settingsFactory
      * @param array<string, mixed> $params
      */
     public function testQueryContractsAggregated(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test

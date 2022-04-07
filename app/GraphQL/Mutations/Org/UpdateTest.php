@@ -19,12 +19,19 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function array_key_exists;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Update
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -33,19 +40,22 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $dataFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org = $this->setOrganization($orgFactory);
+
+        $this->setUser($userFactory, $org);
+        $this->setSettings($settingsFactory);
 
         $input = [];
         $data  = [];
@@ -225,7 +235,7 @@ class UpdateTest extends TestCase {
         });
 
         if ($expected instanceof GraphQLSuccess) {
-            if ($organization->reseller) {
+            if ($org->reseller) {
                 $client
                     ->shouldReceive('updateBrandingData')
                     ->once()
@@ -263,37 +273,37 @@ class UpdateTest extends TestCase {
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            self::assertNotNull($organization);
+            self::assertNotNull($org);
 
-            $organization = $organization->refresh();
+            $org = $org->refresh();
 
-            self::assertEquals($data['locale'], $organization->locale);
-            self::assertEquals($data['currency_id'], $organization->currency_id);
-            self::assertEquals($data['website_url'], $organization->website_url);
-            self::assertEquals($data['email'], $organization->email);
-            self::assertEquals($data['analytics_code'], $organization->analytics_code);
+            self::assertEquals($data['locale'], $org->locale);
+            self::assertEquals($data['currency_id'], $org->currency_id);
+            self::assertEquals($data['website_url'], $org->website_url);
+            self::assertEquals($data['email'], $org->email);
+            self::assertEquals($data['analytics_code'], $org->analytics_code);
 
-            if ($organization->reseller) {
-                $hasLogo && self::assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+            if ($org->reseller) {
+                $hasLogo && self::assertEquals('https://example.com/logo.png', $org->branding_logo_url);
                 $hasFavicon && self::assertEquals(
                     'https://example.com/favicon.png',
-                    $organization->branding_favicon_url,
+                    $org->branding_favicon_url,
                 );
                 $hasWelcome && self::assertEquals(
                     'https://example.com/imageOnTheRight.png',
-                    $organization->branding_welcome_image_url,
+                    $org->branding_welcome_image_url,
                 );
             }
 
-            !$hasLogo && self::assertNull($organization->branding_logo_url);
-            !$hasFavicon && self::assertNull($organization->branding_favicon_url);
-            !$hasWelcome && self::assertNull($organization->branding_welcome_image_url);
-            !$hasDashboard && self::assertNull($organization->branding_dashboard_image_url);
+            !$hasLogo && self::assertNull($org->branding_logo_url);
+            !$hasFavicon && self::assertNull($org->branding_favicon_url);
+            !$hasWelcome && self::assertNull($org->branding_welcome_image_url);
+            !$hasDashboard && self::assertNull($org->branding_dashboard_image_url);
 
             if (array_key_exists('branding', $data)) {
-                self::assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
-                self::assertEquals($data['branding']['main_color'], $organization->branding_main_color);
-                self::assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
+                self::assertEquals($data['branding']['dark_theme'], $org->branding_dark_theme);
+                self::assertEquals($data['branding']['main_color'], $org->branding_main_color);
+                self::assertEquals($data['branding']['secondary_color'], $org->branding_secondary_color);
             }
         }
     }

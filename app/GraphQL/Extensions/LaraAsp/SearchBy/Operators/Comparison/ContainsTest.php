@@ -10,10 +10,13 @@ use Mockery;
 use Mockery\MockInterface;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;
+use Tests\WithSettings;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ContainsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -24,17 +27,17 @@ class ContainsTest extends TestCase {
      * @dataProvider dataProviderApply
      *
      * @param array{query: string, bindings: array<mixed>} $expected
-     * @param array<string,mixed>                          $settings
+     * @param SettingsFactory                              $settingsFactory
      */
     public function testApply(
         array $expected,
         Closure $builderFactory,
-        array $settings,
+        mixed $settingsFactory,
         string $property,
         bool $fulltext,
         mixed $value,
     ): void {
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
         $this->override(Metadata::class, static function (MockInterface $mock) use ($property, $fulltext): void {
             $mock
                 ->shouldReceive('isFulltextIndexExists')

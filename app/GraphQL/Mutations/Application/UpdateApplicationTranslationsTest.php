@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Application;
 use App\GraphQL\Queries\Application\Translations;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\I18n\Storages\AppTranslations;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -14,12 +13,17 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\UpdateApplicationTranslations
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,13 +34,15 @@ class UpdateApplicationTranslationsTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed>                                                   $input
+     * @param OrganizationFactory                                                   $orgFactory
+     * @param UserFactory                                                           $userFactory
      * @param array<string,array{key: string, value: string, default: string|null}> $defaultTranslations
      * @param array<string, string>                                                 $customTranslations
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $defaultTranslations = [],
         array $customTranslations = [],
         array $input = [
@@ -45,7 +51,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
         ],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($defaultTranslations) {
             $this->override(

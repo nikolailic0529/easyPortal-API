@@ -21,12 +21,17 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Create
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -35,12 +40,14 @@ class CreateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $data
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [
             'name'        => 'wrong',
@@ -49,15 +56,15 @@ class CreateTest extends TestCase {
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $this->setOrganization($organization));
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $this->setOrganization($org));
 
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
 
         if ($factory) {
-            $factory($this, $organization, $user);
+            $factory($this, $org, $user);
         }
 
         if ($clientFactory) {

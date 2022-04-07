@@ -17,6 +17,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
 
 use function addslashes;
 use function json_encode;
@@ -24,6 +25,8 @@ use function json_encode;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Cached\Cached
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class CachedTest extends TestCase {
     use WithGraphQLSchema;
@@ -34,14 +37,16 @@ class CachedTest extends TestCase {
      * @covers ::handleField
      *
      * @dataProvider dataProviderHandleField
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testResolveField(
         Response $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         string $schema,
         string $graphql,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
         $this->setSettings([
             'ep.cache.graphql.enabled'   => true,
             'ep.cache.graphql.threshold' => null,
@@ -90,7 +95,7 @@ class CachedTest extends TestCase {
         $this->mockResolver($resolver);
 
         $this->useGraphQLSchema(
-            /** @lang GraphQL */
+        /** @lang GraphQL */
             <<<'GRAPHQL'
             type Query {
                 root: String @cached @mock
@@ -158,14 +163,16 @@ class CachedTest extends TestCase {
      * @covers ::getResolveMode
      *
      * @dataProvider dataProviderGetResolveMode
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testGetResolveMode(
         Response $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         string $schema,
         string $graphql,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         $directive = new class() extends Cached implements FieldResolver {
             /** @noinspection PhpMissingParentConstructorInspection */

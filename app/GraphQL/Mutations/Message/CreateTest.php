@@ -14,13 +14,17 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Message\Create
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -32,13 +36,13 @@ class CreateTest extends TestCase {
      * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
      * @param array<string,mixed> $input
-     * @param array<string,mixed> $settings
+     * @param SettingsFactory     $settings
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        array $settings = null,
+        mixed $settings = null,
         array $input = null,
     ): void {
         // Prepare

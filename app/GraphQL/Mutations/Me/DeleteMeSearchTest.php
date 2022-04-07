@@ -12,10 +12,15 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Me\DeleteMeSearch
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteMeSearchTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -23,16 +28,19 @@ class DeleteMeSearchTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $dataFactory = null,
         bool $exists = null,
     ): void {
         // Prepare
-        $user = $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $user = $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($user) {
             $user->save();

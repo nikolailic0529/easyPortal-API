@@ -5,10 +5,13 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
+use Tests\WithSettings;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\File
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class FileTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -18,10 +21,10 @@ class FileTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param array<string,mixed> $settings
+     * @param SettingsFactory $settingsFactory
      */
-    public function testPasses(bool $expected, array $settings, mixed $value): void {
-        $this->setSettings($settings);
+    public function testPasses(bool $expected, mixed $settingsFactory, mixed $value): void {
+        $this->setSettings($settingsFactory);
         $this->setSettings([
             'ep.image.max_size' => 1,
             'ep.image.formats'  => [],

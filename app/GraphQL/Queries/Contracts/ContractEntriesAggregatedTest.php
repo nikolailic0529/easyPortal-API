@@ -21,6 +21,7 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithOrganization;
+use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
@@ -29,6 +30,7 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ContractEntriesAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,14 +42,14 @@ class ContractEntriesAggregatedTest extends TestCase {
      *
      * @param OrganizationFactory                                  $orgFactory
      * @param UserFactory                                          $userFactory
-     * @param array<mixed>                                         $settings
+     * @param SettingsFactory                                      $settings
      * @param Closure(static, ?Organization, ?User): Document|null $factory
      */
     public function testServiceGroups(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        array $settings = [],
+        mixed $settings = null,
         Closure $factory = null,
     ): void {
         // Prepare

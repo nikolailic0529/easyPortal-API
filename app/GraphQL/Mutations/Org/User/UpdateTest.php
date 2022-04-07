@@ -27,6 +27,9 @@ use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 use Throwable;
 
 use function array_combine;
@@ -38,6 +41,10 @@ use function count;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\User\Update
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -46,21 +53,24 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed>|null $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $clientFactory = null,
         Closure $inputUserFactory = null,
         Closure $inputFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -71,10 +81,10 @@ class UpdateTest extends TestCase {
         $files = [];
         $input = [
             'id'    => $inputUserFactory
-                ? $inputUserFactory($this, $organization, $user)->getKey()
+                ? $inputUserFactory($this, $org, $user)->getKey()
                 : $this->faker->uuid(),
             'input' => $inputFactory
-                ? $inputFactory($this, $organization, $user)
+                ? $inputFactory($this, $org, $user)
                 : [],
         ];
 
@@ -115,7 +125,7 @@ class UpdateTest extends TestCase {
             $properties        = ['photo', 'enabled', 'role_id', 'team_id'];
             $updatedUser       = User::query()->whereKey($input['id'])->firstOrFail();
             $updatedOrgUser    = OrganizationUser::query()
-                ->where('organization_id', '=', $organization->getKey())
+                ->where('organization_id', '=', $org->getKey())
                 ->where('user_id', '=', $input['id'])
                 ->firstOrFail();
             $expected          = Arr::except($input['input'], ['photo']);

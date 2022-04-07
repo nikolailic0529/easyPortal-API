@@ -24,6 +24,7 @@ use Lcobucci\JWT\UnencryptedToken;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 use function is_null;
 use function sprintf;
@@ -31,6 +32,8 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\Services\Keycloak\Auth\UserProvider
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class UserProviderTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -268,9 +271,9 @@ class UserProviderTest extends TestCase {
      * @dataProvider dataProviderGetOrganization
      *
      * @param Closure(static, string, Organization, User): array<mixed> $claimsFactory
-     * @param Closure(static, Organization): ?Organization              $organizationFactory
+     * @param Closure(static, Organization): ?Organization              $orgFactory
      */
-    public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
+    public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $orgFactory): void {
         $org      = Organization::factory()->create([
             'keycloak_scope' => $this->faker->word(),
         ]);
@@ -293,7 +296,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $organization = $organizationFactory($this, $org);
+        $organization = $orgFactory($this, $org);
         $actual       = $provider->getOrganization($user, $token, $organization);
 
         if ($expected) {

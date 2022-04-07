@@ -14,11 +14,14 @@ use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Tests\TestCase;
+use Tests\WithSettings;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\Exceptions\Handler
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class HandlerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -79,12 +82,12 @@ class HandlerTest extends TestCase {
      * @dataProvider dataProviderReport
      *
      * @param array{level: string, channel: string, message: string, context: array<mixed>} $expected
-     * @param array<string, mixed>                                                          $settings
+     * @param SettingsFactory                                                               $settingsFactory
      */
-    public function testReport(array $expected, array $settings, Throwable $exception): void {
+    public function testReport(array $expected, mixed $settingsFactory, Throwable $exception): void {
         Event::fake(ErrorReport::class);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $config  = $this->app->make(Repository::class);
         $handler = $this->app->make(Handler::class);

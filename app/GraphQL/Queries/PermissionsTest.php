@@ -17,24 +17,33 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ * @coversDefaultClass \App\GraphQL\Queries\Permissions
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class PermissionsTest extends TestCase {
     /**
+     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
-     * @coversNothing
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         Closure $permissionsFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($organizationFactory);
+        $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
         $this->setTranslations($translationsFactory);

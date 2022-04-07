@@ -11,6 +11,8 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function addslashes;
 
@@ -18,8 +20,8 @@ use function addslashes;
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Org
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class OrgTest extends TestCase {
     use WithGraphQLSchema;
@@ -44,11 +46,11 @@ class OrgTest extends TestCase {
      *
      * @dataProvider dataProviderResolveField
      *
-     * @param OrganizationFactory $organizationFactory
+     * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
      */
-    public function testResolveField(Response $expected, mixed $organizationFactory, mixed $userFactory): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+    public function testResolveField(Response $expected, mixed $orgFactory, mixed $userFactory): void {
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         $resolver = addslashes(EmptyResolver::class);
 

@@ -9,12 +9,13 @@ use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\UserNotMe
  *
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UserNotMeTest extends TestCase {
     // <editor-fold desc="Tests">

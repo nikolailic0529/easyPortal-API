@@ -11,10 +11,13 @@ use PHPUnit\Framework\Constraint\Constraint;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Relation
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class RelationTest extends TestCase {
     use WithGraphQLSchema;
@@ -25,19 +28,21 @@ class RelationTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testResolveField(
         Constraint $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         Closure $factory,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
 
         $factory($this, $organization);
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 type Query {
                     customers: [Customer!]! @all
@@ -54,7 +59,7 @@ class RelationTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     customers {

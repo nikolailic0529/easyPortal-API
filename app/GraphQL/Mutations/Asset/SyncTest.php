@@ -20,11 +20,16 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Asset\Sync
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SyncTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -34,25 +39,27 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory                           $orgFactory
+     * @param UserFactory                                   $userFactory
      * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $this->faker->uuid();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user);
-        } elseif ($organization) {
+            $id = $prepare($this, $org, $user);
+        } elseif ($org) {
             Asset::factory()->create([
                 'id'          => $id,
                 'reseller_id' => Reseller::factory()->create([
-                    'id' => $organization->getKey(),
+                    'id' => $org->getKey(),
                 ]),
             ]);
         } else {

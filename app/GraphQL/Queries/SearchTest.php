@@ -20,7 +20,10 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithSearch;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function array_values;
 use function count;
@@ -28,6 +31,10 @@ use function count;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Search
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class SearchTest extends TestCase {
     use WithSearch;
@@ -39,26 +46,26 @@ class SearchTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $factory = null,
         string $search = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($settings) {
-            $this->setSettings($settings);
-        }
+        $this->setSettings($settingsFactory);
 
         if ($factory) {
-            $this->makeSearchable($factory($this, $organization, $user));
+            $this->makeSearchable($factory($this, $org, $user));
         }
 
         // Test
@@ -98,7 +105,7 @@ class SearchTest extends TestCase {
      * @return array<string,mixed>
      */
     public function dataProviderInvoke(): array {
-        $settings                = [
+        $settings = [
             'ep.document_statuses_hidden' => [
                 'fb377814-592d-492c-aa05-e9e01afd4a11',
             ],
@@ -109,7 +116,7 @@ class SearchTest extends TestCase {
                 '453a47d0-6607-4cf7-8d0a-bd57a962658a',
             ],
         ];
-        $factory                 = static function (TestCase $test, Organization $organization): Collection {
+        $factory  = static function (TestCase $test, Organization $organization): Collection {
             $status          = Status::factory()->create([
                 'id' => 'fb377814-592d-492c-aa05-e9e01afd4a11',
             ]);

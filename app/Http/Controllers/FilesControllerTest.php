@@ -21,10 +21,17 @@ use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ForbiddenResponse;
 use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\Http\Controllers\FilesController
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class FilesControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -33,24 +40,27 @@ class FilesControllerTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         $id = $this->faker->uuid();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user);
+            $id = $prepare($this, $org, $user);
         } else {
             // Required because some permissions check inside the controller.
             Note::factory()->hasFiles(1, ['id' => $id])->create();

@@ -20,43 +20,52 @@ use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Org
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrgTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers       \App\GraphQL\Queries\Organization::root
-     * @covers       \App\GraphQL\Queries\Organization::branding
-     *
-     * @param array<mixed> $settings
+     * @covers \App\GraphQL\Queries\Organization::root
+     * @covers \App\GraphQL\Queries\Organization::branding
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         bool $isRootOrganization = false,
         Closure $organizationCallback = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $org = $this->setOrganization($orgFactory);
 
         if ($isRootOrganization) {
-            $this->setRootOrganization($organization);
+            $this->setRootOrganization($org);
         }
 
-        $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $this->setUser($userFactory, $org);
+        $this->setSettings($settingsFactory);
 
-        if ($organization && $organizationCallback) {
-            $organizationCallback($this, $organization);
+        if ($org && $organizationCallback) {
+            $organizationCallback($this, $org);
         }
 
         // Test

@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations\Application\Maintenance;
 
 use App\Services\Maintenance\Maintenance;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -14,10 +13,15 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\Maintenance\Schedule
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ScheduleTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -27,15 +31,17 @@ class ScheduleTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<mixed> $input
+     * @param array<mixed>        $input
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $input = null,
     ): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Lighthouse performs validation BEFORE permission check :(
         //
@@ -65,7 +71,7 @@ class ScheduleTest extends TestCase {
 
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 '
                 mutation schedule($input: ApplicationMaintenanceScheduleInput!) {
                     application {

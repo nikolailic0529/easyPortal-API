@@ -34,7 +34,10 @@ use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithSearch;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function count;
 use function json_encode;
@@ -42,6 +45,10 @@ use function json_encode;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuotesSearch
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class QuotesSearchTest extends TestCase {
     use WithSearch;
@@ -53,25 +60,27 @@ class QuotesSearchTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $quotesFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($settings) {
-            $this->setSettings($settings);
+        if ($settingsFactory) {
+            $this->setSettings($settingsFactory);
         }
 
         if ($quotesFactory) {
-            $this->makeSearchable($quotesFactory($this, $organization, $user));
+            $this->makeSearchable($quotesFactory($this, $org, $user));
         }
 
         // Not empty?

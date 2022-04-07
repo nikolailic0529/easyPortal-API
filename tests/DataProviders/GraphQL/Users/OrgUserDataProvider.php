@@ -11,6 +11,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
+use Tests\Providers\Users\GuestUserProvider;
 use Tests\TestCase;
 
 /**
@@ -26,9 +27,7 @@ class OrgUserDataProvider extends ArrayDataProvider {
         $data    = [
             'guest is not allowed' => [
                 new ExpectedFinal($this->getUnauthenticated($root)),
-                static function (): ?User {
-                    return null;
-                },
+                new GuestUserProvider(),
             ],
         ];
 

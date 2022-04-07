@@ -11,12 +11,13 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Tests\DataProviders\Http\Organizations\UnknownOrgDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 /**
  * @internal
  * @coversDefaultClass \App\Http\Controllers\IndexController
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class IndexControllerTest extends TestCase {
     // <editor-fold desc="Tests">

@@ -2,32 +2,24 @@
 
 namespace Tests\DataProviders\GraphQL\Users;
 
-use App\Models\Organization;
-use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\TestCase;
+use Tests\Providers\Users\GuestUserProvider;
+use Tests\Providers\Users\UserProvider;
 
 /**
- * Any guest or user can perform action.
+ * Any guest or any user can perform action.
  */
 class UnknownUserDataProvider extends ArrayDataProvider {
     public function __construct() {
         parent::__construct([
             'guest is allowed' => [
                 new UnknownValue(),
-                static function (): ?User {
-                    return null;
-                },
+                new GuestUserProvider(),
             ],
             'user is allowed'  => [
                 new UnknownValue(),
-                static function (TestCase $test, ?Organization $organization): User {
-                    return User::factory()->create([
-                        'organization_id' => $organization,
-                        'permissions'     => [],
-                    ]);
-                },
+                new UserProvider(),
             ],
         ]);
     }

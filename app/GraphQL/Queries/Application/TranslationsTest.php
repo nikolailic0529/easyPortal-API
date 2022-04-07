@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\I18n\Translation\TranslationDefaults;
 use App\Services\I18n\Translation\TranslationLoader;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -13,12 +12,17 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @deprecated Outdated
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Translations
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class TranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -26,14 +30,17 @@ class TranslationsTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvokeQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvokeQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Test
         $this

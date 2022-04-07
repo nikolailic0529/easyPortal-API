@@ -6,21 +6,22 @@ use App\Models\Organization;
 use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
-use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+
+use function is_callable;
 
 /**
  * @mixin TestCase
  *
- * @phpstan-type OrganizationFactory Organization|Closure(static):?Organization|null
+ * @phpstan-type OrganizationFactory Organization|callable(static):?Organization|null
  */
 trait WithOrganization {
     /**
      * @param OrganizationFactory $organization
      */
-    protected function setOrganization(Organization|Closure|null $organization): ?Organization {
-        if ($organization instanceof Closure) {
+    protected function setOrganization(Organization|callable|null $organization): ?Organization {
+        if (is_callable($organization)) {
             $organization = $organization($this);
         }
 
@@ -73,8 +74,8 @@ trait WithOrganization {
     /**
      * @param OrganizationFactory $organization
      */
-    public function setRootOrganization(Organization|Closure|null $organization): ?Organization {
-        if ($organization instanceof Closure) {
+    public function setRootOrganization(Organization|callable|null $organization): ?Organization {
+        if (is_callable($organization)) {
             $organization = $organization($this);
         }
 

@@ -25,6 +25,8 @@ use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 use function array_combine;
@@ -34,6 +36,9 @@ use function array_map;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\User\Organization\Update
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -41,19 +46,22 @@ class UpdateTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $clientFactory = null,
         Closure $inputUserFactory = null,
         Closure $inputOrganizationFactory = null,
         Closure $inputFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -62,13 +70,13 @@ class UpdateTest extends TestCase {
         // Input
         $input = [
             'userId'         => $inputUserFactory
-                ? $inputUserFactory($this, $organization, $user)->getKey()
+                ? $inputUserFactory($this, $org, $user)->getKey()
                 : $this->faker->uuid(),
             'organizationId' => $inputOrganizationFactory
-                ? $inputOrganizationFactory($this, $organization, $user)->getKey()
+                ? $inputOrganizationFactory($this, $org, $user)->getKey()
                 : $this->faker->uuid(),
             'input'          => $inputFactory
-                ? $inputFactory($this, $organization, $user)
+                ? $inputFactory($this, $org, $user)
                 : [],
         ];
 

@@ -25,12 +25,19 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Organization
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,24 +47,26 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this, $organization, $user)->getKey();
+            $organizationId = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -181,20 +190,23 @@ class OrganizationTest extends TestCase {
      * @covers ::users
      *
      * @dataProvider dataProviderUsers
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testUsers(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $organization?->getKey();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $org?->getKey();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user)->getKey();
+            $id = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -228,19 +240,23 @@ class OrganizationTest extends TestCase {
      * @covers ::roles
      *
      * @dataProvider dataProviderRoles
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testRoles(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $this->setUser($userFactory, $organization);
+        $org = $this->setOrganization($orgFactory);
+
+        $this->setUser($userFactory, $org);
 
         if ($prepare) {
-            $prepare($this, $organization);
+            $prepare($this, $org);
         }
 
         // Test
@@ -264,7 +280,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $organization?->getKey() ?: $this->faker->uuid(),
+                    'id' => $org?->getKey() ?: $this->faker->uuid(),
                 ],
             )
             ->assertThat($expected);
@@ -274,20 +290,23 @@ class OrganizationTest extends TestCase {
      * @covers       \App\GraphQL\Queries\Administration\AuditContext::__invoke
      *
      * @dataProvider dataProviderAudits
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testAudits(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this, $organization, $user)->getKey();
+            $organizationId = $prepare($this, $org, $user)->getKey();
         }
 
         // Test

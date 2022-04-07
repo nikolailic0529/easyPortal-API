@@ -22,10 +22,15 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\UpdateApplicationSettings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateApplicationSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -36,17 +41,19 @@ class UpdateApplicationSettingsTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<array{name: string, value: string}> $input
+     * @param OrganizationFactory                       $orgFactory
+     * @param UserFactory                               $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
         array $input = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
         $this->setTranslations($translationsFactory);
 
         // Mock
@@ -59,6 +66,9 @@ class UpdateApplicationSettingsTest extends TestCase {
                 $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
+                /**
+                 * @param class-string $store
+                 */
                 public function __construct(
                     Application $app,
                     Repository $config,

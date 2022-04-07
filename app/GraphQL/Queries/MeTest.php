@@ -19,6 +19,8 @@ use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 // FIXME [Test] We should standard User DataProviders here.
 
@@ -26,8 +28,8 @@ use Tests\TestCase;
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Me
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  * @phpstan-type        Prepare Closure(static, ?Organization, ?User): void|null
  */
 class MeTest extends TestCase {

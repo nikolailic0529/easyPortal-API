@@ -10,10 +10,13 @@ use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
+use Tests\WithSettings;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\DocumentId
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class DocumentIdTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -39,10 +42,10 @@ class DocumentIdTest extends TestCase {
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static, ?Organization): ?string $valueFactory
-     * @param array<string, mixed>                    $settings
+     * @param SettingsFactory                         $settingsFactory
      */
-    public function testPasses(bool $expected, Closure $valueFactory, array $settings = []): void {
-        $this->setSettings($settings);
+    public function testPasses(bool $expected, Closure $valueFactory, mixed $settingsFactory = null): void {
+        $this->setSettings($settingsFactory);
 
         $org    = $this->setOrganization(Organization::factory()->create());
         $rule   = $this->app->make(DocumentId::class);

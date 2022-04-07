@@ -4,19 +4,20 @@ namespace Tests;
 
 use App\Models\Organization;
 use App\Models\User;
-use Closure;
+
+use function is_callable;
 
 /**
  * @mixin TestCase
  *
- * @phpstan-type UserFactory User|Closure(static, ?Organization=):?User|null
+ * @phpstan-type UserFactory User|callable(static, ?Organization=):?User|null
  */
 trait WithUser {
     /**
      * @param UserFactory $user
      */
-    public function setUser(User|Closure|null $user, Organization $organization = null): User|null {
-        if ($user instanceof Closure) {
+    public function setUser(User|callable|null $user, Organization $organization = null): User|null {
+        if (is_callable($user)) {
             $user = $user($this, $organization);
         }
 

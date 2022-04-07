@@ -10,12 +10,13 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\Org\PermissionId
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class PermissionIdTest extends TestCase {
     // <editor-fold desc="Tests">

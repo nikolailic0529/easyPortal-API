@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Services\Filesystem\Disks\ClientDisk;
 use App\Services\I18n\Storages\ClientTranslations;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -12,12 +11,17 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\UpdateClientTranslations
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateClientTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -27,14 +31,15 @@ class UpdateClientTranslationsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $input
-     *
      * @param array<string,mixed> $translations
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $input = [
             'locale'       => 'en',
             'translations' => [],
@@ -42,7 +47,7 @@ class UpdateClientTranslationsTest extends TestCase {
         array $translations = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($translations) {
             $disk    = $this->app()->make(ClientDisk::class);

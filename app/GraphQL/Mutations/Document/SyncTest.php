@@ -24,11 +24,18 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Document\Sync
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class SyncTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -38,23 +45,26 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed>                           $settings
+     *
+     * @param OrganizationFactory                           $orgFactory
+     * @param UserFactory                                   $userFactory
+     * @param SettingsFactory                               $settingsFactory
      * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,
         string $query,
         string $queryType,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
         $id           = $this->faker->uuid();
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         if ($prepare) {
             $id = $prepare($this, $organization, $user);
@@ -64,7 +74,7 @@ class SyncTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     "ep.{$query}_types" => [$type->getKey()],
                 ]);
