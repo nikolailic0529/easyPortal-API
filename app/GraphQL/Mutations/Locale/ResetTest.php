@@ -93,7 +93,7 @@ class ResetTest extends TestCase {
             new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('locale', null, new JsonFragment('reset.result', true)),
+                    new GraphQLSuccess('locale', new JsonFragment('reset.result', true)),
                     'en_GB',
                 ],
                 'invalid locale' => [

@@ -109,7 +109,7 @@ class CustomersSearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('customersSearch', null),
+                        new GraphQLPaginated('customersSearch'),
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -125,7 +125,6 @@ class CustomersSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated(
                             'customersSearch',
-                            self::class,
                             [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',

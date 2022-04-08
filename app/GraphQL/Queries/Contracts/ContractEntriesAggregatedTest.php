@@ -241,7 +241,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
@@ -254,7 +254,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
@@ -354,7 +354,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
@@ -367,7 +367,7 @@ class ContractEntriesAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],

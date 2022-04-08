@@ -87,7 +87,7 @@ class CreateMeSearchTest extends TestCase {
             new AuthMeDataProvider('createMeSearch'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('createMeSearch', CreateMeSearch::class),
+                    new GraphQLSuccess('createMeSearch'),
                     [
                         'conditions' => 'conditionsObject',
                         'key'        => 'key1',

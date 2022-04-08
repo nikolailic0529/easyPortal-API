@@ -11,7 +11,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -103,7 +102,6 @@ class ScheduleTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'application',
-                        new JsonFragmentSchema('maintenance.schedule', self::class),
                         new JsonFragment('maintenance.schedule', [
                             'result' => true,
                         ]),

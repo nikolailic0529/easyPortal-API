@@ -104,7 +104,7 @@ class ResetApplicationServiceTest extends TestCase {
                     ],
                 ],
                 'non-progressable' => [
-                    new GraphQLSuccess('resetApplicationService', ResetApplicationService::class, [
+                    new GraphQLSuccess('resetApplicationService', [
                         'result' => false,
                     ]),
                     [
@@ -112,7 +112,7 @@ class ResetApplicationServiceTest extends TestCase {
                     ],
                 ],
                 'ok'               => [
-                    new GraphQLSuccess('resetApplicationService', ResetApplicationService::class, [
+                    new GraphQLSuccess('resetApplicationService', [
                         'result' => true,
                     ]),
                     [

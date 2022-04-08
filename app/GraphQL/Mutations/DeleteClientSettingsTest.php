@@ -99,7 +99,6 @@ class DeleteClientSettingsTest extends TestCase {
                     [
                         'response' => new GraphQLSuccess(
                             'deleteClientSettings',
-                            DeleteClientSettings::class,
                             [
                                 'deleted' => ['a', 'b'],
                             ],

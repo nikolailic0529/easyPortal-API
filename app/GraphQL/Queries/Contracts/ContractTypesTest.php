@@ -78,7 +78,7 @@ class ContractTypesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok/from contract types'         => [
-                new GraphQLSuccess('contractTypes', ContractTypes::class, [
+                new GraphQLSuccess('contractTypes', [
                     [
                         'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                         'name' => 'Translated (locale)',
@@ -147,7 +147,7 @@ class ContractTypesTest extends TestCase {
                 },
             ],
             'ok/empty contract types config' => [
-                new GraphQLSuccess('contractTypes', ContractTypes::class, [
+                new GraphQLSuccess('contractTypes', [
                     // empty
                 ]),
                 static function (TestCase $test): string {

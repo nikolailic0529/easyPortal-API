@@ -78,7 +78,7 @@ class GuestTest extends TestCase {
     public function dataProviderResolveField(): array {
         return [
             'guest' => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return null;
                 },

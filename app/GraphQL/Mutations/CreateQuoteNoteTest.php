@@ -196,7 +196,7 @@ class CreateQuoteNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'                  => [
-                        new GraphQLSuccess('createQuoteNote', CreateQuoteNote::class),
+                        new GraphQLSuccess('createQuoteNote'),
                         $settings,
                         $prepare,
                         $input,

@@ -59,7 +59,7 @@ class SetApplicationLocaleTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('setApplicationLocale', SetApplicationLocale::class, [
+                    new GraphQLSuccess('setApplicationLocale', [
                         'result' => true,
                     ]),
                 ],

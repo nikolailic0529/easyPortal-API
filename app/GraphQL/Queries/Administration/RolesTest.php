@@ -71,7 +71,7 @@ class RolesTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('roles', self::class, [
+                    new GraphQLSuccess('roles', [
                         [
                             'id'   => '3a75a9a4-9943-441f-b123-ffbd885249df',
                             'name' => 'Role',

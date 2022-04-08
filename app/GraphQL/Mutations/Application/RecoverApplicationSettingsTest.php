@@ -73,7 +73,7 @@ class RecoverApplicationSettingsTest extends TestCase {
             new AuthRootDataProvider('recoverApplicationSettings'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverApplicationSettings', RecoverApplicationSettings::class, [
+                    new GraphQLSuccess('recoverApplicationSettings', [
                         'result' => true,
                     ]),
                 ],

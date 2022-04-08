@@ -139,7 +139,7 @@ class AggregatedTest extends TestCase {
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
+            ->assertThat(new GraphQLSuccess('data', [
                 'value' => 1,
             ]));
     }
@@ -165,7 +165,7 @@ class AggregatedTest extends TestCase {
                 false,
             ],
             'model'                  => [
-                new GraphQLSuccess('root', null, [
+                new GraphQLSuccess('root', [
                     'data' => [
                         'value' => '3bb32fc9-55ea-437d-b307-278e19a48cd4',
                     ],
@@ -185,7 +185,7 @@ class AggregatedTest extends TestCase {
                 true,
             ],
             'builder'                => [
-                new GraphQLSuccess('root', null, [
+                new GraphQLSuccess('root', [
                     'data' => [
                         'value' => '7a2cd1d4-91df-4ba8-bd69-2a172920ec81',
                     ],
@@ -205,7 +205,7 @@ class AggregatedTest extends TestCase {
                 true,
             ],
             'model + builder'        => [
-                new GraphQLSuccess('root', null, [
+                new GraphQLSuccess('root', [
                     'data' => [
                         'value' => '25dcdac0-3f19-4f6b-8995-3f6272cb655d',
                     ],
@@ -226,7 +226,7 @@ class AggregatedTest extends TestCase {
                 true,
             ],
             'relation'               => [
-                new GraphQLSuccess('root', null, [
+                new GraphQLSuccess('root', [
                     'data' => [
                         'value' => 'd42d9884-a39b-4dfc-97bc-6785ef03f4f4',
                     ],

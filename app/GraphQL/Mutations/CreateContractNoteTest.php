@@ -199,7 +199,7 @@ class CreateContractNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'                  => [
-                        new GraphQLSuccess('createContractNote', CreateContractNote::class),
+                        new GraphQLSuccess('createContractNote'),
                         $settings,
                         $prepare,
                         $input,

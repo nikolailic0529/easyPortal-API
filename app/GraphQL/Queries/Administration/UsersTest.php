@@ -136,7 +136,6 @@ class UsersTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated(
                             'users',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
@@ -276,7 +275,7 @@ class UsersTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('users', self::class, [
+                        new GraphQLPaginated('users', [
                             [
                                 'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                 'given_name'          => 'keycloak',

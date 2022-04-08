@@ -224,7 +224,7 @@ class ContractsAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 5,
                             'prices' => [
                                 [
@@ -278,7 +278,7 @@ class ContractsAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'               => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 2,
                             'prices' => [
                                 [
@@ -308,7 +308,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'no types'         => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
                         ]),
@@ -324,7 +324,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'type not match'   => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
                         ]),
@@ -340,7 +340,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'no hidden prices' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 2,
                             'prices' => [
                                 [

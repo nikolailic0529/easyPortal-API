@@ -20,7 +20,6 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -176,7 +175,6 @@ class UpdateTest extends TestCase {
                 'ok'                                 => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.update', self::class),
                         new JsonFragment('role.update', [
                             'result' => true,
                             'role'   => [
@@ -267,7 +265,6 @@ class UpdateTest extends TestCase {
                 'Role exists (another organization)' => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.update', self::class),
                         new JsonFragment('role.update.result', true),
                     ),
                     static function (TestCase $test, Organization $organization): Role {

@@ -88,7 +88,7 @@ class CitiesTest extends TestCase {
             new AuthMeDataProvider('cities'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('cities', self::class, [
+                    new GraphQLSuccess('cities', [
                         [
                             'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'       => 'City',

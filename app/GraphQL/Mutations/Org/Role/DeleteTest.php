@@ -18,7 +18,6 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -104,7 +103,6 @@ class DeleteTest extends TestCase {
                 'role without users'             => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.delete', self::class),
                         new JsonFragment('role.delete', [
                             'result' => true,
                         ]),

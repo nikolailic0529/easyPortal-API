@@ -111,7 +111,7 @@ class RelationTest extends TestCase {
 
         return [
             'root organization' => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'  => $customerId,
                         'kpi' => [
@@ -125,7 +125,7 @@ class RelationTest extends TestCase {
                 $factory,
             ],
             'organization'      => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'  => $customerId,
                         'kpi' => [

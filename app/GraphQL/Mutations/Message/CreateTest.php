@@ -111,7 +111,6 @@ class CreateTest extends TestCase {
                 'ok'              => [
                     new GraphQLSuccess(
                         'message',
-                        null,
                         new JsonFragment('create', [
                             'result' => true,
                         ]),

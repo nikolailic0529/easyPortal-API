@@ -616,7 +616,7 @@ class QuotesSearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('quotesSearch', null),
+                        new GraphQLPaginated('quotesSearch'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => [
@@ -643,7 +643,7 @@ class QuotesSearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [
-                        new GraphQLPaginated('quotesSearch', self::class, $objects, [
+                        new GraphQLPaginated('quotesSearch', $objects, [
                             'count' => count($objects),
                         ]),
                         [
@@ -657,7 +657,7 @@ class QuotesSearchTest extends TestCase {
                         $factory,
                     ],
                     'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotesSearch', self::class, $objects, [
+                        new GraphQLPaginated('quotesSearch', $objects, [
                             'count' => count($objects),
                         ]),
                         [
@@ -673,7 +673,6 @@ class QuotesSearchTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
                             [
                                 'count' => 1,
@@ -701,7 +700,7 @@ class QuotesSearchTest extends TestCase {
                         },
                     ],
                     'quote_types not match'                     => [
-                        new GraphQLPaginated('quotesSearch', self::class, [], [
+                        new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
@@ -719,7 +718,7 @@ class QuotesSearchTest extends TestCase {
                         },
                     ],
                     'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotesSearch', self::class, [], [
+                        new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
@@ -738,7 +737,6 @@ class QuotesSearchTest extends TestCase {
                     'hiding price'                              => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -778,7 +776,6 @@ class QuotesSearchTest extends TestCase {
                     'entries: hiding list_price'                => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -823,7 +820,6 @@ class QuotesSearchTest extends TestCase {
                     'entries: hiding net_price'                 => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
                                 'count' => 1,

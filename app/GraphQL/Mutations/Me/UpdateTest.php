@@ -19,7 +19,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -178,7 +177,6 @@ class UpdateTest extends TestCase {
                 'All possible properties'     => [
                     new GraphQLSuccess(
                         'me',
-                        new JsonFragmentSchema('update', self::class),
                         new JsonFragment('update', [
                             'result' => true,
                             'me'     => [
@@ -211,7 +209,6 @@ class UpdateTest extends TestCase {
                 'part of possible properties' => [
                     new GraphQLSuccess(
                         'me',
-                        new JsonFragmentSchema('update', self::class),
                         new JsonFragment('update.result', true),
                     ),
                     $settings,

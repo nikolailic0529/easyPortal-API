@@ -64,7 +64,7 @@ class AssetCoveragesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('assetCoverages', self::class, [
+                new GraphQLSuccess('assetCoverages', [
                     [
                         'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                         'name' => 'coverage1',

@@ -104,7 +104,7 @@ class LocaleTest extends TestCase {
             new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('locale', null, [
+                    new GraphQLSuccess('locale', [
                         'name'         => 'en_GB',
                         'translations' => [
                             [

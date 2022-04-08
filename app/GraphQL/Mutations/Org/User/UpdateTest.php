@@ -25,7 +25,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -200,7 +199,6 @@ class UpdateTest extends TestCase {
                 'All possible properties'                       => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.update', self::class),
                         new JsonFragment('user.update', [
                             'result' => true,
                             'user'   => [
@@ -235,7 +233,6 @@ class UpdateTest extends TestCase {
                 'Part of possible properties'                   => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.update', self::class),
                         new JsonFragment('user.update.result', true),
                     ),
                     $settings,
@@ -384,7 +381,6 @@ class UpdateTest extends TestCase {
                 'Root can be updated by root'                   => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.update', self::class),
                         new JsonFragment('user.update.result', true),
                     ),
                     null,
@@ -422,7 +418,6 @@ class UpdateTest extends TestCase {
                 'Role should not be reset'                      => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.update', self::class),
                         new JsonFragment('user.update', [
                             'result' => true,
                             'user'   => [

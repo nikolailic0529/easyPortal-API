@@ -77,7 +77,7 @@ class CountriesTest extends TestCase {
             new AuthMeDataProvider('countries'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('countries', self::class, [
+                    new GraphQLSuccess('countries', [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',

@@ -58,7 +58,7 @@ class TimezonesTest extends TestCase {
             new AuthMeDataProvider('timezones'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('timezones', Timezones::class),
+                    new GraphQLSuccess('timezones'),
                 ],
             ]),
         ))->getData();

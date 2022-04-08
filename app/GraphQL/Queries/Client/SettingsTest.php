@@ -119,7 +119,7 @@ class SettingsTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('client', Settings::class, [
+                    new GraphQLSuccess('client', [
                         'settings' => [
                             [
                                 'name'  => 'ValueA',

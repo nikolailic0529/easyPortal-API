@@ -104,7 +104,6 @@ class UpdateClientTranslationsTest extends TestCase {
                 'success - retrieve'                         => [
                     new GraphQLSuccess(
                         'updateClientTranslations',
-                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],
@@ -120,7 +119,6 @@ class UpdateClientTranslationsTest extends TestCase {
                 'success - update current value'             => [
                     new GraphQLSuccess(
                         'updateClientTranslations',
-                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],
@@ -136,7 +134,6 @@ class UpdateClientTranslationsTest extends TestCase {
                 'success - retrieve updated duplicate input' => [
                     new GraphQLSuccess(
                         'updateClientTranslations',
-                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],

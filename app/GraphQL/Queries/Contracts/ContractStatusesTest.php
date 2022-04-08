@@ -73,7 +73,7 @@ class ContractStatusesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('contractStatuses', ContractStatuses::class, [
+                new GraphQLSuccess('contractStatuses', [
                     [
                         'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                         'name' => 'Translated (locale)',

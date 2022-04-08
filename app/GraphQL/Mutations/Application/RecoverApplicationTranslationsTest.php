@@ -63,7 +63,7 @@ class RecoverApplicationTranslationsTest extends TestCase {
             new AuthRootDataProvider('recoverApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverApplicationTranslations', RecoverApplicationTranslations::class, [
+                    new GraphQLSuccess('recoverApplicationTranslations', [
                         'result' => true,
                     ]),
                 ],

@@ -221,7 +221,7 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok-files'            => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         $prepare,
                         [
@@ -237,7 +237,7 @@ class UpdateQuoteNoteTest extends TestCase {
                         ],
                     ],
                     'ok-Ids'              => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
@@ -282,7 +282,7 @@ class UpdateQuoteNoteTest extends TestCase {
                         ],
                     ],
                     'optional note'       => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         $prepare,
                         [
@@ -296,7 +296,7 @@ class UpdateQuoteNoteTest extends TestCase {
                         ],
                     ],
                     'optional pinned'     => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         $prepare,
                         [
@@ -311,7 +311,7 @@ class UpdateQuoteNoteTest extends TestCase {
                         ],
                     ],
                     'optional files'      => [
-                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateQuoteNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {

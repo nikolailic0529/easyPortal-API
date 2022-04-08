@@ -69,7 +69,7 @@ class ServiceGroupsTest extends TestCase {
             new AuthMeDataProvider('serviceGroups'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('serviceGroups', self::class, [
+                    new GraphQLSuccess('serviceGroups', [
                         [
                             'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

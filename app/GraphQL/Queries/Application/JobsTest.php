@@ -131,10 +131,10 @@ class JobsTest extends TestCase {
             new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class => [
-                    new GraphQLSuccess('application', self::class),
+                    new GraphQLSuccess('application'),
                 ],
                 'translated'     => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'jobs' => [
                             [
                                 'name'        => 'job-a',

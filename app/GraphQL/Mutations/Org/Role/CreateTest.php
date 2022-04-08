@@ -19,7 +19,6 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -151,7 +150,6 @@ class CreateTest extends TestCase {
                 'ok'                  => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.create', self::class),
                         new JsonFragment('role.create', [
                             'result' => true,
                             'role'   => [
@@ -180,7 +178,6 @@ class CreateTest extends TestCase {
                 'empty permissions'   => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.create', self::class),
                         new JsonFragment('role.create', [
                             'result' => true,
                             'role'   => [

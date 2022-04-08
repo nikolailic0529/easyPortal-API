@@ -162,7 +162,7 @@ class AssetsAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
+                        new GraphQLSuccess('assetsAggregated', [
                             'count'     => 3,
                             'types'     => [
                                 [
@@ -204,7 +204,7 @@ class AssetsAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
+                        new GraphQLSuccess('assetsAggregated', [
                             'count'     => 3,
                             'types'     => [
                                 [

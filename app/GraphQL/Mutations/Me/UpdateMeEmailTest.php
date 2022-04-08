@@ -103,7 +103,7 @@ class UpdateMeEmailTest extends TestCase {
             new AuthMeDataProvider('updateMeEmail'),
             new ArrayDataProvider([
                 'keycloak'             => [
-                    new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
+                    new GraphQLSuccess('updateMeEmail', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
@@ -120,7 +120,7 @@ class UpdateMeEmailTest extends TestCase {
                     },
                 ],
                 'local'                => [
-                    new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
+                    new GraphQLSuccess('updateMeEmail', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {

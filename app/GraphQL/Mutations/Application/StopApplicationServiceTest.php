@@ -103,7 +103,7 @@ class StopApplicationServiceTest extends TestCase {
                     ],
                 ],
                 'ok'         => [
-                    new GraphQLSuccess('stopApplicationService', StopApplicationService::class, [
+                    new GraphQLSuccess('stopApplicationService', [
                         'result' => true,
                     ]),
                     [

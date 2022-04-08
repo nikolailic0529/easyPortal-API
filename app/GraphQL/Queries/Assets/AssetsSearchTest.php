@@ -276,7 +276,7 @@ class AssetsSearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('assetsSearch', null),
+                        new GraphQLPaginated('assetsSearch'),
                         [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
@@ -293,7 +293,6 @@ class AssetsSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated(
                             'assetsSearch',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

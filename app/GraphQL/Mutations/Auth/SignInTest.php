@@ -16,7 +16,6 @@ use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -162,7 +161,6 @@ class SignInTest extends TestCase {
                 'local user with valid password'    => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signIn', self::class),
                         new JsonFragment('signIn', [
                             'result' => true,
                             'me'     => [

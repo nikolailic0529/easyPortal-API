@@ -92,7 +92,7 @@ class RootTest extends TestCase {
                 },
             ],
             'local user is root'    => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return User::factory()->make([
                         'type' => UserType::local(),

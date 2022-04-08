@@ -620,7 +620,7 @@ class QuotesTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('quotes', null),
+                        new GraphQLPaginated('quotes'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => [
@@ -647,7 +647,7 @@ class QuotesTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [
-                        new GraphQLPaginated('quotes', self::class, $objects, ['count' => count($objects)]),
+                        new GraphQLPaginated('quotes', $objects, ['count' => count($objects)]),
                         [
                             'ep.document_statuses_hidden' => [
                                 '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
@@ -659,7 +659,7 @@ class QuotesTest extends TestCase {
                         $factory,
                     ],
                     'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotes', self::class, $objects, ['count' => count($objects)]),
+                        new GraphQLPaginated('quotes', $objects, ['count' => count($objects)]),
                         [
                             'ep.document_statuses_hidden' => [
                                 '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
@@ -673,7 +673,6 @@ class QuotesTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLPaginated(
                             'quotes',
-                            self::class,
                             new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
                         ),
                         [
@@ -698,7 +697,7 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'quote_types not match'                     => [
-                        new GraphQLPaginated('quotes', self::class, [], ['count' => 0]),
+                        new GraphQLPaginated('quotes', [], ['count' => 0]),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => [
@@ -714,7 +713,7 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotes', self::class, [], ['count' => 0]),
+                        new GraphQLPaginated('quotes', [], ['count' => 0]),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -731,7 +730,6 @@ class QuotesTest extends TestCase {
                     'hiding price'                              => [
                         new GraphQLPaginated(
                             'quotes',
-                            self::class,
                             new JsonFragment('0.price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -768,7 +766,6 @@ class QuotesTest extends TestCase {
                     'entries: hiding list_price'                => [
                         new GraphQLPaginated(
                             'quotes',
-                            self::class,
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -809,7 +806,6 @@ class QuotesTest extends TestCase {
                     'entries: hiding net_price'                 => [
                         new GraphQLPaginated(
                             'quotes',
-                            self::class,
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
                                 'count' => 1,

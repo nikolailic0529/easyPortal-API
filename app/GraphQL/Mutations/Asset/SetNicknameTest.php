@@ -109,7 +109,6 @@ class SetNicknameTest extends TestCase {
                 'ok'                       => [
                     new GraphQLSuccess(
                         'asset',
-                        null,
                         new JsonFragment('setNickname', [
                             'result' => true,
                             'asset'  => [
@@ -134,7 +133,6 @@ class SetNicknameTest extends TestCase {
                 'reset nickname'           => [
                     new GraphQLSuccess(
                         'asset',
-                        null,
                         new JsonFragment('setNickname', [
                             'result' => true,
                             'asset'  => [

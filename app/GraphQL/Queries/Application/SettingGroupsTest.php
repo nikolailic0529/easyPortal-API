@@ -110,7 +110,7 @@ class SettingGroupsTest extends TestCase {
             new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'settingGroups' => [
                             [
                                 'name'     => 'Translated group name',

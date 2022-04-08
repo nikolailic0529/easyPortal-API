@@ -77,7 +77,7 @@ class ResetOrgUserPasswordTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok'           => [
-                    new GraphQLSuccess('resetOrgUserPassword', ResetOrgUserPassword::class, [
+                    new GraphQLSuccess('resetOrgUserPassword', [
                         'result' => true,
                     ]),
                     static function (MockInterface $mock): void {

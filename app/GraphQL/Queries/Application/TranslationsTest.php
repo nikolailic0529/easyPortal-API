@@ -116,7 +116,7 @@ class TranslationsTest extends TestCase {
             new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', Translations::class),
+                    new GraphQLSuccess('application'),
                 ],
             ]),
         ))->getData();

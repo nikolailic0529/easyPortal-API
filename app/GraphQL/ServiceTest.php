@@ -80,7 +80,7 @@ class ServiceTest extends TestCase {
         $data = array_map(
             static function (array $case): array {
                 $case[0] = $case[0] instanceof Ok
-                    ? new GraphQLSuccess('__schema', null)
+                    ? new GraphQLSuccess('__schema')
                     : new GraphQLError('__schema');
 
                 return $case;

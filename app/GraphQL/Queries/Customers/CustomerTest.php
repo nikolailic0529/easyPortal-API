@@ -2,11 +2,6 @@
 
 namespace App\GraphQL\Queries\Customers;
 
-use App\GraphQL\Queries\Assets\AssetsAggregated;
-use App\GraphQL\Queries\Assets\AssetTest;
-use App\GraphQL\Queries\Contracts\ContractsAggregatedTest;
-use App\GraphQL\Queries\Contracts\ContractsTest;
-use App\GraphQL\Queries\Quotes\QuotesTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -37,8 +32,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -938,7 +931,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -953,7 +946,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'          => [
-                        new GraphQLSuccess('customer', new JsonFragmentPaginatedSchema('assets', AssetTest::class), [
+                        new GraphQLSuccess('customer', [
                             'assets'           => [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -1338,7 +1331,7 @@ class CustomerTest extends TestCase {
                         },
                     ],
                     'not allowed' => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             $customer = Customer::factory()->create();
@@ -1363,7 +1356,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -1378,7 +1371,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', self::class, [
+                        new GraphQLSuccess('customer', [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'            => 'name aaa',
                             'assets_count'    => 0,
@@ -1646,7 +1639,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             Document::factory()->create();
@@ -1665,7 +1658,6 @@ class CustomerTest extends TestCase {
                     'ok'             => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             [
                                 'contracts'           => [
                                     [
@@ -2006,7 +1998,6 @@ class CustomerTest extends TestCase {
                     'no types'       => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -2020,7 +2011,6 @@ class CustomerTest extends TestCase {
                     'type not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -2032,7 +2022,7 @@ class CustomerTest extends TestCase {
                         $customerContractFactory,
                     ],
                     'not allowed'    => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -2452,7 +2442,7 @@ class CustomerTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             Document::factory()->create();
@@ -2471,7 +2461,6 @@ class CustomerTest extends TestCase {
                     'ok'                                        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -2483,7 +2472,7 @@ class CustomerTest extends TestCase {
                         $customerQuoteFactory,
                     ],
                     'not allowed'                               => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -2514,7 +2503,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -2528,7 +2516,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2542,7 +2529,6 @@ class CustomerTest extends TestCase {
                     'quote_types not match'                     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2556,7 +2542,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + no contract_types'        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2685,7 +2670,6 @@ class CustomerTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('assetsAggregated', AssetsAggregated::class),
                         [
                             'assetsAggregated' => [
                                 'count'     => 3,
@@ -2863,7 +2847,6 @@ class CustomerTest extends TestCase {
                 'ok'               => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
                             'contractsAggregated' => [
                                 'count'  => 4,
@@ -2907,7 +2890,6 @@ class CustomerTest extends TestCase {
                 'no hidden prices' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
                             'contractsAggregated' => [
                                 'count'  => 4,

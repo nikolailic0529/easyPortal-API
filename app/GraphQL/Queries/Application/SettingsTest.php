@@ -147,10 +147,10 @@ class SettingsTest extends TestCase {
             new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class        => [
-                    new GraphQLSuccess('application', self::class),
+                    new GraphQLSuccess('application'),
                 ],
                 'internal not returned' => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'settings' => [
                             [
                                 'name'        => 'SETTING_FLOAT',

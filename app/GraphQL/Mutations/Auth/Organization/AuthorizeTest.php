@@ -18,7 +18,6 @@ use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -137,7 +136,6 @@ class AuthorizeTest extends TestCase {
                 'state mismatch'          => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('organization.authorize', self::class),
                         new JsonFragment('organization.authorize', [
                             'result' => false,
                             'me'     => null,
@@ -151,7 +149,6 @@ class AuthorizeTest extends TestCase {
                 'success'                 => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('organization.authorize', self::class),
                         new JsonFragment('organization.authorize', [
                             'result' => true,
                             'me'     => [

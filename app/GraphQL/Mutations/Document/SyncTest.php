@@ -22,7 +22,6 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -173,7 +172,6 @@ class SyncTest extends TestCase {
                     'ok'           => [
                         new GraphQLSuccess(
                             'contract',
-                            new JsonFragmentSchema('sync', self::class),
                             new JsonFragment('sync', [
                                 'result' => true,
                                 'assets' => true,
@@ -234,7 +232,6 @@ class SyncTest extends TestCase {
                     'ok'           => [
                         new GraphQLSuccess(
                             'quote',
-                            new JsonFragmentSchema('sync', self::class),
                             new JsonFragment('sync', [
                                 'result' => true,
                                 'assets' => true,

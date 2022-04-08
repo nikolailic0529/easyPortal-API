@@ -61,7 +61,7 @@ class TranslateTest extends TestCase {
     public function dataProviderResolveField(): array {
         return [
             'not Translatable' => [
-                new GraphQLSuccess('model', null, [
+                new GraphQLSuccess('model', [
                     'property' => 'abc',
                 ]),
                 new class() extends stdClass {
@@ -69,7 +69,7 @@ class TranslateTest extends TestCase {
                 },
             ],
             'Translatable'     => [
-                new GraphQLSuccess('model', null, [
+                new GraphQLSuccess('model', [
                     'property' => 'translated',
                 ]),
                 new class() extends stdClass implements Translatable {

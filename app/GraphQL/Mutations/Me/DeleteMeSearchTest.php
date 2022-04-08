@@ -77,7 +77,7 @@ class DeleteMeSearchTest extends TestCase {
             new AuthMeDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                    new GraphQLSuccess('deleteMeSearch', [
                         'deleted' => true,
                     ]),
                     static function (TestCase $test, User $user): UserSearch {
@@ -88,7 +88,7 @@ class DeleteMeSearchTest extends TestCase {
                     false,
                 ],
                 'Different User' => [
-                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                    new GraphQLSuccess('deleteMeSearch', [
                         'deleted' => false,
                     ]),
                     static function (TestCase $test, User $user): UserSearch {

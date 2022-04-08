@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\RequestAssetChange;
 use App\Mail\RequestChange;
 use App\Models\Organization;
 use App\Models\User;
@@ -135,7 +134,7 @@ class RequestOrgChangeTest extends TestCase {
             ),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestOrgChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestOrgChange', [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',

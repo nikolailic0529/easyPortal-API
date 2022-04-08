@@ -105,7 +105,7 @@ class ImportTest extends TestCase {
             new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('locale', null, new JsonFragment('import.result', true)),
+                    new GraphQLSuccess('locale', new JsonFragment('import.result', true)),
                     'en_GB',
                     [
                         'translations' => UploadedFile::fake()->createWithContent(

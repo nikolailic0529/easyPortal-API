@@ -391,8 +391,8 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$content of class Tests\\\\GraphQL\\\\GraphQLSuccess constructor expects array\\|JsonSerializable\\|SplFileInfo\\|stdClass\\|string\\|Tests\\\\GraphQL\\\\JsonFragment\\|null, string\\|false given\\.$#"
-			count: 4
+			message: "#^Parameter \\#2 \\$content of class Tests\\\\GraphQL\\\\GraphQLSuccess constructor expects array\\|JsonSerializable\\|SplFileInfo\\|stdClass\\|string\\|Tests\\\\GraphQL\\\\JsonFragment\\|null, string\\|false given\\.$#"
+			count: 3
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
@@ -1051,6 +1051,11 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SendResetPasswordLinkTest.php
 
 		-
+			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Auth/SignInTest.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignOutTest\\:\\:testInvoke\\(\\) has parameter \\$keyCloakFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignOutTest.php
@@ -1654,6 +1659,11 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Oem\\\\Hpe\\\\ImportImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportImportFailed.php
+
+		-
+			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
 
 		-
 			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
@@ -13521,64 +13531,9 @@ parameters:
 			path: tests/DataProviders/GraphQL/Organizations/OrgRootDataProvider.php
 
 		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLError\\:\\:getResponseConstraints\\(\\) should return array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\> but returns array\\<int, LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Json\\\\JsonMatchesSchema\\|null\\>\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLError.php
-
-		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLPaginated\\:\\:__construct\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLPaginated.php
-
-		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLPaginated\\:\\:__construct\\(\\) has parameter \\$paginator with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLPaginated.php
-
-		-
 			message: "#^Method Tests\\\\GraphQL\\\\GraphQLPaginated\\:\\:getResponseConstraints\\(\\) should return array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\> but returns array\\<int, LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Json\\\\JsonMatchesFragment\\|null\\>\\.$#"
 			count: 1
 			path: tests/GraphQL/GraphQLPaginated.php
-
-		-
-			message: "#^Parameter \\#2 \\$schema of method Tests\\\\GraphQL\\\\GraphQLSuccess\\:\\:__construct\\(\\) expects class\\-string\\|Tests\\\\GraphQL\\\\JsonFragmentSchema\\|null, string\\|Tests\\\\GraphQL\\\\JsonFragmentSchema\\|null given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLPaginated.php
-
-		-
-			message: "#^Cannot call method getJsonSchema\\(\\) on string\\|Tests\\\\GraphQL\\\\JsonFragmentSchema\\|null\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLResponse.php
-
-		-
-			message: "#^Cannot call method getPath\\(\\) on string\\|Tests\\\\GraphQL\\\\JsonFragmentSchema\\|null\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLResponse.php
-
-		-
-			message: "#^Parameter \\#1 \\$array \\(non\\-empty\\-array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\>\\) to function array_filter does not contain falsy values, the array will always stay the same\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLResponse.php
-
-		-
-			message: "#^Parameter \\#3 \\$schema of class Tests\\\\GraphQL\\\\SchemaWrapper constructor expects string\\|null, string\\|Tests\\\\GraphQL\\\\JsonFragmentSchema\\|null given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLResponse.php
-
-		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLSuccess\\:\\:__construct\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLSuccess.php
-
-		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLSuccess\\:\\:getJsonFragment\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLSuccess.php
-
-		-
-			message: "#^Method Tests\\\\GraphQL\\\\GraphQLSuccess\\:\\:getResponseConstraints\\(\\) should return array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\> but returns array\\<int, LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Json\\\\JsonMatchesFragment\\|null\\>\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLSuccess.php
 
 		-
 			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
@@ -13614,11 +13569,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$response of class Tests\\\\GraphQL\\\\SchemaWrapper constructor expects class\\-string\\<Tests\\\\GraphQL\\\\GraphQLResponse\\>, string given\\.$#"
 			count: 1
 			path: tests/GraphQL/JsonFragmentPaginatedSchema.php
-
-		-
-			message: "#^Parameter \\#1 \\$class of method Tests\\\\GraphQL\\\\SchemaWrapper\\:\\:getTestData\\(\\) expects class\\-string\\|null, string given\\.$#"
-			count: 1
-			path: tests/GraphQL/SchemaWrapper.php
 
 		-
 			message: "#^Method Tests\\\\Helpers\\\\ClassMap\\:\\:get\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"

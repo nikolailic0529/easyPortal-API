@@ -280,7 +280,7 @@ class AssetsTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('assets', null),
+                        new GraphQLPaginated('assets'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -297,7 +297,6 @@ class AssetsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated(
                             'assets',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

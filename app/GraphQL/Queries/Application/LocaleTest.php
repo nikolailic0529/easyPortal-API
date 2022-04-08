@@ -65,7 +65,7 @@ class LocaleTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', Locale::class, [
+                    new GraphQLSuccess('application', [
                         'locale' => 'fr',
                     ]),
                     'fr',

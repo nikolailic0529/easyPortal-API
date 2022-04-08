@@ -37,8 +37,8 @@ class OrgTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers \App\GraphQL\Queries\Organization::root
-     * @covers \App\GraphQL\Queries\Organization::branding
+     * @covers       \App\GraphQL\Queries\Organization::root
+     * @covers       \App\GraphQL\Queries\Organization::branding
      *
      * @dataProvider dataProviderInvoke
      *
@@ -195,7 +195,7 @@ class OrgTest extends TestCase {
                 new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('org', null),
+                        new GraphQLSuccess('org'),
                     ],
                 ]),
             ),
@@ -246,7 +246,7 @@ class OrgTest extends TestCase {
                 new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok'   => [
-                        new GraphQLSuccess('org', Org::class, [
+                        new GraphQLSuccess('org', [
                             'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name'            => 'org1',
                             'root'            => false,
@@ -443,7 +443,7 @@ class OrgTest extends TestCase {
                         },
                     ],
                     'root' => [
-                        new GraphQLSuccess('org', Org::class, new JsonFragment('root', true)),
+                        new GraphQLSuccess('org', new JsonFragment('root', true)),
                         [],
                         true,
                     ],

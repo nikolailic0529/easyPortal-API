@@ -108,7 +108,7 @@ class ImportOemsTest extends TestCase {
             new AuthRootDataProvider('importOems'),
             new ArrayDataProvider([
                 'ok'                  => [
-                    new GraphQLSuccess('importOems', self::class, [
+                    new GraphQLSuccess('importOems', [
                         'result' => true,
                     ]),
                     static function (): UploadedFile {

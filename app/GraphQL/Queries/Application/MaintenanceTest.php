@@ -71,7 +71,7 @@ class MaintenanceTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'maintenance' => [
                             'enabled' => true,
                             'message' => 'abc',

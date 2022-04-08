@@ -201,19 +201,19 @@ class MeTest extends TestCase {
             new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed'           => [
-                    new GraphQLSuccess('me', null),
+                    new GraphQLSuccess('me'),
                     static function (): ?User {
                         return null;
                     },
                 ],
                 'user is allowed (not root)' => [
-                    new GraphQLSuccess('me', Me::class, new JsonFragment('root', false)),
+                    new GraphQLSuccess('me', new JsonFragment('root', false)),
                     static function (): User {
                         return User::factory()->make();
                     },
                 ],
                 'user is allowed (root)'     => [
-                    new GraphQLSuccess('me', Me::class, new JsonFragment('root', true)),
+                    new GraphQLSuccess('me', new JsonFragment('root', true)),
                     static function (): User {
                         return User::factory()->make([
                             'type' => UserType::local(),
@@ -221,7 +221,7 @@ class MeTest extends TestCase {
                     },
                 ],
                 'previous_sign_in'           => [
-                    new GraphQLSuccess('me', Me::class, new JsonFragment(
+                    new GraphQLSuccess('me', new JsonFragment(
                         'previous_sign_in',
                         '"2021-10-18T10:15:00+00:00"',
                     )),
@@ -255,14 +255,14 @@ class MeTest extends TestCase {
             new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
-                    new GraphQLSuccess('me', self::class, 'null'),
+                    new GraphQLSuccess('me', 'null'),
                     static function (): ?User {
                         return null;
                     },
                     null,
                 ],
                 'user is allowed'  => [
-                    new GraphQLSuccess('me', self::class, new JsonFragment('searches', [
+                    new GraphQLSuccess('me', new JsonFragment('searches', [
                         [
                             'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'key'        => 'key',
@@ -295,7 +295,7 @@ class MeTest extends TestCase {
     public function dataProviderTeam(): array {
         return [
             'no organization'   => [
-                new GraphQLSuccess('me', self::class, 'null'),
+                new GraphQLSuccess('me', 'null'),
                 static function (): ?Organization {
                     return null;
                 },
@@ -304,7 +304,7 @@ class MeTest extends TestCase {
                 },
             ],
             'no user'           => [
-                new GraphQLSuccess('me', self::class, 'null'),
+                new GraphQLSuccess('me', 'null'),
                 static function (): Organization {
                     return Organization::factory()->create();
                 },
@@ -313,7 +313,7 @@ class MeTest extends TestCase {
                 },
             ],
             'user without team' => [
-                new GraphQLSuccess('me', null, ['team' => null]),
+                new GraphQLSuccess('me', ['team' => null]),
                 static function (): Organization {
                     return Organization::factory()->create();
                 },
@@ -329,7 +329,7 @@ class MeTest extends TestCase {
                 },
             ],
             'user with team'    => [
-                new GraphQLSuccess('me', null, new JsonFragment('team', [
+                new GraphQLSuccess('me', new JsonFragment('team', [
                     'id'   => 'cff96820-82e2-4c0e-8441-e5cb80107f5b',
                     'name' => 'Team',
                 ])),
@@ -353,7 +353,7 @@ class MeTest extends TestCase {
                 },
             ],
             'root without team' => [
-                new GraphQLSuccess('me', null, ['team' => null]),
+                new GraphQLSuccess('me', ['team' => null]),
                 static function (): Organization {
                     return Organization::factory()->create();
                 },
@@ -372,7 +372,7 @@ class MeTest extends TestCase {
     public function dataProviderOrgs(): array {
         return [
             'no organization'         => [
-                new GraphQLSuccess('me', self::class, 'null'),
+                new GraphQLSuccess('me', 'null'),
                 static function (): ?Organization {
                     return null;
                 },
@@ -382,7 +382,7 @@ class MeTest extends TestCase {
                 null,
             ],
             'no user'                 => [
-                new GraphQLSuccess('me', self::class, 'null'),
+                new GraphQLSuccess('me', 'null'),
                 static function (): Organization {
                     return Organization::factory()->create();
                 },
@@ -394,7 +394,6 @@ class MeTest extends TestCase {
             'user with organizations' => [
                 new GraphQLSuccess(
                     'me',
-                    null,
                     new JsonFragment('orgs', [
                         [
                             'id' => '34092d03-ebfc-4ede-aec1-6b2df58c9f16',

@@ -220,7 +220,7 @@ class MeTest extends TestCase {
                 },
             ],
             'user'  => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return User::factory()->make();
                 },
@@ -254,7 +254,7 @@ class MeTest extends TestCase {
                 },
             ],
             'org user with permission' => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 ['a', 'b', 'c'],
                 static function (): Organization {
                     return Organization::factory()->create();
@@ -288,7 +288,7 @@ class MeTest extends TestCase {
                 },
             ],
             'root without permission'  => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 ['a', 'b', 'c'],
                 static function () {
                     return null;

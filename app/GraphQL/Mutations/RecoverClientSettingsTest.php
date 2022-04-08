@@ -77,7 +77,7 @@ class RecoverClientSettingsTest extends TestCase {
             new AuthRootDataProvider('recoverClientSettings'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverClientSettings', RecoverClientSettings::class, [
+                    new GraphQLSuccess('recoverClientSettings', [
                         'result' => true,
                     ]),
                 ],

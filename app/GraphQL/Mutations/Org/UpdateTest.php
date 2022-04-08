@@ -17,7 +17,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -401,7 +400,7 @@ class UpdateTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok'                               => [
-                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
+                    new GraphQLSuccess('org'),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -542,7 +541,7 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'nullable branding'                => [
-                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
+                    new GraphQLSuccess('org'),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -572,7 +571,7 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'no reseller organization'         => [
-                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
+                    new GraphQLSuccess('org'),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();
@@ -608,7 +607,7 @@ class UpdateTest extends TestCase {
                     },
                 ],
                 'no reseller organization/null'    => [
-                    new GraphQLSuccess('org', new JsonFragmentSchema('update', self::class)),
+                    new GraphQLSuccess('org'),
                     [],
                     static function (): array {
                         $currency = Currency::factory()->create();

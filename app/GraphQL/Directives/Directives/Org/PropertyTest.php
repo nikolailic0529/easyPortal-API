@@ -338,7 +338,7 @@ class PropertyTest extends TestCase {
 
         return [
             'root organization' => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'           => $customerId,
                         'assets_count' => $rootValue,
@@ -350,7 +350,7 @@ class PropertyTest extends TestCase {
                 $factory,
             ],
             'organization'      => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'           => $customerId,
                         'assets_count' => $orgValue,

@@ -76,7 +76,7 @@ class TranslationsTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('client', Translations::class, [
+                    new GraphQLSuccess('client', [
                         'translations' => [
                             ['key' => 'ValueA', 'value' => '123'],
                             ['key' => 'ValueB', 'value' => 'asd'],

@@ -71,7 +71,7 @@ class CurrenciesTest extends TestCase {
             new AuthMeDataProvider('currencies'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('currencies', self::class, [
+                    new GraphQLSuccess('currencies', [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',

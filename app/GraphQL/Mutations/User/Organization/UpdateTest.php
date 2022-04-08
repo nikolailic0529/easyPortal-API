@@ -23,7 +23,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -142,7 +141,6 @@ class UpdateTest extends TestCase {
                 'All possible properties'                   => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update', [
                             'result'       => true,
                             'organization' => [
@@ -221,7 +219,6 @@ class UpdateTest extends TestCase {
                 'Empty properties'                          => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update', [
                             'result'       => true,
                             'organization' => [
@@ -265,7 +262,6 @@ class UpdateTest extends TestCase {
                 'No unnecessary `removeUserFromGroup` call' => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update.result', true),
                     ),
                     static function (MockInterface $mock): void {
@@ -426,7 +422,6 @@ class UpdateTest extends TestCase {
                 'Root can be updated by root'               => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update.result', true),
                     ),
                     static function (MockInterface $mock): void {

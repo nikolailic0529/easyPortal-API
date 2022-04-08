@@ -126,7 +126,7 @@ class UpdateApplicationSettingsTest extends TestCase {
             new AuthRootDataProvider('updateApplicationSettings'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('updateApplicationSettings', UpdateApplicationSettings::class, [
+                    new GraphQLSuccess('updateApplicationSettings', [
                         'updated' => [
                             [
                                 'name'        => 'SETTING_INT',

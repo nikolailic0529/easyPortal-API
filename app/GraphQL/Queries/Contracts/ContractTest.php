@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
-use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -33,7 +32,6 @@ use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -324,7 +322,7 @@ class ContractTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null),
+                        new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
@@ -338,7 +336,7 @@ class ContractTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'                         => [
-                        new GraphQLSuccess('contract', self::class, [
+                        new GraphQLSuccess('contract', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -667,7 +665,7 @@ class ContractTest extends TestCase {
                         },
                     ],
                     'hiding price'               => [
-                        new GraphQLSuccess('contract', self::class, new JsonFragment('price', json_encode(null))),
+                        new GraphQLSuccess('contract', new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -691,7 +689,6 @@ class ContractTest extends TestCase {
                     'entries: hiding list_price' => [
                         new GraphQLSuccess(
                             'contract',
-                            self::class,
                             new JsonFragment('entries.0.list_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -723,7 +720,6 @@ class ContractTest extends TestCase {
                     'entries: hiding net_price'  => [
                         new GraphQLSuccess(
                             'contract',
-                            self::class,
                             new JsonFragment('entries.0.net_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -771,7 +767,7 @@ class ContractTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null),
+                        new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
@@ -785,7 +781,7 @@ class ContractTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
+                        new GraphQLSuccess('contract', [
                             'notes'           => [
                                 [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',

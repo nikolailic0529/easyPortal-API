@@ -11,7 +11,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -87,7 +86,6 @@ class StopTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'application',
-                        new JsonFragmentSchema('maintenance.stop', self::class),
                         new JsonFragment('maintenance.stop', [
                             'result' => true,
                         ]),

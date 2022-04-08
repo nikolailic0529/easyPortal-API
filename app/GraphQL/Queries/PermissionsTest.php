@@ -82,7 +82,7 @@ class PermissionsTest extends TestCase {
         };
         $root         = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('permissions', self::class, [
+                new GraphQLSuccess('permissions', [
                     [
                         'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
                         'name'        => 'permission-b',
@@ -127,7 +127,7 @@ class PermissionsTest extends TestCase {
         ]);
         $normal       = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('permissions', self::class, [
+                new GraphQLSuccess('permissions', [
                     [
                         'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
                         'name'        => 'permission-b',

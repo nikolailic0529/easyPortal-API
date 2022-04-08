@@ -25,7 +25,6 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -183,7 +182,6 @@ class InviteTest extends TestCase {
                 'no user / ok'                       => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -225,7 +223,6 @@ class InviteTest extends TestCase {
                 'no user / shared role'              => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -251,7 +248,6 @@ class InviteTest extends TestCase {
                 'no user / keycloak user not exists' => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -304,7 +300,6 @@ class InviteTest extends TestCase {
                 'user / not a member'                => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -334,7 +329,6 @@ class InviteTest extends TestCase {
                 'user / a member'                    => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => false,
                         ]),
@@ -360,7 +354,6 @@ class InviteTest extends TestCase {
                 'resend'                             => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -396,7 +389,6 @@ class InviteTest extends TestCase {
                 'local user'                         => [
                     new GraphQLSuccess(
                         'organization',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => false,
                         ]),

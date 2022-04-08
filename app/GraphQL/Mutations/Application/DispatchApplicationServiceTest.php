@@ -109,7 +109,7 @@ class DispatchApplicationServiceTest extends TestCase {
                     ],
                 ],
                 'ok'         => [
-                    new GraphQLSuccess('dispatchApplicationService', DispatchApplicationService::class, [
+                    new GraphQLSuccess('dispatchApplicationService', [
                         'result' => true,
                     ]),
                     [

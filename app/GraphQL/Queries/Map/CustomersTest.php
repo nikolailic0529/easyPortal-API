@@ -118,7 +118,7 @@ class CustomersTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'              => [
-                        new GraphQLSuccess('map', null, new JsonFragment('customers', [
+                        new GraphQLSuccess('map', new JsonFragment('customers', [
                             [
                                 'latitude'        => 1.05,
                                 'longitude'       => 1.05,
@@ -180,7 +180,7 @@ class CustomersTest extends TestCase {
                         $params,
                     ],
                     'filter_city'     => [
-                        new GraphQLSuccess('map', null, new JsonFragment('customers', [
+                        new GraphQLSuccess('map', new JsonFragment('customers', [
                             [
                                 'latitude'        => 1,
                                 'longitude'       => 1,
@@ -215,7 +215,7 @@ class CustomersTest extends TestCase {
                         ],
                     ],
                     'filter_country'  => [
-                        new GraphQLSuccess('map', null, new JsonFragment('customers', [
+                        new GraphQLSuccess('map', new JsonFragment('customers', [
                             [
                                 'latitude'        => 1.1,
                                 'longitude'       => 1.1,
@@ -250,7 +250,7 @@ class CustomersTest extends TestCase {
                         ],
                     ],
                     'filter_customer' => [
-                        new GraphQLSuccess('map', null, new JsonFragment('customers', [
+                        new GraphQLSuccess('map', new JsonFragment('customers', [
                             [
                                 'latitude'        => 1.25,
                                 'longitude'       => 1.25,
@@ -306,7 +306,7 @@ class CustomersTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('map', null, new JsonFragment('customers', [
+                        new GraphQLSuccess('map', new JsonFragment('customers', [
                             [
                                 'latitude'        => 1.05,
                                 'longitude'       => 1.05,

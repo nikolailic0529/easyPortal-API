@@ -72,7 +72,7 @@ class OrganizationsTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLPaginated('organizations', self::class),
+                    new GraphQLPaginated('organizations'),
                     static function (): void {
                         Organization::factory()->create([
                             'keycloak_scope' => 'test',

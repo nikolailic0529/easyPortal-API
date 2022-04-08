@@ -130,7 +130,7 @@ class QuoteTypesTest extends TestCase {
         ];
         $provider    = new ArrayDataProvider([
             'quote_types match'                  => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
+                new GraphQLSuccess('quoteTypes', $objects),
                 [
                     'ep.document_statuses_hidden' => [],
                     'ep.quote_types'              => [
@@ -143,7 +143,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'no quote_types + contract_types'    => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
+                new GraphQLSuccess('quoteTypes', $objects),
                 [
                     'ep.contract_types' => [
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
@@ -153,7 +153,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'quote_types not match'              => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                new GraphQLSuccess('quoteTypes', [
                     // empty
                 ]),
                 [
@@ -166,7 +166,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'no quote_types + no contract_types' => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                new GraphQLSuccess('quoteTypes', [
                     // empty
                 ]),
                 [

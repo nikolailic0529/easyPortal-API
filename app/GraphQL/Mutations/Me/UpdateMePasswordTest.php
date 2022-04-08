@@ -109,7 +109,7 @@ class UpdateMePasswordTest extends TestCase {
             new AuthMeDataProvider('updateMePassword'),
             new ArrayDataProvider([
                 'keycloak user'                       => [
-                    new GraphQLSuccess('updateMePassword', UpdateMePassword::class, [
+                    new GraphQLSuccess('updateMePassword', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, User $user): bool {
@@ -131,7 +131,7 @@ class UpdateMePasswordTest extends TestCase {
                     false,
                 ],
                 'local user'                          => [
-                    new GraphQLSuccess('updateMePassword', UpdateMePassword::class, [
+                    new GraphQLSuccess('updateMePassword', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, User $user): bool {

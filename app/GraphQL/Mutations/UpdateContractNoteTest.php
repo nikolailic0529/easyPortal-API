@@ -219,7 +219,7 @@ class UpdateContractNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok-files'            => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -236,7 +236,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'ok-Ids'              => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
@@ -283,7 +283,7 @@ class UpdateContractNoteTest extends TestCase {
                         'keep.csv',
                     ],
                     'ok-empty files'      => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -294,7 +294,7 @@ class UpdateContractNoteTest extends TestCase {
                         ],
                     ],
                     'optional note'       => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -309,7 +309,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'optional pinned'     => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -325,7 +325,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'optional files'      => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {

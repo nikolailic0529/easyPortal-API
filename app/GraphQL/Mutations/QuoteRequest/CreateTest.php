@@ -25,7 +25,6 @@ use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -288,7 +287,6 @@ class CreateTest extends TestCase {
                 'ok'                                        => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -397,7 +395,6 @@ class CreateTest extends TestCase {
                 'ok (custom)'                               => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -461,7 +458,6 @@ class CreateTest extends TestCase {
                 'ok-customer_id null customer_custom'       => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -554,7 +550,6 @@ class CreateTest extends TestCase {
                 'ok-customer_custom empty customer_id'      => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -636,7 +631,6 @@ class CreateTest extends TestCase {
                 'ok-customer_custom null customer_id'       => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -719,7 +713,6 @@ class CreateTest extends TestCase {
                 'ok: assets null'                           => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [

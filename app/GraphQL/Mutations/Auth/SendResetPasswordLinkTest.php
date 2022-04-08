@@ -91,7 +91,7 @@ class SendResetPasswordLinkTest extends TestCase {
             new AuthGuestDataProvider('sendResetPasswordLink'),
             new ArrayDataProvider([
                 'no user'              => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => false,
                     ]),
                     static function (): void {
@@ -100,7 +100,7 @@ class SendResetPasswordLinkTest extends TestCase {
                     'test@example.com',
                 ],
                 'user exists'          => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => true,
                     ]),
                     static function (): User {
@@ -112,7 +112,7 @@ class SendResetPasswordLinkTest extends TestCase {
                     'test@example.com',
                 ],
                 'keycloak user exists' => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => false,
                     ]),
                     static function (): ?User {

@@ -351,7 +351,7 @@ class AssetTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('asset', null),
+                        new GraphQLSuccess('asset'),
                         [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
@@ -370,7 +370,7 @@ class AssetTest extends TestCase {
                 ),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('asset', self::class, [
+                        new GraphQLSuccess('asset', [
                             'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'product_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',

@@ -101,7 +101,7 @@ class ResetPasswordTest extends TestCase {
             new AuthGuestDataProvider('resetPassword'),
             new ArrayDataProvider([
                 'no user'                              => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (): bool {
@@ -116,7 +116,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'invalid token'                        => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (): bool {
@@ -140,7 +140,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'user exists and token valid'          => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => true,
                     ]),
                     static function (TestCase $test): bool {
@@ -164,7 +164,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'keycloak user exists and token valid' => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (TestCase $test): bool {

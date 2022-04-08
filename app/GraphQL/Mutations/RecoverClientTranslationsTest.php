@@ -89,7 +89,6 @@ class RecoverClientTranslationsTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'recoverClientTranslations',
-                        RecoverClientTranslations::class,
                         [
                             'result' => true,
                         ],

@@ -21,7 +21,6 @@ use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -114,7 +113,6 @@ class SignUpByInviteTest extends TestCase {
                 'ok'                                                                      => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signUpByInvite', self::class),
                         new JsonFragment('signUpByInvite', [
                             'result' => true,
                             'url'    => 'https://example.com/',
@@ -173,7 +171,6 @@ class SignUpByInviteTest extends TestCase {
                 'filled'                                                                  => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signUpByInvite', self::class),
                         new JsonFragment('signUpByInvite', [
                             'result' => true,
                             'url'    => 'https://example.com/',
@@ -217,7 +214,6 @@ class SignUpByInviteTest extends TestCase {
                 'args required'                                                           => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signUpByInvite', self::class),
                         new JsonFragment('signUpByInvite', [
                             'result' => false,
                             'url'    => null,

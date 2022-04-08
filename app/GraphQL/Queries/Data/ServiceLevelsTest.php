@@ -74,7 +74,7 @@ class ServiceLevelsTest extends TestCase {
             new AuthMeDataProvider('serviceLevels'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('serviceLevels', self::class, [
+                    new GraphQLSuccess('serviceLevels', [
                         [
                             'id'               => '152d295f-e888-44a2-bdf3-7dc986c4524c',
                             'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

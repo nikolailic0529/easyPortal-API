@@ -72,7 +72,7 @@ class LocationTypesTest extends TestCase {
             new AuthMeDataProvider('locationTypes'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('locationTypes', LocationTypes::class, [
+                    new GraphQLSuccess('locationTypes', [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',

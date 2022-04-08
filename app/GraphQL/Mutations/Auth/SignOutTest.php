@@ -12,7 +12,6 @@ use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -80,7 +79,6 @@ class SignOutTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signOut', self::class),
                         new JsonFragment('signOut', [
                             'result' => true,
                             'url'    => 'http://example.com/',

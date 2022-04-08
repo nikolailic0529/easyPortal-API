@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Administration;
 
-use App\GraphQL\Types\Audit as TypesAudit;
 use App\Models\Audits\Audit;
 use App\Models\Organization;
 use App\Models\User;
@@ -79,7 +78,7 @@ class AuditsTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLPaginated('audits', TypesAudit::class),
+                    new GraphQLPaginated('audits'),
                     static function (): void {
                         $user         = User::factory()->create();
                         $organization = Organization::factory()->create();

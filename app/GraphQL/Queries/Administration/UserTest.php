@@ -158,7 +158,7 @@ class UserTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'keycloak users'                => [
-                    new GraphQLSuccess('user', self::class, [
+                    new GraphQLSuccess('user', [
                         'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                         'given_name'          => 'keycloak',
                         'family_name'         => 'user',
@@ -279,7 +279,7 @@ class UserTest extends TestCase {
                     },
                 ],
                 'keycloak user cannot see root' => [
-                    new GraphQLSuccess('user', null, new class() implements JsonSerializable {
+                    new GraphQLSuccess('user', new class() implements JsonSerializable {
                         public function jsonSerialize(): mixed {
                             return null;
                         }
@@ -346,7 +346,7 @@ class UserTest extends TestCase {
                     },
                 ],
                 'root cannot see root'          => [
-                    new GraphQLSuccess('user', self::class, [
+                    new GraphQLSuccess('user', [
                         'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                         'given_name'          => 'keycloak',
                         'family_name'         => 'user',

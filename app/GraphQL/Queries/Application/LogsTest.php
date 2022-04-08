@@ -13,7 +13,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -85,7 +84,6 @@ class LogsTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'application',
-                        new JsonFragmentPaginatedSchema('logs', self::class),
                         [
                             'logs'           => [
                                 [

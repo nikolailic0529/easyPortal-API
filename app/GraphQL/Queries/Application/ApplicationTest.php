@@ -61,7 +61,7 @@ class ApplicationTest extends TestCase {
             new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', Application::class, null),
+                    new GraphQLSuccess('application'),
                 ],
             ]),
         ))->getData();

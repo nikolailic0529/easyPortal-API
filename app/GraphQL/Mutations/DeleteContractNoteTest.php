@@ -88,7 +88,7 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
-                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
@@ -126,7 +126,7 @@ class DeleteContractNoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
-                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
@@ -144,7 +144,7 @@ class DeleteContractNoteTest extends TestCase {
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteContractNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {

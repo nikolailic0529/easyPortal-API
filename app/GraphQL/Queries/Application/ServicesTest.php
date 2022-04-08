@@ -166,7 +166,7 @@ class ServicesTest extends TestCase {
             new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class => [
-                    new GraphQLSuccess('application', self::class),
+                    new GraphQLSuccess('application'),
                     null,
                     null,
                     static function (): array {
@@ -174,7 +174,7 @@ class ServicesTest extends TestCase {
                     },
                 ],
                 'translated'     => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'services' => [
                             [
                                 'name'         => 'service-a',

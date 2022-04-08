@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Queries\Administration;
 
-use App\GraphQL\Queries\Org;
-use App\GraphQL\Types\Audit;
 use App\Models\Currency;
 use App\Models\Kpi;
 use App\Models\Location;
@@ -23,7 +21,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
@@ -346,7 +343,7 @@ class OrganizationTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('organization', Org::class, [
+                    new GraphQLSuccess('organization', [
                         'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                         'name'            => 'org1',
                         'root'            => false,
@@ -597,7 +594,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                        new GraphQLSuccess('organization', [
                             'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
@@ -642,7 +639,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                        new GraphQLSuccess('organization', [
                             'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
@@ -695,7 +692,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                        new GraphQLSuccess('organization', new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                 'name'        => 'role1',
@@ -736,7 +733,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                        new GraphQLSuccess('organization', new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                 'name'        => 'role1',
@@ -784,7 +781,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
+                        new GraphQLSuccess('organization', [
                             'audits'           => [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
@@ -854,7 +851,7 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
+                        new GraphQLSuccess('organization', [
                             'audits'           => [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',

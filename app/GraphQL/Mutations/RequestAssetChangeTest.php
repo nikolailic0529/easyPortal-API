@@ -163,7 +163,7 @@ class RequestAssetChangeTest extends TestCase {
             ),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestAssetChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestAssetChange', [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',

@@ -271,7 +271,7 @@ class ContractsTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('contracts', null),
+                        new GraphQLPaginated('contracts'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [
@@ -300,7 +300,6 @@ class ContractsTest extends TestCase {
                     'ok'                       => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             [
                                 [
                                     'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -655,7 +654,7 @@ class ContractsTest extends TestCase {
                         },
                     ],
                     'no types'                 => [
-                        new GraphQLPaginated('contracts', self::class, [
+                        new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
@@ -673,7 +672,7 @@ class ContractsTest extends TestCase {
                         },
                     ],
                     'type not match'           => [
-                        new GraphQLPaginated('contracts', self::class, [
+                        new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
@@ -693,7 +692,6 @@ class ContractsTest extends TestCase {
                     'hiding price'             => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -730,7 +728,6 @@ class ContractsTest extends TestCase {
                     'entry: hiding list_price' => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -771,7 +768,6 @@ class ContractsTest extends TestCase {
                     'entry: hiding net_price'  => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
                                 'count' => 1,

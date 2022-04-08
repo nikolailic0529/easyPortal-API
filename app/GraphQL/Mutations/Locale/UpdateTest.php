@@ -105,7 +105,7 @@ class UpdateTest extends TestCase {
             new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('locale', null, new JsonFragment('update.result', true)),
+                    new GraphQLSuccess('locale', new JsonFragment('update.result', true)),
                     'en_GB',
                     [
                         'translations' => [

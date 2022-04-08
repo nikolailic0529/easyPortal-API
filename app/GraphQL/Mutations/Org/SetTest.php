@@ -15,7 +15,6 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -90,7 +89,6 @@ class SetTest extends TestCase {
                 'ok'                         => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('set', self::class),
                         new JsonFragment('set', [
                             'result' => true,
                             'me'     => [
@@ -125,7 +123,6 @@ class SetTest extends TestCase {
                 'user organization disabled' => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('set', self::class),
                         new JsonFragment('set.result', false),
                     ),
                     static function (TestCase $test, ?Organization $org, ?User $user): array {

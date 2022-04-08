@@ -15,16 +15,15 @@ class GraphQLSuccess extends GraphQLResponse {
     protected JsonFragment|null $content;
 
     /**
-     * @param JsonFragmentSchema|class-string|null $schema
+     * @param JsonFragment|JsonSerializable|SplFileInfo|stdClass|array<mixed>|string|null $content
      */
     public function __construct(
         string $root,
-        JsonFragmentSchema|string|null $schema,
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $content = null,
     ) {
         $this->content = $this->getJsonFragment("data.{$root}", $content);
 
-        parent::__construct($root, $schema);
+        parent::__construct($root, null);
     }
 
     /**
@@ -53,6 +52,9 @@ class GraphQLSuccess extends GraphQLResponse {
         ];
     }
 
+    /**
+     * @param JsonFragment|JsonSerializable|SplFileInfo|stdClass|array<mixed>|string|null $content
+     */
     protected function getJsonFragment(
         string $prefix,
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $content,

@@ -144,7 +144,6 @@ class UpdateClientSettingsTest extends TestCase {
                     [
                         'response' => new GraphQLSuccess(
                             'updateClientSettings',
-                            UpdateClientSettings::class,
                             [
                                 'updated' => [
                                     [

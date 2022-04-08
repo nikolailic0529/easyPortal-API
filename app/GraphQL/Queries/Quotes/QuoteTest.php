@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
-use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -33,7 +32,6 @@ use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
@@ -325,7 +323,7 @@ class QuoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', null),
+                        new GraphQLSuccess('quote'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
@@ -340,7 +338,7 @@ class QuoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok'                         => [
-                        new GraphQLSuccess('quote', self::class, [
+                        new GraphQLSuccess('quote', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -668,7 +666,7 @@ class QuoteTest extends TestCase {
                         },
                     ],
                     'hiding price'               => [
-                        new GraphQLSuccess('quote', self::class, new JsonFragment('price', json_encode(null))),
+                        new GraphQLSuccess('quote', new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -692,7 +690,6 @@ class QuoteTest extends TestCase {
                     'entries: hiding list_price' => [
                         new GraphQLSuccess(
                             'quote',
-                            self::class,
                             new JsonFragment('entries.0.list_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -724,7 +721,6 @@ class QuoteTest extends TestCase {
                     'entries: hiding net_price'  => [
                         new GraphQLSuccess(
                             'quote',
-                            self::class,
                             new JsonFragment('entries.0.net_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -772,7 +768,7 @@ class QuoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', null),
+                        new GraphQLSuccess('quote'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
@@ -786,7 +782,7 @@ class QuoteTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
+                        new GraphQLSuccess('quote', [
                             'notes'           => [
                                 [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',

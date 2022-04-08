@@ -68,7 +68,7 @@ class AssetStatusesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('assetStatuses', AssetStatuses::class, [
+                new GraphQLSuccess('assetStatuses', [
                     [
                         'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                         'name' => 'Translated (locale)',

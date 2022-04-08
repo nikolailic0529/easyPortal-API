@@ -114,7 +114,6 @@ class DeleteClientTranslationsTest extends TestCase {
                     [
                         'response' => new GraphQLSuccess(
                             'deleteClientTranslations',
-                            DeleteClientTranslations::class,
                             [
                                 'deleted' => ['a', 'b'],
                             ],

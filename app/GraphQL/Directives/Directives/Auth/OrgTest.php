@@ -101,7 +101,7 @@ class OrgTest extends TestCase {
                 },
             ],
             'organization - user'                           => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return Organization::factory()->create();
                 },

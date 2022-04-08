@@ -125,7 +125,7 @@ class CustomersAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregated', self::class, [
+                        new GraphQLSuccess('customersAggregated', [
                             'count'  => 2,
                             'assets' => 3,
                         ]),
@@ -141,7 +141,7 @@ class CustomersAggregatedTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregated', self::class, [
+                        new GraphQLSuccess('customersAggregated', [
                             'count'  => 1,
                             'assets' => 1,
                         ]),
