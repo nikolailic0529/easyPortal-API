@@ -7,6 +7,9 @@ use App\GraphQL\Objects\MessageInput;
 use App\Models\Asset;
 use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Asset\ChangeRequest\Create}
+ */
 class RequestAssetChange {
     public function __construct(
         protected Create $mutation,

@@ -5719,7 +5719,45 @@ type Asset {
     warranty_end: Date
 }
 
+type AssetChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type AssetChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): AssetChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-asset-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Asset\\ChangeRequest\\Create"
+    )
+}
+
 type AssetMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: AssetChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -7704,6 +7742,9 @@ type Mutation {
     requestAssetChange(
         input: RequestAssetChangeInput!
     ): RequestAssetChangePayload
+    @deprecated(
+        reason: "Please use `mutation { asset { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-asset-change"]

@@ -898,6 +898,11 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
 			count: 1
+			path: app/GraphQL/Mutations/Asset/ChangeRequest/CreateTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
+			count: 1
 			path: app/GraphQL/Mutations/Asset/SetNicknameTest.php
 
 		-
