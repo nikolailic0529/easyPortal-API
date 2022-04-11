@@ -1,0 +1,10 @@
+extend type OrgMutations {
+    changeRequest: OrgChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+}
+
+type OrgChangeRequestMutations

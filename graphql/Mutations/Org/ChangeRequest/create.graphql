@@ -1,0 +1,15 @@
+extend type OrgChangeRequestMutations {
+    create(
+        input: MessageInput!
+    ): OrgChangeRequestCreatePayload!
+    @authOrg
+    @authMe(permissions: ["org-administer"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\ChangeRequest\\Create"
+    )
+}
+
+type OrgChangeRequestCreatePayload implements Payload {
+    result: Boolean!
+    changeRequest: ChangeRequest!
+}

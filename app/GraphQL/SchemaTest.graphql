@@ -7828,6 +7828,9 @@ type Mutation {
     requestOrgChange(
         input: RequestOrgChangeInput!
     ): RequestOrgChangePayload
+    @deprecated(
+        reason: "Please use `mutation { org { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["org-administer"]
@@ -8148,7 +8151,45 @@ type OemMutation {
     )
 }
 
+type OrgChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type OrgChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): OrgChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["org-administer"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\ChangeRequest\\Create"
+    )
+}
+
 type OrgMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: OrgChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 

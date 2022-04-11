@@ -7,6 +7,9 @@ use App\GraphQL\Objects\MessageInput;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Org\ChangeRequest\Create}
+ */
 class RequestOrgChange {
     public function __construct(
         protected CurrentOrganization $organization,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Audits\Audit;
+use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasLocations;
 use App\Services\Audit\Concerns\Auditable;
@@ -75,6 +76,7 @@ class Organization extends Model implements
     Auditable {
     use HasFactory;
     use HasCurrency;
+    use HasChangeRequests;
 
     /**
      * @phpstan-use HasLocations<ResellerLocation>
