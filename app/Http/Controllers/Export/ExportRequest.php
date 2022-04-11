@@ -2,8 +2,18 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Rules\HashMap;
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @phpstan-type Query array{
+ *          root: string,
+ *          query: string,
+ *          operationName?: string,
+ *          variables?: (array<string, mixed>&array{limit?: ?int, offset?: ?int})|null,
+ *          headers?: array<string,string>,
+ *      }
+ */
 class ExportRequest extends FormRequest {
     public function authorize(): bool {
         return true;
@@ -19,11 +29,19 @@ class ExportRequest extends FormRequest {
             'root'             => 'required|string',
             'query'            => 'required|string|regex:/^query /',
             'operationName'    => 'string',
-            'variables'        => 'array',
-            'variables.limit'  => 'nullable|integer',
-            'variables.offset' => 'nullable|integer',
-            'headers'          => 'array',
+            'variables'        => new HashMap(),
+            'variables.*'      => 'nullable',
+            'variables.limit'  => 'nullable|integer|min:1',
+            'variables.offset' => 'nullable|integer|min:1',
+            'headers'          => new HashMap(),
             'headers.*'        => 'required|string|min:1',
         ];
+    }
+
+    /**
+     * @return Query
+     */
+    public function validated($key = null, $default = null) {
+        return parent::validated($key, $default);
     }
 }

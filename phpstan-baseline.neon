@@ -5966,51 +5966,6 @@ parameters:
 			path: app/GraphQL/Validators/UpdateMeEmailInputValidator.php
 
 		-
-			message: "#^Call to function array_is_list\\(\\) with array\\<string, mixed\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'category' on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'extensions' on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'headers' on mixed\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'limit' on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 2
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'offset' on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 'root' on mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Cannot access offset 0 on mixed\\.$#"
-			count: 3
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
 			message: "#^Cannot access offset string on mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
@@ -6021,72 +5976,17 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getChunkSize\\(\\) should return int\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<array\\<string, mixed\\>\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Parameter \\#1 \\$errors of class App\\\\Http\\\\Controllers\\\\Export\\\\GraphQLQueryInvalid constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,mixed\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
 			message: "#^Parameter \\#1 \\$limit of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,mixed\\>\\:\\:setLimit\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of class Illuminate\\\\Auth\\\\Access\\\\AuthorizationException constructor expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$message of class Illuminate\\\\Auth\\\\AuthenticationException constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$offset of method App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed,mixed\\>\\:\\:setOffset\\(\\) expects int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$params of method Nuwave\\\\Lighthouse\\\\GraphQL\\:\\:executeOperation\\(\\) expects GraphQL\\\\Server\\\\OperationParams, array\\<GraphQL\\\\Server\\\\OperationParams\\>\\|GraphQL\\\\Server\\\\OperationParams given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$key of static method Illuminate\\\\Support\\\\Arr\\:\\:get\\(\\) expects int\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$parameters of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getIterator\\(\\) expects array\\<string, mixed\\>, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$root of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:event\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#3 \\$headers of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:event\\(\\) expects array\\<string, string\\>\\|null, array given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
@@ -6171,7 +6071,7 @@ parameters:
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:55\\:\\:getHeaders\\(\\) expects array\\<string, mixed\\>, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:55\\:\\:getHeaders\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
@@ -6184,6 +6084,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:83\\:\\:getHeaderValue\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportControllerTest.php
+
+		-
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null, headers\\?\\: array\\<string, string\\>\\} but returns mixed\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportRequest.php
 
 		-
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\GraphQLQueryInvalid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9709,6 +9614,11 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\FloatNumber\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/FloatNumber.php
+
+		-
+			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/Rules/HashMap.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Image\\:\\:getMaxSize\\(\\) should return int but returns mixed\\.$#"

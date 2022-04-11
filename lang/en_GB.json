@@ -135,6 +135,7 @@
     "validation.team_id": "Invalid team",
     "validation.user_not_me": "Cannot change own content",
     "validation.map_level": "Value should be between :min and :max",
+    "validation.hash_map": "Value should be an array that can contain only string keys.",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",

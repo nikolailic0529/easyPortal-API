@@ -13,6 +13,7 @@ use Box\Spout\Writer\WriterInterface;
 use Closure;
 use EmptyIterator;
 use GraphQL\Server\Helper;
+use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Config\Repository;
@@ -37,12 +38,14 @@ use function array_key_exists;
 use function array_map;
 use function array_merge;
 use function array_values;
+use function assert;
 use function count;
 use function explode;
 use function implode;
 use function is_array;
 use function iterator_to_array;
 use function json_encode;
+use function min;
 use function pathinfo;
 use function preg_match;
 use function reset;
@@ -54,6 +57,9 @@ use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 use const PATHINFO_EXTENSION;
 
+/**
+ * @phpstan-import-type Query from \App\Http\Controllers\Export\ExportRequest
+ */
 class ExportController extends Controller {
     public function __construct(
         protected Repository $config,
@@ -133,11 +139,9 @@ class ExportController extends Controller {
         // Prepare request
         $parameters = $request->validated();
         $iterator   = $this->getIterator($request, $parameters);
-        $headers    = isset($parameters['headers']) && is_array($parameters['headers'])
-            ? $parameters['headers']
-            : null;
+        $headers    = $parameters['headers'] ?? null;
         $empty      = true;
-        $root       = $parameters['root'] ?? 'data';
+        $root       = $parameters['root'] ?: 'data';
 
         foreach ($iterator as $i => $item) {
             // If no headers we need to calculate them. But this is deprecated
@@ -189,24 +193,17 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param array<string,mixed> $parameters
+     * @param Query               $parameters
      * @param array<string,mixed> $variables
      *
      * @return array<mixed>
      */
     protected function execute(GraphQLContext $context, array $parameters, array $variables): array {
-        $parameters = array_merge($parameters, [
-            'variables' => array_merge($parameters['variables'] ?? [], $variables),
-        ]);
-        $operation  = $this->helper->parseRequestParams('GET', [], Arr::only($parameters, [
-            'query',
-            'variables',
-            'operationName',
-        ]));
-        $result     = $this->graphQL->executeOperation($operation, $context);
-        $root       = $parameters['root'] ?? 'data';
+        $operation = $this->getOperation($parameters, $variables);
+        $result    = $this->graphQL->executeOperation($operation, $context);
+        $root      = $parameters['root'] ?: 'data';
 
-        if (isset($result['errors'])) {
+        if (isset($result['errors']) && is_array($result['errors'])) {
             switch ($result['errors'][0]['extensions']['category'] ?? null) {
                 case 'authorization':
                     throw new AuthorizationException($result['errors'][0]['message']);
@@ -224,12 +221,13 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param array<string,mixed> $parameters
+     * @param Query $parameters
      *
      * @return ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
-        $chunk           = $this->getChunkSize();
+        $limit           = $this->config->get('ep.export.limit');
+        $chunk           = $this->config->get('ep.export.chunk');
         $context         = $this->context->generate($request);
         $executor        = function (array $variables) use ($context, $parameters): array {
             return $this->execute($context, $parameters, $variables);
@@ -241,7 +239,7 @@ class ExportController extends Controller {
         $recording       = null;
         $paginationLimit = null;
 
-        $iterator->setLimit($parameters['variables']['limit'] ?? null);
+        $iterator->setLimit(min($parameters['variables']['limit'] ?? $limit, $limit));
         $iterator->setOffset($parameters['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
         $iterator->onInit(function () use (&$recording, &$paginationLimit, $chunk): void {
@@ -257,7 +255,7 @@ class ExportController extends Controller {
             // We need to override pagination limit to speed up export.
             $paginationLimit = $this->config->get('ep.pagination.limit.max');
 
-            if ($paginationLimit < $chunk) {
+            if ($paginationLimit < $chunk || $chunk === null) {
                 $this->config->set('ep.pagination.limit.max', $chunk);
             }
         });
@@ -276,7 +274,7 @@ class ExportController extends Controller {
     }
 
     /**
-     * @param array<string, mixed> $item
+     * @param array<mixed> $item
      *
      * @return array<string, string>
      */
@@ -394,7 +392,26 @@ class ExportController extends Controller {
         ));
     }
 
-    protected function getChunkSize(): ?int {
-        return $this->config->get('ep.export.chunk') ?: 500;
+    /**
+     * @param Query               $parameters
+     * @param array<string,mixed> $variables
+     */
+    protected function getOperation(array $parameters, array $variables): OperationParams {
+        $parameters = array_merge($parameters, [
+            'variables' => array_merge($parameters['variables'] ?? [], $variables),
+        ]);
+        $operation  = $this->helper->parseRequestParams('GET', [], Arr::only($parameters, [
+            'query',
+            'variables',
+            'operationName',
+        ]));
+
+        if (is_array($operation)) {
+            $operation = reset($operation);
+        }
+
+        assert($operation instanceof OperationParams);
+
+        return $operation;
     }
 }
