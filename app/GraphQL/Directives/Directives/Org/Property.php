@@ -3,7 +3,9 @@
 namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
+use GraphQL\Type\Definition\NonNull;
 use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -54,7 +56,11 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
                     ),
                     function () use ($resolveInfo): RelationBatchLoader {
                         return new RelationBatchLoader(
-                            new Loader($this->organization, $resolveInfo->fieldName),
+                            new Loader(
+                                $this->organization,
+                                $resolveInfo->fieldName,
+                                $this->getDefaultValue($resolveInfo->returnType),
+                            ),
                         );
                     },
                 );
@@ -93,5 +99,19 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
 
         // Return
         return $builder;
+    }
+
+    protected function getDefaultValue(Type $type): mixed {
+        $value = null;
+
+        if ($type instanceof NonNull) {
+            $type = $type->getOfType();
+
+            if ($type === Type::int() || $type === Type::float()) {
+                $value = 0;
+            }
+        }
+
+        return $value;
     }
 }

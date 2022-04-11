@@ -24,6 +24,7 @@ class Loader implements ModelsLoader {
     public function __construct(
         protected CurrentOrganization $organization,
         protected string $property,
+        protected mixed $default = null,
     ) {
         // empty
     }
@@ -77,7 +78,7 @@ class Loader implements ModelsLoader {
     }
 
     public function extract(Model $model): mixed {
-        return $model->getAttribute($this->getProperty());
+        return $model->getAttribute($this->getProperty()) ?? $this->default;
     }
 
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {
