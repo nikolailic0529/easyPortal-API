@@ -1357,7 +1357,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
-			count: 1
+			count: 2
 			path: app/GraphQL/Mutations/Document/ChangeRequest/CreateTest.php
 
 		-

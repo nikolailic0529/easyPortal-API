@@ -7,6 +7,9 @@ use App\GraphQL\Objects\MessageInput;
 use App\Models\Document;
 use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Document\ChangeRequest\Create}
+ */
 class RequestQuoteChange {
     public function __construct(
         protected Create $mutation,

@@ -7844,6 +7844,9 @@ type Mutation {
     requestQuoteChange(
         input: RequestQuoteChangeInput!
     ): RequestQuoteChangePayload
+    @deprecated(
+        reason: "Please use `mutation { quote { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-quote-change"]
@@ -10754,7 +10757,45 @@ type Query {
     )
 }
 
+type QuoteChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type QuoteChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-quote-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): QuoteChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-quote-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
 type QuoteMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: QuoteChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
