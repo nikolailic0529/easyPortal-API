@@ -225,7 +225,7 @@ class ExportController extends Controller {
      * @return ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
-        $chunk           = $this->getChunkSize();
+        $chunk           = $this->config->get('ep.export.chunk');
         $context         = $this->context->generate($request);
         $executor        = function (array $variables) use ($context, $parameters): array {
             return $this->execute($context, $parameters, $variables);
@@ -253,7 +253,7 @@ class ExportController extends Controller {
             // We need to override pagination limit to speed up export.
             $paginationLimit = $this->config->get('ep.pagination.limit.max');
 
-            if ($paginationLimit < $chunk) {
+            if ($paginationLimit < $chunk || $chunk === null) {
                 $this->config->set('ep.pagination.limit.max', $chunk);
             }
         });
@@ -388,10 +388,6 @@ class ExportController extends Controller {
             $root,
             $headers,
         ));
-    }
-
-    protected function getChunkSize(): ?int {
-        return $this->config->get('ep.export.chunk') ?: 500;
     }
 
     /**
