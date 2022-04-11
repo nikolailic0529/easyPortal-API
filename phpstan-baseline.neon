@@ -1276,6 +1276,11 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Customer/ChangeRequest/CreateTest.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Customer\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool, warranty\\: bool\\} but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Customer/Sync.php
@@ -12206,22 +12211,7 @@ parameters:
 			path: app/Utils/Eloquent/SmartSave/BatchSave.php
 
 		-
-			message: "#^Access to an undefined property App\\\\Models\\\\Organization\\:\\:\\$type\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Testing/Database/Factory.php
-
-		-
-			message: "#^Call to static method customer\\(\\) on an unknown class App\\\\Models\\\\Enums\\\\OrganizationType\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Testing/Database/Factory.php
-
-		-
-			message: "#^Call to static method reseller\\(\\) on an unknown class App\\\\Models\\\\Enums\\\\OrganizationType\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Testing/Database/Factory.php
-
-		-
-			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByCustomer not found\\.$#"
+			message: "#^Call to an undefined static method T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:factory\\(\\)\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Testing/Database/Factory.php
 

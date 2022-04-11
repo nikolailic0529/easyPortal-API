@@ -2,6 +2,7 @@ extend type Mutation {
     requestCustomerChange(
         input: RequestCustomerChangeInput!
     ): RequestCustomerChangePayload
+    @deprecated(reason: "Please use `mutation { customer { changeRequest { create } } }` instead.")
     @authOrg
     @authMe(permissions: ["requests-customer-change"])
 }

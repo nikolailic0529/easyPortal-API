@@ -7,6 +7,9 @@ use App\GraphQL\Objects\MessageInput;
 use App\Models\Customer;
 use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Customer\ChangeRequest\Create}
+ */
 class RequestCustomerChange {
     public function __construct(
         protected Create $mutation,

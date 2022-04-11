@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relations\HasAssets;
+use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasContracts;
 use App\Models\Relations\HasKpi;
@@ -67,6 +68,7 @@ class Customer extends Model implements OwnedByReseller, Searchable {
     use HasQuotes;
     use HasKpi;
     use SyncHasMany;
+    use HasChangeRequests;
 
     /**
      * @phpstan-use HasLocations<CustomerLocation>

@@ -25,6 +25,8 @@ use Tests\WithUser;
 use function __;
 
 /**
+ * @deprecated not needed anymore
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RequestCustomerChange
  *
