@@ -282,6 +282,15 @@ interface Constants {
     public const EP_PAGINATION_LIMIT_MAX = 100;
 
     /**
+     * Export: max number of records that can be exported.
+     */
+    #[Setting('ep.export.limit')]
+    #[PublicName('epExportLimit')]
+    #[Group('ep')]
+    #[Type(IntType::class)]
+    public const EP_EXPORT_LIMIT = 100_000;
+
+    /**
      * Export: chunk size.
      */
     #[Setting('ep.export.chunk')]

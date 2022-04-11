@@ -31,8 +31,8 @@ class ExportRequest extends FormRequest {
             'operationName'    => 'string',
             'variables'        => new HashMap(),
             'variables.*'      => 'nullable',
-            'variables.limit'  => 'nullable|integer',
-            'variables.offset' => 'nullable|integer',
+            'variables.limit'  => 'nullable|integer|min:1',
+            'variables.offset' => 'nullable|integer|min:1',
             'headers'          => new HashMap(),
             'headers.*'        => 'required|string|min:1',
         ];

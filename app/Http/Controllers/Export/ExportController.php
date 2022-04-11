@@ -45,6 +45,7 @@ use function implode;
 use function is_array;
 use function iterator_to_array;
 use function json_encode;
+use function min;
 use function pathinfo;
 use function preg_match;
 use function reset;
@@ -225,6 +226,7 @@ class ExportController extends Controller {
      * @return ObjectIterator<array<string,mixed>>
      */
     protected function getIterator(ExportRequest $request, array $parameters): ObjectIterator {
+        $limit           = $this->config->get('ep.export.limit');
         $chunk           = $this->config->get('ep.export.chunk');
         $context         = $this->context->generate($request);
         $executor        = function (array $variables) use ($context, $parameters): array {
@@ -237,7 +239,7 @@ class ExportController extends Controller {
         $recording       = null;
         $paginationLimit = null;
 
-        $iterator->setLimit($parameters['variables']['limit'] ?? null);
+        $iterator->setLimit(min($parameters['variables']['limit'] ?? $limit, $limit));
         $iterator->setOffset($parameters['variables']['offset'] ?? null);
         $iterator->setChunkSize($chunk);
         $iterator->onInit(function () use (&$recording, &$paginationLimit, $chunk): void {
