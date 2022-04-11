@@ -1,0 +1,10 @@
+extend type ContractMutations {
+    changeRequest: ContractChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+}
+
+type ContractChangeRequestMutations

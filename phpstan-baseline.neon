@@ -1356,6 +1356,11 @@ parameters:
 			path: app/GraphQL/Mutations/DeleteQuoteNoteTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Document/ChangeRequest/CreateTest.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Document\\\\Sync\\:\\:__invoke\\(\\) should return array\\{result\\: bool, assets\\: bool\\} but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Document/Sync.php

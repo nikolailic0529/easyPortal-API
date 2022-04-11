@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasCustomerNullable;
@@ -102,6 +103,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use HasCurrency;
     use HasLanguage;
     use HasContacts;
+    use HasChangeRequests;
     use SyncHasMany;
     use DocumentTypeScopeImpl;
     use DocumentStatusScopeImpl;

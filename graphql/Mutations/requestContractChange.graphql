@@ -2,6 +2,7 @@ extend type Mutation {
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
+    @deprecated(reason: "Please use `mutation { contract { changeRequest { create } } }` instead.")
     @authOrg
     @authMe(permissions: ["requests-contract-change"])
 }

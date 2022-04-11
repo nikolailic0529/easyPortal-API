@@ -6166,7 +6166,45 @@ type Contact {
     @relation
 }
 
+type ContractChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type ContractChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-contract-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): ContractChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-contract-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
 type ContractMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: ContractChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -7758,6 +7796,9 @@ type Mutation {
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
+    @deprecated(
+        reason: "Please use `mutation { contract { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-contract-change"]
