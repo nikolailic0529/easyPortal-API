@@ -4296,11 +4296,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/Contracts.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\Currency\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\Currency, int\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsAggregated.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsAggregatedTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsAggregatedTest.php
@@ -5911,16 +5906,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 2
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -6101,11 +6086,6 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -6187,11 +6167,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -6327,11 +6302,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/Contact.php
 
@@ -6636,16 +6606,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 3
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -6802,11 +6762,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
 
@@ -7052,16 +7007,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 2
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -7321,11 +7266,6 @@ parameters:
 			path: app/Models/Location.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 2
 			path: app/Models/Location.php
@@ -7427,16 +7367,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -7581,11 +7511,6 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -7712,16 +7637,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
 
@@ -7956,16 +7871,6 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 4
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 3
 			path: app/Models/Reseller.php
@@ -8131,11 +8036,6 @@ parameters:
 			path: app/Models/ResellerLocation.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/ResellerLocation.php
@@ -8267,11 +8167,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -8612,16 +8507,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/User.php
 
@@ -13001,11 +12886,6 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\Organization\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\Organization, int\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
 			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\Organization\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
@@ -13042,11 +12922,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\User\\>\\:\\:get\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporterChunkData.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\User\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\User, int\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporterChunkData.php
 
@@ -14036,7 +13911,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
@@ -14051,7 +13926,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$keys \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
+			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$keys \\(array\\<string\\>\\) does not accept array\\<int\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
@@ -14766,32 +14641,17 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:405\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:405\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:405\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -14816,37 +14676,52 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:432\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:432\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:432\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:463\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:463\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:463\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:463\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/SearchableImplTest.php
+
+		-
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:502\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/SearchableImplTest.php
+
+		-
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:502\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/SearchableImplTest.php
+
+		-
+			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:502\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -14911,7 +14786,7 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:405\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -14921,17 +14796,17 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:432\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:463\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:502\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -15211,7 +15086,7 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -15387,11 +15262,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Queue\\\\Tasks\\\\Index\\:\\:init\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\>\\|class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Queue/Tasks/Index.php
-
-		-
-			message: "#^Parameter \\#2 \\$keys of method App\\\\Services\\\\Search\\\\Queue\\\\Tasks\\\\Index\\:\\:init\\(\\) expects array\\<int\\|string\\>, array\\<int, string\\|null\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Tasks/Index.php
 
@@ -15721,11 +15591,6 @@ parameters:
 			path: app/Utils/Description.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey\\:\\:__invoke\\(\\) should return string\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Callbacks/GetKey.php
-
-		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
@@ -15846,11 +15711,6 @@ parameters:
 			path: app/Utils/Eloquent/Mixins/QueryBuilderMixin.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Model.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:newEloquentBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Utils/Eloquent/Model.php
@@ -15899,11 +15759,6 @@ parameters:
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\ModelProperty\\:\\:getRelation\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Utils/Eloquent/ModelProperty.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:getKey\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/Pivot.php
 
 		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:newEloquentBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
@@ -15991,7 +15846,7 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 3
 			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
 
@@ -16021,7 +15876,7 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$keys of class App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator constructor expects array\\<int, V of string\\>, array\\<int, string\\|null\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$keys of class App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator constructor expects array\\<int, V of string\\>, array\\<int, int\\|string\\> given\\.$#"
 			count: 2
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 

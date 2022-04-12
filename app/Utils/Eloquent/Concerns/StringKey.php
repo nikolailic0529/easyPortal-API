@@ -7,6 +7,7 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use LogicException;
 
+use function assert;
 use function is_string;
 
 /**
@@ -36,6 +37,8 @@ trait StringKey {
             (new SetKey())($this);
 
             $key = parent::getKey();
+
+            assert(is_string($key), '(phpstan) SetKey use random UUID as a key => key must be a string here.');
         }
 
         if ($key === null) {

@@ -19,7 +19,7 @@ class GetUniqueKey extends GetKey {
         // empty
     }
 
-    public function __invoke(Model|Pivot $model): string|null {
+    public function __invoke(Model|Pivot $model): string|int {
         $key = parent::__invoke($model);
 
         if ($model instanceof Upsertable) {
