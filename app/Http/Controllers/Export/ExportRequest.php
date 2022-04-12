@@ -39,6 +39,7 @@ class ExportRequest extends FormRequest {
     }
 
     /**
+     * @inheritDoc
      * @return Query
      */
     public function validated($key = null, $default = null) {
