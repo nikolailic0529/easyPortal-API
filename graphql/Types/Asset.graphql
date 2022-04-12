@@ -8,6 +8,7 @@ type Asset {
     reseller_id: ID
     serial_number: String
     warranty_end: Date
+    warranty_changed_at: DateTime
     customer: Customer @belongsTo
     location: Location @belongsTo
     oem: Oem! @belongsTo

@@ -6189,6 +6189,7 @@ type Asset {
     warranties: [AssetWarranty!]!
     @hasMany(relation: "contractWarranties")
 
+    warranty_changed_at: DateTime
     warranty_end: Date
 }
 
