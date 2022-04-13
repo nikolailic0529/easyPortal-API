@@ -2,19 +2,19 @@
 
 namespace App\Mail;
 
-
+use App\Mail\Concerns\DefaultRecipients;
 use App\Models\File;
 use App\Models\QuoteRequest as ModelsQuoteRequest;
+use App\Services\Auth\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-use function app;
-
 class QuoteRequest extends Mailable {
     use Queueable;
     use SerializesModels;
+    use DefaultRecipients;
 
     public function __construct(
         protected ModelsQuoteRequest $request,
@@ -22,22 +22,22 @@ class QuoteRequest extends Mailable {
         // empty
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build() {
-        $mail = $this->subject('Quote Request');
+    public function build(Repository $config, Auth $auth): void {
+        $to  = $config->get('ep.email_address');
+        $bcc = $config->get('ep.quote_request.bcc');
+        $bcc = $this->getDefaultRecipients($config, $auth, $this->request, $bcc);
+
+        $this
+            ->subject('Quote Request')
+            ->to($to)
+            ->bcc($bcc)
+            ->markdown('quote_request', [
+                'request' => $this->request,
+            ]);
 
         foreach ($this->request->files as $file) {
             /** @var File $file */
-            $mail = $mail->attachFromStorageDisk($file->disk, $file->path, $file->name);
+            $this->attachFromStorageDisk($file->disk, $file->path, $file->name);
         }
-
-        $email = app()->make(Repository::class)->get('ep.email_address');
-        return $mail->to($email)->markdown('quote_request', [
-            'request' => $this->request,
-        ]);
     }
 }

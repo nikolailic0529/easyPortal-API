@@ -256,6 +256,14 @@ interface Constants {
     public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
 
     /**
+     * Additional email addresses which will receive a copy of all QuoteRequest.
+     */
+    #[Setting('ep.quote_request.bcc')]
+    #[Group('ep')]
+    #[Type(Email::class)]
+    public const EP_QUOTE_REQUEST_BCC = [];
+
+    /**
      * Invitation expiration duration.
      */
     #[Setting('ep.invite_expire')]

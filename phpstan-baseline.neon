@@ -6251,14 +6251,9 @@ parameters:
 			path: app/Mail/QuoteRequest.php
 
 		-
-			message: "#^Parameter \\#1 \\$attribute of method App\\\\Rules\\\\ContractId\\:\\:passes\\(\\) expects string, null given\\.$#"
+			message: "#^Parameter \\#4 \\$recipients of method App\\\\Mail\\\\QuoteRequest\\:\\:getDefaultRecipients\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
 			count: 1
-			path: app/Mail/RequestChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$attribute of method App\\\\Rules\\\\QuoteId\\:\\:passes\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/Mail/RequestChange.php
+			path: app/Mail/QuoteRequest.php
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
@@ -8477,6 +8472,11 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:type\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			count: 1
+			path: app/Models/QuoteRequest.php
+
+		-
+			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
 

@@ -6,6 +6,7 @@ use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOem;
 use App\Models\Relations\HasType;
+use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
@@ -58,6 +59,7 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasCustomerNullable;
     use HasType;
     use HasFiles;
+    use HasUser;
     use SyncHasMany;
 
     /**
