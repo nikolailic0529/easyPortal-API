@@ -19,5 +19,7 @@ abstract class PolymorphicModel extends Model {
     public function setObjectAttribute(Model $object): void {
         $this->object_id   = $object->getKey();
         $this->object_type = $object->getMorphClass();
+
+        $this->setRelation('object', $object);
     }
 }

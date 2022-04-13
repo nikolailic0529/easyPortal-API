@@ -67,8 +67,7 @@ class RequestAssetChange {
         $request               = new ChangeRequest();
         $request->user         = $this->auth->user();
         $request->organization = $this->organization->get();
-        $request->object_id    = $model->getKey();
-        $request->object_type  = $model->getMorphClass();
+        $request->object       = $model;
         $request->subject      = $subject;
         $request->message      = $message;
         $request->from         = $from;
@@ -82,7 +81,7 @@ class RequestAssetChange {
         $request->save();
 
         // Send Email
-        $this->mail->send(new RequestChange($request, $model));
+        $this->mail->send(new RequestChange($request));
 
         return $request;
     }

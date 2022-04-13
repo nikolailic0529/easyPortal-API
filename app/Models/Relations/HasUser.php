@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin Model
+ *
+ * @property User $user
  */
 trait HasUser {
     #[CascadeDelete(false)]
