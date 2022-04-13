@@ -24,7 +24,8 @@ class QuoteRequest extends Mailable {
 
     public function build(Repository $config, Auth $auth): void {
         $to  = $config->get('ep.email_address');
-        $bcc = $this->getDefaultRecipients($config, $auth, $this->request);
+        $bcc = $config->get('ep.quote_request.bcc');
+        $bcc = $this->getDefaultRecipients($config, $auth, $this->request, $bcc);
 
         $this
             ->subject('Quote Request')
