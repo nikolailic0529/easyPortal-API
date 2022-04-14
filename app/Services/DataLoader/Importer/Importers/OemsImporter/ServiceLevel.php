@@ -5,9 +5,9 @@ namespace App\Services\DataLoader\Importer\Importers\OemsImporter;
 use App\Utils\JsonObject\JsonObject;
 
 class ServiceLevel extends JsonObject {
-    public string $sku;
-    public string $name;
-    public string $description;
+    public string  $sku;
+    public ?string $name        = null;
+    public ?string $description = null;
     /**
      * @var array<string,array<string,string>>
      */

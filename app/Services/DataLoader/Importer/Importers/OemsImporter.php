@@ -324,8 +324,8 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             $level->key        ??= "{$group->getTranslatableKey()}/{$sku}";
             $level->oem          = $oem;
             $level->sku          = $sku;
-            $level->name         = $parsed->serviceLevel->name;
-            $level->description  = $parsed->serviceLevel->description;
+            $level->name         = $parsed->serviceLevel->name ?? $sku;
+            $level->description  = $parsed->serviceLevel->description ?? '';
             $level->serviceGroup = $group;
 
             $level->save();

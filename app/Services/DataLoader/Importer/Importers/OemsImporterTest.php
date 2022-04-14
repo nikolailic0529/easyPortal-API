@@ -213,4 +213,70 @@ class OemsImporterTest extends TestCase {
             'models.ServiceLevel.CBA/GA/LA.description' => "Level LA Description French\nline of text",
         ], $translations);
     }
+
+    /**
+     * @covers ::import
+     * @covers ::onRow
+     * @covers ::startRow
+     * @covers ::onBeforeSheet
+     * @covers ::onAfterSheet
+     * @covers ::getCellValue
+     * @covers ::parse
+     * @covers ::registerEvents
+     */
+    public function testImportNoEnglish(): void {
+        // Pretest
+        $this->assertModelsCount([
+            Oem::class          => 0,
+            ServiceGroup::class => 0,
+            ServiceLevel::class => 0,
+        ]);
+
+        // Run
+        $this->app->make(OemsImporter::class)->import(
+            $this->getTestData()->file('~no-english.xlsx'),
+        );
+
+        // Service Levels
+        $levels = ServiceLevel::query()
+            ->with('oem')
+            ->with('serviceGroup')
+            ->with('serviceGroup.oem')
+            ->orderBy('sku')
+            ->get()
+            ->map(static function (ServiceLevel $level): array {
+                return [
+                    'sku'         => $level->sku,
+                    'name'        => $level->name,
+                    'description' => $level->description,
+                ];
+            })
+            ->all();
+
+        self::assertEquals(
+            [
+                [
+                    'sku'         => 'LA',
+                    'name'        => 'LA',
+                    'description' => '',
+                ],
+                [
+                    'sku'         => 'LB',
+                    'name'        => 'LB',
+                    'description' => '',
+                ],
+                [
+                    'sku'         => 'LC',
+                    'name'        => 'LC',
+                    'description' => '',
+                ],
+                [
+                    'sku'         => 'LD',
+                    'name'        => 'LD',
+                    'description' => '',
+                ],
+            ],
+            $levels,
+        );
+    }
 }
