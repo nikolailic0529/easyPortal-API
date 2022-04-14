@@ -126,74 +126,6 @@ input CreateQuoteNoteInput
     quote_id: String!
 }
 
-input CreateQuoteRequestAssetsInput {
-    asset_id: ID!
-    @rules(
-        apply: ["required", "App\\Rules\\AssetId"]
-    )
-
-    duration_id: ID!
-    @rules(
-        apply: [
-            "required"
-            "App\\Rules\\QuoteRequestDurationId"
-        ]
-    )
-
-    service_level_id: ID!
-    @rules(
-        apply: [
-            "required"
-            "App\\Rules\\ServiceLevelId"
-        ]
-    )
-}
-
-input CreateQuoteRequestInput {
-    assets: [CreateQuoteRequestAssetsInput!]
-    @rulesForArray(apply: ["nullable", "min:1"])
-
-    contact_email: Email!
-    @rules(apply: ["required", "email"])
-
-    contact_name: String!
-    @rules(apply: ["required"])
-
-    contact_phone: PhoneNumber!
-    @rules(apply: ["required", "phone:AUTO"])
-
-    customer_id: ID
-    @rules(
-        apply: [
-            "required_without:customer_name"
-            "nullable"
-            "prohibited_unless:customer_name,null"
-            "App\\Rules\\CustomerId"
-        ]
-    )
-
-    customer_name: String
-    @rules(
-        apply: [
-            "required_without:customer_id"
-            "nullable"
-            "prohibited_unless:customer_id,null"
-            "string"
-        ]
-    )
-
-    files: [Upload!]
-    @rules(apply: ["nullable", "App\\Rules\\File"])
-
-    message: HtmlString
-
-    oem_id: ID!
-    @rules(apply: ["required", "App\\Rules\\OemId"])
-
-    type_id: ID!
-    @rules(apply: ["required", "App\\Rules\\TypeId"])
-}
-
 input DeleteApplicationTranslationsInput {
     keys: [String!]!
 
@@ -695,21 +627,6 @@ input ResetPasswordInput {
     @rules(apply: ["min:8"])
 
     token: String!
-}
-
-"""
-Input for the `messages` argument of `@rulesForArray`.
-"""
-input RulesForArrayMessage {
-    """
-    Message to display if the rule fails, e.g. `"Must be a valid email"`.
-    """
-    message: String!
-
-    """
-    Name of the rule, e.g. `"email"`.
-    """
-    rule: String!
 }
 
 """
@@ -6644,10 +6561,6 @@ type CreateQuoteNotePayload {
     created: Note!
 }
 
-type CreateQuoteRequestPayload {
-    created: QuoteRequest!
-}
-
 type Currency {
     code: String!
     id: ID!
@@ -7543,18 +7456,6 @@ type Mutation {
     createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
     @organization
     @me(permissions: ["quotes-view", "customers-view"])
-
-    """
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
-    """
-    createQuoteRequest(input: CreateQuoteRequestInput!): CreateQuoteRequestPayload
-    @deprecated(
-        reason: "Please use `mutation { quoteRequest { create } } }` instead."
-    )
-    @organization
-    @me(permissions: ["requests-quote-add"])
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -11352,31 +11253,6 @@ directive @rules(
     Specify the messages to return if the validators fail.
     """
     messages: [RulesMessage!]
-)
-repeatable on
-    | ARGUMENT_DEFINITION
-    | INPUT_FIELD_DEFINITION
-
-"""
-Run validation on an array itself, using [Laravel built-in validation](https://laravel.com/docs/validation).
-"""
-directive @rulesForArray(
-    """
-    Specify the validation rules to apply to the field.
-    This can either be a reference to any of Laravel's built-in validation rules: https://laravel.com/docs/validation#available-validation-rules,
-    or the fully qualified class name of a custom validation rule.
-    """
-    apply: [String!]!
-
-    """
-    Specify a custom attribute name to use in your validation message.
-    """
-    attribute: String
-
-    """
-    Specify the messages to return if the validators fail.
-    """
-    messages: [RulesForArrayMessage!]
 )
 repeatable on
     | ARGUMENT_DEFINITION
