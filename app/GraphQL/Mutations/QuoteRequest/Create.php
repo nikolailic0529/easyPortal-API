@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\QuoteRequest;
 
 use App\Mail\QuoteRequest as MailQuoteRequest;
 use App\Models\Contact;

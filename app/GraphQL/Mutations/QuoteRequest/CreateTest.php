@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\QuoteRequest;
 
 use App\Mail\QuoteRequest;
 use App\Models\Asset;
@@ -30,7 +30,7 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\CreateQuoteRequest
+ * @coversDefaultClass \App\GraphQL\Mutations\QuoteRequest\CreateQuoteRequest
  */
 class CreateQuoteRequestTest extends TestCase {
     // <editor-fold desc="Tests">
