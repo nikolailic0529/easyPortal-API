@@ -10,6 +10,7 @@ use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException as LaravelValidationException;
@@ -26,7 +27,9 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Utils;
 
+use function array_combine;
 use function array_filter;
+use function array_keys;
 use function array_merge;
 use function array_slice;
 use function current;
@@ -117,15 +120,8 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $fieldRules = $this->getRulesFromDirectives($root, $directives);
 
             if ($fieldRules) {
-                $this->factory
-                    ->make(
-                        [
-                            'context' => $root,
-                        ],
-                        [
-                            'context' => $fieldRules,
-                        ],
-                    )
+                $this
+                    ->getValidator(['context' => $root], ['context' => $fieldRules])
                     ->validate();
             }
 
@@ -133,7 +129,9 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $argsRules = $this->getRules($root, $resolveInfo->argumentSet);
 
             if ($argsRules) {
-                $this->factory->make($args, $argsRules)->validate();
+                $this
+                    ->getValidator($args, $argsRules)
+                    ->validate();
             }
         } catch (LaravelValidationException $exception) {
             throw ValidationException::fromLaravel($exception);
@@ -229,5 +227,21 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
                 return $rule;
             })
             ->all();
+    }
+
+    /**
+     * @param array<string, mixed>              $data
+     * @param array<string, array<string|Rule>> $rules
+     *
+     */
+    protected function getValidator(array $data, array $rules): Validator {
+        // We specify $custom attributes because Validator converts/translates
+        // attribute names into readable form by default (customer_id =>
+        // customer id) - it is unwanted behavior in this case.
+        $names     = array_keys($rules);
+        $custom    = array_combine($names, $names);
+        $validator = $this->factory->make($data, $rules, [], $custom);
+
+        return $validator;
     }
 }
