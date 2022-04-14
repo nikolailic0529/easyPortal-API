@@ -29,6 +29,8 @@ use Tests\TestCase;
 use function __;
 
 /**
+ * @deprecated {@see \App\GraphQL\Mutations\QuoteRequest\Create}
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateQuoteRequest
  */

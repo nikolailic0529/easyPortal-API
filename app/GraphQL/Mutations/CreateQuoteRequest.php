@@ -11,6 +11,9 @@ use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Mail\Mailer;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\QuoteRequest\Create}
+ */
 class CreateQuoteRequest {
     public function __construct(
         protected Auth $auth,

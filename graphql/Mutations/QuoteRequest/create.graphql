@@ -1,0 +1,45 @@
+extend type QuoteRequestMutations {
+    create(
+        input: QuoteRequestCreateInput!
+    ): QuoteRequestCreatePayload!
+    @organization
+    @me(permissions: ["requests-quote-add"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"
+    )
+}
+
+input QuoteRequestCreateInput {
+    oem_id: ID! @isRequired @isOemId
+    type_id: ID! @isRequired @isQuoteTypeId
+    message: HtmlString
+
+    customer_id: ID
+    @isRequiredWithout(field: "input.customer_name")
+    @isProhibitedUnless(field: "input.customer_name", value: null)
+    @isNullable
+    @isCustomerId
+
+    customer_name: String
+    @isRequiredWithout(field: "input.customer_id")
+    @isProhibitedUnless(field: "input.customer_id", value: null)
+    @isNullable
+
+    contact_name: String! @isRequired
+    contact_phone: PhoneNumber! @isRequired @isPhoneNumber
+    contact_email: Email! @isRequired @isEmail
+
+    files: [Upload!] @isRequired @isFile
+    assets: [QuoteRequestCreateAssetsInput!]
+}
+
+input QuoteRequestCreateAssetsInput {
+    asset_id: ID! @isRequired @isAssetId
+    duration_id: ID! @isRequired @isQuoteRequestDurationId
+    service_level_id: ID! @isRequired @isServiceLevelId
+}
+
+type QuoteRequestCreatePayload implements Payload {
+    result: Boolean!
+    quoteRequest: QuoteRequest
+}

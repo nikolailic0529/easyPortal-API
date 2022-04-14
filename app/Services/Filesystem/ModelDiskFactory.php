@@ -15,7 +15,7 @@ class ModelDiskFactory {
     }
 
     public function getDisk(Model $model): ModelDisk {
-        if (!$model->exists) {
+        if (!$model->exists && !$model->getKey()) {
             throw new LogicException('Model is not exists.');
         }
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOem;
+use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasType;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
@@ -19,7 +20,6 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection as BaseCollection;
@@ -34,7 +34,7 @@ use Illuminate\Support\Collection as BaseCollection;
  * @property string|null                        $customer_id
  * @property string|null                        $customer_name
  * @property string                             $type_id
- * @property string                             $message
+ * @property string|null                        $message
  * @property CarbonImmutable                    $created_at
  * @property CarbonImmutable                    $updated_at
  * @property CarbonImmutable|null               $deleted_at
@@ -60,6 +60,7 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasType;
     use HasFiles;
     use HasUser;
+    use HasOrganization;
     use SyncHasMany;
 
     /**
@@ -91,11 +92,9 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     }
 
     public function setContactAttribute(Contact $contact): void {
-        $this->contact()->save($contact);
-    }
-
-    #[CascadeDelete(false)]
-    public function organization(): BelongsTo {
-        return $this->belongsTo(Organization::class);
+        $this->setRelation('contact', $contact);
+        $this->onSave(function () use ($contact): void {
+            $this->contact()->save($contact);
+        });
     }
 }

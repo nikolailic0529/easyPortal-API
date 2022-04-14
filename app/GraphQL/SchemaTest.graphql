@@ -431,6 +431,66 @@ input OrganizationUserInviteInput {
     @isTeamId
 }
 
+input QuoteRequestCreateAssetsInput {
+    asset_id: ID!
+    @isRequired
+    @isAssetId
+
+    duration_id: ID!
+    @isRequired
+    @isQuoteRequestDurationId
+
+    service_level_id: ID!
+    @isRequired
+    @isServiceLevelId
+}
+
+input QuoteRequestCreateInput {
+    assets: [QuoteRequestCreateAssetsInput!]
+
+    contact_email: Email!
+    @isRequired
+    @isEmail
+
+    contact_name: String!
+    @isRequired
+
+    contact_phone: PhoneNumber!
+    @isRequired
+    @isPhoneNumber
+
+    customer_id: ID
+    @isRequiredWithout(field: "input.customer_name")
+    @isProhibitedUnless(
+        field: "input.customer_name"
+        value: null
+    )
+    @isNullable
+    @isCustomerId
+
+    customer_name: String
+    @isRequiredWithout(field: "input.customer_id")
+    @isProhibitedUnless(
+        field: "input.customer_id"
+        value: null
+    )
+    @isNullable
+
+    files: [Upload!]
+    @isRequired
+    @isFile
+
+    message: HtmlString
+
+    oem_id: ID!
+    @isRequired
+    @isOemId
+
+    type_id: ID!
+    @isRequired
+    @isQuoteTypeId
+}
+
 input RecoverApplicationTranslationsInput {
     locale: String!
     @rules(apply: ["App\\Rules\\Locale"])
@@ -7479,6 +7539,9 @@ type Mutation {
     @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
     """
     createQuoteRequest(input: CreateQuoteRequestInput!): CreateQuoteRequestPayload
+    @deprecated(
+        reason: "Please use `mutation { quoteRequest { create } } }` instead."
+    )
     @organization
     @me(permissions: ["requests-quote-add"])
 
@@ -7623,6 +7686,16 @@ type Mutation {
     @me
     @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
     @mutation(model: "App\\Models\\Document")
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me> User must be authenticated.
+    """
+    quoteRequest: QuoteRequestMutations
+    @organization
+    @me
+    @mutation(model: "App\\Models\\QuoteRequest")
 
     """
     Force delete all custom settings, may be useful to restore the corrupted file.
@@ -10447,12 +10520,34 @@ type QuoteRequestAsset {
     service_level_id: ID!
 }
 
+type QuoteRequestCreatePayload
+implements
+    & Payload
+{
+    quoteRequest: QuoteRequest
+    result: Boolean!
+}
+
 type QuoteRequestDuration {
     id: ID!
     key: String!
 
     name: String!
     @translate
+}
+
+type QuoteRequestMutations {
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
+    """
+    create(input: QuoteRequestCreateInput!): QuoteRequestCreatePayload!
+    @organization
+    @me(permissions: ["requests-quote-add"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"
+    )
 }
 
 type QuoteSyncPayload {
@@ -11062,6 +11157,10 @@ directive @hasOne(
 on
     | FIELD_DEFINITION
 
+directive @isAssetId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isColor
 on
     | INPUT_FIELD_DEFINITION
@@ -11070,7 +11169,15 @@ directive @isCurrencyId
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isCustomerId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isEmail
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isFile
 on
     | INPUT_FIELD_DEFINITION
 
@@ -11090,6 +11197,10 @@ directive @isNullable
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isOemId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isOrgPermissionId
 on
     | INPUT_FIELD_DEFINITION
@@ -11106,7 +11217,27 @@ directive @isPhoneNumber
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isProhibitedUnless(field: String!, value: String)
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isQuoteRequestDurationId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isQuoteTypeId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isRequired
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isRequiredWithout(field: String!)
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isServiceLevelId
 on
     | INPUT_FIELD_DEFINITION
 

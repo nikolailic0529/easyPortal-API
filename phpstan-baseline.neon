@@ -688,7 +688,7 @@ parameters:
 		-
 			message: "#^Property Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\BaseDirective\\:\\:\\$directiveArgs \\(array\\<string, mixed\\>\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Rules/Rule.php
+			path: app/GraphQL/Directives/Directives/Mutation/Rules/CustomRule.php
 
 		-
 			message: "#^Cannot call method map\\(\\) on Illuminate\\\\Support\\\\Collection\\|null\\.$#"
@@ -2011,7 +2011,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$message \\(string\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$message \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -3029,6 +3029,46 @@ parameters:
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Organization\\\\User\\\\InviteImpossibleKeycloakUserDisabled given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/InviteTest.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\Create\\:\\:getAssets\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestAsset\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/Create.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\Create\\:\\:getFiles\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/Create.php
+
+		-
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/Create.php
+
+		-
+			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$orgFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RecoverClientSettingsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
@@ -9779,6 +9819,11 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationIdTest\\:\\:testPasses\\(\\) has parameter \\$durationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Rules/QuoteRequestDurationIdTest.php
+
+		-
+			message: "#^Method App\\\\Rules\\\\QuoteTypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/Rules/QuoteTypeId.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\ServiceLevelId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
