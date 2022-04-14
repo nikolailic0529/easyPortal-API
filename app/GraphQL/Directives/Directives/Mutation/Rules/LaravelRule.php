@@ -34,7 +34,7 @@ abstract class LaravelRule extends Rule {
         $arguments = static::arguments();
 
         if ($arguments) {
-            $arguments = Parser::inputFieldsDefinition($arguments);
+            $arguments = Parser::inputFieldsDefinition("{ $arguments }");
 
             foreach ($arguments as $arg) {
                 $name  = $arg->name->value;
