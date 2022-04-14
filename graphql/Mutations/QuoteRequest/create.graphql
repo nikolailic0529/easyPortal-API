@@ -30,10 +30,10 @@ input QuoteRequestCreateInput {
     contact_email: Email! @isRequired @isEmail
 
     files: [Upload!] @isRequired @isFile
-    assets: [QuoteRequestCreateAssetsInput!]
+    assets: [QuoteRequestCreateAssetInput!]
 }
 
-input QuoteRequestCreateAssetsInput {
+input QuoteRequestCreateAssetInput {
     asset_id: ID! @isRequired @isAssetId
     duration_id: ID! @isRequired @isQuoteRequestDurationId
     service_level_id: ID! @isRequired @isServiceLevelId

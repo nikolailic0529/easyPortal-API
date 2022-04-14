@@ -431,7 +431,7 @@ input OrganizationUserInviteInput {
     @isTeamId
 }
 
-input QuoteRequestCreateAssetsInput {
+input QuoteRequestCreateAssetInput {
     asset_id: ID!
     @isRequired
     @isAssetId
@@ -446,7 +446,7 @@ input QuoteRequestCreateAssetsInput {
 }
 
 input QuoteRequestCreateInput {
-    assets: [QuoteRequestCreateAssetsInput!]
+    assets: [QuoteRequestCreateAssetInput!]
 
     contact_email: Email!
     @isRequired

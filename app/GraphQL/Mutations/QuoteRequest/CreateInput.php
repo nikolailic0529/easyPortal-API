@@ -23,8 +23,8 @@ class CreateInput extends JsonObject {
     public ?array $files = null;
 
     /**
-     * @var array<CreateAssetsInput>|null
+     * @var array<CreateAssetInput>|null
      */
-    #[JsonObjectArray(CreateAssetsInput::class)]
+    #[JsonObjectArray(CreateAssetInput::class)]
     public ?array $assets = null;
 }
