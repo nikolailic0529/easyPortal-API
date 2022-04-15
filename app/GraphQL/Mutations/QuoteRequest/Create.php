@@ -7,9 +7,11 @@ use App\Models\Contact;
 use App\Models\File;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
+use App\Models\QuoteRequestDocument;
 use App\Services\Auth\Auth;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
+use App\Utils\Cache\CacheKey;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -39,6 +41,7 @@ class Create {
         $request->contact       = $this->getContact($request, $input);
         $request->files         = $this->getFiles($request, $input);
         $request->assets        = $this->getAssets($request, $input);
+        $request->documents     = $this->getDocuments($request, $input);
         $result                 = $request->save();
 
         if ($result) {
@@ -71,6 +74,7 @@ class Create {
      * @return Collection<int, QuoteRequestAsset>
      */
     protected function getAssets(QuoteRequest $request, CreateInput $input): Collection {
+        /** @var Collection<array-key, QuoteRequestAsset> $assets */
         $assets = new Collection();
 
         foreach ((array) $input->assets as $asset) {
@@ -78,9 +82,37 @@ class Create {
             $quoteAsset->asset_id         = $asset->asset_id;
             $quoteAsset->duration_id      = $asset->duration_id;
             $quoteAsset->service_level_id = $asset->service_level_id;
-            $assets[]                     = $quoteAsset;
+
+            $key          = (string) new CacheKey([
+                $quoteAsset->asset_id,
+                $quoteAsset->duration_id,
+                $quoteAsset->service_level_id,
+            ]);
+            $assets[$key] = $quoteAsset;
         }
 
-        return $assets;
+        return $assets->values();
+    }
+
+    /**
+     * @return Collection<int, QuoteRequestDocument>
+     */
+    protected function getDocuments(QuoteRequest $request, CreateInput $input): Collection {
+        /** @var Collection<array-key, QuoteRequestDocument> $documents */
+        $documents = new Collection();
+
+        foreach ((array) $input->documents as $document) {
+            $quoteDocument              = new QuoteRequestDocument();
+            $quoteDocument->document_id = $document->document_id;
+            $quoteDocument->duration_id = $document->duration_id;
+
+            $key             = (string) new CacheKey([
+                $quoteDocument->document_id,
+                $quoteDocument->duration_id,
+            ]);
+            $documents[$key] = $quoteDocument;
+        }
+
+        return $documents->values();
     }
 }

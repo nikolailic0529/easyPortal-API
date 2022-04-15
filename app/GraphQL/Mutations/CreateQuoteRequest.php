@@ -10,6 +10,7 @@ use App\Services\Auth\Auth;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @deprecated {@see \App\GraphQL\Mutations\QuoteRequest\Create}
@@ -67,7 +68,7 @@ class CreateQuoteRequest {
             }
         }
 
-        $request->assets = $assetsInput;
+        $request->assets = new Collection($assetsInput);
         $request->save();
 
         // Send Email

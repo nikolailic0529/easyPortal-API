@@ -22,30 +22,30 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * QuoteRequest.
  *
- * @property string                             $id
- * @property string                             $oem_id
- * @property string                             $organization_id
- * @property string                             $user_id
- * @property string|null                        $customer_id
- * @property string|null                        $customer_name
- * @property string                             $type_id
- * @property string|null                        $message
- * @property CarbonImmutable                    $created_at
- * @property CarbonImmutable                    $updated_at
- * @property CarbonImmutable|null               $deleted_at
- * @property Oem                                $oem
- * @property Organization                       $organization
- * @property Customer|null                      $customer
- * @property Contact                            $contact
- * @property Type                               $type
- * @property Collection<int, Status>            $statuses
- * @property Collection<int, File>              $files
- * @property Collection<int, QuoteRequestAsset> $assets
+ * @property string                                $id
+ * @property string                                $oem_id
+ * @property string                                $organization_id
+ * @property string                                $user_id
+ * @property string|null                           $customer_id
+ * @property string|null                           $customer_name
+ * @property string                                $type_id
+ * @property string|null                           $message
+ * @property CarbonImmutable                       $created_at
+ * @property CarbonImmutable                       $updated_at
+ * @property CarbonImmutable|null                  $deleted_at
+ * @property Oem                                   $oem
+ * @property Organization                          $organization
+ * @property Customer|null                         $customer
+ * @property Contact                               $contact
+ * @property Type                                  $type
+ * @property Collection<int, Status>               $statuses
+ * @property Collection<int, File>                 $files
+ * @property Collection<int, QuoteRequestAsset>    $assets
+ * @property Collection<int, QuoteRequestDocument> $documents
  * @method static QuoteRequestFactory factory(...$parameters)
  * @method static Builder|QuoteRequest newModelQuery()
  * @method static Builder|QuoteRequest newQuery()
@@ -80,10 +80,25 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     }
 
     /**
-     * @param BaseCollection|array<QuoteRequestAsset> $assets
+     * @param Collection<int, QuoteRequestAsset> $assets
      */
-    public function setAssetsAttribute(BaseCollection|array $assets): void {
+    public function setAssetsAttribute(Collection $assets): void {
         $this->syncHasMany('assets', $assets);
+    }
+
+    /**
+     * @return HasMany<QuoteRequestDocument>
+     */
+    #[CascadeDelete(true)]
+    public function documents(): HasMany {
+        return $this->hasMany(QuoteRequestDocument::class, 'request_id');
+    }
+
+    /**
+     * @param Collection<int,QuoteRequestDocument> $documents
+     */
+    public function setDocumentsAttribute(Collection $documents): void {
+        $this->syncHasMany('documents', $documents);
     }
 
     #[CascadeDelete(true)]

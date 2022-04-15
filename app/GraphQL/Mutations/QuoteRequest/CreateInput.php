@@ -27,4 +27,10 @@ class CreateInput extends JsonObject {
      */
     #[JsonObjectArray(CreateAssetInput::class)]
     public ?array $assets = null;
+
+    /**
+     * @var array<CreateDocumentInput>|null
+     */
+    #[JsonObjectArray(CreateDocumentInput::class)]
+    public ?array $documents = null;
 }

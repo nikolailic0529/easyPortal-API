@@ -12,5 +12,6 @@ type QuoteRequest {
     type: Type! @belongsTo
     message: String
     assets: [QuoteRequestAsset!]! @hasMany
+    documents: [QuoteRequestDocument!]! @hasMany
     files: [File!]! @morphMany
 }

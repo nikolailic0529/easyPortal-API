@@ -2031,7 +2031,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$assets \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestAsset\\>\\) does not accept array\\<int, App\\\\Models\\\\QuoteRequestAsset\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$assets \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestAsset\\>\\) does not accept Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -3059,11 +3059,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Organization\\\\User\\\\InviteImpossibleKeycloakUserDisabled given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/InviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\Create\\:\\:getAssets\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestAsset\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/Create.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\Create\\:\\:getFiles\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
@@ -7676,26 +7671,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:scopeQueryContracts\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:scopeQueryContracts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:scopeQueryQuotes\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:scopeQueryQuotes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -8471,11 +8446,6 @@ parameters:
 			path: app/Models/QuoteRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:setAssetsAttribute\\(\\) has parameter \\$assets with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
 			count: 2
 			path: app/Models/QuoteRequest.php
@@ -8521,6 +8491,16 @@ parameters:
 			path: app/Models/QuoteRequest.php
 
 		-
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\QuoteRequest\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestAsset\\> given\\.$#"
+			count: 1
+			path: app/Models/QuoteRequest.php
+
+		-
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\QuoteRequest\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\QuoteRequestDocument\\> given\\.$#"
+			count: 1
+			path: app/Models/QuoteRequest.php
+
+		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\QuoteRequest\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
@@ -8552,16 +8532,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestDocument\\:\\:document\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestDocument.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestDocument\\:\\:duration\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestDocument.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestDocument\\:\\:request\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/QuoteRequestDocument.php
 
@@ -9266,26 +9236,6 @@ parameters:
 			path: app/Models/Type.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:scopeQueryContracts\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:scopeQueryContracts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:scopeQueryQuotes\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:scopeQueryQuotes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Type.php
@@ -9599,6 +9549,11 @@ parameters:
 			message: "#^Using nullsafe method call on non\\-nullable type DateTimeInterface\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Rules/DateTimeTest.php
+
+		-
+			message: "#^Method App\\\\Rules\\\\DocumentId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/Rules/DocumentId.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Duration\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"

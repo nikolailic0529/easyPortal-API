@@ -39,11 +39,17 @@ class QuoteRequestDocument extends Model {
      */
     protected $table = 'quote_request_documents';
 
+    /**
+     * @return BelongsTo<QuoteRequestDuration, self>
+     */
     #[CascadeDelete(false)]
     public function duration(): BelongsTo {
         return $this->belongsTo(QuoteRequestDuration::class, 'duration_id');
     }
 
+    /**
+     * @return BelongsTo<QuoteRequest, self>
+     */
     #[CascadeDelete(false)]
     public function request(): BelongsTo {
         return $this->belongsTo(QuoteRequest::class, 'request_id');

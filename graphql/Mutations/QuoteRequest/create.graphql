@@ -31,12 +31,18 @@ input QuoteRequestCreateInput {
 
     files: [Upload!] @isRequired @isFile
     assets: [QuoteRequestCreateAssetInput!]
+    documents: [QuoteRequestCreateDocumentInput!]
 }
 
 input QuoteRequestCreateAssetInput {
     asset_id: ID! @isRequired @isAssetId
     duration_id: ID! @isRequired @isQuoteRequestDurationId
     service_level_id: ID! @isRequired @isServiceLevelId
+}
+
+input QuoteRequestCreateDocumentInput {
+    document_id: ID! @isRequired @isDocumentId
+    duration_id: ID! @isRequired @isQuoteRequestDurationId
 }
 
 type QuoteRequestCreatePayload implements Payload {

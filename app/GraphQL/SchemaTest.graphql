@@ -445,6 +445,16 @@ input QuoteRequestCreateAssetInput {
     @isServiceLevelId
 }
 
+input QuoteRequestCreateDocumentInput {
+    document_id: ID!
+    @isRequired
+    @isDocumentId
+
+    duration_id: ID!
+    @isRequired
+    @isQuoteRequestDurationId
+}
+
 input QuoteRequestCreateInput {
     assets: [QuoteRequestCreateAssetInput!]
 
@@ -475,6 +485,8 @@ input QuoteRequestCreateInput {
         value: null
     )
     @isNullable
+
+    documents: [QuoteRequestCreateDocumentInput!]
 
     files: [Upload!]
     @isRequired
@@ -10251,6 +10263,9 @@ type QuoteRequest {
     customer_id: ID
     customer_name: String
 
+    documents: [QuoteRequestDocument!]!
+    @hasMany
+
     files: [File!]!
     @morphMany
 
@@ -10285,11 +10300,6 @@ type QuoteRequestAsset {
     duration_id: ID!
     id: ID!
 
-    request: QuoteRequest!
-    @belongsTo
-
-    request_id: ID!
-
     serviceLevel: ServiceLevel!
     @belongsTo
 
@@ -10302,6 +10312,19 @@ implements
 {
     quoteRequest: QuoteRequest
     result: Boolean!
+}
+
+type QuoteRequestDocument {
+    document: Document!
+    @belongsTo
+
+    document_id: ID!
+
+    duration: QuoteRequestDuration!
+    @belongsTo
+
+    duration_id: ID!
+    id: ID!
 }
 
 type QuoteRequestDuration {
@@ -10946,6 +10969,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isCustomerId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isDocumentId
 on
     | INPUT_FIELD_DEFINITION
 

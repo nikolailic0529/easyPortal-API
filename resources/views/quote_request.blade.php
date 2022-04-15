@@ -1,28 +1,43 @@
+<?php /** @var \App\Models\QuoteRequest $request */ ?>
 @component('mail::message')
 # {{ config('app.name') }}
 
 A new quote request from organization {{ $request->organization->name }}
 
-Oem: {{ $request->oem->name }}<br>
-customer: {{ $request->customer ? $request->customer->name : $request->customer_name }}<br>
-type: {{ $request->type->name }}<br>
-<b>Contact Info:</b><br>
-name: <span>{{ $request->contact->name }}</span><br>
-email: <span>{{ $request->contact->email }}</span><br>
-phone: <span>{{ $request->contact->phone_number }}</span><br>
+**Oem**: {{ $request->oem->name }}<br>
+**Customer**: {{ $request->customer ? $request->customer->name : $request->customer_name }}<br>
+**Type**: {{ $request->type->name }}<br>
+
+## Contact Info:
+
+**Name**: {{ $request->contact->name }}<br>
+**Email**: {{ $request->contact->email }}<br>
+**Phone**: {{ $request->contact->phone_number }}<br>
+
 @if (count($request->assets) > 0)
-<b>Assets:</b>
+## Assets:
 @component('mail::table')
-| prodcut name | service level | duration |
-| :----------: | :------------:| :--------:|
+| Product Name | Service Level | Duration   |
+| ------------ | ------------- | :--------: |
 @foreach($request->assets as $asset)
-|{{ $asset->asset->product->name }}| {{ $asset->serviceLevel->name }} | {{ $asset->duration->name }}
+| {{ $asset->asset->product->name }} | {{ $asset->serviceLevel->name }} | {{ $asset->duration->name }} |
+@endforeach
+@endcomponent
+@endif
+
+@if (count($request->documents) > 0)
+## Documents:
+@component('mail::table')
+| Document    | Duration   |
+| ----------- | :--------: |
+@foreach($request->documents as $document)
+| {{ $document->document->is_contract ? 'Contract' : 'Quote' }} {{ $document->document->number }} | {{ $document->duration->name }} |
 @endforeach
 @endcomponent
 @endif
 
 @if($request->message)
-<b>Message:</b><br>
+## Message:
 
 -----
 

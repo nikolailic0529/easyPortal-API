@@ -169,6 +169,18 @@ class CreateTest extends TestCase {
                                     key
                                 }
                             }
+                            documents {
+                                document_id
+                                document {
+                                    id
+                                }
+                                duration_id
+                                duration {
+                                    id
+                                    name
+                                    key
+                                }
+                            }
                         }
                     }
                 }
@@ -218,10 +230,15 @@ class CreateTest extends TestCase {
                 'synced_at'       => '2021-10-19 10:25:00',
             ]);
             $customer->resellers()->attach($reseller);
-            Type::factory()->create([
+            $type = Type::factory()->create([
                 'id'          => $type,
                 'name'        => 'new',
                 'object_type' => (new Document())->getMorphClass(),
+            ]);
+            Document::factory()->create([
+                'id'          => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                'type_id'     => $type,
+                'reseller_id' => $reseller,
             ]);
             Asset::factory()->create([
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -244,23 +261,6 @@ class CreateTest extends TestCase {
                     'description' => 'description',
                 ]);
         };
-        $input    = [
-            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            'contact_name'  => 'contact1',
-            'contact_email' => 'contact1@test.com',
-            'contact_phone' => '+27113456789',
-            'assets'        => [
-                [
-                    'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                    'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                ],
-            ],
-            'message'       => 'message',
-            'files'         => [UploadedFile::fake()->create('document.csv', 200)],
-        ];
         $settings = [
             'ep.file.max_size' => 250,
             'ep.file.formats'  => ['csv'],
@@ -273,7 +273,7 @@ class CreateTest extends TestCase {
                 'requests-quote-add',
             ]),
             new ArrayDataProvider([
-                'ok-customer_id empty customer_name' => [
+                'ok'                                 => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
@@ -336,12 +336,48 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
+                                'documents'     => [
+                                    [
+                                        'document_id' => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                                        'document'    => [
+                                            'id' => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                                        ],
+                                        'duration_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'duration'    => [
+                                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                            'name' => '5-10 years',
+                                            'key'  => '5-10 years',
+                                        ],
+                                    ],
+                                ],
                             ],
                         ]),
                     ),
                     $settings,
                     $prepare,
-                    $input,
+                    [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '+27113456789',
+                        'assets'        => [
+                            [
+                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                            ],
+                        ],
+                        'documents'     => [
+                            [
+                                'document_id' => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                                'duration_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                            ],
+                        ],
+                        'message'       => 'message',
+                        'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                    ],
                 ],
                 'ok-customer_id null customer_name'  => [
                     new GraphQLSuccess(
@@ -405,6 +441,9 @@ class CreateTest extends TestCase {
                                             'description'      => 'description',
                                         ],
                                     ],
+                                ],
+                                'documents'     => [
+                                    // empty
                                 ],
                             ],
                         ]),
@@ -483,6 +522,9 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
+                                'documents'     => [
+                                    // empty
+                                ],
                             ],
                         ]),
                     ),
@@ -559,6 +601,9 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
+                                'documents'     => [
+                                    // empty
+                                ],
                             ],
                         ]),
                     ),
@@ -616,7 +661,12 @@ class CreateTest extends TestCase {
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [],
+                                'assets'        => [
+                                    // empty
+                                ],
+                                'documents'     => [
+                                    // empty
+                                ],
                             ],
                         ]),
                     ),
