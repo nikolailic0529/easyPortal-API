@@ -10,6 +10,7 @@ use App\GraphQL\Directives\Directives\Mutation\Rules\Rule as RuleDirective;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException as LaravelValidationException;
@@ -26,13 +27,18 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Utils;
 
+use function array_combine;
 use function array_filter;
+use function array_keys;
+use function array_map;
 use function array_merge;
 use function array_slice;
 use function current;
 use function implode;
 use function is_bool;
+use function is_string;
 use function sprintf;
+use function str_replace;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
     protected const NAME              = 'mutationCall';
@@ -117,15 +123,8 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $fieldRules = $this->getRulesFromDirectives($root, $directives);
 
             if ($fieldRules) {
-                $this->factory
-                    ->make(
-                        [
-                            'context' => $root,
-                        ],
-                        [
-                            'context' => $fieldRules,
-                        ],
-                    )
+                $this
+                    ->getValidator(['context' => $root], ['context' => $fieldRules])
                     ->validate();
             }
 
@@ -133,7 +132,9 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $argsRules = $this->getRules($root, $resolveInfo->argumentSet);
 
             if ($argsRules) {
-                $this->factory->make($args, $argsRules)->validate();
+                $this
+                    ->getValidator($args, $argsRules)
+                    ->validate();
             }
         } catch (LaravelValidationException $exception) {
             throw ValidationException::fromLaravel($exception);
@@ -143,7 +144,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @return array<string, array<Rule>>
+     * @return array<string, array<Rule|string>>
      */
     protected function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
         $rules = [];
@@ -163,7 +164,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param array<Argument> $arguments
      *
-     * @return array<Rule>
+     * @return array<string, array<Rule|string>>
      */
     private function getRulesFromArguments(Context $context, ?string $prefix, array $arguments): array {
         $rules = [];
@@ -174,12 +175,30 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $argRules = $this->getRulesFromDirectives($context, $argument->directives);
 
             if ($argument->type instanceof ListType) {
-                foreach ((array) $value as $k => $v) {
-                    $k         = "{$key}.{$k}";
-                    $rules[$k] = $argRules;
+                $rules["{$key}.*"] = $argRules;
 
-                    if ($v instanceof ArgumentSet) {
-                        $rules = array_merge($rules, $this->getRules($context, $v, $k));
+                foreach ((array) $value as $i => $v) {
+                    if (!($v instanceof ArgumentSet)) {
+                        continue;
+                    }
+
+                    foreach ($this->getRules($context, $v, "{$key}.{$i}") as $k => $rs) {
+                        // Laravel Rules can contain references to other fields
+                        // where the `*` is the current index -> we need to
+                        // replace `*` by actual index.
+                        //
+                        // Current solution is not so good, would be good to find
+                        // a better one...
+                        $rules[$k] = array_map(
+                            static function (Rule|string $rule) use ($key, $i): Rule|string {
+                                if (is_string($rule)) {
+                                    $rule = str_replace("{$key}.*", "{$key}.{$i}", $rule);
+                                }
+
+                                return $rule;
+                            },
+                            $rs,
+                        );
                     }
                 }
             } elseif ($value instanceof ArgumentSet) {
@@ -196,7 +215,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param Collection<int, Directive> $directives
      *
-     * @return array<string,Rule>
+     * @return array<Rule|string>
      */
     private function getRulesFromDirectives(Context $context, Collection $directives): array {
         return $directives
@@ -229,5 +248,21 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
                 return $rule;
             })
             ->all();
+    }
+
+    /**
+     * @param array<string, mixed>              $data
+     * @param array<string, array<string|Rule>> $rules
+     *
+     */
+    protected function getValidator(array $data, array $rules): Validator {
+        // We specify $custom attributes because Validator converts/translates
+        // attribute names into readable form by default (customer_id =>
+        // customer id) - it is unwanted behavior in this case.
+        $names     = array_keys($rules);
+        $custom    = array_combine($names, $names);
+        $validator = $this->factory->make($data, $rules, [], $custom);
+
+        return $validator;
     }
 }

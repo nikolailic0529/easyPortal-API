@@ -25,11 +25,35 @@
         "request_id": {
             "$ref": "../types.json#/definitions/ID"
         },
+        "service_level_custom": {
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
         "service_level_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "serviceLevel": {
-            "$ref": "../types.json#/definitions/ServiceLevel"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ServiceLevel"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

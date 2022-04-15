@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection<int, Asset>    $assets
  * @property-read Collection<int, Document> $contracts
  * @property-read Collection<int, Customer> $customers
- * @property-read Collection<int, Document> $documents
  * @property-read Collection<int, Document> $quotes
  * @method static StatusFactory factory(...$parameters)
  * @method static Builder|Status newModelQuery()
@@ -79,7 +78,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryContracts();
             })
             ->withTimestamps();
@@ -94,23 +93,8 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryQuotes();
-            })
-            ->withTimestamps();
-    }
-
-    #[CascadeDelete(true)]
-    public function documents(): BelongsToMany {
-        $pivot = new DocumentStatus();
-
-        return $this
-            ->belongsToMany(Document::class, $pivot->getTable())
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
-                return $builder->queryDocuments();
             })
             ->withTimestamps();
     }

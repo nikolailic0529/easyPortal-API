@@ -431,6 +431,127 @@ input OrganizationUserInviteInput {
     @isTeamId
 }
 
+input QuoteRequestCreateAssetInput {
+    asset_id: ID!
+    @isRequired
+    @isAssetId
+
+    duration_id: ID!
+    @isRequired
+    @isQuoteRequestDurationId
+
+    service_level_custom: String
+    @isRequiredWithout(
+        field: "input.assets.*.service_level_id"
+    )
+    @isProhibitedUnless(
+        field: "input.assets.*.service_level_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    service_level_id: ID
+    @isRequiredWithout(
+        field: "input.assets.*.service_level_custom"
+    )
+    @isProhibitedUnless(
+        field: "input.assets.*.service_level_custom"
+        value: null
+    )
+    @isNullable
+    @isServiceLevelId
+}
+
+input QuoteRequestCreateDocumentInput {
+    document_id: ID!
+    @isRequired
+    @isDocumentId
+
+    duration_id: ID!
+    @isRequired
+    @isQuoteRequestDurationId
+}
+
+input QuoteRequestCreateInput {
+    assets: [QuoteRequestCreateAssetInput!]
+
+    contact_email: Email!
+    @isRequired
+    @isEmail
+
+    contact_name: String!
+    @isRequired
+
+    contact_phone: PhoneNumber!
+    @isRequired
+    @isPhoneNumber
+
+    customer_custom: String
+    @isRequiredWithout(field: "input.customer_id")
+    @isProhibitedUnless(
+        field: "input.customer_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    customer_id: ID
+    @isRequiredWithout(
+        field: "input.customer_custom"
+    )
+    @isProhibitedUnless(
+        field: "input.customer_custom"
+        value: null
+    )
+    @isNullable
+    @isCustomerId
+
+    documents: [QuoteRequestCreateDocumentInput!]
+
+    files: [Upload!]
+    @isRequired
+    @isFile
+
+    message: HtmlString
+
+    oem_custom: String
+    @isRequiredWithout(field: "input.oem_id")
+    @isProhibitedUnless(
+        field: "input.oem_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    oem_id: ID
+    @isRequiredWithout(field: "input.oem_custom")
+    @isProhibitedUnless(
+        field: "input.oem_custom"
+        value: null
+    )
+    @isNullable
+    @isOemId
+
+    type_custom: String
+    @isRequiredWithout(field: "input.type_id")
+    @isProhibitedUnless(
+        field: "input.type_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    type_id: ID
+    @isRequiredWithout(field: "input.type_custom")
+    @isProhibitedUnless(
+        field: "input.type_custom"
+        value: null
+    )
+    @isNullable
+    @isQuoteTypeId
+}
+
 input RecoverApplicationTranslationsInput {
     locale: String!
     @rules(apply: ["App\\Rules\\Locale"])
@@ -2298,56 +2419,6 @@ input SearchByConditionDocumentEntriesQuery {
     Property condition.
     """
     start: SearchByScalarDateOrNull
-}
-
-"""
-Available conditions for input DocumentStatusesQuery (only one property allowed at a time).
-"""
-input SearchByConditionDocumentStatusesQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionDocumentStatusesQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionDocumentStatusesQuery!]
-
-    """
-    Property condition.
-    """
-    documents: SearchByComplexRelationDocumentsQuery
-
-    """
-    Not.
-    """
-    not: SearchByConditionDocumentStatusesQuery
-}
-
-"""
-Available conditions for input DocumentTypesQuery (only one property allowed at a time).
-"""
-input SearchByConditionDocumentTypesQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionDocumentTypesQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionDocumentTypesQuery!]
-
-    """
-    Property condition.
-    """
-    documents: SearchByComplexRelationDocumentsQuery
-
-    """
-    Not.
-    """
-    not: SearchByConditionDocumentTypesQuery
 }
 
 """
@@ -7479,6 +7550,9 @@ type Mutation {
     @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
     """
     createQuoteRequest(input: CreateQuoteRequestInput!): CreateQuoteRequestPayload
+    @deprecated(
+        reason: "Please use `mutation { quoteRequest { create } } }` instead."
+    )
     @organization
     @me(permissions: ["requests-quote-add"])
 
@@ -7623,6 +7697,16 @@ type Mutation {
     @me
     @builder(method: "App\\GraphQL\\Queries\\Quotes\\Quotes")
     @mutation(model: "App\\Models\\Document")
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me> User must be authenticated.
+    """
+    quoteRequest: QuoteRequestMutations
+    @organization
+    @me
+    @mutation(model: "App\\Models\\QuoteRequest")
 
     """
     Force delete all custom settings, may be useful to restore the corrupted file.
@@ -9351,180 +9435,6 @@ type Query {
     @aggregated(model: "App\\Models\\Customer")
 
     """
-    List of all possible document statuses.
-
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-    """
-    documentStatuses(
-        where: SearchByConditionDocumentStatusesQuery
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
-            ]
-        )
-    ): [Status!]!
-    @organization
-    @me(
-        permissions: ["contracts-view", "quotes-view", "customers-view"]
-    )
-    @all(builder: "App\\GraphQL\\Queries\\Documents\\DocumentStatuses")
-    @cached
-
-    """
-    List of all possible document types.
-
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-    """
-    documentTypes(
-        where: SearchByConditionDocumentTypesQuery
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
-            ]
-        )
-    ): [Type!]!
-    @organization
-    @me(
-        permissions: ["contracts-view", "quotes-view", "customers-view"]
-    )
-    @all(builder: "App\\GraphQL\\Queries\\Documents\\DocumentTypes")
-    @cached
-
-    """
-    List of all documents.
-
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-    """
-    documents(
-        limit: Int! = 25
-        @rules(
-            apply: [
-                "min:1"
-                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
-            ]
-        )
-        @paginatedLimit
-
-        offset: Int! = 0
-        @rules(apply: ["min:0"])
-        @paginatedOffset
-
-        order: [SortByClauseDocumentsSort!]
-        @sortBy
-
-        where: SearchByConditionDocumentsQuery
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
-            ]
-        )
-    ): [Document!]!
-    @organization
-    @me(
-        permissions: ["contracts-view", "quotes-view", "customers-view"]
-    )
-    @builder(method: "App\\GraphQL\\Queries\\Documents\\Documents")
-    @paginated
-
-    """
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["contracts-view","customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-    """
-    documentsAggregated(
-        where: SearchByConditionDocumentsQuery
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
-            ]
-        )
-    ): DocumentsAggregated
-    @organization
-    @me(
-        permissions: ["contracts-view", "quotes-view", "customers-view"]
-    )
-    @builder(method: "App\\GraphQL\\Queries\\Documents\\Documents")
-    @aggregated(model: "App\\Models\\Document")
-
-    """
     List of all languages.
 
     @require <organization> Authenticated user must be a member of the current organization.
@@ -10399,8 +10309,11 @@ type QuoteRequest {
     customer: Customer
     @belongsTo
 
+    customer_custom: String
     customer_id: ID
-    customer_name: String
+
+    documents: [QuoteRequestDocument!]!
+    @hasMany
 
     files: [File!]!
     @morphMany
@@ -10408,15 +10321,17 @@ type QuoteRequest {
     id: ID!
     message: String
 
-    oem: Oem!
+    oem: Oem
     @belongsTo
 
-    oem_id: ID!
+    oem_custom: String
+    oem_id: ID
 
-    type: Type!
+    type: Type
     @belongsTo
 
-    type_id: ID!
+    type_custom: String
+    type_id: ID
 
     user: User!
     @belongsTo
@@ -10436,15 +10351,32 @@ type QuoteRequestAsset {
     duration_id: ID!
     id: ID!
 
-    request: QuoteRequest!
+    serviceLevel: ServiceLevel
     @belongsTo
 
-    request_id: ID!
+    service_level_custom: String
+    service_level_id: ID
+}
 
-    serviceLevel: ServiceLevel!
+type QuoteRequestCreatePayload
+implements
+    & Payload
+{
+    quoteRequest: QuoteRequest
+    result: Boolean!
+}
+
+type QuoteRequestDocument {
+    document: Document!
     @belongsTo
 
-    service_level_id: ID!
+    document_id: ID!
+
+    duration: QuoteRequestDuration!
+    @belongsTo
+
+    duration_id: ID!
+    id: ID!
 }
 
 type QuoteRequestDuration {
@@ -10453,6 +10385,20 @@ type QuoteRequestDuration {
 
     name: String!
     @translate
+}
+
+type QuoteRequestMutations {
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["requests-quote-add"])> User must be authenticated and have any of these permissions.
+    """
+    create(input: QuoteRequestCreateInput!): QuoteRequestCreatePayload!
+    @organization
+    @me(permissions: ["requests-quote-add"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"
+    )
 }
 
 type QuoteSyncPayload {
@@ -11062,6 +11008,10 @@ directive @hasOne(
 on
     | FIELD_DEFINITION
 
+directive @isAssetId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isColor
 on
     | INPUT_FIELD_DEFINITION
@@ -11070,7 +11020,19 @@ directive @isCurrencyId
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isCustomerId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isDocumentId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isEmail
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isFile
 on
     | INPUT_FIELD_DEFINITION
 
@@ -11082,11 +11044,19 @@ directive @isLocale
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isMax(value: Int!)
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isNotMe
 on
     | INPUT_FIELD_DEFINITION
 
 directive @isNullable
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isOemId
 on
     | INPUT_FIELD_DEFINITION
 
@@ -11106,7 +11076,27 @@ directive @isPhoneNumber
 on
     | INPUT_FIELD_DEFINITION
 
+directive @isProhibitedUnless(field: String!, value: String)
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isQuoteRequestDurationId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isQuoteTypeId
+on
+    | INPUT_FIELD_DEFINITION
+
 directive @isRequired
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isRequiredWithout(field: String!)
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isServiceLevelId
 on
     | INPUT_FIELD_DEFINITION
 

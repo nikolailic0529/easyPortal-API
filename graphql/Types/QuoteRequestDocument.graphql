@@ -1,0 +1,7 @@
+type QuoteRequestDocument {
+    id: ID!
+    document_id: ID!
+    document: Document! @belongsTo
+    duration_id: ID!
+    duration: QuoteRequestDuration! @belongsTo
+}

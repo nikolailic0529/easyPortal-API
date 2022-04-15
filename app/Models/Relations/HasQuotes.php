@@ -19,7 +19,7 @@ trait HasQuotes {
         return $this
             ->documents()
             ->where(static function (Builder $builder): Builder {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryQuotes();
             });
     }

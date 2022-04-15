@@ -20,4 +20,15 @@ abstract class CustomRule extends Rule {
      * @return class-string<RuleContract>
      */
     abstract protected function getRuleClass(): string;
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function getRuleArguments(): array {
+        if (!isset($this->directiveArgs)) {
+            $this->loadArgValues();
+        }
+
+        return $this->directiveArgs;
+    }
 }

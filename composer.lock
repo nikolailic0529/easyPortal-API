@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e85ba70970864807cc35145e1d22b7b5",
+    "content-hash": "07c3460026c180932ad237a175eccf89",
     "packages": [
         {
             "name": "babenkoivan/elastic-adapter",
@@ -13179,16 +13179,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.5.x-dev",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5e5322c40d1d5382010d0c6fa578edeaef50dab6"
+                "reference": "d77a607667f29ae099c0686f99664bd451fd23df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5e5322c40d1d5382010d0c6fa578edeaef50dab6",
-                "reference": "5e5322c40d1d5382010d0c6fa578edeaef50dab6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d77a607667f29ae099c0686f99664bd451fd23df",
+                "reference": "d77a607667f29ae099c0686f99664bd451fd23df",
                 "shasum": ""
             },
             "require": {
@@ -13197,7 +13197,6 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
-            "default-branch": true,
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -13215,7 +13214,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.5.x"
+                "source": "https://github.com/phpstan/phpstan/tree/1.5.5"
             },
             "funding": [
                 {
@@ -13235,7 +13234,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-22T10:33:40+00:00"
+            "time": "2022-04-14T12:20:26+00:00"
         },
         {
             "name": "phpstan/phpstan-mockery",
@@ -15424,13 +15423,11 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "phpstan/phpstan": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0",
+        "php": "~8.0.0",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",

@@ -1,0 +1,85 @@
+extend type QuoteRequestMutations {
+    create(
+        input: QuoteRequestCreateInput!
+    ): QuoteRequestCreatePayload!
+    @organization
+    @me(permissions: ["requests-quote-add"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\QuoteRequest\\Create"
+    )
+}
+
+input QuoteRequestCreateInput {
+    oem_id: ID
+    @isRequiredWithout(field: "input.oem_custom")
+    @isProhibitedUnless(field: "input.oem_custom", value: null)
+    @isNullable
+    @isOemId
+
+    oem_custom: String
+    @isRequiredWithout(field: "input.oem_id")
+    @isProhibitedUnless(field: "input.oem_id", value: null)
+    @isNullable
+    @isMax(value: 255)
+
+    type_id: ID
+    @isRequiredWithout(field: "input.type_custom")
+    @isProhibitedUnless(field: "input.type_custom", value: null)
+    @isNullable
+    @isQuoteTypeId
+
+    type_custom: String
+    @isRequiredWithout(field: "input.type_id")
+    @isProhibitedUnless(field: "input.type_id", value: null)
+    @isNullable
+    @isMax(value: 255)
+
+    customer_id: ID
+    @isRequiredWithout(field: "input.customer_custom")
+    @isProhibitedUnless(field: "input.customer_custom", value: null)
+    @isNullable
+    @isCustomerId
+
+    customer_custom: String
+    @isRequiredWithout(field: "input.customer_id")
+    @isProhibitedUnless(field: "input.customer_id", value: null)
+    @isNullable
+    @isMax(value: 255)
+
+    message: HtmlString
+
+    contact_name: String! @isRequired
+    contact_phone: PhoneNumber! @isRequired @isPhoneNumber
+    contact_email: Email! @isRequired @isEmail
+
+    files: [Upload!] @isRequired @isFile
+    assets: [QuoteRequestCreateAssetInput!]
+    documents: [QuoteRequestCreateDocumentInput!]
+}
+
+input QuoteRequestCreateAssetInput {
+    asset_id: ID! @isRequired @isAssetId
+    duration_id: ID! @isRequired @isQuoteRequestDurationId
+
+    service_level_id: ID
+    @isRequiredWithout(field: "input.assets.*.service_level_custom")
+    @isProhibitedUnless(field: "input.assets.*.service_level_custom", value: null)
+    @isNullable
+    @isServiceLevelId
+
+    service_level_custom: String
+    @isRequiredWithout(field: "input.assets.*.service_level_id")
+    @isProhibitedUnless(field: "input.assets.*.service_level_id", value: null)
+    @isNullable
+    @isMax(value: 255)
+}
+
+input QuoteRequestCreateDocumentInput {
+    document_id: ID! @isRequired @isDocumentId
+    duration_id: ID! @isRequired @isQuoteRequestDurationId
+}
+
+type QuoteRequestCreatePayload implements Payload {
+    result: Boolean!
+    quoteRequest: QuoteRequest
+}

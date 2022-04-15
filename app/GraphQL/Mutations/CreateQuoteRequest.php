@@ -10,7 +10,11 @@ use App\Services\Auth\Auth;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\QuoteRequest\Create}
+ */
 class CreateQuoteRequest {
     public function __construct(
         protected Auth $auth,
@@ -32,7 +36,7 @@ class CreateQuoteRequest {
         $request->organization_id = $this->organization->getKey();
         $request->user_id         = $this->auth->getUser()->getKey();
         $request->customer_id     = $args['input']['customer_id'] ?? null;
-        $request->customer_name   = $args['input']['customer_name'] ?? null;
+        $request->customer_custom = $args['input']['customer_name'] ?? null;
         $request->type_id         = $args['input']['type_id'];
         $request->message         = $args['input']['message'] ?? null;
         // request save
@@ -64,7 +68,7 @@ class CreateQuoteRequest {
             }
         }
 
-        $request->assets = $assetsInput;
+        $request->assets = new Collection($assetsInput);
         $request->save();
 
         // Send Email

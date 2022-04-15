@@ -29,6 +29,8 @@ use Tests\TestCase;
 use function __;
 
 /**
+ * @deprecated {@see \App\GraphQL\Mutations\QuoteRequest\Create}
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateQuoteRequest
  */
@@ -114,7 +116,7 @@ class CreateQuoteRequestTest extends TestCase {
                     created {
                         oem_id
                         customer_id
-                        customer_name
+                        customer_custom
                         type_id
                         message
                         oem {
@@ -300,17 +302,17 @@ class CreateQuoteRequestTest extends TestCase {
                 'ok-customer_id empty customer_name' => [
                     new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                         'created' => [
-                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                            'customer_name' => null,
-                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            'message'       => 'message',
-                            'oem'           => [
+                            'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                            'customer_custom' => null,
+                            'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'message'         => 'message',
+                            'oem'             => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                 'key'  => 'key1',
                                 'name' => 'oem1',
                             ],
-                            'customer'      => [
+                            'customer'        => [
                                 'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                                 'name'            => 'customer1',
                                 'assets_count'    => 0,
@@ -321,22 +323,22 @@ class CreateQuoteRequestTest extends TestCase {
                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
-                            'contact'       => [
+                            'contact'         => [
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '+27113456789',
                                 'phone_valid'  => true,
                             ],
-                            'type'          => [
+                            'type'            => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                 'name' => 'new',
                             ],
-                            'files'         => [
+                            'files'           => [
                                 [
                                     'name' => 'document.csv',
                                 ],
                             ],
-                            'assets'        => [
+                            'assets'          => [
                                 [
                                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -365,17 +367,17 @@ class CreateQuoteRequestTest extends TestCase {
                 'ok-customer_id null customer_name'  => [
                     new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                         'created' => [
-                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                            'customer_name' => null,
-                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            'message'       => 'message',
-                            'oem'           => [
+                            'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                            'customer_custom' => null,
+                            'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'message'         => 'message',
+                            'oem'             => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                 'key'  => 'key1',
                                 'name' => 'oem1',
                             ],
-                            'customer'      => [
+                            'customer'        => [
                                 'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                                 'name'            => 'customer1',
                                 'assets_count'    => 0,
@@ -386,22 +388,22 @@ class CreateQuoteRequestTest extends TestCase {
                                 'changed_at'      => '2021-10-19T10:15:00+00:00',
                                 'synced_at'       => '2021-10-19T10:25:00+00:00',
                             ],
-                            'contact'       => [
+                            'contact'         => [
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '+27113456789',
                                 'phone_valid'  => true,
                             ],
-                            'type'          => [
+                            'type'            => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                 'name' => 'new',
                             ],
-                            'files'         => [
+                            'files'           => [
                                 [
                                     'name' => 'document.csv',
                                 ],
                             ],
-                            'assets'        => [
+                            'assets'          => [
                                 [
                                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -447,33 +449,33 @@ class CreateQuoteRequestTest extends TestCase {
                 'ok-customer_name empty customer_id' => [
                     new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                         'created' => [
-                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                            'customer_id'   => null,
-                            'customer_name' => 'name',
-                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            'message'       => 'message',
-                            'oem'           => [
+                            'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'     => null,
+                            'customer_custom' => 'name',
+                            'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'message'         => 'message',
+                            'oem'             => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                 'key'  => 'key1',
                                 'name' => 'oem1',
                             ],
-                            'customer'      => null,
-                            'contact'       => [
+                            'customer'        => null,
+                            'contact'         => [
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '+27113456789',
                                 'phone_valid'  => true,
                             ],
-                            'type'          => [
+                            'type'            => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                 'name' => 'new',
                             ],
-                            'files'         => [
+                            'files'           => [
                                 [
                                     'name' => 'document.csv',
                                 ],
                             ],
-                            'assets'        => [
+                            'assets'          => [
                                 [
                                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -518,33 +520,33 @@ class CreateQuoteRequestTest extends TestCase {
                 'ok-customer_name null customer_id'  => [
                     new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                         'created' => [
-                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                            'customer_id'   => null,
-                            'customer_name' => 'name',
-                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            'message'       => 'message',
-                            'oem'           => [
+                            'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'     => null,
+                            'customer_custom' => 'name',
+                            'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'message'         => 'message',
+                            'oem'             => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                 'key'  => 'key1',
                                 'name' => 'oem1',
                             ],
-                            'customer'      => null,
-                            'contact'       => [
+                            'customer'        => null,
+                            'contact'         => [
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '+27113456789',
                                 'phone_valid'  => true,
                             ],
-                            'type'          => [
+                            'type'            => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                 'name' => 'new',
                             ],
-                            'files'         => [
+                            'files'           => [
                                 [
                                     'name' => 'document.csv',
                                 ],
                             ],
-                            'assets'        => [
+                            'assets'          => [
                                 [
                                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -590,33 +592,33 @@ class CreateQuoteRequestTest extends TestCase {
                 'ok: assets null'                    => [
                     new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                         'created' => [
-                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                            'customer_id'   => null,
-                            'customer_name' => 'name',
-                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            'message'       => 'message',
-                            'oem'           => [
+                            'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'     => null,
+                            'customer_custom' => 'name',
+                            'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'message'         => 'message',
+                            'oem'             => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                 'key'  => 'key1',
                                 'name' => 'oem1',
                             ],
-                            'customer'      => null,
-                            'contact'       => [
+                            'customer'        => null,
+                            'contact'         => [
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '+27113456789',
                                 'phone_valid'  => true,
                             ],
-                            'type'          => [
+                            'type'            => [
                                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                 'name' => 'new',
                             ],
-                            'files'         => [
+                            'files'           => [
                                 [
                                     'name' => 'document.csv',
                                 ],
                             ],
-                            'assets'        => [],
+                            'assets'          => [],
                         ],
                     ]),
                     $settings,

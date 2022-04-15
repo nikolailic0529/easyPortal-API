@@ -1,0 +1,10 @@
+extend type Mutation {
+    quoteRequest: QuoteRequestMutations
+    @organization
+    @me
+    @mutation(
+        model: "App\\Models\\QuoteRequest"
+    )
+}
+
+type QuoteRequestMutations

@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasFiles;
-use App\Models\Relations\HasOem;
-use App\Models\Relations\HasType;
+use App\Models\Relations\HasOemNullable;
+use App\Models\Relations\HasOrganization;
+use App\Models\Relations\HasTypeNullable;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -19,33 +20,34 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Collection as BaseCollection;
 
 /**
  * QuoteRequest.
  *
- * @property string                             $id
- * @property string                             $oem_id
- * @property string                             $organization_id
- * @property string                             $user_id
- * @property string|null                        $customer_id
- * @property string|null                        $customer_name
- * @property string                             $type_id
- * @property string                             $message
- * @property CarbonImmutable                    $created_at
- * @property CarbonImmutable                    $updated_at
- * @property CarbonImmutable|null               $deleted_at
- * @property Oem                                $oem
- * @property Organization                       $organization
- * @property Customer|null                      $customer
- * @property Contact                            $contact
- * @property Type                               $type
- * @property Collection<int, Status>            $statuses
- * @property Collection<int, File>              $files
- * @property Collection<int, QuoteRequestAsset> $assets
+ * @property string                                $id
+ * @property string                                $organization_id
+ * @property string                                $user_id
+ * @property string|null                           $customer_id
+ * @property string|null                           $customer_custom
+ * @property string|null                           $oem_id
+ * @property string|null                           $oem_custom
+ * @property string|null                           $type_id
+ * @property string|null                           $type_custom
+ * @property string|null                           $message
+ * @property CarbonImmutable                       $created_at
+ * @property CarbonImmutable                       $updated_at
+ * @property CarbonImmutable|null                  $deleted_at
+ * @property Oem|null                              $oem
+ * @property Organization                          $organization
+ * @property Customer|null                         $customer
+ * @property Contact                               $contact
+ * @property Type|null                             $type
+ * @property Collection<int, Status>               $statuses
+ * @property Collection<int, File>                 $files
+ * @property Collection<int, QuoteRequestAsset>    $assets
+ * @property Collection<int, QuoteRequestDocument> $documents
  * @method static QuoteRequestFactory factory(...$parameters)
  * @method static Builder|QuoteRequest newModelQuery()
  * @method static Builder|QuoteRequest newQuery()
@@ -55,11 +57,12 @@ use Illuminate\Support\Collection as BaseCollection;
 class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
     use OwnedByOrganizationImpl;
-    use HasOem;
+    use HasOemNullable;
     use HasCustomerNullable;
-    use HasType;
+    use HasTypeNullable;
     use HasFiles;
     use HasUser;
+    use HasOrganization;
     use SyncHasMany;
 
     /**
@@ -79,10 +82,25 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     }
 
     /**
-     * @param BaseCollection|array<QuoteRequestAsset> $assets
+     * @param Collection<int, QuoteRequestAsset> $assets
      */
-    public function setAssetsAttribute(BaseCollection|array $assets): void {
+    public function setAssetsAttribute(Collection $assets): void {
         $this->syncHasMany('assets', $assets);
+    }
+
+    /**
+     * @return HasMany<QuoteRequestDocument>
+     */
+    #[CascadeDelete(true)]
+    public function documents(): HasMany {
+        return $this->hasMany(QuoteRequestDocument::class, 'request_id');
+    }
+
+    /**
+     * @param Collection<int,QuoteRequestDocument> $documents
+     */
+    public function setDocumentsAttribute(Collection $documents): void {
+        $this->syncHasMany('documents', $documents);
     }
 
     #[CascadeDelete(true)]
@@ -91,11 +109,9 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     }
 
     public function setContactAttribute(Contact $contact): void {
-        $this->contact()->save($contact);
-    }
-
-    #[CascadeDelete(false)]
-    public function organization(): BelongsTo {
-        return $this->belongsTo(Organization::class);
+        $this->setRelation('contact', $contact);
+        $this->onSave(function () use ($contact): void {
+            $this->contact()->save($contact);
+        });
     }
 }

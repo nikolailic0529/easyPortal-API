@@ -5,6 +5,7 @@ namespace App\GraphQL\Directives\Directives\Mutation;
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
 use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
 use App\GraphQL\Directives\Directives\Mutation\Rules\CustomRule;
+use App\GraphQL\Directives\Directives\Mutation\Rules\LaravelRule;
 use App\Models\Customer;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use Illuminate\Contracts\Validation\Factory;
@@ -22,6 +23,7 @@ use Tests\WithGraphQLSchema;
 use Tests\WithoutOrganizationScope;
 
 use function array_map;
+use function is_object;
 use function json_encode;
 
 /**
@@ -294,6 +296,7 @@ class MutationCallTest extends TestCase {
         // Schema
         $directives = $this->app->make(DirectiveLocator::class);
         $directives->setResolved('isValid', MutationCallTest_Directive::class);
+        $directives->setResolved('isValidLaravel', MutationCallTest_LaravelDirective::class);
 
         $input = $this
             ->getGraphQLSchema(
@@ -315,7 +318,7 @@ class MutationCallTest extends TestCase {
 
                 input TestItem {
                     a: Int @isValid @isValid
-                    c: Boolean
+                    c: Boolean @isValidLaravel
                 }
                 GRAPHQL,
             )
@@ -332,7 +335,9 @@ class MutationCallTest extends TestCase {
         $expected = [];
 
         self::assertEquals($expected, array_map(static function (array $rules): array {
-            return array_map('get_class', $rules);
+            return array_map(static function (object|string $rule): string {
+                return is_object($rule) ? $rule::class : $rule;
+            }, $rules);
         }, $actual));
 
         // Test (with input)
@@ -354,14 +359,16 @@ class MutationCallTest extends TestCase {
         $actual   = $mutation->getRules($context, $set);
         $expected = [
             'a'     => [MutationCallTest_Rule::class],
-            'b.0'   => [MutationCallTest_Rule::class],
-            'b.1'   => [MutationCallTest_Rule::class],
-            'b.2'   => [MutationCallTest_Rule::class],
+            'b.*'   => [MutationCallTest_Rule::class],
+            'b.1.c' => ['required_without:b.1.a'],
             'b.2.a' => [MutationCallTest_Rule::class, MutationCallTest_Rule::class],
+            'b.2.c' => ['required_without:b.2.a'],
         ];
 
         self::assertEquals($expected, array_map(static function (array $rules): array {
-            return array_map('get_class', $rules);
+            return array_map(static function (object|string $rule): string {
+                return is_object($rule) ? $rule::class : $rule;
+            }, $rules);
         }, $actual));
     }
 }
@@ -427,5 +434,19 @@ class MutationCallTest_Rule implements RuleContract {
 
     public function message(): string {
         return 'validation.rule.isValid';
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class MutationCallTest_LaravelDirective extends LaravelRule {
+    public static function definition(): string {
+        return 'directive @isValidLaravel';
+    }
+
+    protected function getRuleName(): string {
+        return 'required_without:b.*.a';
     }
 }

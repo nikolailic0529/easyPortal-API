@@ -40,6 +40,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
+use App\Models\QuoteRequestDocument;
 use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
@@ -157,6 +158,7 @@ class AppServiceProvider extends ServiceProvider {
             'Product'                   => Product::class,
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
+            'QuoteRequestDocument'      => QuoteRequestDocument::class,
             'QuoteRequestDuration'      => QuoteRequestDuration::class,
             'Reseller'                  => Reseller::class,
             'ResellerCustomer'          => ResellerCustomer::class,

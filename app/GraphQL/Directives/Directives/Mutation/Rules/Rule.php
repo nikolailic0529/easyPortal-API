@@ -20,6 +20,8 @@ abstract class Rule extends BaseDirective {
         $class       = new ReflectionClass(static::class);
         $suffix      = 'Directive';
         $directive   = '@'.Str::camel($class->getShortName());
+        $arguments   = static::arguments();
+        $arguments   = $arguments ? "(\n$arguments\n)" : '';
         $description = (new Description())->get($class);
 
         if (str_ends_with($directive, $suffix)) {
@@ -30,18 +32,11 @@ abstract class Rule extends BaseDirective {
             """
             {$description}
             """
-            directive {$directive} on INPUT_FIELD_DEFINITION
+            directive {$directive}{$arguments} on INPUT_FIELD_DEFINITION
             GRAPHQL;
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    protected function getRuleArguments(): array {
-        if (!isset($this->directiveArgs)) {
-            $this->loadArgValues();
-        }
-
-        return $this->directiveArgs;
+    protected static function arguments(): ?string {
+        return null;
     }
 }
