@@ -30,12 +30,15 @@ use Nuwave\Lighthouse\Support\Utils;
 use function array_combine;
 use function array_filter;
 use function array_keys;
+use function array_map;
 use function array_merge;
 use function array_slice;
 use function current;
 use function implode;
 use function is_bool;
+use function is_string;
 use function sprintf;
+use function str_replace;
 
 abstract class MutationCall extends BaseDirective implements FieldResolver {
     protected const NAME              = 'mutationCall';
@@ -141,7 +144,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     }
 
     /**
-     * @return array<string, array<Rule>>
+     * @return array<string, array<Rule|string>>
      */
     protected function getRules(Context $context, ArgumentSet $set, string $prefix = null): array {
         $rules = [];
@@ -161,7 +164,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param array<Argument> $arguments
      *
-     * @return array<Rule>
+     * @return array<string, array<Rule|string>>
      */
     private function getRulesFromArguments(Context $context, ?string $prefix, array $arguments): array {
         $rules = [];
@@ -172,12 +175,30 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
             $argRules = $this->getRulesFromDirectives($context, $argument->directives);
 
             if ($argument->type instanceof ListType) {
-                foreach ((array) $value as $k => $v) {
-                    $k         = "{$key}.{$k}";
-                    $rules[$k] = $argRules;
+                $rules["{$key}.*"] = $argRules;
 
-                    if ($v instanceof ArgumentSet) {
-                        $rules = array_merge($rules, $this->getRules($context, $v, $k));
+                foreach ((array) $value as $i => $v) {
+                    if (!($v instanceof ArgumentSet)) {
+                        continue;
+                    }
+
+                    foreach ($this->getRules($context, $v, "{$key}.{$i}") as $k => $rs) {
+                        // Laravel Rules can contain references to other fields
+                        // where the `*` is the current index -> we need to
+                        // replace `*` by actual index.
+                        //
+                        // Current solution is not so good, would be good to find
+                        // a better one...
+                        $rules[$k] = array_map(
+                            static function (Rule|string $rule) use ($key, $i): Rule|string {
+                                if (is_string($rule)) {
+                                    $rule = str_replace("{$key}.*", "{$key}.{$i}", $rule);
+                                }
+
+                                return $rule;
+                            },
+                            $rs,
+                        );
                     }
                 }
             } elseif ($value instanceof ArgumentSet) {
@@ -194,7 +215,7 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
     /**
      * @param Collection<int, Directive> $directives
      *
-     * @return array<string,Rule>
+     * @return array<Rule|string>
      */
     private function getRulesFromDirectives(Context $context, Collection $directives): array {
         return $directives
