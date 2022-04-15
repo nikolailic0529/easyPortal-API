@@ -86,8 +86,6 @@ use function count;
  * @method static Builder|Document newModelQuery()
  * @method static Builder|Document newQuery()
  * @method static Builder|Document query()
- * @method static Builder|Document queryContracts()
- * @method static Builder|Document queryQuotes()
  * @mixin Eloquent
  */
 class Document extends Model implements OwnedByOrganization, Searchable {
@@ -105,6 +103,10 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasContacts;
     use SyncHasMany;
     use DocumentTypeScope;
+
+    /**
+     * @use DocumentTypeQuery<static>
+     */
     use DocumentTypeQuery;
 
     protected const CASTS = [

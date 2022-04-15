@@ -40,8 +40,6 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @method static Builder|Type newModelQuery()
  * @method static Builder|Type newQuery()
  * @method static Builder|Type query()
- * @method static Builder|Type queryContracts()
- * @method static Builder|Type queryQuotes()
  * @mixin Eloquent
  */
 class Type extends PolymorphicModel implements Translatable {
@@ -50,6 +48,10 @@ class Type extends PolymorphicModel implements Translatable {
     use HasAssets;
     use HasContracts;
     use HasQuotes;
+
+    /**
+     * @use DocumentTypeQuery<static>
+     */
     use DocumentTypeQuery;
 
     /**

@@ -19,7 +19,7 @@ trait HasContracts {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryContracts();
             });
     }

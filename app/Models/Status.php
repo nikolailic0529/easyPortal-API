@@ -78,7 +78,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryContracts();
             })
             ->withTimestamps();
@@ -93,7 +93,7 @@ class Status extends Model implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryQuotes();
             })
             ->withTimestamps();

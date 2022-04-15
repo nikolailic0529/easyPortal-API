@@ -154,7 +154,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
             });
             $builder->orWhere(static function (Builder $builder): void {
                 $builder->whereHasIn('document', static function (Builder $builder): void {
-                    /** @var Builder|Document $builder */
+                    /** @var Builder<Document> $builder */
                     $builder->queryContracts();
                 });
             });
@@ -178,7 +178,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryContracts();
             });
     }
@@ -188,7 +188,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {
-                /** @var Builder|Document $builder */
+                /** @var Builder<Document> $builder */
                 return $builder->queryQuotes();
             });
     }
