@@ -440,8 +440,26 @@ input QuoteRequestCreateAssetInput {
     @isRequired
     @isQuoteRequestDurationId
 
-    service_level_id: ID!
-    @isRequired
+    service_level_custom: String
+    @isRequiredWithout(
+        field: "input.assets.*.service_level_id"
+    )
+    @isProhibitedUnless(
+        field: "input.assets.*.service_level_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    service_level_id: ID
+    @isRequiredWithout(
+        field: "input.assets.*.service_level_custom"
+    )
+    @isProhibitedUnless(
+        field: "input.assets.*.service_level_custom"
+        value: null
+    )
+    @isNullable
     @isServiceLevelId
 }
 
@@ -469,22 +487,25 @@ input QuoteRequestCreateInput {
     @isRequired
     @isPhoneNumber
 
-    customer_id: ID
-    @isRequiredWithout(field: "input.customer_name")
-    @isProhibitedUnless(
-        field: "input.customer_name"
-        value: null
-    )
-    @isNullable
-    @isCustomerId
-
-    customer_name: String
+    customer_custom: String
     @isRequiredWithout(field: "input.customer_id")
     @isProhibitedUnless(
         field: "input.customer_id"
         value: null
     )
     @isNullable
+    @isMax(value: 255)
+
+    customer_id: ID
+    @isRequiredWithout(
+        field: "input.customer_custom"
+    )
+    @isProhibitedUnless(
+        field: "input.customer_custom"
+        value: null
+    )
+    @isNullable
+    @isCustomerId
 
     documents: [QuoteRequestCreateDocumentInput!]
 
@@ -494,12 +515,40 @@ input QuoteRequestCreateInput {
 
     message: HtmlString
 
-    oem_id: ID!
-    @isRequired
+    oem_custom: String
+    @isRequiredWithout(field: "input.oem_id")
+    @isProhibitedUnless(
+        field: "input.oem_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    oem_id: ID
+    @isRequiredWithout(field: "input.oem_custom")
+    @isProhibitedUnless(
+        field: "input.oem_custom"
+        value: null
+    )
+    @isNullable
     @isOemId
 
-    type_id: ID!
-    @isRequired
+    type_custom: String
+    @isRequiredWithout(field: "input.type_id")
+    @isProhibitedUnless(
+        field: "input.type_id"
+        value: null
+    )
+    @isNullable
+    @isMax(value: 255)
+
+    type_id: ID
+    @isRequiredWithout(field: "input.type_custom")
+    @isProhibitedUnless(
+        field: "input.type_custom"
+        value: null
+    )
+    @isNullable
     @isQuoteTypeId
 }
 
@@ -10260,8 +10309,8 @@ type QuoteRequest {
     customer: Customer
     @belongsTo
 
+    customer_custom: String
     customer_id: ID
-    customer_name: String
 
     documents: [QuoteRequestDocument!]!
     @hasMany
@@ -10272,15 +10321,17 @@ type QuoteRequest {
     id: ID!
     message: String
 
-    oem: Oem!
+    oem: Oem
     @belongsTo
 
-    oem_id: ID!
+    oem_custom: String
+    oem_id: ID
 
-    type: Type!
+    type: Type
     @belongsTo
 
-    type_id: ID!
+    type_custom: String
+    type_id: ID
 
     user: User!
     @belongsTo
@@ -10300,10 +10351,11 @@ type QuoteRequestAsset {
     duration_id: ID!
     id: ID!
 
-    serviceLevel: ServiceLevel!
+    serviceLevel: ServiceLevel
     @belongsTo
 
-    service_level_id: ID!
+    service_level_custom: String
+    service_level_id: ID
 }
 
 type QuoteRequestCreatePayload
@@ -10989,6 +11041,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isLocale
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isMax(value: Int!)
 on
     | INPUT_FIELD_DEFINITION
 

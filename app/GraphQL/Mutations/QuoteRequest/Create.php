@@ -29,20 +29,22 @@ class Create {
      * @param array<string, array{input: array<string, mixed>}> $args
      */
     public function __invoke(mixed $root, array $args): QuoteRequest|bool {
-        $input                  = new CreateInput($args['input']);
-        $request                = new QuoteRequest();
-        $request->organization  = $this->organization->get();
-        $request->user          = $this->auth->getUser();
-        $request->oem_id        = $input->oem_id;
-        $request->type_id       = $input->type_id;
-        $request->message       = $input->message;
-        $request->customer_id   = $input->customer_id;
-        $request->customer_name = $input->customer_name;
-        $request->contact       = $this->getContact($request, $input);
-        $request->files         = $this->getFiles($request, $input);
-        $request->assets        = $this->getAssets($request, $input);
-        $request->documents     = $this->getDocuments($request, $input);
-        $result                 = $request->save();
+        $input                    = new CreateInput($args['input']);
+        $request                  = new QuoteRequest();
+        $request->organization    = $this->organization->get();
+        $request->user            = $this->auth->getUser();
+        $request->oem_id          = $input->oem_id;
+        $request->oem_custom      = $input->oem_custom;
+        $request->type_id         = $input->type_id;
+        $request->type_custom     = $input->type_custom;
+        $request->message         = $input->message;
+        $request->customer_id     = $input->customer_id;
+        $request->customer_custom = $input->customer_custom;
+        $request->contact         = $this->getContact($request, $input);
+        $request->files           = $this->getFiles($request, $input);
+        $request->assets          = $this->getAssets($request, $input);
+        $request->documents       = $this->getDocuments($request, $input);
+        $result                   = $request->save();
 
         if ($result) {
             $this->mailer->send(new QuoteRequestMail($request));
@@ -78,15 +80,17 @@ class Create {
         $assets = new Collection();
 
         foreach ((array) $input->assets as $asset) {
-            $quoteAsset                   = new QuoteRequestAsset();
-            $quoteAsset->asset_id         = $asset->asset_id;
-            $quoteAsset->duration_id      = $asset->duration_id;
-            $quoteAsset->service_level_id = $asset->service_level_id;
+            $quoteAsset                       = new QuoteRequestAsset();
+            $quoteAsset->asset_id             = $asset->asset_id;
+            $quoteAsset->duration_id          = $asset->duration_id;
+            $quoteAsset->service_level_id     = $asset->service_level_id;
+            $quoteAsset->service_level_custom = $asset->service_level_custom;
 
             $key          = (string) new CacheKey([
                 $quoteAsset->asset_id,
                 $quoteAsset->duration_id,
                 $quoteAsset->service_level_id,
+                $quoteAsset->service_level_custom,
             ]);
             $assets[$key] = $quoteAsset;
         }

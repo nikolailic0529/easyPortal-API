@@ -100,10 +100,12 @@ class CreateTest extends TestCase {
                     create(input: $input) {
                         result
                         quoteRequest {
-                            oem_id
                             customer_id
-                            customer_name
+                            customer_custom
+                            oem_id
+                            oem_custom
                             type_id
+                            type_custom
                             message
                             oem {
                                 id
@@ -153,6 +155,7 @@ class CreateTest extends TestCase {
                             }
                             assets {
                                 asset_id
+                                service_level_custom
                                 service_level_id
                                 serviceLevel {
                                     id
@@ -273,24 +276,26 @@ class CreateTest extends TestCase {
                 'requests-quote-add',
             ]),
             new ArrayDataProvider([
-                'ok'                                 => [
+                'ok'                                        => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
-                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                                'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                                'customer_name' => null,
-                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                                'message'       => 'message',
-                                'oem'           => [
+                                'oem_custom'      => null,
+                                'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                                'customer_custom' => null,
+                                'type_custom'     => null,
+                                'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'         => 'message',
+                                'oem'             => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                     'key'  => 'key1',
                                     'name' => 'oem1',
                                 ],
-                                'customer'      => [
+                                'customer'        => [
                                     'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                                     'name'            => 'customer1',
                                     'assets_count'    => 0,
@@ -301,32 +306,33 @@ class CreateTest extends TestCase {
                                     'changed_at'      => '2021-10-19T10:15:00+00:00',
                                     'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
-                                'contact'       => [
+                                'contact'         => [
                                     'email'        => 'contact1@test.com',
                                     'name'         => 'contact1',
                                     'phone_number' => '+27113456789',
                                     'phone_valid'  => true,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                     'name' => 'new',
                                 ],
-                                'files'         => [
+                                'files'           => [
                                     [
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [
+                                'assets'          => [
                                     [
-                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                                        'duration'         => [
+                                        'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_custom' => null,
+                                        'service_level_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'             => [
                                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                             'name' => '5-10 years',
                                             'key'  => '5-10 years',
                                         ],
-                                        'serviceLevel'     => [
+                                        'serviceLevel'         => [
                                             'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                                             'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                             'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
@@ -336,7 +342,7 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'documents'     => [
+                                'documents'       => [
                                     [
                                         'document_id' => '047f06f5-e62f-464a-8df8-bd9834e21915',
                                         'document'    => [
@@ -379,24 +385,90 @@ class CreateTest extends TestCase {
                         'files'         => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'ok-customer_id null customer_name'  => [
+                'ok (custom)'                               => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
-                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                                'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                                'customer_name' => null,
-                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                                'message'       => 'message',
-                                'oem'           => [
+                                'message'         => null,
+                                'oem_custom'      => 'Custom OEM',
+                                'oem_id'          => null,
+                                'oem'             => null,
+                                'customer_custom' => 'Custom Customer',
+                                'customer_id'     => null,
+                                'customer'        => null,
+                                'contact'         => [
+                                    'email'        => 'contact1@test.com',
+                                    'name'         => 'contact1',
+                                    'phone_number' => '+27113456789',
+                                    'phone_valid'  => true,
+                                ],
+                                'type_custom'     => 'Custom Type',
+                                'type_id'         => null,
+                                'type'            => null,
+                                'files'           => [
+                                    // empty
+                                ],
+                                'assets'          => [
+                                    [
+                                        'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'duration'             => [
+                                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                            'name' => '5-10 years',
+                                            'key'  => '5-10 years',
+                                        ],
+                                        'service_level_custom' => 'Custom ServiceLevel',
+                                        'service_level_id'     => null,
+                                        'serviceLevel'         => null,
+                                    ],
+                                ],
+                                'documents'       => [
+                                    // empty
+                                ],
+                            ],
+                        ]),
+                    ),
+                    $settings,
+                    $prepare,
+                    [
+                        'oem_custom'      => 'Custom OEM',
+                        'type_custom'     => 'Custom Type',
+                        'customer_custom' => 'Custom Customer',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                        'assets'          => [
+                            [
+                                'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                'service_level_custom' => 'Custom ServiceLevel',
+                            ],
+                        ],
+                    ],
+                ],
+                'ok-customer_id null customer_custom'       => [
+                    new GraphQLSuccess(
+                        'quoteRequest',
+                        new JsonFragmentSchema('create', Create::class),
+                        new JsonFragment('create', [
+                            'result'       => true,
+                            'quoteRequest' => [
+                                'oem_custom'      => null,
+                                'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                                'customer_custom' => null,
+                                'type_custom'     => null,
+                                'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'         => 'message',
+                                'oem'             => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                     'key'  => 'key1',
                                     'name' => 'oem1',
                                 ],
-                                'customer'      => [
+                                'customer'        => [
                                     'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                                     'name'            => 'customer1',
                                     'assets_count'    => 0,
@@ -407,32 +479,33 @@ class CreateTest extends TestCase {
                                     'changed_at'      => '2021-10-19T10:15:00+00:00',
                                     'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
-                                'contact'       => [
+                                'contact'         => [
                                     'email'        => 'contact1@test.com',
                                     'name'         => 'contact1',
                                     'phone_number' => '+27113456789',
                                     'phone_valid'  => true,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                     'name' => 'new',
                                 ],
-                                'files'         => [
+                                'files'           => [
                                     [
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [
+                                'assets'          => [
                                     [
-                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                                        'duration'         => [
+                                        'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_custom' => null,
+                                        'service_level_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'             => [
                                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                             'name' => '5-10 years',
                                             'key'  => '5-10 years',
                                         ],
-                                        'serviceLevel'     => [
+                                        'serviceLevel'         => [
                                             'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                                             'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                             'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
@@ -442,7 +515,7 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'documents'     => [
+                                'documents'       => [
                                     // empty
                                 ],
                             ],
@@ -451,68 +524,71 @@ class CreateTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'customer_name' => null,
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'customer_custom' => null,
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                        'assets'          => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        'message'         => 'message',
+                        'files'           => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'ok-customer_name empty customer_id' => [
+                'ok-customer_custom empty customer_id'      => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
-                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                                'customer_id'   => null,
-                                'customer_name' => 'name',
-                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                                'message'       => 'message',
-                                'oem'           => [
+                                'oem_custom'      => null,
+                                'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'     => null,
+                                'customer_custom' => 'name',
+                                'type_custom'     => null,
+                                'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'         => 'message',
+                                'oem'             => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                     'key'  => 'key1',
                                     'name' => 'oem1',
                                 ],
-                                'customer'      => null,
-                                'contact'       => [
+                                'customer'        => null,
+                                'contact'         => [
                                     'email'        => 'contact1@test.com',
                                     'name'         => 'contact1',
                                     'phone_number' => '+27113456789',
                                     'phone_valid'  => true,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                     'name' => 'new',
                                 ],
-                                'files'         => [
+                                'files'           => [
                                     [
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [
+                                'assets'          => [
                                     [
-                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                                        'duration'         => [
+                                        'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_custom' => null,
+                                        'service_level_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'             => [
                                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                             'name' => '5-10 years',
                                             'key'  => '5-10 years',
                                         ],
-                                        'serviceLevel'     => [
+                                        'serviceLevel'         => [
                                             'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                                             'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                             'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
@@ -522,7 +598,7 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'documents'     => [
+                                'documents'       => [
                                     // empty
                                 ],
                             ],
@@ -531,67 +607,70 @@ class CreateTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_name' => 'name',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_custom' => 'name',
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                        'assets'          => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        'message'         => 'message',
+                        'files'           => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'ok-customer_name null customer_id'  => [
+                'ok-customer_custom null customer_id'       => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
-                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                                'customer_id'   => null,
-                                'customer_name' => 'name',
-                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                                'message'       => 'message',
-                                'oem'           => [
+                                'oem_custom'      => null,
+                                'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'     => null,
+                                'customer_custom' => 'name',
+                                'type_custom'     => null,
+                                'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'         => 'message',
+                                'oem'             => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                     'key'  => 'key1',
                                     'name' => 'oem1',
                                 ],
-                                'customer'      => null,
-                                'contact'       => [
+                                'customer'        => null,
+                                'contact'         => [
                                     'email'        => 'contact1@test.com',
                                     'name'         => 'contact1',
                                     'phone_number' => '+27113456789',
                                     'phone_valid'  => true,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                     'name' => 'new',
                                 ],
-                                'files'         => [
+                                'files'           => [
                                     [
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [
+                                'assets'          => [
                                     [
-                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
-                                        'duration'         => [
+                                        'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_custom' => null,
+                                        'service_level_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'             => [
                                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                             'name' => '5-10 years',
                                             'key'  => '5-10 years',
                                         ],
-                                        'serviceLevel'     => [
+                                        'serviceLevel'         => [
                                             'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                                             'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                             'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
@@ -601,7 +680,7 @@ class CreateTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'documents'     => [
+                                'documents'       => [
                                     // empty
                                 ],
                             ],
@@ -610,61 +689,63 @@ class CreateTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => null,
-                        'customer_name' => 'name',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => [
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'     => null,
+                        'customer_custom' => 'name',
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                        'assets'          => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        'message'         => 'message',
+                        'files'           => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'ok: assets null'                    => [
+                'ok: assets null'                           => [
                     new GraphQLSuccess(
                         'quoteRequest',
                         new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
-                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                                'customer_id'   => null,
-                                'customer_name' => 'name',
-                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                                'message'       => 'message',
-                                'oem'           => [
+                                'oem_custom'      => null,
+                                'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'     => null,
+                                'customer_custom' => 'name',
+                                'type_custom'     => null,
+                                'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'         => 'message',
+                                'oem'             => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                                     'key'  => 'key1',
                                     'name' => 'oem1',
                                 ],
-                                'customer'      => null,
-                                'contact'       => [
+                                'customer'        => null,
+                                'contact'         => [
                                     'email'        => 'contact1@test.com',
                                     'name'         => 'contact1',
                                     'phone_number' => '+27113456789',
                                     'phone_valid'  => true,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                                     'name' => 'new',
                                 ],
-                                'files'         => [
+                                'files'           => [
                                     [
                                         'name' => 'document.csv',
                                     ],
                                 ],
-                                'assets'        => [
+                                'assets'          => [
                                     // empty
                                 ],
-                                'documents'     => [
+                                'documents'       => [
                                     // empty
                                 ],
                             ],
@@ -673,18 +754,18 @@ class CreateTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_name' => 'name',
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
-                        'assets'        => null,
-                        'message'       => 'message',
-                        'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_custom' => 'name',
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                        'assets'          => null,
+                        'message'         => 'message',
+                        'files'           => [UploadedFile::fake()->create('document.csv', 200)],
                     ],
                 ],
-                'Invalid oem'                        => [
+                'Invalid oem'                               => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -704,7 +785,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid customer id'                => [
+                'Invalid customer id'                       => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -724,7 +805,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid contact name'               => [
+                'Invalid contact name'                      => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -744,7 +825,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid contact phone'              => [
+                'Invalid contact phone'                     => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -764,7 +845,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid contact email'              => [
+                'Invalid contact email'                     => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -777,7 +858,7 @@ class CreateTest extends TestCase {
                         'contact_phone' => '+27113456789',
                     ],
                 ],
-                'Invalid type'                       => [
+                'Invalid type'                              => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -790,7 +871,7 @@ class CreateTest extends TestCase {
                         'contact_phone' => '+27113456789',
                     ],
                 ],
-                'Invalid asset'                      => [
+                'Invalid asset'                             => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -810,7 +891,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid duration'                   => [
+                'Invalid duration'                          => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -830,7 +911,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid service level'              => [
+                'Invalid service level'                     => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -850,7 +931,7 @@ class CreateTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid file size'                  => [
+                'Invalid file size'                         => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -865,7 +946,7 @@ class CreateTest extends TestCase {
                         'files'         => [UploadedFile::fake()->create('document.csv', 300)],
                     ],
                 ],
-                'Invalid file format'                => [
+                'Invalid file format'                       => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
@@ -880,32 +961,53 @@ class CreateTest extends TestCase {
                         'files'         => [UploadedFile::fake()->create('document.jpg', 200)],
                     ],
                 ],
-                'Invalid customer id/name'           => [
+                'Invalid customer id/name'                  => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
                     [
-                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id'   => null,
-                        'customer_name' => null,
-                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'contact_name'  => 'contact1',
-                        'contact_email' => 'contact1@test.com',
-                        'contact_phone' => '+27113456789',
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'     => null,
+                        'customer_custom' => null,
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
                     ],
                 ],
-                'customer_id and customer_name'      => [
+                'customer_id and customer_custom'           => [
+                    new GraphQLValidationError('quoteRequest'),
+                    $settings,
+                    $prepare,
+                    [
+                        'oem_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'customer_custom' => 'Customer name',
+                        'type_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'    => 'contact1',
+                        'contact_email'   => 'contact1@test.com',
+                        'contact_phone'   => '+27113456789',
+                    ],
+                ],
+                'service_level_id and service_level_custom' => [
                     new GraphQLValidationError('quoteRequest'),
                     $settings,
                     $prepare,
                     [
                         'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                         'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'customer_name' => 'Customer name',
                         'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                         'contact_name'  => 'contact1',
                         'contact_email' => 'contact1@test.com',
                         'contact_phone' => '+27113456789',
+                        'assets'        => [
+                            [
+                                'asset_id'             => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'duration_id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                'service_level_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                'service_level_custom' => 'Custom ServiceLevel',
+                            ],
+                        ],
                     ],
                 ],
             ]),

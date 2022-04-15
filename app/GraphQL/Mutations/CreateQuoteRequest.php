@@ -36,7 +36,7 @@ class CreateQuoteRequest {
         $request->organization_id = $this->organization->getKey();
         $request->user_id         = $this->auth->getUser()->getKey();
         $request->customer_id     = $args['input']['customer_id'] ?? null;
-        $request->customer_name   = $args['input']['customer_name'] ?? null;
+        $request->customer_custom = $args['input']['customer_name'] ?? null;
         $request->type_id         = $args['input']['type_id'];
         $request->message         = $args['input']['message'] ?? null;
         // request save

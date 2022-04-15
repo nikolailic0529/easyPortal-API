@@ -39,6 +39,7 @@ class QuoteRequestFactory extends Factory {
             'oem_id'          => static function (): Oem {
                 return Oem::query()->first() ?? Oem::factory()->create();
             },
+            'oem_custom'      => null,
             'organization_id' => static function (): Organization {
                 return Organization::query()->first() ?? Organization::factory()->create();
             },
@@ -48,10 +49,11 @@ class QuoteRequestFactory extends Factory {
             'customer_id'     => static function (): Customer {
                 return Customer::query()->first() ?? Customer::factory()->create();
             },
-            'customer_name'   => null,
+            'customer_custom' => null,
             'type_id'         => static function (): Type {
                 return Type::query()->first() ?? Type::factory()->create();
             },
+            'type_custom'     => null,
             'message'         => $this->faker->text,
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),

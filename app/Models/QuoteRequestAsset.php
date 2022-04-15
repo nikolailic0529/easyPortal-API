@@ -19,13 +19,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                    $request_id
  * @property string                    $asset_id
  * @property string                    $duration_id
- * @property string                    $service_level_id
+ * @property string|null               $service_level_id
+ * @property string|null               $service_level_custom
  * @property CarbonImmutable           $created_at
  * @property CarbonImmutable           $updated_at
  * @property CarbonImmutable|null      $deleted_at
  * @property Asset                     $asset
  * @property-read QuoteRequestDuration $duration
- * @property-read ServiceLevel         $serviceLevel
+ * @property-read ServiceLevel|null    $serviceLevel
  * @property-read QuoteRequest         $request
  * @method static QuoteRequestAssetFactory factory(...$parameters)
  * @method static Builder|QuoteRequestAsset newModelQuery()

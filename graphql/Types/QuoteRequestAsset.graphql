@@ -4,6 +4,7 @@ type QuoteRequestAsset {
     asset: Asset! @belongsTo
     duration_id: ID!
     duration: QuoteRequestDuration! @belongsTo
-    service_level_id: ID!
-    serviceLevel: ServiceLevel! @belongsTo
+    service_level_custom: String
+    service_level_id: ID
+    serviceLevel: ServiceLevel @belongsTo
 }

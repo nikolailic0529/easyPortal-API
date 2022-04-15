@@ -6,7 +6,7 @@
         "oem_id",
         "oem",
         "customer_id",
-        "customer_name",
+        "customer_custom",
         "customer",
         "contact",
         "type_id",
@@ -19,10 +19,24 @@
             "$ref": "../types.json#/definitions/ID"
         },
         "oem_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "oem": {
-            "$ref": "../types.json#/definitions/Oem"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Oem"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "user_id": {
             "$ref": "../types.json#/definitions/ID"
@@ -47,7 +61,7 @@
                 }
             ]
         },
-        "customer_name": {
+        "customer_custom": {
             "type": [
                 "string",
                 "null"
@@ -57,10 +71,24 @@
             "$ref": "../types.json#/definitions/Contact"
         },
         "type_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "type": {
-            "$ref": "../types.json#/definitions/Type"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Type"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "message": {
             "type": [

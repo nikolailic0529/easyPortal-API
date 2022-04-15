@@ -7,11 +7,13 @@ use App\Utils\JsonObject\JsonObjectArray;
 use Illuminate\Http\UploadedFile;
 
 class CreateInput extends JsonObject {
-    public string  $oem_id;
-    public string  $type_id;
-    public ?string $message       = null;
-    public ?string $customer_id   = null;
-    public ?string $customer_name = null;
+    public ?string $oem_id          = null;
+    public ?string $oem_custom      = null;
+    public ?string $type_id         = null;
+    public ?string $type_custom     = null;
+    public ?string $message         = null;
+    public ?string $customer_id     = null;
+    public ?string $customer_custom = null;
     public string  $contact_name;
     public string  $contact_phone;
     public string  $contact_email;

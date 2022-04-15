@@ -34,22 +34,23 @@ class QuoteRequestAssetFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'               => $this->faker->uuid,
-            'request_id'       => static function (): QuoteRequest {
+            'id'                   => $this->faker->uuid,
+            'request_id'           => static function (): QuoteRequest {
                 return QuoteRequest::query()->first() ?? QuoteRequest::factory()->create();
             },
-            'service_level_id' => static function (): ServiceLevel {
+            'service_level_id'     => static function (): ServiceLevel {
                 return ServiceLevel::query()->first() ?? ServiceLevel::factory()->create();
             },
-            'asset_id'         => static function (): Asset {
+            'service_level_custom' => null,
+            'asset_id'             => static function (): Asset {
                 return Asset::query()->first() ?? Asset::factory()->create();
             },
-            'duration_id'      => static function (): QuoteRequestDuration {
+            'duration_id'          => static function (): QuoteRequestDuration {
                 return QuoteRequestDuration::query()->first() ?? QuoteRequestDuration::factory()->create();
             },
-            'created_at'       => Date::now(),
-            'updated_at'       => Date::now(),
-            'deleted_at'       => null,
+            'created_at'           => Date::now(),
+            'updated_at'           => Date::now(),
+            'deleted_at'           => null,
         ];
     }
 }

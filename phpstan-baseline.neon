@@ -2036,12 +2036,12 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$customer_id \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$customer_custom \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$customer_name \\(string\\|null\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$customer_id \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -2056,12 +2056,12 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$oem_id \\(string\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$oem_id \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$type_id \\(string\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequest\\:\\:\\$type_id \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -2076,7 +2076,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\QuoteRequestAsset\\:\\:\\$service_level_id \\(string\\) does not accept mixed\\.$#"
+			message: "#^Property App\\\\Models\\\\QuoteRequestAsset\\:\\:\\$service_level_id \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteRequest.php
 
@@ -6386,11 +6386,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:product\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -7651,11 +7646,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:oemGroup\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Document.php
@@ -8236,11 +8226,6 @@ parameters:
 			path: app/Models/Oem.php
 
 		-
-			message: "#^Method App\\\\Models\\\\OemGroup\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/OemGroup.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Organization\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -8391,11 +8376,6 @@ parameters:
 			path: app/Models/Permission.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Product\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Product.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Product\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Product.php
@@ -8432,11 +8412,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:files\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
 
@@ -9106,11 +9081,6 @@ parameters:
 			path: app/Models/ServiceGroup.php
 
 		-
-			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/ServiceGroup.php
-
-		-
 			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:documentEntries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/ServiceLevel.php
@@ -9128,11 +9098,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/ServiceLevel.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:oem\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
 			path: app/Models/ServiceLevel.php
 
 		-

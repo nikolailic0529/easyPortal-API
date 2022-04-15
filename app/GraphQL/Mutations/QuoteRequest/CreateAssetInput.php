@@ -5,7 +5,8 @@ namespace App\GraphQL\Mutations\QuoteRequest;
 use App\Utils\JsonObject\JsonObject;
 
 class CreateAssetInput extends JsonObject {
-    public string $asset_id;
-    public string $duration_id;
-    public string $service_level_id;
+    public string  $asset_id;
+    public string  $duration_id;
+    public ?string $service_level_id     = null;
+    public ?string $service_level_custom = null;
 }

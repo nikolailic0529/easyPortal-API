@@ -4,9 +4,9 @@
 
 A new quote request from organization {{ $request->organization->name }}
 
-**Oem**: {{ $request->oem->name }}<br>
-**Customer**: {{ $request->customer ? $request->customer->name : $request->customer_name }}<br>
-**Type**: {{ $request->type->name }}<br>
+**Oem**: {{ $request->oem_custom ?: $request->oem->name }}<br>
+**Customer**: {{ $request->customer_custom ?: $request->customer->name }}<br>
+**Type**: {{ $request->type_custom ?: $request->type->name }}<br>
 
 ## Contact Info:
 
@@ -20,7 +20,7 @@ A new quote request from organization {{ $request->organization->name }}
 | Product Name | Service Level | Duration   |
 | ------------ | ------------- | :--------: |
 @foreach($request->assets as $asset)
-| {{ $asset->asset->product->name }} | {{ $asset->serviceLevel->name }} | {{ $asset->duration->name }} |
+| {{ $asset->asset->product->name }} | {{ $asset->service_level_custom ?: $asset->serviceLevel->name }} | {{ $asset->duration->name }} |
 @endforeach
 @endcomponent
 @endif

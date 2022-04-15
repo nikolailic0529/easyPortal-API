@@ -260,7 +260,7 @@ class AssetTest extends TestCase {
                                 name
                             }
                             customer_id
-                            customer_name
+                            customer_custom
                             customer {
                                 id
                                 name
@@ -615,17 +615,17 @@ class AssetTest extends TestCase {
                                 ],
                             ],
                             'quoteRequest'        => [
-                                'id'            => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
-                                'type_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
-                                'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'oem'           => [
+                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                'type_id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
+                                'oem_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'oem'             => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'key'  => 'key',
                                     'name' => 'oem1',
                                 ],
-                                'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'customer_name' => null,
-                                'customer'      => [
+                                'customer_id'     => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'customer_custom' => null,
+                                'customer'        => [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
@@ -656,17 +656,17 @@ class AssetTest extends TestCase {
                                     'changed_at'      => '2021-10-19T10:15:00+00:00',
                                     'synced_at'       => '2021-10-19T10:25:00+00:00',
                                 ],
-                                'contact'       => [
+                                'contact'         => [
                                     'name'        => 'contact3',
                                     'email'       => 'contact3@test.com',
                                     'phone_valid' => false,
                                 ],
-                                'type'          => [
+                                'type'            => [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
                                     'name' => 'new',
                                 ],
-                                'files'         => [],
-                                'message'       => null,
+                                'files'           => [],
+                                'message'         => null,
                             ],
                             'changeRequest'       => [
                                 'id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',

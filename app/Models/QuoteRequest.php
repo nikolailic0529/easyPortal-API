@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasFiles;
-use App\Models\Relations\HasOem;
+use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasOrganization;
-use App\Models\Relations\HasType;
+use App\Models\Relations\HasTypeNullable;
 use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -27,21 +27,23 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * QuoteRequest.
  *
  * @property string                                $id
- * @property string                                $oem_id
  * @property string                                $organization_id
  * @property string                                $user_id
  * @property string|null                           $customer_id
- * @property string|null                           $customer_name
- * @property string                                $type_id
+ * @property string|null                           $customer_custom
+ * @property string|null                           $oem_id
+ * @property string|null                           $oem_custom
+ * @property string|null                           $type_id
+ * @property string|null                           $type_custom
  * @property string|null                           $message
  * @property CarbonImmutable                       $created_at
  * @property CarbonImmutable                       $updated_at
  * @property CarbonImmutable|null                  $deleted_at
- * @property Oem                                   $oem
+ * @property Oem|null                              $oem
  * @property Organization                          $organization
  * @property Customer|null                         $customer
  * @property Contact                               $contact
- * @property Type                                  $type
+ * @property Type|null                             $type
  * @property Collection<int, Status>               $statuses
  * @property Collection<int, File>                 $files
  * @property Collection<int, QuoteRequestAsset>    $assets
@@ -55,9 +57,9 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;
     use OwnedByOrganizationImpl;
-    use HasOem;
+    use HasOemNullable;
     use HasCustomerNullable;
-    use HasType;
+    use HasTypeNullable;
     use HasFiles;
     use HasUser;
     use HasOrganization;
