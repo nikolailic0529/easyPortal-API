@@ -1411,6 +1411,11 @@ parameters:
 			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslationsTest.php
 
 		-
+			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Asset/SetNicknameTest.php
+
+		-
 			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Asset/Sync.php
@@ -20216,6 +20221,16 @@ parameters:
 			path: tests/TestCase.php
 
 		-
+			message: "#^PHPDoc tag @param for parameter \\$organization with type Tests\\\\OrganizationFactory is not subtype of native type App\\\\Models\\\\Organization\\|Closure\\|null\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$user with type Tests\\\\UserFactory is not subtype of native type App\\\\Models\\\\User\\|Closure\\|null\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
 			message: "#^Parameter \\#1 \\$ of closure expects Mockery\\\\MockInterface&T, Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: tests/TestCase.php
@@ -20232,6 +20247,16 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface&T, Tests\\\\TestCase\\)\\: T\\)\\|null\\) of method Tests\\\\TestCase\\:\\:override\\(\\) should be contravariant with parameter \\$factory \\(Closure\\|null\\) of method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:override\\(\\)$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\$organization of method Tests\\\\TestCase\\:\\:setOrganization\\(\\) has invalid type Tests\\\\OrganizationFactory\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\$user of method Tests\\\\TestCase\\:\\:setUser\\(\\) has invalid type Tests\\\\UserFactory\\.$#"
 			count: 1
 			path: tests/TestCase.php
 
