@@ -8,6 +8,7 @@ input AssetsQuery {
     location_id: ID!
     status_id: ID
     serial_number: String
+    nickname: String
     warranty_end: Date
     location: LocationsQuery
     customer: CustomersQuery

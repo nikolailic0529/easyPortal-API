@@ -1716,6 +1716,11 @@ input SearchByConditionAssetsQuery {
     location_id: SearchByScalarID
 
     """
+    Property condition.
+    """
+    nickname: SearchByScalarStringOrNull
+
+    """
     Not.
     """
     not: SearchByConditionAssetsQuery
@@ -4217,6 +4222,11 @@ input SortByClauseAssetsQuery {
     """
     Property clause.
     """
+    nickname: SortByDirection
+
+    """
+    Property clause.
+    """
     oem_id: SortByDirection
 
     """
@@ -4333,6 +4343,11 @@ input SortByClauseAssetsSort {
     Property clause.
     """
     location: SortByClauseLocationsSort
+
+    """
+    Property clause.
+    """
+    nickname: SortByDirection
 
     """
     Property clause.
@@ -6224,6 +6239,7 @@ type Asset {
     @belongsTo
 
     location_id: ID
+    nickname: String
 
     oem: Oem!
     @belongsTo
