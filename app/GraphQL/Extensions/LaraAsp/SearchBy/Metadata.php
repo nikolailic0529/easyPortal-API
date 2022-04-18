@@ -42,6 +42,7 @@ class Metadata {
         if (!isset($this->metadata)) {
             $this->metadata = [
                 (new Asset())->getTable().'.serial_number' => true,
+                (new Asset())->getTable().'.nickname'      => true,
                 (new Document())->getTable().'.number'     => true,
                 (new Customer())->getTable().'.name'       => true,
                 (new Product())->getTable().'.name'        => true,

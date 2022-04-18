@@ -43,9 +43,9 @@ class ResetPasswordTest extends TestCase {
 
         $success = null;
         $input   = [
-            'email'    => '',
-            'token'    => '',
-            'password' => '',
+            'email'    => $this->faker->email,
+            'token'    => $this->faker->sha256(),
+            'password' => $this->faker->password(8),
         ];
 
         if ($prepare) {

@@ -293,6 +293,12 @@
                         "null"
                     ]
                 },
+                "nickname": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "warranty_end": {
                     "oneOf": [
                         {
@@ -1471,7 +1477,10 @@
                     "type": "boolean"
                 },
                 "cron": {
-                    "type": ["string", "null"]
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "queue": {
                     "type": "string"

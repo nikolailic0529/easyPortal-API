@@ -73,6 +73,7 @@ class AssetsTest extends TestCase {
                         customer_id
                         location_id
                         serial_number
+                        nickname
                         contacts_count
                         data_quality
                         oem {
@@ -312,6 +313,7 @@ class AssetsTest extends TestCase {
                                     'type_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'customer_id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'serial_number'       => '#PRODUCT_SERIAL_323',
+                                    'nickname'            => 'nickname123',
                                     'contacts_count'      => 1,
                                     'data_quality'        => '130',
                                     'oem'                 => [
@@ -651,6 +653,7 @@ class AssetsTest extends TestCase {
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'reseller_id'         => $reseller,
                                     'serial_number'       => '#PRODUCT_SERIAL_323',
+                                    'nickname'            => 'nickname123',
                                     'warranty_end'        => '2022-01-01',
                                     'warranty_changed_at' => '2021-10-19 10:25:00',
                                     'contacts_count'      => 1,

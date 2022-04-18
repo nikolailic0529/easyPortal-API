@@ -48,6 +48,7 @@ use function count;
  * @property string|null                         $location_id current
  * @property string|null                         $status_id
  * @property string|null                         $serial_number
+ * @property string|null                         $nickname
  * @property CarbonImmutable|null                $warranty_end
  * @property CarbonImmutable|null                $warranty_changed_at
  * @property string|null                         $data_quality

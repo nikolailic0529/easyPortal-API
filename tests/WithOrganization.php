@@ -11,8 +11,13 @@ use Illuminate\Contracts\Config\Repository;
 
 /**
  * @mixin TestCase
+ *
+ * @phpstan-type OrganizationFactory Organization|Closure(static):?Organization|null
  */
 trait WithOrganization {
+    /**
+     * @param OrganizationFactory $organization
+     */
     protected function setOrganization(Organization|Closure|null $organization): ?Organization {
         if ($organization instanceof Closure) {
             $organization = $organization($this);
@@ -44,6 +49,9 @@ trait WithOrganization {
         return $organization;
     }
 
+    /**
+     * @param OrganizationFactory $organization
+     */
     public function setRootOrganization(Organization|Closure|null $organization): ?Organization {
         if ($organization instanceof Closure) {
             $organization = $organization($this);
