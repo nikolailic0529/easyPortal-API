@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 use App\Services\Auth\Permissions\Administer;
 use App\Services\Auth\Permissions\AssetsDownload;
+use App\Services\Auth\Permissions\AssetsEditNickname;
 use App\Services\Auth\Permissions\AssetsSupport;
 use App\Services\Auth\Permissions\AssetsSync;
 use App\Services\Auth\Permissions\AssetsView;
@@ -84,6 +85,7 @@ class Permissions {
             new AssetsSupport(),
             new AssetsDownload(),
             new AssetsSync(),
+            new AssetsEditNickname(),
             // Contracts
             new ContractsView(),
             new ContractsSupport(),

@@ -91,6 +91,12 @@ input ApplicationMaintenanceScheduleInput {
     start: DateTime!
 }
 
+input AssetSetNicknameInput {
+    nickname: String
+    @isNullable
+    @isMax(value: 255)
+}
+
 input AuthOrganizationAuthorizeInput {
     code: String!
     state: String!
@@ -6284,6 +6290,21 @@ type AssetMutations {
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
+    @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+
+    @require <me(["assets-edit-nickname"])> User must be authenticated and have any of these permissions.
+    """
+    setNickname(input: AssetSetNicknameInput!): AssetSetNicknamePayload
+    @organization
+    @me(permissions: ["assets-view", "customers-view"])
+    @me(permissions: ["assets-edit-nickname"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"
+    )
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
     @require <me(["assets-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: AssetSyncPayload
@@ -6292,6 +6313,14 @@ type AssetMutations {
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\Sync"
     )
+}
+
+type AssetSetNicknamePayload
+implements
+    & Payload
+{
+    asset: Asset
+    result: Boolean!
 }
 
 type AssetSyncPayload

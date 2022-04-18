@@ -182,6 +182,8 @@
     "models.Permission.assets-download.description": "Ability to download assets.",
     "models.Permission.assets-sync.name": "Sync assets",
     "models.Permission.assets-sync.description": "Ability to sync assets.",
+    "models.Permission.assets-edit-nickname.name": "Set nickname",
+    "models.Permission.assets-edit-nickname.description": "Ability to set nickname for assets.",
     "models.Permission.contracts-view.name": "View contracts",
     "models.Permission.contracts-view.description": "Ability to view contracts.",
     "models.Permission.contracts-support.name": "Get Support",

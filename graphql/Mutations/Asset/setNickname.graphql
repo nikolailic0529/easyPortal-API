@@ -1,0 +1,20 @@
+extend type AssetMutations {
+    setNickname(
+        input: AssetSetNicknameInput!
+    ): AssetSetNicknamePayload
+    @organization
+    @me(permissions: ["assets-view", "customers-view"])
+    @me(permissions: ["assets-edit-nickname"])
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"
+    )
+}
+
+input AssetSetNicknameInput {
+    nickname: String @isNullable @isMax(value: 255)
+}
+
+type AssetSetNicknamePayload implements Payload {
+    result: Boolean!
+    asset: Asset
+}
