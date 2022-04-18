@@ -28,17 +28,14 @@ class SignInTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array{email: string,password:string} $input
+     * @param array{email: string,password:string}|null $input
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
-        array $input = [
-            'email'    => '',
-            'password' => '',
-        ],
+        array $input = null,
     ): void {
         // Prepare
         $this->setRootOrganization(Organization::factory()->create());
@@ -47,6 +44,11 @@ class SignInTest extends TestCase {
         if ($prepare) {
             $prepare($this);
         }
+
+        $input ??= [
+            'email'    => $this->faker->email,
+            'password' => $this->faker->password(8),
+        ];
 
         // Test
         $this
