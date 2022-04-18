@@ -66,6 +66,7 @@ class AssetFactory extends Factory {
                 ]);
             },
             'serial_number'       => $this->faker->uuid,
+            'nickname'            => null,
             'warranty_end'        => null,
             'warranty_changed_at' => null,
             'contacts_count'      => 0,
