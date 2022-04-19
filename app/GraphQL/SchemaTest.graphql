@@ -7426,6 +7426,17 @@ type Map {
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
+    @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    """
+    assets: [MapPoint!]!
+    @organization
+    @me(permissions: ["customers-view", "assets-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
+    @cached(mode: Threshold)
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
     @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customers: [MapPoint!]!

@@ -24,7 +24,7 @@ class MapDataFactory {
 
         // Resellers
         $resellerA = Reseller::factory()->create([
-            'id' => $org->getKey(),
+            'id' => $org,
         ]);
         $resellerB = Reseller::factory()->create();
 
@@ -54,6 +54,7 @@ class MapDataFactory {
         $locationA->customers()->attach($customerA);
 
         Asset::factory()->create([
+            'id'          => '3a6f6d2e-591d-4a0a-8eb4-b56d1b2617ab',
             'location_id' => $locationA,
             'reseller_id' => $resellerA,
             'customer_id' => $customerA,
@@ -71,6 +72,7 @@ class MapDataFactory {
         $locationB->customers()->attach($customerA);
 
         Asset::factory()->create([
+            'id'          => '2e65b276-b7fe-4c18-8ace-c25944533ba9',
             'location_id' => $locationB,
             'customer_id' => $customerA,
         ]);
@@ -87,6 +89,7 @@ class MapDataFactory {
         $locationC->customers()->attach($customerB);
 
         Asset::factory()->create([
+            'id'          => '8f53d628-838c-4869-b3fe-70b9002952fc',
             'location_id' => $locationC,
             'customer_id' => $customerB,
         ]);
@@ -105,6 +108,7 @@ class MapDataFactory {
         $locationD->customers()->attach($customerB);
 
         Asset::factory()->create([
+            'id'          => 'ef5cda9e-a818-4fcf-bf86-e1e41ceb8ed8',
             'location_id' => $locationD,
             'reseller_id' => $resellerB,
             'customer_id' => $customerB,
