@@ -27,9 +27,9 @@ use function array_merge;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Map
+ * @coversDefaultClass \App\GraphQL\Queries\Map\Customers
  */
-class MapTest extends TestCase {
+class CustomersTest extends TestCase {
     use WithQueryLog;
 
     // <editor-fold desc="Tests">

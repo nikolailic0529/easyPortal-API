@@ -25,7 +25,7 @@ use function array_values;
 use function explode;
 use function strlen;
 
-class Map {
+class Customers {
     public function __construct(
         protected CurrentOrganization $organization,
     ) {
