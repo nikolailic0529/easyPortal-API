@@ -1,0 +1,9 @@
+type MapPoint {
+    latitude: Float!
+    longitude: Float!
+    boundingBox: MapBoundingBox!
+    locations_count: Int!
+    locations_ids: [ID!]!
+    objects_count: Int!
+    objects_ids: [ID!]!
+}

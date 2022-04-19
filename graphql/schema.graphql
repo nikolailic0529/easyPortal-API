@@ -46,11 +46,10 @@ type Query {
 
         "Assets filters."
         assets:  AssetsQuery @searchBy
-    ): [Map!]!
+    ): Map!
     @organization
-    @me(permissions: ["customers-view"])
-    @field(resolver: "App\\GraphQL\\Queries\\Map")
-    @cached(mode: Threshold)
+    @me
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Map")
 
     # Organization
     # ============================================================================

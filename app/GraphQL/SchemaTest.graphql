@@ -7423,12 +7423,27 @@ type Location {
 }
 
 type Map {
-    boundingBox: MapBoundingBox!
-    customers_count: Int!
-    customers_ids: [ID!]!
-    latitude: Float!
-    locations_ids: [ID!]!
-    longitude: Float!
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+    """
+    assets: [MapPoint!]!
+    @organization
+    @me(permissions: ["customers-view", "assets-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
+    @cached(mode: Threshold)
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+    """
+    customers: [MapPoint!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Customers")
+    @cached(mode: Threshold)
 }
 
 type MapBoundingBox {
@@ -7436,6 +7451,16 @@ type MapBoundingBox {
     northLatitude: Float!
     southLatitude: Float!
     westLongitude: Float!
+}
+
+type MapPoint {
+    boundingBox: MapBoundingBox!
+    latitude: Float!
+    locations_count: Int!
+    locations_ids: [ID!]!
+    longitude: Float!
+    objects_count: Int!
+    objects_ids: [ID!]!
 }
 
 type Me {
@@ -9558,7 +9583,7 @@ type Query {
     """
     @require <organization> Authenticated user must be a member of the current organization.
 
-    @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+    @require <me> User must be authenticated.
     """
     map(
         """
@@ -9627,11 +9652,10 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
-    ): [Map!]!
+    ): Map!
     @organization
-    @me(permissions: ["customers-view"])
-    @field(resolver: "App\\GraphQL\\Queries\\Map")
-    @cached(mode: Threshold)
+    @me
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Map")
 
     """
     Authenticated user or `null` otherwise.

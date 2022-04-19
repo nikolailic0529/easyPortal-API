@@ -1,8 +1,13 @@
 type Map {
-    latitude: Float!
-    longitude: Float!
-    boundingBox: MapBoundingBox!
-    locations_ids: [ID!]!
-    customers_ids: [ID!]!
-    customers_count: Int!
+    customers: [MapPoint!]!
+    @organization
+    @me(permissions: ["customers-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Customers")
+    @cached(mode: Threshold)
+
+    assets: [MapPoint!]!
+    @organization
+    @me(permissions: ["customers-view", "assets-view"])
+    @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
+    @cached(mode: Threshold)
 }
