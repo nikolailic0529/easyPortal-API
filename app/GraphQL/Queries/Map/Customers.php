@@ -18,22 +18,23 @@ class Customers {
      * @return Collection<int, stdClass>
      */
     public function __invoke(MapBuilder $builder): Collection {
-        // Apply where conditions
-        $base  = $builder->getBaseQuery();
-        $query = $builder->getQuery('data.customer_id')
+        // Base query
+        $query = $builder->getQuery('data.customer_id');
+        $query = $builder->applyBoundariesConditions($query)
             ->whereNotNull('data.customer_id')
             ->whereNotNull('data.location_id');
 
+        // Apply where conditions
         if ($builder->hasAssetsConditions()) {
             // If conditions are specified we need to join assets. In this case,
             // we can filter them by Location and do not add locations filters
             // into the main query.
-            $base  = $builder->applyBoundariesConditions($base);
             $query = $query->joinRelation(
                 'assets',
                 'data',
-                static function (HasMany $relation, Builder $query) use ($builder, $base): Builder {
-                    $locations       = (clone $base)->select($base->getModel()->getKeyName());
+                static function (HasMany $relation, Builder $query) use ($builder): Builder {
+                    $base            = $builder->applyBoundariesConditions($builder->getBaseQuery());
+                    $locations       = $base->select($base->getModel()->getKeyName());
                     $foreignKeyName  = $relation->getQualifiedForeignKeyName();
                     $customerKeyName = $relation->newModelInstance()->qualifyColumn('customer_id');
 
@@ -50,7 +51,6 @@ class Customers {
         } else {
             // If no conditions we can use `location_customers` but we should
             // also add locations filters into the main query.
-            $query = $builder->applyBoundariesConditions($query);
             $query = $query->joinRelation(
                 'customers',
                 'data',
