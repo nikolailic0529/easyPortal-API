@@ -5376,74 +5376,9 @@ parameters:
 			path: app/GraphQL/Queries/Data/TimezonesTest.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|Laravel\\\\Scout\\\\Builder\\:\\:whereBetween\\(\\)\\.$#"
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\:\\:getQualifiedKeyName\\(\\)\\.$#"
 			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Laravel\\\\Scout\\\\Builder\\:\\:distinct\\(\\)\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Cannot call method groupBy\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Map\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Map\\:\\:applyBoundaries\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Map\\:\\:applyBoundaries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Map\\:\\:applyBoundaries\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Builder but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|Laravel\\\\Scout\\\\Builder\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Offset 'boundaries' on array\\{level\\: int, boundaries\\: array\\<League\\\\Geotools\\\\Geohash\\\\Geohash\\>, locations\\: array, assets\\: array\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Parameter \\#1 \\$builder of method Nuwave\\\\Lighthouse\\\\Execution\\\\Arguments\\\\ArgumentSet\\:\\:enhanceBuilder\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|Laravel\\\\Scout\\\\Builder given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Parameter \\#3 \\$default of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Location\\>\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Location\\>, mixed\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Location\\>\\|null\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: void given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Unable to resolve the template type TBuilder in call to method Nuwave\\\\Lighthouse\\\\Execution\\\\Arguments\\\\ArgumentSet\\:\\:enhanceBuilder\\(\\)$#"
-			count: 1
-			path: app/GraphQL/Queries/Map.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MapTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MapTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MapTest\\:\\:testQuery\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MapTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\MapTest\\:\\:testQuery\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/MapTest.php
+			path: app/GraphQL/Queries/Map/Assets.php
 
 		-
 			message: "#^Property App\\\\Models\\\\User\\:\\:\\$id \\(string\\) does not accept mixed\\.$#"
