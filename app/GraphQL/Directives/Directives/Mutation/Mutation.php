@@ -25,6 +25,7 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
+use function assert;
 use function count;
 use function implode;
 use function sprintf;
@@ -87,7 +88,9 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
     // =========================================================================
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
-            function (?Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Context {
+            function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Context {
+                assert($root instanceof Context || $root === null);
+
                 return $this->resolve($root ?? new EmptyContext(null), $args, $context, $resolveInfo);
             },
         );

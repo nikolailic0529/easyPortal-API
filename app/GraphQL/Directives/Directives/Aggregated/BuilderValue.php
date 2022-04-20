@@ -12,24 +12,35 @@ use RuntimeException;
 
 use function sprintf;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
 class BuilderValue extends ParentValue {
     /**
      * @inheritDoc
+     *
+     * @param EloquentBuilder<TModel>|QueryBuilder|SearchBuilder $builder
      */
     public function __construct(
         mixed $root,
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-        protected QueryBuilder|EloquentBuilder|SearchBuilder $builder,
+        protected EloquentBuilder|QueryBuilder|SearchBuilder $builder,
     ) {
         parent::__construct($root, $args, $context, $resolveInfo);
     }
 
+    /**
+     * @return EloquentBuilder<TModel>|SearchBuilder|QueryBuilder
+     */
     public function getBuilder(): EloquentBuilder|SearchBuilder|QueryBuilder {
         return clone $this->builder;
     }
 
+    /**
+     * @return EloquentBuilder<TModel>
+     */
     public function getEloquentBuilder(): EloquentBuilder {
         if (!($this->builder instanceof EloquentBuilder)) {
             throw new RuntimeException(sprintf(

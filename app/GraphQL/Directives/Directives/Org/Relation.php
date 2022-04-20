@@ -16,6 +16,7 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_merge;
+use function assert;
 
 abstract class Relation extends BaseDirective implements FieldResolver {
     use RelationDirectiveHelpers;
@@ -37,7 +38,9 @@ abstract class Relation extends BaseDirective implements FieldResolver {
 
     public function resolveField(FieldValue $fieldValue): FieldValue {
         $fieldValue->setResolver(
-            function (Model $parent, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
+            function (mixed $parent, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
+                assert($parent instanceof Model);
+
                 $name     = $resolveInfo->fieldName;
                 $relation = (new ModelHelper($parent))->getRelation($resolveInfo->fieldName);
                 $property = null;

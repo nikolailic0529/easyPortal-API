@@ -45,13 +45,13 @@ class ClassMap {
             $classes = ClassMapGenerator::createMap($directory);
 
             foreach ($classes as $class => $path) {
-                // Exists?
-                if (!class_exists($class)) {
+                // Test?
+                if (str_ends_with($path, 'Test.php')) {
                     continue;
                 }
 
-                // Test?
-                if (str_ends_with($path, 'Test.php')) {
+                // Exists?
+                if (!class_exists($class)) {
                     continue;
                 }
 

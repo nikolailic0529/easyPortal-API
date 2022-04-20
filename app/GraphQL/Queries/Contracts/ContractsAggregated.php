@@ -3,9 +3,12 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
+use Illuminate\Database\Eloquent\Model;
 
 class ContractsAggregated {
     /**
+     * @param BuilderValue<Model> $root
+     *
      * @return array<mixed>
      */
     public function prices(BuilderValue $root): array {

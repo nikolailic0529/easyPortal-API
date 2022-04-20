@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\TestCommand;
 use App\Dev\IdeHelper\ModelsCommand;
 use App\Services\DataLoader\Commands\AssetsAnalyze;
 use App\Services\DataLoader\Commands\AssetsCount;
@@ -61,6 +62,7 @@ class Kernel extends ConsoleKernel {
 
         // Dev
         ModelsCommand::class,
+        TestCommand::class,
     ];
 
     /**

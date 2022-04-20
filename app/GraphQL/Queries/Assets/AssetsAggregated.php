@@ -8,6 +8,7 @@ use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Query\Expression;
 use InvalidArgumentException;
@@ -17,6 +18,8 @@ use function sprintf;
 
 class AssetsAggregated {
     /**
+     * @param BuilderValue<Model> $root
+     *
      * @return array<mixed>
      */
     public function types(BuilderValue $root): array {
@@ -60,6 +63,8 @@ class AssetsAggregated {
     }
 
     /**
+     * @param BuilderValue<Model> $root
+     *
      * @return array<mixed>
      */
     public function coverages(BuilderValue $root): array {

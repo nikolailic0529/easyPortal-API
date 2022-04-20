@@ -33,6 +33,7 @@ use function array_keys;
 use function array_map;
 use function array_merge;
 use function array_slice;
+use function assert;
 use function current;
 use function implode;
 use function is_bool;
@@ -70,7 +71,9 @@ abstract class MutationCall extends BaseDirective implements FieldResolver {
 
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
-            function (Context $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
+            function (mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
+                assert($root instanceof Context);
+
                 return $this->validate($root, $args, $context, $resolveInfo)
                     ? $this->resolve($this->getContext($root)?->getRoot(), $args, $context, $resolveInfo)
                     : ['result' => false];

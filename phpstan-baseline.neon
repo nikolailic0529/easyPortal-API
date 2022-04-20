@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Class App\\\\Console\\\\Commands\\\\TestCommand extends @final class NunoMaduro\\\\Collision\\\\Adapters\\\\Laravel\\\\Commands\\\\TestCommand\\.$#"
+			count: 1
+			path: app/Console/Commands/TestCommand.php
+
+		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Console\\\\Kernel\\:\\:\\$commands is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Console\\\\Kernel\\:\\:\\$commands\\.$#"
 			count: 1
 			path: app/Console/Kernel.php
@@ -47,11 +52,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Exceptions\\\\Handler\\:\\:translate\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Exceptions/Handler.php
-
-		-
-			message: "#^PHPDoc type array\\<class\\-string\\<Throwable\\>\\> of property App\\\\Exceptions\\\\Handler\\:\\:\\$dontReport is not the same as PHPDoc type array\\<string\\> of overridden property Illuminate\\\\Foundation\\\\Exceptions\\\\Handler\\:\\:\\$dontReport\\.$#"
 			count: 1
 			path: app/Exceptions/Handler.php
 
@@ -256,22 +256,12 @@ parameters:
 			path: app/GraphQL/CacheTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\Aggregated\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\Aggregated\\:\\:getBuilderArguments\\(\\) should return array\\<string\\> but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
-
-		-
-			message: "#^Parameter \\#5 \\$builder of class App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\BuilderValue constructor expects App\\\\Services\\\\Search\\\\Builders\\\\Builder\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|Laravel\\\\Scout\\\\Builder given\\.$#"
+			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
@@ -386,11 +376,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:testResolveField\\(\\) has parameter \\$root with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
@@ -414,26 +399,6 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\BuilderValue\\:\\:__construct\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/BuilderValue.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\BuilderValue\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/BuilderValue.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\BuilderValue\\:\\:getEloquentBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/BuilderValue.php
-
-		-
-			message: "#^Property App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\BuilderValue\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/BuilderValue.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\AuthDirective\\:\\:getRequirements\\(\\) should return array\\<string\\> but returns array\\<string, string\\|null\\>\\.$#"
@@ -796,7 +761,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$expected of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, array\\{query\\: string, bindings\\: array\\}\\|class\\-string\\<Exception\\>\\|Exception given\\.$#"
+			message: "#^Parameter \\#1 \\$expected of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, array\\{query\\: string, bindings\\: array\\}\\|class\\-string\\<Exception\\>\\|Exception given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
@@ -806,7 +771,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$actual of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$actual of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
 
@@ -871,7 +836,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$expected of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, array\\{query\\: string, bindings\\: array\\}\\|class\\-string\\<Exception\\>\\|Exception given\\.$#"
+			message: "#^Parameter \\#1 \\$expected of static method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:assertDatabaseQueryEquals\\(\\) expects array\\{query\\: string, bindings\\: array\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Query\\\\Builder\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Database\\\\QueryLog\\\\Query\\|string, array\\{query\\: string, bindings\\: array\\}\\|class\\-string\\<Exception\\>\\|Exception given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/PropertyTest.php
 
@@ -901,17 +866,12 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\Base\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/Base.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\Base\\:\\:getBuilderArguments\\(\\) should return array\\<string\\> but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$name of method LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:getRelation\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
@@ -1006,16 +966,6 @@ parameters:
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Metadata.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\Contains\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/Contains.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\Contains\\:\\:apply\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/Contains.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\Contains\\:\\:match\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/Contains.php
@@ -1026,16 +976,6 @@ parameters:
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/ContainsTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWith\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWith.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWith\\:\\:apply\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWith.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWith\\:\\:match\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWith.php
@@ -1044,21 +984,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWithTest\\:\\:testApply\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWithTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Complex\\\\Relation\\:\\:build\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Complex/Relation.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Complex\\\\Relation\\:\\:build\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Complex/Relation.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Complex\\\\Relation\\:\\:build\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Complex/Relation.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Complex\\\\RelationTest\\:\\:testApply\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
@@ -6256,7 +6181,12 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\AssetWarranty\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: void given\\.$#"
+			count: 1
+			path: app/Models/Asset.php
+
+		-
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Asset.php
 
@@ -6531,7 +6461,7 @@ parameters:
 			path: app/Models/Audits/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Audits/Model.php
 
@@ -6571,7 +6501,7 @@ parameters:
 			path: app/Models/ChangeRequest.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$visible is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -7026,7 +6956,7 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
 
@@ -7836,7 +7766,7 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Logs\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Logs/Model.php
 
@@ -8051,7 +7981,7 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$visible is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
 			count: 1
 			path: app/Models/Organization.php
 
@@ -8886,7 +8816,7 @@ parameters:
 			path: app/Models/Status.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Status.php
 
@@ -8946,7 +8876,7 @@ parameters:
 			path: app/Models/Type.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Type.php
 
@@ -9066,12 +8996,12 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\User\\:\\:\\$hidden is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$hidden\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\User\\:\\:\\$hidden is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$hidden\\.$#"
 			count: 1
 			path: app/Models/User.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\User\\:\\:\\$visible is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\User\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
 			count: 1
 			path: app/Models/User.php
 
@@ -9157,6 +9087,11 @@ parameters:
 
 		-
 			message: "#^Cannot call method to\\(\\) on mixed\\.$#"
+			count: 1
+			path: app/Providers/AuthServiceProvider.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Auth\\\\Notifications\\\\ResetPassword\\:\\:createUrlUsing\\(\\) expects Closure\\(mixed, string\\)\\: string, Closure\\(App\\\\Models\\\\User, string\\)\\: mixed given\\.$#"
 			count: 1
 			path: app/Providers/AuthServiceProvider.php
 
@@ -9406,7 +9341,7 @@ parameters:
 			path: app/Rules/Organization/RoleId.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
@@ -9866,11 +9801,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Coverage\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Coverage\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsCount.php
-
-		-
 			message: "#^Anonymous function should return App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset but returns App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsCountTest.php
@@ -9886,7 +9816,7 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsImport.php
 
 		-
-			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/OemsImport.php
 
@@ -12046,12 +11976,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CityFactory given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CityFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CountryFactory given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CountryFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
@@ -13016,11 +12946,6 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\AssetSync\\:\\:init\\(\\) should return static\\(App\\\\Services\\\\DataLoader\\\\Jobs\\\\AssetSync\\) but returns LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/AssetSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\AssetSync\\:\\:syncProperties\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/AssetSync.php
@@ -13041,11 +12966,6 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetsImporterCronJob.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomerSync\\:\\:init\\(\\) should return static\\(App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomerSync\\) but returns LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/CustomerSync.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\CustomersImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\CustomersImporter but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/CustomersImporterCronJob.php
@@ -13062,11 +12982,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method init\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DocumentSync.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentSync\\:\\:init\\(\\) should return static\\(App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentSync\\) but returns LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
@@ -13497,21 +13412,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:resolve\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:orWhere\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\: void\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
@@ -14811,12 +14711,12 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$user of method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:deleteUser\\(\\) expects App\\\\Models\\\\User, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$user of method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:deleteUser\\(\\) expects App\\\\Models\\\\User, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
 		-
-			message: "#^Parameter \\#2 \\$item of method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:report\\(\\) expects App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$item of method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:report\\(\\) expects App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -15336,7 +15236,7 @@ parameters:
 			path: app/Services/Logger/Models/Model.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Services\\\\Logger\\\\Models\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Model.php
 
@@ -15411,7 +15311,7 @@ parameters:
 			path: app/Services/Maintenance/Commands/StopTest.php
 
 		-
-			message: "#^Cannot cast array\\|string\\|null to string\\.$#"
+			message: "#^Cannot cast array\\|bool\\|string\\|null to string\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/VersionUpdate.php
 
@@ -15739,11 +15639,6 @@ parameters:
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\Passwords\\\\\\\\PasswordBrokerManager' and App\\\\Services\\\\Passwords\\\\PasswordBrokerManager will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Passwords/ProviderTest.php
-
-		-
-			message: "#^Cannot call method delete\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Services/Passwords/TokenRepository.php
 
 		-
 			message: "#^Parameter \\#1 \\$createdAt of method Illuminate\\\\Auth\\\\Passwords\\\\DatabaseTokenRepository\\:\\:tokenExpired\\(\\) expects string, Carbon\\\\CarbonImmutable given\\.$#"
@@ -18571,9 +18466,19 @@ parameters:
 			path: app/Utils/Eloquent/Model.php
 
 		-
+			message: "#^PHPDoc type array of property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Model.php
+
+		-
 			message: "#^Property Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:\\$columns \\(array\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Model.php
+
+		-
+			message: "#^Class App\\\\Utils\\\\Eloquent\\\\ModelHelper extends generic class LastDragon_ru\\\\LaraASP\\\\Eloquent\\\\ModelHelper but does not specify its types\\: TModel$#"
+			count: 1
+			path: app/Utils/Eloquent/ModelHelper.php
 
 		-
 			message: "#^Argument of an invalid type array\\<string\\>\\|null supplied for foreach, only iterables are supported\\.$#"
@@ -18616,6 +18521,11 @@ parameters:
 			path: app/Utils/Eloquent/Pivot.php
 
 		-
+			message: "#^PHPDoc type array of property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Pivot.php
+
+		-
 			message: "#^Property Illuminate\\\\Database\\\\Query\\\\Builder\\:\\:\\$columns \\(array\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Pivot.php
@@ -18647,11 +18557,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Utils\\\\Iterators\\\\Concerns\\\\ChunkConverterTest_ChunkConverter\\:\\:getConverter\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$keys of static method Illuminate\\\\Support\\\\Arr\\:\\:except\\(\\) expects array\\|string, int given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
 
@@ -19776,11 +19681,6 @@ parameters:
 			path: tests/DataProviders/GraphQL/Users/OrganizationUserDataProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\User\\>\\:\\:afterMaking\\(\\) expects Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: mixed, Closure\\(App\\\\Models\\\\User\\)\\: void given\\.$#"
-			count: 1
-			path: tests/DataProviders/GraphQL/Users/OrganizationUserDataProvider.php
-
-		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
 			count: 2
 			path: tests/DataProviders/GraphQL/Users/RootUserDataProvider.php
@@ -20001,7 +19901,7 @@ parameters:
 			path: tests/TestCase.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface&T, Tests\\\\TestCase\\)\\: T\\)\\|null\\) of method Tests\\\\TestCase\\:\\:override\\(\\) should be contravariant with parameter \\$factory \\(Closure\\|null\\) of method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:override\\(\\)$#"
+			message: "#^Parameter \\#2 \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface&T, Tests\\\\TestCase\\)\\: T\\)\\|null\\) of method Tests\\\\TestCase\\:\\:override\\(\\) should be contravariant with parameter \\$factory \\(\\(Closure\\(Mockery\\\\MockInterface, static\\(LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\)\\)\\: mixed\\)\\|null\\) of method LastDragon_ru\\\\LaraASP\\\\Testing\\\\TestCase\\:\\:override\\(\\)$#"
 			count: 1
 			path: tests/TestCase.php
 
