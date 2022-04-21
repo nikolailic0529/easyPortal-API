@@ -144,10 +144,10 @@ class MutationTest extends TestCase {
      */
     public function testResolveField(): void {
         $customer = Customer::factory()->create();
-        $resolver = json_encode(MutationCallTest_Mutation::class);
-        $builder  = json_encode(MutationCallTest_Builder::class);
+        $resolver = json_encode(MutationTest_Mutation::class);
+        $builder  = json_encode(MutationTest_Builder::class);
 
-        $this->override(MutationCallTest_Mutation::class, static function (MockInterface $mock) use ($customer): void {
+        $this->override(MutationTest_Mutation::class, static function (MockInterface $mock) use ($customer): void {
             $mock
                 ->shouldReceive('__invoke')
                 ->withArgs(static function (Customer $c) use ($customer): bool {

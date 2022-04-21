@@ -462,7 +462,7 @@ class ProcessorTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderCreateIndex(): array {
-        $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
+        $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
             use SearchableImpl {
                 scoutSearchableAs as public;
@@ -670,7 +670,7 @@ class ProcessorTest extends TestCase {
      * @return array<string, array<mixed>>
      */
     public function dataProviderIsIndexActual(): array {
-        $index = 'testing_test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
+        $index = 'test_models@4ba247ffb340f00f8225223275e3aedaf9b531a1';
         $model = new class() extends Model {
             use SearchableImpl {
                 scoutSearchableAs as public;

@@ -2,17 +2,18 @@
 
 namespace App\GraphQL\Directives;
 
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Utils\Eloquent\ModelHelper;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use InvalidArgumentException;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_filter;
+use function assert;
 use function implode;
 use function sprintf;
 
@@ -38,13 +39,15 @@ trait BuilderArguments {
 
     /**
      * @param array<mixed> $args
+     *
+     * @return EloquentBuilder<Model>|QueryBuilder|SearchBuilder
      */
     protected function getBuilder(
         mixed $root,
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): EloquentBuilder|QueryBuilder|ScoutBuilder {
+    ): EloquentBuilder|QueryBuilder|SearchBuilder {
         if (!$this->allowGuessBuilder()) {
             $required  = ['builder', 'model', 'relation'];
             $arguments = array_filter($required, function (string $argument): bool {
@@ -78,7 +81,13 @@ trait BuilderArguments {
             $query = $this->getModelClass()::query();
         }
 
-        return $resolveInfo->argumentSet->enhanceBuilder($query, []);
+        $query = $resolveInfo->argumentSet->enhanceBuilder($query, []);
+
+        assert(
+            $query instanceof EloquentBuilder || $query instanceof QueryBuilder || $query instanceof SearchBuilder,
+        );
+
+        return $query;
     }
 
     protected function allowGuessBuilder(): bool {

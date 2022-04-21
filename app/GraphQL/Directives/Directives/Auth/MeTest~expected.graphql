@@ -10,7 +10,9 @@ type Query {
     @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
     """
     valueWithPermissions: Test!
-    @me(permissions: ["a", "b", "c"])
+    @me(
+        permissions: ["a", "b", "c"]
+    )
     @mock
 }
 
@@ -48,19 +50,25 @@ Description with permissions.
 @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
 """
 type TestPermissions
-@me(permissions: ["a", "b", "c"])
+@me(
+    permissions: ["a", "b", "c"]
+)
 {
     """
     @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
     """
     extension: String!
-    @me(permissions: ["a", "b", "c"])
+    @me(
+        permissions: ["a", "b", "c"]
+    )
 
     """
     @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
     """
     one: String!
-    @me(permissions: ["a", "b", "c"])
+    @me(
+        permissions: ["a", "b", "c"]
+    )
 
     """
     @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
@@ -68,8 +76,12 @@ type TestPermissions
     @require <me(["a","b"])> User must be authenticated and have any of these permissions.
     """
     two: String!
-    @me(permissions: ["a", "b", "c"])
-    @me(permissions: ["a", "b"])
+    @me(
+        permissions: ["a", "b", "c"]
+    )
+    @me(
+        permissions: ["a", "b"]
+    )
 }
 
 """

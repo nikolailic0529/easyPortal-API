@@ -6,6 +6,7 @@ use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Services\Organization\CurrentOrganization;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Expression;
 use InvalidArgumentException;
 
@@ -18,6 +19,9 @@ class CustomersAggregated {
         // empty
     }
 
+    /**
+     * @param BuilderValue<Model> $root
+     */
     public function assets(BuilderValue $root): int {
         $builder = $root->getEloquentBuilder();
         $model   = $builder->getModel();

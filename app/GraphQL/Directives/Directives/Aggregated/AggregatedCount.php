@@ -6,6 +6,8 @@ use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 
+use function assert;
+
 abstract class AggregatedCount extends BaseDirective implements FieldResolver {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
@@ -18,7 +20,9 @@ abstract class AggregatedCount extends BaseDirective implements FieldResolver {
 
     public function resolveField(FieldValue $fieldValue): FieldValue {
         return $fieldValue->setResolver(
-            static function (BuilderValue $root): int {
+            static function (mixed $root): int {
+                assert($root instanceof BuilderValue);
+
                 return $root->getBuilder()->count();
             },
         );

@@ -18,6 +18,7 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_merge;
+use function assert;
 use function sprintf;
 
 // TODO Update property description?
@@ -42,7 +43,9 @@ abstract class Property extends BaseDirective implements ArgBuilderDirective, Fi
 
     public function resolveField(FieldValue $fieldValue): FieldValue {
         $fieldValue->setResolver(
-            function (Model $parent, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
+            function (mixed $parent, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) {
+                assert($parent instanceof Model);
+
                 /** @var RelationBatchLoader $batchLoader */
                 $batchLoader = BatchLoaderRegistry::instance(
                     array_merge(
