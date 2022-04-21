@@ -75,7 +75,15 @@ abstract class PaginatedRelation extends Base {
      */
     public function getBuilderArguments(): array {
         $directive = $this->directives->associatedOfType($this->definitionNode, RelationDirective::class)->first();
-        $relation  = (new class($this->config) extends RelationDirective {
+        $relation  = (new class() extends RelationDirective {
+            /**
+             * @noinspection PhpMissingParentConstructorInspection
+             * @phpstan-ignore-next-line
+             */
+            public function __construct() {
+                // no need to call parent
+            }
+
             public static function definition(): string {
                 return '';
             }
