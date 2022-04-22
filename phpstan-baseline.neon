@@ -5846,11 +5846,6 @@ parameters:
 			path: app/Http/Controllers/IndexController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\IndexControllerTest\\:\\:testIndex\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Controllers/IndexControllerTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$path of method Illuminate\\\\Contracts\\\\Routing\\\\UrlGenerator\\:\\:to\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Telescope/HomeController.php

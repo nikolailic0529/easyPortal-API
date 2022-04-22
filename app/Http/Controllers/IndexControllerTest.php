@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\Maintenance\Storage;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\HtmlContentType;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
@@ -16,6 +15,8 @@ use Tests\TestCase;
 /**
  * @internal
  * @coversDefaultClass \App\Http\Controllers\IndexController
+ *
+ * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
  */
 class IndexControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -25,22 +26,47 @@ class IndexControllerTest extends TestCase {
      *
      * @dataProvider dataProviderIndex
      *
-     * @param array<mixed> $headers
-     * @param array<mixed> $data
+     * @param OrganizationFactory $orgFactory
+     * @param array<mixed>        $headers
+     * @param array<mixed>        $data
      */
     public function testIndex(
         Response $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         array $headers = [],
         array $data = null,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         if ($data) {
             $this->app->make(Storage::class)->save($data);
         }
 
         $this->get('/', $headers)->assertThat($expected);
+    }
+
+    /**
+     * @covers ::index
+     *
+     * @dataProvider dataProviderIndex
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param array<mixed>        $headers
+     * @param array<mixed>        $data
+     */
+    public function testIndexApplication(
+        Response $expected,
+        mixed $orgFactory,
+        array $headers = [],
+        array $data = null,
+    ): void {
+        $this->setOrganization($orgFactory);
+
+        if ($data) {
+            $this->app->make(Storage::class)->save($data);
+        }
+
+        $this->get('/application', $headers)->assertThat($expected);
     }
     // </editor-fold>
 
