@@ -22,9 +22,9 @@ class VersionUpdate extends Command {
      * @var string
      */
     protected $signature = 'ep:maintenance-version-update
-        {version  : version number (should be valid Semantic Version string; if empty only the build will be updated)}
+        {version   : version number (should be valid Semantic Version string; if empty only the build will be updated)}
         {--commit= : commit sha (optional, will be added as metadata)}
-        {--build= : build number (optional, will be added as metadata)}';
+        {--build=  : build number (optional, will be added as metadata)}';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -32,17 +32,17 @@ class VersionUpdate extends Command {
      * @var string
      */
     protected $description = <<<'DESC'
-        Updates application version in `composer.json` (should be called before `composer install`).
+        Updates application version.
         DESC;
 
     public function __invoke(Dispatcher $dispatcher, Filesystem $filesystem, ApplicationInfo $info): int {
         // Version
-        $current = $info->getVersion();
-        $version = ltrim(trim((string) $this->argument('version')), 'v.');
-        $version = new SemanticVersion(($version ?: $current) ?? '0.0.0');
-        $commit  = $this->option('commit') ?: null;
-        $build   = $this->option('build') ?: null;
-        $meta    = null;
+        $previous = $info->getVersion();
+        $version  = ltrim(trim((string) $this->argument('version')), 'v.');
+        $version  = new SemanticVersion(($version ?: $previous) ?? '0.0.0');
+        $commit   = $this->option('commit') ?: null;
+        $build    = $this->option('build') ?: null;
+        $meta     = null;
 
         if ($commit !== null) {
             $commit = substr($commit, 0, 7);
@@ -77,7 +77,7 @@ class VersionUpdate extends Command {
         }
 
         // Dispatch
-        $dispatcher->dispatch(new VersionUpdated((string) $version, $current));
+        $dispatcher->dispatch(new VersionUpdated((string) $version, $previous));
 
         // Done
         $this->info('Done.');
