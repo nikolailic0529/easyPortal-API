@@ -1,7 +1,6 @@
 <?php declare(strict_types = 1);
 
 use App\Exceptions\GraphQL\ErrorReporter;
-use App\GraphQL\Extensions\Lighthouse\Directives\TrimDirective;
 use GraphQL\Error\DebugFlag;
 use GraphQL\Validator\Rules\DisableIntrospection;
 use GraphQL\Validator\Rules\QueryComplexity;
@@ -10,6 +9,8 @@ use Nuwave\Lighthouse\Execution\AuthenticationErrorHandler;
 use Nuwave\Lighthouse\Execution\AuthorizationErrorHandler;
 use Nuwave\Lighthouse\Execution\ExtensionErrorHandler;
 use Nuwave\Lighthouse\Execution\ValidationErrorHandler;
+use Nuwave\Lighthouse\Schema\Directives\ConvertEmptyStringsToNullDirective;
+use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
 use Nuwave\Lighthouse\Validation\ValidateDirective;
@@ -299,6 +300,7 @@ return [
 
     'field_middleware'                   => [
         TrimDirective::class,
+        ConvertEmptyStringsToNullDirective::class,
         ValidateDirective::class,
     ],
 
