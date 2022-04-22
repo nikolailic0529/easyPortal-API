@@ -24,7 +24,7 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
  */
 trait ProcessorJob {
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     public function getQueueConfig(): array {
         return [

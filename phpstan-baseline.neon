@@ -3956,11 +3956,6 @@ parameters:
 			path: app/GraphQL/Queries/Application/JobsTest.php
 
 		-
-			message: "#^Return type \\(array\\) of method App\\\\GraphQL\\\\Queries\\\\Application\\\\JobsTest_JobB\\:\\:getQueueConfig\\(\\) should be covariant with return type \\(array\\<string, mixed\\>\\) of method LastDragon_ru\\\\LaraASP\\\\Queue\\\\Contracts\\\\ConfigurableQueueable\\:\\:getQueueConfig\\(\\)$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/JobsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\LocaleTest\\:\\:testQuery\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/LocaleTest.php
@@ -4063,11 +4058,6 @@ parameters:
 		-
 			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:59\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
-			path: app/GraphQL/Queries/Application/ServicesTest.php
-
-		-
-			message: "#^Return type \\(array\\) of method App\\\\GraphQL\\\\Queries\\\\Application\\\\ServicesTest_ServiceB\\:\\:getQueueConfig\\(\\) should be covariant with return type \\(array\\<string, mixed\\>\\) of method LastDragon_ru\\\\LaraASP\\\\Queue\\\\Contracts\\\\ConfigurableQueueable\\:\\:getQueueConfig\\(\\)$#"
-			count: 2
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
 		-
@@ -15698,16 +15688,6 @@ parameters:
 		-
 			message: "#^Property class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:\\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Return type \\(array\\) of method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:getQueueConfig\\(\\) should be covariant with return type \\(array\\<string, mixed\\>\\) of method LastDragon_ru\\\\LaraASP\\\\Queue\\\\Contracts\\\\ConfigurableQueueable\\:\\:getQueueConfig\\(\\)$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Return type \\(array\\) of method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:getQueueConfig\\(\\) should be covariant with return type \\(array\\<string, mixed\\>\\) of method LastDragon_ru\\\\LaraASP\\\\Queue\\\\Contracts\\\\ConfigurableQueueable\\:\\:getQueueConfig\\(\\)$#"
-			count: 2
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
