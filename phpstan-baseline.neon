@@ -9806,11 +9806,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsCountTest.php
 
 		-
-			message: "#^Cannot call method assertSuccessful\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsCountTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsImport.php
@@ -15286,29 +15281,9 @@ parameters:
 			path: app/Services/Maintenance/Commands/Start.php
 
 		-
-			message: "#^Cannot call method assertFailed\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/StartTest.php
-
-		-
-			message: "#^Cannot call method assertSuccessful\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 3
-			path: app/Services/Maintenance/Commands/StartTest.php
-
-		-
 			message: "#^Cannot call method diffInHours\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 3
 			path: app/Services/Maintenance/Commands/StartTest.php
-
-		-
-			message: "#^Cannot call method assertFailed\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 2
-			path: app/Services/Maintenance/Commands/StopTest.php
-
-		-
-			message: "#^Cannot call method assertSuccessful\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 3
-			path: app/Services/Maintenance/Commands/StopTest.php
 
 		-
 			message: "#^Cannot cast array\\|bool\\|string\\|null to string\\.$#"
@@ -15324,11 +15299,6 @@ parameters:
 			message: "#^Part \\$build \\(non\\-empty\\-array\\|non\\-empty\\-string\\|true\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/VersionUpdate.php
-
-		-
-			message: "#^Cannot call method expectsOutput\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/VersionUpdateTest.php
 
 		-
 			message: "#^Cannot access property \\$enabled on App\\\\Services\\\\Maintenance\\\\Settings\\|array\\<App\\\\Services\\\\Maintenance\\\\Settings\\>\\.$#"
@@ -15891,21 +15861,6 @@ parameters:
 			path: app/Services/Queue/Tags/Stop.php
 
 		-
-			message: "#^Cannot call method expectsOutput\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Commands/CustomersRecalculateTest.php
-
-		-
-			message: "#^Cannot call method expectsOutput\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Commands/LocationsRecalculateTest.php
-
-		-
-			message: "#^Cannot call method expectsOutput\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Commands/ResellersRecalculateTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Exceptions\\\\FailedToRecalculateModel\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/Recalculator/Exceptions/FailedToRecalculateModel.php
@@ -16299,11 +16254,6 @@ parameters:
 			message: "#^Cannot call method setModel\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Commands/IndexesRebuild.php
-
-		-
-			message: "#^Cannot call method expectsOutput\\(\\) on Illuminate\\\\Testing\\\\PendingCommand\\|int\\.$#"
-			count: 1
-			path: app/Services/Search/Commands/IndexesRebuildTest.php
 
 		-
 			message: "#^Anonymous function should return string but returns string\\|null\\.$#"

@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
+use Illuminate\Testing\PendingCommand;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
@@ -185,5 +186,19 @@ abstract class TestCase extends BaseTestCase {
 
     protected function resetDateFactory(): void {
         Date::setTestNow();
+    }
+
+    /**
+     * @inheritDoc
+     *
+     * @param array<mixed> $parameters
+     */
+    public function artisan($command, $parameters = []): PendingCommand {
+        // PHPStan will report "PendingCommand|int returned" otherwise
+        $result = parent::artisan($command, $parameters);
+
+        self::assertInstanceOf(PendingCommand::class, $result);
+
+        return $result;
     }
 }
