@@ -11,6 +11,7 @@ use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -141,6 +142,12 @@ class Processor extends EloquentProcessor {
     }
 
     protected function report(Throwable $exception, mixed $item = null): void {
+        // If Elasticsearch unavailable we cannot do anything -> break
+        if ($exception instanceof NoNodesAvailableException) {
+            throw $exception;
+        }
+
+        // Report
         $this->getExceptionHandler()->report(
             $item
                 ? new FailedToIndex($this, $item, $exception)
