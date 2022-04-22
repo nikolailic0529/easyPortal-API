@@ -22,6 +22,10 @@
 13. `php artisan route:clear` (required because when Laravel run from subdirectory and routes cached the root route `/` will not work; if Laravel run from the root it probably can be omitted)
 14. `php artisan migrate`
 15. `php artisan storage:link`
-16. `php artisan ep:maintenance-version-update "$TAG_NAME" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"`
+16. `php artisan ep:maintenance-version-update "version"` (required to update application version)
+    > The Following command can be used for Jenkins:
+    > ```shell
+    > php artisan ep:maintenance-version-update "$(cd "$WORKSPACE" && git describe --abbrev=0 --tags | sed -nr "s/^v\.?(.+)$/\1/p")" --commit="$GIT_COMMIT" --build="$BUILD_NUMBER"
+    > ```
 17. `sudo supervisorctl restart ep-api:*` (where `ep-api:` the group name from supervisor config)
-18. `php artisan ep:maintenance-stop` (optional)
+18. `php artisan ep:maintenance-stop` (optional; requred if `ep:maintenance-start` was used)
