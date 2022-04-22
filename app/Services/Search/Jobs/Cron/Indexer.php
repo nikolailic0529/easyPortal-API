@@ -20,6 +20,15 @@ abstract class Indexer extends CronJob implements Progressable {
      */
     use ProcessorJob;
 
+    /**
+     * @inheritdoc
+     */
+    public function getQueueConfig(): array {
+        return [
+                'tries' => 5,
+            ] + parent::getQueueConfig();
+    }
+
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
         return $container
             ->make(Processor::class)

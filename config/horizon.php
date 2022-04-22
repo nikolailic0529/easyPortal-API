@@ -220,8 +220,11 @@ return [
                 'maxProcesses' => 3,
                 'timeout'      => 60 * 60,
                 'memory'       => 256,
-                'tries'        => 1,
+                'tries'        => 2,
                 'nice'         => 0,
+                'backoff'      => [
+                    5 * 60,
+                ],
             ],
             'Recalculator' => [
                 'connection'   => 'redis',
