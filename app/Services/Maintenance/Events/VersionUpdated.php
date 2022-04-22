@@ -4,13 +4,13 @@ namespace App\Services\Maintenance\Events;
 
 class VersionUpdated {
     public function __construct(
-        private string $version,
+        private ?string $version,
         private ?string $previous,
     ) {
         // empty
     }
 
-    public function getVersion(): string {
+    public function getVersion(): ?string {
         return $this->version;
     }
 

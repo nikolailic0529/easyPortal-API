@@ -4,6 +4,7 @@ namespace App\Services\Maintenance;
 
 use App\Services\Maintenance\Commands\Start;
 use App\Services\Maintenance\Commands\Stop;
+use App\Services\Maintenance\Commands\VersionReset;
 use App\Services\Maintenance\Commands\VersionUpdate;
 use App\Services\Maintenance\Jobs\CompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob;
@@ -20,6 +21,7 @@ class Provider extends ServiceProvider {
         $this->bootCommands(
             Start::class,
             Stop::class,
+            VersionReset::class,
             VersionUpdate::class,
         );
         $this->bootSchedule(
