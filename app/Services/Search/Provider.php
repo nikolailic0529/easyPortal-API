@@ -11,6 +11,7 @@ use App\Services\Search\Jobs\Cron\AssetsIndexer;
 use App\Services\Search\Jobs\Cron\CustomersIndexer;
 use App\Services\Search\Jobs\Cron\DocumentsIndexer;
 use App\Services\Search\Jobs\Index;
+use App\Services\Search\Listeners\ElasticDisconnected;
 use App\Services\Search\Listeners\IndexExpiredListener;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Elasticsearch\Client;
@@ -85,6 +86,7 @@ class Provider extends ServiceProvider {
     protected function registerListeners(): void {
         $this->booting(static function (Dispatcher $dispatcher): void {
             $dispatcher->subscribe(IndexExpiredListener::class);
+            $dispatcher->subscribe(ElasticDisconnected::class);
         });
     }
 

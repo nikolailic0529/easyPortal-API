@@ -12,7 +12,7 @@ use App\Services\Service;
  */
 trait DefaultConfig {
     /**
-     * @return array<mixed>
+     * @return array<string,mixed>
      */
     public function getQueueConfig(): array {
         $service = Service::getService($this);
