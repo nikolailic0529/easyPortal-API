@@ -246,6 +246,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'serial_number' => new Text('serial_number', true),
+            'nickname'      => new Text('nickname', true),
             'product'       => new Relation('product', [
                 'sku'  => new Text('sku', true),
                 'name' => new Text('name', true),
