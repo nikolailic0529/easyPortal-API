@@ -269,35 +269,6 @@ class ProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::isIndexActual
-     *
-     * @dataProvider dataProviderIsIndexActual
-     *
-     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
-     * @param array<string, string|null>                         $indexes
-     */
-    public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
-        // Mock
-        $processor = Mockery::mock(Processor::class);
-        $processor->shouldAllowMockingProtectedMethods();
-        $processor->makePartial();
-        $processor
-            ->shouldReceive('getClient')
-            ->once()
-            ->andReturn($this->app->make(Client::class));
-
-        // Prepare
-        foreach ($indexes as $index => $alias) {
-            $this->createSearchIndex($index, $alias);
-        }
-
-        // Test
-        self::assertEquals($expected, $processor->isIndexActual(new State([
-            'model' => $model,
-        ])));
-    }
-
-    /**
      * @covers ::init
      */
     public function testInit(): void {

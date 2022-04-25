@@ -201,19 +201,6 @@ class Processor extends EloquentProcessor {
 
     // <editor-fold desc="Index">
     // =========================================================================
-    /**
-     * todo(!): Not needed?
-     */
-    public function isIndexActual(State $state): bool {
-        $client = $this->getClient()->indices();
-        $config = $this->getSearchConfiguration($state);
-        $alias  = $config->getIndexAlias();
-        $index  = $config->getIndexName();
-
-        return $client->exists(['index' => $index])
-            && $client->existsAlias(['name' => $alias, 'index' => $index]);
-    }
-
     protected function createIndex(State $state): string {
         $client = $this->getClient()->indices();
         $config = $this->getSearchConfiguration($state);
