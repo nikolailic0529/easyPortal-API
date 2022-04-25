@@ -212,7 +212,7 @@ class ExportController extends Controller {
                     throw new AuthenticationException($result['errors'][0]['message']);
                     break;
                 default:
-                    throw new GraphQLQueryInvalid($result['errors']);
+                    throw new GraphQLQueryInvalid($operation, $result['errors']);
                     break;
             }
         }

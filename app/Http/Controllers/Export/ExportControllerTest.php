@@ -11,6 +11,7 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\XLSX\Sheet;
 use Closure;
 use Exception;
+use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
@@ -176,7 +177,7 @@ class ExportControllerTest extends TestCase {
         // Errors
         if ($expected instanceof BadRequest) {
             self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid([]),
+                new GraphQLQueryInvalid(new OperationParams(), []),
             ));
         }
 
@@ -248,7 +249,7 @@ class ExportControllerTest extends TestCase {
         // Errors
         if ($expected instanceof BadRequest) {
             self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid([]),
+                new GraphQLQueryInvalid(new OperationParams(), []),
             ));
         }
 
