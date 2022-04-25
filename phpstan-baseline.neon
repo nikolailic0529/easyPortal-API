@@ -5751,7 +5751,7 @@ parameters:
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:55\\:\\:getHeaders\\(\\) expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:57\\:\\:getHeaders\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
@@ -5761,7 +5761,7 @@ parameters:
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:83\\:\\:getHeaderValue\\(\\) expects array, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:85\\:\\:getHeaderValue\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
@@ -9214,6 +9214,11 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\FloatNumber\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/FloatNumber.php
+
+		-
+			message: "#^Method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/Rules/GraphQL/Query.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"

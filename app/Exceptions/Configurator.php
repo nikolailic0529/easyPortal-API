@@ -6,6 +6,7 @@ use App\Exceptions\Handlers\SafeHandler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Log\Logger;
 use Monolog\Formatter\LineFormatter;
+use Monolog\Formatter\NormalizerFormatter;
 use Monolog\Handler\FormattableHandlerInterface;
 use Monolog\Logger as MonologLogger;
 
@@ -29,6 +30,10 @@ class Configurator {
 
             // Configure
             $formatter = $handler->getFormatter();
+
+            if ($formatter instanceof NormalizerFormatter) {
+                $formatter->setMaxNormalizeDepth(50);
+            }
 
             if ($formatter instanceof LineFormatter) {
                 // Stacktrace already dumped in Handler.

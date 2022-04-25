@@ -11,6 +11,7 @@ use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 use Box\Spout\Reader\XLSX\Sheet;
 use Closure;
 use Exception;
+use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Routing\Exceptions\StreamedResponseException;
 use Illuminate\Support\Facades\Event;
@@ -23,6 +24,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
@@ -176,7 +178,7 @@ class ExportControllerTest extends TestCase {
         // Errors
         if ($expected instanceof BadRequest) {
             self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid([]),
+                new GraphQLQueryInvalid(new OperationParams(), []),
             ));
         }
 
@@ -248,7 +250,7 @@ class ExportControllerTest extends TestCase {
         // Errors
         if ($expected instanceof BadRequest) {
             self::expectExceptionObject(new StreamedResponseException(
-                new GraphQLQueryInvalid([]),
+                new GraphQLQueryInvalid(new OperationParams(), []),
             ));
         }
 
@@ -613,7 +615,9 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'invalid query'           => [
-                    new BadRequest(),
+                    new ValidationErrorResponse([
+                        'query' => ['GraphQL Query is invalid.'],
+                    ]),
                     null,
                     [
                         'root'  => 'data.customers',
