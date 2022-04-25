@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Rules\GraphQL\Query as IsGraphQLQuery;
 use App\Rules\HashMap;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,10 +25,10 @@ class ExportRequest extends FormRequest {
      *
      * @return array<string,mixed>
      */
-    public function rules(): array {
+    public function rules(IsGraphQLQuery $query): array {
         return [
             'root'             => 'required|string',
-            'query'            => 'required|string|regex:/^query /',
+            'query'            => ['required', 'string', $query],
             'operationName'    => 'string',
             'variables'        => new HashMap(),
             'variables.*'      => 'nullable',

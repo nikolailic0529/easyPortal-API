@@ -24,6 +24,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
 use Psr\Http\Message\ResponseInterface;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
@@ -614,7 +615,9 @@ class ExportControllerTest extends TestCase {
                     ],
                 ],
                 'invalid query'           => [
-                    new BadRequest(),
+                    new ValidationErrorResponse([
+                        'query' => ['GraphQL Query is invalid.'],
+                    ]),
                     null,
                     [
                         'root'  => 'data.customers',
