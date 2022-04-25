@@ -4,8 +4,8 @@ namespace App\Services\Search\Listeners;
 
 use App\Events\Subscriber;
 use App\Exceptions\ErrorReport;
+use App\Services\Search\Exceptions\ElasticUnavailable;
 use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
 
@@ -27,7 +27,7 @@ class ElasticDisconnected implements Subscriber {
     }
 
     public function __invoke(ErrorReport $event): void {
-        if ($event->getError() instanceof NoNodesAvailableException) {
+        if ($event->getError() instanceof ElasticUnavailable) {
             $this->application->forgetInstance(Client::class);
         }
     }
