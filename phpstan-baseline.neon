@@ -12771,7 +12771,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects array\\<int\\>\\|PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\CellAddress\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
