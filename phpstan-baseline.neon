@@ -17561,11 +17561,6 @@ parameters:
 			path: app/Services/Search/Processor/Processor.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\:\\:isIndexActual\\(\\) has parameter \\$state with generic class App\\\\Services\\\\Search\\\\Processor\\\\State but does not specify its types\\: TModel$#"
-			count: 1
-			path: app/Services/Search/Processor/Processor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\Search\\\\Processor\\\\State\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\Search\\\\Processor\\\\State\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/Processor.php
@@ -17582,7 +17577,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,TState of App\\\\Services\\\\Search\\\\Processor\\\\State\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:getSearchConfiguration\\(\\) expects TState of App\\\\Services\\\\Search\\\\Processor\\\\State\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processor\\\\State given\\.$#"
-			count: 3
+			count: 2
 			path: app/Services/Search/Processor/Processor.php
 
 		-
@@ -17671,62 +17666,62 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
@@ -17796,12 +17791,12 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processor\\\\Processor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
@@ -17811,12 +17806,12 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
@@ -17836,22 +17831,22 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:416\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processor\\\\State\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:387\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processor\\\\State\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processor\\\\State\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:466\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:437\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:674\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:645\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:416\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processor/ProcessorTest\\.php\\:387\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
 

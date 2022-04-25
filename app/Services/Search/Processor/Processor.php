@@ -4,6 +4,7 @@ namespace App\Services\Search\Processor;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Exceptions\FailedToIndex;
 use App\Services\Search\Exceptions\IndexError;
 use App\Utils\Eloquent\ModelHelper;
@@ -144,7 +145,7 @@ class Processor extends EloquentProcessor {
     protected function report(Throwable $exception, mixed $item = null): void {
         // If Elasticsearch unavailable we cannot do anything -> break
         if ($exception instanceof NoNodesAvailableException) {
-            throw $exception;
+            throw new ElasticUnavailable($exception);
         }
 
         // Report
@@ -200,19 +201,6 @@ class Processor extends EloquentProcessor {
 
     // <editor-fold desc="Index">
     // =========================================================================
-    /**
-     * todo(!): Not needed?
-     */
-    public function isIndexActual(State $state): bool {
-        $client = $this->getClient()->indices();
-        $config = $this->getSearchConfiguration($state);
-        $alias  = $config->getIndexAlias();
-        $index  = $config->getIndexName();
-
-        return $client->exists(['index' => $index])
-            && $client->existsAlias(['name' => $alias, 'index' => $index]);
-    }
-
     protected function createIndex(State $state): string {
         $client = $this->getClient()->indices();
         $config = $this->getSearchConfiguration($state);

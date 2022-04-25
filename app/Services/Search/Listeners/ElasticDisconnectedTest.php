@@ -3,9 +3,9 @@
 namespace App\Services\Search\Listeners;
 
 use App\Exceptions\ErrorReport;
+use App\Services\Search\Exceptions\ElasticUnavailable;
 use Closure;
 use Elasticsearch\Client;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -49,7 +49,7 @@ class ElasticDisconnectedTest extends TestCase {
                 ->with(Client::class);
         });
 
-        $event    = new ErrorReport(new NoNodesAvailableException());
+        $event    = new ErrorReport(new ElasticUnavailable(new Exception()));
         $listener = $this->app->make(ElasticDisconnected::class);
 
         $listener($event);
