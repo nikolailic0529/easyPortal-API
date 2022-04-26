@@ -6,8 +6,8 @@ use App\Models\ChangeRequest;
 use App\Models\OrganizationUser;
 use App\Models\QuoteRequest;
 use App\Models\User;
-use App\Services\Auth\Auth;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Arr;
 
 use function array_filter;
 use function array_merge;
@@ -15,20 +15,22 @@ use function array_unique;
 
 trait DefaultRecipients {
     /**
-     * @param array<string> $recipients
+     * @param array<string>|string|null ...$recipients
      *
      * @return array<string>
      */
     public function getDefaultRecipients(
         Repository $config,
-        Auth $auth,
         QuoteRequest|ChangeRequest $model,
-        ?array $recipients = null,
+        array|string|null ...$recipients,
     ): array {
         // User
-        $recipients   = (array) $recipients;
-        $recipients[] = $auth->getUser()?->email;
-        $recipients[] = $model->user->email;
+        $recipients = Arr::flatten(array_filter(
+            $recipients,
+            static function (array|string|null $recipients): array {
+                return (array) $recipients;
+            },
+        ));
 
         // Org Admins
         $orgAdminGroup = $config->get('ep.keycloak.org_admin_group');

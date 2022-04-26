@@ -14,6 +14,7 @@ class CreateInput extends JsonObject {
     public ?string $message         = null;
     public ?string $customer_id     = null;
     public ?string $customer_custom = null;
+    public bool    $copy_to_me      = true;
     public string  $contact_name;
     public string  $contact_phone;
     public string  $contact_email;

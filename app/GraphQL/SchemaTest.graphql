@@ -513,6 +513,11 @@ input QuoteRequestCreateInput {
     @isRequired
     @isPhoneNumber
 
+    """
+    If `true` the current user will receive a copy.
+    """
+    copy_to_me: Boolean! = true
+
     customer_custom: String
     @isRequiredWithout(
         field: "input.customer_id"

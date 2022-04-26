@@ -33,6 +33,7 @@ class Create {
         $request                  = new QuoteRequest();
         $request->organization    = $this->organization->get();
         $request->user            = $this->auth->getUser();
+        $request->user_copy       = $input->copy_to_me;
         $request->oem_id          = $input->oem_id;
         $request->oem_custom      = $input->oem_custom;
         $request->type_id         = $input->type_id;

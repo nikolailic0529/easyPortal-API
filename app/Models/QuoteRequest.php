@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property string                                $id
  * @property string                                $organization_id
  * @property string                                $user_id
+ * @property bool                                  $user_copy
  * @property string|null                           $customer_id
  * @property string|null                           $customer_custom
  * @property string|null                           $oem_id
@@ -65,12 +66,25 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasOrganization;
     use SyncHasMany;
 
+    protected const CASTS = [
+        'user_copy' => 'bool',
+    ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'quote_requests';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<mixed>
+     */
+    protected $casts = self::CASTS;
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');

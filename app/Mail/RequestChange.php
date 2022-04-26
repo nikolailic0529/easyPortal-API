@@ -9,7 +9,6 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\File;
 use App\Models\Organization;
-use App\Services\Auth\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailable;
@@ -26,7 +25,7 @@ class RequestChange extends Mailable {
         // empty
     }
 
-    public function build(Repository $config, Auth $auth): void {
+    public function build(Repository $config): void {
         $object = $this->request->object;
         $title  = $object->getKey();
         $type   = $object->getMorphClass();
@@ -53,7 +52,12 @@ class RequestChange extends Mailable {
 
         $to  = $this->request->to;
         $cc  = (array) $this->request->cc;
-        $bcc = $this->getDefaultRecipients($config, $auth, $this->request, $this->request->bcc);
+        $bcc = $this->getDefaultRecipients(
+            $config,
+            $this->request,
+            $this->request->bcc,
+            $this->request->user->email,
+        );
 
         $this
             ->subject($this->request->subject)

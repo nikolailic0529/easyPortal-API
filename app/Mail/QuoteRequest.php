@@ -5,7 +5,6 @@ namespace App\Mail;
 use App\Mail\Concerns\DefaultRecipients;
 use App\Models\File;
 use App\Models\QuoteRequest as ModelsQuoteRequest;
-use App\Services\Auth\Auth;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailable;
@@ -22,10 +21,17 @@ class QuoteRequest extends Mailable {
         // empty
     }
 
-    public function build(Repository $config, Auth $auth): void {
+    public function build(Repository $config): void {
         $to  = $config->get('ep.email_address');
         $bcc = $config->get('ep.quote_request.bcc');
-        $bcc = $this->getDefaultRecipients($config, $auth, $this->request, $bcc);
+        $bcc = $this->getDefaultRecipients(
+            $config,
+            $this->request,
+            $bcc,
+            $this->request->user_copy
+                ? $this->request->user->email
+                : null,
+        );
 
         $this
             ->subject('Quote Request')
