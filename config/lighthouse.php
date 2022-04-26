@@ -9,7 +9,6 @@ use Nuwave\Lighthouse\Execution\AuthenticationErrorHandler;
 use Nuwave\Lighthouse\Execution\AuthorizationErrorHandler;
 use Nuwave\Lighthouse\Execution\ExtensionErrorHandler;
 use Nuwave\Lighthouse\Execution\ValidationErrorHandler;
-use Nuwave\Lighthouse\Schema\Directives\ConvertEmptyStringsToNullDirective;
 use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
@@ -300,7 +299,6 @@ return [
 
     'field_middleware'                   => [
         TrimDirective::class,
-        ConvertEmptyStringsToNullDirective::class,
         ValidateDirective::class,
     ],
 
