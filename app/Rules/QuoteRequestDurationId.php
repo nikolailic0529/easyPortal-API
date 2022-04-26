@@ -12,7 +12,7 @@ class QuoteRequestDurationId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return QuoteRequestDuration::query()->whereKey($value)->exists();
+        return $value && QuoteRequestDuration::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

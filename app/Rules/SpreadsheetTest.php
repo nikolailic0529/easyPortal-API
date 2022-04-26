@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
@@ -22,7 +23,14 @@ class SpreadsheetTest extends TestCase {
     public function testPasses(bool $expected, array $settings, mixed $value): void {
         $this->setSettings($settings);
 
-        self::assertEquals($expected, $this->app->make(Spreadsheet::class)->passes('test', $value));
+        $rule   = $this->app->make(Spreadsheet::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -54,6 +62,11 @@ class SpreadsheetTest extends TestCase {
                     'ep.file.formats'  => ['txt'],
                 ],
                 UploadedFile::fake()->create('text.txt', 150),
+            ],
+            'empty value'      => [
+                false,
+                [],
+                '',
             ],
         ];
     }

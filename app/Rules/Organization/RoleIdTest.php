@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
@@ -41,19 +42,25 @@ class RoleIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param Closure(static): Context                 $contextFactory
-     * @param Closure(static, Organization|null): Role $roleFactory
+     * @param Closure(static): Context                    $contextFactory
+     * @param Closure(static, Organization|null): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $contextFactory, Closure $roleFactory): void {
+    public function testPasses(bool $expected, Closure $contextFactory, Closure $valueFactory): void {
         $context = $contextFactory($this);
-        $role    = $roleFactory($this, $context?->getRoot());
+        $value   = $valueFactory($this, $context?->getRoot());
         $rule    = $this->app->make(RoleId::class);
 
         if ($context) {
             $rule->setMutationContext($context);
         }
 
-        self::assertEquals($expected, $rule->passes('test', $role?->getKey()));
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -69,7 +76,7 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return null;
                 },
-                static function (): ?Role {
+                static function (): ?string {
                     return null;
                 },
             ],
@@ -78,10 +85,12 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return new ResolverContext(null, Organization::factory()->create());
                 },
-                static function (self $test, ?Organization $organization): ?Role {
-                    return Role::factory()->create([
-                        'organization_id' => $organization,
-                    ]);
+                static function (self $test, ?Organization $organization): string {
+                    return Role::factory()
+                        ->create([
+                            'organization_id' => $organization,
+                        ])
+                        ->getKey();
                 },
             ],
             'shared role'                                     => [
@@ -89,10 +98,12 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return new ResolverContext(null, Organization::factory()->create());
                 },
-                static function (): ?Role {
-                    return Role::factory()->create([
-                        'organization_id' => null,
-                    ]);
+                static function (): string {
+                    return Role::factory()
+                        ->create([
+                            'organization_id' => null,
+                        ])
+                        ->getKey();
                 },
             ],
             'OrganizationUser'                                => [
@@ -100,10 +111,12 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return new ResolverContext(null, OrganizationUser::factory()->create());
                 },
-                static function (self $test, OrganizationUser $organization): ?Role {
-                    return Role::factory()->create([
-                        'organization_id' => $organization->organization_id,
-                    ]);
+                static function (self $test, OrganizationUser $organization): string {
+                    return Role::factory()
+                        ->create([
+                            'organization_id' => $organization->organization_id,
+                        ])
+                        ->getKey();
                 },
             ],
             'role exists but belongs to another organization' => [
@@ -111,10 +124,12 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return new ResolverContext(null, Organization::factory()->create());
                 },
-                static function (self $test, ?Organization $organization): ?Role {
-                    return Role::factory()->create([
-                        'organization_id' => Organization::factory()->create(),
-                    ]);
+                static function (self $test, ?Organization $organization): string {
+                    return Role::factory()
+                        ->create([
+                            'organization_id' => Organization::factory()->create(),
+                        ])
+                        ->getKey();
                 },
             ],
             'soft-deleted'                                    => [
@@ -122,11 +137,22 @@ class RoleIdTest extends TestCase {
                 static function (): ?Context {
                     return new ResolverContext(null, Organization::factory()->create());
                 },
-                static function (self $test, ?Organization $organization): ?Role {
-                    return Role::factory()->create([
-                        'organization_id' => $organization,
-                        'deleted_at'      => Date::now(),
-                    ]);
+                static function (self $test, ?Organization $organization): string {
+                    return Role::factory()
+                        ->create([
+                            'organization_id' => $organization,
+                            'deleted_at'      => Date::now(),
+                        ])
+                        ->getKey();
+                },
+            ],
+            'empty string'                                    => [
+                false,
+                static function (): ?Context {
+                    return new ResolverContext(null, Organization::factory()->create());
+                },
+                static function (self $test, ?Organization $organization): string {
+                    return '';
                 },
             ],
         ];

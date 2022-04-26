@@ -12,7 +12,7 @@ class CurrencyId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Currency::query()->whereKey($value)->exists();
+        return $value && Currency::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

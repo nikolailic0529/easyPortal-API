@@ -7,6 +7,8 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -36,17 +38,22 @@ class DocumentIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param Closure(static, ?Organization): Document $documentFactory
-     * @param array<string, mixed>                     $settings
+     * @param Closure(static, ?Organization): ?string $valueFactory
+     * @param array<string, mixed>                    $settings
      */
-    public function testPasses(bool $expected, Closure $documentFactory, array $settings = []): void {
-        $org      = $this->setOrganization(Organization::factory()->create());
-        $document = $documentFactory($this, $org);
-        $rule     = $this->app->make(DocumentId::class);
-
+    public function testPasses(bool $expected, Closure $valueFactory, array $settings = []): void {
         $this->setSettings($settings);
 
-        self::assertEquals($expected, $rule->passes('test', $document));
+        $org    = $this->setOrganization(Organization::factory()->create());
+        $rule   = $this->app->make(DocumentId::class);
+        $value  = $valueFactory($this, $org);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -59,7 +66,7 @@ class DocumentIdTest extends TestCase {
         return [
             'exists'            => [
                 true,
-                static function (TestCase $test, Organization $org): Document {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
                         'id' => $org,
                     ]);
@@ -74,7 +81,7 @@ class DocumentIdTest extends TestCase {
                         'type_id'     => $type->getKey(),
                     ]);
 
-                    return $document;
+                    return $document->getKey();
                 },
                 [
                     'ep.contract_types' => ['5710fd06-95b8-4699-90b1-e0aa678c6028'],
@@ -83,7 +90,7 @@ class DocumentIdTest extends TestCase {
             ],
             'exists (quote)'    => [
                 true,
-                static function (TestCase $test, Organization $org): Document {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
                         'id' => $org,
                     ]);
@@ -95,7 +102,7 @@ class DocumentIdTest extends TestCase {
                         'type_id'     => $type->getKey(),
                     ]);
 
-                    return $document;
+                    return $document->getKey();
                 },
                 [
                     'ep.quote_types' => ['f9834bc1-2f2f-4c57-bb8d-7a224ac24983'],
@@ -103,7 +110,7 @@ class DocumentIdTest extends TestCase {
             ],
             'exists (contract)' => [
                 true,
-                static function (TestCase $test, Organization $org): Document {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
                         'id' => $org,
                     ]);
@@ -115,7 +122,7 @@ class DocumentIdTest extends TestCase {
                         'type_id'     => $type->getKey(),
                     ]);
 
-                    return $document;
+                    return $document->getKey();
                 },
                 [
                     'ep.contract_types' => ['8bc7eaa9-efd6-4a81-8ab1-7fcbd0c870d7'],
@@ -123,7 +130,7 @@ class DocumentIdTest extends TestCase {
             ],
             'not a document'    => [
                 false,
-                static function (TestCase $test, Organization $org): Document {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
                         'id' => $org,
                     ]);
@@ -131,7 +138,7 @@ class DocumentIdTest extends TestCase {
                         'reseller_id' => $reseller,
                     ]);
 
-                    return $document;
+                    return $document->getKey();
                 },
                 [
                     'ep.contract_types' => ['5710fd06-95b8-4699-90b1-e0aa678c6028'],
@@ -140,13 +147,13 @@ class DocumentIdTest extends TestCase {
             ],
             'not-exists'        => [
                 false,
-                static function (): Document {
-                    return Document::factory()->make();
+                static function (): string {
+                    return Document::factory()->make()->getKey();
                 },
             ],
             'soft-deleted'      => [
                 false,
-                static function (TestCase $test, Organization $org): Document {
+                static function (TestCase $test, Organization $org): string {
                     $reseller = Reseller::factory()->create([
                         'id' => $org,
                     ]);
@@ -156,15 +163,20 @@ class DocumentIdTest extends TestCase {
                     $document = Document::factory()->create([
                         'reseller_id' => $reseller,
                         'type_id'     => $type->getKey(),
+                        'deleted_at'  => Date::now(),
                     ]);
 
-                    $document->delete();
-
-                    return $document;
+                    return $document->getKey();
                 },
                 [
                     'ep.quote_types' => ['74f07e06-d775-4d03-8ea8-f8467223d91e'],
                 ],
+            ],
+            'empty string'      => [
+                false,
+                static function (): string {
+                    return '';
+                },
             ],
         ];
     }

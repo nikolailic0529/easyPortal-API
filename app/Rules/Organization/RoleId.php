@@ -16,6 +16,11 @@ class RoleId implements Rule, ContextAwareRule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
+        // Value?
+        if (!$value) {
+            return false;
+        }
+
         // Organization?
         $organization = $this->getContextOrganization();
 

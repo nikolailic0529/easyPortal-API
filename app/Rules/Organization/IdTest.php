@@ -4,6 +4,8 @@ namespace App\Rules\Organization;
 
 use App\Models\Organization;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -33,10 +35,19 @@ class IdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $currencyFactory): void {
-        $currencyId = $currencyFactory();
-        self::assertEquals($expected, $this->app->make(Id::class)->passes('test', $currencyId));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(Id::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -47,13 +58,20 @@ class IdTest extends TestCase {
      */
     public function dataProviderPasses(): array {
         return [
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
+                },
+            ],
             'exists'       => [
                 true,
                 static function (): string {
                     $currency = Organization::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
-                    return $currency->id;
+
+                    return $currency->getKey();
                 },
             ],
             'not-exists'   => [
@@ -65,11 +83,12 @@ class IdTest extends TestCase {
             'soft-deleted' => [
                 false,
                 static function (): string {
-                    $currency = Organization::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    $currency->delete();
-                    return $currency->id;
+                    return Organization::factory()
+                        ->create([
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'deleted_at' => Date::now(),
+                        ])
+                        ->getKey();
                 },
             ],
         ];

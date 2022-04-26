@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Location;
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -18,7 +19,14 @@ class MapLevelTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        self::assertEquals($expected, (new MapLevel())->passes('test', $value));
+        $rule   = $this->app->make(MapLevel::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -49,6 +57,7 @@ class MapLevelTest extends TestCase {
             'min'     => [true, 1],
             'max'     => [true, Location::GEOHASH_LENGTH],
             'max + 1' => [false, Location::GEOHASH_LENGTH + 1],
+            '``'      => [false, ''],
         ];
     }
     // </editor-fold>

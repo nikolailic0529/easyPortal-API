@@ -4,6 +4,7 @@ namespace App\Rules;
 
 use App\Models\User;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
@@ -34,10 +35,19 @@ class UniqueUserEmailTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $userFactory): void {
-        $email = $userFactory();
-        self::assertEquals($expected, $this->app->make(UniqueUserEmail::class)->passes('test', $email));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(UniqueUserEmail::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -54,6 +64,7 @@ class UniqueUserEmailTest extends TestCase {
                     $user = User::factory()->create([
                         'email' => 'test@example.com',
                     ]);
+
                     return $user->email;
                 },
             ],
@@ -70,7 +81,14 @@ class UniqueUserEmailTest extends TestCase {
                         'email'      => 'test@example.com',
                         'deleted_at' => Date::now(),
                     ]);
+
                     return $user->email;
+                },
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];

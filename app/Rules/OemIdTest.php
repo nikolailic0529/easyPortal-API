@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use App\Models\Oem;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -33,10 +35,19 @@ class OemIdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $oemFactory): void {
-        $oemId = $oemFactory();
-        self::assertEquals($expected, $this->app->make(OemId::class)->passes('test', $oemId));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(OemId::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -50,10 +61,11 @@ class OemIdTest extends TestCase {
             'exists'       => [
                 true,
                 static function (): string {
-                    $oem = Oem::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    return $oem->getKey();
+                    return Oem::factory()
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ])
+                        ->getKey();
                 },
             ],
             'not-exists'   => [
@@ -65,11 +77,18 @@ class OemIdTest extends TestCase {
             'soft-deleted' => [
                 false,
                 static function (): string {
-                    $oem = Oem::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    $oem->delete();
-                    return $oem->getKey();
+                    return Oem::factory()
+                        ->create([
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'deleted_at' => Date::now(),
+                        ])
+                        ->getKey();
+                },
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];

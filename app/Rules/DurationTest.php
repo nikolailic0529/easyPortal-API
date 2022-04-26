@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -17,7 +18,14 @@ class DurationTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        self::assertEquals($expected, (new Duration())->passes('test', $value));
+        $rule   = $this->app->make(Duration::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -62,6 +70,7 @@ class DurationTest extends TestCase {
             'P'                   => [false, 'P'],
             'PT'                  => [false, 'PT'],
             'P3MT'                => [false, 'P3MT'],
+            '``'                  => [false, ''],
         ];
     }
     // </editor-fold>

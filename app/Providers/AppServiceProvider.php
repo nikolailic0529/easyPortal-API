@@ -59,6 +59,7 @@ use App\Models\User;
 use App\Models\UserSearch;
 use App\Services\Keycloak\Keycloak;
 use App\Services\Keycloak\UserProvider;
+use App\Utils\Validation\Validator;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Clockwork\Support\Laravel\ClockworkServiceProvider;
@@ -66,9 +67,14 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Validation\Factory as ValidatorFactoryContract;
+use Illuminate\Contracts\Validation\Validator as ValidatorContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Factory as ValidatorFactory;
+
+use function func_get_args;
 
 class AppServiceProvider extends ServiceProvider {
     /**
@@ -76,6 +82,7 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register(): void {
         $this->registerDate();
+        $this->registerValidator();
         $this->registerClockwork();
     }
 
@@ -84,6 +91,19 @@ class AppServiceProvider extends ServiceProvider {
         Date::serializeUsing(static function (Carbon|CarbonImmutable $date): string {
             return $date->toIso8601String();
         });
+    }
+
+    protected function registerValidator(): void {
+        $this->app->afterResolving(
+            ValidatorFactoryContract::class,
+            static function (ValidatorFactoryContract $factory): void {
+                if ($factory instanceof ValidatorFactory) {
+                    $factory->resolver(static function (): ValidatorContract {
+                        return new Validator(...func_get_args());
+                    });
+                }
+            },
+        );
     }
 
     protected function registerClockwork(): void {

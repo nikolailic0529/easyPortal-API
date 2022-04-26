@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use App\Models\ServiceLevel;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -33,10 +35,19 @@ class ServiceLevelIdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $serviceLevelFactory): void {
-        $serviceLevelId = $serviceLevelFactory();
-        self::assertEquals($expected, $this->app->make(ServiceLevelId::class)->passes('test', $serviceLevelId));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(ServiceLevelId::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -50,10 +61,11 @@ class ServiceLevelIdTest extends TestCase {
             'exists'       => [
                 true,
                 static function (): string {
-                    $serviceLevel = ServiceLevel::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    return $serviceLevel->getKey();
+                    return ServiceLevel::factory()
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ])
+                        ->getKey();
                 },
             ],
             'not-exists'   => [
@@ -65,11 +77,18 @@ class ServiceLevelIdTest extends TestCase {
             'soft-deleted' => [
                 false,
                 static function (): string {
-                    $serviceLevel = ServiceLevel::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    $serviceLevel->delete();
-                    return $serviceLevel->getKey();
+                    return ServiceLevel::factory()
+                        ->create([
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'deleted_at' => Date::now(),
+                        ])
+                        ->getKey();
+                },
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];

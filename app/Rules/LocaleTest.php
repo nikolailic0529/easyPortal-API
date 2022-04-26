@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;
 
@@ -32,7 +33,14 @@ class LocaleTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, string $value): void {
-        self::assertEquals($expected, $this->app->make(Locale::class)->passes('test', $value));
+        $rule   = $this->app->make(Locale::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -45,7 +53,8 @@ class LocaleTest extends TestCase {
         return [
             'valid'                 => [true, 'en'],
             'valid with underscore' => [true, 'en_BB'],
-            'Invalid'               => [false, 'wrong'],
+            'invalid'               => [false, 'wrong'],
+            'empty string'          => [false, ''],
         ];
     }
     // </editor-fold>

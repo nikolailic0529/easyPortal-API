@@ -12,7 +12,7 @@ class NoteId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Note::query()->whereKey($value)->exists();
+        return $value && Note::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

@@ -11,7 +11,7 @@ extend type AssetMutations {
 }
 
 input AssetSetNicknameInput {
-    nickname: String @isNullable @isMax(value: 255)
+    nickname: String @isNullable @isRequired @isMax(value: 255)
 }
 
 type AssetSetNicknamePayload implements Payload {

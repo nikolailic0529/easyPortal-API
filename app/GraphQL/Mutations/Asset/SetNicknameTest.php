@@ -15,6 +15,7 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Throwable;
@@ -154,16 +155,7 @@ class SetNicknameTest extends TestCase {
                     ],
                 ],
                 'empty nickname'           => [
-                    new GraphQLSuccess(
-                        'asset',
-                        null,
-                        new JsonFragment('setNickname', [
-                            'result' => true,
-                            'asset'  => [
-                                'nickname' => null,
-                            ],
-                        ]),
-                    ),
+                    new GraphQLValidationError('asset'),
                     static function (self $test, Organization $organization): Asset {
                         $reseller = Reseller::factory()->create([
                             'id' => $organization->getKey(),
@@ -179,16 +171,7 @@ class SetNicknameTest extends TestCase {
                     ],
                 ],
                 'whitespace only nickname' => [
-                    new GraphQLSuccess(
-                        'asset',
-                        null,
-                        new JsonFragment('setNickname', [
-                            'result' => true,
-                            'asset'  => [
-                                'nickname' => null,
-                            ],
-                        ]),
-                    ),
+                    new GraphQLValidationError('asset'),
                     static function (self $test, Organization $organization): Asset {
                         $reseller = Reseller::factory()->create([
                             'id' => $organization->getKey(),

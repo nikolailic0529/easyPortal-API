@@ -12,7 +12,7 @@ class TeamId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Team::query()->whereKey($value)->exists();
+        return $value && Team::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

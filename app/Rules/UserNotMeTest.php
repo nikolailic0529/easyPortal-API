@@ -7,11 +7,14 @@ use App\GraphQL\Directives\Directives\Mutation\Context\EmptyContext;
 use App\GraphQL\Directives\Directives\Mutation\Context\ResolverContext;
 use App\Models\User;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\UserNotMe
+ *
+ * @phpstan-import-type UserFactory from \Tests\WithUser
  */
 class UserNotMeTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -36,25 +39,47 @@ class UserNotMeTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param UserFactory $userFactory
      */
-    public function testPasses(bool $expected, Closure $userFactory, string $value): void {
+    public function testPasses(bool $expected, mixed $userFactory, string $value): void {
         $this->setUser($userFactory);
-        self::assertEquals($expected, $this->app->make(UserNotMe::class)->passes('test', $value));
+
+        $rule   = $this->app->make(UserNotMe::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
      * @covers ::passes
      *
      * @dataProvider dataProviderPassesMutation
+     *
+     * @param UserFactory                      $userFactory
+     * @param Closure(static, ?User): ?Context $contextFactory
      */
-    public function testPassesMutation(bool $expected, Closure $userFactory, Closure $contextFactory): void {
+    public function testPassesMutation(bool $expected, mixed $userFactory, Closure $contextFactory): void {
         $user    = $this->setUser($userFactory);
         $rule    = $this->app->make(UserNotMe::class);
         $context = $contextFactory($this, $user);
 
-        $rule->setMutationContext($context);
+        if ($context) {
+            $rule->setMutationContext($context);
+        }
 
-        self::assertEquals($expected, $rule->passes('test', $this->faker->word));
+        $value  = $this->faker->word;
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -68,24 +93,18 @@ class UserNotMeTest extends TestCase {
             'success' => [
                 true,
                 static function (): User {
-                    $user = User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-
-                    return $user;
+                    return User::factory()->create();
                 },
                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
             ],
             'fail'    => [
                 false,
                 static function (): User {
-                    $user = User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    return User::factory()->create([
+                        'id' => 'a961c0ce-f6a4-48d3-b59e-eb5f3025bb40',
                     ]);
-
-                    return $user;
                 },
-                'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                'a961c0ce-f6a4-48d3-b59e-eb5f3025bb40',
             ],
         ];
     }
@@ -98,9 +117,7 @@ class UserNotMeTest extends TestCase {
             'passes'           => [
                 true,
                 static function (): User {
-                    return User::factory()->make([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
+                    return User::factory()->make();
                 },
                 static function (): Context {
                     return new ResolverContext(null, User::factory()->make());
@@ -109,9 +126,7 @@ class UserNotMeTest extends TestCase {
             'fail (same user)' => [
                 false,
                 static function (): User {
-                    return User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
+                    return User::factory()->create();
                 },
                 static function (self $test, User $user): Context {
                     return new ResolverContext(null, $user);
@@ -120,9 +135,7 @@ class UserNotMeTest extends TestCase {
             'fail (no user)'   => [
                 false,
                 static function (): User {
-                    return User::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
+                    return User::factory()->create();
                 },
                 static function (): Context {
                     return new EmptyContext(null);

@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -17,7 +18,14 @@ class FloatNumberTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        self::assertEquals($expected, (new FloatNumber())->passes('test', $value));
+        $rule   = $this->app->make(FloatNumber::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -51,6 +59,7 @@ class FloatNumberTest extends TestCase {
             '123.124'   => [true, 123.123],
             '"123,124"' => [false, '123,123'],
             '0'         => [true, 0],
+            '``'        => [false, ''],
         ];
     }
     // </editor-fold>

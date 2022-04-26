@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -17,7 +18,14 @@ class HashMapTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        self::assertEquals($expected, (new HashMap())->passes('test', $value));
+        $rule   = $this->app->make(HashMap::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -48,6 +56,7 @@ class HashMapTest extends TestCase {
             'list'        => [false, ['a']],
             'hash'        => [true, ['a' => 1]],
             'mixed'       => [false, ['a' => 1, 2]],
+            '``'          => [false, ''],
         ];
     }
     // </editor-fold>

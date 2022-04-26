@@ -94,6 +94,7 @@ input ApplicationMaintenanceScheduleInput {
 input AssetSetNicknameInput {
     nickname: String
     @isNullable
+    @isRequired
     @isMax(
         value: 255
     )
@@ -193,26 +194,56 @@ input ImportOemsInput {
 
 input MeUpdateInput {
     academic_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     contact_email: Email
     @isNullable
+    @isMax(
+        value: 255
+    )
     @isEmail
 
     family_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     given_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     homepage: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
+
     job_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     locale: String
     @isNullable
     @isLocale
 
     mobile_phone: PhoneNumber
+    @isNullable
+    @isPhoneNumber
+
     office_phone: PhoneNumber
+    @isNullable
+    @isPhoneNumber
 
     photo: Upload
     @isNullable
@@ -227,6 +258,11 @@ input MeUpdateInput {
     @isTimezone
 
     title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 7
+    )
 }
 
 input OrgRoleCreateInput {
@@ -248,6 +284,7 @@ input OrgRoleUpdateInput {
 input OrgUpdateBrandingInput {
     dark_theme: Boolean
     @isNullable
+    @isRequired
 
     dashboard_image_url: Upload
     @isNullable
@@ -281,6 +318,7 @@ input OrgUpdateBrandingInput {
 input OrgUpdateInput {
     analytics_code: String
     @isNullable
+    @isRequired
 
     branding: OrgUpdateBrandingInput
 
@@ -319,9 +357,17 @@ input OrgUserInviteInput {
 
 input OrgUserUpdateInput {
     academic_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     contact_email: Email
     @isNullable
+    @isMax(
+        value: 255
+    )
     @isEmail
 
     enabled: Boolean
@@ -330,12 +376,29 @@ input OrgUserUpdateInput {
 
     family_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     given_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     homepage: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
+
     job_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     locale: String
     @isNullable
@@ -367,6 +430,11 @@ input OrgUserUpdateInput {
     @isTimezone
 
     title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 7
+    )
 }
 
 input OrganizationUserInviteInput {
@@ -430,10 +498,16 @@ input QuoteRequestCreateInput {
 
     contact_email: Email!
     @isRequired
+    @isMax(
+        value: 255
+    )
     @isEmail
 
     contact_name: String!
     @isRequired
+    @isMax(
+        value: 128
+    )
 
     contact_phone: PhoneNumber!
     @isRequired
@@ -470,6 +544,8 @@ input QuoteRequestCreateInput {
     @isFile
 
     message: HtmlString
+    @isNullable
+    @isRequired
 
     oem_custom: String
     @isRequiredWithout(
@@ -5724,23 +5800,48 @@ input UserOrganizationUpdateInput {
 
 input UserUpdateInput {
     academic_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     contact_email: Email
     @isNullable
+    @isMax(
+        value: 255
+    )
     @isEmail
 
     enabled: Boolean
-    @isRequired
     @isNotMe
+    @isRequired
 
     family_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     given_name: String
     @isRequired
+    @isMax(
+        value: 255
+    )
 
     homepage: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
+
     job_title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 255
+    )
 
     locale: String
     @isNullable
@@ -5763,6 +5864,11 @@ input UserUpdateInput {
     @isTimezone
 
     title: String
+    @isNullable
+    @isRequired
+    @isMax(
+        value: 7
+    )
 }
 
 interface Payload {

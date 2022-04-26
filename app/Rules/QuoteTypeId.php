@@ -12,7 +12,7 @@ class QuoteTypeId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Type::queryQuotes()->whereKey($value)->exists();
+        return $value && Type::queryQuotes()->whereKey($value)->exists();
     }
 
     public function message(): string {

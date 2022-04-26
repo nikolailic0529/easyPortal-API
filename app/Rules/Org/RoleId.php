@@ -19,10 +19,12 @@ class RoleId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return $this->organization->get()
-            ->roles()
-            ->where((new Role())->getQualifiedKeyName(), '=', $value)
-            ->exists();
+        return $value
+            && $this->organization->defined()
+            && $this->organization->get()
+                ->roles()
+                ->where((new Role())->getQualifiedKeyName(), '=', $value)
+                ->exists();
     }
 
     public function message(): string {

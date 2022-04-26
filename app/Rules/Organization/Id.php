@@ -12,7 +12,7 @@ class Id implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Organization::query()->whereKey($value)->exists();
+        return $value && Organization::query()->whereKey($value)->exists();
     }
 
     public function message(): string {
