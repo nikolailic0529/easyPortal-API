@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
@@ -26,7 +27,14 @@ class FileTest extends TestCase {
             'ep.image.formats'  => [],
         ]);
 
-        self::assertEquals($expected, $this->app->make(File::class)->passes('test', $value));
+        $rule   = $this->app->make(File::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -68,6 +76,11 @@ class FileTest extends TestCase {
                     'ep.file.formats'  => ['txt', 'exe'],
                 ],
                 UploadedFile::fake()->create('text.exe', 250),
+            ],
+            'empty value'      => [
+                false,
+                [],
+                '',
             ],
         ];
     }

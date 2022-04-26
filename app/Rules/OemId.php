@@ -12,7 +12,7 @@ class OemId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Oem::query()->whereKey($value)->exists();
+        return $value && Oem::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

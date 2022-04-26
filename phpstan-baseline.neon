@@ -9101,11 +9101,6 @@ parameters:
 			path: app/Rules/AssetId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\AssetIdTest\\:\\:testPasses\\(\\) has parameter \\$assetFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/AssetIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\Boolean\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Boolean.php
@@ -9121,11 +9116,6 @@ parameters:
 			path: app/Rules/ContractId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\ContractIdTest\\:\\:testPasses\\(\\) has parameter \\$contractFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/ContractIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\CronExpression\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/CronExpression.php
@@ -9136,19 +9126,9 @@ parameters:
 			path: app/Rules/CurrencyId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\CurrencyIdTest\\:\\:testPasses\\(\\) has parameter \\$currencyFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/CurrencyIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\CustomerId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/CustomerId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CustomerIdTest\\:\\:testPasses\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/CustomerIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\DateTime\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9156,29 +9136,9 @@ parameters:
 			path: app/Rules/DateTime.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\DateTime\\:\\:parse\\(\\) should return DateTimeInterface but returns Carbon\\\\CarbonImmutable\\|false\\|null\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\DateTimeTest\\:\\:dataProviderParse\\(\\) should return array\\<string, array\\{GraphQL\\\\Error\\\\Error\\|string, string\\|null, string\\}\\> but returns array\\{date\\: array\\{Carbon\\\\Exceptions\\\\InvalidFormatException, null, '2102\\-12\\-01'\\}, invalid date\\: array\\{Carbon\\\\Exceptions\\\\InvalidFormatException, null, '02\\-12\\-01'\\}, datetime without timezone\\: array\\{Carbon\\\\Exceptions\\\\InvalidFormatException, null, '2102\\-12\\-01T00\\:00\\:00'\\}, datetime UTC \\+ UTC\\: array\\{'2102\\-12\\-01T22\\:12\\:01…', 'UTC', '2102\\-12\\-01T22\\:12\\:01…'\\}, datetime Europe/Moscow \\+ UTC\\: array\\{'2102\\-12\\-02T01\\:12\\:01…', 'Europe/Moscow', '2102\\-12\\-01T22\\:12\\:01…'\\}, datetime UTC \\+ Europe/Moscow\\: array\\{'2102\\-12\\-01T22\\:12\\:01…', 'UTC', '2102\\-12\\-02T01\\:12\\:01…'\\}, datetime null \\+ Europe/Moscow\\: array\\{'2102\\-12\\-01T22\\:12\\:01…', null, '2102\\-12\\-02T01\\:12\\:01…'\\}\\}\\.$#"
-			count: 1
-			path: app/Rules/DateTimeTest.php
-
-		-
-			message: "#^Using nullsafe method call on non\\-nullable type DateTimeInterface\\. Use \\-\\> instead\\.$#"
-			count: 1
-			path: app/Rules/DateTimeTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\DocumentId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9204,11 +9164,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\FileId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/FileId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\FileIdTest\\:\\:testPasses\\(\\) has parameter \\$fileFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/FileIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\FloatNumber\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9251,19 +9206,9 @@ parameters:
 			path: app/Rules/NoteId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\NoteIdTest\\:\\:testPasses\\(\\) has parameter \\$noteFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/NoteIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\OemId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/OemId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\OemIdTest\\:\\:testPasses\\(\\) has parameter \\$oemFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/OemIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Org\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9281,11 +9226,6 @@ parameters:
 			path: app/Rules/Organization/Id.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\IdTest\\:\\:testPasses\\(\\) has parameter \\$currencyFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/Organization/IdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
 			count: 1
 			path: app/Rules/Organization/PermissionId.php
@@ -9299,11 +9239,6 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"
 			count: 1
 			path: app/Rules/Organization/PermissionId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionIdTest\\:\\:testPasses\\(\\) has parameter \\$orgFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/Organization/PermissionIdTest.php
 
 		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
@@ -9332,7 +9267,7 @@ parameters:
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 10
+			count: 6
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
@@ -9351,29 +9286,14 @@ parameters:
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
-			message: "#^Using nullsafe method call on non\\-nullable type App\\\\Models\\\\Role\\. Use \\-\\> instead\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\QuoteId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/QuoteId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\QuoteIdTest\\:\\:testPasses\\(\\) has parameter \\$quoteFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/QuoteIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/QuoteRequestDurationId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationIdTest\\:\\:testPasses\\(\\) has parameter \\$durationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/QuoteRequestDurationIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\QuoteTypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9386,39 +9306,14 @@ parameters:
 			path: app/Rules/ServiceLevelId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\ServiceLevelIdTest\\:\\:testPasses\\(\\) has parameter \\$serviceLevelFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/ServiceLevelIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\TeamId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/TeamId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\TeamIdTest\\:\\:testPasses\\(\\) has parameter \\$teamFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/TeamIdTest.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\TypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/TypeId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\TypeIdTest\\:\\:testPasses\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/TypeIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\UniqueUserEmail\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/UniqueUserEmail.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UniqueUserEmailTest\\:\\:testPasses\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/UniqueUserEmailTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:getMutationRoot\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
@@ -9429,21 +9324,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/UserNotMe.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMeTest\\:\\:testPasses\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/UserNotMeTest.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMeTest\\:\\:testPassesMutation\\(\\) has parameter \\$contextFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/UserNotMeTest.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMeTest\\:\\:testPassesMutation\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/UserNotMeTest.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept string\\|null\\.$#"

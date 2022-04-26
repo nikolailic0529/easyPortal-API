@@ -2,7 +2,10 @@
 
 namespace App\Rules\GraphQL;
 
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
+
+use function array_merge;
 
 /**
  * @internal
@@ -20,9 +23,13 @@ class QueryTest extends TestCase {
      */
     public function testPasses(bool $expected, mixed $value, array $data = []): void {
         $rule   = $this->app->make(Query::class);
-        $actual = $rule->setData($data)->passes('test', $value);
+        $actual = (clone $rule)->setData($data)->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], array_merge($data, ['value' => $rule]))
+            ->fails();
 
         self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -52,6 +59,13 @@ class QueryTest extends TestCase {
      */
     public function dataProviderPasses(): array {
         return [
+            'empty string'                           => [
+                false,
+                '',
+                [
+                    // empty
+                ],
+            ],
             'valid string query without variables'   => [
                 true,
                 <<<'GRAPHQL'

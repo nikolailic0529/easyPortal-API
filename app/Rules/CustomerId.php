@@ -12,7 +12,7 @@ class CustomerId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Customer::query()->whereKey($value)->exists();
+        return $value && Customer::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

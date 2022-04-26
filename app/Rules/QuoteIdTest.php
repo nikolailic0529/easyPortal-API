@@ -7,6 +7,8 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -34,14 +36,24 @@ class QuoteIdTest extends TestCase {
     /**
      * @covers ::passes
      *
-     * @param array<string, mixed> $settings
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static, ?Organization): ?string $valueFactory
+     * @param array<string, mixed>                    $settings
      */
-    public function testPasses(bool $expected, Closure $quoteFactory, array $settings = []): void {
-        $organization = $this->setOrganization(Organization::factory()->create());
-        $quoteId      = $quoteFactory($this, $organization);
+    public function testPasses(bool $expected, Closure $valueFactory, array $settings = []): void {
         $this->setSettings($settings);
-        self::assertEquals($expected, $this->app->make(QuoteId::class)->passes('test', $quoteId));
+
+        $org    = $this->setOrganization(Organization::factory()->create());
+        $rule   = $this->app->make(QuoteId::class);
+        $value  = $valueFactory($this, $org);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -66,6 +78,7 @@ class QuoteIdTest extends TestCase {
                         'reseller_id' => $reseller->getKey(),
                         'type_id'     => $type->getKey(),
                     ]);
+
                     return $document->getKey();
                 },
                 [
@@ -91,13 +104,20 @@ class QuoteIdTest extends TestCase {
                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         'reseller_id' => $reseller->getKey(),
                         'type_id'     => $type->getKey(),
+                        'deleted_at'  => Date::now(),
                     ]);
-                    $document->delete();
-                    return $document->id;
+
+                    return $document->getKey();
                 },
                 [
                     'ep.quote_types' => ['f9834bc1-2f2f-4c57-bb8d-7a224ac24983'],
                 ],
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
+                },
             ],
         ];
     }

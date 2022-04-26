@@ -12,7 +12,7 @@ class ServiceLevelId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return ServiceLevel::query()->whereKey($value)->exists();
+        return $value && ServiceLevel::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

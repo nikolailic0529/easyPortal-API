@@ -34,7 +34,7 @@ class DateTime implements Rule {
         ]);
     }
 
-    public function parse(mixed $value): DateTimeInterface {
+    public function parse(mixed $value): ?DateTimeInterface {
         // Parse
         $datetime = is_string($value)
             ? Date::createFromFormat(static::FORMAT, $value)
@@ -43,8 +43,10 @@ class DateTime implements Rule {
         // Set Timezone
         $tz = config('app.timezone') ?: 'UTC';
 
-        if ($datetime && $tz) {
+        if ($datetime) {
             $datetime = $datetime->setTimezone($tz);
+        } else {
+            $datetime = null;
         }
 
         // Return

@@ -12,7 +12,7 @@ class UniqueUserEmail implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return !User::query()->where('email', '=', $value)->exists();
+        return $value && !User::query()->where('email', '=', $value)->exists();
     }
 
     public function message(): string {

@@ -12,7 +12,7 @@ class AssetId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Asset::query()->whereKey($value)->exists();
+        return $value && Asset::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -34,11 +36,20 @@ class CustomerIdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static, ?Organization): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $customerFactory): void {
-        $organization = $this->setOrganization(Organization::factory()->create());
-        $customerId   = $customerFactory($this, $organization);
-        self::assertEquals($expected, $this->app->make(CustomerId::class)->passes('test', $customerId));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $org    = $this->setOrganization(Organization::factory()->create());
+        $rule   = $this->app->make(CustomerId::class);
+        $value  = $valueFactory($this, $org);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -56,9 +67,10 @@ class CustomerIdTest extends TestCase {
                         'id' => $organization->getKey(),
                     ]);
                     $customer = Customer::factory()->create([
-                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        ]);
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    ]);
                     $customer->resellers()->attach($reseller);
+
                     return $customer->getKey();
                 },
             ],
@@ -76,11 +88,18 @@ class CustomerIdTest extends TestCase {
                     ]);
                     $customer = Customer::factory()
                         ->create([
-                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'deleted_at' => Date::now(),
                         ]);
                     $customer->resellers()->attach($reseller);
-                    $customer->delete();
+
                     return $customer->getKey();
+                },
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];

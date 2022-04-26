@@ -12,7 +12,7 @@ class ContractId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Document::query()->queryContracts()->whereKey($value)->exists();
+        return $value && Document::query()->queryContracts()->whereKey($value)->exists();
     }
 
     public function message(): string {

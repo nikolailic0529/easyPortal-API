@@ -12,7 +12,7 @@ class DocumentId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return Document::query()->queryDocuments()->whereKey($value)->exists();
+        return $value && Document::query()->queryDocuments()->whereKey($value)->exists();
     }
 
     public function message(): string {

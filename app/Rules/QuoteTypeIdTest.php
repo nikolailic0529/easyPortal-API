@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use App\Models\Type;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -34,13 +36,18 @@ class QuoteTypeIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param Closure(static): Type $typeFactory
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $typeFactory): void {
-        $type = $typeFactory($this);
-        $rule = $this->app->make(QuoteTypeId::class);
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(QuoteTypeId::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
 
-        self::assertEquals($expected, $rule->passes('test', $type->getKey()));
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -53,47 +60,54 @@ class QuoteTypeIdTest extends TestCase {
         return [
             'exists'               => [
                 true,
-                static function (TestCase $test): Type {
+                static function (TestCase $test): string {
                     $type = Type::factory()->create();
 
                     $test->setSettings([
                         'ep.quote_types' => [$type->getKey()],
                     ]);
 
-                    return $type;
+                    return $type->getKey();
                 },
             ],
             'exists but not quote' => [
                 false,
-                static function (): Type {
-                    return Type::factory()->create();
+                static function (): string {
+                    return Type::factory()->create()->getKey();
                 },
             ],
             'exists but contract'  => [
                 false,
-                static function (TestCase $test): Type {
+                static function (TestCase $test): string {
                     $type = Type::factory()->create();
 
                     $test->setSettings([
                         'ep.contract_types' => [$type->getKey()],
                     ]);
 
-                    return $type;
+                    return $type->getKey();
                 },
             ],
             'not-exists'           => [
                 false,
-                static function (): Type {
-                    return Type::factory()->make();
+                static function (): string {
+                    return '2421672e-0fc8-45ad-af62-9c6386078663';
                 },
             ],
             'soft-deleted'         => [
                 false,
-                static function (): Type {
-                    $type = Type::factory()->create();
-                    $type->delete();
-
-                    return $type;
+                static function (): string {
+                    return Type::factory()
+                        ->create([
+                            'deleted_at' => Date::now(),
+                        ])
+                        ->getKey();
+                },
+            ],
+            'empty value'          => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];

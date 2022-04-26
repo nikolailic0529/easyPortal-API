@@ -5,7 +5,7 @@ namespace App\Rules;
 use Carbon\Exceptions\InvalidFormatException;
 use DateTimeInterface;
 use Exception;
-use GraphQL\Error\Error;
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -21,7 +21,14 @@ class DateTimeTest extends TestCase {
      * @dataProvider dataProviderPasses
      */
     public function testPasses(bool $expected, mixed $value): void {
-        self::assertEquals($expected, (new DateTime())->passes('test', $value));
+        $rule   = $this->app->make(DateTime::class);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
 
     /**
@@ -47,7 +54,7 @@ class DateTimeTest extends TestCase {
      *
      * @dataProvider dataProviderParse
      */
-    public function testParse(string|Exception $expected, ?string $tz, string $value): void {
+    public function testParse(Exception|string|null $expected, ?string $tz, ?string $value): void {
         if ($expected instanceof Exception) {
             self::expectExceptionObject($expected);
         }
@@ -75,11 +82,12 @@ class DateTimeTest extends TestCase {
             'invalid datetime'              => [false, '2102-12-01T00:00:00.000+00:00'],
             'not a datetime'                => [false, 'sdfsdf'],
             'date'                          => [false, '2102-12-01'],
+            'empty string'                  => [false, ''],
         ];
     }
 
     /**
-     * @return array<string, array{string|Error, string|null, string}>
+     * @return array<string, array{Exception|string|null, string|null, string|null}>
      */
     public function dataProviderParse(): array {
         return [
@@ -117,6 +125,11 @@ class DateTimeTest extends TestCase {
                 '2102-12-01T22:12:01.000+00:00',
                 null,
                 '2102-12-02T01:12:01+03:00',
+            ],
+            'null'                          => [
+                null,
+                null,
+                null,
             ],
         ];
     }

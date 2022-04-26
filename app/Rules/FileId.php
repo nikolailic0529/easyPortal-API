@@ -12,7 +12,7 @@ class FileId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return File::query()->whereKey($value)->exists();
+        return $value && File::query()->whereKey($value)->exists();
     }
 
     public function message(): string {

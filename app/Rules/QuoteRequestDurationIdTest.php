@@ -4,6 +4,8 @@ namespace App\Rules;
 
 use App\Models\QuoteRequestDuration;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
 
 /**
@@ -33,10 +35,19 @@ class QuoteRequestDurationIdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static): ?string $valueFactory
      */
-    public function testPasses(bool $expected, Closure $durationFactory): void {
-        $durationId = $durationFactory();
-        self::assertEquals($expected, $this->app->make(QuoteRequestDurationId::class)->passes('test', $durationId));
+    public function testPasses(bool $expected, Closure $valueFactory): void {
+        $rule   = $this->app->make(QuoteRequestDurationId::class);
+        $value  = $valueFactory($this);
+        $actual = $rule->passes('test', $value);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $value], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -50,10 +61,11 @@ class QuoteRequestDurationIdTest extends TestCase {
             'exists'       => [
                 true,
                 static function (): string {
-                    $duration = QuoteRequestDuration::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    return $duration->getKey();
+                    return QuoteRequestDuration::factory()
+                        ->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ])
+                        ->getKey();
                 },
             ],
             'not-exists'   => [
@@ -65,11 +77,17 @@ class QuoteRequestDurationIdTest extends TestCase {
             'soft-deleted' => [
                 false,
                 static function (): string {
-                    $duration = QuoteRequestDuration::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ]);
-                    $duration->delete();
-                    return $duration->getKey();
+                    return QuoteRequestDuration::factory()
+                        ->create([
+                            'deleted_at' => Date::now(),
+                        ])
+                        ->getKey();
+                },
+            ],
+            'empty string' => [
+                false,
+                static function (): string {
+                    return '';
                 },
             ],
         ];
