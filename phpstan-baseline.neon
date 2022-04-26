@@ -5516,11 +5516,6 @@ parameters:
 			path: app/GraphQL/Scalars/DateTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Scalars\\\\DateTime\\:\\:parse\\(\\) should return Illuminate\\\\Support\\\\Carbon but returns Illuminate\\\\Support\\\\Carbon\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Scalars/DateTime.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Nuwave\\\\Lighthouse\\\\Schema\\\\Types\\\\Scalars\\\\DateScalar\\:\\:serialize\\(\\) expects Illuminate\\\\Support\\\\Carbon\\|string, Carbon\\\\CarbonImmutable\\|false given\\.$#"
 			count: 1
 			path: app/GraphQL/Scalars/DateTimeTest.php

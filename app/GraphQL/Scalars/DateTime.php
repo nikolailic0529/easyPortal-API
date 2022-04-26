@@ -4,6 +4,7 @@ namespace App\GraphQL\Scalars;
 
 use App\Rules\DateTime as DateTimeRule;
 use Illuminate\Support\Carbon;
+use InvalidArgumentException;
 use Nuwave\Lighthouse\Schema\Types\Scalars\DateTimeTz as LighthouseDateTimeTz;
 
 /**
@@ -16,6 +17,10 @@ class DateTime extends LighthouseDateTimeTz {
     protected function parse($value): Carbon {
         $datetime = (new DateTimeRule())->parse($value);
         $datetime = Carbon::make($datetime);
+
+        if (!$datetime) {
+            throw new InvalidArgumentException('The `$value` is not a DateTime.');
+        }
 
         return $datetime;
     }
