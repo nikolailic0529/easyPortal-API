@@ -46,11 +46,11 @@ input QuoteRequestCreateInput {
     @isNullable
     @isMax(value: 255)
 
-    message: HtmlString
+    message: HtmlString @isNullable @isRequired
 
-    contact_name: String! @isRequired
+    contact_name: String! @isRequired @isMax(value: 128)
     contact_phone: PhoneNumber! @isRequired @isPhoneNumber
-    contact_email: Email! @isRequired @isEmail
+    contact_email: Email! @isRequired @isMax(value: 255) @isEmail
 
     files: [Upload!] @isRequired @isFile
     assets: [QuoteRequestCreateAssetInput!]

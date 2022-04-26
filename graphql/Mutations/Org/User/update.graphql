@@ -10,21 +10,21 @@ extend type OrgUserMutations {
 }
 
 input OrgUserUpdateInput {
-    enabled: Boolean @isNotMe @isRequired
-    role_id: ID @isNotMe @isRequired @isOrgRoleId
-    team_id: ID @isNullable @isTeamId
-    given_name: String @isRequired
-    family_name: String @isRequired
-    title: String
-    academic_title: String
-    office_phone: PhoneNumber @isNullable @isPhoneNumber
-    mobile_phone: PhoneNumber @isNullable @isPhoneNumber
-    contact_email: Email @isNullable @isEmail
-    job_title: String
-    photo: Upload @isNullable @isImage
-    homepage: String
-    locale: String @isNullable @isLocale
-    timezone: String @isNullable @isTimezone
+    enabled: Boolean            @isNotMe @isRequired
+    role_id: ID                 @isNotMe @isRequired @isOrgRoleId
+    team_id: ID                 @isNullable @isTeamId
+    given_name: String          @isRequired @isMax(value: 255)
+    family_name: String         @isRequired @isMax(value: 255)
+    title: String               @isNullable @isRequired @isMax(value: 7)
+    academic_title: String      @isNullable @isRequired @isMax(value: 255)
+    office_phone: PhoneNumber   @isNullable @isPhoneNumber
+    mobile_phone: PhoneNumber   @isNullable @isPhoneNumber
+    contact_email: Email        @isNullable @isMax(value: 255) @isEmail
+    job_title: String           @isNullable @isRequired @isMax(value: 255)
+    photo: Upload               @isNullable @isImage
+    homepage: String            @isNullable @isRequired @isMax(value: 255)
+    locale: String              @isNullable @isLocale
+    timezone: String            @isNullable @isTimezone
 }
 
 type OrgUserUpdatePayload implements Payload {

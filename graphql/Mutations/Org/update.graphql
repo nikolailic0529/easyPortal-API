@@ -10,23 +10,23 @@ extend type OrgMutations {
 }
 
 input OrgUpdateInput {
-    locale: String @isNullable @isLocale
-    currency_id: ID @isNullable @isCurrencyId
-    website_url: Url @isNullable @isUrl
-    email: Email @isNullable @isEmail
-    analytics_code: String @isNullable
-    timezone: String @isNullable @isTimezone
+    locale: String                              @isNullable @isLocale
+    currency_id: ID                             @isNullable @isCurrencyId
+    website_url: Url                            @isNullable @isUrl
+    email: Email                                @isNullable @isEmail
+    analytics_code: String                      @isNullable @isRequired
+    timezone: String                            @isNullable @isTimezone
     branding: OrgUpdateBrandingInput
 }
 
 input OrgUpdateBrandingInput {
-    dark_theme: Boolean @isNullable
-    main_color: Color @isNullable @isColor
-    secondary_color: Color @isNullable @isColor
-    logo_url: Upload @isNullable @isImage
-    favicon_url: Upload @isNullable @isImage
-    welcome_image_url: Upload @isNullable @isImage
-    dashboard_image_url: Upload @isNullable @isImage
+    dark_theme: Boolean                         @isNullable @isRequired
+    main_color: Color                           @isNullable @isColor
+    secondary_color: Color                      @isNullable @isColor
+    logo_url: Upload                            @isNullable @isImage
+    favicon_url: Upload                         @isNullable @isImage
+    welcome_image_url: Upload                   @isNullable @isImage
+    dashboard_image_url: Upload                 @isNullable @isImage
     welcome_heading: [TranslatedStringInput!]
     welcome_underline: [TranslatedStringInput!]
 }
