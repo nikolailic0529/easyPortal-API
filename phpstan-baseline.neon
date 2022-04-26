@@ -19006,6 +19006,21 @@ parameters:
 			path: app/Utils/Processor/ProcessorTest.php
 
 		-
+			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+			count: 1
+			path: app/Utils/Validation/Validator.php
+
+		-
+			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: app/Utils/Validation/Validator.php
+
+		-
+			message: "#^Result of && is always true\\.$#"
+			count: 1
+			path: app/Utils/Validation/Validator.php
+
+		-
 			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: config/cache.php
