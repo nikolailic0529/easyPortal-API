@@ -5,6 +5,7 @@ namespace App\Rules\Org;
 use App\Models\Organization;
 use App\Models\Role;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -34,11 +35,20 @@ class RoleIdTest extends TestCase {
      * @covers ::passes
      *
      * @dataProvider dataProviderPasses
+     *
+     * @param Closure(static, ?Organization): string $roleFactory
      */
     public function testPasses(bool $expected, Closure $roleFactory): void {
-        $organization = $this->setOrganization(Organization::factory()->create());
-        $rule         = $roleFactory($this, $organization);
-        self::assertEquals($expected, $this->app->make(RoleId::class)->passes('test', $rule));
+        $org    = $this->setOrganization(Organization::factory()->create());
+        $role   = $roleFactory($this, $org);
+        $rule   = $this->app->make(RoleId::class);
+        $actual = $rule->passes('test', $role);
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $role], ['value' => $rule])
+            ->fails();
+
+        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -58,6 +68,12 @@ class RoleIdTest extends TestCase {
                     ]);
 
                     return $role->getKey();
+                },
+            ],
+            'empty'         => [
+                false,
+                static function (TestCase $test, Organization $organization): string {
+                    return '';
                 },
             ],
             'different org' => [

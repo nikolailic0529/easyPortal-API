@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission as AuthPermission;
 use Closure;
+use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -14,6 +15,8 @@ use Tests\TestCase;
 /**
  * @internal
  * @coversDefaultClass \App\Rules\Org\PermissionId
+ *
+ * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
  */
 class PermissionIdTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -39,32 +42,37 @@ class PermissionIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
+     * @param OrganizationFactory                        $orgFactory
      * @param array<AuthPermission>                      $permissions
      * @param Closure(static, ?Organization): Permission $permissionFactory
      */
     public function testPasses(
         bool $expected,
-        ?Closure $orgFactory,
+        mixed $orgFactory,
         array $permissions,
         Closure $permissionFactory,
     ): void {
-        $org = $this->setOrganization($orgFactory);
+        $org        = $this->setOrganization($orgFactory);
+        $permission = $permissionFactory($this, $org);
 
-        if ($org) {
+        if ($org && $permission->getKey()) {
             $this->override(Auth::class, static function (MockInterface $mock) use ($org, $permissions): void {
                 $mock
                     ->shouldReceive('getAvailablePermissions')
                     ->with($org)
-                    ->once()
+                    ->twice()
                     ->andReturn($permissions);
             });
         }
 
-        $permission = $permissionFactory($this, $org);
-        $rule       = $this->app->make(PermissionId::class);
-        $actual     = $rule->passes('test', $permission->getKey());
+        $rule   = $this->app->make(PermissionId::class);
+        $actual = $rule->passes('test', $permission->getKey());
+        $passes = !$this->app->make(Factory::class)
+            ->make(['value' => $permission->getKey()], ['value' => $rule])
+            ->fails();
 
         self::assertEquals($expected, $actual);
+        self::assertEquals($expected, $passes);
     }
     // </editor-fold>
 
@@ -100,6 +108,19 @@ class PermissionIdTest extends TestCase {
                 [$a, $b],
                 static function () use ($a): Permission {
                     return Permission::factory()->create([
+                        'key' => $a->getName(),
+                    ]);
+                },
+            ],
+            'empty'           => [
+                false,
+                static function (): Organization {
+                    return Organization::factory()->create();
+                },
+                [$a, $b],
+                static function () use ($a): Permission {
+                    return Permission::factory()->make([
+                        'id'  => '',
                         'key' => $a->getName(),
                     ]);
                 },

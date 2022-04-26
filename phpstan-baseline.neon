@@ -9271,19 +9271,9 @@ parameters:
 			path: app/Rules/Org/PermissionId.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\PermissionIdTest\\:\\:testPasses\\(\\) has parameter \\$orgFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/Org/PermissionIdTest.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\Org\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Org/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\RoleIdTest\\:\\:testPasses\\(\\) has parameter \\$roleFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Rules/Org/RoleIdTest.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Organization\\\\Id\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"

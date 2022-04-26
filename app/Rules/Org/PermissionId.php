@@ -24,7 +24,7 @@ class PermissionId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        if (!$this->organization->defined()) {
+        if (!$value || !$this->organization->defined()) {
             return false;
         }
 
