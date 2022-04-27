@@ -53,6 +53,7 @@ abstract class TestCase extends BaseTestCase {
     use FakeDisks;
     use WithTempFile;
     use WithEvents;
+    use WithDeprecations;
 
     /**
      * @var array<string>
