@@ -18,7 +18,7 @@ use const E_USER_DEPRECATED;
  */
 trait WithDeprecations {
     /**
-     * @var callable(int, string, string, int): void|null
+     * @var callable(int, string, string, int): bool|null
      */
     private mixed $withDeprecations = null;
 
@@ -28,7 +28,7 @@ trait WithDeprecations {
     public function initWithDeprecations(): void {
         $this->afterApplicationCreated(function (): void {
             $this->withDeprecations = set_error_handler(
-                function (int $level, string $message, string $file = '', int $line = 0): void {
+                function (int $level, string $message, string $file = '', int $line = 0): bool {
                     if ($this->withDeprecations) {
                         ($this->withDeprecations)($level, $message, $file, $line);
                     }
@@ -36,6 +36,8 @@ trait WithDeprecations {
                     if (in_array($level, [E_DEPRECATED, E_USER_DEPRECATED], true)) {
                         throw new ErrorException($message, 0, $level, $file, $line);
                     }
+
+                    return true;
                 },
             );
         });

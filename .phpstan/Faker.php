@@ -9,9 +9,9 @@ namespace Faker;
  * @see https://github.com/FakerPHP/Faker/issues/356
  * @see https://github.com/FakerPHP/Faker/pull/418
  *
- * @property string          $state
- * @property string          $secondaryAddress
- * @property string          $mimeType
+ * @method string          state()
+ * @method string          secondaryAddress()
+ * @method string          mimeType()
  *
  * Unfortunately, there is no way to extend original class, so we need to copy-paste all existing methods :(
  *
