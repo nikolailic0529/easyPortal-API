@@ -1,23 +1,3 @@
-"""
-Options for the `type` argument of `@belongsToMany`.
-"""
-enum BelongsToManyType {
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
-
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
-
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
-}
-
 enum CachedMode {
     """
     In this mode all queries will be cached in addition the resolver will
@@ -31,46 +11,6 @@ enum CachedMode {
     greater than the threshold.
     """
     Threshold
-}
-
-"""
-Options for the `type` argument of `@hasMany`.
-"""
-enum HasManyType {
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
-
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
-
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
-}
-
-"""
-Options for the `type` argument of `@morphMany`.
-"""
-enum MorphManyType {
-    """
-    Cursor-based pagination, compatible with the Relay specification.
-    """
-    CONNECTION
-
-    """
-    Offset-based pagination, similar to the Laravel default.
-    """
-    PAGINATOR
-
-    """
-    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
-    """
-    SIMPLE
 }
 
 enum SearchByTypeFlag {
@@ -6401,67 +6341,67 @@ type ApplicationTranslation {
 
 type Asset {
     changeRequest: ChangeRequest
-    @hasOne
+    @relation
 
     changed_at: DateTime
 
     contacts: [Contact!]!
-    @morphMany
+    @relation
 
     contacts_count: Int!
 
     coverages: [Coverage!]
-    @belongsTo
+    @relation
 
     coverages_count: Int!
 
     customer: Customer
-    @belongsTo
+    @relation
 
     customer_id: ID
     data_quality: String
     id: ID!
 
     location: Location
-    @belongsTo
+    @relation
 
     location_id: ID
     nickname: String
 
     oem: Oem!
-    @belongsTo
+    @relation
 
     oem_id: ID!
 
     product: Product!
-    @belongsTo
+    @relation
 
     product_id: ID!
 
     quoteRequest: QuoteRequest
-    @hasOne
+    @relation
 
     reseller: Reseller
-    @belongsTo
+    @relation
 
     reseller_id: ID
     serial_number: String
 
     status: Status
-    @belongsTo
+    @relation
 
     synced_at: DateTime!
 
     tags: [Tag!]!
-    @belongsToMany
+    @relation
 
     type: Type
-    @belongsTo
+    @relation
 
     type_id: ID
 
     warranties: [AssetWarranty!]!
-    @hasMany(
+    @relation(
         relation: "contractWarranties"
     )
 
@@ -6523,38 +6463,38 @@ implements
 
 type AssetWarranty {
     customer: Customer
-    @belongsTo
+    @relation
 
     customer_id: ID
     description: String
 
     document: Document
-    @belongsTo
+    @relation
 
     document_id: ID
     end: Date
     id: ID!
 
     reseller: Reseller
-    @belongsTo
+    @relation
 
     reseller_id: ID
 
     serviceGroup: ServiceGroup
-    @belongsTo
+    @relation
 
     serviceLevels: [ServiceLevel!]!
-    @hasMany
+    @relation
 
     start: Date
 
     status: Status
-    @belongsTo
+    @relation
 
     status_id: String
 
     type: Type
-    @belongsTo
+    @relation
 
     type_id: String
 }
@@ -6772,7 +6712,7 @@ type ChangeRequest {
     created_at: DateTime!
 
     files: [File!]!
-    @morphMany
+    @relation
 
     from: String!
     id: ID!
@@ -6782,14 +6722,14 @@ type ChangeRequest {
     updated_at: DateTime!
 
     user: User!
-    @belongsTo
+    @relation
 
     user_id: ID!
 }
 
 type City {
     country: Country!
-    @belongsTo
+    @relation
 
     country_id: ID!
     id: ID!
@@ -6840,7 +6780,7 @@ type Contact {
     phone_valid: Boolean
 
     types: [Type]!
-    @belongsToMany
+    @relation
 }
 
 type ContractMutations {
@@ -6954,7 +6894,7 @@ type Customer {
     @me(
         permissions: ["assets-view", "customers-view"]
     )
-    @hasMany
+    @relation
     @paginatedRelation
 
     """
@@ -7027,7 +6967,7 @@ type Customer {
             ]
         )
     ): [Contact!]!
-    @morphMany
+    @relation
 
     contacts_count: Int!
 
@@ -7081,7 +7021,7 @@ type Customer {
     @me(
         permissions: ["contracts-view", "customers-view"]
     )
-    @hasMany
+    @relation
     @paginatedRelation
 
     """
@@ -7121,7 +7061,7 @@ type Customer {
     )
 
     headquarter: CustomerLocation
-    @hasOne
+    @relation
 
     id: ID!
 
@@ -7129,7 +7069,7 @@ type Customer {
     @orgRelation
 
     locations: [CustomerLocation!]!
-    @hasMany
+    @relation
 
     locations_count: Int!
     @orgProperty
@@ -7186,7 +7126,7 @@ type Customer {
     @me(
         permissions: ["quotes-view", "customers-view"]
     )
-    @hasMany
+    @relation
     @paginatedRelation
 
     """
@@ -7226,24 +7166,24 @@ type Customer {
     )
 
     statuses: [Status!]!
-    @belongsToMany
+    @relation
 
     synced_at: DateTime!
 
     type: Type!
-    @belongsTo
+    @relation
 
     type_id: ID!
 }
 
 type CustomerLocation {
     location: Location
-    @hasOne
+    @relation
 
     location_id: ID!
 
     types: [Type!]!
-    @belongsToMany
+    @relation
 }
 
 type CustomerMutations {
@@ -7351,22 +7291,22 @@ type Document {
             ]
         )
     ): [Contact!]!
-    @morphMany
+    @relation
 
     contacts_count: Int!
 
     currency: Currency
-    @belongsTo
+    @relation
 
     currency_id: ID
 
     customer: Customer
-    @belongsTo
+    @relation
 
     customer_id: ID
 
     distributor: Distributor
-    @belongsTo
+    @relation
 
     distributor_id: ID
     end: Date
@@ -7397,7 +7337,7 @@ type Document {
             ]
         )
     ): [DocumentEntry!]!
-    @hasMany
+    @relation
 
     entries_count: Int!
     id: ID!
@@ -7405,7 +7345,7 @@ type Document {
     is_quote: Boolean!
 
     language: Language
-    @belongsTo
+    @relation
 
     language_id: ID
 
@@ -7451,7 +7391,7 @@ type Document {
             ]
         )
     ): [Note!]!
-    @hasMany
+    @relation
     @paginatedRelation
 
     notesAggregated(
@@ -7485,41 +7425,41 @@ type Document {
     number: String!
 
     oem: Oem!
-    @belongsTo
+    @relation
 
     oemGroup: OemGroup
-    @belongsTo
+    @relation
 
     oem_id: ID!
     oem_said: String
     price: Float
 
     reseller: Reseller
-    @belongsTo
+    @relation
 
     reseller_id: ID
     start: Date
 
     statuses: [Status!]!
-    @belongsToMany
+    @relation
 
     statuses_count: Int!
     synced_at: DateTime!
 
     type: Type!
-    @belongsTo
+    @relation
 
     type_id: ID!
 }
 
 type DocumentEntry {
     asset: Asset
-    @belongsTo
+    @relation
 
     asset_id: ID!
 
     currency: Currency
-    @belongsTo
+    @relation
 
     currency_id: ID
     discount: Float
@@ -7530,17 +7470,17 @@ type DocumentEntry {
     net_price: Float
 
     product: Product!
-    @belongsTo
+    @relation
 
     product_id: ID!
     renewal: Float
     serial_number: String
 
     serviceGroup: ServiceGroup
-    @belongsTo
+    @relation
 
     serviceLevel: ServiceLevel
-    @belongsTo
+    @relation
 
     service_group_id: ID
     service_level_id: ID
@@ -7587,12 +7527,12 @@ type Invitation {
     organization_id: ID!
 
     role: Role
-    @belongsTo
+    @relation
 
     role_id: ID!
 
     team: Team
-    @belongsTo
+    @relation
 
     team_id: ID
     used_at: DateTime
@@ -7637,12 +7577,12 @@ type Language {
 
 type Location {
     city: City!
-    @belongsTo
+    @relation
 
     city_id: ID!
 
     country: Country!
-    @belongsTo
+    @relation
 
     country_id: ID!
     id: ID!
@@ -7766,7 +7706,7 @@ type Me {
             ]
         )
     ): [MeSearch!]!
-    @hasMany
+    @relation
 
     team: Team
     @field(
@@ -8470,7 +8410,7 @@ type Note {
     created_at: DateTime!
 
     files: [File!]!
-    @morphMany
+    @relation
 
     id: ID!
     note: HtmlString!
@@ -8478,7 +8418,7 @@ type Note {
     updated_at: DateTime!
 
     user: User!
-    @belongsTo
+    @relation
 
     user_id: ID!
 }
@@ -8783,7 +8723,7 @@ type Organization {
         permissions: ["administer", "org-administer"]
     )
     @aggregated(
-        relation: "audits"
+        builder: "App\\GraphQL\\Queries\\Organization@audits"
     )
 
     branding: OrganizationBranding!
@@ -8792,16 +8732,16 @@ type Organization {
     )
 
     contacts: [Contact!]!
-    @hasMany
+    @relation
 
     currency: Currency
-    @belongsTo
+    @relation
 
     currency_id: ID
     email: Email
 
     headquarter: ResellerLocation
-    @hasOne
+    @relation
 
     id: ID!
 
@@ -8814,12 +8754,12 @@ type Organization {
     )
 
     kpi: Kpi
-    @hasOne
+    @relation
 
     locale: String
 
     locations: [ResellerLocation!]!
-    @hasMany
+    @relation
 
     name: String!
 
@@ -8830,7 +8770,7 @@ type Organization {
     @me(
         permissions: ["administer", "org-administer"]
     )
-    @hasMany
+    @relation
 
     root: Boolean!
     @field(
@@ -8838,7 +8778,7 @@ type Organization {
     )
 
     statuses: [Status!]!
-    @belongsToMany
+    @relation
 
     timezone: String
 
@@ -8883,7 +8823,7 @@ type Organization {
     @me(
         permissions: ["administer", "org-administer"]
     )
-    @hasMany
+    @relation
     @paginatedRelation
 
     """
@@ -9016,7 +8956,7 @@ type Product {
     name: String!
 
     oem: Oem!
-    @belongsTo
+    @relation
 
     oem_id: ID!
     sku: String!
@@ -11065,58 +11005,58 @@ type QuoteMutations {
 
 type QuoteRequest {
     assets: [QuoteRequestAsset!]!
-    @hasMany
+    @relation
 
     contact: Contact!
-    @morphOne
+    @relation
 
     customer: Customer
-    @belongsTo
+    @relation
 
     customer_custom: String
     customer_id: ID
 
     documents: [QuoteRequestDocument!]!
-    @hasMany
+    @relation
 
     files: [File!]!
-    @morphMany
+    @relation
 
     id: ID!
     message: String
 
     oem: Oem
-    @belongsTo
+    @relation
 
     oem_custom: String
     oem_id: ID
 
     type: Type
-    @belongsTo
+    @relation
 
     type_custom: String
     type_id: ID
 
     user: User!
-    @belongsTo
+    @relation
 
     user_id: ID!
 }
 
 type QuoteRequestAsset {
     asset: Asset!
-    @belongsTo
+    @relation
 
     asset_id: ID!
 
     duration: QuoteRequestDuration!
-    @belongsTo
+    @relation
 
     duration_id: ID!
     id: ID!
 
     serviceLevel: ServiceLevel
-    @belongsTo
+    @relation
 
     service_level_custom: String
     service_level_id: ID
@@ -11132,12 +11072,12 @@ implements
 
 type QuoteRequestDocument {
     document: Document!
-    @belongsTo
+    @relation
 
     document_id: ID!
 
     duration: QuoteRequestDuration!
-    @belongsTo
+    @relation
 
     duration_id: ID!
     id: ID!
@@ -11211,12 +11151,12 @@ type Reseller {
     customers_count: Int!
 
     headquarter: ResellerLocation
-    @hasOne
+    @relation
 
     id: ID!
 
     locations: [ResellerLocation!]!
-    @hasMany
+    @relation
 
     locations_count: Int!
     name: String!
@@ -11224,12 +11164,12 @@ type Reseller {
 
 type ResellerLocation {
     location: Location
-    @hasOne
+    @relation
 
     location_id: ID!
 
     types: [Type!]!
-    @belongsToMany
+    @relation
 }
 
 type ResetApplicationServicePayload {
@@ -11249,7 +11189,7 @@ type Role {
     name: String!
 
     permissions: [Permission!]!
-    @belongsToMany
+    @relation
 }
 
 """
@@ -11389,7 +11329,7 @@ type User {
     @me(
         permissions: ["administer", "org-administer"]
     )
-    @hasMany
+    @relation
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -11420,7 +11360,7 @@ type User {
     @me(
         permissions: ["administer", "org-administer"]
     )
-    @hasMany
+    @relation
 
     """
     @require <organization> Authenticated user must be a member of the current organization.
@@ -11611,66 +11551,6 @@ on
     | FIELD_DEFINITION
 
 """
-Resolves a field through the Eloquent `BelongsTo` relationship.
-"""
-directive @belongsTo(
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-)
-on
-    | FIELD_DEFINITION
-
-"""
-Resolves a field through the Eloquent `BelongsToMany` relationship.
-"""
-directive @belongsToMany(
-    """
-    Allow clients to query paginated lists without specifying the amount of items.
-    Overrules the `pagination.default_count` setting from `lighthouse.php`.
-    """
-    defaultCount: Int
-
-    """
-    Specify a custom type that implements the Edge interface
-    to extend edge object.
-    Only applies when using Relay style "connection" pagination.
-    """
-    edgeType: String
-
-    """
-    Limit the maximum amount of items that clients can request from paginated lists.
-    Overrules the `pagination.max_count` setting from `lighthouse.php`.
-    """
-    maxCount: Int
-
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-
-    """
-    Allows to resolve the relation as a paginated list.
-    """
-    type: BelongsToManyType
-)
-on
-    | FIELD_DEFINITION
-
-"""
 Manipulate the query builder with a method.
 """
 directive @builder(
@@ -11792,67 +11672,6 @@ directive @guest
 on
     | FIELD_DEFINITION
     | OBJECT
-
-"""
-Corresponds to [the Eloquent relationship HasMany](https://laravel.com/docs/eloquent-relationships#one-to-many).
-"""
-directive @hasMany(
-    """
-    Allow clients to query paginated lists without specifying the amount of items.
-    Overrules the `pagination.default_count` setting from `lighthouse.php`.
-    """
-    defaultCount: Int
-
-    """
-    Specify a custom type that implements the Edge interface
-    to extend edge object.
-    Only applies when using Relay style "connection" pagination.
-    """
-    edgeType: String
-
-    """
-    Limit the maximum amount of items that clients can request from paginated lists.
-    Overrules the `pagination.max_count` setting from `lighthouse.php`.
-    """
-    maxCount: Int
-
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-
-    """
-    Allows to resolve the relation as a paginated list.
-    Allowed values: `paginator`, `connection`.
-    """
-    type: HasManyType
-)
-on
-    | FIELD_DEFINITION
-
-"""
-Corresponds to [the Eloquent relationship HasOne](https://laravel.com/docs/eloquent-relationships#one-to-one).
-"""
-directive @hasOne(
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-)
-on
-    | FIELD_DEFINITION
 
 directive @isAssetId
 on
@@ -11977,66 +11796,6 @@ directive @me(
 repeatable on
     | FIELD_DEFINITION
     | OBJECT
-
-"""
-Corresponds to [Eloquent's MorphMany-Relationship](https://laravel.com/docs/eloquent-relationships#one-to-many-polymorphic-relations).
-"""
-directive @morphMany(
-    """
-    Allow clients to query paginated lists without specifying the amount of items.
-    Overrules the `pagination.default_count` setting from `lighthouse.php`.
-    """
-    defaultCount: Int
-
-    """
-    Specify a custom type that implements the Edge interface
-    to extend edge object.
-    Only applies when using Relay style "connection" pagination.
-    """
-    edgeType: String
-
-    """
-    Limit the maximum amount of items that clients can request from paginated lists.
-    Overrules the `pagination.max_count` setting from `lighthouse.php`.
-    """
-    maxCount: Int
-
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-
-    """
-    Allows to resolve the relation as a paginated list.
-    """
-    type: MorphManyType
-)
-on
-    | FIELD_DEFINITION
-
-"""
-Corresponds to [Eloquent's MorphOne-Relationship](https://laravel.com/docs/eloquent-relationships#one-to-one-polymorphic-relations).
-"""
-directive @morphOne(
-    """
-    Specify the relationship method name in the model class,
-    if it is named different from the field in the schema.
-    """
-    relation: String
-
-    """
-    Apply scopes to the underlying query.
-    """
-    scopes: [String!]
-)
-on
-    | FIELD_DEFINITION
 
 """
 Resolves the root for nested mutations.
@@ -12171,6 +11930,18 @@ on
 Adds offset-based pagination for the relation.
 """
 directive @paginatedRelation
+on
+    | FIELD_DEFINITION
+
+"""
+Eloquent relationship.
+"""
+directive @relation(
+    """
+    Relationship name if it is named different from the field in the schema.
+    """
+    relation: String
+)
 on
     | FIELD_DEFINITION
 

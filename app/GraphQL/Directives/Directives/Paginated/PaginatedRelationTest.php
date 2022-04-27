@@ -42,7 +42,7 @@ class PaginatedRelationTest extends TestCase {
      */
     public function testManipulateArgDefinitionNoModel(): void {
         self::expectExceptionObject(new LogicException(
-            '@paginatedRelation directive should be used with one of `@hasMany`, `@morphMany`, `@belongsToMany`.',
+            '@paginatedRelation directive should be used with one of `@relation`.',
         ));
 
         $this->getGraphQLSchema(
@@ -86,7 +86,7 @@ class PaginatedRelationTest extends TestCase {
 
                 type Customer {
                     locations: [CustomerLocation!]
-                    @hasMany
+                    @relation
                     @paginatedRelation
                 }
 

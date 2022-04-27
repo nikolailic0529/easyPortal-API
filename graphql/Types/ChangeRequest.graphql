@@ -3,12 +3,12 @@ type ChangeRequest {
     created_at: DateTime!
     updated_at: DateTime!
     user_id: ID!
-    user: User! @belongsTo
+    user: User! @relation
     subject: String!
     message: String!
     from: String!
     to: [String!]!
     cc: [String!]
     bcc: [String!]
-    files: [File!]! @morphMany
+    files: [File!]! @relation
 }

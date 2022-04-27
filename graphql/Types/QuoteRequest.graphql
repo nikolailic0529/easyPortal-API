@@ -1,19 +1,19 @@
 type QuoteRequest {
     id: ID!
     user_id: ID!
-    user: User! @belongsTo
+    user: User! @relation
     customer_custom: String
     customer_id: ID
-    customer: Customer @belongsTo
+    customer: Customer @relation
     oem_custom: String
     oem_id: ID
-    oem: Oem @belongsTo
+    oem: Oem @relation
     type_custom: String
     type_id: ID
-    type: Type @belongsTo
-    contact: Contact! @morphOne
+    type: Type @relation
+    contact: Contact! @relation
     message: String
-    assets: [QuoteRequestAsset!]! @hasMany
-    documents: [QuoteRequestDocument!]! @hasMany
-    files: [File!]! @morphMany
+    assets: [QuoteRequestAsset!]! @relation
+    documents: [QuoteRequestDocument!]! @relation
+    files: [File!]! @relation
 }

@@ -25,7 +25,7 @@ type User {
     invitations: [Invitation!]!
     @organization
     @me(permissions: ["administer", "org-administer"])
-    @hasMany
+    @relation
 
     organizations_count: Int!
     @organization
@@ -35,5 +35,5 @@ type User {
     organizations: [UserOrganization!]!
     @organization
     @me(permissions: ["administer", "org-administer"])
-    @hasMany
+    @relation
 }

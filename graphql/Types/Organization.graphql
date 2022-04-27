@@ -8,26 +8,26 @@ type Organization {
     website_url: Url
     email: Email
     currency_id: ID
-    currency: Currency @belongsTo
+    currency: Currency @relation
     analytics_code: String
     timezone: String
 
     branding: OrganizationBranding!
     @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-    kpi: Kpi @hasOne
+    kpi: Kpi @relation
 
-    statuses: [Status!]! @belongsToMany
-    locations: [ResellerLocation!]! @hasMany
-    contacts: [Contact!]! @hasMany
-    headquarter: ResellerLocation @hasOne
+    statuses: [Status!]! @relation
+    locations: [ResellerLocation!]! @relation
+    contacts: [Contact!]! @relation
+    headquarter: ResellerLocation @relation
 
     users(
         where: UsersQuery @searchBy
         order: UsersSort @sortBy
     ): [User!]!
     @me(permissions: ["administer", "org-administer"])
-    @hasMany
+    @relation
     @paginatedRelation
 
     keycloak_scope: String
@@ -35,7 +35,7 @@ type Organization {
 
     roles: [Role!]!
     @me(permissions: ["administer", "org-administer"])
-    @hasMany
+    @relation
 
     audits(
         where: AuditsQuery @searchBy

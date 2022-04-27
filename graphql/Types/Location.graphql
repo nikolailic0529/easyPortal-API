@@ -6,8 +6,8 @@ type Location {
     line_two: String!
     latitude: Float
     longitude: Float
-    city: City! @belongsTo
+    city: City! @relation
     city_id: ID!
-    country: Country! @belongsTo
+    country: Country! @relation
     country_id: ID!
 }

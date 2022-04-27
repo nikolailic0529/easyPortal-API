@@ -1,17 +1,17 @@
 type Customer {
     id: ID!
     name: String!
-    type: Type! @belongsTo
+    type: Type! @relation
     type_id: ID!
-    statuses: [Status!]! @belongsToMany
+    statuses: [Status!]! @relation
     contacts_count: Int!
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @morphMany
+    ): [Contact!]! @relation
 
-    locations: [CustomerLocation!]! @hasMany
-    headquarter: CustomerLocation @hasOne
+    locations: [CustomerLocation!]! @relation
+    headquarter: CustomerLocation @relation
 
     changed_at: DateTime
     synced_at: DateTime!
@@ -27,7 +27,7 @@ type Customer {
         order: DocumentsSort @sortBy
     ): [Document!]!
     @me(permissions: ["contracts-view", "customers-view"])
-    @hasMany
+    @relation
     @paginatedRelation
 
     # Quotes
@@ -36,7 +36,7 @@ type Customer {
         order: DocumentsSort @sortBy
     ): [Document!]!
     @me(permissions: ["quotes-view", "customers-view"])
-    @hasMany
+    @relation
     @paginatedRelation
 
     # Assets
@@ -45,6 +45,6 @@ type Customer {
         order: AssetsSort @sortBy
     ): [Asset!]!
     @me(permissions: ["assets-view", "customers-view"])
-    @hasMany
+    @relation
     @paginatedRelation
 }

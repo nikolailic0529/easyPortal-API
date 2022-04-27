@@ -1,5 +1,5 @@
 type CustomerLocation {
     location_id: ID!
-    location: Location @hasOne
-    types: [Type!]! @belongsToMany
+    location: Location @relation
+    types: [Type!]! @relation
 }
