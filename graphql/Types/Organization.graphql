@@ -19,8 +19,14 @@ type Organization {
 
     statuses: [Status!]! @relation
     locations: [ResellerLocation!]! @relation
-    contacts: [Contact!]! @relation
     headquarter: ResellerLocation @relation
+
+    contacts_count: Int! @count(relation: "contacts")
+    contacts(
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]!
+    @relation
 
     users(
         where: UsersQuery @searchBy

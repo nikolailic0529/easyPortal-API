@@ -6345,7 +6345,35 @@ type Asset {
 
     changed_at: DateTime
 
-    contacts: [Contact!]!
+    contacts(
+        order: [SortByClauseContactsSort!]
+        @sortBy
+
+        where: SearchByConditionContactsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): [Contact!]!
     @relation
 
     contacts_count: Int!
@@ -8730,8 +8758,41 @@ type Organization {
         resolver: "App\\GraphQL\\Queries\\Organization@branding"
     )
 
-    contacts: [Contact!]!
+    contacts(
+        order: [SortByClauseContactsSort!]
+        @sortBy
+
+        where: SearchByConditionContactsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+            ]
+        )
+    ): [Contact!]!
     @relation
+
+    contacts_count: Int!
+    @count(
+        relation: "contacts"
+    )
 
     currency: Currency
     @relation

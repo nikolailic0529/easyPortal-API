@@ -121,6 +121,7 @@ class OrganizationTest extends TestCase {
                             key
                             name
                         }
+                        contacts_count
                         contacts {
                             name
                             email
@@ -360,6 +361,7 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'contacts_count' => 1,
                         'contacts'       => [
                             [
                                 'name'        => 'contact1',

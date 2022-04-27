@@ -18,7 +18,10 @@ type Asset {
     warranties: [AssetWarranty!]! @relation(relation: "contractWarranties")
     reseller: Reseller @relation
     status: Status @relation
-    contacts: [Contact!]! @relation
+    contacts(
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]! @relation
     contacts_count: Int!
     coverages_count: Int!
     coverages: [Coverage!] @relation
