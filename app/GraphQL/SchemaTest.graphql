@@ -8783,7 +8783,7 @@ type Organization {
         permissions: ["administer", "org-administer"]
     )
     @aggregated(
-        builder: "App\\GraphQL\\Queries\\Organization@audits"
+        relation: "audits"
     )
 
     branding: OrganizationBranding!
@@ -8792,13 +8792,17 @@ type Organization {
     )
 
     contacts: [Contact!]!
+    @hasMany
 
     currency: Currency
     @belongsTo
 
     currency_id: ID
     email: Email
+
     headquarter: ResellerLocation
+    @hasOne
+
     id: ID!
 
     """
@@ -8813,17 +8817,20 @@ type Organization {
     @hasOne
 
     locale: String
+
     locations: [ResellerLocation!]!
+    @hasMany
+
     name: String!
 
     """
     @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     roles: [Role!]!
-    @hasMany
     @me(
         permissions: ["administer", "org-administer"]
     )
+    @hasMany
 
     root: Boolean!
     @field(

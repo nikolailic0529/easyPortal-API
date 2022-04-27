@@ -18,9 +18,9 @@ type Organization {
     kpi: Kpi @hasOne
 
     statuses: [Status!]! @belongsToMany
-    locations: [ResellerLocation!]!
-    contacts: [Contact!]!
-    headquarter: ResellerLocation
+    locations: [ResellerLocation!]! @hasMany
+    contacts: [Contact!]! @hasMany
+    headquarter: ResellerLocation @hasOne
 
     users(
         where: UsersQuery @searchBy
@@ -33,8 +33,9 @@ type Organization {
     keycloak_scope: String
     @me(permissions: ["administer"])
 
-    roles: [Role!]! @hasMany
+    roles: [Role!]!
     @me(permissions: ["administer", "org-administer"])
+    @hasMany
 
     audits(
         where: AuditsQuery @searchBy
