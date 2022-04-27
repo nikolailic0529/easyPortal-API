@@ -158,22 +158,30 @@ return [
         ),
         $channels,
         [
-            'stack'      => [
+            'stack'        => [
                 'driver'            => 'stack',
                 'channels'          => array_keys($channels),
                 'tap'               => $tap,
                 'ignore_exceptions' => false,
             ],
 
-            'single'     => [
+            'deprecations' => [
+                'driver' => 'daily',
+                'path'   => storage_path('logs/deprecations.log'),
+                'level'  => 'debug',
+                'days'   => 3,
+                'tap'    => $tap,
+            ],
+
+            // Default
+            'single'       => [
                 'driver' => 'single',
                 'path'   => storage_path('logs/laravel.log'),
                 'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
-            // Default
-            'slack'      => [
+            'slack'        => [
                 'driver'   => 'slack',
                 'url'      => env('LOG_SLACK_WEBHOOK_URL'),
                 'username' => 'Laravel Log',
@@ -182,7 +190,7 @@ return [
                 'tap'      => $tap,
             ],
 
-            'papertrail' => [
+            'papertrail'   => [
                 'driver'       => 'monolog',
                 'level'        => $logLevel,
                 'handler'      => env('LOG_PAPERTRAIL_HANDLER', SyslogUdpHandler::class),
@@ -194,7 +202,7 @@ return [
                 'tap'          => $tap,
             ],
 
-            'stderr'     => [
+            'stderr'       => [
                 'driver'    => 'monolog',
                 'level'     => $logLevel,
                 'handler'   => StreamHandler::class,
@@ -205,25 +213,25 @@ return [
                 'tap'       => $tap,
             ],
 
-            'syslog'     => [
+            'syslog'       => [
                 'driver' => 'syslog',
                 'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
-            'errorlog'   => [
+            'errorlog'     => [
                 'driver' => 'errorlog',
                 'level'  => $logLevel,
                 'tap'    => $tap,
             ],
 
-            'null'       => [
+            'null'         => [
                 'driver'  => 'monolog',
                 'handler' => NullHandler::class,
             ],
 
             // Emergency
-            'emergency'  => [
+            'emergency'    => [
                 'path' => storage_path('logs/laravel.log'),
             ],
         ],
