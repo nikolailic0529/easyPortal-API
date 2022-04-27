@@ -23,7 +23,7 @@ class OemsImportTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $file = $this->faker->word;
+        $file = $this->faker->word();
 
         $this->override(OemsImporter::class, static function (MockInterface $mock) use ($file): void {
             $mock

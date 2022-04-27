@@ -50,7 +50,7 @@ class DeleteQuoteNoteTest extends TestCase {
                 deleteQuoteNote(input:$input) {
                     deleted
                 }
-            }', ['input' => ['id' => $note?->getKey() ?: $this->faker->uuid]])
+            }', ['input' => ['id' => $note?->getKey() ?: $this->faker->uuid()]])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {

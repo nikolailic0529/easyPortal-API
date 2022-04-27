@@ -33,7 +33,7 @@ class AssetWarrantyFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'               => $this->faker->uuid,
+            'id'               => $this->faker->uuid(),
             'asset_id'         => static function (): Asset {
                 return Asset::factory()->create();
             },
@@ -47,8 +47,8 @@ class AssetWarrantyFactory extends Factory {
             'customer_id'      => static function (): Customer {
                 return Customer::factory()->create();
             },
-            'start'            => $this->faker->randomElement([null, $this->faker->dateTime]),
-            'end'              => $this->faker->randomElement([null, $this->faker->dateTime]),
+            'start'            => $this->faker->randomElement([null, $this->faker->dateTime()]),
+            'end'              => $this->faker->randomElement([null, $this->faker->dateTime()]),
             'description'      => null,
             'document_number'  => null,
             'created_at'       => Date::now(),

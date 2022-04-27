@@ -31,14 +31,14 @@ class UserFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'type'            => UserType::keycloak(),
             'organization_id' => null,
-            'given_name'      => $this->faker->firstName,
-            'family_name'     => $this->faker->lastName,
-            'email'           => $this->faker->unique()->safeEmail,
+            'given_name'      => $this->faker->firstName(),
+            'family_name'     => $this->faker->lastName(),
+            'email'           => $this->faker->unique()->safeEmail(),
             'email_verified'  => true,
-            'phone'           => $this->faker->e164PhoneNumber,
+            'phone'           => $this->faker->e164PhoneNumber(),
             'phone_verified'  => false,
             'photo'           => null,
             'created_at'      => Date::now(),

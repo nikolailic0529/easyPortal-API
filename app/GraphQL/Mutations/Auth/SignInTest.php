@@ -46,7 +46,7 @@ class SignInTest extends TestCase {
         }
 
         $input ??= [
-            'email'    => $this->faker->email,
+            'email'    => $this->faker->email(),
             'password' => $this->faker->password(8),
         ];
 

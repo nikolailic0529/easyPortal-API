@@ -24,12 +24,12 @@ class ChildrenTest extends TestCase {
         };
         $modelShouldBeUpdated = (clone $model)->forceFill([
             'id'       => 'acddf0a2-2d07-4113-ac8c-a2176ddf096c',
-            'key'      => $this->faker->uuid,
-            'property' => $this->faker->uuid,
+            'key'      => $this->faker->uuid(),
+            'property' => $this->faker->uuid(),
         ]);
         $modelShouldBeReused  = (clone $model)->forceFill([
             'id'       => 'edb4853a-796c-48af-a127-ac43492cc6b7',
-            'property' => $this->faker->uuid,
+            'property' => $this->faker->uuid(),
         ]);
         $modelShouldBeIgnored = (clone $model)->forceFill([
             'id'       => '81ab5bcb-abb9-4b2b-ad6c-d92b4fd7b5e8',
@@ -37,20 +37,20 @@ class ChildrenTest extends TestCase {
         ]);
         $modelShouldBeDeleted = (clone $model)->forceFill([
             'id'       => 'efa31a49-2bd0-4e22-a659-d63a9827d770',
-            'property' => $this->faker->uuid,
+            'property' => $this->faker->uuid(),
         ]);
         $typeShouldBeCreated  = new $type([
             'id'       => '561ecb81-db60-4fc5-b406-ab2f0d317bfa',
-            'key'      => $this->faker->uuid,
-            'property' => $this->faker->uuid,
+            'key'      => $this->faker->uuid(),
+            'property' => $this->faker->uuid(),
         ]);
         $typeShouldBeUpdated  = new $type([
             'key'      => $modelShouldBeUpdated->getAttribute('key'),
-            'property' => $this->faker->uuid,
+            'property' => $this->faker->uuid(),
         ]);
         $factory              = function (ChildrenTest_Type $type) use ($model): Model {
             return (clone $model)->forceFill([
-                'id'       => $type->id ?? $this->faker->uuid,
+                'id'       => $type->id ?? $this->faker->uuid(),
                 'key'      => $type->key ?? null,
                 'property' => $type->property ?? null,
             ]);

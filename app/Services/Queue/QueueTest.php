@@ -142,32 +142,32 @@ class QueueTest extends TestCase {
             ->andReturn('c');
 
         $qaa = new QueueJob([
-            'id'          => $this->faker->uuid,
+            'id'          => $this->faker->uuid(),
             'name'        => $a::class,
             'status'      => QueueJob::STATUS_RESERVED,
             'payload'     => json_encode(['pushedAt' => $pushedA]),
             'reserved_at' => $reserved,
         ]);
         $qab = new QueueJob([
-            'id'      => $this->faker->uuid,
+            'id'      => $this->faker->uuid(),
             'name'    => $a::class,
             'status'  => QueueJob::STATUS_PENDING,
             'payload' => json_encode(['pushedAt' => $pushedA]),
         ]);
         $qba = new QueueJob([
-            'id'      => $this->faker->uuid,
+            'id'      => $this->faker->uuid(),
             'name'    => $b::class,
             'status'  => QueueJob::STATUS_COMPLETED,
             'payload' => json_encode(['pushedAt' => $pushedA]),
         ]);
         $qbb = new QueueJob([
-            'id'      => $this->faker->uuid,
+            'id'      => $this->faker->uuid(),
             'name'    => $b::class,
             'status'  => QueueJob::STATUS_PENDING,
             'payload' => json_encode(['pushedAt' => $pushedA]),
         ]);
         $qc  = new QueueJob([
-            'id'      => $this->faker->uuid,
+            'id'      => $this->faker->uuid(),
             'name'    => 'c',
             'status'  => QueueJob::STATUS_PENDING,
             'payload' => json_encode(['pushedAt' => $pushedB]),
@@ -209,7 +209,7 @@ class QueueTest extends TestCase {
 
         $queue->stop($a, $qaa->id);
         $queue->stop($b);
-        $queue->stop($c, $this->faker->uuid);
+        $queue->stop($c, $this->faker->uuid());
 
         // Test
         $jobs     = (new Collection([$a, $b, $c]))
@@ -448,7 +448,7 @@ class QueueTest extends TestCase {
             ->shouldReceive('displayName')
             ->never();
 
-        $name  = $this->faker->word;
+        $name  = $this->faker->word();
         $named = Mockery::mock(BaseJob::class, NamedJob::class);
         $named
             ->shouldReceive('displayName')
@@ -485,7 +485,7 @@ class QueueTest extends TestCase {
      * @covers ::stop
      */
     public function testStop(): void {
-        $id        = $this->faker->uuid;
+        $id        = $this->faker->uuid();
         $job       = Mockery::mock(BaseJob::class);
         $config    = Mockery::mock(Repository::class);
         $stoppable = Mockery::mock(BaseJob::class, Stoppable::class);
@@ -510,7 +510,7 @@ class QueueTest extends TestCase {
      * @covers ::isStopped
      */
     public function testIsStopped(): void {
-        $id      = $this->faker->uuid;
+        $id      = $this->faker->uuid();
         $jobA    = Mockery::mock(BaseJob::class, Stoppable::class);
         $jobB    = Mockery::mock(BaseJob::class);
         $config  = Mockery::mock(Repository::class);
@@ -528,7 +528,7 @@ class QueueTest extends TestCase {
         $queue = new Queue($this->app, $config, $stopTag, Mockery::mock(JobRepository::class));
 
         self::assertTrue($queue->isStopped($jobA, $id));
-        self::assertFalse($queue->isStopped($jobA, $this->faker->uuid));
+        self::assertFalse($queue->isStopped($jobA, $this->faker->uuid()));
         self::assertFalse($queue->isStopped($jobB, $id));
     }
 }

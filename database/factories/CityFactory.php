@@ -31,9 +31,9 @@ class CityFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'key'        => $this->faker->uuid,
-            'name'       => $this->faker->city,
+            'id'         => $this->faker->uuid(),
+            'key'        => $this->faker->uuid(),
+            'name'       => $this->faker->city(),
             'country_id' => static function (): Country {
                 return Country::query()->first() ?? Country::factory()->create();
             },

@@ -30,9 +30,9 @@ class PasswordResetFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'email'      => $this->faker->email,
-            'token'      => $this->faker->uuid,
+            'id'         => $this->faker->uuid(),
+            'email'      => $this->faker->email(),
+            'token'      => $this->faker->uuid(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

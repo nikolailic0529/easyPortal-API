@@ -30,8 +30,8 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                               => $this->faker->uuid,
-            'name'                             => $this->faker->company,
+            'id'                               => $this->faker->uuid(),
+            'name'                             => $this->faker->company(),
             'keycloak_scope'                   => null,
             'keycloak_group_id'                => null,
             'locale'                           => null,

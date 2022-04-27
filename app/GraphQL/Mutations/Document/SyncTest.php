@@ -52,7 +52,7 @@ class SyncTest extends TestCase {
     ): void {
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid;
+        $id           = $this->faker->uuid();
 
         $this->setSettings($settings);
 
@@ -198,7 +198,7 @@ class SyncTest extends TestCase {
                             'ep.contract_types' => [$type],
                         ],
                         static function (self $test): string {
-                            return $test->faker->uuid;
+                            return $test->faker->uuid();
                         },
                     ],
                 ]),
@@ -254,7 +254,7 @@ class SyncTest extends TestCase {
                             'ep.quote_types' => [$type],
                         ],
                         static function (self $test): string {
-                            return $test->faker->uuid;
+                            return $test->faker->uuid();
                         },
                     ],
                 ]),

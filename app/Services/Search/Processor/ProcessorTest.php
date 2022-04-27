@@ -272,7 +272,7 @@ class ProcessorTest extends TestCase {
      * @covers ::init
      */
     public function testInit(): void {
-        $name      = $this->faker->word;
+        $name      = $this->faker->word();
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
@@ -338,8 +338,8 @@ class ProcessorTest extends TestCase {
         $this->setSettings($settings);
 
         // Mock
-        $as    = $this->faker->word;
-        $index = $this->faker->randomElement([null, $this->faker->word]);
+        $as    = $this->faker->word();
+        $index = $this->faker->randomElement([null, $this->faker->word()]);
         $model = $modelSoftDeletes
             ? Mockery::mock(ProcessorTest__ModelSoftDeletes::class)
             : Mockery::mock(EloquentModel::class);
@@ -408,7 +408,7 @@ class ProcessorTest extends TestCase {
      * @covers ::defaultState
      */
     public function testDefaultState(): void {
-        $keys      = [$this->faker->uuid, $this->faker->uuid];
+        $keys      = [$this->faker->uuid(), $this->faker->uuid()];
         $model     = Model::class;
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();

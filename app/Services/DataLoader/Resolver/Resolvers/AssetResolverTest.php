@@ -50,7 +50,7 @@ class AssetResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // If value not found the new object should be created
-        $uuid    = $this->faker->uuid;
+        $uuid    = $this->faker->uuid();
         $spy     = Mockery::spy(static function () use ($uuid): Asset {
             return Asset::factory()->make([
                 'id'          => $uuid,

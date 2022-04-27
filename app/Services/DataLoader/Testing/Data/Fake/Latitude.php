@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class Latitude extends Value {
     public function __invoke(): string {
-        return (string) $this->faker->latitude;
+        return (string) $this->faker->latitude();
     }
 }

@@ -412,18 +412,18 @@ class DocumentFactoryTest extends TestCase {
 
         $document       = DocumentModel::factory()->make();
         $asset          = AssetModel::factory()->create([
-            'id'            => $this->faker->uuid,
-            'serial_number' => $this->faker->uuid,
+            'id'            => $this->faker->uuid(),
+            'serial_number' => $this->faker->uuid(),
         ]);
-        $skuNumber      = $this->faker->word;
-        $supportPackage = $this->faker->word;
-        $currencyCode   = $this->faker->currencyCode;
+        $skuNumber      = $this->faker->word();
+        $supportPackage = $this->faker->word();
+        $currencyCode   = $this->faker->currencyCode();
         $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $start          = Date::make($this->faker->dateTime)->startOfDay();
-        $end            = Date::make($this->faker->dateTime)->startOfDay();
+        $start          = Date::make($this->faker->dateTime())->startOfDay();
+        $end            = Date::make($this->faker->dateTime())->startOfDay();
         $documentEntry  = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
             'supportPackage'        => " {$supportPackage} ",
@@ -493,10 +493,10 @@ class DocumentFactoryTest extends TestCase {
     public function testDocumentEntrySkuNumberNull(): void {
         $document      = DocumentModel::factory()->make();
         $asset         = AssetModel::factory()->create([
-            'id'            => $this->faker->uuid,
-            'serial_number' => $this->faker->uuid,
+            'id'            => $this->faker->uuid(),
+            'serial_number' => $this->faker->uuid(),
         ]);
-        $currencyCode  = $this->faker->currencyCode;
+        $currencyCode  = $this->faker->currencyCode();
         $netPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $discount      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice     = number_format($this->faker->randomFloat(2), 2, '.', '');
@@ -602,7 +602,7 @@ class DocumentFactoryTest extends TestCase {
         $group = ServiceGroup::factory()->make();
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $entry = new DocumentEntry([
-            'supportPackage' => $this->faker->word,
+            'supportPackage' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -629,7 +629,7 @@ class DocumentFactoryTest extends TestCase {
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $level = ServiceLevel::factory()->make();
         $entry = new DocumentEntry([
-            'skuNumber' => $this->faker->word,
+            'skuNumber' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -940,7 +940,7 @@ class DocumentFactoryTest extends TestCase {
                     return new AssetDocumentObject([
                         'document' => [
                             'document' => [
-                                'id' => $test->faker->uuid,
+                                'id' => $test->faker->uuid(),
                             ],
                         ],
                     ]);
@@ -950,7 +950,7 @@ class DocumentFactoryTest extends TestCase {
                 'createFromDocument',
                 static function (TestCase $test): Type {
                     return new Document([
-                        'id' => $test->faker->uuid,
+                        'id' => $test->faker->uuid(),
                     ]);
                 },
             ],
@@ -973,11 +973,11 @@ class DocumentFactoryTest extends TestCase {
             Document::class     => [
                 static function (TestCase $test): Type {
                     return new Document([
-                        'type'                 => $test->faker->word,
+                        'type'                 => $test->faker->word(),
                         'vendorSpecificFields' => [
-                            'vendor'           => $test->faker->word,
-                            'groupId'          => $test->faker->word,
-                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence]),
+                            'vendor'           => $test->faker->word(),
+                            'groupId'          => $test->faker->word(),
+                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence()]),
                         ],
                     ]);
                 },
@@ -985,11 +985,11 @@ class DocumentFactoryTest extends TestCase {
             ViewDocument::class => [
                 static function (TestCase $test): Type {
                     return new ViewDocument([
-                        'type'                 => $test->faker->word,
+                        'type'                 => $test->faker->word(),
                         'vendorSpecificFields' => [
-                            'vendor'           => $test->faker->word,
-                            'groupId'          => $test->faker->word,
-                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence]),
+                            'vendor'           => $test->faker->word(),
+                            'groupId'          => $test->faker->word(),
+                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence()]),
                         ],
                     ]);
                 },

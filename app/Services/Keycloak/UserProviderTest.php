@@ -44,7 +44,7 @@ class UserProviderTest extends TestCase {
         $user     = User::factory()->create();
 
         self::assertEquals($user, $provider->retrieveById($user->getKey()));
-        self::assertNull($provider->retrieveById($this->faker->uuid));
+        self::assertNull($provider->retrieveById($this->faker->uuid()));
     }
 
     /**
@@ -172,9 +172,9 @@ class UserProviderTest extends TestCase {
      */
     public function testGetProperties(Closure $expected, Closure $claims): void {
         // Prepare
-        $clientId     = $this->faker->word;
+        $clientId     = $this->faker->word();
         $organization = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word,
+            'keycloak_scope' => $this->faker->word(),
         ]);
         $claims       = $claims($clientId, $organization);
         $token        = $this->getToken($claims);
@@ -212,7 +212,7 @@ class UserProviderTest extends TestCase {
     public function testUpdateTokenUser(): void {
         $token        = Mockery::mock(UnencryptedToken::class);
         $organization = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word,
+            'keycloak_scope' => $this->faker->word(),
         ]);
 
         $provider = Mockery::mock(UserProvider::class);
@@ -268,10 +268,10 @@ class UserProviderTest extends TestCase {
      */
     public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
         $org      = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word,
+            'keycloak_scope' => $this->faker->word(),
         ]);
         $user     = User::factory()->create();
-        $clientId = $this->faker->word;
+        $clientId = $this->faker->word();
         $claims   = $claimsFactory($this, $clientId, $org, $user);
         $token    = $this->getToken($claims);
         $provider = new class() extends UserProvider {
@@ -479,7 +479,7 @@ class UserProviderTest extends TestCase {
                     User::factory()->create([
                         'type'       => UserType::local(),
                         'email'      => 'email@example.com',
-                        'deleted_at' => $test->faker()->dateTime,
+                        'deleted_at' => $test->faker()->dateTime(),
                         'enabled'    => true,
                     ]);
                 },

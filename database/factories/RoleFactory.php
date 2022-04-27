@@ -30,7 +30,7 @@ class RoleFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'organization_id' => null,
             'name'            => $this->faker->name(),
             'created_at'      => Date::now(),

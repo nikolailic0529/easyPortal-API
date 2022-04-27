@@ -78,7 +78,7 @@ class CacheExpiredListenerTest extends TestCase {
             ModelsRecalculated::class  => [
                 static function (self $test): object {
                     return new ModelsRecalculated(Customer::class, [
-                        $test->faker->uuid,
+                        $test->faker->uuid(),
                     ]);
                 },
             ],

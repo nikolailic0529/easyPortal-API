@@ -82,7 +82,7 @@ class SearchableImplTest extends TestCase {
      */
     public function testToSearchableArray(): void {
         // Prepare
-        $sku    = $this->faker->uuid;
+        $sku    = $this->faker->uuid();
         $oem    = Oem::factory()->create();
         $group  = ServiceGroup::factory()->create([
             'sku'    => $sku,
@@ -216,7 +216,7 @@ class SearchableImplTest extends TestCase {
      * @covers ::makeAllSearchable
      */
     public function testMakeAllSearchable(): void {
-        $chunk = $this->faker->randomDigitNotNull;
+        $chunk = $this->faker->randomDigitNotNull();
         $model = new class() extends Model {
             use SearchableImpl;
 

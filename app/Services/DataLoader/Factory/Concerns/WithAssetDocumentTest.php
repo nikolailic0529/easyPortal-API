@@ -32,7 +32,7 @@ class WithAssetDocumentTest extends TestCase {
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {
-        $oem     = $this->faker->word;
+        $oem     = $this->faker->word();
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -64,7 +64,7 @@ class WithAssetDocumentTest extends TestCase {
         $document = new ViewAssetDocument([
             'document' => [
                 'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
+                    'vendor' => $this->faker->word(),
                 ],
             ],
         ]);
@@ -112,10 +112,10 @@ class WithAssetDocumentTest extends TestCase {
         $document = new ViewAssetDocument([
             'document'       => [
                 'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
+                    'vendor' => $this->faker->word(),
                 ],
             ],
-            'supportPackage' => $this->faker->word,
+            'supportPackage' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -149,10 +149,10 @@ class WithAssetDocumentTest extends TestCase {
         $document = new ViewAssetDocument([
             'document'  => [
                 'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
+                    'vendor' => $this->faker->word(),
                 ],
             ],
-            'skuNumber' => $this->faker->word,
+            'skuNumber' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);

@@ -66,18 +66,18 @@ class CreateTest extends TestCase {
                 'oem_id'        => Oem::factory()->create()->getKey(),
                 'customer_id'   => Customer::factory()->create()->getKey(),
                 'type_id'       => Type::factory()->create()->getKey(),
-                'contact_name'  => $this->faker->name,
-                'contact_email' => $this->faker->email,
-                'contact_phone' => $this->faker->e164PhoneNumber,
+                'contact_name'  => $this->faker->name(),
+                'contact_email' => $this->faker->email(),
+                'contact_phone' => $this->faker->e164PhoneNumber(),
             ];
         } else {
             $input ??= [
-                'oem_id'        => $this->faker->uuid,
-                'customer_id'   => $this->faker->uuid,
-                'type_id'       => $this->faker->uuid,
-                'contact_name'  => $this->faker->name,
-                'contact_email' => $this->faker->email,
-                'contact_phone' => $this->faker->e164PhoneNumber,
+                'oem_id'        => $this->faker->uuid(),
+                'customer_id'   => $this->faker->uuid(),
+                'type_id'       => $this->faker->uuid(),
+                'contact_name'  => $this->faker->name(),
+                'contact_email' => $this->faker->email(),
+                'contact_phone' => $this->faker->e164PhoneNumber(),
             ];
         }
 

@@ -19,7 +19,7 @@ class LoaderTest extends TestCase {
      */
     public function testUpdateById(): void {
         // Prepare
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $type   = Mockery::mock(Type::class, TypeWithId::class);
         $model  = Mockery::mock(Model::class);
         $loader = Mockery::mock(Loader::class);
@@ -54,7 +54,7 @@ class LoaderTest extends TestCase {
      */
     public function testUpdateByType(): void {
         // Prepare
-        $value  = ['id' => $this->faker->uuid];
+        $value  = ['id' => $this->faker->uuid()];
         $type   = new class($value) extends Type implements TypeWithId {
             public string $id;
         };
@@ -86,7 +86,7 @@ class LoaderTest extends TestCase {
     public function testUpdateByIdModelNotExists(): void {
         // Prepare
         $e      = new Exception(__METHOD__);
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $type   = Mockery::mock(Type::class, TypeWithId::class);
         $model  = Mockery::mock(Model::class);
         $loader = Mockery::mock(Loader::class);
@@ -125,7 +125,7 @@ class LoaderTest extends TestCase {
     public function testUpdateByTypeModelNotExists(): void {
         // Prepare
         $e      = new Exception(__METHOD__);
-        $value  = ['id' => $this->faker->uuid];
+        $value  = ['id' => $this->faker->uuid()];
         $type   = new class($value) extends Type implements TypeWithId {
             public string $id;
         };
@@ -160,7 +160,7 @@ class LoaderTest extends TestCase {
      */
     public function testUpdateByIdTypeWithoutId(): void {
         // Prepare
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $type   = Mockery::mock(Type::class);
         $model  = Mockery::mock(Model::class);
         $loader = Mockery::mock(Loader::class);
@@ -193,7 +193,7 @@ class LoaderTest extends TestCase {
      */
     public function testUpdateByTypeTypeWithoutId(): void {
         // Prepare
-        $value  = ['id' => $this->faker->uuid];
+        $value  = ['id' => $this->faker->uuid()];
         $type   = new class($value) extends Type {
             public string $id;
         };
@@ -222,7 +222,7 @@ class LoaderTest extends TestCase {
      */
     public function testCreateById(): void {
         // Prepare
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $type   = Mockery::mock(Type::class);
         $model  = Mockery::mock(Model::class);
         $loader = Mockery::mock(Loader::class);
@@ -253,7 +253,7 @@ class LoaderTest extends TestCase {
      */
     public function testCreateByType(): void {
         // Prepare
-        $value  = ['id' => $this->faker->uuid];
+        $value  = ['id' => $this->faker->uuid()];
         $type   = new class($value) extends Type {
             public string $id;
         };

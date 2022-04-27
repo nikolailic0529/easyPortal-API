@@ -71,7 +71,7 @@ class CreateContractNoteTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
             $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid,
+                'id' => $organization ? $organization->getKey() : $this->faker->uuid(),
             ]);
             Document::factory()->create([
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',

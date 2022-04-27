@@ -50,15 +50,15 @@ class PermissionsSyncTest extends TestCase {
                 ->once()
                 ->andReturn([
                     new Role([
-                        'id'   => $this->faker->uuid,
+                        'id'   => $this->faker->uuid(),
                         'name' => 'permission-a',
                     ]),
                     new Role([
-                        'id'   => $this->faker->uuid,
+                        'id'   => $this->faker->uuid(),
                         'name' => 'permission-c',
                     ]),
                     new Role([
-                        'id'   => $this->faker->uuid,
+                        'id'   => $this->faker->uuid(),
                         'name' => 'unknown',
                     ]),
                 ]);
@@ -70,7 +70,7 @@ class PermissionsSyncTest extends TestCase {
                 })
                 ->andReturn(
                     new Role([
-                        'id'   => $this->faker->uuid,
+                        'id'   => $this->faker->uuid(),
                         'name' => 'permission-b',
                     ]),
                 );
@@ -106,7 +106,7 @@ class PermissionsSyncTest extends TestCase {
      * @covers ::handle
      */
     public function testHandleOrgAdminGroupSetGroupNotExists(): void {
-        $groupId = $this->faker->uuid;
+        $groupId = $this->faker->uuid();
 
         $this->setSettings([
             'ep.keycloak.org_admin_group' => $groupId,
@@ -127,7 +127,7 @@ class PermissionsSyncTest extends TestCase {
                 ->once()
                 ->andReturn([
                     new Role([
-                        'id'   => $this->faker->uuid,
+                        'id'   => $this->faker->uuid(),
                         'name' => 'permission-a',
                     ]),
                 ]);
@@ -163,8 +163,8 @@ class PermissionsSyncTest extends TestCase {
      * @covers ::handle
      */
     public function testHandleOrgAdminGroupSetGroupExists(): void {
-        $groupId   = $this->faker->uuid;
-        $groupName = $this->faker->word;
+        $groupId   = $this->faker->uuid();
+        $groupName = $this->faker->word();
 
         $this->app->make(Permissions::class)->set([
             new class('permission-a') extends Permission {
@@ -184,11 +184,11 @@ class PermissionsSyncTest extends TestCase {
                 'name' => $groupName,
             ]);
             $roleA = new Role([
-                'id'   => $this->faker->uuid,
+                'id'   => $this->faker->uuid(),
                 'name' => 'permission-a',
             ]);
             $roleB = new Role([
-                'id'   => $this->faker->uuid,
+                'id'   => $this->faker->uuid(),
                 'name' => 'permission-b',
             ]);
 

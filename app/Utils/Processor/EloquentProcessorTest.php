@@ -41,7 +41,7 @@ class EloquentProcessorTest extends TestCase {
      * @covers ::getBuilder
      */
     public function testGetBuilderWithKeys(): void {
-        $keys    = [$this->faker->uuid, $this->faker->uuid];
+        $keys    = [$this->faker->uuid(), $this->faker->uuid()];
         $builder = $this->getBuilderMock();
 
         $processor = Mockery::mock(EloquentProcessor::class);
@@ -156,7 +156,7 @@ class EloquentProcessorTest extends TestCase {
      * @covers ::getTotal
      */
     public function testGetTotalWithKeys(): void {
-        $keys      = array_fill(0, $this->faker->randomDigit(), $this->faker->uuid);
+        $keys      = array_fill(0, $this->faker->randomDigit(), $this->faker->uuid());
         $state     = new EloquentState(['keys' => $keys]);
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
@@ -194,7 +194,7 @@ class EloquentProcessorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIteratorWithKeys(): void {
-        $state     = new EloquentState(['keys' => [$this->faker->uuid]]);
+        $state     = new EloquentState(['keys' => [$this->faker->uuid()]]);
         $builder   = Mockery::mock(Builder::class);
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();

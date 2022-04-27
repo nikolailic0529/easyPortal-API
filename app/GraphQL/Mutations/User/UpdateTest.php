@@ -68,7 +68,7 @@ class UpdateTest extends TestCase {
         $input = [
             'id'    => $inputUserFactory
                 ? $inputUserFactory($this, $organization, $user)->getKey()
-                : $this->faker->uuid,
+                : $this->faker->uuid(),
             'input' => $inputFactory
                 ? $inputFactory($this, $organization, $user)
                 : [],
@@ -192,17 +192,17 @@ class UpdateTest extends TestCase {
                     $factory,
                     static function (self $test): array {
                         $properties = [
-                            'enabled'        => $test->faker->boolean,
-                            'given_name'     => $test->faker->firstName,
-                            'family_name'    => $test->faker->lastName,
-                            'title'          => $test->faker->randomElement([$test->faker->title, null]),
-                            'academic_title' => $test->faker->randomElement([$test->faker->word, null]),
-                            'office_phone'   => $test->faker->randomElement([$test->faker->e164PhoneNumber, null]),
-                            'mobile_phone'   => $test->faker->randomElement([$test->faker->e164PhoneNumber, null]),
-                            'contact_email'  => $test->faker->randomElement([$test->faker->email, null]),
-                            'job_title'      => $test->faker->randomElement([$test->faker->word, null]),
-                            'homepage'       => $test->faker->randomElement([$test->faker->url, null]),
-                            'timezone'       => $test->faker->randomElement([$test->faker->timezone, null]),
+                            'enabled'        => $test->faker->boolean(),
+                            'given_name'     => $test->faker->firstName(),
+                            'family_name'    => $test->faker->lastName(),
+                            'title'          => $test->faker->randomElement([$test->faker->title(), null]),
+                            'academic_title' => $test->faker->randomElement([$test->faker->word(), null]),
+                            'office_phone'   => $test->faker->randomElement([$test->faker->e164PhoneNumber(), null]),
+                            'mobile_phone'   => $test->faker->randomElement([$test->faker->e164PhoneNumber(), null]),
+                            'contact_email'  => $test->faker->randomElement([$test->faker->email(), null]),
+                            'job_title'      => $test->faker->randomElement([$test->faker->word(), null]),
+                            'homepage'       => $test->faker->randomElement([$test->faker->url(), null]),
+                            'timezone'       => $test->faker->randomElement([$test->faker->timezone(), null]),
                         ];
                         $count      = $test->faker->numberBetween(1, count($properties));
                         $keys       = $test->faker->randomElements(array_keys($properties), $count);
@@ -244,7 +244,7 @@ class UpdateTest extends TestCase {
                     },
                     static function (self $test): array {
                         return [
-                            'given_name' => $test->faker->firstName,
+                            'given_name' => $test->faker->firstName(),
                         ];
                     },
                 ],
@@ -266,7 +266,7 @@ class UpdateTest extends TestCase {
                     },
                     static function (self $test): array {
                         return [
-                            'given_name' => $test->faker->firstName,
+                            'given_name' => $test->faker->firstName(),
                         ];
                     },
                 ],

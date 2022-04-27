@@ -28,7 +28,7 @@ class MutationCreateTest extends TestCase {
      * @covers ::resolveField
      */
     public function testResolveFieldModelNotDefined(): void {
-        $customer = $this->faker->uuid;
+        $customer = $this->faker->uuid();
         $mutation = json_encode(MutationCreateTest_Mutation::class);
         $builder  = json_encode(MutationCreateTest_Builder::class);
 

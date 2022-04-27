@@ -48,9 +48,9 @@ class AuthorizeTest extends TestCase {
         $me      = User::factory()->make([
             'id' => '7ad49dda-6b3c-43f7-81bb-1d86260a6e07',
         ]);
-        $id      = $this->faker->uuid;
-        $code    = $this->faker->word;
-        $state ??= $this->faker->word;
+        $id      = $this->faker->uuid();
+        $code    = $this->faker->word();
+        $state ??= $this->faker->word();
 
         if ($organizationFactory) {
             $id = $organizationFactory($this, $org, $user)?->getKey() ?? $id;

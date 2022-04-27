@@ -43,9 +43,9 @@ class ScheduleTest extends TestCase {
         //
         // Following code required to "fix" it
         $input ??= [
-            'message' => $this->faker->sentence,
-            'start'   => $this->faker->iso8601,
-            'end'     => $this->faker->iso8601,
+            'message' => $this->faker->sentence(),
+            'start'   => $this->faker->iso8601(),
+            'end'     => $this->faker->iso8601(),
         ];
 
         if ($expected instanceof GraphQLSuccess) {

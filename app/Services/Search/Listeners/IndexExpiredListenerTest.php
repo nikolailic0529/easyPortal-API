@@ -69,8 +69,8 @@ class IndexExpiredListenerTest extends TestCase {
      */
     public function testInvokeModelsRecalculated(): void {
         $event    = new ModelsRecalculated(Customer::class, [
-            $this->faker->uuid,
-            $this->faker->uuid,
+            $this->faker->uuid(),
+            $this->faker->uuid(),
         ]);
         $listener = $this->app->make(IndexExpiredListener::class);
 
@@ -102,7 +102,7 @@ class IndexExpiredListenerTest extends TestCase {
             ModelsRecalculated::class => [
                 static function (self $test): object {
                     return new ModelsRecalculated(Customer::class, [
-                        $test->faker->uuid,
+                        $test->faker->uuid(),
                     ]);
                 },
             ],

@@ -49,7 +49,7 @@ class SignUpByInviteTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
         $data = [
-            'token' => $this->faker->word,
+            'token' => $this->faker->word(),
             'input' => null,
         ];
 
@@ -253,7 +253,7 @@ class SignUpByInviteTest extends TestCase {
                     null,
                     static function (self $test): array {
                         return [
-                            'token' => $test->faker->word,
+                            'token' => $test->faker->word(),
                             'input' => null,
                         ];
                     },
@@ -270,7 +270,7 @@ class SignUpByInviteTest extends TestCase {
                     static function (self $test): array {
                         return [
                             'token' => $test->app->make(Encrypter::class)->encrypt([
-                                'invitation' => $test->faker->uuid,
+                                'invitation' => $test->faker->uuid(),
                             ]),
                             'input' => null,
                         ];

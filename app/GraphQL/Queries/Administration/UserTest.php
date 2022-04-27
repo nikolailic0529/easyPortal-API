@@ -42,7 +42,7 @@ class UserTest extends TestCase {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid;
+        $id           = $this->faker->uuid();
 
         if ($prepare) {
             $id = $prepare($this, $organization, $user)->getKey();

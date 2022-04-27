@@ -184,7 +184,7 @@ class CustomerLoaderTest extends TestCase {
                 ->never();
         });
 
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $loader = $this->app->make(Container::class)
             ->make(CustomerLoader::class)
             ->setWithWarrantyCheck(true);

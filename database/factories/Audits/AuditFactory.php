@@ -34,10 +34,10 @@ class AuditFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'organization_id' => null,
             'user_id'         => null,
-            'object_id'       => $this->faker->uuid,
+            'object_id'       => $this->faker->uuid(),
             'object_type'     => $this->faker->randomElement(array_keys(Relation::$morphMap)),
             'action'          => $this->faker->randomElement(Action::getValues()),
             'context'         => null,

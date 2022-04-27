@@ -75,7 +75,7 @@ class UpdateQuoteNoteTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
             $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid,
+                'id' => $organization ? $organization->getKey() : $this->faker->uuid(),
             ]);
             $data     = ['id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa'];
             if ($organization) {

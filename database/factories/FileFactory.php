@@ -33,15 +33,15 @@ class FileFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => $this->faker->uuid,
-            'object_id'   => $this->faker->uuid,
+            'id'          => $this->faker->uuid(),
+            'object_id'   => $this->faker->uuid(),
             'object_type' => $this->faker->randomElement(array_keys(Relation::$morphMap)),
-            'name'        => $this->faker->word,
-            'disk'        => $this->faker->word,
-            'path'        => $this->faker->word,
-            'type'        => $this->faker->mimeType,
+            'name'        => $this->faker->word(),
+            'disk'        => $this->faker->word(),
+            'path'        => $this->faker->word(),
+            'type'        => $this->faker->mimeType(),
             'size'        => $this->faker->randomNumber(5, false),
-            'hash'        => $this->faker->sha256,
+            'hash'        => $this->faker->sha256(),
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

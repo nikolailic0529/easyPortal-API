@@ -216,7 +216,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $id ?: $this->faker->uuid,
+                    'id' => $id ?: $this->faker->uuid(),
                 ],
             )
             ->assertThat($expected);
@@ -262,7 +262,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $organization?->getKey() ?: $this->faker->uuid,
+                    'id' => $organization?->getKey() ?: $this->faker->uuid(),
                 ],
             )
             ->assertThat($expected);

@@ -32,9 +32,9 @@ class LogFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => $this->faker->uuid,
+            'id'          => $this->faker->uuid(),
             'category'    => $this->faker->randomElement(Category::getValues()),
-            'action'      => $this->faker->word,
+            'action'      => $this->faker->word(),
             'status'      => $this->faker->randomElement(Status::getValues()),
             'parent_id'   => null,
             'index'       => 0,

@@ -37,7 +37,7 @@ class AssetFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                  => $this->faker->uuid,
+            'id'                  => $this->faker->uuid(),
             'reseller_id'         => static function (): Reseller {
                 return Reseller::factory()->create();
             },
@@ -65,7 +65,7 @@ class AssetFactory extends Factory {
                     'object_type' => $this->newModel()->getMorphClass(),
                 ]);
             },
-            'serial_number'       => $this->faker->uuid,
+            'serial_number'       => $this->faker->uuid(),
             'nickname'            => null,
             'warranty_end'        => null,
             'warranty_changed_at' => null,

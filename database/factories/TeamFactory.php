@@ -30,8 +30,8 @@ class TeamFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'name'       => $this->faker->word,
+            'id'         => $this->faker->uuid(),
+            'name'       => $this->faker->word(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

@@ -17,7 +17,7 @@ class RecalculateTest extends TestCase {
      * @covers ::init
      */
     public function testInit(): void {
-        $key = $this->faker->uuid;
+        $key = $this->faker->uuid();
         $job = new class() extends Recalculate {
             public function displayName(): string {
                 return 'test';

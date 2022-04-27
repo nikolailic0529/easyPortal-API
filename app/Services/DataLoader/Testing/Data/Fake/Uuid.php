@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class Uuid extends Value {
     public function __invoke(): string {
-        return $this->faker->uuid;
+        return $this->faker->uuid();
     }
 }

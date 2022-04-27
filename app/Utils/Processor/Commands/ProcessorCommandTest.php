@@ -54,7 +54,7 @@ class ProcessorCommandTest extends TestCase {
     public function testProcessGenericProcessor(): void {
         $chunk     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
         $limit     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
-        $offset    = $this->faker->uuid;
+        $offset    = $this->faker->uuid();
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
         $formatter = Mockery::mock(Formatter::class);
@@ -176,7 +176,7 @@ class ProcessorCommandTest extends TestCase {
         $keys      = $this->faker->randomElement([null, [$this->faker->randomNumber()]]);
         $chunk     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
         $limit     = $this->faker->randomElement([null, $this->faker->randomNumber()]);
-        $offset    = $this->faker->uuid;
+        $offset    = $this->faker->uuid();
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
         $formatter = Mockery::mock(Formatter::class);

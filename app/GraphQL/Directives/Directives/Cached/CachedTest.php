@@ -158,8 +158,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedModeLock(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);
@@ -206,8 +206,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedModeThreshold(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);
@@ -255,8 +255,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedAndNotExpired(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);
@@ -296,8 +296,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedExpiredModeThreshold(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);
@@ -345,8 +345,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedExpiredModeLockNotLocked(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);
@@ -397,8 +397,8 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedExpiredModeLockLocked(): void {
-        $key       = $this->faker->word;
-        $value     = $this->faker->sentence;
+        $key       = $this->faker->word();
+        $value     = $this->faker->sentence();
         $root      = null;
         $args      = [];
         $context   = Mockery::mock(GraphQLContext::class);

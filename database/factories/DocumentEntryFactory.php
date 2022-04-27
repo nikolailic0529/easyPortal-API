@@ -36,7 +36,7 @@ class DocumentEntryFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'               => $this->faker->uuid,
+            'id'               => $this->faker->uuid(),
             'document_id'      => static function (): Document {
                 return Document::factory()->create();
             },
@@ -51,8 +51,8 @@ class DocumentEntryFactory extends Factory {
             'currency_id'      => static function (): Currency {
                 return Currency::query()->first() ?? Currency::factory()->create();
             },
-            'start'            => $this->faker->dateTime,
-            'end'              => $this->faker->dateTime,
+            'start'            => $this->faker->dateTime(),
+            'end'              => $this->faker->dateTime(),
             'net_price'        => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'list_price'       => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'discount'         => number_format($this->faker->randomFloat(2, 0, 75), 2, '.', ''),

@@ -48,7 +48,7 @@ class ResellerResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // If value not found the new object should be created
-        $uuid    = $this->faker->uuid;
+        $uuid    = $this->faker->uuid();
         $spy     = Mockery::spy(static function () use ($uuid): Reseller {
             return Reseller::factory()->make([
                 'id'        => $uuid,

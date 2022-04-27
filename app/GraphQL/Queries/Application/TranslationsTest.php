@@ -53,7 +53,7 @@ class TranslationsTest extends TestCase {
      * @covers ::getTranslations
      */
     public function testGetTranslations(): void {
-        $locale = $this->faker->locale;
+        $locale = $this->faker->locale();
         $loader = Mockery::mock(TranslationLoader::class);
         $loader
             ->shouldReceive('getTranslations')

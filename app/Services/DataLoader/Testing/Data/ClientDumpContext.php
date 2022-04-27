@@ -167,10 +167,10 @@ class ClientDumpContext {
                     fputcsv($csv, [
                         $oem,
                         $group,
-                        $this->faker->sentence,
+                        $this->faker->sentence(),
                         $level,
-                        $this->faker->sentence,
-                        $this->faker->text,
+                        $this->faker->sentence(),
+                        $this->faker->text(),
                     ]);
                 }
             }

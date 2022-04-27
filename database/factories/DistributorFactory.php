@@ -30,8 +30,8 @@ class DistributorFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'name'       => $this->faker->company,
+            'id'         => $this->faker->uuid(),
+            'name'       => $this->faker->company(),
             'changed_at' => null,
             'synced_at'  => Date::now(),
             'created_at' => Date::now(),

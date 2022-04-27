@@ -41,7 +41,7 @@ class SignInTest extends TestCase {
         $user = $this->setUser($userFactory, $org);
 
         // Organization
-        $id = $this->faker->uuid;
+        $id = $this->faker->uuid();
 
         if ($organizationFactory) {
             $passed = $organizationFactory($this, $org, $user);

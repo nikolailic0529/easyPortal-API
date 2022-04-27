@@ -32,11 +32,11 @@ class LocationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
-            'postcode'        => $this->faker->postcode,
-            'state'           => $this->faker->state,
-            'line_one'        => $this->faker->streetAddress,
-            'line_two'        => $this->faker->secondaryAddress,
+            'id'              => $this->faker->uuid(),
+            'postcode'        => $this->faker->postcode(),
+            'state'           => $this->faker->state(),
+            'line_one'        => $this->faker->streetAddress(),
+            'line_two'        => $this->faker->secondaryAddress(),
             'country_id'      => static function (): Country {
                 return Country::query()->first() ?? Country::factory()->create();
             },

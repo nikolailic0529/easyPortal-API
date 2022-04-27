@@ -30,7 +30,7 @@ class ProcessorTest extends TestCase {
      * @covers ::prepare
      */
     public function testStart(): void {
-        $state     = new State(['offset' => $this->faker->uuid]);
+        $state     = new State(['offset' => $this->faker->uuid()]);
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
@@ -152,7 +152,7 @@ class ProcessorTest extends TestCase {
         $state     = new State([
             'index'  => $this->faker->numberBetween(1, 100),
             'limit'  => $this->faker->numberBetween(1, 100),
-            'offset' => $this->faker->uuid,
+            'offset' => $this->faker->uuid(),
         ]);
         $exception = new Exception();
 

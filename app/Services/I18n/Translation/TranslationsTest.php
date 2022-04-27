@@ -31,7 +31,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $storage = $translations->getStorage($locale);
         $initial = [
             'a' => 'a',
@@ -83,7 +83,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $updated = [];
 
         self::assertFalse($translations->update($locale, [], $updated));
@@ -116,7 +116,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $updated = [];
 
         self::assertTrue($translations->update($locale, [], $updated));
@@ -139,7 +139,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $storage = $translations->getStorage($locale);
 
         $storage->save([
@@ -185,7 +185,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $deleted = [];
 
         self::assertFalse($translations->delete($locale, [], $deleted));
@@ -218,7 +218,7 @@ class TranslationsTest extends TestCase {
             }
         };
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $deleted = [];
 
         self::assertTrue($translations->delete($locale, [], $deleted));
@@ -233,7 +233,7 @@ class TranslationsTest extends TestCase {
     public function testReset(): void {
         Event::fake(TranslationsUpdated::class);
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $storage = Mockery::mock(AppTranslations::class);
         $storage
             ->shouldReceive('delete')
@@ -263,7 +263,7 @@ class TranslationsTest extends TestCase {
     public function testResetFailed(): void {
         Event::fake(TranslationsUpdated::class);
 
-        $locale  = $this->faker->locale;
+        $locale  = $this->faker->locale();
         $storage = Mockery::mock(AppTranslations::class);
         $storage
             ->shouldReceive('delete')

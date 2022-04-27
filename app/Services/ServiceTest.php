@@ -72,7 +72,7 @@ class ServiceTest extends TestCase {
      * @covers ::set
      */
     public function testSet(): void {
-        $store  = $this->faker->word;
+        $store  = $this->faker->word();
         $config = Mockery::mock(Config::class);
         $config
             ->shouldReceive('get')

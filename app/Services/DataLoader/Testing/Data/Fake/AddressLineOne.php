@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class AddressLineOne extends Value {
     public function __invoke(): string {
-        return $this->faker->streetAddress;
+        return $this->faker->streetAddress();
     }
 }

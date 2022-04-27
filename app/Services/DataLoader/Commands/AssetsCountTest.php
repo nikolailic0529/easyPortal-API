@@ -32,11 +32,11 @@ class AssetsCountTest extends TestCase {
         $coverage = Coverage::factory()->create();
         $assets   = [
             [
-                'id'            => $this->faker->uuid,
+                'id'            => $this->faker->uuid(),
                 'assetCoverage' => [mb_strtoupper($coverage->key)],
             ],
             [
-                'id'            => $this->faker->uuid,
+                'id'            => $this->faker->uuid(),
                 'assetCoverage' => null,
             ],
         ];

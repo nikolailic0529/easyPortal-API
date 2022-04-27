@@ -84,13 +84,13 @@ class WithLocationsTest extends TestCase {
 
         // Repeated objects should be missed
         $ca = tap(new Location(), function (Location $location): void {
-            $location->country      = $this->faker->country;
-            $location->countryCode  = $this->faker->countryCode;
+            $location->country      = $this->faker->country();
+            $location->countryCode  = $this->faker->countryCode();
             $location->latitude     = null;
             $location->longitude    = null;
-            $location->zip          = $this->faker->postcode;
-            $location->city         = $this->faker->city;
-            $location->address      = $this->faker->streetAddress;
+            $location->zip          = $this->faker->postcode();
+            $location->city         = $this->faker->city();
+            $location->address      = $this->faker->streetAddress();
             $location->locationType = (string) $this->faker->randomNumber();
         });
 
@@ -105,7 +105,7 @@ class WithLocationsTest extends TestCase {
             $location->zip          = $ca->zip;
             $location->city         = $ca->city;
             $location->address      = $ca->address;
-            $location->locationType = $this->faker->word;
+            $location->locationType = $this->faker->word();
         });
         $actual = $factory->companyLocations($company, [$ca, $cb]);
         $first  = reset($actual);

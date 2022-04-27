@@ -31,12 +31,12 @@ class ProductFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
+            'id'         => $this->faker->uuid(),
             'oem_id'     => static function (): Oem {
                 return Oem::factory()->create();
             },
-            'sku'        => $this->faker->uuid,
-            'name'       => $this->faker->sentence,
+            'sku'        => $this->faker->uuid(),
+            'name'       => $this->faker->sentence(),
             'eol'        => Date::now()->addYear()->startOfDay(),
             'eos'        => Date::now()->addMonth()->startOfDay(),
             'created_at' => Date::now(),

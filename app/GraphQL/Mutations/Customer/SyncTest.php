@@ -44,7 +44,7 @@ class SyncTest extends TestCase {
     ): void {
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid;
+        $id           = $this->faker->uuid();
 
         if ($prepare) {
             $id = $prepare($this, $organization, $user);
@@ -139,7 +139,7 @@ class SyncTest extends TestCase {
                         return new ObjectNotFound((new Customer())->getMorphClass());
                     }),
                     static function (self $test): string {
-                        return $test->faker->uuid;
+                        return $test->faker->uuid();
                     },
                 ],
             ]),

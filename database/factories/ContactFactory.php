@@ -33,12 +33,12 @@ class ContactFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'           => $this->faker->uuid,
-            'object_id'    => $this->faker->uuid,
+            'id'           => $this->faker->uuid(),
+            'object_id'    => $this->faker->uuid(),
             'object_type'  => $this->faker->randomElement(array_keys(Relation::$morphMap)),
-            'name'         => $this->faker->name,
-            'email'        => $this->faker->email,
-            'phone_number' => $this->faker->e164PhoneNumber,
+            'name'         => $this->faker->name(),
+            'email'        => $this->faker->email(),
+            'phone_number' => $this->faker->e164PhoneNumber(),
             'phone_valid'  => false,
             'created_at'   => Date::now(),
             'updated_at'   => Date::now(),

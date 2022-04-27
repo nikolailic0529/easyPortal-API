@@ -33,8 +33,8 @@ class CustomerFactory extends Factory {
         $object = $this->newModel()->getMorphClass();
 
         return [
-            'id'              => $this->faker->uuid,
-            'name'            => $this->faker->company,
+            'id'              => $this->faker->uuid(),
+            'name'            => $this->faker->company(),
             'type_id'         => static function () use ($object): Type {
                 return Type::factory()->create(['object_type' => $object]);
             },
