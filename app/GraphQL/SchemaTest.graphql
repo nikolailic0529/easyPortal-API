@@ -8686,9 +8686,8 @@ type Organization {
     @me(
         permissions: ["administer", "org-administer"]
     )
-    @paginated(
-        builder: "App\\GraphQL\\Queries\\Organization@audits"
-    )
+    @relation
+    @paginatedRelation
 
     """
     @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -8723,7 +8722,7 @@ type Organization {
         permissions: ["administer", "org-administer"]
     )
     @aggregated(
-        builder: "App\\GraphQL\\Queries\\Organization@audits"
+        relation: "audits"
     )
 
     branding: OrganizationBranding!

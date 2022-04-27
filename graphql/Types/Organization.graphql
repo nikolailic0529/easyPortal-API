@@ -42,7 +42,6 @@ type Organization {
         order: AuditsSort @sortBy
     ): [Audit!]!
     @me(permissions: ["administer", "org-administer"])
-    @paginated(
-        builder: "App\\GraphQL\\Queries\\Organization@audits"
-    )
+    @relation
+    @paginatedRelation
 }

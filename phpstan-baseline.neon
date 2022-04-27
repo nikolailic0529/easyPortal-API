@@ -951,7 +951,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedOffsetTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$directive of method class@anonymous/app/GraphQL/Directives/Directives/Paginated/PaginatedRelation\\.php\\:78\\:\\:getRelation\\(\\) expects Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\RelationDirective, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$directive of method class@anonymous/app/GraphQL/Directives/Directives/Paginated/PaginatedRelation\\.php\\:62\\:\\:getRelation\\(\\) expects Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\RelationDirective, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedRelation.php
 
@@ -959,6 +959,11 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\PaginatedTest_Resolver\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$relation \\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Relation\\:\\:isSameConnection\\(\\) should be contravariant with parameter \\$relation \\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation\\) of method Nuwave\\\\Lighthouse\\\\Schema\\\\Directives\\\\RelationDirective\\:\\:isSameConnection\\(\\)$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Relation.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Metadata\\:\\:isFulltextIndexExists\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
@@ -5189,11 +5194,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\OrgTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/OrgTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Organization\\:\\:audits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Organization.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\PermissionsTest\\:\\:testQuery\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"

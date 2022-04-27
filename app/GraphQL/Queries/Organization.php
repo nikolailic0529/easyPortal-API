@@ -7,7 +7,6 @@ use App\Services\Keycloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Builder;
 
 class Organization {
     public function __construct(
@@ -42,9 +41,5 @@ class Organization {
             'welcome_underline'       => $organization->branding_welcome_underline,
             'dashboard_image_url'     => $organization->branding_dashboard_image_url,
         ];
-    }
-
-    public function audits(OrganizationModel $organization): Builder {
-        return $organization->audits()->getQuery();
     }
 }
