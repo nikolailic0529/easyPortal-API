@@ -28,7 +28,7 @@ class TokenRepositoryTest extends TestCase {
             'key',
         );
 
-        $email = $this->faker->email;
+        $email = $this->faker->email();
         $user  = Mockery::mock(CanResetPassword::class);
         $user
             ->shouldReceive('getEmailForPasswordReset')
@@ -62,7 +62,7 @@ class TokenRepositoryTest extends TestCase {
             $throttle,
         );
 
-        $email = $this->faker->email;
+        $email = $this->faker->email();
         $user  = Mockery::mock(CanResetPassword::class);
         $user
             ->shouldReceive('getEmailForPasswordReset')
@@ -134,7 +134,7 @@ class TokenRepositoryTest extends TestCase {
             'key',
         );
 
-        $email = $this->faker->email;
+        $email = $this->faker->email();
         $userA = Mockery::mock(CanResetPassword::class);
         $userA
             ->shouldReceive('getEmailForPasswordReset')
@@ -146,7 +146,7 @@ class TokenRepositoryTest extends TestCase {
             ->shouldReceive('getEmailForPasswordReset')
             ->atLeast()
             ->once()
-            ->andReturn($this->faker->email);
+            ->andReturn($this->faker->email());
 
         // Another user
         $repository->create($userB);
@@ -172,7 +172,7 @@ class TokenRepositoryTest extends TestCase {
             'key',
         );
 
-        $email = $this->faker->email;
+        $email = $this->faker->email();
         $user  = Mockery::mock(CanResetPassword::class);
         $user
             ->shouldReceive('getEmailForPasswordReset')

@@ -34,7 +34,7 @@ class QuoteRequestAssetFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                   => $this->faker->uuid,
+            'id'                   => $this->faker->uuid(),
             'request_id'           => static function (): QuoteRequest {
                 return QuoteRequest::query()->first() ?? QuoteRequest::factory()->create();
             },

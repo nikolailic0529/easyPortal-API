@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class City extends Value {
     public function __invoke(): string {
-        return $this->faker->city;
+        return $this->faker->city();
     }
 }

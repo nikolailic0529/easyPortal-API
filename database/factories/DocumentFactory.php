@@ -34,11 +34,11 @@ class DocumentFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'             => $this->faker->uuid,
+            'id'             => $this->faker->uuid(),
             'oem_id'         => static function (): Oem {
                 return Oem::factory()->create();
             },
-            'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid]),
+            'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid()]),
             'oem_group_id'   => null,
             'type_id'        => function (): Type {
                 return Type::factory()->create([
@@ -54,9 +54,9 @@ class DocumentFactory extends Factory {
             'entries_count'  => 0,
             'contacts_count' => 0,
             'statuses_count' => 0,
-            'number'         => $this->faker->uuid,
-            'start'          => $this->faker->dateTime,
-            'end'            => $this->faker->dateTime,
+            'number'         => $this->faker->uuid(),
+            'start'          => $this->faker->dateTime(),
+            'end'            => $this->faker->dateTime(),
             'price'          => (string) $this->faker->randomFloat(2),
             'currency_id'    => null,
             'changed_at'     => null,

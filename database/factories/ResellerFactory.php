@@ -33,12 +33,12 @@ class ResellerFactory extends Factory {
         $object = $this->newModel()->getMorphClass();
 
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'type_id'         => static function () use ($object): Type {
                 return Type::factory()->create(['object_type' => $object]);
             },
             'kpi_id'          => null,
-            'name'            => $this->faker->company,
+            'name'            => $this->faker->company(),
             'customers_count' => 0,
             'locations_count' => 0,
             'assets_count'    => 0,

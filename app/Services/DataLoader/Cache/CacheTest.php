@@ -242,7 +242,7 @@ class CacheTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function item(): Model {
-        return new class($this->faker->uuid, $this->faker->uuid) extends Model {
+        return new class($this->faker->uuid(), $this->faker->uuid()) extends Model {
             public function __construct(string $key, string $property) {
                 parent::__construct();
 

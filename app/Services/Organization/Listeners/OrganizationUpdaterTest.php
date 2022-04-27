@@ -30,8 +30,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
+            'keycloakName'    => $this->faker->word(),
+            'keycloakGroupId' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -75,8 +75,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
+            'keycloakName'    => $this->faker->word(),
+            'keycloakGroupId' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -131,8 +131,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
+            'keycloakName'    => $this->faker->word(),
+            'keycloakGroupId' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -165,8 +165,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
         $company           = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
+            'keycloakName'    => $this->faker->word(),
+            'keycloakGroupId' => $this->faker->word(),
         ]);
         $event             = new ResellerUpdated($reseller, $company);
         $scopeOrganization = Organization::factory()->create([
@@ -198,38 +198,38 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
+            'keycloakName'    => $this->faker->word(),
+            'keycloakGroupId' => $this->faker->word(),
             'brandingData'    => [
                 'brandingMode'          => $this->faker->randomElement([' true ', ' false ']),
-                'defaultLogoUrl'        => " {$this->faker->url} ",
+                'defaultLogoUrl'        => " {$this->faker->url()} ",
                 'defaultMainColor'      => ' not a color ',
-                'favIconUrl'            => " {$this->faker->url} ",
-                'logoUrl'               => " {$this->faker->url} ",
-                'mainColor'             => " {$this->faker->hexColor} ",
-                'mainImageOnTheRight'   => " {$this->faker->url} ",
-                'secondaryColor'        => " {$this->faker->hexColor} ",
-                'secondaryColorDefault' => " {$this->faker->hexColor} ",
-                'useDefaultFavIcon'     => " {$this->faker->url} ",
-                'resellerAnalyticsCode' => " {$this->faker->word} ",
+                'favIconUrl'            => " {$this->faker->url()} ",
+                'logoUrl'               => " {$this->faker->url()} ",
+                'mainColor'             => " {$this->faker->hexColor()} ",
+                'mainImageOnTheRight'   => " {$this->faker->url()} ",
+                'secondaryColor'        => " {$this->faker->hexColor()} ",
+                'secondaryColorDefault' => " {$this->faker->hexColor()} ",
+                'useDefaultFavIcon'     => " {$this->faker->url()} ",
+                'resellerAnalyticsCode' => " {$this->faker->word()} ",
                 'mainHeadingText'       => [
                     [
                         'language_code' => ' en ',
-                        'text'          => " {$this->faker->sentence} ",
+                        'text'          => " {$this->faker->sentence()} ",
                     ],
                     [
                         'language_code' => ' unknown ',
-                        'text'          => " {$this->faker->sentence} ",
+                        'text'          => " {$this->faker->sentence()} ",
                     ],
                 ],
                 'underlineText'         => [
                     [
                         'language_code' => ' en ',
-                        'text'          => " {$this->faker->text} ",
+                        'text'          => " {$this->faker->text()} ",
                     ],
                     [
                         'language_code' => ' unknown ',
-                        'text'          => " {$this->faker->text} ",
+                        'text'          => " {$this->faker->text()} ",
                     ],
                 ],
             ],

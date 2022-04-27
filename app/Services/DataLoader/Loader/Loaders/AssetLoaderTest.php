@@ -180,7 +180,7 @@ class AssetLoaderTest extends TestCase {
                 ->never();
         });
 
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $loader = $this->app->make(Container::class)
             ->make(AssetLoader::class)
             ->setWithWarrantyCheck(true);

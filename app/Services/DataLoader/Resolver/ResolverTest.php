@@ -62,7 +62,7 @@ class ResolverTest extends TestCase {
         self::assertNotNull($provider->resolve($key));
 
         // If resolver(s) passed it will be used to create model
-        $uuid  = $this->faker->uuid;
+        $uuid  = $this->faker->uuid();
         $value = new class($uuid) extends Model {
             public function __construct(string $key) {
                 parent::__construct();
@@ -160,9 +160,9 @@ class ResolverTest extends TestCase {
     public function testPrefetch(): void {
         $normalizer = $this->app->make(Normalizer::class);
         $keys       = [
-            'a' => $this->faker->uuid,
-            'b' => $this->faker->uuid,
-            'c' => $this->faker->uuid,
+            'a' => $this->faker->uuid(),
+            'b' => $this->faker->uuid(),
+            'c' => $this->faker->uuid(),
         ];
         $cache      = new Cache([
             'key' => new class($normalizer) implements KeyRetriever {

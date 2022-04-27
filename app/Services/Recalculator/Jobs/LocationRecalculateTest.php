@@ -19,7 +19,7 @@ class LocationRecalculateTest extends TestCase {
      * @covers ::makeProcessor
      */
     public function testGetProcessor(): void {
-        $key = $this->faker->uuid;
+        $key = $this->faker->uuid();
         $job = new class() extends LocationRecalculate {
             public function getProcessor(Container $container, QueueableConfig $config): Processor {
                 return parent::getProcessor($container, $config);

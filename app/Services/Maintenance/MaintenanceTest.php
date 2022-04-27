@@ -34,7 +34,7 @@ class MaintenanceTest extends TestCase {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings([
             'start'   => Date::now()->startOfDay(),
-            'message' => $this->faker->sentence,
+            'message' => $this->faker->sentence(),
         ]);
         $storage     = $this->app->make(Storage::class);
 
@@ -67,7 +67,7 @@ class MaintenanceTest extends TestCase {
     public function testIsEnabled(): void {
         $maintenance = $this->app->make(Maintenance::class);
         $settings    = new Settings([
-            'enabled' => $this->faker->boolean,
+            'enabled' => $this->faker->boolean(),
         ]);
         $storage     = $this->app->make(Storage::class);
 
@@ -125,7 +125,7 @@ class MaintenanceTest extends TestCase {
      * @covers ::schedule
      */
     public function testSchedule(): void {
-        $message = $this->faker->sentence;
+        $message = $this->faker->sentence();
         $start   = Date::make('2021-11-30T10:15:00+00:00');
         $end     = Date::make('2022-01-14T11:15:22+00:00');
 

@@ -503,7 +503,7 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('create')
             ->once()
             ->andReturnUsing(function (): ?Document {
-                throw new ResellerNotFound($this->faker->uuid);
+                throw new ResellerNotFound($this->faker->uuid());
             });
         $factory = new class($handler, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -577,8 +577,8 @@ class AssetFactoryTest extends TestCase {
             'reseller_id' => $resellerB,
             'customer_id' => $customerB,
         ]);
-        $skuNumber      = $this->faker->uuid;
-        $supportPackage = $this->faker->uuid;
+        $skuNumber      = $this->faker->uuid();
+        $supportPackage = $this->faker->uuid();
         $serviceGroup   = ServiceGroup::factory()->create([
             'sku'    => $supportPackage,
             'oem_id' => $documentB->oem_id,
@@ -609,7 +609,7 @@ class AssetFactoryTest extends TestCase {
                     ],
                     'reseller'       => null,
                     'customer'       => null,
-                    'skuNumber'      => $this->faker->uuid,
+                    'skuNumber'      => $this->faker->uuid(),
                     'supportPackage' => $supportPackage,
                 ],
                 [
@@ -656,8 +656,8 @@ class AssetFactoryTest extends TestCase {
                     ],
                     'reseller'       => null,
                     'customer'       => null,
-                    'skuNumber'      => $this->faker->uuid,
-                    'supportPackage' => $this->faker->uuid,
+                    'skuNumber'      => $this->faker->uuid(),
+                    'supportPackage' => $this->faker->uuid(),
                 ],
 
                 // Should be created - date not same
@@ -705,7 +705,7 @@ class AssetFactoryTest extends TestCase {
                     'endDate'        => $this->getDatetime($date),
                     'reseller'       => null,
                     'customer'       => null,
-                    'skuNumber'      => $this->faker->uuid,
+                    'skuNumber'      => $this->faker->uuid(),
                     'supportPackage' => $supportPackage,
                 ],
 
@@ -723,7 +723,7 @@ class AssetFactoryTest extends TestCase {
                     'reseller'       => null,
                     'customer'       => null,
                     'skuNumber'      => null,
-                    'supportPackage' => $this->faker->uuid,
+                    'supportPackage' => $this->faker->uuid(),
                 ],
 
                 // Should be skipped - reseller not found
@@ -738,13 +738,13 @@ class AssetFactoryTest extends TestCase {
                         ],
                     ],
                     'reseller'       => [
-                        'id' => $this->faker->uuid,
+                        'id' => $this->faker->uuid(),
                     ],
                     'customer'       => [
                         'id' => $documentB->customer_id,
                     ],
                     'skuNumber'      => null,
-                    'supportPackage' => $this->faker->uuid,
+                    'supportPackage' => $this->faker->uuid(),
                 ],
 
                 // Should be skipped - customer not found
@@ -762,10 +762,10 @@ class AssetFactoryTest extends TestCase {
                         'id' => $documentB->reseller_id,
                     ],
                     'customer'       => [
-                        'id' => $this->faker->uuid,
+                        'id' => $this->faker->uuid(),
                     ],
                     'skuNumber'      => null,
-                    'supportPackage' => $this->faker->uuid,
+                    'supportPackage' => $this->faker->uuid(),
                 ],
             ],
         ]);
@@ -843,7 +843,7 @@ class AssetFactoryTest extends TestCase {
         $document      = Document::factory()->make();
         $assetDocument = new ViewAssetDocument([
             'document' => [
-                'id' => $this->faker->uuid,
+                'id' => $this->faker->uuid(),
             ],
         ]);
         $documents     = Mockery::mock(DocumentFactory::class);
@@ -888,7 +888,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetOem
      */
     public function testAssetOem(): void {
-        $asset   = new ViewAsset(['vendor' => $this->faker->word]);
+        $asset   = new ViewAsset(['vendor' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -906,7 +906,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $asset   = new ViewAsset(['assetType' => $this->faker->word]);
+        $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -942,11 +942,11 @@ class AssetFactoryTest extends TestCase {
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
         $asset = new ViewAsset([
-            'vendor'             => $this->faker->word,
-            'sku'                => $this->faker->word,
-            'eolDate'            => "{$this->faker->unixTime}000",
+            'vendor'             => $this->faker->word(),
+            'sku'                => $this->faker->word(),
+            'eolDate'            => "{$this->faker->unixTime()}000",
             'eosDate'            => '',
-            'productDescription' => $this->faker->sentence,
+            'productDescription' => $this->faker->sentence(),
         ]);
 
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -972,7 +972,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetLocation(): void {
         $customer  = Customer::factory()->make();
         $asset     = new ViewAsset([
-            'id'         => $this->faker->uuid,
+            'id'         => $this->faker->uuid(),
             'customerId' => $customer->getKey(),
         ]);
         $location  = Location::factory()->create();
@@ -1006,7 +1006,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocationNoLocation(): void {
         $asset     = new ViewAsset([
-            'id' => $this->faker->uuid,
+            'id' => $this->faker->uuid(),
         ]);
         $locations = Mockery::mock(LocationFactory::class);
         $locations->makePartial();
@@ -1034,7 +1034,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetStatus
      */
     public function testAssetStatus(): void {
-        $asset   = new ViewAsset(['status' => $this->faker->word]);
+        $asset   = new ViewAsset(['status' => $this->faker->word()]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -1180,14 +1180,14 @@ class AssetFactoryTest extends TestCase {
     public function testCompareAssetWarranties(): void {
         // Prepare
         $a       = AssetWarranty::factory()->make([
-            'type_id' => $this->faker->uuid,
-            'start'   => $this->faker->dateTime,
-            'end'     => $this->faker->dateTime,
+            'type_id' => $this->faker->uuid(),
+            'start'   => $this->faker->dateTime(),
+            'end'     => $this->faker->dateTime(),
         ]);
         $b       = AssetWarranty::factory()->make([
-            'type_id' => $this->faker->uuid,
-            'start'   => $this->faker->dateTime,
-            'end'     => $this->faker->dateTime,
+            'type_id' => $this->faker->uuid(),
+            'start'   => $this->faker->dateTime(),
+            'end'     => $this->faker->dateTime(),
         ]);
         $factory = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -1227,7 +1227,7 @@ class AssetFactoryTest extends TestCase {
             'coverageEndDate'   => '2024-12-09',
             'type'              => $type->key,
             'status'            => $status->key,
-            'description'       => $this->faker->text,
+            'description'       => $this->faker->text(),
         ]);
         $normalizer     = $this->app->make(Normalizer::class);
         $typeResolver   = $this->app->make(TypeResolver::class);
@@ -1314,16 +1314,16 @@ class AssetFactoryTest extends TestCase {
         $documentWarranty        = AssetWarranty::factory()->create([
             'asset_id' => $asset,
             'type_id'  => null,
-            'start'    => $this->faker->dateTime,
-            'end'      => $this->faker->dateTime,
+            'start'    => $this->faker->dateTime(),
+            'end'      => $this->faker->dateTime(),
         ]);
         $warrantyShouldBeUpdated = AssetWarranty::factory()->create([
             'reseller_id' => null,
             'customer_id' => null,
             'asset_id'    => $asset,
             'type_id'     => $type,
-            'start'       => Date::make($this->faker->dateTime)->startOfDay(),
-            'end'         => Date::make($this->faker->dateTime)->startOfDay(),
+            'start'       => Date::make($this->faker->dateTime())->startOfDay(),
+            'end'         => Date::make($this->faker->dateTime())->startOfDay(),
         ]);
         $warrantyShouldBeReused  = (new Collection([
             AssetWarranty::factory()->create([
@@ -1331,16 +1331,16 @@ class AssetFactoryTest extends TestCase {
                 'customer_id' => null,
                 'asset_id'    => $asset,
                 'type_id'     => $type,
-                'start'       => $this->faker->dateTime,
-                'end'         => $this->faker->dateTime,
+                'start'       => $this->faker->dateTime(),
+                'end'         => $this->faker->dateTime(),
             ]),
             AssetWarranty::factory()->create([
                 'reseller_id' => null,
                 'customer_id' => null,
                 'asset_id'    => $asset,
                 'type_id'     => $type,
-                'start'       => $this->faker->dateTime,
-                'end'         => $this->faker->dateTime,
+                'start'       => $this->faker->dateTime(),
+                'end'         => $this->faker->dateTime(),
             ]),
         ]))
             ->sort(new KeysComparator())
@@ -1350,14 +1350,14 @@ class AssetFactoryTest extends TestCase {
             'coverageEndDate'   => $warrantyShouldBeReused->end->format('Y-m-d'),
             'type'              => $type->key,
             'status'            => $status->key,
-            'description'       => "(created) {$this->faker->text}",
+            'description'       => "(created) {$this->faker->text()}",
         ]);
         $entryShouldBeUpdated    = new CoverageEntry([
             'coverageStartDate' => $warrantyShouldBeUpdated->start->format('Y-m-d'),
             'coverageEndDate'   => $warrantyShouldBeUpdated->end->format('Y-m-d'),
             'type'              => $warrantyShouldBeUpdated->type->key,
             'status'            => $status->key,
-            'description'       => "(updated) {$this->faker->text}",
+            'description'       => "(updated) {$this->faker->text()}",
         ]);
         $entryShouldBeIgnored    = new CoverageEntry();
         $viewAsset               = new ViewAsset([

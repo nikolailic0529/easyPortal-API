@@ -30,7 +30,7 @@ class KpiFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                                  => $this->faker->uuid,
+            'id'                                  => $this->faker->uuid(),
             'assets_total'                        => 0,
             'assets_active'                       => 0,
             'assets_active_percent'               => 0.0,

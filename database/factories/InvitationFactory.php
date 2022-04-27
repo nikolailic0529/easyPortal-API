@@ -33,7 +33,7 @@ class InvitationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'organization_id' => static function (): Organization {
                 return Organization::factory()->create();
             },
@@ -47,7 +47,7 @@ class InvitationFactory extends Factory {
                 return Role::factory()->create();
             },
             'team_id'         => null,
-            'email'           => $this->faker->unique()->safeEmail,
+            'email'           => $this->faker->unique()->safeEmail(),
             'used_at'         => null,
             'expired_at'      => Date::now()->addHour(),
             'created_at'      => Date::now(),

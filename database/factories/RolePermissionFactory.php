@@ -32,7 +32,7 @@ class RolePermissionFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'            => $this->faker->uuid,
+            'id'            => $this->faker->uuid(),
             'role_id'       => static function (): Role {
                 return Role::factory()->create();
             },

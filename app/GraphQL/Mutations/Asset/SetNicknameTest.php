@@ -49,9 +49,9 @@ class SetNicknameTest extends TestCase {
     ): void {
         $org     = $this->setOrganization($orgFactory);
         $user    = $this->setUser($userFactory, $org);
-        $assetId = $this->faker->uuid;
+        $assetId = $this->faker->uuid();
         $input ??= [
-            'nickname' => $this->faker->word,
+            'nickname' => $this->faker->word(),
         ];
 
         if ($prepare) {

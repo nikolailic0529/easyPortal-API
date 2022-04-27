@@ -30,8 +30,8 @@ class TagFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'name'       => $this->faker->name,
+            'id'         => $this->faker->uuid(),
+            'name'       => $this->faker->name(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

@@ -35,7 +35,7 @@ class QuoteRequestFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'oem_id'          => static function (): Oem {
                 return Oem::query()->first() ?? Oem::factory()->create();
             },
@@ -54,7 +54,7 @@ class QuoteRequestFactory extends Factory {
                 return Type::query()->first() ?? Type::factory()->create();
             },
             'type_custom'     => null,
-            'message'         => $this->faker->text,
+            'message'         => $this->faker->text(),
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),
             'deleted_at'      => null,

@@ -30,9 +30,9 @@ class LanguageFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'code'       => $this->faker->languageCode,
-            'name'       => $this->faker->languageCode,
+            'id'         => $this->faker->uuid(),
+            'code'       => $this->faker->languageCode(),
+            'name'       => $this->faker->languageCode(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

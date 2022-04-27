@@ -25,7 +25,7 @@ class EloquentObjectTest extends TestCase {
 
         $previousKey       = $model->key;
         $previousCreatedAt = $model->created_at;
-        $model->key        = $this->faker->uuid;
+        $model->key        = $this->faker->uuid();
         $model->created_at = Date::now()->addDay();
         $actual            = [];
 

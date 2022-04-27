@@ -71,7 +71,7 @@ class WithProductTest extends TestCase {
         // If model exists and changed - it should be updated
         $newEos  = $this->faker->randomElement(['', null]);
         $newEol  = Date::now();
-        $newName = $this->faker->sentence;
+        $newName = $this->faker->sentence();
         $updated = $factory->product(
             $oem,
             $product->sku,
@@ -89,8 +89,8 @@ class WithProductTest extends TestCase {
         $this->flushQueryLog();
 
         // If not - it should be created
-        $sku     = $this->faker->uuid;
-        $name    = $this->faker->sentence;
+        $sku     = $this->faker->uuid();
+        $name    = $this->faker->sentence();
         $created = $factory->product(
             $oem,
             $sku,

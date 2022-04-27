@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class Company extends Value {
     public function __invoke(): string {
-        return $this->faker->company;
+        return $this->faker->company();
     }
 }

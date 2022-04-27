@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class CountryName extends Value {
     public function __invoke(): string {
-        return $this->faker->country;
+        return $this->faker->country();
     }
 }

@@ -30,9 +30,9 @@ class OemFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
+            'id'         => $this->faker->uuid(),
             'key'        => $this->faker->text(32),
-            'name'       => $this->faker->company,
+            'name'       => $this->faker->company(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

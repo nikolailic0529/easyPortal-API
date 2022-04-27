@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class Phone extends Value {
     public function __invoke(): string {
-        return $this->faker->e164PhoneNumber;
+        return $this->faker->e164PhoneNumber();
     }
 }

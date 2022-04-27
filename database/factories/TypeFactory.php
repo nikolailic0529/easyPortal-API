@@ -33,10 +33,10 @@ class TypeFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => $this->faker->uuid,
+            'id'          => $this->faker->uuid(),
             'object_type' => $this->faker->randomElement(array_keys(Relation::$morphMap)),
-            'key'         => $this->faker->uuid,
-            'name'        => $this->faker->sentence,
+            'key'         => $this->faker->uuid(),
+            'name'        => $this->faker->sentence(),
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

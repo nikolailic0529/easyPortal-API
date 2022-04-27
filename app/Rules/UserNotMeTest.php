@@ -72,7 +72,7 @@ class UserNotMeTest extends TestCase {
             $rule->setMutationContext($context);
         }
 
-        $value  = $this->faker->word;
+        $value  = $this->faker->word();
         $actual = $rule->passes('test', $value);
         $passes = !$this->app->make(Factory::class)
             ->make(['value' => $value], ['value' => $rule])

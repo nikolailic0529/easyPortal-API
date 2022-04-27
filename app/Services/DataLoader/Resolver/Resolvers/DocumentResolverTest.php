@@ -50,7 +50,7 @@ class DocumentResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // If value not found the new object should be created
-        $uuid    = $this->faker->uuid;
+        $uuid    = $this->faker->uuid();
         $spy     = Mockery::spy(static function () use ($uuid): Document {
             return Document::factory()->make([
                 'id'          => $uuid,

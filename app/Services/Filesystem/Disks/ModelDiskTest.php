@@ -24,7 +24,7 @@ class ModelDiskTest extends TestCase {
      * @covers ::store
      */
     public function testStore(): void {
-        $id    = $this->faker->uuid;
+        $id    = $this->faker->uuid();
         $model = Mockery::mock(Model::class);
         $model
             ->shouldReceive('getKey')
@@ -66,7 +66,7 @@ class ModelDiskTest extends TestCase {
      * @covers ::storeToFile
      */
     public function testStoreToFile(): void {
-        $id     = $this->faker->uuid;
+        $id     = $this->faker->uuid();
         $upload = UploadedFile::fake()->create('test.txt');
         $model  = Mockery::mock(Model::class);
         $model

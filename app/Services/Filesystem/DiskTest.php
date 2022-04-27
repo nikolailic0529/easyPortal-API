@@ -31,7 +31,7 @@ class DiskTest extends TestCase {
             self::expectExceptionMessage($expected->getMessage());
         }
 
-        $name = $this->faker->uuid;
+        $name = $this->faker->uuid();
         $disk = new class(
             $this->app->make(Factory::class),
             $this->app->make(Repository::class),
@@ -64,7 +64,7 @@ class DiskTest extends TestCase {
      * @param array<mixed> $config
      */
     public function testIsPublic(bool $expected, array $config): void {
-        $name = $this->faker->uuid;
+        $name = $this->faker->uuid();
         $disk = new class(
             $this->app->make(Factory::class),
             $this->app->make(Repository::class),

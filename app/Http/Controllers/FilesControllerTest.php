@@ -47,7 +47,7 @@ class FilesControllerTest extends TestCase {
         $user         = $this->setUser($userFactory, $organization);
         $this->setSettings($settings);
 
-        $id = $this->faker->uuid;
+        $id = $this->faker->uuid();
 
         if ($prepare) {
             $id = $prepare($this, $organization, $user);

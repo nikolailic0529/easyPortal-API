@@ -63,10 +63,10 @@ class UpdateTest extends TestCase {
         $input = [
             'userId'         => $inputUserFactory
                 ? $inputUserFactory($this, $organization, $user)->getKey()
-                : $this->faker->uuid,
+                : $this->faker->uuid(),
             'organizationId' => $inputOrganizationFactory
                 ? $inputOrganizationFactory($this, $organization, $user)->getKey()
-                : $this->faker->uuid,
+                : $this->faker->uuid(),
             'input'          => $inputFactory
                 ? $inputFactory($this, $organization, $user)
                 : [],

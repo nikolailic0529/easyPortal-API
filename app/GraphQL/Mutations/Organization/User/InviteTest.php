@@ -53,7 +53,7 @@ class InviteTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
         $data = [
-            'id'    => $this->faker->uuid,
+            'id'    => $this->faker->uuid(),
             'input' => [
                 'email'   => '',
                 'role_id' => '',
@@ -158,7 +158,7 @@ class InviteTest extends TestCase {
                 'organization_id' => null,
             ]);
             $team         = Team::factory()->create();
-            $email        = $test->faker->email;
+            $email        = $test->faker->email();
 
             return [
                 'id'    => $organization->getKey(),
@@ -203,7 +203,7 @@ class InviteTest extends TestCase {
                             'organization_id' => $organization,
                         ]);
                         $team         = Team::factory()->create();
-                        $email        = $test->faker->email;
+                        $email        = $test->faker->email();
 
                         return [
                             'id'    => $organization->getKey(),
@@ -415,13 +415,13 @@ class InviteTest extends TestCase {
                     static function (self $test): array {
                         $organization = Organization::factory()->create();
                         $team         = Team::factory()->create();
-                        $email        = $test->faker->email;
+                        $email        = $test->faker->email();
 
                         return [
                             'id'    => $organization->getKey(),
                             'input' => [
                                 'email'   => $email,
-                                'role_id' => $test->faker->uuid,
+                                'role_id' => $test->faker->uuid(),
                                 'team_id' => $team->getKey(),
                             ],
                         ];
@@ -438,14 +438,14 @@ class InviteTest extends TestCase {
                         $role         = Role::factory()->create([
                             'organization_id' => $organization,
                         ]);
-                        $email        = $test->faker->email;
+                        $email        = $test->faker->email();
 
                         return [
                             'id'    => $organization->getKey(),
                             'input' => [
                                 'email'   => $email,
                                 'role_id' => $role->getKey(),
-                                'team_id' => $test->faker->uuid,
+                                'team_id' => $test->faker->uuid(),
                             ],
                         ];
                     },

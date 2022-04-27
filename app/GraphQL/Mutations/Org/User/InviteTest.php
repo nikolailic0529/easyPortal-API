@@ -157,7 +157,7 @@ class InviteTest extends TestCase {
                 'organization_id' => $organization,
             ]);
             $team  = Team::factory()->create();
-            $email = $test->faker->email;
+            $email = $test->faker->email();
 
             return [
                 'input' => [
@@ -208,7 +208,7 @@ class InviteTest extends TestCase {
                             'organization_id' => null,
                         ]);
                         $team  = Team::factory()->create();
-                        $email = $test->faker->email;
+                        $email = $test->faker->email();
 
                         return [
                             'input' => [
@@ -392,12 +392,12 @@ class InviteTest extends TestCase {
                     null,
                     static function (self $test): array {
                         $team  = Team::factory()->create();
-                        $email = $test->faker->email;
+                        $email = $test->faker->email();
 
                         return [
                             'input' => [
                                 'email'   => $email,
-                                'role_id' => $test->faker->uuid,
+                                'role_id' => $test->faker->uuid(),
                                 'team_id' => $team->getKey(),
                             ],
                         ];
@@ -414,7 +414,7 @@ class InviteTest extends TestCase {
                             'organization_id' => Organization::factory()->create(),
                         ]);
                         $team  = Team::factory()->create();
-                        $email = $test->faker->email;
+                        $email = $test->faker->email();
 
                         return [
                             'input' => [
@@ -436,13 +436,13 @@ class InviteTest extends TestCase {
                         $role         = Role::factory()->create([
                             'organization_id' => $organization,
                         ]);
-                        $email        = $test->faker->email;
+                        $email        = $test->faker->email();
 
                         return [
                             'input' => [
                                 'email'   => $email,
                                 'role_id' => $role->getKey(),
-                                'team_id' => $test->faker->uuid,
+                                'team_id' => $test->faker->uuid(),
                             ],
                         ];
                     },

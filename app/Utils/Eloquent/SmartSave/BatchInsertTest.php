@@ -156,7 +156,7 @@ class BatchInsertTest extends TestCase {
     public function testUpsert(): void {
         $inserts = [
             [
-                'id'    => $this->faker->uuid,
+                'id'    => $this->faker->uuid(),
                 'a'     => 'a',
                 'b'     => 'b',
                 'c'     => 'c',

@@ -324,7 +324,7 @@ class UsersImporterTest extends TestCase {
      * @covers ::getUser
      */
     public function testGetUserNoUser(): void {
-        $item = new KeycloakUser(['id' => $this->faker->uuid]);
+        $item = new KeycloakUser(['id' => $this->faker->uuid()]);
         $data = Mockery::mock(UsersImporterChunkData::class);
         $data
             ->shouldReceive('getUserById')
@@ -419,22 +419,22 @@ class UsersImporterTest extends TestCase {
         $user  = User::factory()->make();
         $item  = new KeycloakUser([
             'id'            => $user->getKey(),
-            'email'         => $this->faker->email,
-            'firstName'     => $this->faker->firstName,
-            'lastName'      => $this->faker->lastName,
-            'emailVerified' => $this->faker->boolean,
-            'enabled'       => $this->faker->boolean,
+            'email'         => $this->faker->email(),
+            'firstName'     => $this->faker->firstName(),
+            'lastName'      => $this->faker->lastName(),
+            'emailVerified' => $this->faker->boolean(),
+            'enabled'       => $this->faker->boolean(),
             'groups'        => [],
             'attributes'    => [
-                'phone'          => [$this->faker->e164PhoneNumber],
-                'office_phone'   => [$this->faker->e164PhoneNumber],
-                'mobile_phone'   => [$this->faker->e164PhoneNumber],
-                'contact_email'  => [$this->faker->email],
-                'title'          => [$this->faker->title],
-                'job_title'      => [$this->faker->title],
-                'academic_title' => [$this->faker->title],
-                'company'        => [$this->faker->company],
-                'photo'          => [$this->faker->url],
+                'phone'          => [$this->faker->e164PhoneNumber()],
+                'office_phone'   => [$this->faker->e164PhoneNumber()],
+                'mobile_phone'   => [$this->faker->e164PhoneNumber()],
+                'contact_email'  => [$this->faker->email()],
+                'title'          => [$this->faker->title()],
+                'job_title'      => [$this->faker->title()],
+                'academic_title' => [$this->faker->title()],
+                'company'        => [$this->faker->company()],
+                'photo'          => [$this->faker->url()],
             ],
         ]);
         $data  = Mockery::mock(UsersImporterChunkData::class);
@@ -498,10 +498,10 @@ class UsersImporterTest extends TestCase {
         $item    = new KeycloakUser([
             'id'            => $user->getKey(),
             'email'         => $another->email,
-            'firstName'     => $this->faker->firstName,
-            'lastName'      => $this->faker->lastName,
-            'emailVerified' => $this->faker->boolean,
-            'enabled'       => $this->faker->boolean,
+            'firstName'     => $this->faker->firstName(),
+            'lastName'      => $this->faker->lastName(),
+            'emailVerified' => $this->faker->boolean(),
+            'enabled'       => $this->faker->boolean(),
             'groups'        => [],
         ]);
         $data    = Mockery::mock(UsersImporterChunkData::class);

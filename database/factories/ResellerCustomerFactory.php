@@ -32,7 +32,7 @@ class ResellerCustomerFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'reseller_id'     => static function (): Reseller {
                 return Reseller::factory()->create();
             },

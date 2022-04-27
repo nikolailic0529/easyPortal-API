@@ -36,13 +36,13 @@ class LocationFactoryTest extends TestCase {
     public function testFind(): void {
         $factory  = $this->app->make(LocationFactory::class);
         $location = new Location([
-            'zip'         => $this->faker->postcode,
-            'address'     => $this->faker->streetAddress,
-            'city'        => $this->faker->city,
-            'country'     => $this->faker->country,
-            'countryCode' => $this->faker->countryCode,
-            'latitude'    => (string) $this->faker->latitude,
-            'longitude'   => (string) $this->faker->longitude,
+            'zip'         => $this->faker->postcode(),
+            'address'     => $this->faker->streetAddress(),
+            'city'        => $this->faker->city(),
+            'country'     => $this->faker->country(),
+            'countryCode' => $this->faker->countryCode(),
+            'latitude'    => (string) $this->faker->latitude(),
+            'longitude'   => (string) $this->faker->longitude(),
         ]);
 
         $this->flushQueryLog();
@@ -79,16 +79,16 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromLocation
      */
     public function testCreateFromLocation(): void {
-        $latitude  = (string) $this->faker->latitude;
-        $longitude = (string) $this->faker->longitude;
+        $latitude  = (string) $this->faker->latitude();
+        $longitude = (string) $this->faker->longitude();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
         $location  = new Location([
-            'zip'         => $this->faker->postcode,
-            'address'     => $this->faker->streetAddress,
-            'city'        => $this->faker->city,
+            'zip'         => $this->faker->postcode(),
+            'address'     => $this->faker->streetAddress(),
+            'city'        => $this->faker->city(),
             'country'     => $country->name,
             'countryCode' => $country->code,
             'latitude'    => $latitude,
@@ -129,17 +129,17 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromLocation
      */
     public function testCreateFromLocationCityWithState(): void {
-        $latitude  = (string) $this->faker->latitude;
-        $longitude = (string) $this->faker->longitude;
+        $latitude  = (string) $this->faker->latitude();
+        $longitude = (string) $this->faker->longitude();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $state     = $this->faker->state;
-        $cityName  = $this->faker->city;
+        $state     = $this->faker->state();
+        $cityName  = $this->faker->city();
         $location  = new Location([
-            'zip'         => $this->faker->postcode,
-            'address'     => $this->faker->streetAddress,
+            'zip'         => $this->faker->postcode(),
+            'address'     => $this->faker->streetAddress(),
             'city'        => "{$cityName},  {$state}",
             'country'     => $country->name,
             'countryCode' => $country->code,
@@ -181,11 +181,11 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromLocation
      */
     public function testCreateFromLocationWithoutZip(): void {
-        $state    = $this->faker->state;
-        $cityName = $this->faker->city;
+        $state    = $this->faker->state();
+        $cityName = $this->faker->city();
         $location = new Location([
             'zip'     => null,
-            'address' => $this->faker->streetAddress,
+            'address' => $this->faker->streetAddress(),
             'city'    => "{$cityName},  {$state}",
         ]);
 
@@ -198,16 +198,16 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAsset(): void {
-        $latitude  = (string) $this->faker->latitude;
-        $longitude = (string) $this->faker->longitude;
+        $latitude  = (string) $this->faker->latitude();
+        $longitude = (string) $this->faker->longitude();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
         $assert    = new ViewAsset([
-            'zip'         => $this->faker->postcode,
-            'address'     => $this->faker->streetAddress,
-            'city'        => $this->faker->city,
+            'zip'         => $this->faker->postcode(),
+            'address'     => $this->faker->streetAddress(),
+            'city'        => $this->faker->city(),
             'country'     => $country->name,
             'countryCode' => $country->code,
             'latitude'    => $latitude,
@@ -248,17 +248,17 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetCityWithState(): void {
-        $latitude  = (string) $this->faker->latitude;
-        $longitude = (string) $this->faker->longitude;
+        $latitude  = (string) $this->faker->latitude();
+        $longitude = (string) $this->faker->longitude();
         $country   = Country::factory()->make();
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $state     = $this->faker->state;
-        $cityName  = $this->faker->city;
+        $state     = $this->faker->state();
+        $cityName  = $this->faker->city();
         $assert    = new ViewAsset([
-            'zip'         => $this->faker->postcode,
-            'address'     => $this->faker->streetAddress,
+            'zip'         => $this->faker->postcode(),
+            'address'     => $this->faker->streetAddress(),
             'city'        => "{$cityName},  {$state}",
             'country'     => $country->name,
             'countryCode' => $country->code,
@@ -447,12 +447,12 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If not - it should be created
-        $state     = " {$this->faker->state} ";
-        $postcode  = " {$this->faker->postcode} ";
-        $lineOne   = " {$this->faker->streetAddress} ";
-        $lineTwo   = " {$this->faker->secondaryAddress} ";
-        $latitude  = " {$this->faker->latitude} ";
-        $longitude = " {$this->faker->longitude} ";
+        $state     = " {$this->faker->state()} ";
+        $postcode  = " {$this->faker->postcode()} ";
+        $lineOne   = " {$this->faker->streetAddress()} ";
+        $lineTwo   = " {$this->faker->secondaryAddress()} ";
+        $latitude  = " {$this->faker->latitude()} ";
+        $longitude = " {$this->faker->longitude()} ";
         $created   = $factory->location(
             $country,
             $city,

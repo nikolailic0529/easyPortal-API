@@ -272,7 +272,7 @@ class ClientTest extends TestCase {
             ->shouldReceive('get')
             ->with('ep.keycloak.client_uuid')
             ->once()
-            ->andReturn($this->faker->uuid);
+            ->andReturn($this->faker->uuid());
 
         $client = Mockery::mock(Client::class, [
             Mockery::mock(ExceptionHandler::class),
@@ -299,12 +299,12 @@ class ClientTest extends TestCase {
      */
     public function testSetGroupRoles(): void {
         $group = $this->faker->randomElement([
-            new Group(['id' => $this->faker->uuid]),
+            new Group(['id' => $this->faker->uuid()]),
             RoleModel::factory()->make(),
         ]);
-        $a     = new Role(['id' => $this->faker->uuid]);
-        $b     = new Role(['id' => $this->faker->uuid]);
-        $c     = new Role(['id' => $this->faker->uuid]);
+        $a     = new Role(['id' => $this->faker->uuid()]);
+        $b     = new Role(['id' => $this->faker->uuid()]);
+        $c     = new Role(['id' => $this->faker->uuid()]);
 
         $client = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
@@ -406,10 +406,10 @@ class ClientTest extends TestCase {
     // =========================================================================
     protected function prepareClient(bool $withToken = false): void {
         $this->setSettings([
-            'ep.keycloak.url'           => $this->faker->url,
-            'ep.keycloak.client_id'     => $this->faker->word,
-            'ep.keycloak.client_secret' => $this->faker->uuid,
-            'ep.keycloak.client_uuid'   => $this->faker->uuid,
+            'ep.keycloak.url'           => $this->faker->url(),
+            'ep.keycloak.client_id'     => $this->faker->word(),
+            'ep.keycloak.client_secret' => $this->faker->uuid(),
+            'ep.keycloak.client_uuid'   => $this->faker->uuid(),
         ]);
         if ($withToken) {
             $this->prepareToken();

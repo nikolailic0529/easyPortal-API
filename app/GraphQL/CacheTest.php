@@ -163,7 +163,7 @@ class CacheTest extends TestCase {
      * @covers ::lock
      */
     public function testLock(): void {
-        $graphqlStore = $this->faker->word;
+        $graphqlStore = $this->faker->word();
         $lockTimeout  = $this->faker->randomNumber();
         $lockWait     = $this->faker->randomNumber();
 

@@ -54,7 +54,7 @@ class PingerTest extends TestCase {
         Event::fake(JobStoppedEvent::class);
 
         // Mocks
-        $uuid     = $this->faker->uuid;
+        $uuid     = $this->faker->uuid();
         $queueJob = Mockery::mock(QueueJob::class);
         $queueJob
             ->shouldReceive('getJobId')
@@ -103,8 +103,8 @@ class PingerTest extends TestCase {
      */
     public function testProlong(string $class): void {
         $now       = Date::now()->timestamp;
-        $uuid      = $this->faker->uuid;
-        $queueName = $this->faker->word;
+        $uuid      = $this->faker->uuid();
+        $queueName = $this->faker->word();
 
         $connection = Mockery::mock(Connection::class);
         $connection

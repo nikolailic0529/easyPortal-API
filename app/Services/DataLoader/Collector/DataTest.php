@@ -23,8 +23,8 @@ class DataTest extends TestCase {
      */
     public function testCollect(): void {
         $data   = new Data();
-        $uuidA  = $this->faker->uuid;
-        $uuidB  = $this->faker->uuid;
+        $uuidA  = $this->faker->uuid();
+        $uuidB  = $this->faker->uuid();
         $assetA = Asset::factory()->make(['id' => null]);
         $assetB = Asset::factory()->make(['id' => $uuidA]);
 

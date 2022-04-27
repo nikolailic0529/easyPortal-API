@@ -49,7 +49,7 @@ class DeleteMeSearchTest extends TestCase {
                 deleteMeSearch(input:$input) {
                     deleted
                 }
-            }', ['input' => ['id' => $userSearch?->getKey() ?: $this->faker->uuid]])
+            }', ['input' => ['id' => $userSearch?->getKey() ?: $this->faker->uuid()]])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {

@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Testing\Data\Fake;
 
 class Postcode extends Value {
     public function __invoke(): string {
-        return $this->faker->postcode;
+        return $this->faker->postcode();
     }
 }

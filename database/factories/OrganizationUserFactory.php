@@ -32,7 +32,7 @@ class OrganizationUserFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
+            'id'              => $this->faker->uuid(),
             'organization_id' => static function (): Organization {
                 return Organization::query()->first() ?? Organization::factory()->create();
             },
