@@ -17,10 +17,20 @@ type User {
     locale: String
     timezone: String
 
+    invitations_count: Int!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @count(relation: "invitations")
+
     invitations: [Invitation!]!
     @organization
     @me(permissions: ["administer", "org-administer"])
     @hasMany
+
+    organizations_count: Int!
+    @organization
+    @me(permissions: ["administer", "org-administer"])
+    @count(relation: "organizations")
 
     organizations: [UserOrganization!]!
     @organization

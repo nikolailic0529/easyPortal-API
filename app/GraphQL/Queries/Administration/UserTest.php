@@ -74,6 +74,7 @@ class UserTest extends TestCase {
                         phone
                         locale
                         timezone
+                        invitations_count
                         invitations {
                             id
                             organization_id
@@ -91,6 +92,7 @@ class UserTest extends TestCase {
                             used_at
                             expired_at
                         }
+                        organizations_count
                         organizations {
                             organization_id
                             role {
@@ -153,24 +155,25 @@ class UserTest extends TestCase {
             new ArrayDataProvider([
                 'keycloak users'                => [
                     new GraphQLSuccess('user', self::class, [
-                        'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                        'given_name'     => 'keycloak',
-                        'family_name'    => 'user',
-                        'email'          => 'test1@example.com',
-                        'email_verified' => true,
-                        'enabled'        => true,
-                        'title'          => 'Mr',
-                        'academic_title' => 'Professor',
-                        'phone'          => '+1-202-555-0198',
-                        'office_phone'   => '+1-202-555-0197',
-                        'mobile_phone'   => '+1-202-555-0147',
-                        'contact_email'  => 'test@gmail.com',
-                        'job_title'      => 'Manger',
-                        'photo'          => 'https://example.com/photo.jpg',
-                        'company'        => 'company1',
-                        'locale'         => 'de_AT',
-                        'timezone'       => 'Europe/Guernsey',
-                        'invitations'    => [
+                        'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                        'given_name'          => 'keycloak',
+                        'family_name'         => 'user',
+                        'email'               => 'test1@example.com',
+                        'email_verified'      => true,
+                        'enabled'             => true,
+                        'title'               => 'Mr',
+                        'academic_title'      => 'Professor',
+                        'phone'               => '+1-202-555-0198',
+                        'office_phone'        => '+1-202-555-0197',
+                        'mobile_phone'        => '+1-202-555-0147',
+                        'contact_email'       => 'test@gmail.com',
+                        'job_title'           => 'Manger',
+                        'photo'               => 'https://example.com/photo.jpg',
+                        'company'             => 'company1',
+                        'locale'              => 'de_AT',
+                        'timezone'            => 'Europe/Guernsey',
+                        'invitations_count'   => 1,
+                        'invitations'         => [
                             [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'email'           => 'test@gmail.com',
@@ -189,7 +192,8 @@ class UserTest extends TestCase {
                                 'expired_at'      => '2021-01-01T00:00:00+00:00',
                             ],
                         ],
-                        'organizations'  => [
+                        'organizations_count' => 1,
+                        'organizations'       => [
                             [
                                 'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'enabled'         => true,
@@ -339,24 +343,25 @@ class UserTest extends TestCase {
                 ],
                 'root cannot see root'          => [
                     new GraphQLSuccess('user', self::class, [
-                        'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                        'given_name'     => 'keycloak',
-                        'family_name'    => 'user',
-                        'email'          => 'test1@example.com',
-                        'email_verified' => true,
-                        'enabled'        => true,
-                        'title'          => 'Mr',
-                        'academic_title' => 'Professor',
-                        'phone'          => '+1-202-555-0198',
-                        'office_phone'   => '+1-202-555-0197',
-                        'mobile_phone'   => '+1-202-555-0147',
-                        'contact_email'  => 'test@gmail.com',
-                        'job_title'      => 'Manger',
-                        'photo'          => 'https://example.com/photo.jpg',
-                        'company'        => 'company1',
-                        'locale'         => 'de_AT',
-                        'timezone'       => 'Europe/Guernsey',
-                        'invitations'    => [
+                        'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                        'given_name'          => 'keycloak',
+                        'family_name'         => 'user',
+                        'email'               => 'test1@example.com',
+                        'email_verified'      => true,
+                        'enabled'             => true,
+                        'title'               => 'Mr',
+                        'academic_title'      => 'Professor',
+                        'phone'               => '+1-202-555-0198',
+                        'office_phone'        => '+1-202-555-0197',
+                        'mobile_phone'        => '+1-202-555-0147',
+                        'contact_email'       => 'test@gmail.com',
+                        'job_title'           => 'Manger',
+                        'photo'               => 'https://example.com/photo.jpg',
+                        'company'             => 'company1',
+                        'locale'              => 'de_AT',
+                        'timezone'            => 'Europe/Guernsey',
+                        'invitations_count'   => 1,
+                        'invitations'         => [
                             [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'email'           => 'test@gmail.com',
@@ -372,7 +377,8 @@ class UserTest extends TestCase {
                                 'expired_at'      => '2021-01-01T00:00:00+00:00',
                             ],
                         ],
-                        'organizations'  => [
+                        'organizations_count' => 1,
+                        'organizations'       => [
                             [
                                 'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'enabled'         => true,

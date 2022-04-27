@@ -11384,6 +11384,20 @@ type User {
     )
     @hasMany
 
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    invitations_count: Int!
+    @organization
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
+    @count(
+        relation: "invitations"
+    )
+
     job_title: String
     locale: String
     mobile_phone: PhoneNumber
@@ -11400,6 +11414,20 @@ type User {
         permissions: ["administer", "org-administer"]
     )
     @hasMany
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    organizations_count: Int!
+    @organization
+    @me(
+        permissions: ["administer", "org-administer"]
+    )
+    @count(
+        relation: "organizations"
+    )
 
     phone: PhoneNumber
     photo: Url
@@ -11662,6 +11690,30 @@ Cache the resolved value of a field.
 """
 directive @cached(
     mode: CachedMode
+)
+on
+    | FIELD_DEFINITION
+
+"""
+Returns the count of a given relationship or model.
+"""
+directive @count(
+    """
+    The model to count.
+    Mutually exclusive with the `relation` argument.
+    """
+    model: String
+
+    """
+    The relationship to count.
+    Mutually exclusive with the `model` argument.
+    """
+    relation: String
+
+    """
+    Apply scopes to the underlying query.
+    """
+    scopes: [String!]
 )
 on
     | FIELD_DEFINITION
