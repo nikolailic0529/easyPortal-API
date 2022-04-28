@@ -3,16 +3,16 @@ type AssetWarranty {
     start: Date
     end: Date
     type_id: String
-    type: Type @belongsTo
+    type: Type @relation
     status_id: String
-    status: Status @belongsTo
+    status: Status @relation
     description: String
     customer_id: ID
-    customer: Customer @belongsTo
+    customer: Customer @relation
     document_id: ID
-    document: Document @belongsTo
+    document: Document @relation
     reseller_id: ID
-    reseller: Reseller @belongsTo
-    serviceGroup: ServiceGroup @belongsTo
-    serviceLevels: [ServiceLevel!]! @hasMany
+    reseller: Reseller @relation
+    serviceGroup: ServiceGroup @relation
+    serviceLevels: [ServiceLevel!]! @relation
 }

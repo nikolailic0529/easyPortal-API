@@ -8,40 +8,51 @@ type Organization {
     website_url: Url
     email: Email
     currency_id: ID
-    currency: Currency @belongsTo
+    currency: Currency @relation
     analytics_code: String
     timezone: String
 
     branding: OrganizationBranding!
     @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-    kpi: Kpi @hasOne
+    kpi: Kpi @relation
+    statuses: [Status!]! @relation
+    headquarter: ResellerLocation @relation
 
-    statuses: [Status!]! @belongsToMany
-    locations: [ResellerLocation!]!
-    contacts: [Contact!]!
-    headquarter: ResellerLocation
+    locations_count: Int! @count(relation: "locations")
+    locations(
+        where: LocationsQuery @searchBy
+        order: LocationsSort @sortBy
+    ): [ResellerLocation!]!
+    @relation
+
+    contacts_count: Int! @count(relation: "contacts")
+    contacts(
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]!
+    @relation
 
     users(
         where: UsersQuery @searchBy
         order: UsersSort @sortBy
     ): [User!]!
     @me(permissions: ["administer", "org-administer"])
-    @hasMany
+    @relation
     @paginatedRelation
 
     keycloak_scope: String
     @me(permissions: ["administer"])
 
-    roles: [Role!]! @hasMany
+    roles: [Role!]!
     @me(permissions: ["administer", "org-administer"])
+    @relation
 
     audits(
         where: AuditsQuery @searchBy
         order: AuditsSort @sortBy
     ): [Audit!]!
     @me(permissions: ["administer", "org-administer"])
-    @paginated(
-        builder: "App\\GraphQL\\Queries\\Organization@audits"
-    )
+    @relation
+    @paginatedRelation
 }

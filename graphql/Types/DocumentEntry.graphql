@@ -9,13 +9,13 @@ type DocumentEntry {
     start: Date
     end: Date
     product_id: ID!
-    product: Product! @belongsTo
+    product: Product! @relation
     service_group_id: ID
-    serviceGroup: ServiceGroup @belongsTo
+    serviceGroup: ServiceGroup @relation
     service_level_id: ID
-    serviceLevel: ServiceLevel @belongsTo
+    serviceLevel: ServiceLevel @relation
     currency_id: ID
-    currency: Currency @belongsTo
+    currency: Currency @relation
     asset_id: ID!
-    asset: Asset @belongsTo
+    asset: Asset @relation
 }

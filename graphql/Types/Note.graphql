@@ -5,6 +5,6 @@ type Note {
     created_at: DateTime!
     updated_at: DateTime!
     user_id: ID!
-    user: User! @belongsTo
-    files: [File!]! @morphMany
+    user: User! @relation
+    files: [File!]! @relation
 }

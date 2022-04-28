@@ -1,4 +1,5 @@
 input CustomerLocationsQuery {
+    id: ID!
     location_id: ID!
     location: LocationsQuery!
     types: TypesQuery

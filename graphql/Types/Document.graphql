@@ -8,37 +8,37 @@ type Document {
     end: Date
     price: Float
     currency_id: ID
-    currency: Currency @belongsTo
-    customer: Customer @belongsTo
-    oem: Oem! @belongsTo
+    currency: Currency @relation
+    customer: Customer @relation
+    oem: Oem! @relation
     oem_said: String
-    oemGroup: OemGroup @belongsTo
+    oemGroup: OemGroup @relation
     reseller_id: ID
-    reseller: Reseller @belongsTo
-    type: Type! @belongsTo
-    statuses: [Status!]! @belongsToMany
+    reseller: Reseller @relation
+    type: Type! @relation
+    statuses: [Status!]! @relation
     statuses_count: Int!
     is_contract: Boolean!
     is_quote: Boolean!
     entries(
         where: DocumentEntriesQuery @searchBy
-    ): [DocumentEntry!]! @hasMany
+    ): [DocumentEntry!]! @relation
     entries_count: Int!
     language_id: ID
-    language: Language @belongsTo
+    language: Language @relation
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @morphMany
+    ): [Contact!]! @relation
     contacts_count: Int!
     distributor_id: ID
-    distributor: Distributor @belongsTo
+    distributor: Distributor @relation
     assets_count: Int
     notes (
         where: NotesQuery @searchBy
         order: NotesSort @sortBy
     ): [Note!]!
-    @hasMany
+    @relation
     @paginatedRelation
 
     changed_at: DateTime

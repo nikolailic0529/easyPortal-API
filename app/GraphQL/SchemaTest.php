@@ -31,7 +31,7 @@ class SchemaTest extends TestCase {
 
         if (!$regexp) {
             $name   = preg_quote($directive, '/');
-            $regexp = "/(^|\s+){$name}(^|\s+)/ui";
+            $regexp = "/(^|\s+){$name}($|\s+)/ui";
         }
 
         $finder = Finder::create()->in($path)->files()->contains($regexp)->sortByName();
@@ -68,9 +68,17 @@ class SchemaTest extends TestCase {
             ['@trim', null, null],
             ['@rename', null, null],
             ['@paginate', '@paginated', null],
-            ['@hasMany(type: xxx)', '@hasMany @paginatedRelation', '/@hasMany\(.*?type:.*?\)/ui'],
-            ['@belongsToMany(type: xxx)', '@belongsToMany @paginatedRelation', '/@belongsToMany\(.*?type:.*?\)/ui'],
-            ['@morphMany(type: xxx)', '@morphMany @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],
+            ['@hasMany(type: xxx)', '@relation @paginatedRelation', '/@hasMany\(.*?type:.*?\)/ui'],
+            ['@belongsToMany(type: xxx)', '@relation @paginatedRelation', '/@belongsToMany\(.*?type:.*?\)/ui'],
+            ['@morphMany(type: xxx)', '@relation @paginatedRelation', '/@morphMany\(.*?type:.*?\)/ui'],
+            ['@belongsTo', '@relation', null],
+            ['@belongsToMany', '@relation', null],
+            ['@hasOne', '@relation', null],
+            ['@hasMany', '@relation', null],
+            ['@morphMany', '@relation', null],
+            ['@morphOne', '@relation', null],
+            ['@morphTo', '@relation', null],
+            ['@morphToMany', '@relation', null],
             ['@paginatedLimit', null, null],
             ['@paginatedOffset', null, null],
             ['@cache', '@cached', null],

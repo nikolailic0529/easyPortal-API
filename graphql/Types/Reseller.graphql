@@ -3,7 +3,12 @@ type Reseller {
     name: String!
     assets_count: Int!
     customers_count: Int!
+    headquarter: ResellerLocation @relation
+
     locations_count: Int!
-    locations: [ResellerLocation!]! @hasMany
-    headquarter: ResellerLocation @hasOne
+    locations(
+        where: ResellerLocationsQuery @searchBy
+        order: ResellerLocationsSort @sortBy
+    ): [ResellerLocation!]!
+    @relation
 }

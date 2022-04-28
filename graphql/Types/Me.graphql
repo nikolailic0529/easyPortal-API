@@ -34,5 +34,5 @@ type Me {
         where: MeSearchQuery @searchBy
         order: MeSearchSort @sortBy
     ): [MeSearch!]!
-    @hasMany
+    @relation
 }

@@ -11,7 +11,7 @@ type Customer {
         order: _ @sortBy
         test: ID
     ): [CustomerLocation!]
-    @hasMany
+    @relation
     @paginatedRelation
 }
 
