@@ -210,22 +210,24 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     //
                     // @var array<Class>
                     // @var array<key, Class>
+                    // @var array<key, array<Class>>
+                    // @var array<key, class-string<Class>>
                     $attributes = $property->getAttributes(JsonObjectArray::class);
                     $attribute  = reset($attributes);
                     $isArray    = true;
                     $matches    = [];
-                    $comment    = $property->getDocComment();
-                    $regexp     = '/@var array\<(?:[^,]+,\s*)?(?P<type>[^>]+)\>/ui';
+                    $comment    = $property->getDocComment() ?: '';
+                    $regexp     = '/@var array\<(?:[^,]+,\s*)?(?P<type>[^<]+)(\<.+?\>)\>/ui';
                     $class      = $attribute instanceof ReflectionAttribute
                         ? $attribute->newInstance()->getType()
                         : null;
 
                     if (preg_match($regexp, $comment, $matches)) {
                         $type    = $matches['type'];
-                        $scalars = ['int', 'float', 'string', 'bool', 'mixed'];
+                        $scalars = ['int', 'float', 'string', 'bool', 'mixed', 'class-string', 'array'];
                         $invalid = $class
                             ? Arr::last(explode('\\', $class)) !== $type
-                            : (!in_array($type, $scalars, true) && !str_starts_with($type, 'array<'));
+                            : !in_array($type, $scalars, true);
 
                         if ($invalid) {
                             throw new LogicException('Impossible to determine type of array items.');
@@ -237,7 +239,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     $factory = static function (DateTimeInterface|string|null $json): ?DateTimeInterface {
                         return is_object($json) ? $json : ($json !== null ? Date::make($json) : null);
                     };
-                } elseif (is_a($class, self::class, true)) {
+                } elseif ($class && is_a($class, self::class, true)) {
                     $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
                         return is_object($json) ? $json : ($json !== null ? new $class($json) : null);
