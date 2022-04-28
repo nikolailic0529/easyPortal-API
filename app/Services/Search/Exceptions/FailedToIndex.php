@@ -3,7 +3,7 @@
 namespace App\Services\Search\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
-use App\Services\Search\Processor\Processor;
+use App\Services\Search\Processor\ModelProcessor;
 use App\Services\Search\ServiceException;
 use Illuminate\Database\Eloquent\Model;
 use Psr\Log\LogLevel;
@@ -13,7 +13,7 @@ use function sprintf;
 
 class FailedToIndex extends ServiceException implements GenericException {
     public function __construct(
-        protected Processor $processor,
+        protected ModelProcessor $processor,
         protected Model $model,
         Throwable $previous = null,
     ) {

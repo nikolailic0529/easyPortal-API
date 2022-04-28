@@ -9,7 +9,7 @@ use App\Utils\Processor\EloquentState;
  *
  * @extends EloquentState<TModel>
  */
-class State extends EloquentState {
+class ModelProcessorState extends EloquentState {
     public bool $rebuild = false;
     public ?string $name = null;
 }

@@ -5,7 +5,7 @@ namespace App\Services\Search\Jobs;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
 use App\Services\Search\Eloquent\Searchable;
-use App\Services\Search\Processor\Processor;
+use App\Services\Search\Processor\ModelProcessor;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +22,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  */
 class Index extends Job implements Initializable {
     /**
-     * @phpstan-use ProcessorJob<Processor<Model&Searchable,\App\Services\Search\Processor\State<Model&Searchable>>>
+     * @phpstan-use ProcessorJob<ModelProcessor<Model&Searchable,\App\Services\Search\Processor\ModelProcessorState<Model&Searchable>>>
      */
     use ProcessorJob;
 
@@ -88,9 +88,9 @@ class Index extends Job implements Initializable {
         return $this;
     }
 
-    protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
+    protected function makeProcessor(Container $container, QueueableConfig $config): ModelProcessor {
         return $container
-            ->make(Processor::class)
+            ->make(ModelProcessor::class)
             ->setModel($this->getModel())
             ->setKeys($this->getKeys())
             ->setRebuild(false);

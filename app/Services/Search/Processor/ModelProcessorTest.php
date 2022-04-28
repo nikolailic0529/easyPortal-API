@@ -41,9 +41,9 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processor\Processor
+ * @coversDefaultClass \App\Services\Search\Processor\ModelProcessor
  */
-class ProcessorTest extends TestCase {
+class ModelProcessorTest extends TestCase {
     use WithSearch;
 
     // <editor-fold desc="Tests">
@@ -84,16 +84,16 @@ class ProcessorTest extends TestCase {
             ? (int) ceil(count($expected) / $chunk)
             : 0;
         $previous    = null;
-        $spyOnInit   = Mockery::spy(function (State $state) use ($expected): void {
+        $spyOnInit   = Mockery::spy(function (ModelProcessorState $state) use ($expected): void {
             self::assertEquals(count($expected), $state->total);
             self::assertFalse($this->app->get(Repository::class)->get('scout.queue'));
         });
-        $spyOnChange = Mockery::spy(static function (State $state) use (&$previous, $chunk): void {
+        $spyOnChange = Mockery::spy(static function (ModelProcessorState $state) use (&$previous, $chunk): void {
             self::assertEquals($previous?->processed + $chunk, $state->processed);
 
             $previous = $state;
         });
-        $spyOnFinish = Mockery::spy(static function (State $state) use ($expected): void {
+        $spyOnFinish = Mockery::spy(static function (ModelProcessorState $state) use ($expected): void {
             self::assertEquals(count($expected), $state->processed);
         });
 
@@ -103,7 +103,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Call
-        $this->app->make(Processor::class)
+        $this->app->make(ModelProcessor::class)
             ->onInit(Closure::fromCallable($spyOnInit))
             ->onChange(Closure::fromCallable($spyOnChange))
             ->onFinish(Closure::fromCallable($spyOnFinish))
@@ -192,13 +192,13 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturn($instance);
 
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
         $processor
             ->setModel($model::class)
-            ->getBuilder(new State([
+            ->getBuilder(new ModelProcessorState([
                 'model' => $processor->getModel(),
             ]));
     }
@@ -214,7 +214,7 @@ class ProcessorTest extends TestCase {
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -228,7 +228,7 @@ class ProcessorTest extends TestCase {
         }
 
         // Run
-        $processor->createIndex(new State([
+        $processor->createIndex(new ModelProcessorState([
             'model' => $model,
         ]));
 
@@ -241,7 +241,7 @@ class ProcessorTest extends TestCase {
      */
     public function testSwitchIndex(): void {
         // Mock
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -258,7 +258,7 @@ class ProcessorTest extends TestCase {
         $this->createSearchIndex($index, $model->searchableAs());
 
         // Run
-        $processor->switchIndex(new State([
+        $processor->switchIndex(new ModelProcessorState([
             'model' => $model::class,
         ]));
 
@@ -280,7 +280,7 @@ class ProcessorTest extends TestCase {
     public function testInit(): void {
         $name      = $this->faker->word();
         $iterator  = Mockery::mock(ObjectIterator::class);
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -293,14 +293,14 @@ class ProcessorTest extends TestCase {
             ->andReturn($name);
 
         // Update
-        $state = new State(['rebuild' => false]);
+        $state = new ModelProcessorState(['rebuild' => false]);
 
         $processor->init($state, $iterator);
 
         self::assertNull($state->name);
 
         // Rebuild
-        $state = new State(['rebuild' => true]);
+        $state = new ModelProcessorState(['rebuild' => true]);
 
         $processor->init($state, $iterator);
 
@@ -311,7 +311,7 @@ class ProcessorTest extends TestCase {
      * @covers ::finish
      */
     public function testFinish(): void {
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -323,8 +323,8 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $processor->finish(new State(['rebuild' => false]));
-        $processor->finish(new State(['rebuild' => true]));
+        $processor->finish(new ModelProcessorState(['rebuild' => false]));
+        $processor->finish(new ModelProcessorState(['rebuild' => true]));
     }
 
     /**
@@ -389,9 +389,9 @@ class ProcessorTest extends TestCase {
         }
 
         // Test
-        $state     = new State(['name' => $index]);
+        $state     = new ModelProcessorState(['name' => $index]);
         $config    = $this->app->make(Repository::class);
-        $processor = new class($config) extends Processor {
+        $processor = new class($config) extends ModelProcessor {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Repository $config,
@@ -417,7 +417,7 @@ class ProcessorTest extends TestCase {
     public function testDefaultState(): void {
         $keys      = [$this->faker->uuid(), $this->faker->uuid()];
         $model     = Model::class;
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 
@@ -437,7 +437,7 @@ class ProcessorTest extends TestCase {
      * @dataProvider dataProviderReport
      */
     public function testReport(?Exception $expected, Exception $exception): void {
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(ModelProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
 

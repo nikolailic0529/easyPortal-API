@@ -59,8 +59,8 @@ class ModelsProcessor extends CompositeProcessor {
     protected function getOperations(CompositeState $state): array {
         return array_map(
             function (string $model): CompositeOperation {
-                return new CompositeOperation($model, function () use ($model): Processor {
-                    return $this->container->make(Processor::class)->setModel($model)->setRebuild(true);
+                return new CompositeOperation($model, function () use ($model): ModelProcessor {
+                    return $this->container->make(ModelProcessor::class)->setModel($model)->setRebuild(true);
                 });
             },
             $state->models,

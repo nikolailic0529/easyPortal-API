@@ -34,11 +34,11 @@ use function mb_strpos;
 
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
- * @template TState of \App\Services\Search\Processor\State<TItem>
+ * @template TState of \App\Services\Search\Processor\ModelProcessorState<TItem>
  *
  * @extends EloquentProcessor<TItem, null, TState>
  */
-class Processor extends EloquentProcessor {
+class ModelProcessor extends EloquentProcessor {
     /**
      * @var class-string<TItem>
      */
@@ -126,8 +126,8 @@ class Processor extends EloquentProcessor {
     }
 
     /**
-     * @param State<TItem>     $state
-     * @param Model&Searchable $item
+     * @param ModelProcessorState<TItem> $state
+     * @param Model&Searchable           $item
      */
     protected function process(ProcessorState $state, mixed $data, mixed $item): void {
         $as   = $item->searchableAs();
@@ -195,8 +195,8 @@ class Processor extends EloquentProcessor {
     /**
      * @inheritDoc
      */
-    protected function restoreState(array $state): State {
-        return new State($state);
+    protected function restoreState(array $state): ModelProcessorState {
+        return new ModelProcessorState($state);
     }
 
     /**
@@ -219,7 +219,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function createIndex(State $state): string {
+    protected function createIndex(ModelProcessorState $state): string {
         $client = $this->getClient()->indices();
         $config = $this->getSearchConfiguration($state);
         $alias  = $config->getIndexAlias();
@@ -254,7 +254,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function switchIndex(State $state): void {
+    protected function switchIndex(ModelProcessorState $state): void {
         // Prepare
         $client  = $this->getClient()->indices();
         $config  = $this->getSearchConfiguration($state);
@@ -293,7 +293,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function getSearchConfiguration(State $state): Configuration {
+    protected function getSearchConfiguration(ModelProcessorState $state): Configuration {
         $model  = $state->model;
         $config = (new $model())->getSearchConfiguration();
 
