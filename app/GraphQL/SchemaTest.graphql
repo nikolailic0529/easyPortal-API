@@ -2178,6 +2178,11 @@ input SearchByConditionCustomerLocationsQuery {
     """
     Property condition.
     """
+    id: SearchByScalarID
+
+    """
+    Property condition.
+    """
     location: SearchByComplexRelationLocationsQuery
 
     """
@@ -3049,6 +3054,11 @@ input SearchByConditionResellerLocationsQuery {
     Any of the conditions must be true.
     """
     anyOf: [SearchByConditionResellerLocationsQuery!]
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
 
     """
     Property condition.
@@ -4644,6 +4654,11 @@ input SortByClauseCustomerLocationsQuery {
     """
     Property clause.
     """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
     location: SortByClauseLocationsQuery
 
     """
@@ -5487,6 +5502,16 @@ input SortByClauseProductsSort {
     Property clause.
     """
     sku: SortByDirection
+}
+
+"""
+Sort clause for input ResellerLocationsSort (only one property allowed at a time).
+"""
+input SortByClauseResellerLocationsSort {
+    """
+    Property clause.
+    """
+    location: SortByClauseLocationsQuery
 }
 
 """
@@ -7096,7 +7121,35 @@ type Customer {
     kpi: Kpi
     @orgRelation
 
-    locations: [CustomerLocation!]!
+    locations(
+        order: [SortByClauseCustomerLocationsSort!]
+        @sortBy
+
+        where: SearchByConditionCustomerLocationsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+            ]
+        )
+    ): [CustomerLocation!]!
     @relation
 
     locations_count: Int!
@@ -7205,6 +7258,8 @@ type Customer {
 }
 
 type CustomerLocation {
+    id: ID!
+
     location: Location
     @relation
 
@@ -8818,8 +8873,41 @@ type Organization {
 
     locale: String
 
-    locations: [ResellerLocation!]!
+    locations(
+        order: [SortByClauseLocationsSort!]
+        @sortBy
+
+        where: SearchByConditionLocationsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+            ]
+        )
+    ): [ResellerLocation!]!
     @relation
+
+    locations_count: Int!
+    @count(
+        relation: "locations"
+    )
 
     name: String!
 
@@ -11215,7 +11303,35 @@ type Reseller {
 
     id: ID!
 
-    locations: [ResellerLocation!]!
+    locations(
+        order: [SortByClauseResellerLocationsSort!]
+        @sortBy
+
+        where: SearchByConditionResellerLocationsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+            ]
+        )
+    ): [ResellerLocation!]!
     @relation
 
     locations_count: Int!
@@ -11223,6 +11339,8 @@ type Reseller {
 }
 
 type ResellerLocation {
+    id: ID!
+
     location: Location
     @relation
 

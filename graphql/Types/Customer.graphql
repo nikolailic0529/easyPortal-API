@@ -4,20 +4,26 @@ type Customer {
     type: Type! @relation
     type_id: ID!
     statuses: [Status!]! @relation
+
     contacts_count: Int!
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
     ): [Contact!]! @relation
 
-    locations: [CustomerLocation!]! @relation
+    locations_count: Int! @orgProperty
+    locations(
+        where: CustomerLocationsQuery @searchBy
+        order: CustomerLocationsSort @sortBy
+    ): [CustomerLocation!]!
+    @relation
+
     headquarter: CustomerLocation @relation
 
     changed_at: DateTime
     synced_at: DateTime!
 
     assets_count: Int! @orgProperty
-    locations_count: Int! @orgProperty
 
     kpi: Kpi @orgRelation
 

@@ -16,10 +16,15 @@ type Organization {
     @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
     kpi: Kpi @relation
-
     statuses: [Status!]! @relation
-    locations: [ResellerLocation!]! @relation
     headquarter: ResellerLocation @relation
+
+    locations_count: Int! @count(relation: "locations")
+    locations(
+        where: LocationsQuery @searchBy
+        order: LocationsSort @sortBy
+    ): [ResellerLocation!]!
+    @relation
 
     contacts_count: Int! @count(relation: "contacts")
     contacts(

@@ -79,6 +79,7 @@ class OrganizationTest extends TestCase {
                             name
                             code
                         }
+                        locations_count
                         locations {
                             location_id
                             location {
@@ -327,21 +328,22 @@ class OrganizationTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('organization', Org::class, [
-                        'id'             => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                        'name'           => 'org1',
-                        'root'           => false,
-                        'locale'         => 'en',
-                        'website_url'    => 'https://www.example.com',
-                        'email'          => 'test@example.com',
-                        'analytics_code' => 'analytics_code',
-                        'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                        'timezone'       => 'Europe/London',
-                        'currency'       => [
+                        'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                        'name'            => 'org1',
+                        'root'            => false,
+                        'locale'          => 'en',
+                        'website_url'     => 'https://www.example.com',
+                        'email'           => 'test@example.com',
+                        'analytics_code'  => 'analytics_code',
+                        'currency_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                        'timezone'        => 'Europe/London',
+                        'currency'        => [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
                             'code' => 'CUR',
                         ],
-                        'locations'      => [
+                        'locations_count' => 1,
+                        'locations'       => [
                             [
                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'location'    => [
@@ -361,15 +363,15 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'contacts_count' => 1,
-                        'contacts'       => [
+                        'contacts_count'  => 1,
+                        'contacts'        => [
                             [
                                 'name'        => 'contact1',
                                 'email'       => 'contact1@test.com',
                                 'phone_valid' => false,
                             ],
                         ],
-                        'headquarter'    => [
+                        'headquarter'     => [
                             'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                             'location'    => [
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -387,7 +389,7 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'branding'       => [
+                        'branding'        => [
                             'dark_theme'              => true,
                             'main_color'              => '#00000F',
                             'secondary_color'         => '#0000F0',
@@ -412,14 +414,14 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ],
-                        'statuses'       => [
+                        'statuses'        => [
                             [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'key'  => 'active',
                                 'name' => 'active',
                             ],
                         ],
-                        'kpi'            => [
+                        'kpi'             => [
                             'assets_total'                        => 1,
                             'assets_active'                       => 2,
                             'assets_active_percent'               => 3.0,
