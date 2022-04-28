@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\FileFactory;
-use Eloquent;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +32,6 @@ use function app;
  * @method static Builder|File newModelQuery()
  * @method static Builder|File newQuery()
  * @method static Builder|File query()
- * @mixin Eloquent
  */
 class File extends PolymorphicModel {
     use HasFactory;

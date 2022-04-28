@@ -36,7 +36,7 @@ class ModelConverter {
     }
 
     /**
-     * @param array<string>           $path
+     * @param array<int, string>      $path
      * @param array<string, Property> $properties
      *
      * @return array<InputObjectType>

@@ -23,7 +23,7 @@ class BatchInsert {
     protected ?Model $model = null;
 
     /**
-     * @var array<array<string,mixed>>
+     * @var array<int, array<string,mixed>>
      */
     protected array $inserts = [];
 

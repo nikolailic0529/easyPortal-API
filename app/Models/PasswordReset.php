@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\PasswordResetFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,7 +21,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|PasswordReset newModelQuery()
  * @method static Builder|PasswordReset newQuery()
  * @method static Builder|PasswordReset query()
- * @mixin Eloquent
  */
 class PasswordReset extends Model {
     use HasFactory;

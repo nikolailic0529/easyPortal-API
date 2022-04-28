@@ -208,7 +208,7 @@ class JsonObjectTest extends TestCase {
             'unknown',
         )));
 
-        $object->unknown = 'value'; /** @phpstan-ignore-line needed for test */
+        $object->unknown = 'value'; // @phpstan-ignore-line needed for test
     }
 
     /**
@@ -220,7 +220,7 @@ class JsonObjectTest extends TestCase {
         };
 
         self::assertTrue(isset($object->known));
-        self::assertFalse(isset($object->unknown));
+        self::assertFalse(isset($object->unknown)); // @phpstan-ignore-line needed for test
     }
 
     /**

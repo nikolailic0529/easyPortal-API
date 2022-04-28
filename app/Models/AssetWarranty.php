@@ -17,7 +17,6 @@ use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\AssetWarrantyFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,7 +53,6 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|AssetWarranty newModelQuery()
  * @method static Builder|AssetWarranty newQuery()
  * @method static Builder|AssetWarranty query()
- * @mixin Eloquent
  */
 class AssetWarranty extends Model implements OwnedByOrganization, OwnedByShared {
     use OwnedByResellerImpl;

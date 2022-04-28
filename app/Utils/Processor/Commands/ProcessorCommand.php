@@ -8,10 +8,10 @@ use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 use LogicException;
 use ReflectionClass;
 use ReflectionNamedType;
-use Str;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 use function array_unique;

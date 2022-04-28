@@ -7,7 +7,6 @@ use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\QuoteRequestDurationFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -24,7 +23,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|QuoteRequestDuration newModelQuery()
  * @method static Builder|QuoteRequestDuration newQuery()
  * @method static Builder|QuoteRequestDuration query()
- * @mixin Eloquent
  */
 class QuoteRequestDuration extends Model implements Translatable {
     use HasFactory;

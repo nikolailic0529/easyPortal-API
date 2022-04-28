@@ -9,7 +9,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\CustomerLocationFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|CustomerLocation newModelQuery()
  * @method static Builder|CustomerLocation newQuery()
  * @method static Builder|CustomerLocation query()
- * @mixin Eloquent
  */
 class CustomerLocation extends Model {
     use HasFactory;

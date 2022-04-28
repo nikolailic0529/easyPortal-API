@@ -29,7 +29,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,7 +85,6 @@ use function count;
  * @method static Builder|Document newModelQuery()
  * @method static Builder|Document newQuery()
  * @method static Builder|Document query()
- * @mixin Eloquent
  */
 class Document extends Model implements OwnedByOrganization, Searchable {
     use HasFactory;

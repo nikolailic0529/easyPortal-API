@@ -17,7 +17,7 @@ trait Helper {
      * @param Collection<int, Model>|Model $model
      * @param array<string>                $attributes
      *
-     * @return array<string, mixed>
+     * @return ($model is Collection<int, Model> ? array<int, array<string, int>> : array<string, int>)
      */
     protected function getModelCountableProperties(Collection|Model $model, array $attributes = []): array {
         $properties = [];

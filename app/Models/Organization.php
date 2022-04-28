@@ -12,7 +12,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\OrganizationFactory;
-use Eloquent;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -70,7 +69,6 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|Organization newModelQuery()
  * @method static Builder|Organization newQuery()
  * @method static Builder|Organization query()
- * @mixin Eloquent
  */
 class Organization extends Model implements
     HasLocalePreference,

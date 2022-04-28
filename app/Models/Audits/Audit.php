@@ -10,7 +10,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Carbon\CarbonImmutable;
 use Database\Factories\Audits\AuditFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Audit newModelQuery()
  * @method static Builder|Audit newQuery()
  * @method static Builder|Audit query()
- * @mixin Eloquent
  */
 class Audit extends Model implements OwnedByOrganization {
     use HasFactory;

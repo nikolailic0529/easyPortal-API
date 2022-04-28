@@ -8,7 +8,6 @@ use App\Services\Logger\Models\Enums\Status;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Carbon\CarbonImmutable;
 use Database\Factories\Logs\LogFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -39,7 +38,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Log newModelQuery()
  * @method static Builder|Log newQuery()
  * @method static Builder|Log query()
- * @mixin Eloquent
  */
 class Log extends Model {
     use HasFactory;

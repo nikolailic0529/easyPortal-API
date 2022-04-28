@@ -12,7 +12,6 @@ use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\NoteFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,7 +36,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Note newModelQuery()
  * @method static Builder|Note newQuery()
  * @method static Builder|Note query()
- * @mixin Eloquent
  */
 class Note extends Model implements OwnedByOrganization {
     use HasFactory;

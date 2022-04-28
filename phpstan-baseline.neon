@@ -216,6 +216,11 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'DateTimeInterface' and null will always evaluate to false\\.$#"
+			count: 1
+			path: app/GraphQL/CacheTest.php
+
+		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/GraphQL/CacheTest.php
@@ -6946,11 +6951,6 @@ parameters:
 			path: app/Models/CustomerTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with string will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/CustomerTest.php
-
-		-
 			message: "#^Cannot call method all\\(\\) on array\\<int, App\\\\Models\\\\Contact\\>\\.$#"
 			count: 1
 			path: app/Models/CustomerTest.php
@@ -8816,6 +8816,11 @@ parameters:
 			path: app/Providers/AppServiceProviderTest.php
 
 		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'DateTimeImmutable' and Carbon\\\\CarbonImmutable will always evaluate to true\\.$#"
+			count: 1
+			path: app/Providers/AppServiceProviderTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of static method Illuminate\\\\Auth\\\\Notifications\\\\ResetPassword\\:\\:createUrlUsing\\(\\) expects Closure\\(mixed, string\\)\\: string, Closure\\(App\\\\Models\\\\User, string\\)\\: string given\\.$#"
 			count: 1
 			path: app/Providers/AuthServiceProvider.php
@@ -9129,16 +9134,6 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:\\$retrievers with generic interface App\\\\Services\\\\DataLoader\\\\Cache\\\\KeyRetriever does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with \\*NEVER\\* and null will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with App\\\\Utils\\\\Eloquent\\\\Model and null will always evaluate to false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
 			message: "#^Cannot call method getAttribute\\(\\) on Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
@@ -11306,11 +11301,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNull\\(\\) with string will always evaluate to false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$code on App\\\\Models\\\\Currency\\|null\\.$#"
 			count: 7
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
@@ -13161,6 +13151,11 @@ parameters:
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
 		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\> and Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\> will always evaluate to false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Resolver/ResolverTest.php
+
+		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
@@ -13936,6 +13931,11 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
 
 		-
+			message: "#^Call to function is_array\\(\\) with array\\<int, string\\|null\\> will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
+
+		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
@@ -13952,6 +13952,11 @@ parameters:
 
 		-
 			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
+
+		-
+			message: "#^Trying to invoke array\\<int, non\\-empty\\-string\\>\\|\\(Closure\\(\\)\\: array\\<int, string\\|null\\>\\)\\|\\(Closure\\(\\)\\: string\\|null\\) but it might not be a callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
@@ -15171,11 +15176,6 @@ parameters:
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
 
 		-
-			message: "#^Cannot access property \\$mainHeadingText on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 2
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
 			message: "#^Cannot access property \\$mainImageOnTheRight on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
@@ -15193,11 +15193,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$secondaryColorDefault on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
 			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$underlineText on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 2
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
 
 		-

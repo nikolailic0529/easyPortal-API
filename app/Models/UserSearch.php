@@ -6,7 +6,6 @@ use App\Models\Relations\HasUser;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\UserSearchFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -26,7 +25,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|UserSearch newModelQuery()
  * @method static Builder|UserSearch newQuery()
  * @method static Builder|UserSearch query()
- * @mixin Eloquent
  */
 class UserSearch extends Model {
     use HasFactory;

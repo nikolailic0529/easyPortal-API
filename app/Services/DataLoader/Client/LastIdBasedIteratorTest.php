@@ -171,7 +171,7 @@ class LastIdBasedIteratorTest extends TestCase {
 
             if ($params['lastId']) {
                 foreach ($data as $i => $type) {
-                    if (isset($type->id) && $type->id === $params['lastId']) {
+                    if ($type instanceof TypeWithId && $type->id === $params['lastId']) {
                         $index = $i + 1;
                         break;
                     }

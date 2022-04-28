@@ -7,7 +7,6 @@ use App\Utils\Eloquent\Pivot;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
 use Database\Factories\ResellerCustomerFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ResellerCustomer newModelQuery()
  * @method static Builder|ResellerCustomer newQuery()
  * @method static Builder|ResellerCustomer query()
- * @mixin Eloquent
  */
 class ResellerCustomer extends Pivot implements Upsertable {
     use HasFactory;

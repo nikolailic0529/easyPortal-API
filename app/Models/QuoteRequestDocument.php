@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|QuoteRequestDocument newModelQuery()
  * @method static Builder|QuoteRequestDocument newQuery()
  * @method static Builder|QuoteRequestDocument query()
- * @mixin \Eloquent
  */
 class QuoteRequestDocument extends Model {
     use HasFactory;

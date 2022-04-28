@@ -7,7 +7,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\QuoteRequestAssetFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,7 +31,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|QuoteRequestAsset newModelQuery()
  * @method static Builder|QuoteRequestAsset newQuery()
  * @method static Builder|QuoteRequestAsset query()
- * @mixin Eloquent
  */
 class QuoteRequestAsset extends Model {
     use HasFactory;

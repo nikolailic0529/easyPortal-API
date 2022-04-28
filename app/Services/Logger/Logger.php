@@ -26,7 +26,7 @@ class Logger {
     protected int     $index  = 0;
 
     /**
-     * @var array<Action>
+     * @var array<int, Action>
      */
     protected array $stack = [];
 

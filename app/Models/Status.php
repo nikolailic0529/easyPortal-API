@@ -9,7 +9,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\StatusFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,7 +32,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static Builder|Status newModelQuery()
  * @method static Builder|Status newQuery()
  * @method static Builder|Status query()
- * @mixin Eloquent
  */
 class Status extends Model implements Translatable {
     use HasFactory;

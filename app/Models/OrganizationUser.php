@@ -13,7 +13,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
 use Database\Factories\OrganizationUserFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -38,7 +37,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|OrganizationUser newModelQuery()
  * @method static Builder|OrganizationUser newQuery()
  * @method static Builder|OrganizationUser query()
- * @mixin Eloquent
  */
 class OrganizationUser extends Model implements OwnedByOrganization, Auditable, Upsertable {
     use HasFactory;

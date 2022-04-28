@@ -11,7 +11,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\ChangeRequestFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +39,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ChangeRequest newModelQuery()
  * @method static Builder|ChangeRequest newQuery()
  * @method static Builder|ChangeRequest query()
- * @mixin Eloquent
  */
 class ChangeRequest extends PolymorphicModel implements OwnedByOrganization, Auditable {
     use HasFactory;
