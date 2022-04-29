@@ -15,6 +15,7 @@ use Illuminate\Support\Arr;
 use function array_slice;
 use function explode;
 use function implode;
+use function is_array;
 use function is_object;
 use function sprintf;
 
@@ -66,7 +67,11 @@ class ClientDump extends JsonObject {
             $data = [$data];
         }
 
-        yield from new JsonObjectIterator($data);
+        if ($data !== null) {
+            yield from new JsonObjectIterator($data);
+        } else {
+            yield from [];
+        }
 
         if ($save) {
             Arr::set($this->response, $selector, $data);
