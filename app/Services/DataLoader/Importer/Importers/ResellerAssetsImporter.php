@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Services\DataLoader\Importer\Concerns\WithReseller;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
@@ -15,20 +16,7 @@ use function array_merge;
  * @extends AssetsImporter<TItem, TChunkData, TState>
  */
 class ResellerAssetsImporter extends AssetsImporter {
-    private string $resellerId;
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    public function getResellerId(): string {
-        return $this->resellerId;
-    }
-
-    public function setResellerId(string $resellerId): static {
-        $this->resellerId = $resellerId;
-
-        return $this;
-    }
-    // </editor-fold>
+    use WithReseller;
 
     // <editor-fold desc="Importer">
     // =========================================================================
