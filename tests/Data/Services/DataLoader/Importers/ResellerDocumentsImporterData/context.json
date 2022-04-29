@@ -1,0 +1,58 @@
+{
+    "generated": "2022-04-29T09:31:50+00:00",
+    "distributors": [
+        "143c456a-e894-4710-a1c2-745b9582ca47"
+    ],
+    "resellers": [
+        "1391a181-977e-489c-85ca-b2f9b450a765",
+        "201aa98c-891f-422a-94d3-b19c00a9c7da",
+        "5173e8f1-5311-4800-84b7-bbe1ddfaa384",
+        "834b053b-c9bd-4a0f-969a-88d32f1fdd1a",
+        "95204f6f-5930-4207-94cd-6fc47ec644eb",
+        "e2039445-9b7b-4155-94cc-2ca3e312067e",
+        "31b008ed-fffa-40d8-87f5-6d3cb00f1c3b",
+        "7069c1e3-3edb-43dc-b0b1-d8005ccc08c8",
+        "1647bd8d-539f-4a6f-a3be-f15820dc40f7",
+        "38fd7060-7bdd-428f-8c0d-9131fa779e58",
+        "c08b509e-e9b1-4c12-a19d-b9313e43af30",
+        "07c69926-07f8-41ee-bff4-98b36d7c55b2",
+        "d1423d78-e86e-408f-bea5-5f062382f580",
+        "9d11bd2e-4746-4668-b5d5-71f704992b46",
+        "dedebdaf-089a-4a56-a4f9-3c432fe8c614",
+        "bdd5b328-684a-4f29-8ddf-e169f95052fb",
+        "4e2d5e0c-f38b-4371-a245-9f70acb0f356",
+        "07eccf50-ecdc-4d5e-a8ae-f373e3902323",
+        "2091efe7-13ed-4ee1-b88d-45565aac5f1b",
+        "57330070-c69c-4b9a-9630-78baa605b886"
+    ],
+    "customers": [
+        "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+        "f4d040a5-1c38-4662-909a-8fb7d8aa8c3b",
+        "56e65129-20e6-4a79-a222-470e770a3699",
+        "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b",
+        "d8579c74-5d7f-49de-be0a-8867203e407c",
+        "e54c6184-c1d1-40eb-ad29-12e193355044",
+        "1407b43b-7955-41e7-844c-866ad991040c",
+        "5a23ab52-60cc-4f2d-b68a-a44bcb5dd6e3",
+        "066d827e-4019-4db6-954a-0706c9320af5",
+        "5a7a85fb-72d8-42df-8a5e-00f9c421107d"
+    ],
+    "assets": [
+        "74975389-cd85-4c28-b70a-3ca9e7c3bd6b",
+        "f6eafba9-db02-4cae-9325-c30115cbf587",
+        "d2cb027c-061e-4882-bc2e-29c029059163",
+        "5abe2f16-57d2-4751-a6c7-0936c26ebb24",
+        "fb2cbd66-c9bd-444f-9b2a-86c93b3de834",
+        "1c382750-b776-41b7-904f-7deadc6f7bd5",
+        "a15dd0f2-afd9-49a9-b7b2-d0b9be17d59b",
+        "3af05bc7-7e44-4637-85e3-3bafe2776814",
+        "ef24996e-6736-42f0-bf9c-a90827f06949",
+        "5b9fc0a5-6daf-4c2b-9321-a06cbdf8826f",
+        "4651119c-b4b2-4a7c-98e9-9890339351d9"
+    ],
+    "types": [
+        "Quote renewal",
+        "Quote New Business"
+    ],
+    "oems": "oem.csv"
+}

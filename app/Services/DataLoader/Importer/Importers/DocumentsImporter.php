@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
@@ -28,7 +29,9 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @extends Importer<SchemaDocument, ImporterChunkData, DocumentsImporterState, Document>
+ * @template TState of DocumentsImporterState
+ *
+ * @extends Importer<SchemaDocument, ImporterChunkData, TState, Document>
  */
 class DocumentsImporter extends Importer {
     protected function register(): void {

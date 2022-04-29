@@ -511,6 +511,33 @@ class Client {
             ->setOffset($offset);
     }
 
+    /**
+     * @return ObjectIterator<Document>
+     */
+    public function getDocumentsByReseller(
+        string $id,
+        int $limit = null,
+        int $offset = null,
+    ): ObjectIterator {
+        return $this
+            ->getOffsetBasedIterator(
+                'getDocumentsByReseller',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$offset: Int) {
+                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, offset: \$offset) {
+                        {$this->getDocumentPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $id,
+                ],
+                $this->getDocumentRetriever(),
+            )
+            ->setLimit($limit)
+            ->setOffset($offset);
+    }
+
     public function getDocumentById(string $id): ?Document {
         return $this->get(
             'getDocumentById',

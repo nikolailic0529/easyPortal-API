@@ -1,0 +1,410 @@
+{
+    "selector": "data.getDocumentsByReseller",
+    "graphql": "query getDocumentsByReseller($id: String!, $limit: Int, $offset: Int) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, offset: $offset) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "1391a181-977e-489c-85ca-b2f9b450a765",
+        "limit": 10,
+        "offset": 10
+    },
+    "response": {
+        "data": {
+            "getDocumentsByReseller": [
+                {
+                    "id": "3b3511cf-f36d-4706-ac16-614f897c6d1e",
+                    "type": "Quote renewal",
+                    "documentNumber": "867e0bd6-10a7-34c8-8389-5001c18c4bf0",
+                    "startDate": "2019-09-01",
+                    "endDate": "2020-08-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "204.6",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "066d827e-4019-4db6-954a-0706c9320af5",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "19b0bbde-fb9e-3d4a-b7f1-9ce257ed794d",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+12836331168",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16825914079",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12836331168",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "5b9fc0a5-6daf-4c2b-9321-a06cbdf8826f",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "Maintenance matériel sur site",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "146",
+                            "discount": "-2",
+                            "listPrice": "180",
+                            "estimatedValueRenewal": "180",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "5b9fc0a5-6daf-4c2b-9321-a06cbdf8826f",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP Collaborative Remote Support",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "58",
+                            "discount": "-1",
+                            "listPrice": "72",
+                            "estimatedValueRenewal": "72",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "c83a842e-7357-4af0-85f4-e979e7ece578",
+                    "type": "Quote New Business",
+                    "documentNumber": "22894f1f-2dea-3a2f-b11c-794e17971ee6",
+                    "startDate": "2019-05-01",
+                    "endDate": "2020-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "56e65129-20e6-4a79-a222-470e770a3699",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "0ba0c39a-8a68-315e-a11a-6590719db4f0",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "d2cb027c-061e-4882-bc2e-29c029059163",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "Maintenance matériel sur site",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-02-16",
+                            "startDate": "2019-05-01",
+                            "endDate": "2020-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "399",
+                            "discount": "-7",
+                            "listPrice": "492",
+                            "estimatedValueRenewal": "492",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "d2cb027c-061e-4882-bc2e-29c029059163",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP Collaborative Remote Support",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-02-16",
+                            "startDate": "2019-05-01",
+                            "endDate": "2020-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "39",
+                            "discount": "0",
+                            "listPrice": "48",
+                            "estimatedValueRenewal": "48",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "c74e04a7-38b2-4988-81dc-32c2ac3e14a6",
+                    "type": "Quote renewal",
+                    "documentNumber": "8c5dbb72-25eb-33b1-92f8-c975a39d638a",
+                    "startDate": "2020-02-01",
+                    "endDate": "2021-01-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "448.2",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "1407b43b-7955-41e7-844c-866ad991040c",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "7e82ca7a-0a83-326f-9c99-26703b13f459",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16825914079",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "a15dd0f2-afd9-49a9-b7b2-d0b9be17d59b",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "Maintenance matériel sur site",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-08-15",
+                            "startDate": "2020-02-01",
+                            "endDate": "2021-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "409",
+                            "discount": "-7",
+                            "listPrice": "504",
+                            "estimatedValueRenewal": "504",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "a15dd0f2-afd9-49a9-b7b2-d0b9be17d59b",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-08-15",
+                            "startDate": "2020-02-01",
+                            "endDate": "2021-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "39",
+                            "discount": "0",
+                            "listPrice": "48",
+                            "estimatedValueRenewal": "48",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "4046495e-7e93-4ab5-8e5a-93b0a1cade0b",
+                    "type": "Quote renewal",
+                    "documentNumber": "43be5f21-e53f-3454-a323-14ae46f7ff33",
+                    "startDate": "2020-09-01",
+                    "endDate": "2020-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "68.88",
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "066d827e-4019-4db6-954a-0706c9320af5",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "19b0bbde-fb9e-3d4a-b7f1-9ce257ed794d",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+12836331168",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16825914079",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12836331168",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "5b9fc0a5-6daf-4c2b-9321-a06cbdf8826f",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "Maintenance matériel sur site",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-09-01",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "49",
+                            "discount": "-2",
+                            "listPrice": "60",
+                            "estimatedValueRenewal": "60",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "5b9fc0a5-6daf-4c2b-9321-a06cbdf8826f",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-09-01",
+                            "endDate": "2020-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "19",
+                            "discount": "-1",
+                            "listPrice": "24",
+                            "estimatedValueRenewal": "24",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "a328a567-9cc2-400e-b178-271d2a771172",
+                    "type": "Quote renewal",
+                    "documentNumber": "b0aa3d34-5a86-36c2-9d34-8f05c07f7672",
+                    "startDate": "2021-02-01",
+                    "endDate": "2022-01-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "448.2",
+                    "languageCode": "EN",
+                    "updatedAt": "1643892136977",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "1407b43b-7955-41e7-844c-866ad991040c",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "7e82ca7a-0a83-326f-9c99-26703b13f459",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16825914079",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "a15dd0f2-afd9-49a9-b7b2-d0b9be17d59b",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "Maintenance matériel sur site",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-08-15",
+                            "startDate": "2021-02-01",
+                            "endDate": "2022-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "409",
+                            "discount": "-7",
+                            "listPrice": "504",
+                            "estimatedValueRenewal": "504",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "a15dd0f2-afd9-49a9-b7b2-d0b9be17d59b",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H7J32AC",
+                            "supportPackageDescription": "HPE Foundation Care NBD SVC",
+                            "warrantyEndDate": "2016-08-15",
+                            "startDate": "2021-02-01",
+                            "endDate": "2022-01-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "39",
+                            "discount": "0",
+                            "listPrice": "48",
+                            "estimatedValueRenewal": "48",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -47,6 +47,7 @@ class ClientDump extends JsonObject {
             'data.getAssetsByResellerId'       => ViewAsset::class,
             'data.getDocumentById'             => Document::class,
             'data.getDocuments'                => Document::class,
+            'data.getDocumentsByReseller'      => Document::class,
         ];
         $selector  = implode('.', array_slice(explode('.', $this->selector), 0, 2));
         $class     = $selectors[$selector] ?? null;
