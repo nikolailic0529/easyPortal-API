@@ -1,0 +1,27 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\n    }\n}",
+    "params": {
+        "id": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
+                    "name": "D'Amore-Steuber",
+                    "updatedAt": "1643192116579",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyTypes": [
+                        {
+                            "type": "DISTRIBUTOR"
+                        }
+                    ],
+                    "status": null
+                }
+            ]
+        }
+    }
+}

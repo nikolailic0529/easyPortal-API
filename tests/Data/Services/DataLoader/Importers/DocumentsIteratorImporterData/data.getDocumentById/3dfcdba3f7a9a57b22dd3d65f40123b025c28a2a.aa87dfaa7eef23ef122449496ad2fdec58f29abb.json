@@ -1,0 +1,141 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "e476f5e7-5dbc-4346-9acd-12df7278c4d0"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "e476f5e7-5dbc-4346-9acd-12df7278c4d0",
+                    "type": "16",
+                    "documentNumber": "3ab021f3-a05f-3784-8ac0-17afe6fbbdd1",
+                    "startDate": "2020-12-01",
+                    "endDate": "2021-11-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "1116.72",
+                    "languageCode": null,
+                    "updatedAt": "1648469545521",
+                    "resellerId": "f8c12db5-8856-4a5b-8400-ac9339cfeeae",
+                    "customerId": "9fc4aaef-498c-4487-891d-fcac5b5f51ba",
+                    "distributorId": "74262ef0-5df5-4479-9f7c-de0625970696",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "f0c4f7f4-6e15-3f41-8c3f-ca740a21f1d9",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+16577159580",
+                            "name": "Keegan Gottlieb",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mr. Rocio Jakubowski Sr.",
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12488295893",
+                            "name": "Marianna Langosh",
+                            "mail": "willie.parker@ondricka.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "779e7c69-d831-479b-95b4-c701f0f4aead",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Collaborative Remote Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-12-01",
+                            "endDate": "2021-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "83.16",
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "b018cc91-8897-4632-a027-cd7d96d240ee",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP DL320e Gen8 Hot Plug 8SFF CTO Chassis",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Collaborative Remote Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-12-01",
+                            "endDate": "2021-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "23.76",
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "d27d9fff-a696-4220-9e87-0d9d2ab7be42",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP DL320e Gen8 Hot Plug 8SFF CTO Chassis",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Collaborative Remote Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-12-01",
+                            "endDate": "2021-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "23.76",
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "4355385e-8728-4fc1-9902-4663f460d3fb",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-12-01",
+                            "endDate": "2021-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "902.88",
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "4355385e-8728-4fc1-9902-4663f460d3fb",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Collaborative Remote Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-12-01",
+                            "endDate": "2021-11-30",
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "83.16",
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        }
+                    ],
+                    "status": null
+                }
+            ]
+        }
+    }
+}

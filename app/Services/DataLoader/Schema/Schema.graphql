@@ -485,6 +485,13 @@ type Query {
         type: String
     ): [Document]!
 
+    getDocumentsByReseller(
+        limit: Int
+        offset: Int
+        resellerId: String!
+        type: String
+    ): [Document]!
+
     getResellers(
         fromTimestamp: String
         lastId: String

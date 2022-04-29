@@ -1,0 +1,143 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "bd2f1205-d472-4203-8301-a4b761f7515a"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "bd2f1205-d472-4203-8301-a4b761f7515a",
+                    "type": "Quote renewal",
+                    "documentNumber": "fabf1678-0c25-3eb7-be40-e18413397faa",
+                    "startDate": "2019-09-01",
+                    "endDate": "2020-08-31",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "6c9f832e-357a-4882-9576-be86df03aa10",
+                    "customerId": "aae2ea92-be4c-485a-8dc4-f4496c023114",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "aba54bee-f58b-3be6-b92c-a2db642d494e",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+17862474651",
+                            "name": "Dr. Jayme Harber",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14308685105",
+                            "name": "Jenifer Gerlach",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17862474651",
+                            "name": "Dr. Jayme Harber",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HP Collaborative Remote Support",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "302",
+                            "discount": "-5",
+                            "listPrice": "372",
+                            "estimatedValueRenewal": "372",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-71",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates SVC",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-28",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Telefonische SW Unterstützung",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-71",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "4a66cc02-c9c4-48d6-81c9-2e07ad6c1c21",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H7J34AC",
+                            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-09-01",
+                            "endDate": "2020-08-31",
+                            "currencyCode": "CHF",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "UY - TS Multivendor Svc"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}
