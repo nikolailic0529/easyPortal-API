@@ -6,45 +6,19 @@ use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
-use App\Services\DataLoader\Loader\Concerns\WithAssets;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use DateTimeInterface;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @template TOwner of \App\Models\Reseller
+ *
+ * @extends CompanyLoader<TOwner>
  */
-class ResellerLoader extends Loader {
-    /**
-     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
-     */
-    use WithAssets;
-
+class ResellerLoader extends CompanyLoader {
     // <editor-fold desc="API">
     // =========================================================================
-    protected function process(?Type $object): ?Model {
-        // Process
-        $company = parent::process($object);
-
-        if ($this->isWithAssets() && $company) {
-            $this->loadAssets($company);
-        }
-
-        // Return
-        return $company;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new Company($properties);
-    }
-
     protected function getObjectById(string $id): ?Type {
         return $this->client->getResellerById($id);
     }
@@ -64,13 +38,6 @@ class ResellerLoader extends Loader {
         return $this->getContainer()
             ->make(ResellerAssetsImporter::class)
             ->setResellerId($owner->getKey());
-    }
-
-    /**
-     * @param TOwner $owner
-     */
-    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
-        return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
     }
     // </editor-fold>
 }
