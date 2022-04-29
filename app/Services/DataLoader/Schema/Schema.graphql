@@ -358,17 +358,40 @@ type Location {
 }
 
 type Mutation {
-    addDefaultImportSchema(input: DefaultImportSchema): Boolean
-    triggerCoverageStatusCheck(input: TriggerCoverageStatusCheck): String
-    updateBrandingData(input: CompanyBrandingData): Boolean
-    updateCompanyFavicon(input: UpdateCompanyFile): String
-    updateCompanyLogo(input: UpdateCompanyFile): String
-    updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
-    uploadInvoice(input: UploadInvoice): String
+    addDefaultImportSchema(
+        input: DefaultImportSchema
+    ): Boolean
+
+    triggerCoverageStatusCheck(
+        input: TriggerCoverageStatusCheck
+    ): String
+
+    updateBrandingData(
+        input: CompanyBrandingData
+    ): Boolean
+
+    updateCompanyFavicon(
+        input: UpdateCompanyFile
+    ): String
+
+    updateCompanyLogo(
+        input: UpdateCompanyFile
+    ): String
+
+    updateCompanyMainImageOnTheRight(
+        input: UpdateCompanyFile
+    ): String
+
+    uploadInvoice(
+        input: UploadInvoice
+    ): String
 }
 
 type Query {
-    assets(limit: Int, offset: Int): [ViewAsset]!
+    assets(
+        limit: Int
+        offset: Int
+    ): [ViewAsset]!
 
     getAssets(
         args: [KeyValuePair]
@@ -402,7 +425,9 @@ type Query {
         resellerId: String!
     ): [ViewAsset]!
 
-    getAssetsBySerialNumber(serialNumber: String): ViewAsset
+    getAssetsBySerialNumber(
+        serialNumber: String
+    ): ViewAsset
 
     getAssetsByVendor(
         fromTimestamp: String
@@ -421,14 +446,51 @@ type Query {
     ): [ViewAsset]!
 
     getCentralAssetDbStatistics: CentralAssetDbStatistics
-    getCompanyById(id: String): [Company]!
-    getCustomers(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
-    getDistributors(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
-    getDocumentById(id: String!): Document
+
+    getCompanyById(
+        id: String
+    ): [Company]!
+
+    getCustomers(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [Company]!
+
+    getDistributors(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [Company]!
+
+    getDocumentById(
+        id: String!
+    ): Document
+
     getDocumentTypes: [String]!
-    getDocuments(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Document]!
-    getDocumentsByCustomer(customerId: String!, limit: Int, offset: Int, type: String): [Document]!
-    getResellers(fromTimestamp: String, lastId: String, limit: Int, offset: Int): [Company]!
+
+    getDocuments(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [Document]!
+
+    getDocumentsByCustomer(
+        customerId: String!
+        limit: Int
+        offset: Int
+        type: String
+    ): [Document]!
+
+    getResellers(
+        fromTimestamp: String
+        lastId: String
+        limit: Int
+        offset: Int
+    ): [Company]!
 }
 
 type SourceDocument {
