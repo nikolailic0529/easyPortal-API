@@ -17,7 +17,6 @@ use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\Importer;
 use App\Services\DataLoader\Importer\ImporterChunkData;
-use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Resolver\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -29,7 +28,7 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @extends Importer<SchemaDocument, ImporterChunkData, ImporterState, Document>
+ * @extends Importer<SchemaDocument, ImporterChunkData, DocumentsImporterState, Document>
  */
 class DocumentsImporter extends Importer {
     protected function register(): void {
@@ -90,4 +89,14 @@ class DocumentsImporter extends Importer {
     protected function getTotal(State $state): ?int {
         return $state->from ? null : $this->getClient()->getDocumentsCount();
     }
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new DocumentsImporterState($state);
+    }
+    // </editor-fold>
 }
