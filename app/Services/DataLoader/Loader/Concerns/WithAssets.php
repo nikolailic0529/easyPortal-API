@@ -3,22 +3,12 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
-use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Factory\Factories\ContactFactory;
-use App\Services\DataLoader\Factory\Factories\CustomerFactory;
-use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\Factories\LocationFactory;
-use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use DateTimeInterface;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Date;
 
@@ -30,21 +20,6 @@ use Illuminate\Support\Facades\Date;
 trait WithAssets {
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
-
-    public function __construct(
-        Container $container,
-        ExceptionHandler $exceptionHandler,
-        Dispatcher $dispatcher,
-        Client $client,
-        Collector $collector,
-        protected ResellerFactory $resellerFactory,
-        protected CustomerFactory $customerFactory,
-        protected LocationFactory $locationFactory,
-        protected ContactFactory $contactFactory,
-        protected DocumentFactory $documentFactory,
-    ) {
-        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
 
     public function isWithAssets(): bool {
         return $this->withAssets;
@@ -109,12 +84,4 @@ trait WithAssets {
      * @return Builder<Asset>
      */
     abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder;
-
-    protected function getResellersFactory(): ResellerFactory {
-        return $this->resellerFactory;
-    }
-
-    protected function getCustomersFactory(): CustomerFactory {
-        return $this->customerFactory;
-    }
 }

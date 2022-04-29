@@ -1,0 +1,241 @@
+[
+    {
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "bindings": [
+            "e476f5e7-5dbc-4346-9acd-12df7278c4d0",
+            "bd2f1205-d472-4203-8301-a4b761f7515a",
+            "0f14c721-e16b-46bf-a41e-47f8973964fe",
+            "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0f14c721-e16b-46bf-a41e-47f8973964fe",
+            "2dd89a24-ba60-492f-a2e5-322e8b9a89d9",
+            "bd2f1205-d472-4203-8301-a4b761f7515a",
+            "e476f5e7-5dbc-4346-9acd-12df7278c4d0",
+            "Document"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "f8c12db5-8856-4a5b-8400-ac9339cfeeae",
+            "6c9f832e-357a-4882-9576-be86df03aa10",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "35b469be-1aad-4caa-a170-fd85f6ba74c5"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "35b469be-1aad-4caa-a170-fd85f6ba74c5",
+            "5088b77e-50d7-4360-96d5-ab84ae9e8558",
+            "6c9f832e-357a-4882-9576-be86df03aa10",
+            "f8c12db5-8856-4a5b-8400-ac9339cfeeae",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?) or (`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "bindings": [
+            "9fc4aaef-498c-4487-891d-fcac5b5f51ba",
+            "aae2ea92-be4c-485a-8dc4-f4496c023114",
+            "64f81a3d-f434-43be-85f2-0ec185b091f8",
+            "8c05f42a-dc5e-4dd9-832d-3fc8b22d5b19"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "64f81a3d-f434-43be-85f2-0ec185b091f8",
+            "8c05f42a-dc5e-4dd9-832d-3fc8b22d5b19",
+            "9fc4aaef-498c-4487-891d-fcac5b5f51ba",
+            "aae2ea92-be4c-485a-8dc4-f4496c023114",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "01b5da31-53e2-5b3b-999b-cc367e4dd051",
+            "0e7d1694-a8c8-5514-a070-51b0ee4f48ac",
+            "263bda55-431d-51a5-aaf3-fc474d1a24a4",
+            "298b8f47-ac4c-5139-b349-220a23ef8a9f",
+            "2eb02f8b-8e38-52ff-b92c-98bccf5da81e",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
+            "345e4c27-08e7-58e1-81f8-788ba735e739",
+            "3974e30b-711f-5aca-a025-6db8456649a0",
+            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
+            "3fef3842-c477-5914-ac7d-4cb1b279ed96",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
+            "4752034d-017c-54df-af19-9233487cde2a",
+            "4a6ab11c-bc31-5ecf-a657-4c47a1050718",
+            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "5215e1c3-ee16-5ce6-ab85-68c40722df2a",
+            "550d314c-d667-501f-9cfc-7deba095117c",
+            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
+            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "6c47f5f4-fe17-58f6-a27b-6ef02d736bd0",
+            "78110809-b73a-5055-9977-86dc1a9f89c4",
+            "781f127c-a799-59d1-abd8-8723440a3d00",
+            "79d6a875-5d5c-52e4-bc26-7f60a82d5736",
+            "8105c8a0-579e-5b9b-9e63-5155e741eb8a",
+            "81d534c5-a257-5850-afb6-72cad50161b8",
+            "858deec9-bb76-52b4-bda4-15fd3077430a",
+            "8ab8021b-76a3-5984-9aa0-1665bd00f7d6",
+            "8b9999e6-1e59-57ac-ace6-d6a82041e9fb",
+            "936dff97-6b7c-554d-af86-8196f68fbcca",
+            "9ac99690-89a6-5864-872d-b54849763c93",
+            "b21b4808-5998-528c-8e7d-d32fddf76a8a",
+            "b4ea6545-b7e2-5926-99ef-41115e7de749",
+            "c264a1c4-2c58-56fd-a62c-1355ae3db000",
+            "e20bb605-a673-55c2-8df6-e533dbc04caa",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
+            "ef9b2df6-9064-54ef-a846-60cccdc5a6e8",
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c",
+            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "e476f5e7-5dbc-4346-9acd-12df7278c4d0"
+        ]
+    },
+    {
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "779e7c69-d831-479b-95b4-c701f0f4aead",
+            "b018cc91-8897-4632-a027-cd7d96d240ee",
+            "d27d9fff-a696-4220-9e87-0d9d2ab7be42",
+            "4355385e-8728-4fc1-9902-4663f460d3fb"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
+        "bindings": [
+            "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
+        ]
+    },
+    {
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "e476f5e7-5dbc-4346-9acd-12df7278c4d0"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:59",
+            "e476f5e7-5dbc-4346-9acd-12df7278c4d0"
+        ]
+    },
+    {
+        "query": "select `languages`.* from `languages` where `languages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "bd2f1205-d472-4203-8301-a4b761f7515a"
+        ]
+    },
+    {
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "bindings": [
+            "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+            "4a66cc02-c9c4-48d6-81c9-2e07ad6c1c21"
+        ]
+    },
+    {
+        "query": "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
+        "bindings": [
+            "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
+        ]
+    },
+    {
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "bd2f1205-d472-4203-8301-a4b761f7515a"
+        ]
+    },
+    {
+        "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:02:46",
+            "2022-02-02 00:03:23",
+            "bd2f1205-d472-4203-8301-a4b761f7515a"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0f14c721-e16b-46bf-a41e-47f8973964fe"
+        ]
+    },
+    {
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0f14c721-e16b-46bf-a41e-47f8973964fe"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:15",
+            "0f14c721-e16b-46bf-a41e-47f8973964fe"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
+        ]
+    },
+    {
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
+        ]
+    },
+    {
+        "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:04:42",
+            "2022-02-02 00:04:47",
+            "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
+        ]
+    }
+]

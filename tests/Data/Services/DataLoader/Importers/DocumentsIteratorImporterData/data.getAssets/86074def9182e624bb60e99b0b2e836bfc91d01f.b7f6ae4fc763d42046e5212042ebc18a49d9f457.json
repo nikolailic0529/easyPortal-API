@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "e52793a0-9cfb-46c7-a0cb-dead33e52872"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e52793a0-9cfb-46c7-a0cb-dead33e52872",
+                    "resellerId": "6c9f832e-357a-4882-9576-be86df03aa10",
+                    "customerId": "aae2ea92-be4c-485a-8dc4-f4496c023114",
+                    "serialNumber": "1694fe7d-237d-3a8f-b97e-8a0a4d8c4621",
+                    "productDescription": "OmniCube 2xE5 2680v3 24C 4x400GB SSD",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "Q7Q41A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "42496",
+                    "city": "Lunamouth",
+                    "address": "2324 Jeffry Falls Suite 599",
+                    "address2": "",
+                    "country": "Myanmar",
+                    "latitude": "-15.26106",
+                    "longitude": "-165.197094",
+                    "countryCode": "CW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632278222020",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17862474651",
+                            "name": "Dr. Jayme Harber",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17862474651",
+                            "name": "Dr. Jayme Harber",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

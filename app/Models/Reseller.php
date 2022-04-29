@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomers;
+use App\Models\Relations\HasDocuments;
 use App\Models\Relations\HasKpi;
 use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
@@ -39,6 +40,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read Collection<int, Asset>       $assets
  * @property Collection<int, Contact>          $contacts
  * @property-read Collection<int, Customer>    $customers
+ * @property-read Collection<int, Document>    $documents
  * @property-read ResellerLocation|null        $headquarter
  * @property Kpi|null                          $kpi
  * @property Collection<int, ResellerLocation> $locations
@@ -57,6 +59,7 @@ class Reseller extends Model {
     use HasStatuses;
     use HasContacts;
     use HasKpi;
+    use HasDocuments;
     use SyncBelongsToMany;
 
     /**

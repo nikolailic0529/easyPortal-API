@@ -47,6 +47,7 @@ class ClientDump extends JsonObject {
             'data.getAssetsByResellerId'       => ViewAsset::class,
             'data.getDocumentById'             => Document::class,
             'data.getDocuments'                => Document::class,
+            'data.getDocumentsByReseller'      => Document::class,
         ];
         $selector  = implode('.', array_slice(explode('.', $this->selector), 0, 2));
         $class     = $selectors[$selector] ?? null;
@@ -65,7 +66,11 @@ class ClientDump extends JsonObject {
             $data = [$data];
         }
 
-        yield from new JsonObjectIterator($data);
+        if ($data !== null) {
+            yield from new JsonObjectIterator($data);
+        } else {
+            yield from [];
+        }
 
         if ($save) {
             Arr::set($this->response, $selector, $data);

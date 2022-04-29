@@ -1,0 +1,57 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "2dd89a24-ba60-492f-a2e5-322e8b9a89d9",
+                    "type": "Quote renewal",
+                    "documentNumber": "61baf622-8396-37d2-94c1-d8b4cbb2b498",
+                    "startDate": "2021-12-11",
+                    "endDate": "2022-12-10",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "0",
+                    "languageCode": null,
+                    "updatedAt": "1645515060487",
+                    "resellerId": "35b469be-1aad-4caa-a170-fd85f6ba74c5",
+                    "customerId": "8c05f42a-dc5e-4dd9-832d-3fc8b22d5b19",
+                    "distributorId": "eb1cb37a-48ab-43da-a01e-220220f8654a",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": null,
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+17657514009",
+                            "name": "Ms. Addie Swift",
+                            "mail": "toy.kylie@gmail.com",
+                            "type": "Customer Contact"
+                        },
+                        {
+                            "phoneNumber": "+16103998905",
+                            "name": "Aurelie Dibbert",
+                            "mail": "bstamm@gmail.com",
+                            "type": "Renewal Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        }
+                    ],
+                    "documentEntries": [],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

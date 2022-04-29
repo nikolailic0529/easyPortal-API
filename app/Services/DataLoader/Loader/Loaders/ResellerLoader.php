@@ -2,13 +2,15 @@
 
 namespace App\Services\DataLoader\Loader\Loaders;
 
+use App\Models\Document;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\Importers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
 use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
-use App\Services\DataLoader\Loader\Concerns\WithAssets;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Importer\Importers\ResellerDocumentsImporter;
+use App\Services\DataLoader\Loader\CompanyLoader;
+use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use DateTimeInterface;
@@ -17,12 +19,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @template TOwner of \App\Models\Reseller
+ *
+ * @extends CompanyLoader<TOwner>
  */
-class ResellerLoader extends Loader {
+class ResellerLoader extends CompanyLoader {
     /**
-     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithDocuments<TOwner>
      */
-    use WithAssets;
+    use WithDocuments;
 
     // <editor-fold desc="API">
     // =========================================================================
@@ -30,25 +34,21 @@ class ResellerLoader extends Loader {
         // Process
         $company = parent::process($object);
 
-        if ($this->isWithAssets() && $company) {
-            $this->loadAssets($company);
+        if ($this->isWithDocuments() && $company) {
+            $this->loadDocuments($company);
         }
 
         // Return
         return $company;
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new Company($properties);
-    }
-
     protected function getObjectById(string $id): ?Type {
         return $this->client->getResellerById($id);
     }
 
+    /**
+     * @return ModelFactory<TOwner>
+     */
     protected function getObjectFactory(): ModelFactory {
         return $this->getResellersFactory();
     }
@@ -65,12 +65,21 @@ class ResellerLoader extends Loader {
             ->make(ResellerAssetsImporter::class)
             ->setResellerId($owner->getKey());
     }
+    // </editor-fold>
+
+    // <editor-fold desc="WithAssets">
+    // =========================================================================
+    protected function getDocumentsImporter(Model $owner): DocumentsImporter {
+        return $this->getContainer()
+            ->make(ResellerDocumentsImporter::class)
+            ->setResellerId($owner->getKey());
+    }
 
     /**
-     * @param TOwner $owner
+     * @return Builder<Document>
      */
-    protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
-        return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
+    protected function getMissedDocuments(Model $owner, DateTimeInterface $datetime): Builder {
+        return $owner->documents()->where('synced_at', '<', $datetime)->getQuery();
     }
     // </editor-fold>
 }

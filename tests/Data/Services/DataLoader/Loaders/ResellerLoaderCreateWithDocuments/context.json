@@ -1,0 +1,32 @@
+{
+    "generated": "2022-04-29T10:33:00+00:00",
+    "distributors": [
+        "143c456a-e894-4710-a1c2-745b9582ca47"
+    ],
+    "resellers": [
+        "0309df71-936c-44ce-9477-b5e9221fc96a",
+        "a36b83d1-a49b-45be-adb7-3c5defb55234"
+    ],
+    "customers": [
+        "f6fb5789-928e-4faf-863f-164b50c1df5e",
+        "fe91b8ad-1d56-4a31-aa3c-864e89f74382",
+        "c1c5a133-c373-4212-a836-adfb33fa314c",
+        "8a0a715f-d71c-4312-9059-8b12bb0f091e",
+        "5b73014b-8822-47c9-80bf-68c4fd62cfcb"
+    ],
+    "assets": [
+        "f95b9945-61f7-4bbe-8781-aa4c513f2668",
+        "b5362b68-ca3a-4d94-9122-31990f9c3dfa",
+        "e7b3d616-8fd2-4db0-9107-4a24ef1bdf42",
+        "18585d28-7d33-4b54-b945-a71289a6eca7",
+        "f5888e0b-4993-4220-8d2b-5105bad2b46a",
+        "885302d1-a356-4dff-b4c3-0364cfd86b54",
+        "5c5025a0-094e-4d82-aeb3-45ffad5b2fa0",
+        "9f7d0a8b-a50a-4e67-a373-d09113e85907"
+    ],
+    "types": [
+        "Quote New Business",
+        "Quote renewal"
+    ],
+    "oems": "oem.csv"
+}
