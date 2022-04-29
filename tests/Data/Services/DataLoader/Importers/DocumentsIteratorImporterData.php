@@ -50,7 +50,10 @@ class DocumentsIteratorImporterData extends DocumentsData {
      */
     public static function getIterator(): ObjectIterator {
         $documents = static::DOCUMENTS;
-        $models    = array_fill_keys((array) array_rand(array_flip($documents), (int) round(count($documents) / 2)), true);
+        $models    = array_fill_keys(
+            (array) array_rand(array_flip($documents), (int) round(count($documents) / 2)),
+            true,
+        );
         $model     = new Document();
 
         foreach ($documents as $key => $id) {

@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;

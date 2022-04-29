@@ -15,7 +15,6 @@ use Illuminate\Support\Arr;
 use function array_slice;
 use function explode;
 use function implode;
-use function is_array;
 use function is_object;
 use function sprintf;
 

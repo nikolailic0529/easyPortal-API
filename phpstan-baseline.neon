@@ -8251,6 +8251,11 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
+			message: "#^Method App\\\\Models\\\\Reseller\\:\\:documents\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
+			count: 1
+			path: app/Models/Reseller.php
+
+		-
 			message: "#^Method App\\\\Models\\\\Reseller\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 3
 			path: app/Models/Reseller.php
@@ -9664,6 +9669,11 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsImport.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\DocumentsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter but does not specify its types\\: TState$#"
+			count: 1
+			path: app/Services/DataLoader/Commands/DocumentsImport.php
 
 		-
 			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
@@ -12546,6 +12556,11 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/DistributorsImporterTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporterState\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsImporter.php
+
+		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/DocumentsImporter.php
@@ -12599,6 +12614,71 @@ parameters:
 			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/DocumentsImporterTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporter.php
+
+		-
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Models\\\\Document\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporter.php
+
+		-
+			message: "#^Property App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporter\\:\\:\\$iterator \\(App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\>\\) does not accept App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporter.php
+
+		-
+			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/DocumentsIteratorImporterTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:getOem\\(\\) should return App\\\\Models\\\\Oem but returns App\\\\Models\\\\Oem\\|null\\.$#"
@@ -12731,6 +12811,56 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/ResellerAssetsImporterTest.php
 
 		-
+			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellerDocumentsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/ResellerDocumentsImporterTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/ResellersImporter.php
@@ -12836,6 +12966,11 @@ parameters:
 			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentsImporterCronJob\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter does not specify its types\\: TState$#"
+			count: 1
+			path: app/Services/DataLoader/Jobs/DocumentsImporterCronJob.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\DocumentsImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentsImporterCronJob.php
@@ -12874,6 +13009,26 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ResellersImporterCronJob\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\ResellersImporter but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/ResellersImporterCronJob.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsImporter\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter does not specify its types\\: TItem, TChunkData, TState$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporterState\\>\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:process\\(\\) expects App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\>\\:\\:loadAssets\\(\\) expects TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
@@ -12946,27 +13101,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getMissedAssets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporterState\\>\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:process\\(\\) expects App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\<TOwner of App\\\\Models\\\\Customer\\>\\:\\:loadAssets\\(\\) expects TOwner of App\\\\Models\\\\Customer, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
@@ -13131,32 +13266,32 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
+			message: "#^Call to an undefined method App\\\\Utils\\\\Eloquent\\\\Model\\:\\:documents\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getAssetsImporter\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getMissedAssets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getDocumentsImporter\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter does not specify its types\\: TState$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getObjectFactory\\(\\) should return App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\<TOwner of App\\\\Models\\\\Reseller\\> but returns App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactory\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporterState\\>\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsIteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:process\\(\\) expects App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\<TOwner of App\\\\Models\\\\Reseller\\>\\:\\:loadAssets\\(\\) expects TOwner of App\\\\Models\\\\Reseller, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
+			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\<TOwner of App\\\\Models\\\\Reseller\\>\\:\\:loadDocuments\\(\\) expects TOwner of App\\\\Models\\\\Reseller, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
@@ -14061,11 +14196,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of class App\\\\Utils\\\\JsonObject\\\\JsonObjectIterator constructor expects App\\\\Utils\\\\JsonObject\\\\JsonObject\\|array\\<App\\\\Utils\\\\JsonObject\\\\JsonObject\\>, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/ClientDump.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
@@ -14169,6 +14299,11 @@ parameters:
 			message: "#^Cannot call method rollBack\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/DataGenerator.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/DocumentsData.php
 
 		-
 			message: "#^Cannot access offset 'response' on array\\|bool\\|float\\|int\\|string\\|null\\.$#"
@@ -19441,14 +19576,29 @@ parameters:
 			path: tests/Data/Services/DataLoader/Importers/CustomersImporterData.php
 
 		-
-			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
+			message: "#^Cannot call method setIterator\\(\\) on mixed\\.$#"
 			count: 1
-			path: tests/Data/Services/DataLoader/Importers/DocumentsImporterData.php
+			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
+
+		-
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
 
 		-
 			message: "#^Cannot call method setResellerId\\(\\) on mixed\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/ResellerAssetsImporterDataWithoutDocuments.php
+
+		-
+			message: "#^Cannot call method setResellerId\\(\\) on mixed\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Importers/ResellerDocumentsImporterData.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on mixed\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Loaders/ResellerLoaderCreateWithDocuments.php
 
 		-
 			message: "#^Cannot call method table\\(\\) on mixed\\.$#"
