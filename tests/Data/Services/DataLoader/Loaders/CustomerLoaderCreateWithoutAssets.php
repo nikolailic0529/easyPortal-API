@@ -28,22 +28,19 @@ class CustomerLoaderCreateWithoutAssets extends AssetsData {
                     'id'          => [static::CUSTOMER],
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
-                    '--create'    => true,
                 ])),
             ];
 
             if (static::ASSET) {
                 $results[] = $this->kernel->call('ep:data-loader-update-asset', $this->getOptions([
                     'id'          => static::ASSET,
-                    '--create'    => true,
                     '--documents' => true,
                 ]));
             }
 
             if (static::DOCUMENT) {
                 $results[] = $this->kernel->call('ep:data-loader-update-document', $this->getOptions([
-                    'id'       => static::DOCUMENT,
-                    '--create' => true,
+                    'id' => static::DOCUMENT,
                 ]));
             }
 

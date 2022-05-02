@@ -26,15 +26,15 @@ abstract class Update extends Command {
         ExceptionHandler $handler,
         Container $container,
         array $ids,
-        bool $create = false,
+        bool $create = true,
     ): int {
-        if ($create) {
-            $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
-            $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
-            $container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
-            $container->bind(AssetFinder::class, AssetLoaderFinder::class);
-        }
+        // Bindings
+        $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
+        $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
+        $container->bind(AssetFinder::class, AssetLoaderFinder::class);
 
+        // Process
         $result = static::SUCCESS;
         $loader = $this->makeLoader($container);
 
@@ -42,7 +42,7 @@ abstract class Update extends Command {
             $this->output->write("{$id} ... ");
 
             try {
-                $model = $create ? $loader->create($id) : $loader->update($id);
+                $model = $loader->create($id);
 
                 if ($model) {
                     $this->info('OK');

@@ -22,8 +22,6 @@ class UpdateAsset extends Update {
         {id* : The ID of the asset}
         {--warranty-check : run warranty check before update}
         {--no-warranty-check : do not run warranty check before update (default)}
-        {--c|create : Create asset if not exists (default)}
-        {--C|no-create : Do not create asset if not exists}
         {--d|documents : Load asset documents (and warranties) (default)}
         {--D|no-documents : Skip asset documents}
     ';
@@ -36,10 +34,9 @@ class UpdateAsset extends Update {
     protected $description = 'Update asset(s) with given ID(s).';
 
     public function handle(ExceptionHandler $handler, Container $container): int {
-        $create = $this->getBooleanOption('create', true);
-        $ids    = array_unique((array) $this->argument('id'));
+        $ids = array_unique((array) $this->argument('id'));
 
-        return $this->process($handler, $container, $ids, $create);
+        return $this->process($handler, $container, $ids);
     }
 
     protected function makeLoader(Container $container): Loader {

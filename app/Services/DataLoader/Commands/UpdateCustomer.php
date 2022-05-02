@@ -22,8 +22,6 @@ class UpdateCustomer extends Update {
         {id* : The ID of the company}
         {--warranty-check : run warranty check before update}
         {--no-warranty-check : do not run warranty check before update (default)}
-        {--c|create : Create customer if not exists (default)}
-        {--C|no-create : Do not create customer if not exists}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
         {--d|documents : Load documents}
@@ -40,10 +38,9 @@ class UpdateCustomer extends Update {
     protected $description = 'Update customer(s) with given ID(s).';
 
     public function handle(ExceptionHandler $handler, Container $container): int {
-        $create = $this->getBooleanOption('create', true);
-        $ids    = array_unique((array) $this->argument('id'));
+        $ids = array_unique((array) $this->argument('id'));
 
-        return $this->process($handler, $container, $ids, $create);
+        return $this->process($handler, $container, $ids);
     }
 
     protected function makeLoader(Container $container): Loader {
