@@ -41,9 +41,9 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
     use ChunkConverter;
 
     /**
-     * @var array{?V,?V}
+     * @var array{?V,?V}|null
      */
-    private array $previous = [null, null];
+    private ?array $previous = null;
 
     /**
      * @param Closure(array<string,mixed>): array<V> $executor
@@ -138,7 +138,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      */
     protected function chunkPrepare(array $items): array {
         // Infinite loop?
-        $current        = [end($items) ?: null, reset($items) ?: null];
+        $current        = [$items ? end($items) : null, $items ? reset($items) : null];
         $previous       = $this->previous;
         $this->previous = $current;
 

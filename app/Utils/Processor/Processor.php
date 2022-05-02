@@ -175,15 +175,16 @@ abstract class Processor {
             $state->index  = $iterator->getIndex();
             $state->offset = $iterator->getOffset();
         };
-        $iterator = $this->getIterator($state)
+        $iterator = $this->getIterator($state);
+        $iterator = $iterator
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
-            ->onInit(static function () use (&$iterator, $sync): void {
+            ->onInit(static function () use ($iterator, $sync): void {
                 $sync($iterator);
             })
-            ->onFinish(static function () use (&$iterator, $sync): void {
+            ->onFinish(static function () use ($iterator, $sync): void {
                 $sync($iterator);
             })
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
@@ -191,7 +192,7 @@ abstract class Processor {
 
                 $this->chunkLoaded($state, $items, $data);
             })
-            ->onAfterChunk(function (array $items) use (&$iterator, $sync, $state, &$data): void {
+            ->onAfterChunk(function (array $items) use ($iterator, $sync, $state, &$data): void {
                 $sync($iterator);
 
                 $this->chunkProcessed($state, $items, $data);

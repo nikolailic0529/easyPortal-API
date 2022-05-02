@@ -18116,11 +18116,6 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
@@ -18393,11 +18388,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\|array\\<App\\\\Utils\\\\Processor\\\\State\\>\\|null\\.$#"
 			count: 1
-			path: app/Utils/Processor/Processor.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of closure expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<TItem\\>\\|null given\\.$#"
-			count: 3
 			path: app/Utils/Processor/Processor.php
 
 		-
