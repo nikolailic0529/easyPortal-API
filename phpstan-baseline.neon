@@ -12786,11 +12786,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loader.php
 
 		-
-			message: "#^Parameter \\#1 \\$type of method App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:find\\(\\) expects App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loader.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
@@ -18126,42 +18121,7 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\GroupedIteratorIterator\\:\\:getInternalIterator\\(\\) return type with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
-			count: 1
-			path: app/Utils/Iterators/GroupedIteratorIterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$closure of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>\\:\\:onAfterChunk\\(\\) expects \\(Closure\\(array\\)\\: void\\)\\|null, \\(Closure\\(array\\<array\\<T\\>\\>\\)\\: void\\)\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/GroupedIteratorIterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$closure of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>\\:\\:onBeforeChunk\\(\\) expects \\(Closure\\(array\\)\\: void\\)\\|null, \\(Closure\\(array\\<array\\<T\\>\\>\\)\\: void\\)\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/GroupedIteratorIterator.php
-
-		-
-			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Utils/Iterators/GroupedIteratorIteratorTest.php
-
-		-
-			message: "#^Cannot call method with\\(\\) on mixed\\.$#"
-			count: 4
-			path: app/Utils/Iterators/GroupedIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 4
-			path: app/Utils/Iterators/GroupedIteratorIteratorTest.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:chunkConvert\\(\\) should return array\\<T\\> but returns array\\<V\\>\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
 
@@ -18181,11 +18141,6 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
 
 		-
-			message: "#^Parameter \\#1 \\$item of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<T,V\\>\\:\\:chunkConvertItem\\(\\) expects T, V given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
@@ -18201,37 +18156,12 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:chunkConvert\\(\\) should return array\\<T\\> but returns array\\<V\\>\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getConverter\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getInternalIterator\\(\\) return type with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIterator.php
 
 		-
 			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$item of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\<T,V\\>\\:\\:chunkConvertItem\\(\\) expects T, V given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
-			message: "#^Parameter \\#1 \\$items of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\<T,V\\>\\:\\:chunkConvert\\(\\) expects array\\<V\\>, mixed given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIterator.php
 

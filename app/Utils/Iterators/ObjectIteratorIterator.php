@@ -11,11 +11,13 @@ use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
 
+use function count;
+
 /**
  * @template T
  * @template V
  *
- * @implements ObjectIterator<V>
+ * @implements ObjectIterator<T>
  */
 class ObjectIteratorIterator implements ObjectIterator {
     /**
@@ -56,10 +58,16 @@ class ObjectIteratorIterator implements ObjectIterator {
         return $this->exceptionHandler;
     }
 
+    /**
+     * @return Closure(V): T|null
+     */
     protected function getConverter(): ?Closure {
         return $this->converter;
     }
 
+    /**
+     * @return ObjectIterator<V>
+     */
     protected function getInternalIterator(): ObjectIterator {
         return $this->internalIterator;
     }
@@ -74,11 +82,7 @@ class ObjectIteratorIterator implements ObjectIterator {
         try {
             $this->init();
 
-            $iterator = clone $this->getInternalIterator();
-            $iterator = (new GroupedIteratorIterator($iterator))
-                ->setChunkSize($this->getChunkSize());
-
-            foreach ($iterator as $chunk) {
+            foreach ($this->getChunks() as $chunk) {
                 $chunk = $this->chunkConvert($chunk);
 
                 $this->chunkLoaded($chunk);
@@ -92,4 +96,37 @@ class ObjectIteratorIterator implements ObjectIterator {
         }
     }
     // </editor-fold>
+
+    // <editor-fold desc="Functions">
+    // =========================================================================
+    /**
+     * @return Iterator<array<V>>
+     */
+    protected function getChunks(): Iterator {
+        // Split sequence into groups
+        $index = 0;
+        $items = [];
+        $chunk = $this->getChunkSize();
+
+        foreach ($this->getInternalIterator() as $key => $item) {
+            // Combine items into group
+            $items[$key] = $item;
+
+            if (count($items) < $chunk) {
+                continue;
+            }
+
+            // Process
+            yield $index++ => $items;
+
+            // Reset
+            $items = [];
+        }
+
+        // Tail
+        if ($items) {
+            yield $index++ => $items;
+        }
+    }
+    //</editor-fold>
 }
