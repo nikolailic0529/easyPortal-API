@@ -526,7 +526,7 @@ abstract class Processor {
      * @return TState
      */
     protected function restoreState(array $state): State {
-        return State::make($state);
+        return new State($state);
     }
     // </editor-fold>
 

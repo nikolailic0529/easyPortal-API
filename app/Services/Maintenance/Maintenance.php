@@ -28,7 +28,7 @@ class Maintenance {
 
     public function getSettings(): ?Settings {
         $data     = $this->storage->load();
-        $settings = $data ? Settings::make($data) : null;
+        $settings = $data ? new Settings($data) : null;
 
         if ($this->app->isDownForMaintenance()) {
             $settings        ??= new Settings();

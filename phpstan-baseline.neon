@@ -1321,11 +1321,6 @@ parameters:
 			path: app/GraphQL/Mutations/Asset/SyncTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\GraphQL\\\\Mutations\\\\Auth\\\\Organization\\\\AuthorizeInput constructor expects array, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/Organization/Authorize.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\Organization\\\\AuthorizeTest\\:\\:testInvoke\\(\\) has parameter \\$orgFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/Organization/AuthorizeTest.php
@@ -9391,11 +9386,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Anonymous function should return App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset but returns App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsCountTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsImport.php
@@ -10596,7 +10586,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 8
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -10986,17 +10976,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$kpis of method class@anonymous/app/Services/DataLoader/Factory/Factories/CustomerFactoryTest\\.php\\:336\\:\\:resellers\\(\\) expects array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\>\\|null, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
@@ -11051,7 +11036,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
@@ -11401,12 +11386,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -11906,7 +11891,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 5
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
@@ -13556,7 +13541,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/BrandingDataTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/BrandingDataTest.php
 
@@ -13581,7 +13566,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CentralAssetDbStatisticsTest.php
 
@@ -13601,7 +13586,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyContactPersonTest.php
 
@@ -13621,7 +13606,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyKpisTest.php
 
@@ -13651,7 +13636,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyTest.php
 
@@ -13671,7 +13656,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyType constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyType constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CompanyTypeTest.php
 
@@ -13691,7 +13676,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageEntry constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageEntry constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CoverageEntryTest.php
 
@@ -13711,7 +13696,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageStatusCheck constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageStatusCheck constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
 
@@ -13731,7 +13716,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
 
@@ -13776,7 +13761,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/DocumentTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/DocumentTest.php
 
@@ -13796,7 +13781,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentVendorSpecificField constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/DocumentVendorSpecificFieldTest.php
 
@@ -13816,7 +13801,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/LocationTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Location constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Location constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/LocationTest.php
 
@@ -13836,7 +13821,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/ViewAssetDocumentTest.php
 
@@ -13866,7 +13851,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewAssetTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/ViewAssetTest.php
 
@@ -13886,7 +13871,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewCompany constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewCompany constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/ViewCompanyTest.php
 
@@ -13911,7 +13896,7 @@ parameters:
 			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument constructor expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/ViewDocumentTest.php
 
@@ -13924,6 +13909,11 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:\\$map \\(array\\<string, string\\>\\) does not accept array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
+
+		-
+			message: "#^Call to function is_object\\(\\) with array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array\\<int, string\\|null\\> will always evaluate to true\\.$#"
@@ -13956,7 +13946,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDump constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDump constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
 
@@ -14156,12 +14146,12 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getGroupRoles\\(\\) should return array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\> but returns App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\|array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\>\\|null\\.$#"
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getGroupRoles\\(\\) should return array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\> but returns array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getRoles\\(\\) should return array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\> but returns App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\|array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\>\\|null\\.$#"
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getRoles\\(\\) should return array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\> but returns array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -14176,17 +14166,17 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Group constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Group constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 3
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User constructor expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 3
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -14201,7 +14191,7 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$objects of static method App\\\\Utils\\\\JsonObject\\\\JsonObject\\:\\:make\\(\\) expects array\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$objects of static method App\\\\Utils\\\\JsonObject\\\\JsonObject\\:\\:make\\(\\) expects array\\<int, array\\<string, mixed\\>\\>\\|null, mixed given\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -14971,17 +14961,7 @@ parameters:
 			path: app/Services/Maintenance/Commands/VersionUpdate.php
 
 		-
-			message: "#^Cannot access property \\$enabled on App\\\\Services\\\\Maintenance\\\\Settings\\|array\\<App\\\\Services\\\\Maintenance\\\\Settings\\>\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Maintenance.php
-
-		-
 			message: "#^Cannot call method sub\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Maintenance.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Maintenance\\\\Maintenance\\:\\:getSettings\\(\\) should return App\\\\Services\\\\Maintenance\\\\Settings\\|null but returns App\\\\Services\\\\Maintenance\\\\Settings\\|array\\<App\\\\Services\\\\Maintenance\\\\Settings\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Maintenance.php
 
@@ -18226,11 +18206,6 @@ parameters:
 			path: app/Utils/JsonObject/JsonObject.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(array\\)\\: static\\(App\\\\Utils\\\\JsonObject\\\\JsonObject\\) given\\.$#"
-			count: 1
-			path: app/Utils/JsonObject/JsonObject.php
-
-		-
 			message: "#^Parameter \\#1 \\$object_or_class of function is_a expects object\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Utils/JsonObject/JsonObject.php
@@ -18386,7 +18361,7 @@ parameters:
 			path: app/Utils/Processor/Processor.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\|array\\<App\\\\Utils\\\\Processor\\\\State\\>\\|null\\.$#"
+			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
 

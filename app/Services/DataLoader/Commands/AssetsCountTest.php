@@ -50,7 +50,7 @@ class AssetsCountTest extends TestCase {
                     Mockery::mock(ExceptionHandler::class),
                     $assets,
                     static function (array $item): ViewAsset {
-                        return ViewAsset::make($item);
+                        return new ViewAsset($item);
                     },
                 ));
         });

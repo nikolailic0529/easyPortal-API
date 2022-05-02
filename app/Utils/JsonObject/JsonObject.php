@@ -15,7 +15,6 @@ use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionObject;
 
-use function array_is_list;
 use function array_map;
 use function count;
 use function explode;
@@ -51,7 +50,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     private static array $properties = [];
 
     /**
-     * @param array<mixed> $json
+     * @param array<string, mixed> $json
      */
     final public function __construct(array $json = []) {
         if ($json) {
@@ -66,21 +65,17 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     }
 
     /**
-     * @param array<string,mixed>|array<array<string,mixed>>|null $objects
+     * @param array<int, array<string,mixed>>|null $objects
      *
-     * @return array<static>|static
+     * @return array<static>
      */
-    public static function make(array|null $objects): static|array|null {
+    public static function make(array|null $objects): array|null {
         $result = null;
 
         if (is_array($objects)) {
-            if (array_is_list($objects)) {
-                $result = array_map(static function (array $object): static {
-                    return new static($object);
-                }, $objects);
-            } else {
-                $result = new static($objects);
-            }
+            $result = array_map(static function (array $object): static {
+                return new static($object);
+            }, $objects);
         }
 
         return $result;

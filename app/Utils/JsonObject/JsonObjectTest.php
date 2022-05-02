@@ -261,10 +261,6 @@ class JsonObjectTest extends TestCase {
             JsonObjectTest_Parent::make(null),
         );
         self::assertEquals(
-            new JsonObjectTest_Parent(['i' => 1]),
-            JsonObjectTest_Parent::make(['i' => 1]),
-        );
-        self::assertEquals(
             [
                 new JsonObjectTest_Parent(['i' => 1]),
                 new JsonObjectTest_Parent(['i' => 2]),

@@ -166,7 +166,7 @@ class ProcessorJobTest extends TestCase {
     public function testGetProgressCallback(): void {
         $total     = $this->faker->randomNumber();
         $processed = $this->faker->randomNumber();
-        $state     = State::make(['total' => $total, 'processed' => $processed]);
+        $state     = new State(['total' => $total, 'processed' => $processed]);
         $processor = Mockery::mock(Processor::class);
         $processor
             ->shouldReceive('getState')

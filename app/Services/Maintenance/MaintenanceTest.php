@@ -54,7 +54,7 @@ class MaintenanceTest extends TestCase {
         });
 
         $maintenance = $this->app->make(Maintenance::class);
-        $expected    = Settings::make([
+        $expected    = new Settings([
             'enabled' => true,
         ]);
 
