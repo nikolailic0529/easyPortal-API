@@ -3,12 +3,14 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Models\Asset;
+use App\Models\Document;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
+use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -22,9 +24,14 @@ use Illuminate\Database\Eloquent\Builder;
  */
 abstract class CompanyLoader extends Loader {
     /**
-     * @phpstan-use \App\Services\DataLoader\Loader\Concerns\WithAssets<TOwner>
+     * @phpstan-use WithAssets<TOwner>
      */
     use WithAssets;
+
+    /**
+     * @phpstan-use WithDocuments<TOwner>
+     */
+    use WithDocuments;
 
     public function __construct(
         Container $container,
@@ -59,6 +66,10 @@ abstract class CompanyLoader extends Loader {
             $this->loadAssets($company);
         }
 
+        if ($this->isWithDocuments() && $company) {
+            $this->loadDocuments($company);
+        }
+
         // Return
         return $company;
     }
@@ -80,6 +91,18 @@ abstract class CompanyLoader extends Loader {
      */
     protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder {
         return $owner->assets()->where('synced_at', '<', $datetime)->getQuery();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="WithDocuments">
+    // =========================================================================
+    /**
+     * @param TOwner $owner
+     *
+     * @return Builder<Document>
+     */
+    protected function getMissedDocuments(Model $owner, DateTimeInterface $datetime): Builder {
+        return $owner->documents()->where('synced_at', '<', $datetime)->getQuery();
     }
     // </editor-fold>
 }

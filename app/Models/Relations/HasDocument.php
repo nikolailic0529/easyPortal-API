@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasDocument {
+    /**
+     * @return BelongsTo<Document, self>
+     */
     #[CascadeDelete(false)]
     public function document(): BelongsTo {
         return $this->belongsTo(Document::class);

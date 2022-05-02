@@ -5,28 +5,24 @@ namespace App\Services\DataLoader\Importer\Importers;
 use App\Services\DataLoader\Importer\Concerns\WithCustomer;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
+use LogicException;
 
 use function array_merge;
 
 /**
- * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
- * @template TChunkData of \App\Services\DataLoader\Collector\Data
- * @template TState of \App\Services\DataLoader\Importer\Importers\CustomerAssetsImporterState
- *
- * @extends AssetsImporter<TItem, TChunkData, TState>
+ * @extends DocumentsImporter<CustomerDocumentsImporterState>
  */
-class CustomerAssetsImporter extends AssetsImporter {
+class CustomerDocumentsImporter extends DocumentsImporter {
     use WithCustomer;
 
     // <editor-fold desc="Importer">
     // =========================================================================
-    /**
-     * @param CustomerAssetsImporterState $state
-     */
     protected function getIterator(State $state): ObjectIterator {
-        return $state->withDocuments
-            ? $this->getClient()->getAssetsByCustomerIdWithDocuments($state->customerId, $state->from)
-            : $this->getClient()->getAssetsByCustomerId($state->customerId, $state->from);
+        if ($state->from !== null) {
+            throw new LogicException('Parameter `from` is not supported.');
+        }
+
+        return $this->getClient()->getDocumentsByCustomer($state->customerId);
     }
 
     protected function getTotal(State $state): ?int {
@@ -40,7 +36,7 @@ class CustomerAssetsImporter extends AssetsImporter {
      * @inheritDoc
      */
     protected function restoreState(array $state): State {
-        return new CustomerAssetsImporterState($state);
+        return new CustomerDocumentsImporterState($state);
     }
 
     /**
