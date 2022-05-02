@@ -6306,11 +6306,6 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:document\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -7501,11 +7496,6 @@ parameters:
 			path: app/Models/DocumentEntry.php
 
 		-
-			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:document\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
 			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:product\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
@@ -7777,11 +7767,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:document\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -8159,11 +8144,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:serviceLevel\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/QuoteRequestAsset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestDocument\\:\\:document\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestDocument.php
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestDuration\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
@@ -9669,11 +9649,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporter but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsImport.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\DocumentsImport\\:\\:__invoke\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\DocumentsImporter but does not specify its types\\: TState$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/DocumentsImport.php
 
 		-
 			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
