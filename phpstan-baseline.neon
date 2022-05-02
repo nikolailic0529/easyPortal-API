@@ -18391,11 +18391,6 @@ parameters:
 			path: app/Utils/Processor/Processor.php
 
 		-
-			message: "#^Parameter \\#1 \\$observer of method LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher\\<TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:attach\\(\\) expects Closure\\(TState of App\\\\Utils\\\\Processor\\\\State\\)\\: void, Closure\\(TState of App\\\\Utils\\\\Processor\\\\State, array\\<TItem\\>\\)\\: void given\\.$#"
-			count: 3
-			path: app/Utils/Processor/Processor.php
-
-		-
 			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php

@@ -283,7 +283,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
+     * @param Closure(TState): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -327,7 +327,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
+     * @param Closure(TState): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
@@ -349,7 +349,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
+     * @param Closure(TState): void|null $closure
      *
      * @return $this<TItem, TChunkData, TState>
      */
