@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
+use App\Services\DataLoader\Importer\Concerns\WithCustomer;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
@@ -15,20 +16,7 @@ use function array_merge;
  * @extends AssetsImporter<TItem, TChunkData, TState>
  */
 class CustomerAssetsImporter extends AssetsImporter {
-    private string $customerId;
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    public function getCustomerId(): string {
-        return $this->customerId;
-    }
-
-    public function setCustomerId(string $customerId): static {
-        $this->customerId = $customerId;
-
-        return $this;
-    }
-    // </editor-fold>
+    use WithCustomer;
 
     // <editor-fold desc="Importer">
     // =========================================================================
