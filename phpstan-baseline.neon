@@ -12701,7 +12701,7 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporterState\\>\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsIteratorImporter\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset,App\\\\Services\\\\DataLoader\\\\Collector\\\\Data,App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\AssetsImporterState\\>\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
@@ -15274,6 +15274,11 @@ parameters:
 			message: "#^Cannot access property \\$token on App\\\\Models\\\\PasswordReset\\|null\\.$#"
 			count: 1
 			path: app/Services/Passwords/TokenRepositoryTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<int\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, int\\>\\.$#"
+			count: 1
+			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
@@ -18046,16 +18051,6 @@ parameters:
 			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
-
-		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
@@ -18126,44 +18121,9 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:getConverter\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<T,V\\>\\:\\:\\$previous \\(array\\{V\\|null, V\\|null\\}\\) does not accept array\\{V\\|false, V\\|false\\}\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Trying to invoke \\(Closure\\(array\\<string, mixed\\>\\)\\: array\\<V\\>\\)\\|null but it might not be a callable\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
 
 		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
@@ -18186,49 +18146,19 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:__construct\\(\\) has parameter \\$iterators with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator but does not specify its types\\: T$#"
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator constructor expects Closure\\(mixed\\)\\: int, Closure\\(int\\)\\: int given\\.$#"
 			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIterator.php
+			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator constructor expects Closure\\(mixed\\)\\: int\\|null, Closure\\(int\\)\\: int\\<min, 40\\>\\|int\\<60, max\\>\\|null given\\.$#"
 			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIterator.php
+			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
 			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorsIterator.php
-
-		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:\\$iterators with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIterator.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIteratorTest__Iterator\\:\\:getOnFinishDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIteratorTest.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIteratorTest__Iterator\\:\\:getOnInitDispatcher\\(\\) return type with generic class LastDragon_ru\\\\LaraASP\\\\Core\\\\Observer\\\\Dispatcher does not specify its types\\: TContext$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIteratorTest.php
-
-		-
-			message: "#^Anonymous function should return array but returns array\\<T\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), T\\>\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectsIterator.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<T,V\\>\\:\\:__construct\\(\\) expects \\(Closure\\(V\\)\\: T\\)\\|null, \\(Closure\\(T\\)\\: V\\)\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectsIterator.php
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"

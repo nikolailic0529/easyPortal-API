@@ -64,6 +64,9 @@ trait Subjects {
         $this->getOnInitDispatcher()->notify();
     }
 
+    /**
+     * @return Dispatcher<void>
+     */
     private function getOnInitDispatcher(): Dispatcher {
         if (!isset($this->onInitDispatcher)) {
             $this->onInitDispatcher = new Dispatcher();
@@ -86,6 +89,9 @@ trait Subjects {
         $this->getOnFinishDispatcher()->notify();
     }
 
+    /**
+     * @return Dispatcher<void>
+     */
     private function getOnFinishDispatcher(): Dispatcher {
         if (!isset($this->onFinishDispatcher)) {
             $this->onFinishDispatcher = new Dispatcher();

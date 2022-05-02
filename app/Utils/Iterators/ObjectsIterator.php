@@ -14,8 +14,8 @@ use Illuminate\Support\Collection;
  */
 class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
     /**
-     * @param Collection<array-key, T>|array<T> $items
-     * @param Closure(T):V|null                 $converter
+     * @param Collection<array-key, V>|array<V> $items
+     * @param Closure(V):T|null                 $converter
      */
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -25,7 +25,9 @@ class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
         parent::__construct(
             $exceptionHandler,
             static function () use ($items): array {
-                return $items;
+                return $items instanceof Collection
+                    ? $items->all()
+                    : $items;
             },
             $converter,
         );

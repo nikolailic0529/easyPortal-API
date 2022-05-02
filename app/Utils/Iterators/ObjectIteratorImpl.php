@@ -61,6 +61,9 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
         return $this->exceptionHandler;
     }
 
+    /**
+     * @return Closure(V): T|null
+     */
     protected function getConverter(): ?Closure {
         return $this->converter;
     }
@@ -111,7 +114,9 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      * @return array<V>
      */
     protected function execute(array $variables): array {
-        return ($this->executor)($variables);
+        return $this->executor
+            ? ($this->executor)($variables)
+            : [];
     }
 
     /**
@@ -133,7 +138,7 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
      */
     protected function chunkPrepare(array $items): array {
         // Infinite loop?
-        $current        = [end($items), reset($items)];
+        $current        = [end($items) ?: null, reset($items) ?: null];
         $previous       = $this->previous;
         $this->previous = $current;
 
