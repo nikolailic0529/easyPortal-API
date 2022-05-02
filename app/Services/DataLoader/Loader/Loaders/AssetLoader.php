@@ -12,7 +12,6 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -42,13 +41,6 @@ class AssetLoader extends Loader {
         $this->withDocuments = $withDocuments;
 
         return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new ViewAsset($properties);
     }
 
     protected function getObjectById(string $id): ?Type {

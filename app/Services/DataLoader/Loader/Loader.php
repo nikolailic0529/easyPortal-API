@@ -10,15 +10,12 @@ use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-
-use function is_string;
 
 /**
  * Load data from API and create app's objects. You must use
@@ -62,11 +59,6 @@ abstract class Loader implements Isolated {
 
     // <editor-fold desc="Abstract">
     // =========================================================================
-    /**
-     * @param array<string,mixed> $properties
-     */
-    abstract protected function getObject(array $properties): ?Type;
-
     abstract protected function getObjectById(string $id): ?Type;
 
     abstract protected function getObjectFactory(): ModelFactory;
@@ -76,62 +68,35 @@ abstract class Loader implements Isolated {
 
     // <editor-fold desc="Load">
     // =========================================================================
-    public function update(Type|string $object): ?Model {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
-            if (is_string($object)) {
-                if ($this->getObject([]) instanceof TypeWithId && !$this->isModelExists($object)) {
-                    throw $this->getModelNotFoundException($object);
-                } else {
-                    $object = $this->getObjectById($object);
-                }
-            } else {
-                if ($object instanceof TypeWithId && !$this->isModelExists($object->id)) {
-                    throw $this->getModelNotFoundException($object->id);
-                }
+    public function create(string $id): ?Model {
+        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($id): ?Model {
+            // Object
+            $object = $this->getObjectById($id);
+
+            if (!$object) {
+                throw $this->getModelNotFoundException($id);
             }
 
-            return $this->run($object);
-        });
-    }
+            // Subscribe
+            $data = new ImporterChunkData([$object]);
 
-    public function create(Type|string $object): ?Model {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
-            $object = is_string($object) ? $this->getObjectById($object) : $object;
-            $model  = $this->run($object);
+            $this->getCollector()->subscribe($data);
+
+            // Process
+            try {
+                $model = $this->process($object);
+            } finally {
+                $this->getDispatcher()->dispatch(
+                    new DataImported($data),
+                );
+            }
 
             return $model;
         });
     }
 
-    protected function run(?Type $object): ?Model {
-        // Object?
-        if (!$object) {
-            return null;
-        }
-
-        // Subscribe
-        $data = new ImporterChunkData([$object]);
-
-        $this->getCollector()->subscribe($data);
-
-        // Process
-        try {
-            $model = $this->process($object);
-        } finally {
-            $this->getDispatcher()->dispatch(
-                new DataImported($data),
-            );
-        }
-
-        return $model;
-    }
-
     protected function process(Type $object): ?Model {
         return $this->getObjectFactory()->create($object);
-    }
-
-    protected function isModelExists(string $id): bool {
-        return (bool) $this->getObjectFactory()->find($this->getObject(['id' => $id]));
     }
     // </editor-fold>
 }

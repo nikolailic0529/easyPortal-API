@@ -2,10 +2,13 @@
 
 namespace App\Services\DataLoader\Loader;
 
+use App\Services\DataLoader\Collector\Collector;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Eloquent\Model;
 use Exception;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
 
@@ -15,268 +18,77 @@ use Tests\TestCase;
  */
 class LoaderTest extends TestCase {
     /**
-     * @covers ::update
-     */
-    public function testUpdateById(): void {
-        // Prepare
-        $id     = $this->faker->uuid();
-        $type   = Mockery::mock(Type::class, TypeWithId::class);
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObject')
-            ->with([])
-            ->once()
-            ->andReturn($type);
-        $loader
-            ->shouldReceive('isModelExists')
-            ->with($id)
-            ->once()
-            ->andReturn(true);
-        $loader
-            ->shouldReceive('getObjectById')
-            ->with($id)
-            ->andReturn($type);
-
-        // Test
-        self::assertEquals($model, $loader->update($id));
-    }
-
-    /**
-     * @covers ::update
-     */
-    public function testUpdateByType(): void {
-        // Prepare
-        $value  = ['id' => $this->faker->uuid()];
-        $type   = new class($value) extends Type implements TypeWithId {
-            public string $id;
-        };
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObject')
-            ->never();
-        $loader
-            ->shouldReceive('isModelExists')
-            ->with($type->id)
-            ->once()
-            ->andReturn(true);
-
-        // Test
-        self::assertEquals($model, $loader->update($type));
-    }
-
-    /**
-     * @covers ::update
-     */
-    public function testUpdateByIdModelNotExists(): void {
-        // Prepare
-        $e      = new Exception(__METHOD__);
-        $id     = $this->faker->uuid();
-        $type   = Mockery::mock(Type::class, TypeWithId::class);
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->never();
-        $loader
-            ->shouldReceive('getObject')
-            ->with([])
-            ->once()
-            ->andReturn($type);
-        $loader
-            ->shouldReceive('isModelExists')
-            ->with($id)
-            ->once()
-            ->andReturn(false);
-        $loader
-            ->shouldReceive('getObjectById')
-            ->never();
-        $loader
-            ->shouldReceive('getModelNotFoundException')
-            ->with($id)
-            ->once()
-            ->andThrow($e);
-
-        // Test
-        self::expectExceptionObject($e);
-        self::assertEquals($model, $loader->update($id));
-    }
-
-    /**
-     * @covers ::update
-     */
-    public function testUpdateByTypeModelNotExists(): void {
-        // Prepare
-        $e      = new Exception(__METHOD__);
-        $value  = ['id' => $this->faker->uuid()];
-        $type   = new class($value) extends Type implements TypeWithId {
-            public string $id;
-        };
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->never();
-        $loader
-            ->shouldReceive('getObject')
-            ->never();
-        $loader
-            ->shouldReceive('isModelExists')
-            ->with($type->id)
-            ->once()
-            ->andReturn(false);
-        $loader
-            ->shouldReceive('getModelNotFoundException')
-            ->with($type->id)
-            ->once()
-            ->andThrow($e);
-
-        // Test
-        self::expectExceptionObject($e);
-        self::assertEquals($model, $loader->update($type));
-    }
-
-    /**
-     * @covers ::update
-     */
-    public function testUpdateByIdTypeWithoutId(): void {
-        // Prepare
-        $id     = $this->faker->uuid();
-        $type   = Mockery::mock(Type::class);
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObject')
-            ->with([])
-            ->once()
-            ->andReturn($type);
-        $loader
-            ->shouldReceive('isModelExists')
-            ->never();
-        $loader
-            ->shouldReceive('getObjectById')
-            ->with($id)
-            ->andReturn($type);
-
-        // Test
-        self::assertEquals($model, $loader->update($id));
-    }
-
-    /**
-     * @covers ::update
-     */
-    public function testUpdateByTypeTypeWithoutId(): void {
-        // Prepare
-        $value  = ['id' => $this->faker->uuid()];
-        $type   = new class($value) extends Type {
-            public string $id;
-        };
-        $model  = Mockery::mock(Model::class);
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('run')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObject')
-            ->never();
-        $loader
-            ->shouldReceive('isModelExists')
-            ->never();
-
-        // Test
-        self::assertEquals($model, $loader->update($type));
-    }
-
-    /**
      * @covers ::create
      */
-    public function testCreateById(): void {
+    public function testCreateModelNotExists(): void {
         // Prepare
+        $e      = new Exception(__METHOD__);
         $id     = $this->faker->uuid();
-        $type   = Mockery::mock(Type::class);
         $model  = Mockery::mock(Model::class);
         $loader = Mockery::mock(Loader::class);
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
             ->shouldReceive('run')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObject')
-            ->never();
-        $loader
-            ->shouldReceive('isModelExists')
             ->never();
         $loader
             ->shouldReceive('getObjectById')
             ->with($id)
-            ->andReturn($type);
+            ->once()
+            ->andReturn(null);
+        $loader
+            ->shouldReceive('getModelNotFoundException')
+            ->with($id)
+            ->once()
+            ->andThrow($e);
 
         // Test
+        self::expectExceptionObject($e);
         self::assertEquals($model, $loader->create($id));
     }
 
     /**
      * @covers ::create
      */
-    public function testCreateByType(): void {
+    public function testCreate(): void {
+        // Fake
+        Event::fake(DataImported::class);
+
         // Prepare
-        $value  = ['id' => $this->faker->uuid()];
-        $type   = new class($value) extends Type {
-            public string $id;
-        };
-        $model  = Mockery::mock(Model::class);
+        $id        = $this->faker->uuid();
+        $type      = Mockery::mock(Type::class);
+        $model     = Mockery::mock(Model::class);
+        $collector = Mockery::mock(Collector::class);
+        $collector
+            ->shouldReceive('subscribe')
+            ->once()
+            ->andReturns();
+        $dispatcher = $this->app->make(Dispatcher::class);
+
         $loader = Mockery::mock(Loader::class);
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
         $loader
-            ->shouldReceive('run')
+            ->shouldReceive('process')
             ->with($type)
             ->once()
             ->andReturn($model);
         $loader
-            ->shouldReceive('getObject')
-            ->never();
-        $loader
             ->shouldReceive('getObjectById')
-            ->never();
+            ->with($id)
+            ->andReturn($type);
         $loader
-            ->shouldReceive('isModelExists')
-            ->never();
+            ->shouldReceive('getCollector')
+            ->once()
+            ->andReturn($collector);
+        $loader
+            ->shouldReceive('getDispatcher')
+            ->once()
+            ->andReturn($dispatcher);
 
         // Test
-        self::assertEquals($model, $loader->update($type));
+        self::assertEquals($model, $loader->create($id));
+
+        Event::assertDispatched(DataImported::class);
     }
 }

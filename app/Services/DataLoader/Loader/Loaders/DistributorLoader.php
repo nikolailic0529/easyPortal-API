@@ -9,7 +9,6 @@ use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -25,13 +24,6 @@ class DistributorLoader extends Loader {
         protected DistributorFactory $distributors,
     ) {
         parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new Company($properties);
     }
 
     protected function getObjectById(string $id): ?Type {

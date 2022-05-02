@@ -173,13 +173,6 @@ class ContainerTest_Loader extends Loader {
         parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return null;
-    }
-
     protected function getObjectById(string $id): ?Type {
         return null;
     }

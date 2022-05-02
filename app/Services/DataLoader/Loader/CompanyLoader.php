@@ -11,7 +11,6 @@ use App\Services\DataLoader\Factory\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
 use App\Services\DataLoader\Loader\Concerns\WithDocuments;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use DateTimeInterface;
@@ -72,13 +71,6 @@ abstract class CompanyLoader extends Loader {
 
         // Return
         return $company;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new Company($properties);
     }
     // </editor-fold>
 

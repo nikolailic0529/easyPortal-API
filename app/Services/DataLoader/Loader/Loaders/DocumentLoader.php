@@ -9,7 +9,6 @@ use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Factory\Factories\DocumentFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -25,13 +24,6 @@ class DocumentLoader extends Loader {
         protected DocumentFactory $documentFactory,
     ) {
         parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getObject(array $properties): ?Type {
-        return new Document($properties);
     }
 
     protected function getObjectById(string $id): ?Type {
