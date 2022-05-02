@@ -1,0 +1,61 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "e7b3d616-8fd2-4db0-9107-4a24ef1bdf42"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e7b3d616-8fd2-4db0-9107-4a24ef1bdf42",
+                    "resellerId": "a36b83d1-a49b-45be-adb7-3c5defb55234",
+                    "customerId": "c1c5a133-c373-4212-a836-adfb33fa314c",
+                    "serialNumber": "dafdac07-5825-336e-a5bb-628e018f4341",
+                    "productDescription": "HP StoreVirtual 4530 600GB SAS Storage",
+                    "assetTag": "Logiciel",
+                    "assetType": "Logiciel",
+                    "vendor": "HPE",
+                    "sku": "B7E26B",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "26265-4109",
+                    "city": "Boscostad",
+                    "address": "875 Demond Park Suite 100",
+                    "address2": "",
+                    "country": "Norfolk Island",
+                    "latitude": "34.811699",
+                    "longitude": "71.075095",
+                    "countryCode": "BQ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1632180875386",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

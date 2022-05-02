@@ -26,8 +26,10 @@ class UpdateCustomer extends Update {
         {--C|no-create : Do not create customer if not exists}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
-        {--d|assets-documents : Load assets documents to calculate extended warranties, required --a|assets (default)}
-        {--D|no-assets-documents : Skip assets documents}
+        {--d|documents : Load documents}
+        {--D|no-documents : Skip documents (default)}
+        {--assets-documents : Load assets documents to calculate extended warranties, required --a|assets (default)}
+        {--no-assets-documents : Skip assets documents}
     ';
 
     /**
@@ -48,6 +50,7 @@ class UpdateCustomer extends Update {
         return $container->make(CustomerLoader::class)
             ->setWithWarrantyCheck($this->getBooleanOption('warranty-check', false))
             ->setWithAssets($this->getBooleanOption('assets', false))
-            ->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
+            ->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true))
+            ->setWithDocuments($this->getBooleanOption('documents', false));
     }
 }

@@ -17,6 +17,7 @@ use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
 use Mockery\MockInterface;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithAssets;
+use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithDocuments;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderCreateWithoutAssets;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
@@ -192,5 +193,75 @@ class CustomerLoaderTest extends TestCase {
         self::expectExceptionObject(new CustomerWarrantyCheckFailed($id));
 
         $loader->create($id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testCreateWithDocuments(): void {
+        // Generate
+        $this->generateData(CustomerLoaderCreateWithDocuments::class);
+
+        // Setup
+        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
+        $this->overrideUuidFactory('7b44f110-3c33-4c0a-a9a8-e1fdaef4e012');
+
+        // Pretest
+        self::assertModelsCount([
+            Distributor::class   => 1,
+            Reseller::class      => 5,
+            Customer::class      => 3,
+            Asset::class         => 9,
+            AssetWarranty::class => 0,
+            Document::class      => 1,
+            DocumentEntry::class => 0,
+        ]);
+
+        // Test (cold)
+        $events   = Event::fake(DataImported::class);
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
+            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS);
+
+        $importer->create(CustomerLoaderCreateWithDocuments::CUSTOMER);
+
+        self::assertQueryLogEquals('~create-with-documents-cold.json', $queries);
+        self::assertModelsCount([
+            Distributor::class   => 1,
+            Reseller::class      => 5,
+            Customer::class      => 3,
+            Asset::class         => 9,
+            AssetWarranty::class => 0,
+            Document::class      => 16,
+            DocumentEntry::class => 132,
+        ]);
+        self::assertDispatchedEventsEquals(
+            '~create-with-documents-cold-events.json',
+            $events->dispatched(DataImported::class),
+        );
+
+        $queries->flush();
+
+        unset($events);
+
+        // Test (hot)
+        $events   = Event::fake(DataImported::class);
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(Container::class)
+            ->make(CustomerLoader::class)
+            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS);
+
+        $importer->create(CustomerLoaderCreateWithDocuments::CUSTOMER);
+
+        self::assertQueryLogEquals('~create-with-documents-hot.json', $queries);
+        self::assertDispatchedEventsEquals(
+            '~create-with-documents-hot-events.json',
+            $events->dispatched(DataImported::class),
+        );
+
+        $queries->flush();
+
+        unset($events);
     }
 }

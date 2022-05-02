@@ -1,0 +1,27 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\n    }\n}",
+    "params": {
+        "id": "143c456a-e894-4710-a1c2-745b9582ca47"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "name": "Schmeler-Stoltenberg",
+                    "updatedAt": "1631098284917",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyTypes": [
+                        {
+                            "type": "DISTRIBUTOR"
+                        }
+                    ],
+                    "status": null
+                }
+            ]
+        }
+    }
+}
