@@ -538,6 +538,33 @@ class Client {
             ->setOffset($offset);
     }
 
+    /**
+     * @return ObjectIterator<Document>
+     */
+    public function getDocumentsByCustomer(
+        string $id,
+        int $limit = null,
+        int $offset = null,
+    ): ObjectIterator {
+        return $this
+            ->getOffsetBasedIterator(
+                'getDocumentsByCustomer',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$offset: Int) {
+                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, offset: \$offset) {
+                        {$this->getDocumentPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $id,
+                ],
+                $this->getDocumentRetriever(),
+            )
+            ->setLimit($limit)
+            ->setOffset($offset);
+    }
+
     public function getDocumentById(string $id): ?Document {
         return $this->get(
             'getDocumentById',
