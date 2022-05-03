@@ -6,7 +6,7 @@ use App\Services\I18n\Formatter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\EloquentState;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use Exception;
 use Illuminate\Console\Command;
@@ -58,7 +58,7 @@ class ProcessorCommandTest extends TestCase {
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
         $formatter = Mockery::mock(Formatter::class);
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(IteratorProcessor::class);
         $processor
             ->shouldReceive('setLimit')
             ->with($limit)
@@ -147,7 +147,7 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Formatter $formatter, Processor $processor): int {
+            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
                 return $this->process($formatter, $processor);
             }
 
@@ -280,7 +280,7 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Formatter $formatter, Processor $processor): int {
+            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
                 return $this->process($formatter, $processor);
             }
 
@@ -353,7 +353,7 @@ class ProcessorCommandTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends ProcessorCommand<Processor<mixed,mixed,State>>
+ * @extends ProcessorCommand<IteratorProcessor<mixed,mixed,State>>
  */
 abstract class ProcessorCommand__Command extends ProcessorCommand {
     protected function getReplacementsServiceName(): string {
@@ -379,9 +379,9 @@ class ProcessorCommand__ObjectsProcess extends ProcessorCommand__Command {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends Processor<mixed,mixed,State>
+ * @extends IteratorProcessor<mixed,mixed,State>
  */
-class ProcessorCommand__Processor extends Processor {
+class ProcessorCommand__Processor extends IteratorProcessor {
     protected function getTotal(State $state): ?int {
         throw new Exception('should not be called');
     }

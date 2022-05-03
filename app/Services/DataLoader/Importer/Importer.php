@@ -11,7 +11,7 @@ use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -26,9 +26,9 @@ use function array_merge;
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
  * @template TModel of \App\Utils\Eloquent\Model
  *
- * @extends Processor<TItem, TChunkData, TState>
+ * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
-abstract class Importer extends Processor {
+abstract class Importer extends IteratorProcessor {
     private ?DateTimeInterface $from   = null;
     private bool               $update = true;
     private Collector          $collector;

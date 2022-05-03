@@ -26,9 +26,9 @@ use Throwable;
  * processing after error/timeout/stop signal/etc.
  *
  * Please note that while processing only `State` properties should be used. So
- * if you need to pass some settings into {@see Processor::process()} you need
- * extend the {@see \App\Utils\Processor\State} class with
- * {@see Processor::restoreState()} and {@see Processor::defaultState()}.
+ * if you need to pass some settings into {@see IteratorProcessor::process()}
+ * you need extend the {@see \App\Utils\Processor\State} class with
+ * {@see IteratorProcessor::restoreState()} and {@see IteratorProcessor::defaultState()}.
  *
  * @see \App\Utils\Iterators\Contracts\ObjectIterator
  * @see \App\Services\Queue\Concerns\ProcessorJob
@@ -39,7 +39,7 @@ use Throwable;
  *
  * @extends ProcessorImpl<TItem, TChunkData, TState>
  */
-abstract class Processor extends ProcessorImpl {
+abstract class IteratorProcessor extends ProcessorImpl {
     // <editor-fold desc="Process">
     // =========================================================================
     /**

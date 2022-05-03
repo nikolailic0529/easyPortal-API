@@ -15236,52 +15236,32 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
@@ -15291,17 +15271,17 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Chunkable\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 3
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Property class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:128\\:\\:\\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Property class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:70\\:\\:\\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
@@ -18201,12 +18181,12 @@ parameters:
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\IteratorProcessor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:282\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:282\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\IteratorProcessor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 
@@ -18266,34 +18246,34 @@ parameters:
 			path: app/Utils/Processor/EloquentProcessorTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\IteratorProcessor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
-			path: app/Utils/Processor/Processor.php
+			path: app/Utils/Processor/IteratorProcessor.php
 
 		-
 			message: "#^Parameter \\#3 \\$data of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:chunkProcessed\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
-			path: app/Utils/Processor/Processor.php
+			path: app/Utils/Processor/IteratorProcessor.php
+
+		-
+			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
+			count: 3
+			path: app/Utils/Processor/IteratorProcessorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+			count: 3
+			path: app/Utils/Processor/IteratorProcessorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			count: 1
+			path: app/Utils/Processor/IteratorProcessorTest.php
 
 		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
 			count: 1
 			path: app/Utils/Processor/ProcessorImpl.php
-
-		-
-			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Utils/Processor/ProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 3
-			path: app/Utils/Processor/ProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Utils/Processor/ProcessorTest.php
 
 		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
