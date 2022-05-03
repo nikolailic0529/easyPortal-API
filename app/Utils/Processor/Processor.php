@@ -171,8 +171,6 @@ abstract class Processor implements ProcessorContract {
     // =========================================================================
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onInit(?Closure $closure): static {
         if ($closure) {
@@ -193,8 +191,6 @@ abstract class Processor implements ProcessorContract {
 
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onChange(?Closure $closure): static {
         if ($closure) {
@@ -215,8 +211,6 @@ abstract class Processor implements ProcessorContract {
 
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onFinish(?Closure $closure): static {
         if ($closure) {
@@ -237,8 +231,6 @@ abstract class Processor implements ProcessorContract {
 
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onProcess(?Closure $closure): static {
         if ($closure) {
@@ -259,8 +251,6 @@ abstract class Processor implements ProcessorContract {
 
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onReport(?Closure $closure): static {
         if ($closure) {
