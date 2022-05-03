@@ -14446,7 +14446,7 @@ parameters:
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterChunkData,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterState\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterChunkData,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterState\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -15291,7 +15291,7 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 3
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
@@ -15496,7 +15496,7 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Cron/Recalculator.php
 
@@ -16991,7 +16991,7 @@ parameters:
 			path: app/Services/Search/Jobs/Cron/Indexer.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Cron/Indexer.php
 
@@ -17016,7 +17016,7 @@ parameters:
 			path: app/Services/Search/Jobs/Index.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,null,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Jobs/Index.php
 
@@ -18201,12 +18201,12 @@ parameters:
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:150\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:283\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:282\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 
@@ -18266,19 +18266,19 @@ parameters:
 			path: app/Utils/Processor/EloquentProcessorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
-			count: 1
-			path: app/Utils/Processor/Processor.php
-
-		-
 			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
 
 		-
-			message: "#^Parameter \\#3 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:chunkProcessed\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$data of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:chunkProcessed\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
+
+		-
+			message: "#^Method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
+			count: 1
+			path: app/Utils/Processor/ProcessorImpl.php
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
@@ -18291,7 +18291,7 @@ parameters:
 			path: app/Utils/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\ProcessorImpl\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Utils/Processor/ProcessorTest.php
 
