@@ -44,14 +44,3 @@ parameters:
         -
             message: "#^Call to protected method .+? of class .+?\\.$#"
             path: **/*Test.php
-
-        # False positive
-        # https://github.com/phpstan/phpstan/issues/6856
-        -
-            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
-            paths:
-                - app/Services/DataLoader/Jobs/ImporterCronJob.php
-        -
-            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setKeys\\(\\)\\.$#"
-            paths:
-                - app/Services/Recalculator/Jobs/Recalculate.php

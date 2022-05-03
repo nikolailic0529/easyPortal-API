@@ -12706,7 +12706,7 @@ parameters:
 			path: app/Services/DataLoader/Jobs/DocumentsImporterCronJob.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ImporterCronJob\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
 
@@ -14336,26 +14336,6 @@ parameters:
 			path: app/Services/Keycloak/Exceptions/Auth/UserInsufficientData.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImport\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/FailedToImport.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImport\\:\\:\\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/FailedToImport.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportObject\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/FailedToImportObject.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/FailedToImportUserConflictType.php
-
-		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
@@ -14377,11 +14357,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportObject constructor expects App\\\\Utils\\\\Processor\\\\Processor, App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -14446,9 +14421,9 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getProcessor\\(\\) should return App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter but returns App\\\\Utils\\\\Processor\\\\Processor\\.$#"
+			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:396 given\\.$#"
 			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
+			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
@@ -14461,7 +14436,7 @@ parameters:
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:makeProcessor\\(\\) should return TProcessor of App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter but returns App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -14471,7 +14446,7 @@ parameters:
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterChunkData,App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporterState\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -15531,27 +15506,17 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Cron/ResellersRecalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Customer, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Customer\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/CustomerRecalculate.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Recalculator/Jobs/CustomerRecalculateTest\\.php\\:23\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/CustomerRecalculateTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\LocationRecalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\LocationRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Location, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Location\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/LocationRecalculate.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Recalculator/Jobs/LocationRecalculateTest\\.php\\:23\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/LocationRecalculateTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Recalculate\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setKeys\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Recalculate.php
 
@@ -15566,29 +15531,14 @@ parameters:
 			path: app/Services/Recalculator/Jobs/Recalculate.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\Recalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/Recalculate.php
-
-		-
 			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/Recalculate.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Recalculator/Jobs/RecalculateTest\\.php\\:21\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/RecalculateTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\ResellerRecalculate\\:\\:makeProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\EloquentProcessor does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Jobs\\\\ResellerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Reseller, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Reseller\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Jobs/ResellerRecalculate.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Recalculator/Jobs/ResellerRecalculateTest\\.php\\:23\\:\\:getProcessor\\(\\) return type with generic class App\\\\Utils\\\\Processor\\\\Processor does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Services/Recalculator/Jobs/ResellerRecalculateTest.php
 
 		-
 			message: "#^Cannot call method map\\(\\) on array\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
@@ -18241,42 +18191,22 @@ parameters:
 			path: app/Utils/JsonObject/RecursiveJsonObjectIterator.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\Commands\\\\ProcessorCommand\\:\\:getProcessorClass\\(\\) should return class\\-string\\<TProcessor of App\\\\Utils\\\\Processor\\\\Processor\\> but returns class\\-string\\<App\\\\Utils\\\\Processor\\\\Processor\\>\\.$#"
+			message: "#^Method App\\\\Utils\\\\Processor\\\\Commands\\\\ProcessorCommand\\:\\:getProcessorClass\\(\\) should return class\\-string\\<TProcessor of App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\> but returns class\\-string\\<App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\>\\.$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$offset of method App\\\\Utils\\\\Processor\\\\Processor\\<mixed,mixed,App\\\\Utils\\\\Processor\\\\State\\>\\:\\:setOffset\\(\\) expects int\\|string\\|null, array\\|string\\|true\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$offset of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Offsetable\\:\\:setOffset\\(\\) expects int\\|string\\|null, array\\|string\\|true\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$description \\(string\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommand.php
-
-		-
-			message: "#^Property Illuminate\\\\Console\\\\Command\\:\\:\\$signature \\(string\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommand.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:150\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:process\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:286\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:286\\:\\:process\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
+			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:283\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
 

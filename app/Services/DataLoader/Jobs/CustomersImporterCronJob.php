@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Importer\Importers\CustomersImporter;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;

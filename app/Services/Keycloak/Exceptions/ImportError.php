@@ -2,26 +2,22 @@
 
 namespace App\Services\Keycloak\Exceptions;
 
+use App\Exceptions\Contracts\GenericException;
 use App\Services\Keycloak\ServiceException;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\State;
 use Throwable;
 
-abstract class FailedToImport extends ServiceException {
+use function sprintf;
+
+final class ImportError extends ServiceException implements GenericException {
     /**
      * @param Processor<mixed,mixed,State> $processor
      */
     public function __construct(
         protected Processor $processor,
-        protected object $object,
-        string $message,
         Throwable $previous = null,
     ) {
-        parent::__construct($message, $previous);
-
-        $this->setContext([
-            'processor' => $this->processor::class,
-            'object'    => $this->object,
-        ]);
+        parent::__construct(sprintf('`%s` error.', $this->processor::class), $previous);
     }
 }

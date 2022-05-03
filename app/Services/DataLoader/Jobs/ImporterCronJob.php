@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
@@ -35,6 +35,9 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
             ] + parent::getQueueConfig();
     }
 
+    /**
+     * @return TImporter
+     */
     protected function getProcessor(Container $container, QueueableConfig $config): Processor {
         $expire    = $config->setting('expire');
         $from      = $expire ? Date::now()->sub($expire) : null;

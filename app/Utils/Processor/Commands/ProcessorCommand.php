@@ -4,8 +4,8 @@ namespace App\Utils\Processor\Commands;
 
 use App\Services\I18n\Formatter;
 use App\Services\Service;
+use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EloquentProcessor;
-use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
@@ -13,7 +13,6 @@ use LogicException;
 use ReflectionClass;
 use ReflectionNamedType;
 use Symfony\Component\Console\Helper\ProgressBar;
-
 use function array_unique;
 use function floor;
 use function implode;
@@ -25,17 +24,17 @@ use function strtr;
 use function time;
 
 /**
- * @template TProcessor of \App\Utils\Processor\Processor
+ * @template TProcessor of Processor
  */
 abstract class ProcessorCommand extends Command {
     public function __construct() {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr(
-            $this->signature ?? $this->getDefaultCommandSignature(),
+            $this->signature ?: $this->getDefaultCommandSignature(),
             $replacements,
         );
         $this->description = Str::ucfirst(strtr(
-            $this->description ?? $this->getDefaultCommandDescription(),
+            $this->description ?: $this->getDefaultCommandDescription(),
             $replacements,
         ));
 

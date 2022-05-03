@@ -8,16 +8,16 @@ use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
 use App\Services\Service;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\ServiceStore;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
- * Special helper for {@see \App\Utils\Processor\Processor}.
+ * Special helper for {@see \App\Utils\Processor\Contracts\Processor}.
  *
- * @template TProcessor of \App\Utils\Processor\Processor
+ * @template TProcessor of Processor
  *
  * @mixin Job
  */

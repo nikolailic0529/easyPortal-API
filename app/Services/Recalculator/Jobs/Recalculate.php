@@ -4,7 +4,10 @@ namespace App\Services\Recalculator\Jobs;
 
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
-use App\Utils\Processor\Processor;
+use App\Services\Recalculator\Processor\ChunkData;
+use App\Services\Recalculator\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor as ProcessorContract;
+use App\Utils\Processor\EloquentState;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
@@ -18,7 +21,7 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  */
 abstract class Recalculate extends Job implements Initializable, ShouldBeUnique, ShouldBeUniqueUntilProcessing {
     /**
-     * @phpstan-use \App\Services\Queue\Concerns\ProcessorJob<\App\Utils\Processor\EloquentProcessor>
+     * @phpstan-use ProcessorJob<Processor<TModel, ChunkData<TModel>, EloquentState<TModel>>>
      */
     use ProcessorJob {
         getProcessor as private createProcessor;
@@ -47,7 +50,10 @@ abstract class Recalculate extends Job implements Initializable, ShouldBeUnique,
         return $this;
     }
 
-    protected function getProcessor(Container $container, QueueableConfig $config): Processor {
+    /**
+     * @return Processor<TModel, ChunkData<TModel>, EloquentState<TModel>>
+     */
+    protected function getProcessor(Container $container, QueueableConfig $config): ProcessorContract {
         return $this
             ->createProcessor($container, $config)
             ->setKeys([$this->getModelKey()]);

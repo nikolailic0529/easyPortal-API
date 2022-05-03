@@ -3,7 +3,7 @@
 namespace App\Services\Recalculator\Jobs;
 
 use App\Services\Recalculator\Processor\Processors\CustomersProcessor;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;

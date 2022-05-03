@@ -151,10 +151,6 @@ class ProcessorCommandTest extends TestCase {
                 return $this->process($formatter, $processor);
             }
 
-            protected function process(Formatter $formatter, Processor $processor): int {
-                return parent::process($formatter, $processor);
-            }
-
             protected function getReplacementsServiceName(): string {
                 return 'Test';
             }
@@ -286,10 +282,6 @@ class ProcessorCommandTest extends TestCase {
         $command = new class() extends ProcessorCommand {
             public function __invoke(Formatter $formatter, Processor $processor): int {
                 return $this->process($formatter, $processor);
-            }
-
-            protected function process(Formatter $formatter, Processor $processor): int {
-                return parent::process($formatter, $processor);
             }
 
             protected function getReplacementsServiceName(): string {

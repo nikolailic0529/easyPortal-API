@@ -12,6 +12,7 @@ use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImport;
 use App\Services\Keycloak\Exceptions\FailedToImportObject;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
+use App\Services\Keycloak\Exceptions\ImportError;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\Processor;
@@ -59,7 +60,9 @@ class UsersImporter extends Processor {
 
     protected function report(Throwable $exception, mixed $item = null): void {
         if (!($exception instanceof FailedToImport)) {
-            $exception = new FailedToImportObject($item, $exception);
+            $exception = $item
+                ? new FailedToImportObject($this, $item, $exception)
+                : new ImportError($this, $exception);
         }
 
         $this->getExceptionHandler()->report($exception);
