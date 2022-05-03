@@ -2,11 +2,10 @@
 
 namespace App\Utils\Processor;
 
-use App\Services\Service;
-use App\Utils\Cache\CacheKeyable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
+use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -452,46 +451,39 @@ class ProcessorTest extends TestCase {
      * @covers ::getState
      */
     public function testGetState(): void {
-        $state   = new State();
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $state = [];
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('get')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
             ->andReturn($state);
 
-        $actual = $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+        $expected = new State($state);
+        $actual   = $this->app->make(ProcessorTest__Processor::class)
+            ->setStore($store)
             ->getState();
 
-        self::assertEquals($state, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::getState
      */
     public function testGetStateRestorationFailed(): void {
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('get')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
-            ->andReturnUsing(static function (mixed $key, Closure $factory): mixed {
-                return $factory(['invalid state']);
+            ->andReturnUsing(static function (): array {
+                return ['invalid state'];
             });
-        $service
+        $store
             ->shouldReceive('delete')
             ->once()
             ->andReturn(true);
 
         $actual = $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->getState();
 
         self::assertNull($actual);
@@ -501,21 +493,16 @@ class ProcessorTest extends TestCase {
      * @covers ::saveState
      */
     public function testSaveState(): void {
-        $state   = new State();
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
-            ->shouldReceive('set')
+        $state = new State();
+        $store = Mockery::mock(StateStore::class);
+        $store
+            ->shouldReceive('save')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
-            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
-                return $value;
-            });
+            ->with($state)
+            ->andReturn($state);
 
         $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->saveState($state);
     }
 
@@ -523,18 +510,14 @@ class ProcessorTest extends TestCase {
      * @covers ::resetState
      */
     public function testResetState(): void {
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('delete')
             ->once()
-            ->with($key)
             ->andReturn(true);
 
         $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->resetState();
     }
     // </editor-fold>

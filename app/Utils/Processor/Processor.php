@@ -4,13 +4,13 @@ namespace App\Utils\Processor;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
-use App\Services\Service;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
@@ -45,17 +45,16 @@ use function min;
  *
  * @template TItem
  * @template TChunkData
- * @template TState of \App\Utils\Processor\State
+ * @template TState of State
  */
 abstract class Processor {
     use Limit;
     use Offset;
     use ChunkSize;
 
-    private mixed    $cacheKey = null;
-    private ?Service $service  = null;
-    private bool     $stopped  = false;
-    private bool     $running  = false;
+    private ?StateStore $store   = null;
+    private bool        $stopped = false;
+    private bool        $running = false;
 
     /**
      * @var Dispatcher<TState>
@@ -111,17 +110,12 @@ abstract class Processor {
         return $this->running;
     }
 
-    protected function getService(): ?Service {
-        return $this->service;
+    public function getStore(): ?StateStore {
+        return $this->store;
     }
 
-    protected function getCacheKey(): mixed {
-        return $this->cacheKey;
-    }
-
-    public function setCacheKey(?Service $service, mixed $key): static {
-        $this->service  = $service;
-        $this->cacheKey = $key;
+    public function setStore(?StateStore $store): static {
+        $this->store = $store;
 
         return $this;
     }
@@ -461,16 +455,19 @@ abstract class Processor {
      * @return TState|null
      */
     public function getState(): ?State {
-        return $this->getService()?->get($this->getCacheKey(), function (array $state): ?State {
-            try {
-                return $this->restoreState($state);
-            } catch (Throwable $exception) {
-                $this->resetState();
-                $this->report($exception);
-            }
+        try {
+            $state = $this->getStore()?->get();
+            $state = $state !== null
+                ? $this->restoreState($state)
+                : null;
 
-            return null;
-        });
+            return $state;
+        } catch (Throwable $exception) {
+            $this->resetState();
+            $this->report($exception);
+        }
+
+        return null;
     }
 
     /**
@@ -504,24 +501,24 @@ abstract class Processor {
      * @param TState $state
      */
     protected function saveState(State $state): void {
-        $this->getService()?->set($this->getCacheKey(), $state);
+        $this->getStore()?->save($state);
     }
 
     protected function resetState(): void {
-        $this->getService()?->delete($this->getCacheKey());
+        $this->getStore()?->delete();
     }
 
     /**
-     * @param array<mixed> $state
+     * @param array<string, mixed> $state
      *
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     protected function defaultState(array $state): array {
         return $state;
     }
 
     /**
-     * @param array<mixed> $state
+     * @param array<string, mixed> $state
      *
      * @return TState
      */
@@ -537,7 +534,7 @@ abstract class Processor {
      *
      * @param Closure(): T $callback
      *
-     * @return T
+     * @return T|null
      */
     protected function call(Closure $callback): mixed {
         $result = null;

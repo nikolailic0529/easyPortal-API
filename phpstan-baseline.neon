@@ -15471,11 +15471,6 @@ parameters:
 			path: app/Services/Queue/ServiceResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Tags\\\\Stop\\:\\:set\\(\\) should return DateTimeInterface\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Queue/Tags/Stop.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Exceptions\\\\FailedToRecalculateModel\\:\\:__construct\\(\\) has parameter \\$processor with generic class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor but does not specify its types\\: TItem, TChunkData, TState$#"
 			count: 1
 			path: app/Services/Recalculator/Exceptions/FailedToRecalculateModel.php
@@ -17721,22 +17716,7 @@ parameters:
 			path: app/Services/Tokens/Exceptions/InvalidCredentials.php
 
 		-
-			message: "#^Cannot call method getToken\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/Tokens/OAuth2Token.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/Tokens/OAuth2Token.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\Service\\:\\:get\\(\\) expects \\(Closure\\(mixed\\)\\: League\\\\OAuth2\\\\Client\\\\Token\\\\AccessToken\\)\\|null, Closure\\(array\\)\\: League\\\\OAuth2\\\\Client\\\\Token\\\\AccessToken given\\.$#"
-			count: 1
-			path: app/Services/Tokens/OAuth2Token.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:\\$token \\(League\\\\OAuth2\\\\Client\\\\Token\\\\AccessTokenInterface\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/Services/Tokens/OAuth2Token.php
 
@@ -18356,22 +18336,12 @@ parameters:
 			path: app/Utils/Processor/EloquentProcessorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:call\\(\\) should return T but returns T\\|null\\.$#"
-			count: 1
-			path: app/Utils/Processor/Processor.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
 
 		-
 			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Processor/Processor.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of method App\\\\Services\\\\Service\\:\\:get\\(\\) expects \\(Closure\\(mixed\\)\\: TState of App\\\\Utils\\\\Processor\\\\State\\|null\\)\\|null, Closure\\(array\\)\\: TState of App\\\\Utils\\\\Processor\\\\State\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
 
