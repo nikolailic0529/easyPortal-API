@@ -5,7 +5,7 @@ namespace App\Utils\Processor;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
-use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\Contracts\Processor as ProcessorContract;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -21,9 +21,9 @@ use function min;
  * @template TChunkData
  * @template TState of State
  *
- * @implements Processor<TItem, TChunkData, TState>
+ * @implements ProcessorContract<TItem, TChunkData, TState>
  */
-abstract class ProcessorImpl implements Processor {
+abstract class Processor implements ProcessorContract {
     use Limit;
     use Offset;
     use ChunkSize;

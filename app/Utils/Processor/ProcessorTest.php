@@ -14,9 +14,9 @@ use Throwable;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\Processor\ProcessorImpl
+ * @coversDefaultClass \App\Utils\Processor\Processor
  */
-class ProcessorImplTest extends TestCase {
+class ProcessorTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -25,7 +25,7 @@ class ProcessorImplTest extends TestCase {
      */
     public function testStart(): void {
         $state     = new State(['offset' => $this->faker->uuid()]);
-        $processor = Mockery::mock(ProcessorImpl::class);
+        $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -51,7 +51,7 @@ class ProcessorImplTest extends TestCase {
      * @covers ::reset
      */
     public function testReset(): void {
-        $processor = Mockery::mock(ProcessorImpl::class);
+        $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -68,7 +68,7 @@ class ProcessorImplTest extends TestCase {
     public function testResetRunning(): void {
         self::expectExceptionObject(new LogicException('Reset is not possible while running.'));
 
-        $processor = Mockery::mock(ProcessorImpl::class);
+        $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -92,7 +92,7 @@ class ProcessorImplTest extends TestCase {
      * @covers ::getDefaultState
      */
     public function testGetDefaultState(): void {
-        $processor = new class() extends ProcessorImpl {
+        $processor = new class() extends Processor {
             private ?int $total = null;
 
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -195,7 +195,7 @@ class ProcessorImplTest extends TestCase {
         $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
-        $processor = Mockery::mock(ProcessorImplTest__Processor::class);
+        $processor = Mockery::mock(ProcessorTest__Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -226,7 +226,7 @@ class ProcessorImplTest extends TestCase {
         $data      = null;
         $state     = new State();
         $items     = [new stdClass()];
-        $processor = Mockery::mock(ProcessorImplTest__Processor::class);
+        $processor = Mockery::mock(ProcessorTest__Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -261,7 +261,7 @@ class ProcessorImplTest extends TestCase {
             ->andReturn($state);
 
         $expected = new State($state);
-        $actual   = $this->app->make(ProcessorImplTest__Processor::class)
+        $actual   = $this->app->make(ProcessorTest__Processor::class)
             ->setStore($store)
             ->getState();
 
@@ -284,7 +284,7 @@ class ProcessorImplTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $actual = $this->app->make(ProcessorImplTest__Processor::class)
+        $actual = $this->app->make(ProcessorTest__Processor::class)
             ->setStore($store)
             ->getState();
 
@@ -303,7 +303,7 @@ class ProcessorImplTest extends TestCase {
             ->with($state)
             ->andReturn($state);
 
-        $this->app->make(ProcessorImplTest__Processor::class)
+        $this->app->make(ProcessorTest__Processor::class)
             ->setStore($store)
             ->saveState($state);
     }
@@ -318,7 +318,7 @@ class ProcessorImplTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $this->app->make(ProcessorImplTest__Processor::class)
+        $this->app->make(ProcessorTest__Processor::class)
             ->setStore($store)
             ->resetState();
     }
@@ -332,9 +332,9 @@ class ProcessorImplTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends ProcessorImpl<mixed,mixed,State>
+ * @extends Processor<mixed,mixed,State>
  */
-class ProcessorImplTest__Processor extends ProcessorImpl {
+class ProcessorTest__Processor extends Processor {
     public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
         parent::__construct($exceptionHandler, $dispatcher);
     }

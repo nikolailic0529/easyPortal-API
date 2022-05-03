@@ -37,9 +37,9 @@ use Throwable;
  * @template TChunkData
  * @template TState of State
  *
- * @extends ProcessorImpl<TItem, TChunkData, TState>
+ * @extends Processor<TItem, TChunkData, TState>
  */
-abstract class IteratorProcessor extends ProcessorImpl {
+abstract class IteratorProcessor extends Processor {
     // <editor-fold desc="Process">
     // =========================================================================
     /**
