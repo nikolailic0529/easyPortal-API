@@ -18181,16 +18181,6 @@ parameters:
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:149\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\IteratorProcessor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/Commands/ProcessorCommandTest\\.php\\:282\\:\\:__invoke\\(\\) has parameter \\$processor with generic class App\\\\Utils\\\\Processor\\\\IteratorProcessor but does not specify its types\\: TItem, TChunkData, TState$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommandTest.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\CompositeProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Utils\\\\Processor\\\\CompositeOperation\\>\\.$#"
 			count: 1
 			path: app/Utils/Processor/CompositeProcessor.php

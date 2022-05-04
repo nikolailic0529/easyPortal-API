@@ -6,6 +6,10 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
+use App\Utils\Iterators\Concerns\Limit;
+use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\Limitable;
+use App\Utils\Iterators\Contracts\Offsetable;
 use Closure;
 use Laravel\Telescope\Telescope;
 
@@ -18,7 +22,10 @@ use Laravel\Telescope\Telescope;
  *
  * @extends Processor<TItem, TChunkData, TState>
  */
-abstract class IteratorProcessor extends Processor {
+abstract class IteratorProcessor extends Processor implements Limitable, Offsetable {
+    use Limit;
+    use Offset;
+
     // <editor-fold desc="Process">
     // =========================================================================
     /**

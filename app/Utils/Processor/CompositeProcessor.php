@@ -2,7 +2,9 @@
 
 namespace App\Utils\Processor;
 
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Iterators\ObjectsIterator;
 use Throwable;
 
@@ -38,10 +40,16 @@ abstract class CompositeProcessor extends Processor {
         $store     = new CompositeStore($state);
         $processor = $item->getProcessor($state);
 
+        if ($processor instanceof Limitable) {
+            $processor = $processor->setLimit(null);
+        }
+
+        if ($processor instanceof Offsetable) {
+            $processor = $processor->setOffset(null);
+        }
+
         $processor
             ->setStore($store)
-            ->setLimit(null)
-            ->setOffset(null)
             ->setChunkSize($this->getChunkSize())
             ->onChange(function () use ($processor, $state): void {
                 $this->saveState($state);

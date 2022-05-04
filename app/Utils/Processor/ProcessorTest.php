@@ -2,7 +2,11 @@
 
 namespace App\Utils\Processor;
 
+use App\Utils\Iterators\Concerns\Limit;
+use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use App\Utils\Processor\Contracts\StateStore;
@@ -279,7 +283,10 @@ class ProcessorTest extends TestCase {
      * @covers ::getDefaultState
      */
     public function testGetDefaultState(): void {
-        $processor = new class() extends Processor {
+        $processor = new class() extends Processor implements Limitable, Offsetable {
+            use Limit;
+            use Offset;
+
             private ?int $total = null;
 
             /** @noinspection PhpMissingParentConstructorInspection */

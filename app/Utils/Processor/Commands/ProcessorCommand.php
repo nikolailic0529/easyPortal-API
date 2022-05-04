@@ -4,6 +4,8 @@ namespace App\Utils\Processor\Commands;
 
 use App\Services\I18n\Formatter;
 use App\Services\Service;
+use App\Utils\Iterators\Contracts\Limitable;
+use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
@@ -47,14 +49,8 @@ abstract class ProcessorCommand extends Command {
     protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
-        $offset   = $this->hasOption('offset')
-            ? ($this->option('offset') ?: null)
-            : null;
         $chunk    = $this->hasOption('chunk')
             ? (((int) $this->option('chunk')) ?: null)
-            : null;
-        $limit    = $this->hasOption('limit')
-            ? (((int) $this->option('limit')) ?: null)
             : null;
 
         // Keys?
@@ -84,10 +80,22 @@ abstract class ProcessorCommand extends Command {
             $progress->setProgress($state->processed);
         };
 
+        if ($processor instanceof Limitable) {
+            $limit     = $this->hasOption('limit')
+                ? (((int) $this->option('limit')) ?: null)
+                : null;
+            $processor = $processor->setLimit($limit);
+        }
+
+        if ($processor instanceof Offsetable) {
+            $offset    = $this->hasOption('offset')
+                ? ($this->option('offset') ?: null)
+                : null;
+            $processor = $processor->setOffset($offset);
+        }
+
         $processor
             ->setChunkSize($chunk)
-            ->setOffset($offset)
-            ->setLimit($limit)
             ->onInit(function (State $state) use ($formatter, $progress): void {
                 if ($state->total !== null) {
                     $progress->setMaxSteps(max($state->total, $state->processed));
@@ -120,8 +128,8 @@ abstract class ProcessorCommand extends Command {
     protected function getReplacements(): array {
         $service = Str::snake($this->getReplacementsServiceName(), '-');
         $command = Str::snake($this->getReplacementsCommandName(), '-');
-        $objects = Str::before($command, '-');
-        $action  = Str::after($command, '-');
+        $action  = Str::afterLast($command, '-');
+        $objects = Str::studly(Str::beforeLast($command, '-'));
 
         return [
             '${command}' => "ep:{$service}-{$command}",
@@ -158,10 +166,16 @@ abstract class ProcessorCommand extends Command {
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
-            '{--offset= : start processing from given offset}',
-            '{--limit=  : max ${objects} to process}',
             '{--chunk=  : chunk size}',
         ];
+
+        if (is_a($processor, Limitable::class, true)) {
+            $signature[] = '{--limit=  : max ${objects} to process}';
+        }
+
+        if (is_a($processor, Offsetable::class, true)) {
+            $signature[] = '{--offset= : start processing from given offset}';
+        }
 
         if (is_a($processor, EloquentProcessor::class, true)) {
             $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';

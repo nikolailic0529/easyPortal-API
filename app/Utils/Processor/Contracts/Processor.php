@@ -12,11 +12,14 @@ use Closure;
  * The Processor is specially designed to process a huge amount of items with
  * ability to stop and resume the processing.
  *
+ * @see Limitable
+ * @see Offsetable
+ *
  * @template TItem
  * @template TChunkData
  * @template TState of State
  */
-interface Processor extends Limitable, Offsetable, Chunkable {
+interface Processor extends Chunkable {
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     public function isStopped(): bool;

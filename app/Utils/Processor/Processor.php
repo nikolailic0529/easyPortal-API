@@ -3,9 +3,9 @@
 namespace App\Utils\Processor;
 
 use App\Utils\Iterators\Concerns\ChunkSize;
-use App\Utils\Iterators\Concerns\Limit;
-use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Processor\Contracts\Processor as ProcessorContract;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
@@ -48,8 +48,6 @@ use function min;
  * @implements ProcessorContract<TItem, TChunkData, TState>
  */
 abstract class Processor implements ProcessorContract {
-    use Limit;
-    use Offset;
     use ChunkSize;
 
     private ?StateStore $store   = null;
@@ -473,8 +471,8 @@ abstract class Processor implements ProcessorContract {
      */
     protected function getDefaultState(): State {
         // State
-        $limit  = $this->getLimit();
-        $offset = $this->getOffset();
+        $limit  = $this instanceof Limitable ? $this->getLimit() : null;
+        $offset = $this instanceof Offsetable ? $this->getOffset() : null;
         $state  = $this->restoreState($this->defaultState([
             'index'  => 0,
             'limit'  => $limit,
