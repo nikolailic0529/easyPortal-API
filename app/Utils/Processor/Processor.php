@@ -212,13 +212,15 @@ abstract class Processor implements ProcessorContract {
         $this->init($state);
 
         foreach ($iterator as $item) {
+            // Iterator updates index after element
+            $sync($iterator);
+
+            // Process
             try {
                 $this->process($state, $data, $item);
                 $this->success($state, $item);
             } catch (Throwable $exception) {
                 $this->failed($state, $item, $exception);
-            } finally {
-                $sync($iterator);
             }
         }
 
@@ -399,7 +401,7 @@ abstract class Processor implements ProcessorContract {
         $this->dispatchOnChange($state, $items, $data);
 
         // Stopped?
-        if ($this->stopped) {
+        if ($this->isStopped()) {
             throw new Interrupt();
         }
     }

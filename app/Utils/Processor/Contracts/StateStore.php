@@ -12,8 +12,5 @@ interface StateStore {
 
     public function save(State $state): State;
 
-    /**
-     * Deletes the state value.
-     */
     public function delete(): bool;
 }
