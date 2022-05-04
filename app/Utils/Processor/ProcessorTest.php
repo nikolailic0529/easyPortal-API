@@ -2,7 +2,12 @@
 
 namespace App\Utils\Processor;
 
+use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
+use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use App\Utils\Processor\Contracts\StateStore;
+use Closure;
+use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Date;
@@ -48,6 +53,46 @@ class ProcessorTest extends TestCase {
     }
 
     /**
+     * @covers ::stop
+     */
+    public function testStop(): void {
+        $processor = Mockery::mock(Processor::class);
+        $iterator  = new OneChunkOffsetBasedObjectIterator(
+            Mockery::mock(ExceptionHandler::class),
+            static function () use ($processor): array {
+                $processor->stop();
+
+                return [];
+            },
+        );
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getState')
+            ->once()
+            ->andReturn(new State());
+        $processor
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturn($iterator);
+        $processor
+            ->shouldReceive('init')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('finish')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('process')
+            ->never();
+
+        $processor->start();
+
+        self::assertTrue($processor->isStopped());
+    }
+
+    /**
      * @covers ::reset
      */
     public function testReset(): void {
@@ -89,6 +134,148 @@ class ProcessorTest extends TestCase {
     }
 
     /**
+     * @covers ::invoke
+     * @covers ::process
+     * @covers ::report
+     * @covers ::chunkLoaded
+     * @covers ::chunkProcessed
+     */
+    public function testInvoke(): void {
+        $a         = new class() extends stdClass {
+            // empty
+        };
+        $b         = new class() extends stdClass {
+            // empty
+        };
+        $chunk     = $this->faker->randomElement([10, 100, 250, 500]);
+        $state     = new State([
+            'index'  => $this->faker->numberBetween(1, 100),
+            'limit'  => $this->faker->numberBetween(1, 100),
+            'offset' => $this->faker->uuid(),
+        ]);
+        $exception = new Exception();
+
+        $iterator = Mockery::mock(ObjectsIterator::class, [
+            Mockery::mock(ExceptionHandler::class),
+            [$a, $b],
+        ]);
+        $iterator->shouldAllowMockingProtectedMethods();
+        $iterator->makePartial();
+        $iterator
+            ->shouldReceive('setIndex')
+            ->with($state->index)
+            ->once()
+            ->andReturnSelf();
+        $iterator
+            ->shouldReceive('setLimit')
+            ->with($state->limit)
+            ->once()
+            ->andReturnSelf();
+        $iterator
+            ->shouldReceive('setOffset')
+            ->with($state->offset)
+            ->once()
+            ->andReturnSelf();
+        $iterator
+            ->shouldReceive('setChunkSize')
+            ->with($chunk)
+            ->once()
+            ->andReturnSelf();
+        $iterator
+            ->shouldReceive('getChunkVariables')
+            ->once()
+            ->andReturn([]);
+
+        $data       = new stdClass();
+        $handler    = $this->app->make(ExceptionHandler::class);
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $processor  = Mockery::mock(ProcessorTest__Processor::class, [$handler, $dispatcher]);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturn($iterator);
+        $processor
+            ->shouldReceive('process')
+            ->with($state, $data, $a)
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('process')
+            ->with($state, $data, $b)
+            ->once()
+            ->andThrow($exception);
+        $processor
+            ->shouldReceive('report')
+            ->with($exception, $b)
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('prefetch')
+            ->once()
+            ->andReturn($data);
+        $processor
+            ->shouldReceive('getOnChangeEvent')
+            ->once()
+            ->andReturnNull();
+        $processor
+            ->shouldReceive('notifyOnReport')
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('notifyOnProcess')
+            ->with($state)
+            ->once()
+            ->andReturns();
+        $processor
+            ->shouldReceive('dispatchOnProcess')
+            ->with($a)
+            ->once()
+            ->andReturns();
+
+        $finish   = null;
+        $onInit   = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onChange = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onFinish = Mockery::spy(static function (State $state) use (&$finish): void {
+            $finish = $state;
+        });
+
+        $processor
+            ->onInit(Closure::fromCallable($onInit))
+            ->onChange(Closure::fromCallable($onChange))
+            ->onFinish(Closure::fromCallable($onFinish))
+            ->setChunkSize($chunk)
+            ->invoke($state);
+
+        self::assertEquals(
+            new State([
+                'offset'    => 2,
+                'index'     => 2,
+                'limit'     => $state->limit,
+                'failed'    => 1,
+                'success'   => 1,
+                'processed' => 2,
+            ]),
+            $finish,
+        );
+
+        $onInit
+            ->shouldHaveBeenCalled()
+            ->once();
+        $onChange
+            ->shouldHaveBeenCalled()
+            ->once();
+        $onFinish
+            ->shouldHaveBeenCalled()
+            ->once();
+    }
+
+    /**
      * @covers ::getDefaultState
      */
     public function testGetDefaultState(): void {
@@ -127,6 +314,21 @@ class ProcessorTest extends TestCase {
              */
             protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
                 return null;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected function prefetch(State $state, array $items): mixed {
+                return null;
+            }
+
+            protected function process(State $state, mixed $data, mixed $item): void {
+                // empty
+            }
+
+            protected function getIterator(State $state): ObjectIterator {
+                throw new Exception('Not implemented.');
             }
         };
 
@@ -362,7 +564,22 @@ class ProcessorTest__Processor extends Processor {
         parent::resetState();
     }
 
-    protected function invoke(State $state): void {
-        // TODO: Implement invoke() method.
+    public function invoke(State $state): void {
+        parent::invoke($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function prefetch(State $state, array $items): mixed {
+        return null;
+    }
+
+    protected function process(State $state, mixed $data, mixed $item): void {
+        // empty
+    }
+
+    protected function getIterator(State $state): ObjectIterator {
+        throw new Exception('Not implemented');
     }
 }

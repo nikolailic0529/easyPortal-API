@@ -5,6 +5,7 @@ namespace App\Utils\Processor;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\Limit;
 use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\Contracts\Processor as ProcessorContract;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
@@ -17,6 +18,29 @@ use Throwable;
 use function min;
 
 /**
+ * The Processor is specially designed to process a huge amount of items and
+ * provides a way to concentrate on implementation without worries about all
+ * other stuff.
+ *
+ * Behind the scenes, it uses `ObjectIterator` to get items divided into chunks,
+ * calls events for each chunk (that, for example, allows us to implement Eager
+ * Loading and alleviate the "N + 1" problem), and finally calls `process()`
+ * to process the item.
+ *
+ * In addition, it can also save (and restore of course) the internal state
+ * after each chunk that is especially useful for queued jobs to continue
+ * processing after error/timeout/stop signal/etc.
+ *
+ * Please note that while processing only `State` properties should be used. So
+ * if you need to pass some settings into {@see Processor::process()} you need
+ * extend the {@see \App\Utils\Processor\State} class with
+ * {@see Processor::restoreState()} and {@see Processor::defaultState()}.
+ *
+ * @internal Please extend one of subclasses instead.
+ *
+ * @see \App\Utils\Iterators\Contracts\ObjectIterator
+ * @see \App\Services\Queue\Concerns\ProcessorJob
+ *
  * @template TItem
  * @template TChunkData
  * @template TState of State
@@ -154,7 +178,67 @@ abstract class Processor implements ProcessorContract {
     /**
      * @param TState $state
      */
-    abstract protected function invoke(State $state): void;
+    protected function invoke(State $state): void {
+        $data     = null;
+        $sync     = static function (ObjectIterator $iterator) use ($state): void {
+            $state->index  = $iterator->getIndex();
+            $state->offset = $iterator->getOffset();
+        };
+        $iterator = $this->getIterator($state);
+        $iterator = $iterator
+            ->setIndex($state->index)
+            ->setLimit($state->limit)
+            ->setOffset($state->offset)
+            ->setChunkSize($this->getChunkSize())
+            ->onInit(static function () use ($iterator, $sync): void {
+                $sync($iterator);
+            })
+            ->onFinish(static function () use ($iterator, $sync): void {
+                $sync($iterator);
+            })
+            ->onBeforeChunk(function (array $items) use ($state, &$data): void {
+                $data = $this->prefetch($state, $items);
+
+                $this->chunkLoaded($state, $items, $data);
+            })
+            ->onAfterChunk(function (array $items) use ($iterator, $sync, $state, &$data): void {
+                $sync($iterator);
+
+                $this->chunkProcessed($state, $items, $data);
+
+                $data = null;
+            });
+
+        $this->init($state);
+
+        foreach ($iterator as $item) {
+            try {
+                $this->process($state, $data, $item);
+                $this->success($state, $item);
+            } catch (Throwable $exception) {
+                $this->failed($state, $item, $exception);
+            } finally {
+                $sync($iterator);
+            }
+        }
+
+        $this->finish($state);
+    }
+
+    /**
+     * @param TState       $state
+     * @param array<TItem> $items
+     *
+     * @return TChunkData
+     */
+    abstract protected function prefetch(State $state, array $items): mixed;
+
+    /**
+     * @param TState     $state
+     * @param TChunkData $data
+     * @param TItem      $item
+     */
+    abstract protected function process(State $state, mixed $data, mixed $item): void;
 
     /**
      * @param TItem|null $item
@@ -165,6 +249,13 @@ abstract class Processor implements ProcessorContract {
      * @param TState $state
      */
     abstract protected function getTotal(State $state): ?int;
+
+    /**
+     * @param TState $state
+     *
+     * @return ObjectIterator<TItem>
+     */
+    abstract protected function getIterator(State $state): ObjectIterator;
     // </editor-fold>
 
     // <editor-fold desc="Events">
