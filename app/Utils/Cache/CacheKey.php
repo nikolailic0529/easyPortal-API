@@ -24,6 +24,7 @@ use function json_encode;
 use function ksort;
 use function sha1;
 use function sort;
+use function str_replace;
 
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_LINE_TERMINATORS;
@@ -32,6 +33,8 @@ use const JSON_UNESCAPED_UNICODE;
 use const SORT_REGULAR;
 
 class CacheKey implements Stringable {
+    private const SEPARATOR = ':';
+
     /**
      * @var array<string>
      */
@@ -132,7 +135,7 @@ class CacheKey implements Stringable {
                 throw new CacheKeyInvalidCommand($value);
             }
 
-            $normalized = "\${$value->getName()}";
+            $normalized = str_replace(self::SEPARATOR, '-', "\${$value->getName()}");
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
         } elseif ($value instanceof JsonSerializable) {
@@ -166,6 +169,6 @@ class CacheKey implements Stringable {
      * @param array<string> $parts
      */
     protected function join(array $parts): string {
-        return implode(':', $parts);
+        return implode(self::SEPARATOR, $parts);
     }
 }

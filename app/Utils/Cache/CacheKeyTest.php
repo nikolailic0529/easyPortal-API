@@ -210,7 +210,7 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             Command::class                                => [
-                sha1(json_encode(['$tests:test-command'], JSON_THROW_ON_ERROR)),
+                sha1(json_encode(['$tests-test-command'], JSON_THROW_ON_ERROR)),
                 [
                     [
                         new CacheKeyTest_Command(),
