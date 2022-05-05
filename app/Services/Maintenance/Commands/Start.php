@@ -3,7 +3,7 @@
 namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\Maintenance;
-use App\Utils\Console\WithBooleanOptions;
+use App\Utils\Console\WithOptions;
 use App\Utils\Console\WithWait;
 use Carbon\CarbonInterval;
 use Illuminate\Console\Command;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Date;
 
 class Start extends Command {
     use WithWait;
-    use WithBooleanOptions;
+    use WithOptions;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -35,16 +35,16 @@ class Start extends Command {
 
     public function handle(Maintenance $maintenance): int {
         // Start
-        $duration = CarbonInterval::make($this->option('duration'));
-        $message  = $this->option('message');
+        $duration = CarbonInterval::make((string) $this->getStringOption('duration'));
+        $message  = $this->getStringOption('message');
         $end      = Date::now()->add($duration);
-        $force    = $this->getBooleanOption('force', false);
+        $force    = (bool) $this->getBoolOption('force', false);
         $result   = $maintenance->start($end, $message, $force);
 
         // Wait?
         if ($result && !$force) {
-            $wait    = $this->getBooleanOption('wait', true);
-            $timeout = (int) $this->option('wait-timeout');
+            $wait    = $this->getBoolOption('wait', true);
+            $timeout = $this->getIntOption('wait-timeout');
 
             if ($wait && $timeout > 0) {
                 $result = $this->wait($timeout, static function () use ($maintenance): bool {

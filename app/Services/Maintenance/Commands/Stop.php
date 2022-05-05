@@ -3,13 +3,13 @@
 namespace App\Services\Maintenance\Commands;
 
 use App\Services\Maintenance\Maintenance;
-use App\Utils\Console\WithBooleanOptions;
+use App\Utils\Console\WithOptions;
 use App\Utils\Console\WithWait;
 use Illuminate\Console\Command;
 
 class Stop extends Command {
     use WithWait;
-    use WithBooleanOptions;
+    use WithOptions;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -31,13 +31,13 @@ class Stop extends Command {
 
     public function handle(Maintenance $maintenance): int {
         // Start
-        $force  = $this->getBooleanOption('force', false);
+        $force  = (bool) $this->getBoolOption('force', false);
         $result = $maintenance->stop($force);
 
         // Wait?
         if ($result && !$force) {
-            $wait    = $this->getBooleanOption('wait', false);
-            $timeout = (int) $this->option('wait-timeout');
+            $wait    = $this->getBoolOption('wait', false);
+            $timeout = $this->getIntOption('wait-timeout');
 
             if ($wait && $timeout > 0) {
                 $result = $this->wait($timeout, static function () use ($maintenance): bool {

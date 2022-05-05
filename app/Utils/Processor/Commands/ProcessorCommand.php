@@ -4,6 +4,7 @@ namespace App\Utils\Processor\Commands;
 
 use App\Services\I18n\Formatter;
 use App\Services\Service;
+use App\Utils\Console\WithOptions;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Processor\Contracts\Processor;
@@ -29,6 +30,8 @@ use function time;
  * @template TProcessor of Processor
  */
 abstract class ProcessorCommand extends Command {
+    use WithOptions;
+
     public function __construct() {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr(
@@ -49,9 +52,7 @@ abstract class ProcessorCommand extends Command {
     protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
-        $chunk    = $this->hasOption('chunk')
-            ? (((int) $this->option('chunk')) ?: null)
-            : null;
+        $chunk    = $this->getIntOption('chunk');
 
         // Keys?
         if ($processor instanceof EloquentProcessor && $this->hasArgument('id')) {
@@ -81,16 +82,12 @@ abstract class ProcessorCommand extends Command {
         };
 
         if ($processor instanceof Limitable) {
-            $limit     = $this->hasOption('limit')
-                ? (((int) $this->option('limit')) ?: null)
-                : null;
+            $limit     = $this->getIntOption('limit');
             $processor = $processor->setLimit($limit);
         }
 
         if ($processor instanceof Offsetable) {
-            $offset    = $this->hasOption('offset')
-                ? ($this->option('offset') ?: null)
-                : null;
+            $offset    = $this->getStringOption('offset');
             $processor = $processor->setOffset($offset);
         }
 

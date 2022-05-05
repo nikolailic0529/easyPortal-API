@@ -14911,27 +14911,12 @@ parameters:
 			path: app/Services/Maintenance/Commands/Start.php
 
 		-
-			message: "#^Parameter \\#2 \\$message of method App\\\\Services\\\\Maintenance\\\\Maintenance\\:\\:start\\(\\) expects string\\|null, array\\|bool\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/Start.php
-
-		-
 			message: "#^Cannot call method diffInHours\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 3
 			path: app/Services/Maintenance/Commands/StartTest.php
 
 		-
 			message: "#^Cannot cast array\\|bool\\|string\\|null to string\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/VersionUpdate.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, array\\|string\\|true given\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/VersionUpdate.php
-
-		-
-			message: "#^Part \\$build \\(non\\-empty\\-array\\|non\\-empty\\-string\\|true\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/VersionUpdate.php
 
@@ -18172,11 +18157,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\Commands\\\\ProcessorCommand\\:\\:getProcessorClass\\(\\) should return class\\-string\\<TProcessor of App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\> but returns class\\-string\\<App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\>\\.$#"
-			count: 1
-			path: app/Utils/Processor/Commands/ProcessorCommand.php
-
-		-
-			message: "#^Parameter \\#1 \\$offset of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Offsetable\\:\\:setOffset\\(\\) expects int\\|string\\|null, array\\|string\\|true\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 

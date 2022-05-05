@@ -5,13 +5,13 @@ namespace App\Services\DataLoader\Commands;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
-use App\Utils\Console\WithBooleanOptions;
+use App\Utils\Console\WithOptions;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function array_unique;
 
 class UpdateReseller extends Update {
-    use WithBooleanOptions;
+    use WithOptions;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -43,8 +43,8 @@ class UpdateReseller extends Update {
 
     protected function makeLoader(Container $container): Loader {
         return $container->make(ResellerLoader::class)
-            ->setWithAssets($this->getBooleanOption('assets', false))
-            ->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true))
-            ->setWithDocuments($this->getBooleanOption('documents', false));
+            ->setWithAssets((bool) $this->getBoolOption('assets', false))
+            ->setWithAssetsDocuments((bool) $this->getBoolOption('assets-documents', true))
+            ->setWithDocuments((bool) $this->getBoolOption('documents', false));
     }
 }

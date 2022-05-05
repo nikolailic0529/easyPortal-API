@@ -5,13 +5,13 @@ namespace App\Services\DataLoader\Commands;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader\Loader;
 use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
-use App\Utils\Console\WithBooleanOptions;
+use App\Utils\Console\WithOptions;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function array_unique;
 
 class UpdateDistributor extends Update {
-    use WithBooleanOptions;
+    use WithOptions;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

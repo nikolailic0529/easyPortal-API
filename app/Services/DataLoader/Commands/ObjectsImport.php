@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\I18n\Formatter;
-use App\Utils\Console\WithBooleanOptions;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Support\Facades\Date;
@@ -16,8 +15,6 @@ use function array_merge;
  * @extends ProcessorCommand<TProcessor>
  */
 abstract class ObjectsImport extends ProcessorCommand {
-    use WithBooleanOptions;
-
     /**
      * @inheritDoc
      */
@@ -30,8 +27,8 @@ abstract class ObjectsImport extends ProcessorCommand {
     }
 
     protected function process(Formatter $formatter, Processor $processor): int {
-        $from      = $this->hasOption('from') ? Date::make($this->option('from')) : null;
-        $update    = $this->getBooleanOption('update', true);
+        $from      = $this->getDateTimeOption('from');
+        $update    = (bool) $this->getBoolOption('update', true);
         $processor = $processor
             ->setUpdate($update)
             ->setFrom($from);

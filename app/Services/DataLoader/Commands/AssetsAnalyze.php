@@ -15,6 +15,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewCompany;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Utils\Console\WithOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Console\Command;
@@ -32,6 +33,8 @@ use function str_pad;
 use const STR_PAD_LEFT;
 
 class AssetsAnalyze extends Command {
+    use WithOptions;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -70,10 +73,10 @@ class AssetsAnalyze extends Command {
         }
 
         // Continue?
-        $chunk  = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
+        $chunk  = $this->getIntOption('chunk') ?: $config->get('ep.data_loader.chunk');
         $lastId = null;
 
-        if ($this->option('continue')) {
+        if ($this->getBoolOption('continue')) {
             $lastId = AnalyzeAsset::query()->orderByDesc('created_at')->first()?->getKey();
         }
 

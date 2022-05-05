@@ -5,6 +5,7 @@ namespace App\Services\Maintenance\Commands;
 use App\Services\Maintenance\ApplicationInfo;
 use App\Services\Maintenance\Events\VersionUpdated;
 use App\Services\Maintenance\Utils\SemanticVersion;
+use App\Utils\Console\WithOptions;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Filesystem\Filesystem;
@@ -16,6 +17,8 @@ use function trim;
 use function var_export;
 
 class VersionUpdate extends Command {
+    use WithOptions;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -40,8 +43,8 @@ class VersionUpdate extends Command {
         $previous = $info->getVersion();
         $version  = ltrim(trim((string) $this->argument('version')), 'v.');
         $version  = new SemanticVersion(($version ?: $previous) ?? '0.0.0');
-        $commit   = $this->option('commit') ?: null;
-        $build    = $this->option('build') ?: null;
+        $commit   = $this->getStringOption('commit') ?: null;
+        $build    = $this->getStringOption('build') ?: null;
         $meta     = null;
 
         if ($commit !== null) {
