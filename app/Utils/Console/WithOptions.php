@@ -4,7 +4,6 @@ namespace App\Utils\Console;
 
 use DateTimeInterface;
 use Illuminate\Console\Command;
-
 use Illuminate\Support\Facades\Date;
 
 use function filter_var;

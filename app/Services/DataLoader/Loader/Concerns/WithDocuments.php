@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
-use App\Services\DataLoader\Importer\Importers\DocumentsIteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Documents\Importer;
+use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
@@ -50,7 +50,7 @@ trait WithDocuments {
 
         $this
             ->getContainer()
-            ->make(DocumentsIteratorImporter::class)
+            ->make(IteratorImporter::class)
             ->setIterator($iterator)
             ->setFrom(null)
             ->setLimit(null)
@@ -64,7 +64,7 @@ trait WithDocuments {
     /**
      * @param TOwner $owner
      */
-    abstract protected function getDocumentsImporter(Model $owner): DocumentsImporter;
+    abstract protected function getDocumentsImporter(Model $owner): Importer;
 
     /**
      * @param TOwner $owner

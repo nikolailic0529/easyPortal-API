@@ -4,11 +4,8 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Importer\Importers\AssetsImporter;
-use App\Services\DataLoader\Importer\Importers\CustomerAssetsImporter;
-use App\Services\DataLoader\Importer\Importers\CustomerDocumentsImporter;
-use App\Services\DataLoader\Importer\Importers\CustomerDocumentsImporterState;
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter;
 use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Schema\Type;
@@ -46,21 +43,16 @@ class CustomerLoader extends CompanyLoader {
     // =========================================================================
     protected function getAssetsImporter(Model $owner): AssetsImporter {
         return $this->getContainer()
-            ->make(CustomerAssetsImporter::class)
+            ->make(AssetsImporter::class)
             ->setCustomerId($owner->getKey());
     }
     // </editor-fold>
 
     // <editor-fold desc="WithDocuments">
     // =========================================================================
-    /**
-     * @param TOwner $owner
-     *
-     * @return DocumentsImporter<CustomerDocumentsImporterState>
-     */
     protected function getDocumentsImporter(Model $owner): DocumentsImporter {
         return $this->getContainer()
-            ->make(CustomerDocumentsImporter::class)
+            ->make(DocumentsImporter::class)
             ->setCustomerId($owner->getKey());
     }
     // </editor-fold>

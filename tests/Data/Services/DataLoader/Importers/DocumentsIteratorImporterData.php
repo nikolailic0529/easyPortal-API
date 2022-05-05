@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Document;
-use App\Services\DataLoader\Importer\Importers\DocumentsIteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
@@ -35,7 +35,7 @@ class DocumentsIteratorImporterData extends DocumentsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(DocumentsIteratorImporter::class)
+            $this->app->make(IteratorImporter::class)
                 ->setIterator(static::getIterator())
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)

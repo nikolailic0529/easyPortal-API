@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importers\AssetsImporter;
-use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Assets\Importer;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
@@ -62,7 +62,7 @@ trait WithAssets {
 
         $this
             ->getContainer()
-            ->make(AssetsIteratorImporter::class)
+            ->make(IteratorImporter::class)
             ->setIterator($iterator)
             ->setFrom(null)
             ->setLimit(null)
@@ -76,7 +76,7 @@ trait WithAssets {
     /**
      * @param TOwner $owner
      */
-    abstract protected function getAssetsImporter(Model $owner): AssetsImporter;
+    abstract protected function getAssetsImporter(Model $owner): Importer;
 
     /**
      * @param TOwner $owner

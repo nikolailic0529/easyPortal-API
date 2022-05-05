@@ -4,10 +4,8 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Importer\Importers\AssetsImporter;
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
-use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
-use App\Services\DataLoader\Importer\Importers\ResellerDocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter;
 use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
@@ -41,7 +39,7 @@ class ResellerLoader extends CompanyLoader {
     // =========================================================================
     protected function getAssetsImporter(Model $owner): AssetsImporter {
         return $this->getContainer()
-            ->make(ResellerAssetsImporter::class)
+            ->make(AssetsImporter::class)
             ->setResellerId($owner->getKey());
     }
     // </editor-fold>
@@ -50,7 +48,7 @@ class ResellerLoader extends CompanyLoader {
     // =========================================================================
     protected function getDocumentsImporter(Model $owner): DocumentsImporter {
         return $this->getContainer()
-            ->make(ResellerDocumentsImporter::class)
+            ->make(DocumentsImporter::class)
             ->setResellerId($owner->getKey());
     }
     // </editor-fold>

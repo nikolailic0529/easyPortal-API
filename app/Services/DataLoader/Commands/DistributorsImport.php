@@ -2,14 +2,14 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importer\Importers\DistributorsImporter;
+use App\Services\DataLoader\Importer\Importers\Distributors\Importer;
 use App\Services\I18n\Formatter;
 
 /**
- * @extends ObjectsImport<DistributorsImporter>
+ * @extends ObjectsImport<Importer>
  */
 class DistributorsImport extends ObjectsImport {
-    public function __invoke(Formatter $formatter, DistributorsImporter $importer): int {
+    public function __invoke(Formatter $formatter, Importer $importer): int {
         return $this->process($formatter, $importer);
     }
 }

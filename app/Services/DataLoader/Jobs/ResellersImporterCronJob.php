@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\ResellersImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\Importer;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Imports resellers.
  *
- * @extends ImporterCronJob<ResellersImporter>
+ * @extends ImporterCronJob<\App\Services\DataLoader\Importer\Importers\Resellers\Importer>
  */
 class ResellersImporterCronJob extends ImporterCronJob {
     public function displayName(): string {
@@ -31,6 +31,6 @@ class ResellersImporterCronJob extends ImporterCronJob {
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(ResellersImporter::class);
+        return $container->make(Importer::class);
     }
 }

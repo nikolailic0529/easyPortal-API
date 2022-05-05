@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\CustomerDocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 
 class CustomerDocumentsImporterData extends DocumentsData {
@@ -12,7 +12,7 @@ class CustomerDocumentsImporterData extends DocumentsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(CustomerDocumentsImporter::class)
+            $this->app->make(DocumentsImporter::class)
                 ->setCustomerId(static::CUSTOMER)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)

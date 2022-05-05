@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Utils\Iterators\ObjectsIterator;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -36,7 +36,7 @@ class AssetSyncTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock) use ($asset): void {
+        $this->override(IteratorImporter::class, static function (MockInterface $mock) use ($asset): void {
             $mock
                 ->shouldReceive('setIterator')
                 ->withArgs(static function (ObjectsIterator $iterator) use ($asset): bool {
@@ -87,7 +87,7 @@ class AssetSyncTest extends TestCase {
                 ->andThrow($exception);
         });
 
-        $this->override(AssetsIteratorImporter::class, static function (MockInterface $mock): void {
+        $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('setIterator')
                 ->once()
