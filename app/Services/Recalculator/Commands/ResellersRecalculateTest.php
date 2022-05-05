@@ -26,7 +26,7 @@ class ResellersRecalculateTest extends TestCase {
             $mock->shouldAllowMockingProtectedMethods();
             $mock->makePartial();
             $mock
-                ->shouldReceive('run')
+                ->shouldReceive('invoke')
                 ->once()
                 ->andReturns();
 
