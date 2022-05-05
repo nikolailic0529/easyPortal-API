@@ -17656,11 +17656,6 @@ parameters:
 			path: app/Utils/Cache/CacheKeyTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function sha1 expects string, string\\|false given\\.$#"
-			count: 8
-			path: app/Utils/Cache/CacheKeyTest.php
-
-		-
 			message: "#^Property App\\\\Utils\\\\Cache\\\\CacheKeyTest_Model\\:\\:\\$id \\(string\\) does not accept int\\|string\\|null\\.$#"
 			count: 1
 			path: app/Utils/Cache/CacheKeyTest.php

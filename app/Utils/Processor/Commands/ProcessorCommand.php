@@ -16,6 +16,7 @@ use LogicException;
 use ReflectionClass;
 use ReflectionNamedType;
 use Symfony\Component\Console\Helper\ProgressBar;
+
 use function array_unique;
 use function floor;
 use function implode;
@@ -25,6 +26,8 @@ use function memory_get_usage;
 use function sprintf;
 use function strtr;
 use function time;
+
+use const PHP_EOL;
 
 /**
  * @template TProcessor of Processor
@@ -52,7 +55,12 @@ abstract class ProcessorCommand extends Command {
     protected function process(Formatter $formatter, Processor $processor): int {
         // Prepare
         $progress = $this->output->createProgressBar();
+        $service  = $this->getService();
         $chunk    = $this->getIntOption('chunk');
+        $state    = $this->getStringOption('state') ?: Str::uuid()->toString();
+        $store    = $service
+            ? new ProcessorStateStore($service, $this, $state)
+            : null;
 
         // Keys?
         if ($processor instanceof EloquentProcessor && $this->hasArgument('id')) {
@@ -63,20 +71,20 @@ abstract class ProcessorCommand extends Command {
         // Style
         // [▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   3%
         // ! 999:99:99 T: 115 000 000 P:   5 000 000 S:   5 000 000 F:         123
-        // ~ 000:25:15 M:  143.05 MiB O:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
+        // ~ 000:25:15 M:  143.05 MiB S:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
         $progress->setBarWidth(64 - 3);
-        $progress->setFormat(implode("\n", [
+        $progress->setFormat(implode(PHP_EOL, [
             '[%bar%] %progress:6.6s%%',
             '! %time-elapsed:9.9s% T: %state-total:11.11s% P: %state-processed:11.11s% S: <info>%state-success:11.11s%</info> F: <comment>%state-failed:11.11s%</comment>', // @phpcs:ignore Generic.Files.LineLength.TooLong
-            '~ %time-remaining:9.9s% M: %usage-memory:11.11s% O: %state-offset:41s%',
+            '~ %time-remaining:9.9s% M: %usage-memory:11.11s% S: %state-uuid:41s%',
         ]));
 
         $this->describeProgressBar($formatter, $progress);
         $progress->start();
 
         // Process
-        $sync = function (State $state) use ($formatter, $progress): void {
-            $this->updateProgressBar($formatter, $progress, $state);
+        $sync = function (State $state) use ($formatter, $progress, $store): void {
+            $this->updateProgressBar($formatter, $progress, $store, $state);
 
             $progress->setProgress($state->processed);
         };
@@ -92,17 +100,19 @@ abstract class ProcessorCommand extends Command {
         }
 
         $processor
+            ->setStore($store)
             ->setChunkSize($chunk)
-            ->onInit(function (State $state) use ($formatter, $progress): void {
+            ->onInit(static function (State $state) use ($progress, $sync): void {
                 if ($state->total !== null) {
                     $progress->setMaxSteps(max($state->total, $state->processed));
                 }
 
-                $this->updateProgressBar($formatter, $progress, $state);
+                $sync($state);
+
                 $progress->display();
             })
-            ->onFinish(function (State $state) use ($formatter, $progress): void {
-                $this->updateProgressBar($formatter, $progress, $state);
+            ->onFinish(static function (State $state) use ($progress, $sync): void {
+                $sync($state);
 
                 $progress->finish();
             })
@@ -163,11 +173,12 @@ abstract class ProcessorCommand extends Command {
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
-            '{--chunk=  : chunk size}',
+            '{--state= : initial state, allows continue processing (will overwrite other options)}',
+            '{--chunk= : chunk size}',
         ];
 
         if (is_a($processor, Limitable::class, true)) {
-            $signature[] = '{--limit=  : max ${objects} to process}';
+            $signature[] = '{--limit= : max ${objects} to process}';
         }
 
         if (is_a($processor, Offsetable::class, true)) {
@@ -209,7 +220,12 @@ abstract class ProcessorCommand extends Command {
         return $processor;
     }
 
-    private function updateProgressBar(Formatter $formatter, ProgressBar $progress, State $state): void {
+    private function updateProgressBar(
+        Formatter $formatter,
+        ProgressBar $progress,
+        ?ProcessorStateStore $store,
+        State $state,
+    ): void {
         $progress->setMessage(
             $progress->getMaxSteps()
                 ? $formatter->decimal($progress->getProgressPercent() * 100, 2)
@@ -249,8 +265,8 @@ abstract class ProcessorCommand extends Command {
             'state-failed',
         );
         $progress->setMessage(
-            (string) ($state->offset ?? '?'),
-            'state-offset',
+            $store ? $store->getUuid() : 'unavailable',
+            'state-uuid',
         );
     }
 
@@ -263,7 +279,14 @@ abstract class ProcessorCommand extends Command {
         $progress->setMessage('processed', 'state-processed');
         $progress->setMessage('success', 'state-success');
         $progress->setMessage('failed', 'state-failed');
-        $progress->setMessage('offset', 'state-offset');
+        $progress->setMessage('state', 'state-uuid');
+    }
+
+    protected function getService(): ?Service {
+        $class   = Service::getService($this);
+        $service = $class ? $this->laravel->make($class) : null;
+
+        return $service;
     }
 
     private function duration(int|float $duration): string {
