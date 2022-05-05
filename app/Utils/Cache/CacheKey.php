@@ -5,6 +5,7 @@ namespace App\Utils\Cache;
 use App\Services\I18n\Locale;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
@@ -126,6 +127,12 @@ class CacheKey implements Stringable {
         } elseif ($value instanceof Geohash) {
             $normalized = $value->getGeohash()
                 ?: (new Geohash())->encode($value->getCoordinate())->getGeohash();
+        } elseif ($value instanceof Command) {
+            if (!$value->getName()) {
+                throw new CacheKeyInvalidCommand($value);
+            }
+
+            $normalized = "\${$value->getName()}";
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
         } elseif ($value instanceof JsonSerializable) {
