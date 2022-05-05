@@ -3,10 +3,12 @@
 namespace App\Utils\Iterators\Eloquent;
 
 use App\Utils\Iterators\OffsetBasedObjectIterator;
+use Countable;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 
 use function array_slice;
+use function count;
 
 /**
  * Special iterator to iterate Models by the given hundreds and thousands of keys.
@@ -22,7 +24,7 @@ use function array_slice;
  *
  * @extends OffsetBasedObjectIterator<T,V>
  */
-class ModelsIterator extends OffsetBasedObjectIterator {
+class ModelsIterator extends OffsetBasedObjectIterator implements Countable {
     /**
      * @param Builder<T>    $builder
      * @param array<int, V> $keys
@@ -55,5 +57,9 @@ class ModelsIterator extends OffsetBasedObjectIterator {
         }
 
         return $models;
+    }
+
+    public function count(): int {
+        return count($this->keys);
     }
 }
