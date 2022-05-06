@@ -1,0 +1,38 @@
+[
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": {
+            "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
+            "e90e1a1d-2e93-4517-bd5b-2d06818a2386": "e90e1a1d-2e93-4517-bd5b-2d06818a2386",
+            "cf631192-5051-4bfe-bcf2-f99fb686fc01": "cf631192-5051-4bfe-bcf2-f99fb686fc01",
+            "ec4deedf-b1b5-48f7-9733-39888a98dc78": "ec4deedf-b1b5-48f7-9733-39888a98dc78",
+            "8d57c955-b4d7-49a6-88fc-19b01f1af242": "8d57c955-b4d7-49a6-88fc-19b01f1af242"
+        },
+        "App\\Models\\Customer": {
+            "06502d97-fa26-42cc-9478-34fbc1910b71": "06502d97-fa26-42cc-9478-34fbc1910b71",
+            "fd865591-18fc-4278-9c35-000e761d49d9": "fd865591-18fc-4278-9c35-000e761d49d9",
+            "cc5799fa-e7c3-4a47-b879-e5f731a7ed8f": "cc5799fa-e7c3-4a47-b879-e5f731a7ed8f",
+            "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0": "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
+            "ca3fd926-367d-4690-bde9-e895916ab4df": "ca3fd926-367d-4690-bde9-e895916ab4df",
+            "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8": "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8",
+            "3125937c-24bf-46ad-97c5-0727cb3b76bd": "3125937c-24bf-46ad-97c5-0727cb3b76bd",
+            "f67c0662-4715-4807-a5fb-807d75d5c92d": "f67c0662-4715-4807-a5fb-807d75d5c92d",
+            "9ed7937c-537c-460f-abc4-d167aab8c28c": "9ed7937c-537c-460f-abc4-d167aab8c28c",
+            "ada5cb92-2351-4b09-9502-7f767805b2f3": "ada5cb92-2351-4b09-9502-7f767805b2f3"
+        },
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": {
+            "4cfda0b4-c7dd-507d-acc4-e50faf3b9f2a": "4cfda0b4-c7dd-507d-acc4-e50faf3b9f2a",
+            "f340b061-673a-51e4-852d-7b5ad0890007": "f340b061-673a-51e4-852d-7b5ad0890007",
+            "2e658546-4562-5360-9c20-85dc08b87d72": "2e658546-4562-5360-9c20-85dc08b87d72",
+            "65446106-3c0e-5b2f-9c34-6c1de45568b2": "65446106-3c0e-5b2f-9c34-6c1de45568b2",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409": "344693f4-0971-56a2-87a7-66c9fb1fb409",
+            "9603af0b-719e-56f6-af9a-1ee488663ffb": "9603af0b-719e-56f6-af9a-1ee488663ffb",
+            "b1ab1a05-2e29-530b-ba66-655c10388bd0": "b1ab1a05-2e29-530b-ba66-655c10388bd0",
+            "059ff0a8-1ed6-5be6-a9c2-97d6e2b80bd2": "059ff0a8-1ed6-5be6-a9c2-97d6e2b80bd2",
+            "010c4acf-ab04-532e-9afc-20fbc7ec064c": "010c4acf-ab04-532e-9afc-20fbc7ec064c",
+            "03edb6d3-94f8-5ae9-b6bd-a6a76ffa5218": "03edb6d3-94f8-5ae9-b6bd-a6a76ffa5218"
+        },
+        "App\\Models\\Asset": []
+    }
+]
