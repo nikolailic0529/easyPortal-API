@@ -19,11 +19,11 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @template TState of AbstractImporterState
+ * @template TState of BaseImporterState
  *
- * @extends Importer<Company, AbstractImporterChunkData, TState, Customer>
+ * @extends Importer<Company, BaseImporterChunkData, TState, Customer>
  */
-abstract class AbstractImporter extends Importer {
+abstract class BaseImporter extends Importer {
     protected function register(): void {
         $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
     }
@@ -32,7 +32,7 @@ abstract class AbstractImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data      = new AbstractImporterChunkData($items);
+        $data      = new BaseImporterChunkData($items);
         $contacts  = $this->getContainer()->make(ContactResolver::class);
         $locations = $this->getContainer()->make(LocationResolver::class);
 
@@ -75,7 +75,7 @@ abstract class AbstractImporter extends Importer {
      * @inheritDoc
      */
     protected function restoreState(array $state): State {
-        return new AbstractImporterState($state);
+        return new BaseImporterState($state);
     }
     // </editor-fold>
 }

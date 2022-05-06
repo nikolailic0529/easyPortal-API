@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
-use App\Services\DataLoader\Importer\Importers\Documents\AbstractImporterState;
+use App\Services\DataLoader\Importer\Importers\Documents\BaseImporterState;
 
-class DocumentsImporterState extends AbstractImporterState {
+class DocumentsImporterState extends BaseImporterState {
     public string $customerId;
 }

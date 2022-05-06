@@ -3,16 +3,16 @@
 namespace App\Services\DataLoader\Importer\Importers\Resellers;
 
 use App\Services\DataLoader\Importer\Concerns\WithReseller;
-use App\Services\DataLoader\Importer\Importers\Documents\AbstractImporter;
+use App\Services\DataLoader\Importer\Importers\Documents\BaseImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 use function array_merge;
 
 /**
- * @extends AbstractImporter<DocumentsImporterState>
+ * @extends BaseImporter<DocumentsImporterState>
  */
-class DocumentsImporter extends AbstractImporter {
+class DocumentsImporter extends BaseImporter {
     use WithReseller;
 
     // <editor-fold desc="Importer">

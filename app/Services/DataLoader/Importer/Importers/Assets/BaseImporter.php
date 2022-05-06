@@ -31,11 +31,11 @@ use Illuminate\Database\Eloquent\Collection;
 use function array_merge;
 
 /**
- * @template TState of AbstractImporterState
+ * @template TState of BaseImporterState
  *
  * @extends Importer<ViewAsset, ImporterChunkData, TState, Asset>
  */
-abstract class AbstractImporter extends Importer {
+abstract class BaseImporter extends Importer {
     private bool $withDocuments = true;
 
     // <editor-fold desc="Getters / Setters">
@@ -133,7 +133,7 @@ abstract class AbstractImporter extends Importer {
      * @inheritDoc
      */
     protected function restoreState(array $state): State {
-        return new AbstractImporterState($state);
+        return new BaseImporterState($state);
     }
 
     /**

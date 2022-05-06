@@ -7,9 +7,9 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 /**
- * @extends AbstractImporter<AbstractImporterState>
+ * @extends BaseImporter<BaseImporterState>
  */
-class Importer extends AbstractImporter {
+class Importer extends BaseImporter {
     use WithFrom;
 
     protected function getIterator(State $state): ObjectIterator {

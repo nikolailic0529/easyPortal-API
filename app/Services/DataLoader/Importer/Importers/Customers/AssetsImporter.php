@@ -4,16 +4,16 @@ namespace App\Services\DataLoader\Importer\Importers\Customers;
 
 use App\Services\DataLoader\Importer\Concerns\WithCustomer;
 use App\Services\DataLoader\Importer\Concerns\WithFrom;
-use App\Services\DataLoader\Importer\Importers\Assets\AbstractImporter;
+use App\Services\DataLoader\Importer\Importers\Assets\BaseImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 use function array_merge;
 
 /**
- * @extends AbstractImporter<AssetsImporterState>
+ * @extends BaseImporter<AssetsImporterState>
  */
-class AssetsImporter extends AbstractImporter {
+class AssetsImporter extends BaseImporter {
     use WithFrom;
     use WithCustomer;
 

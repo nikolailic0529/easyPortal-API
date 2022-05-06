@@ -27,11 +27,11 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @template TState of AbstractImporterState
+ * @template TState of BaseImporterState
  *
  * @extends Importer<SchemaDocument, ImporterChunkData, TState, Document>
  */
-abstract class AbstractImporter extends Importer {
+abstract class BaseImporter extends Importer {
     protected function register(): void {
         $this->getContainer()->bind(DistributorFinder::class, DistributorLoaderFinder::class);
         $this->getContainer()->bind(ResellerFinder::class, ResellerLoaderFinder::class);
@@ -89,7 +89,7 @@ abstract class AbstractImporter extends Importer {
      * @inheritDoc
      */
     protected function restoreState(array $state): State {
-        return new AbstractImporterState($state);
+        return new BaseImporterState($state);
     }
     // </editor-fold>
 }

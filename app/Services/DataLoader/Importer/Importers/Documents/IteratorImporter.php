@@ -7,11 +7,11 @@ use App\Services\DataLoader\Schema\Document;
 use App\Utils\Processor\State;
 
 /**
- * @extends AbstractImporter<AbstractImporterState>
+ * @extends BaseImporter<BaseImporterState>
  */
-class IteratorImporter extends AbstractImporter {
+class IteratorImporter extends BaseImporter {
     /**
-     * @use WithIterator<\App\Models\Document, Document, AbstractImporterState>
+     * @use WithIterator<\App\Models\Document, Document, BaseImporterState>
      */
     use WithIterator;
 
@@ -20,7 +20,7 @@ class IteratorImporter extends AbstractImporter {
     }
 
     /**
-     * @param AbstractImporterState $state
+     * @param BaseImporterState $state
      *
      * @return Document|null
      */

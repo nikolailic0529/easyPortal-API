@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Resellers;
 
-use App\Services\DataLoader\Importer\Importers\Assets\AbstractImporterState;
+use App\Services\DataLoader\Importer\Importers\Assets\BaseImporterState;
 
-class AssetsImporterState extends AbstractImporterState {
+class AssetsImporterState extends BaseImporterState {
     public string $resellerId;
 }

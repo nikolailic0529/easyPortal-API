@@ -4,6 +4,6 @@ namespace App\Services\DataLoader\Importer\Importers\Documents;
 
 use App\Services\DataLoader\Importer\ImporterState;
 
-class AbstractImporterState extends ImporterState {
+class BaseImporterState extends ImporterState {
     // empty
 }

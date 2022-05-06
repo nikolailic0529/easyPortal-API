@@ -15,7 +15,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 /**
- * @extends AbstractImporter<Company, AbstractImporterChunkData, ImporterState, Distributor>
+ * @extends AbstractImporter<Company, BaseImporterChunkData, ImporterState, Distributor>
  */
 class Importer extends AbstractImporter {
     use WithFrom;
@@ -28,7 +28,7 @@ class Importer extends AbstractImporter {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data = new AbstractImporterChunkData($items);
+        $data = new BaseImporterChunkData($items);
 
         $this->getContainer()
             ->make(DistributorResolver::class)
