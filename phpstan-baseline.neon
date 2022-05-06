@@ -12126,6 +12126,11 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporterState\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/BaseImporter.php
+
+		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
@@ -12159,6 +12164,56 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
+
+		-
+			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
+
+		-
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
+
+		-
+			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState\\.$#"
@@ -18489,6 +18544,11 @@ parameters:
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\CustomersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/CustomersIteratorImporterData.php
+
+		-
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DistributorsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Importers/DistributorsIteratorImporterData.php
 
 		-
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
