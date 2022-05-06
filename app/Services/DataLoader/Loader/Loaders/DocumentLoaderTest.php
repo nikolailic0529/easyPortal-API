@@ -9,7 +9,6 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
@@ -48,12 +47,12 @@ class DocumentLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DocumentLoader::class);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(DocumentLoaderCreate::DOCUMENT);
+        $this->app->make(DocumentLoader::class)
+            ->setObjectId(DocumentLoaderCreate::DOCUMENT)
+            ->start();
 
         self::assertQueryLogEquals('~create-cold.json', $queries);
         self::assertModelsCount([
@@ -75,12 +74,12 @@ class DocumentLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DocumentLoader::class);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(DocumentLoaderCreate::DOCUMENT);
+        $this->app->make(DocumentLoader::class)
+            ->setObjectId(DocumentLoaderCreate::DOCUMENT)
+            ->start();
 
         self::assertQueryLogEquals('~create-hot.json', $queries);
         self::assertDispatchedEventsEquals(

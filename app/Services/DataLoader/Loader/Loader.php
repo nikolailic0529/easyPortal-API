@@ -2,36 +2,32 @@
 
 namespace App\Services\DataLoader\Loader;
 
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Container\Isolated;
-use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Importer\ImporterChunkData;
-use App\Services\DataLoader\Schema\Type;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\Model;
+use App\Utils\Processor\CompositeProcessor;
+use App\Utils\Processor\State;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Date;
+
+use function array_merge;
 
 /**
- * Load data from API and create app's objects. You must use
- * {@link \App\Services\DataLoader\Container\Container} to obtain instance.
+ * Load data from API and create app's objects.
  *
- * @internal
+ * @template TState of \App\Services\DataLoader\Loader\LoaderState
+ *
+ * @extends CompositeProcessor<TState>
  */
-abstract class Loader implements Isolated {
+abstract class Loader extends CompositeProcessor {
+    private string $objectId;
+
     public function __construct(
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
         protected Container $container,
-        protected ExceptionHandler $exceptionHandler,
-        protected Dispatcher $dispatcher,
-        protected Client $client,
-        protected Collector $collector,
     ) {
-        // empty
+        parent::__construct($exceptionHandler, $dispatcher);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -40,63 +36,39 @@ abstract class Loader implements Isolated {
         return $this->container;
     }
 
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
+    public function getObjectId(): string {
+        return $this->objectId;
     }
 
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
-    }
+    public function setObjectId(string $objectId): static {
+        $this->objectId = $objectId;
 
-    protected function getClient(): Client {
-        return $this->client;
-    }
-
-    protected function getCollector(): Collector {
-        return $this->collector;
+        return $this;
     }
     // </editor-fold>
 
     // <editor-fold desc="Abstract">
     // =========================================================================
-    abstract protected function getObjectById(string $id): ?Type;
-
-    abstract protected function getObjectFactory(): ModelFactory;
-
     abstract protected function getModelNotFoundException(string $id): Exception;
     // </editor-fold>
 
-    // <editor-fold desc="Load">
+    // <editor-fold desc="State">
     // =========================================================================
-    public function create(string $id): ?Model {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($id): ?Model {
-            // Object
-            $object = $this->getObjectById($id);
-
-            if (!$object) {
-                throw $this->getModelNotFoundException($id);
-            }
-
-            // Subscribe
-            $data = new ImporterChunkData([$object]);
-
-            $this->getCollector()->subscribe($data);
-
-            // Process
-            try {
-                $model = $this->process($object);
-            } finally {
-                $this->getDispatcher()->dispatch(
-                    new DataImported($data),
-                );
-            }
-
-            return $model;
-        });
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new LoaderState($state);
     }
 
-    protected function process(Type $object): ?Model {
-        return $this->getObjectFactory()->create($object);
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'objectId' => $this->getObjectId(),
+            'started'  => Date::now(),
+        ]);
     }
     // </editor-fold>
 }

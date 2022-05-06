@@ -3,24 +3,28 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter as CustomerAssetsImporter;
 use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter as ResellerAssetsImporter;
+use App\Services\DataLoader\Loader\CompanyLoaderState;
 use App\Services\DataLoader\Loader\Loader;
-use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
-use DateTimeInterface;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\EmptyProcessor;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Date;
 
 /**
- * @template TOwner of \App\Utils\Eloquent\Model
+ * @template TState of \App\Services\DataLoader\Loader\CompanyLoaderState
  *
  * @mixin Loader
  */
 trait WithAssets {
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
+
+    abstract protected function getContainer(): Container;
 
     public function isWithAssets(): bool {
         return $this->withAssets;
@@ -43,44 +47,54 @@ trait WithAssets {
     }
 
     /**
-     * @param TOwner $owner
+     * @return array<int, CompositeOperation<TState>>
      */
-    protected function loadAssets(Model $owner): bool {
-        // Update assets
-        $date = Date::now();
+    protected function getAssetsOperations(): array {
+        return [
+            new CompositeOperation(
+                'Assets update',
+                function (CompanyLoaderState $state): Processor {
+                    if (!$state->withAssets) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
 
-        $this
-            ->getAssetsImporter($owner)
-            ->setWithDocuments($this->isWithAssetsDocuments())
-            ->setLimit(null)
-            ->setChunkSize(null)
-            ->start();
+                    return $this
+                        ->getAssetsImporter($state)
+                        ->setCustomerId($state->objectId)
+                        ->setWithDocuments($state->withAssetsDocuments);
+                },
+            ),
+            new CompositeOperation(
+                'Outdated Assets update',
+                function (CompanyLoaderState $state): Processor {
+                    if (!$state->withAssets) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
 
-        // Update missed
-        $iterator = $this->getMissedAssets($owner, $date)->getChangeSafeIterator();
-        $iterator = new EloquentIterator($iterator);
+                    $iterator  = $this->getMissedAssets($state)->getChangeSafeIterator();
+                    $iterator  = new EloquentIterator($iterator);
+                    $processor = $this
+                        ->getContainer()
+                        ->make(IteratorImporter::class)
+                        ->setIterator($iterator);
 
-        $this
-            ->getContainer()
-            ->make(IteratorImporter::class)
-            ->setIterator($iterator)
-            ->setLimit(null)
-            ->setChunkSize(null)
-            ->start();
-
-        // Return
-        return true;
+                    return $processor;
+                },
+            ),
+        ];
     }
 
     /**
-     * @param TOwner $owner
+     * @param TState $state
      */
-    abstract protected function getAssetsImporter(Model $owner): ResellerAssetsImporter|CustomerAssetsImporter;
+    abstract protected function getAssetsImporter(
+        CompanyLoaderState $state,
+    ): ResellerAssetsImporter|CustomerAssetsImporter;
 
     /**
-     * @param TOwner $owner
+     * @param TState $state
      *
      * @return Builder<Asset>
      */
-    abstract protected function getMissedAssets(Model $owner, DateTimeInterface $datetime): Builder;
+    abstract protected function getMissedAssets(CompanyLoaderState $state): Builder;
 }

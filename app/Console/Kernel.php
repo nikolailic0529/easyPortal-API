@@ -12,11 +12,11 @@ use App\Services\DataLoader\Commands\DistributorsImport;
 use App\Services\DataLoader\Commands\DocumentsImport;
 use App\Services\DataLoader\Commands\OemsImport;
 use App\Services\DataLoader\Commands\ResellersImport;
-use App\Services\DataLoader\Commands\UpdateAsset;
-use App\Services\DataLoader\Commands\UpdateCustomer;
-use App\Services\DataLoader\Commands\UpdateDistributor;
-use App\Services\DataLoader\Commands\UpdateDocument;
-use App\Services\DataLoader\Commands\UpdateReseller;
+use App\Services\DataLoader\Commands\AssetUpdate;
+use App\Services\DataLoader\Commands\CustomerUpdate;
+use App\Services\DataLoader\Commands\DistributorUpdate;
+use App\Services\DataLoader\Commands\DocumentUpdate;
+use App\Services\DataLoader\Commands\ResellerUpdate;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
@@ -52,11 +52,11 @@ class Kernel extends ConsoleKernel {
         DocumentsImport::class,
         AssetsImport::class,
         OemsImport::class,
-        UpdateDistributor::class,
-        UpdateReseller::class,
-        UpdateCustomer::class,
-        UpdateDocument::class,
-        UpdateAsset::class,
+        DistributorUpdate::class,
+        ResellerUpdate::class,
+        CustomerUpdate::class,
+        DocumentUpdate::class,
+        AssetUpdate::class,
         AssetsCount::class,
         AssetsAnalyze::class,
 

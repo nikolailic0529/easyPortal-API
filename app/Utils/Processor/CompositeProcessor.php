@@ -15,11 +15,13 @@ use function count;
 /**
  * The Processor to combine other processors.
  *
- * @extends Processor<CompositeOperation, null, CompositeState>
+ * @template TState of \App\Utils\Processor\CompositeState
+ *
+ * @extends Processor<CompositeOperation<TState>, null, TState>
  */
 abstract class CompositeProcessor extends Processor {
     /**
-     * @var array<int, CompositeOperation>
+     * @var array<int, CompositeOperation<TState>>
      */
     private array $operations;
 
@@ -76,7 +78,7 @@ abstract class CompositeProcessor extends Processor {
     }
 
     /**
-     * @return array<int, CompositeOperation>
+     * @return array<int, CompositeOperation<TState>>
      */
     final protected function getOperations(): array {
         if (!isset($this->operations)) {
@@ -87,7 +89,7 @@ abstract class CompositeProcessor extends Processor {
     }
 
     /**
-     * @return array<int, CompositeOperation>
+     * @return array<int, CompositeOperation<TState>>
      */
     abstract protected function operations(): array;
     //</editor-fold>

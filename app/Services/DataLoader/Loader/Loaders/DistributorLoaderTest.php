@@ -48,12 +48,12 @@ class DistributorLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DistributorLoader::class);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
+        $this->app->make(DistributorLoader::class)
+            ->setObjectId(DistributorLoaderCreate::DISTRIBUTOR)
+            ->start();
 
         self::assertQueryLogEquals('~create-cold.json', $queries);
         self::assertModelsCount([
@@ -77,10 +77,10 @@ class DistributorLoaderTest extends TestCase {
         // Test (hot)
         $events   = Event::fake(DataImported::class);
         $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DistributorLoader::class);
 
-        $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
+        $this->app->make(DistributorLoader::class)
+            ->setObjectId(DistributorLoaderCreate::DISTRIBUTOR)
+            ->start();
 
         self::assertQueryLogEquals('~create-hot.json', $queries);
         self::assertDispatchedEventsEquals(

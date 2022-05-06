@@ -2,36 +2,22 @@
 
 namespace App\Services\DataLoader\Loader\Loaders;
 
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
-use App\Services\DataLoader\Factory\Factories\AssetFactory;
-use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Type;
+use App\Utils\Iterators\ObjectsIterator;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\State;
 use Exception;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 
+use function array_merge;
+
+/**
+ * @extends Loader<AssetLoaderState>
+ */
 class AssetLoader extends Loader {
-    use WithWarrantyCheck;
-
     protected bool $withDocuments = false;
-
-    public function __construct(
-        Container $container,
-        ExceptionHandler $exceptionHandler,
-        Dispatcher $dispatcher,
-        Client $client,
-        Collector $collector,
-        protected AssetFactory $assets,
-        protected DocumentFactory $documents,
-    ) {
-        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
 
     public function isWithDocuments(): bool {
         return $this->withDocuments;
@@ -43,25 +29,49 @@ class AssetLoader extends Loader {
         return $this;
     }
 
-    protected function getObjectById(string $id): ?Type {
-        if ($this->isWithWarrantyCheck()) {
-            $this->runAssetWarrantyCheck($id);
-        }
-
-        return $this->isWithDocuments()
-            ? $this->client->getAssetByIdWithDocuments($id)
-            : $this->client->getAssetById($id);
-    }
-
-    protected function getObjectFactory(): ModelFactory {
-        if ($this->isWithDocuments()) {
-            $this->assets->setDocumentFactory($this->documents);
-        }
-
-        return $this->assets;
-    }
-
+    // <editor-fold desc="Loader">
+    // =========================================================================
     protected function getModelNotFoundException(string $id): Exception {
         return new AssetNotFound($id);
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function operations(): array {
+        return [
+            new CompositeOperation(
+                'Asset update',
+                function (AssetLoaderState $state): Processor {
+                    return $this
+                        ->getContainer()
+                        ->make(IteratorImporter::class)
+                        ->setIterator(new ObjectsIterator(
+                            $this->getExceptionHandler(),
+                            [$state->objectId],
+                        ));
+                },
+            ),
+        ];
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new AssetLoaderState($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'withDocuments' => $this->isWithDocuments(),
+        ]);
+    }
+    // </editor-fold>
 }

@@ -5,9 +5,12 @@ namespace App\Utils\Processor;
 use App\Utils\Processor\Contracts\Processor;
 use Closure;
 
+/**
+ * @template TState of \App\Utils\Processor\CompositeState
+ */
 class CompositeOperation {
     /**
-     * @param Closure(CompositeState): Processor<mixed, mixed, State> $factory
+     * @param Closure(TState): Processor<mixed, mixed, State> $factory
      */
     public function __construct(
         protected string $name,
@@ -21,6 +24,8 @@ class CompositeOperation {
     }
 
     /**
+     * @param TState $state
+     *
      * @return Processor<mixed, mixed, State>
      */
     public function getProcessor(CompositeState $state): Processor {

@@ -102,28 +102,28 @@ abstract class Data {
 
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-update-distributor', [
+                && $this->kernel->call('ep:data-loader-distributor-update', [
                     'id' => $context[ClientDumpContext::DISTRIBUTORS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-update-reseller', [
+                && $this->kernel->call('ep:data-loader-reseller-update', [
                     'id' => $context[ClientDumpContext::RESELLERS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-update-customer', [
+                && $this->kernel->call('ep:data-loader-customer-update', [
                     'id' => $context[ClientDumpContext::CUSTOMERS],
                 ]) === Command::SUCCESS;
         }
 
         if ($context[ClientDumpContext::ASSETS] ?? null) {
             $result = $result
-                && $this->kernel->call('ep:data-loader-update-asset', [
+                && $this->kernel->call('ep:data-loader-asset-update', [
                     'id'             => $context[ClientDumpContext::ASSETS],
                     '--no-documents' => true,
                 ]) === Command::SUCCESS;

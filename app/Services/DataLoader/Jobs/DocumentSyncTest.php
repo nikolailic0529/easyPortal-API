@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Asset;
 use App\Models\Document;
-use App\Services\DataLoader\Commands\UpdateDocument;
+use App\Services\DataLoader\Commands\DocumentUpdate;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
@@ -36,7 +36,7 @@ class DocumentSyncTest extends TestCase {
         $this->override(Kernel::class, static function (MockInterface $mock) use ($document): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateDocument::class, [
+                ->with(DocumentUpdate::class, [
                     '--no-interaction' => true,
                     'id'               => $document->getKey(),
                 ])
@@ -99,7 +99,7 @@ class DocumentSyncTest extends TestCase {
         $this->override(Kernel::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateDocument::class, Mockery::any())
+                ->with(DocumentUpdate::class, Mockery::any())
                 ->once()
                 ->andReturn(Command::SUCCESS);
         });

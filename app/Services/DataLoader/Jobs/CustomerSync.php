@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Commands\UpdateCustomer;
+use App\Services\DataLoader\Commands\CustomerUpdate;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
@@ -52,7 +52,7 @@ class CustomerSync extends Sync {
 
     protected function syncProperties(ExceptionHandler $handler, Kernel $kernel, bool $assets): bool {
         try {
-            return $this->isCommandSuccessful($kernel->call(UpdateCustomer::class, $this->getOptions([
+            return $this->isCommandSuccessful($kernel->call(CustomerUpdate::class, $this->getOptions([
                 'interaction'      => false,
                 'id'               => $this->getObjectId(),
                 'assets'           => $assets,

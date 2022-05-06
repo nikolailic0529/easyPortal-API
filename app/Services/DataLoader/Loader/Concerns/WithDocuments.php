@@ -2,24 +2,28 @@
 
 namespace App\Services\DataLoader\Loader\Concerns;
 
-use App\Models\Asset;
+use App\Models\Document;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter as CustomerDocumentsImporter;
 use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
 use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter as ResellerDocumentsImporter;
+use App\Services\DataLoader\Loader\CompanyLoaderState;
 use App\Services\DataLoader\Loader\Loader;
-use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
-use DateTimeInterface;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\EmptyProcessor;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Date;
 
 /**
- * @template TOwner of \App\Utils\Eloquent\Model
+ * @template TState of \App\Services\DataLoader\Loader\CompanyLoaderState
  *
  * @mixin Loader
  */
 trait WithDocuments {
     protected bool $withDocuments = false;
+
+    abstract protected function getContainer(): Container;
 
     public function isWithDocuments(): bool {
         return $this->withDocuments;
@@ -32,43 +36,55 @@ trait WithDocuments {
     }
 
     /**
-     * @param TOwner $owner
+     * @return array<int, CompositeOperation<TState>>
      */
-    protected function loadDocuments(Model $owner): bool {
-        // Update
-        $date = Date::now();
+    protected function getDocumentsOperations(): array {
+        return [
+            new CompositeOperation(
+                'Documents update',
+                function (CompanyLoaderState $state): Processor {
+                    if (!$state->withDocuments) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
 
-        $this
-            ->getDocumentsImporter($owner)
-            ->setLimit(null)
-            ->setChunkSize(null)
-            ->start();
+                    return $this
+                        ->getDocumentsImporter($state)
+                        ->setCustomerId($state->objectId);
+                },
+            ),
+            new CompositeOperation(
+                'Outdated Documents update',
+                function (CompanyLoaderState $state): Processor {
+                    if (!$state->withDocuments) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
 
-        // Update missed
-        $iterator = $this->getMissedDocuments($owner, $date)->getChangeSafeIterator();
-        $iterator = new EloquentIterator($iterator);
+                    $iterator  = $this->getMissedDocuments($state)->getChangeSafeIterator();
+                    $iterator  = new EloquentIterator($iterator);
+                    $processor = $this
+                        ->getContainer()
+                        ->make(IteratorImporter::class)
+                        ->setIterator($iterator);
 
-        $this
-            ->getContainer()
-            ->make(IteratorImporter::class)
-            ->setIterator($iterator)
-            ->setLimit(null)
-            ->setChunkSize(null)
-            ->start();
-
-        // Return
-        return true;
+                    return $processor;
+                },
+            ),
+        ];
     }
 
     /**
-     * @param TOwner $owner
+     * @param TState $state
      */
-    abstract protected function getDocumentsImporter(Model $owner): ResellerDocumentsImporter|CustomerDocumentsImporter;
+    abstract protected function getDocumentsImporter(
+        CompanyLoaderState $state,
+    ): ResellerDocumentsImporter|CustomerDocumentsImporter;
 
     /**
-     * @param TOwner $owner
+     * @param TState $state
      *
-     * @return Builder<Asset>
+     * @return Builder<Document>
      */
-    abstract protected function getMissedDocuments(Model $owner, DateTimeInterface $datetime): Builder;
+    abstract protected function getMissedDocuments(
+        CompanyLoaderState $state,
+    ): Builder;
 }

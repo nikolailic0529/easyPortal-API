@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Commands\UpdateCustomer;
+use App\Services\DataLoader\Commands\CustomerUpdate;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
@@ -39,7 +39,7 @@ class CustomerSyncTest extends TestCase {
         $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateCustomer::class, [
+                ->with(CustomerUpdate::class, [
                     '--no-interaction'   => true,
                     'id'                 => $customer->getKey(),
                     '--assets'           => true,
@@ -85,7 +85,7 @@ class CustomerSyncTest extends TestCase {
         $this->override(Kernel::class, static function (MockInterface $mock) use ($exception): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateCustomer::class, Mockery::any())
+                ->with(CustomerUpdate::class, Mockery::any())
                 ->once()
                 ->andThrow($exception);
         });
@@ -119,7 +119,7 @@ class CustomerSyncTest extends TestCase {
         $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
             $mock
                 ->shouldReceive('call')
-                ->with(UpdateCustomer::class, [
+                ->with(CustomerUpdate::class, [
                     '--no-interaction'   => true,
                     'id'                 => $customer->getKey(),
                     '--no-assets'        => true,
