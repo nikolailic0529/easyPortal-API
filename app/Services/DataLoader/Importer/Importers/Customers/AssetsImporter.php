@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
 use App\Services\DataLoader\Importer\Concerns\WithCustomer;
+use App\Services\DataLoader\Importer\Concerns\WithFrom;
 use App\Services\DataLoader\Importer\Importers\Assets\AbstractImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
@@ -13,6 +14,7 @@ use function array_merge;
  * @extends AbstractImporter<AssetsImporterState>
  */
 class AssetsImporter extends AbstractImporter {
+    use WithFrom;
     use WithCustomer;
 
     // <editor-fold desc="Importer">

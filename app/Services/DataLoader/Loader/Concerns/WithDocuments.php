@@ -40,7 +40,6 @@ trait WithDocuments {
 
         $this
             ->getDocumentsImporter($owner)
-            ->setFrom(null)
             ->setLimit(null)
             ->setChunkSize(null)
             ->start();
@@ -53,7 +52,6 @@ trait WithDocuments {
             ->getContainer()
             ->make(IteratorImporter::class)
             ->setIterator($iterator)
-            ->setFrom(null)
             ->setLimit(null)
             ->setChunkSize(null)
             ->start();

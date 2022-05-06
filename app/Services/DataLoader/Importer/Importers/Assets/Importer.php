@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Assets;
 
+use App\Services\DataLoader\Importer\Concerns\WithFrom;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
@@ -9,6 +10,8 @@ use App\Utils\Processor\State;
  * @extends AbstractImporter<AbstractImporterState>
  */
 class Importer extends AbstractImporter {
+    use WithFrom;
+
     protected function getIterator(State $state): ObjectIterator {
         return $state->withDocuments
             ? $this->getClient()->getAssetsWithDocuments($state->from)

@@ -52,7 +52,6 @@ trait WithAssets {
         $this
             ->getAssetsImporter($owner)
             ->setWithDocuments($this->isWithAssetsDocuments())
-            ->setFrom(null)
             ->setLimit(null)
             ->setChunkSize(null)
             ->start();
@@ -65,7 +64,6 @@ trait WithAssets {
             ->getContainer()
             ->make(IteratorImporter::class)
             ->setIterator($iterator)
-            ->setFrom(null)
             ->setLimit(null)
             ->setChunkSize(null)
             ->start();

@@ -29,9 +29,8 @@ use function array_merge;
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
 abstract class Importer extends IteratorProcessor {
-    private ?DateTimeInterface $from   = null;
-    private bool               $update = true;
-    private Collector          $collector;
+    private bool      $update = true;
+    private Collector $collector;
 
     /**
      * @var ModelFactory<TModel>
@@ -64,14 +63,8 @@ abstract class Importer extends IteratorProcessor {
         return $this->container;
     }
 
-    public function getFrom(): ?DateTimeInterface {
-        return $this->from;
-    }
-
-    public function setFrom(?DateTimeInterface $from): static {
-        $this->from = $from;
-
-        return $this;
+    protected function getFrom(): ?DateTimeInterface {
+        return null;
     }
 
     public function isUpdate(): bool {

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Importer\Importers\Distributors;
 use App\Models\Distributor;
 use App\Services\DataLoader\Factory\Factories\DistributorFactory;
 use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Importer\Concerns\WithFrom;
 use App\Services\DataLoader\Importer\Importer as AbstractImporter;
 use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Resolver\Resolver;
@@ -17,6 +18,8 @@ use App\Utils\Processor\State;
  * @extends AbstractImporter<Company, AbstractImporterChunkData, ImporterState, Distributor>
  */
 class Importer extends AbstractImporter {
+    use WithFrom;
+
     protected function register(): void {
         // empty
     }
