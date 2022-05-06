@@ -100,6 +100,10 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturnSelf();
         $processor
+            ->shouldReceive('setStore')
+            ->once()
+            ->andReturnSelf();
+        $processor
             ->shouldReceive('start')
             ->once()
             ->andReturns();
@@ -135,6 +139,16 @@ class ProcessorCommandTest extends TestCase {
             ->with('limit')
             ->once()
             ->andReturn($limit);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('state')
+            ->once()
+            ->andReturn(true);
+        $input
+            ->shouldReceive('getOption')
+            ->with('state')
+            ->once()
+            ->andReturn(null);
 
         $output = Mockery::mock(OutputStyle::class);
         $output
@@ -226,6 +240,10 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturnSelf();
         $processor
+            ->shouldReceive('setStore')
+            ->once()
+            ->andReturnSelf();
+        $processor
             ->shouldReceive('start')
             ->once()
             ->andReturns();
@@ -271,6 +289,16 @@ class ProcessorCommandTest extends TestCase {
             ->with('limit')
             ->once()
             ->andReturn($limit);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('state')
+            ->once()
+            ->andReturn(true);
+        $input
+            ->shouldReceive('getOption')
+            ->with('state')
+            ->once()
+            ->andReturn(null);
 
         $output = Mockery::mock(OutputStyle::class);
         $output
@@ -326,6 +354,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-process [options]
 
                 Options:
+                      --state[=STATE]  initial state, allows continue processing (will overwrite other options)
                       --chunk[=CHUNK]  chunk size
 
                 HELP,
@@ -340,6 +369,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-limitable-process [options]
 
                 Options:
+                      --state[=STATE]  initial state, allows continue processing (will overwrite other options)
                       --chunk[=CHUNK]  chunk size
                       --limit[=LIMIT]  max ProcessorLimitable to process
 
@@ -355,6 +385,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-offsetable-process [options]
 
                 Options:
+                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
                       --chunk[=CHUNK]    chunk size
                       --offset[=OFFSET]  start processing from given offset
 
@@ -370,6 +401,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-iterator-processor-process [options]
 
                 Options:
+                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
                       --chunk[=CHUNK]    chunk size
                       --limit[=LIMIT]    max IteratorProcessor to process
                       --offset[=OFFSET]  start processing from given offset
@@ -390,6 +422,7 @@ class ProcessorCommandTest extends TestCase {
                   id                     process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
 
                 Options:
+                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
                       --chunk[=CHUNK]    chunk size
                       --limit[=LIMIT]    max EloquentProcessor to process
                       --offset[=OFFSET]  start processing from given offset
