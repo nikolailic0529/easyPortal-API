@@ -15,10 +15,6 @@ class IteratorImporter extends BaseImporter {
      */
     use WithIterator;
 
-    protected function getTotal(State $state): ?int {
-        return null;
-    }
-
     /**
      * @param BaseImporterState $state
      *

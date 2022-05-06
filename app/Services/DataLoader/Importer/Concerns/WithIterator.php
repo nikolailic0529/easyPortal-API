@@ -7,6 +7,9 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
+use Countable;
+
+use function count;
 use function is_object;
 
 /**
@@ -27,6 +30,12 @@ trait WithIterator {
         $this->iterator = $iterator;
 
         return $this;
+    }
+
+    protected function getTotal(State $state): ?int {
+        return $this->iterator instanceof Countable
+            ? count($this->iterator)
+            : null;
     }
 
     /**
