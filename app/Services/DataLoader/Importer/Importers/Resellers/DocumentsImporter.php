@@ -3,26 +3,21 @@
 namespace App\Services\DataLoader\Importer\Importers\Resellers;
 
 use App\Services\DataLoader\Importer\Concerns\WithReseller;
-use App\Services\DataLoader\Importer\Importers\Documents\Importer;
+use App\Services\DataLoader\Importer\Importers\Documents\AbstractImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
-use LogicException;
 
 use function array_merge;
 
 /**
- * @extends Importer<DocumentsImporterState>
+ * @extends AbstractImporter<DocumentsImporterState>
  */
-class DocumentsImporter extends Importer {
+class DocumentsImporter extends AbstractImporter {
     use WithReseller;
 
     // <editor-fold desc="Importer">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        if ($state->from !== null) {
-            throw new LogicException('Parameter `from` is not supported.');
-        }
-
         return $this->getClient()->getDocumentsByReseller($state->resellerId);
     }
 

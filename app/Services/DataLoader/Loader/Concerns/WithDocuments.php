@@ -3,8 +3,9 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importers\Documents\Importer;
+use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter as CustomerDocumentsImporter;
 use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter as ResellerDocumentsImporter;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
@@ -64,7 +65,7 @@ trait WithDocuments {
     /**
      * @param TOwner $owner
      */
-    abstract protected function getDocumentsImporter(Model $owner): Importer;
+    abstract protected function getDocumentsImporter(Model $owner): ResellerDocumentsImporter|CustomerDocumentsImporter;
 
     /**
      * @param TOwner $owner

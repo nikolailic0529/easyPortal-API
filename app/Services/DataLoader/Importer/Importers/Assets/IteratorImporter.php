@@ -2,63 +2,31 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Assets;
 
-use App\Models\Asset;
-use App\Services\DataLoader\Importer\IteratorIterator;
+use App\Services\DataLoader\Importer\Concerns\WithIterator;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
-use LogicException;
-
-use function is_object;
 
 /**
- * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
- * @template TChunkData of \App\Services\DataLoader\Collector\Data
- * @template TState of \App\Services\DataLoader\Importer\Importers\Assets\AbstractImporterState
- *
- * @extends Importer<TItem, TChunkData, TState>
+ * @extends AbstractImporter<AbstractImporterState>
  */
-class IteratorImporter extends Importer {
+class IteratorImporter extends AbstractImporter {
     /**
-     * @var ObjectIterator<ViewAsset>
+     * @use WithIterator<\App\Models\Asset, ViewAsset, AbstractImporterState>
      */
-    private ObjectIterator $iterator;
+    use WithIterator;
 
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    /**
-     * @param ObjectIterator<string|Asset> $iterator
-     */
-    public function setIterator(ObjectIterator $iterator): static {
-        $this->iterator = new IteratorIterator(
-            $this->getExceptionHandler(),
-            $iterator,
-            function (Asset|string $asset): ?ViewAsset {
-                $asset = is_object($asset) ? $asset->getKey() : $asset;
-                $asset = $this->isWithDocuments()
-                    ? $this->getClient()->getAssetByIdWithDocuments($asset)
-                    : $this->getClient()->getAssetById($asset);
-
-                return $asset;
-            },
-        );
-
-        return $this;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Importer">
-    // =========================================================================
     protected function getTotal(State $state): ?int {
         return null;
     }
 
-    protected function getIterator(State $state): ObjectIterator {
-        if ($state->from !== null) {
-            throw new LogicException('Parameter `from` is not supported.');
-        }
-
-        return $this->iterator;
+    /**
+     * @param AbstractImporterState $state
+     *
+     * @return ViewAsset|null
+     */
+    protected function getItem(State $state, string $item): mixed {
+        return $state->withDocuments
+            ? $this->getClient()->getAssetByIdWithDocuments($item)
+            : $this->getClient()->getAssetById($item);
     }
-    // </editor-fold>
 }

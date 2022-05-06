@@ -3,29 +3,20 @@
 namespace App\Services\DataLoader\Importer\Importers\Resellers;
 
 use App\Services\DataLoader\Importer\Concerns\WithReseller;
-use App\Services\DataLoader\Importer\Importers\Assets\Importer;
+use App\Services\DataLoader\Importer\Importers\Assets\AbstractImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 use function array_merge;
 
 /**
- * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
- * @template TChunkData of \App\Services\DataLoader\Collector\Data
- * @template TState of \App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporterState
- *
- * @extends Importer<TItem, TChunkData, TState>
+ * @extends AbstractImporter<AssetsImporterState>
  */
-class AssetsImporter extends Importer {
+class AssetsImporter extends AbstractImporter {
     use WithReseller;
 
     // <editor-fold desc="Importer">
     // =========================================================================
-    /**
-     * @param AssetsImporterState $state
-     *
-     * @return ObjectIterator<TItem>
-     */
     protected function getIterator(State $state): ObjectIterator {
         return $state->withDocuments
             ? $this->getClient()->getAssetsByResellerIdWithDocuments($state->resellerId, $state->from)

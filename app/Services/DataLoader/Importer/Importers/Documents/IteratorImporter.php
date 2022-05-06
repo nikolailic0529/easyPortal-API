@@ -2,57 +2,29 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Documents;
 
-use App\Models\Document;
-use App\Services\DataLoader\Importer\IteratorIterator;
-use App\Services\DataLoader\Schema\Document as SchemaDocument;
-use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Services\DataLoader\Importer\Concerns\WithIterator;
+use App\Services\DataLoader\Schema\Document;
 use App\Utils\Processor\State;
-use LogicException;
-
-use function is_object;
 
 /**
- * @extends Importer<AbstractImporterState>
+ * @extends AbstractImporter<AbstractImporterState>
  */
-class IteratorImporter extends Importer {
+class IteratorImporter extends AbstractImporter {
     /**
-     * @var ObjectIterator<SchemaDocument>
+     * @use WithIterator<\App\Models\Document, Document, AbstractImporterState>
      */
-    private ObjectIterator $iterator;
+    use WithIterator;
 
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    /**
-     * @param ObjectIterator<string|Document> $iterator
-     */
-    public function setIterator(ObjectIterator $iterator): static {
-        $this->iterator = new IteratorIterator(
-            $this->getExceptionHandler(),
-            $iterator,
-            function (Document|string $document): ?SchemaDocument {
-                $document = is_object($document) ? $document->getKey() : $document;
-                $document = $this->getClient()->getDocumentById($document);
-
-                return $document;
-            },
-        );
-
-        return $this;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Importer">
-    // =========================================================================
     protected function getTotal(State $state): ?int {
         return null;
     }
 
-    protected function getIterator(State $state): ObjectIterator {
-        if ($state->from !== null) {
-            throw new LogicException('Parameter `from` is not supported.');
-        }
-
-        return $this->iterator;
+    /**
+     * @param AbstractImporterState $state
+     *
+     * @return Document|null
+     */
+    protected function getItem(State $state, string $item): mixed {
+        return $this->getClient()->getDocumentById($item);
     }
-    // </editor-fold>
 }

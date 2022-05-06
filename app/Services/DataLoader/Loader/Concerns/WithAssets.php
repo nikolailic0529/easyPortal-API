@@ -3,8 +3,9 @@
 namespace App\Services\DataLoader\Loader\Concerns;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importers\Assets\Importer;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter as CustomerAssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter as ResellerAssetsImporter;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
@@ -76,7 +77,7 @@ trait WithAssets {
     /**
      * @param TOwner $owner
      */
-    abstract protected function getAssetsImporter(Model $owner): Importer;
+    abstract protected function getAssetsImporter(Model $owner): ResellerAssetsImporter|CustomerAssetsImporter;
 
     /**
      * @param TOwner $owner

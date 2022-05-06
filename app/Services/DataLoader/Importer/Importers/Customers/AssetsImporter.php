@@ -3,20 +3,16 @@
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
 use App\Services\DataLoader\Importer\Concerns\WithCustomer;
-use App\Services\DataLoader\Importer\Importers\Assets\Importer;
+use App\Services\DataLoader\Importer\Importers\Assets\AbstractImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 
 use function array_merge;
 
 /**
- * @template TItem of \App\Services\DataLoader\Schema\ViewAsset
- * @template TChunkData of \App\Services\DataLoader\Collector\Data
- * @template TState of \App\Services\DataLoader\Importer\Importers\Customers\AssetsImporterState
- *
- * @extends Importer<TItem, TChunkData, TState>
+ * @extends AbstractImporter<AssetsImporterState>
  */
-class AssetsImporter extends Importer {
+class AssetsImporter extends AbstractImporter {
     use WithCustomer;
 
     // <editor-fold desc="Importer">
