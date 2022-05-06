@@ -6511,6 +6511,11 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Customer.php
+
+		-
 			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -7641,6 +7646,11 @@ parameters:
 			path: app/Models/Oem.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
+			count: 1
+			path: app/Models/Organization.php
+
+		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Organization\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -7938,6 +7948,11 @@ parameters:
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 3
+			path: app/Models/Reseller.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
+			count: 1
 			path: app/Models/Reseller.php
 
 		-
@@ -9546,16 +9561,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
@@ -9602,11 +9607,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:testCompanyType\\(\\) has parameter \\$typesFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
@@ -10466,16 +10466,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\AssetWarranty will always evaluate to true\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -10591,11 +10581,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<string\\>\\|null given\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -10654,16 +10639,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
 			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
@@ -10981,24 +10956,9 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Distributor\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactory.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -11038,11 +10998,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 4
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
@@ -11266,16 +11221,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Models\\\\\\\\DocumentEntry' and App\\\\Models\\\\DocumentEntry will always evaluate to true\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
@@ -11396,11 +11341,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:city\\(\\) should return App\\\\Models\\\\City but returns App\\\\Models\\\\City\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
@@ -11476,16 +11416,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\City will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
@@ -11536,11 +11466,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CityFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
@@ -11551,12 +11476,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
@@ -11584,16 +11509,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
 			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
@@ -11896,11 +11811,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factory\\:\\:factory\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factory.php
@@ -11961,16 +11871,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
@@ -12006,11 +11906,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
@@ -12024,16 +11919,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12071,21 +11956,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
@@ -12121,11 +11991,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporterState\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
@@ -12139,16 +12004,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12186,21 +12041,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
@@ -12236,19 +12076,54 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
+
+		-
+			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12286,11 +12161,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
@@ -12299,16 +12169,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12346,11 +12206,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
@@ -12364,16 +12219,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12407,11 +12252,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
@@ -12486,16 +12326,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/OemsImporterTest.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
@@ -12531,11 +12361,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporterState\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
@@ -12549,16 +12374,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12596,21 +12411,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
@@ -12646,9 +12446,54 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
+
+		-
+			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
+
+		-
+			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
+
+		-
+			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
@@ -12721,16 +12566,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
 		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
@@ -12766,24 +12601,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12821,24 +12641,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12876,24 +12681,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12931,24 +12721,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getObjectFactory\\(\\) should return App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\<TOwner of App\\\\Models\\\\Reseller\\> but returns App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactory\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Coverage\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Argument of an invalid type array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\|null supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12982,11 +12757,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of static method Propaganistas\\\\LaravelPhone\\\\PhoneNumber\\:\\:make\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 
@@ -18716,9 +18486,19 @@ parameters:
 			path: tests/Data/Services/DataLoader/Importers/AssetsIteratorImporterDataWithoutDocuments.php
 
 		-
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\CustomersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Importers/CustomersIteratorImporterData.php
+
+		-
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
+
+		-
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\ResellersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			count: 1
+			path: tests/Data/Services/DataLoader/Importers/ResellersIteratorImporterData.php
 
 		-
 			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"

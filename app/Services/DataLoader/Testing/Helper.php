@@ -138,13 +138,15 @@ trait Helper {
     protected function getCoverages(Collection|array|null $coverages): ?array {
         $result = null;
 
-        foreach ($coverages as $coverage) {
-            /** @var Coverage $coverage */
+        if ($coverages) {
+            foreach ($coverages as $coverage) {
+                /** @var Coverage $coverage */
 
-            $result["{$coverage->key}"] = [
-                'key'  => $coverage->key,
-                'name' => $coverage->name,
-            ];
+                $result["{$coverage->key}"] = [
+                    'key'  => $coverage->key,
+                    'name' => $coverage->name,
+                ];
+            }
         }
 
         return $result;
@@ -165,13 +167,15 @@ trait Helper {
     protected function statuses(Collection|array|null $statuses): ?array {
         $result = null;
 
-        foreach ($statuses as $status) {
-            /** @var Status $status */
+        if ($statuses) {
+            foreach ($statuses as $status) {
+                /** @var Status $status */
 
-            $result["{$status->key}"] = [
-                'key'  => $status->key,
-                'name' => $status->name,
-            ];
+                $result["{$status->key}"] = [
+                    'key'  => $status->key,
+                    'name' => $status->name,
+                ];
+            }
         }
 
         return $result;
@@ -222,7 +226,9 @@ trait Helper {
             $phone = $person->phoneNumber;
 
             try {
-                $phone = PhoneNumber::make($phone)->formatE164();
+                $phone = $phone
+                    ? PhoneNumber::make($phone)->formatE164()
+                    : null;
             } catch (NumberParseException) {
                 // empty
             }
