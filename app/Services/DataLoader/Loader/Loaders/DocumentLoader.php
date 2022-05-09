@@ -25,7 +25,7 @@ class DocumentLoader extends Loader {
     protected function operations(): array {
         return [
             new CompositeOperation(
-                'Document update',
+                'Properties',
                 function (LoaderState $state): Processor {
                     return $this
                         ->getContainer()

@@ -6,6 +6,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\CallbackLoader;
+use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Iterators\ObjectsIterator;
@@ -21,19 +22,8 @@ use function array_merge;
  * @extends Loader<AssetLoaderState>
  */
 class AssetLoader extends Loader {
+    use WithDocuments;
     use WithWarrantyCheck;
-
-    protected bool $withDocuments = false;
-
-    public function isWithDocuments(): bool {
-        return $this->withDocuments;
-    }
-
-    public function setWithDocuments(bool $withDocuments): static {
-        $this->withDocuments = $withDocuments;
-
-        return $this;
-    }
 
     // <editor-fold desc="Loader">
     // =========================================================================
@@ -47,7 +37,7 @@ class AssetLoader extends Loader {
     protected function operations(): array {
         return [
             new CompositeOperation(
-                'Warranty check',
+                'Warranty Check',
                 function (AssetLoaderState $state): Processor {
                     if (!$state->withWarrantyCheck) {
                         return $this->getContainer()->make(EmptyProcessor::class);

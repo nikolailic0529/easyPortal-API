@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Loader;
 
+use App\Services\DataLoader\Loader\Concerns\DocumentsOperations;
 use App\Services\DataLoader\Loader\Concerns\WithAssets;
-use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Utils\Processor\State;
 
 use function array_merge;
@@ -20,9 +20,9 @@ abstract class CompanyLoader extends Loader {
     use WithAssets;
 
     /**
-     * @phpstan-use WithDocuments<TState>
+     * @phpstan-use DocumentsOperations<TState>
      */
-    use WithDocuments;
+    use DocumentsOperations;
 
     // <editor-fold desc="State">
     // =========================================================================

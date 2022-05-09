@@ -41,7 +41,7 @@ class CustomerLoader extends CompanyLoader {
     protected function operations(): array {
         return [
             new CompositeOperation(
-                'Warranty check',
+                'Warranty Check',
                 function (CustomerLoaderState $state): Processor {
                     if (!$state->withWarrantyCheck) {
                         return $this->getContainer()->make(EmptyProcessor::class);
@@ -57,7 +57,7 @@ class CustomerLoader extends CompanyLoader {
                 },
             ),
             new CompositeOperation(
-                'Customer properties update',
+                'Properties',
                 function (CustomerLoaderState $state): Processor {
                     return $this
                         ->getContainer()
