@@ -45,6 +45,12 @@ parameters:
             message: "#^Call to protected method .+? of class .+?\\.$#"
             path: **/*Test.php
 
+        # False positive
+        # https://github.com/phpstan/phpstan-mockery/issues/34
+        -
+            message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+            path: **/*Test.php
+
         # False positive?
         # https://github.com/phpstan/phpstan/issues/3960
         # https://github.com/phpstan/phpstan/issues/6787

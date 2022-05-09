@@ -226,11 +226,6 @@ parameters:
 			path: app/GraphQL/CacheTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/GraphQL/CacheTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$created of method App\\\\GraphQL\\\\Cache\\:\\:isExpired\\(\\) expects DateTimeInterface, Carbon\\\\CarbonImmutable\\|null given\\.$#"
 			count: 1
 			path: app/GraphQL/CacheTest.php
@@ -9311,11 +9306,6 @@ parameters:
 			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
-
-		-
 			message: "#^Trying to invoke Mockery\\\\MockInterface but it might not be a callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
@@ -12921,11 +12911,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AnalyzeAssetResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolver.php
@@ -12939,11 +12924,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -12961,11 +12941,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CityResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
@@ -12979,11 +12954,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13001,11 +12971,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
@@ -13019,11 +12984,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CoverageResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13041,19 +13001,9 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolverTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
@@ -13061,19 +13011,9 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13091,11 +13031,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
@@ -13109,11 +13044,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13131,11 +13061,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
@@ -13149,11 +13074,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13171,19 +13091,9 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolverTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13201,11 +13111,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
@@ -13221,11 +13126,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolverTest.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
@@ -13239,11 +13139,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\StatusResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolverTest.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -13266,11 +13161,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TagResolverTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TagResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolverTest.php
@@ -13289,11 +13179,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TypeResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolverTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -16986,11 +16871,6 @@ parameters:
 			path: app/Services/Search/Processor/ProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 3
-			path: app/Services/Search/Processor/ProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$expected of method App\\\\Services\\\\Search\\\\Processor\\\\ProcessorTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ProcessorTest.php
@@ -17111,11 +16991,6 @@ parameters:
 			path: app/Services/Search/ServiceTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/Search/ServiceTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$object_or_class of function is_a expects object\\|string, class\\-string\\<App\\\\Services\\\\Search\\\\Jobs\\\\Cron\\\\Indexer\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Search/ServiceTest.php
@@ -17147,11 +17022,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\ServiceTest\\:\\:dataProviderGetKey\\(\\) should return array\\<string, array\\{Exception\\|string, array\\}\\> but returns array\\{string\\: array\\{'app\\:\\$\\{service\\}\\:abc', 'abc'\\}, object\\: array\\{App\\\\Utils\\\\Cache\\\\CacheKeyInvalidValue, stdClass\\}\\}\\.$#"
-			count: 1
-			path: app/Services/ServiceTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/ServiceTest.php
 
@@ -17706,11 +17576,6 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 4
-			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
-
-		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereIn\\(\\)\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/ModelsIterator.php
@@ -17732,11 +17597,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method withArgs\\(\\) on mixed\\.$#"
-			count: 4
-			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 4
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 
@@ -17766,11 +17626,6 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 4
-			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
-
-		-
 			message: "#^Parameter \\#3 \\$converter of class App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator constructor expects Closure\\(mixed\\)\\: int, Closure\\(int\\)\\: int given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
@@ -17792,11 +17647,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method with\\(\\) on mixed\\.$#"
-			count: 4
-			path: app/Utils/Iterators/ObjectsIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 4
 			path: app/Utils/Iterators/ObjectsIteratorTest.php
 
@@ -17826,11 +17676,6 @@ parameters:
 			path: app/Utils/Iterators/OffsetBasedObjectIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 10
-			path: app/Utils/Iterators/OffsetBasedObjectIteratorTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Utils\\\\Iterators\\\\OneChunkOffsetBasedObjectIterator\\<mixed, mixed\\> will always evaluate to true\\.$#"
 			count: 1
 			path: app/Utils/Iterators/OneChunkOffsetBasedObjectIteratorTest.php
@@ -17843,11 +17688,6 @@ parameters:
 		-
 			message: "#^Cannot call method twice\\(\\) on mixed\\.$#"
 			count: 2
-			path: app/Utils/Iterators/OneChunkOffsetBasedObjectIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 9
 			path: app/Utils/Iterators/OneChunkOffsetBasedObjectIteratorTest.php
 
 		-
@@ -17931,8 +17771,8 @@ parameters:
 			path: app/Utils/Processor/CompositeProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 10
+			message: "#^Cannot call method with\\(\\) on mixed\\.$#"
+			count: 2
 			path: app/Utils/Processor/CompositeProcessorTest.php
 
 		-
@@ -18007,11 +17847,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Utils/Processor/ProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 3
 			path: app/Utils/Processor/ProcessorTest.php
 

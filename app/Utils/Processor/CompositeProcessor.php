@@ -40,6 +40,7 @@ abstract class CompositeProcessor extends Processor {
 
     protected function process(State $state, mixed $data, mixed $item): void {
         $store     = new CompositeStore($state);
+        $handler   = $item->getHandler();
         $processor = $item->getProcessor($state);
 
         if ($processor instanceof Limitable) {
@@ -50,7 +51,7 @@ abstract class CompositeProcessor extends Processor {
             $processor = $processor->setOffset(null);
         }
 
-        $processor
+        $result = $processor
             ->setStore($store)
             ->setChunkSize($this->getChunkSize())
             ->onChange(function () use ($processor, $state): void {
@@ -67,6 +68,10 @@ abstract class CompositeProcessor extends Processor {
                 $this->notifyOnProcess($state);
             })
             ->start();
+
+        if ($handler && !$processor->isStopped()) {
+            $handler($state, $result);
+        }
     }
 
     protected function report(Throwable $exception, mixed $item = null): void {

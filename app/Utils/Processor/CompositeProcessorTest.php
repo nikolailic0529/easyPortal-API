@@ -28,16 +28,20 @@ class CompositeProcessorTest extends TestCase {
      * @covers ::invoke
      */
     public function testInvoke(): void {
-        $handler    = Mockery::mock(ExceptionHandler::class);
-        $dispatcher = Mockery::mock(Dispatcher::class);
-        $chunk      = $this->faker->numberBetween(1, 5);
-        $countA     = $this->faker->numberBetween(1, 5);
-        $nestedA    = new CompositeProcessorTest__Processor($handler, $dispatcher, range(1, $countA));
-        $countB     = $this->faker->numberBetween(1, 5);
-        $nestedB    = new CompositeProcessorTest__Processor($handler, $dispatcher, range(1, $countB));
-        $countC     = $this->faker->numberBetween(1, 5);
-        $nestedC    = new CompositeProcessorTest__Processor(
-            $handler,
+        $exceptionHandler = Mockery::mock(ExceptionHandler::class);
+        $dispatcher       = Mockery::mock(Dispatcher::class);
+        $chunk            = $this->faker->numberBetween(1, 5);
+        $countA           = $this->faker->numberBetween(1, 5);
+        $nestedA          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $countA));
+        $handlerA         = null;
+        $countB           = $this->faker->numberBetween(1, 5);
+        $nestedB          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $countB));
+        $handlerB         = Mockery::spy(static function (): void {
+            // empty
+        });
+        $countC           = $this->faker->numberBetween(1, 5);
+        $nestedC          = new CompositeProcessorTest__Processor(
+            $exceptionHandler,
             $dispatcher,
             array_map(
                 static function (int $index): Exception {
@@ -46,19 +50,34 @@ class CompositeProcessorTest extends TestCase {
                 range(1, $countC),
             ),
         );
-        $operations = [
-            new CompositeOperation('A', static function () use ($nestedA): Processor {
-                return $nestedA;
-            }),
-            new CompositeOperation('B', static function () use ($nestedB): Processor {
-                return $nestedB;
-            }),
-            new CompositeOperation('C', static function () use ($nestedC): Processor {
-                return $nestedC;
-            }),
+        $handlerC         = Mockery::spy(static function (): void {
+            // empty
+        });
+        $operations       = [
+            new CompositeOperation(
+                'A',
+                static function () use ($nestedA): Processor {
+                    return $nestedA;
+                },
+                $handlerA,
+            ),
+            new CompositeOperation(
+                'B',
+                static function () use ($nestedB): Processor {
+                    return $nestedB;
+                },
+                Closure::fromCallable($handlerB),
+            ),
+            new CompositeOperation(
+                'C',
+                static function () use ($nestedC): Processor {
+                    return $nestedC;
+                },
+                Closure::fromCallable($handlerC),
+            ),
         ];
 
-        $processor = Mockery::mock(CompositeProcessor::class, [$handler, $dispatcher]);
+        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher]);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -158,6 +177,15 @@ class CompositeProcessorTest extends TestCase {
         $onReport
             ->shouldHaveBeenCalled()
             ->times($countC);
+
+        $handlerB
+            ->shouldHaveBeenCalled()
+            ->with(Mockery::any(), true)
+            ->once();
+        $handlerC
+            ->shouldHaveBeenCalled()
+            ->with(Mockery::any(), false)
+            ->once();
     }
 
     /**
@@ -165,18 +193,25 @@ class CompositeProcessorTest extends TestCase {
      * @covers ::stop
      */
     public function testInvokeStop(): void {
-        $handler    = Mockery::mock(ExceptionHandler::class);
-        $dispatcher = Mockery::mock(Dispatcher::class);
-        $chunk      = $this->faker->numberBetween(1, 5);
-        $count      = $this->faker->numberBetween(5, 10);
-        $nested     = new CompositeProcessorTest__Processor($handler, $dispatcher, range(1, $count));
-        $operations = [
-            new CompositeOperation('A', static function () use ($nested): Processor {
-                return $nested;
-            }),
+        $exceptionHandler = Mockery::mock(ExceptionHandler::class);
+        $dispatcher       = Mockery::mock(Dispatcher::class);
+        $chunk            = $this->faker->numberBetween(1, 5);
+        $count            = $this->faker->numberBetween(5, 10);
+        $nested           = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $count));
+        $handler          = Mockery::spy(static function (): void {
+            // empty
+        });
+        $operations       = [
+            new CompositeOperation(
+                'A',
+                static function () use ($nested): Processor {
+                    return $nested;
+                },
+                Closure::fromCallable($handler),
+            ),
         ];
 
-        $processor = Mockery::mock(CompositeProcessor::class, [$handler, $dispatcher]);
+        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher]);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -221,6 +256,9 @@ class CompositeProcessorTest extends TestCase {
             ->shouldHaveBeenCalled()
             ->times($chunk + 1);
         $onReport
+            ->shouldNotHaveBeenCalled();
+
+        $handler
             ->shouldNotHaveBeenCalled();
     }
 
