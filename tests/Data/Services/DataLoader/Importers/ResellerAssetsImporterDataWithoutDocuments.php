@@ -14,7 +14,7 @@ class ResellerAssetsImporterDataWithoutDocuments extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(AssetsImporter::class)
-                ->setResellerId(static::RESELLER)
+                ->setObjectId(static::RESELLER)
                 ->setWithDocuments(static::DOCUMENTS)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)

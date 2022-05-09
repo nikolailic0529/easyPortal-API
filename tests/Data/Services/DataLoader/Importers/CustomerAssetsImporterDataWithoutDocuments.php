@@ -14,7 +14,7 @@ class CustomerAssetsImporterDataWithoutDocuments extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(AssetsImporter::class)
-                ->setCustomerId(static::CUSTOMER)
+                ->setObjectId(static::CUSTOMER)
                 ->setWithDocuments(static::DOCUMENTS)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)

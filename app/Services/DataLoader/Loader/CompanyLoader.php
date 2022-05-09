@@ -10,6 +10,8 @@ use function array_merge;
 
 /**
  * @template TState of \App\Services\DataLoader\Loader\CompanyLoaderState
+ *
+ * @extends Loader<TState>
  */
 abstract class CompanyLoader extends Loader {
     /**

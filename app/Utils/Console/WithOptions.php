@@ -8,6 +8,7 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Symfony\Component\Console\Exception\RuntimeException;
 
+use function assert;
 use function filter_var;
 use function is_string;
 
@@ -27,6 +28,8 @@ trait WithOptions {
         if ($validator->fails()) {
             throw new RuntimeException($validator->errors()->first());
         }
+
+        assert(is_string($value));
 
         return $value;
     }

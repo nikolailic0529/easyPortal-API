@@ -8986,11 +8986,6 @@ parameters:
 			path: app/Rules/Organization/Id.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Rules/Organization/PermissionId.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Organization/PermissionId.php
@@ -9002,11 +8997,6 @@ parameters:
 
 		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\RoleId\\:\\:getMutationRoot\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
@@ -9074,11 +9064,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\UniqueUserEmail\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/UniqueUserEmail.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:getMutationRoot\\(\\) should return T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Rules/UserNotMe.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -9442,12 +9427,7 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$singleton on mixed\\.$#"
-			count: 4
-			path: app/Services/DataLoader/Container/ContainerTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Container\\\\ContainerTest_Loader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
-			count: 1
+			count: 2
 			path: app/Services/DataLoader/Container/ContainerTest.php
 
 		-
@@ -11831,36 +11811,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/ModelFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Finders\\\\AssetLoaderFinder\\:\\:find\\(\\) should return App\\\\Models\\\\Asset\\|null but returns App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Finders/AssetLoaderFinder.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Finders\\\\CustomerLoaderFinder\\:\\:find\\(\\) should return App\\\\Models\\\\Customer\\|null but returns App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Finders/CustomerLoaderFinder.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Finders\\\\DistributorLoaderFinder\\:\\:find\\(\\) should return App\\\\Models\\\\Distributor\\|null but returns App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Finders/DistributorLoaderFinder.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Finders\\\\ResellerLoaderFinder\\:\\:find\\(\\) should return App\\\\Models\\\\Reseller\\|null but returns App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Finders/ResellerLoaderFinder.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\ImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\ImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importer.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\BaseImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
@@ -11989,11 +11939,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\BaseImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
 		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
@@ -12126,11 +12071,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\BaseImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/BaseImporter.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
@@ -12214,11 +12154,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\BaseImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
 
 		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
@@ -12416,11 +12351,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporter\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporterState but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\BaseImporterState\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
@@ -12586,6 +12516,16 @@ parameters:
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getDocumentsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
@@ -12596,29 +12536,69 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:process\\(\\) expects App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getAssetsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\>\\:\\:loadAssets\\(\\) expects TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getDocumentsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$owner of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\>\\:\\:loadDocuments\\(\\) expects TOwner of App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedAssets\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedDocuments\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Loader/Loader.php
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporter\\|App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporter\\|App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CompanyLoader.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/LoaderTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/LoaderTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12656,9 +12636,24 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
+
+		-
+			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12696,7 +12691,17 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
 
@@ -12736,7 +12741,12 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoader\\:\\:getObjectFactory\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory does not specify its types\\: TModel$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
 
@@ -12776,7 +12786,12 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoader\\:\\:getObjectFactory\\(\\) should return App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\<TOwner of App\\\\Models\\\\Reseller\\> but returns App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactory\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
@@ -13711,11 +13726,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Cannot access offset class\\-string on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
@@ -14187,11 +14197,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:makeProcessor\\(\\) should return TProcessor of App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter but returns App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
 
@@ -17911,7 +17916,7 @@ parameters:
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\CompositeProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Utils\\\\Processor\\\\CompositeOperation\\>\\.$#"
+			message: "#^Method App\\\\Utils\\\\Processor\\\\CompositeProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Utils\\\\Processor\\\\CompositeState\\>\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
 			count: 1
 			path: app/Utils/Processor/CompositeProcessor.php
 
@@ -17928,6 +17933,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
 			count: 10
+			path: app/Utils/Processor/CompositeProcessorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Utils\\\\Processor\\\\CompositeProcessor\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\:\\:getTotal\\(\\) expects App\\\\Utils\\\\Processor\\\\CompositeState, App\\\\Utils\\\\Processor\\\\State given\\.$#"
+			count: 1
 			path: app/Utils/Processor/CompositeProcessorTest.php
 
 		-
@@ -17984,11 +17994,6 @@ parameters:
 			message: "#^Property class@anonymous/app/Utils/Processor/EloquentProcessorTest\\.php\\:247\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\Processor\\:\\:restoreState\\(\\) should return TState of App\\\\Utils\\\\Processor\\\\State but returns App\\\\Utils\\\\Processor\\\\State\\.$#"
-			count: 1
-			path: app/Utils/Processor/Processor.php
 
 		-
 			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
