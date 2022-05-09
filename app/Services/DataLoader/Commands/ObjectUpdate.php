@@ -25,7 +25,7 @@ abstract class ObjectUpdate extends ProcessorCommand {
 
     protected function process(Formatter $formatter, Processor $processor): int {
         $processor = $processor
-            ->setObjectId((string) $this->getIdArgument('id'));
+            ->setObjectId($this->getIdArgument('id'));
 
         return parent::process($formatter, $processor);
     }
