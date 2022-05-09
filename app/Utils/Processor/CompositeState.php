@@ -11,7 +11,7 @@ class CompositeState extends State {
     #[JsonObjectArray(CompositeOperationState::class)]
     public array $operations;
 
-    public function getCurrentState(): ?State {
-        return $this->operations[$this->index]->state ?? null;
+    public function getCurrentState(): ?CompositeOperationState {
+        return $this->operations[$this->index] ?? null;
     }
 }

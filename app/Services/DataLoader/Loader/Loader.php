@@ -63,7 +63,7 @@ abstract class Loader extends CompositeProcessor {
     protected function getModelNotFoundHandler(): Closure {
         return function (LoaderState $state, bool $result): void {
             if ($result) {
-                $current = $state->getCurrentState();
+                $current = $state->getCurrentState()?->state;
                 $result  = ($current instanceof ImporterState && $current->ignored === 0)
                     && $current->processed !== 0;
             }

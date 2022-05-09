@@ -7,6 +7,7 @@ use App\Services\Service;
 use App\Utils\Console\WithOptions;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
@@ -23,9 +24,11 @@ use function implode;
 use function is_a;
 use function max;
 use function memory_get_usage;
+use function min;
 use function sprintf;
 use function strtr;
 use function time;
+use function trim;
 
 use const PHP_EOL;
 
@@ -69,11 +72,13 @@ abstract class ProcessorCommand extends Command {
         }
 
         // Style
+        // Operation name                                                  10 / 12
         // [▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   3%
         // ! 999:99:99 T: 115 000 000 P:   5 000 000 S:   5 000 000 F:         123
         // ~ 000:25:15 M:  143.05 MiB S:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
         $progress->setBarWidth(64 - 3);
         $progress->setFormat(implode(PHP_EOL, [
+            '%operation-name:-63.63s% %operation-index:2.2s% / %operation-total:2.2s%',
             '[%bar%] %progress:6.6s%%',
             '! %time-elapsed:9.9s% T: %state-total:11.11s% P: %state-processed:11.11s% S: <info>%state-success:11.11s%</info> F: <comment>%state-failed:11.11s%</comment>', // @phpcs:ignore Generic.Files.LineLength.TooLong
             '~ %time-remaining:9.9s% M: %usage-memory:11.11s% S: %state-uuid:41s%',
@@ -85,8 +90,6 @@ abstract class ProcessorCommand extends Command {
         // Process
         $sync = function (State $state) use ($formatter, $progress, $store): void {
             $this->updateProgressBar($formatter, $progress, $store, $state);
-
-            $progress->setProgress($state->processed);
         };
 
         if ($processor instanceof Limitable) {
@@ -103,10 +106,6 @@ abstract class ProcessorCommand extends Command {
             ->setStore($store)
             ->setChunkSize($chunk)
             ->onInit(static function (State $state) use ($progress, $sync): void {
-                if ($state->total !== null) {
-                    $progress->setMaxSteps(max($state->total, $state->processed));
-                }
-
                 $sync($state);
 
                 $progress->display();
@@ -220,12 +219,43 @@ abstract class ProcessorCommand extends Command {
         return $processor;
     }
 
+    protected function getDefaultOperationName(): string {
+        return trim($this->getDescription(), '.');
+    }
+
     private function updateProgressBar(
         Formatter $formatter,
         ProgressBar $progress,
         ?ProcessorStateStore $store,
         State $state,
     ): void {
+        // Operation
+        $description = $this->getDefaultOperationName();
+
+        if ($state instanceof CompositeState) {
+            $progress->setMessage($state->getCurrentState()->name ?? $description, 'operation-name');
+            $progress->setMessage((string) min($state->index + 1, $state->total), 'operation-index');
+            $progress->setMessage((string) $state->total, 'operation-total');
+        } else {
+            $progress->setMessage($description, 'operation-name');
+            $progress->setMessage('1', 'operation-index');
+            $progress->setMessage('1', 'operation-total');
+        }
+
+        // Overwrite
+        if ($state instanceof CompositeState) {
+            $state = $state->getCurrentState()->state ?? $state;
+        }
+
+        if ($state->total !== null) {
+            $progress->setMaxSteps(max($state->total, $state->processed));
+        } else {
+            $progress->setMaxSteps(0);
+        }
+
+        $progress->setProgress($state->processed);
+
+        // Progress
         $progress->setMessage(
             $progress->getMaxSteps()
                 ? $formatter->decimal($progress->getProgressPercent() * 100, 2)
@@ -280,6 +310,9 @@ abstract class ProcessorCommand extends Command {
         $progress->setMessage('success', 'state-success');
         $progress->setMessage('failed', 'state-failed');
         $progress->setMessage('state', 'state-uuid');
+        $progress->setMessage($this->getDefaultOperationName(), 'operation-name');
+        $progress->setMessage('?', 'operation-index');
+        $progress->setMessage('?', 'operation-total');
     }
 
     protected function getService(): ?Service {
