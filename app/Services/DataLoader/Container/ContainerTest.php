@@ -2,14 +2,11 @@
 
 namespace App\Services\DataLoader\Container;
 
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Loader\Loader;
+use App\Services\DataLoader\Loader\LoaderState;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
-use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -55,21 +52,6 @@ class ContainerTest extends TestCase {
         self::assertNotNull($f);
         self::assertSame($a, $f->singleton);
         self::assertNotSame($s, $f->singleton);
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveLoader(): void {
-        $c = $this->app->make(Container::class);
-        $a = $c->resolve(ContainerTest_Singleton::class);
-        $l = $c->resolve(ContainerTest_Loader::class);
-        $s = $this->app->make(ContainerTest_Resolver::class);
-
-        self::assertNotNull($a);
-        self::assertNotNull($l);
-        self::assertSame($a, $l->singleton);
-        self::assertNotSame($s, $l->singleton);
     }
 
     /**
@@ -161,35 +143,6 @@ class ContainerTest_Factory extends Factory {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ContainerTest_Loader extends Loader {
-    public function __construct(
-        Container $container,
-        ExceptionHandler $exceptionHandler,
-        Dispatcher $dispatcher,
-        Client $client,
-        Collector $collector,
-        public ContainerTest_Singleton $singleton,
-    ) {
-        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
-
-    protected function getObjectById(string $id): ?Type {
-        return null;
-    }
-
-    protected function getObjectFactory(): ModelFactory {
-        throw new Exception();
-    }
-
-    protected function getModelNotFoundException(string $id): Exception {
-        throw new Exception();
-    }
-}
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- */
 class ContainerTest_Singleton implements Singleton {
     // empty
 }
@@ -199,13 +152,5 @@ class ContainerTest_Singleton implements Singleton {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ContainerTest_SingletonPersistent implements Singleton, SingletonPersistent {
-    // empty
-}
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- */
-class ContainerTest_Isolated implements Isolated {
     // empty
 }

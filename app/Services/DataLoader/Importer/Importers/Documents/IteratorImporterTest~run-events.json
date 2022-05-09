@@ -25,8 +25,8 @@
             "2dd89a24-ba60-492f-a2e5-322e8b9a89d9": "2dd89a24-ba60-492f-a2e5-322e8b9a89d9"
         },
         "App\\Models\\Location": {
-            "9a211c81-ce99-5e90-931a-acb7ee0c6d64": "9a211c81-ce99-5e90-931a-acb7ee0c6d64",
-            "b477aa83-2f21-594b-b4c5-fd311e18f0dd": "b477aa83-2f21-594b-b4c5-fd311e18f0dd"
+            "1be318a7-ac5a-5b64-95eb-852422568201": "1be318a7-ac5a-5b64-95eb-852422568201",
+            "1b239ed4-263f-5935-bf3b-9c06a89c0f54": "1b239ed4-263f-5935-bf3b-9c06a89c0f54"
         },
         "App\\Models\\Asset": {
             "779e7c69-d831-479b-95b4-c701f0f4aead": "779e7c69-d831-479b-95b4-c701f0f4aead",
