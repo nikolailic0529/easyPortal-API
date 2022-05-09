@@ -12,7 +12,7 @@ use Illuminate\Console\Command;
 
 use function array_sum;
 
-class CustomerLoaderCreateWithoutAssets extends AssetsData {
+class CustomerLoaderDataWithoutAssets extends AssetsData {
     use CommandOptions;
 
     public const CUSTOMER  = 'a0df13a5-c42c-4269-ae57-71085acb5319';
@@ -24,7 +24,7 @@ class CustomerLoaderCreateWithoutAssets extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $results = [
-                $this->kernel->call('ep:data-loader-update-customer', $this->getOptions([
+                $this->kernel->call('ep:data-loader-customer-update', $this->getOptions([
                     'id'          => [static::CUSTOMER],
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
@@ -32,14 +32,14 @@ class CustomerLoaderCreateWithoutAssets extends AssetsData {
             ];
 
             if (static::ASSET) {
-                $results[] = $this->kernel->call('ep:data-loader-update-asset', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
                     'id'          => static::ASSET,
                     '--documents' => true,
                 ]));
             }
 
             if (static::DOCUMENT) {
-                $results[] = $this->kernel->call('ep:data-loader-update-document', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
                     'id' => static::DOCUMENT,
                 ]));
             }

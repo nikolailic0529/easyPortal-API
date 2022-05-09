@@ -16,8 +16,8 @@ use App\Services\DataLoader\Exceptions\AssetWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
 use Mockery\MockInterface;
-use Tests\Data\Services\DataLoader\Loaders\AssetLoaderCreateWithDocuments;
-use Tests\Data\Services\DataLoader\Loaders\AssetLoaderCreateWithoutDocuments;
+use Tests\Data\Services\DataLoader\Loaders\AssetLoaderDataWithDocuments;
+use Tests\Data\Services\DataLoader\Loaders\AssetLoaderDataWithoutDocuments;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -30,11 +30,11 @@ class AssetLoaderTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::create
+     * @covers ::process
      */
-    public function testCreateWithoutDocuments(): void {
+    public function testProcessWithoutDocuments(): void {
         // Generate
-        $this->generateData(AssetLoaderCreateWithoutDocuments::class);
+        $this->generateData(AssetLoaderDataWithoutDocuments::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -56,11 +56,11 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderCreateWithoutDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderCreateWithoutDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
+            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~create-without-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-cold.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 2,
@@ -71,7 +71,7 @@ class AssetLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~create-without-documents-events.json',
+            '~process-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -84,13 +84,13 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderCreateWithoutDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderCreateWithoutDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
+            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~create-without-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~create-without-documents-events.json',
+            '~process-without-documents-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -102,9 +102,9 @@ class AssetLoaderTest extends TestCase {
     /**
      * @covers ::handle
      */
-    public function testCreateWithDocuments(): void {
+    public function testProcessWithDocuments(): void {
         // Generate
-        $this->generateData(AssetLoaderCreateWithDocuments::class);
+        $this->generateData(AssetLoaderDataWithDocuments::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -126,11 +126,11 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderCreateWithDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderCreateWithDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderDataWithDocuments::ASSET)
+            ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~create-with-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-cold.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -141,7 +141,7 @@ class AssetLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~create-with-documents-events.json',
+            '~process-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -154,13 +154,13 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderCreateWithDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderCreateWithDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderDataWithDocuments::ASSET)
+            ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~create-with-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~create-with-documents-events.json',
+            '~process-with-documents-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -169,7 +169,7 @@ class AssetLoaderTest extends TestCase {
         unset($events);
     }
 
-    public function testCreateWithWarrantyCheck(): void {
+    public function testProcessWithWarrantyCheck(): void {
         $this->markTestIncomplete('Not implemented!');
 
         $this->override(Client::class, static function (MockInterface $mock): void {

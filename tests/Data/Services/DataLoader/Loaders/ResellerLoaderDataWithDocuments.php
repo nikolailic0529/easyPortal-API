@@ -4,7 +4,7 @@ namespace Tests\Data\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 
-class ResellerLoaderCreateWithDocuments extends ResellerLoaderCreateWithoutAssets {
+class ResellerLoaderDataWithDocuments extends ResellerLoaderDataWithoutAssets {
     public const RESELLER  = '0309df71-936c-44ce-9477-b5e9221fc96a';
     public const DOCUMENTS = true;
     public const DOCUMENT  = '00194785-9fba-4865-8106-7a833082c1cc';

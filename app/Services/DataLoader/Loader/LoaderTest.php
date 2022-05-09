@@ -2,13 +2,8 @@
 
 namespace App\Services\DataLoader\Loader;
 
-use App\Services\DataLoader\Collector\Collector;
-use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use Exception;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
 
@@ -18,9 +13,9 @@ use Tests\TestCase;
  */
 class LoaderTest extends TestCase {
     /**
-     * @covers ::create
+     * @covers ::process
      */
-    public function testCreateModelNotExists(): void {
+    public function testProcessModelNotExists(): void {
         $this->markTestIncomplete('Not implemented!');
 
         // Prepare

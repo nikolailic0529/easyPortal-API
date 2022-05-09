@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 
 use function array_merge;
 
-class AssetLoaderCreateWithoutDocuments extends AssetsData {
+class AssetLoaderDataWithoutDocuments extends AssetsData {
     public const ASSET     = 'dd3fd852-c29a-4f34-ac20-21b6f7079777';
     public const DOCUMENTS = false;
 
@@ -16,7 +16,7 @@ class AssetLoaderCreateWithoutDocuments extends AssetsData {
             $options = static::DOCUMENTS
                 ? ['--documents' => true]
                 : ['--no-documents' => true];
-            $result  = $this->kernel->call('ep:data-loader-update-asset', array_merge($options, [
+            $result  = $this->kernel->call('ep:data-loader-asset-update', array_merge($options, [
                 'id' => [static::ASSET],
             ]));
             $success = $result === Command::SUCCESS;

@@ -7,15 +7,15 @@ use App\Dev\IdeHelper\ModelsCommand;
 use App\Services\DataLoader\Commands\AssetsAnalyze;
 use App\Services\DataLoader\Commands\AssetsCount;
 use App\Services\DataLoader\Commands\AssetsImport;
+use App\Services\DataLoader\Commands\AssetUpdate;
 use App\Services\DataLoader\Commands\CustomersImport;
+use App\Services\DataLoader\Commands\CustomerUpdate;
 use App\Services\DataLoader\Commands\DistributorsImport;
+use App\Services\DataLoader\Commands\DistributorUpdate;
 use App\Services\DataLoader\Commands\DocumentsImport;
+use App\Services\DataLoader\Commands\DocumentUpdate;
 use App\Services\DataLoader\Commands\OemsImport;
 use App\Services\DataLoader\Commands\ResellersImport;
-use App\Services\DataLoader\Commands\AssetUpdate;
-use App\Services\DataLoader\Commands\CustomerUpdate;
-use App\Services\DataLoader\Commands\DistributorUpdate;
-use App\Services\DataLoader\Commands\DocumentUpdate;
 use App\Services\DataLoader\Commands\ResellerUpdate;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -31,7 +31,6 @@ use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;
-
 use function base_path;
 
 class Kernel extends ConsoleKernel {

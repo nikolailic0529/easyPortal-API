@@ -2,16 +2,16 @@
 
 namespace Tests\Data\Services\DataLoader\Loaders;
 
-use App\Services\DataLoader\Testing\Data\AssetsData;
+use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
 
-class DocumentLoaderCreate extends AssetsData {
-    public const DOCUMENT = 'c63823c9-ccae-493b-92ca-5cb2a696da69';
+class DistributorLoaderData extends Data {
+    public const DISTRIBUTOR = '143c456a-e894-4710-a1c2-745b9582ca47';
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-update-document', [
-                'id' => [static::DOCUMENT],
+            $result  = $this->kernel->call('ep:data-loader-distributor-update', [
+                'id' => [static::DISTRIBUTOR],
             ]);
             $success = $result === Command::SUCCESS;
 

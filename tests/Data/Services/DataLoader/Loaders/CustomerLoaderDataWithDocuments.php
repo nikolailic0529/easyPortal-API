@@ -4,7 +4,7 @@ namespace Tests\Data\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 
-class CustomerLoaderCreateWithDocuments extends CustomerLoaderCreateWithoutAssets {
+class CustomerLoaderDataWithDocuments extends CustomerLoaderDataWithoutAssets {
     public const CUSTOMER  = 'a04716f3-95de-4046-ab13-7a575cf67f85';
     public const DOCUMENTS = true;
     public const DOCUMENT  = '00194785-9fba-4865-8106-7a833082c1cc';

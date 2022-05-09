@@ -12,7 +12,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
-use Tests\Data\Services\DataLoader\Loaders\DocumentLoaderCreate;
+use Tests\Data\Services\DataLoader\Loaders\DocumentLoaderData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -25,11 +25,11 @@ class DocumentLoaderTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::create
+     * @covers ::process
      */
-    public function testCreate(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(DocumentLoaderCreate::class);
+        $this->generateData(DocumentLoaderData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -51,10 +51,10 @@ class DocumentLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(DocumentLoader::class)
-            ->setObjectId(DocumentLoaderCreate::DOCUMENT)
+            ->setObjectId(DocumentLoaderData::DOCUMENT)
             ->start();
 
-        self::assertQueryLogEquals('~create-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 4,
@@ -65,7 +65,7 @@ class DocumentLoaderTest extends TestCase {
             DocumentEntry::class => 96,
         ]);
         self::assertDispatchedEventsEquals(
-            '~create-cold-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -78,12 +78,12 @@ class DocumentLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(DocumentLoader::class)
-            ->setObjectId(DocumentLoaderCreate::DOCUMENT)
+            ->setObjectId(DocumentLoaderData::DOCUMENT)
             ->start();
 
-        self::assertQueryLogEquals('~create-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~create-hot-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

@@ -10,6 +10,9 @@ use Throwable;
  * @extends Processor<mixed, null, State>
  */
 class EmptyProcessor extends Processor {
+    /**
+     * @inheritDoc
+     */
     protected function prefetch(State $state, array $items): mixed {
         return null;
     }

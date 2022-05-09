@@ -24,9 +24,9 @@ class ImporterTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::run
+     * @covers ::process
      */
-    public function testImport(): void {
+    public function testProcess(): void {
         // Generate
         $this->generateData(DocumentsImporterData::class);
 
@@ -55,12 +55,12 @@ class ImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~run-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold.json', $queries);
         self::assertModelsCount([
             Document::class => DocumentsImporterData::LIMIT,
         ]);
         self::assertDispatchedEventsEquals(
-            '~run-events.json',
+            '~process-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -79,9 +79,9 @@ class ImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~run-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~run-events.json',
+            '~process-events.json',
             $events->dispatched(DataImported::class),
         );
 

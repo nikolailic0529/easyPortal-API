@@ -12,7 +12,7 @@ use Illuminate\Console\Command;
 
 use function array_sum;
 
-class ResellerLoaderCreateWithoutAssets extends AssetsData {
+class ResellerLoaderDataWithoutAssets extends AssetsData {
     use CommandOptions;
 
     public const RESELLER  = '6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e';
@@ -24,7 +24,7 @@ class ResellerLoaderCreateWithoutAssets extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $results = [
-                $this->kernel->call('ep:data-loader-update-reseller', $this->getOptions([
+                $this->kernel->call('ep:data-loader-reseller-update', $this->getOptions([
                     'id'          => [static::RESELLER],
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
@@ -32,14 +32,14 @@ class ResellerLoaderCreateWithoutAssets extends AssetsData {
             ];
 
             if (static::ASSET) {
-                $results[] = $this->kernel->call('ep:data-loader-update-asset', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
                     'id'          => static::ASSET,
                     '--documents' => true,
                 ]));
             }
 
             if (static::DOCUMENT) {
-                $results[] = $this->kernel->call('ep:data-loader-update-document', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
                     'id' => static::DOCUMENT,
                 ]));
             }

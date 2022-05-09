@@ -3,13 +3,9 @@
 namespace App\Services\DataLoader\Container;
 
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Loader\LoaderState;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
-use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
