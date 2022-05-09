@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\State;
 use Exception;
@@ -20,7 +21,7 @@ use function array_merge;
  * @extends CompositeProcessor<TState>
  */
 abstract class Loader extends CompositeProcessor {
-    private string $objectId;
+    use WithObjectId;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -34,16 +35,6 @@ abstract class Loader extends CompositeProcessor {
     // =========================================================================
     protected function getContainer(): Container {
         return $this->container;
-    }
-
-    public function getObjectId(): string {
-        return $this->objectId;
-    }
-
-    public function setObjectId(string $objectId): static {
-        $this->objectId = $objectId;
-
-        return $this;
     }
     // </editor-fold>
 

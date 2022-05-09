@@ -49,7 +49,7 @@ trait WithDocuments {
 
                     return $this
                         ->getDocumentsImporter($state)
-                        ->setCustomerId($state->objectId);
+                        ->setObjectId($state->objectId);
                 },
             ),
             new CompositeOperation(

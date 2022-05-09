@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
-use App\Services\DataLoader\Importer\Concerns\WithCustomer;
+use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Services\DataLoader\Importer\Importers\Documents\BaseImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
@@ -13,7 +13,7 @@ use function array_merge;
  * @extends BaseImporter<DocumentsImporterState>
  */
 class DocumentsImporter extends BaseImporter {
-    use WithCustomer;
+    use WithObjectId;
 
     // <editor-fold desc="Importer">
     // =========================================================================
@@ -40,7 +40,7 @@ class DocumentsImporter extends BaseImporter {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'customerId' => $this->getCustomerId(),
+            'customerId' => $this->getObjectId(),
         ]);
     }
     // </editor-fold>

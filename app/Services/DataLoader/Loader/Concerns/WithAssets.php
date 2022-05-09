@@ -60,7 +60,7 @@ trait WithAssets {
 
                     return $this
                         ->getAssetsImporter($state)
-                        ->setCustomerId($state->objectId)
+                        ->setObjectId($state->objectId)
                         ->setWithDocuments($state->withAssetsDocuments);
                 },
             ),

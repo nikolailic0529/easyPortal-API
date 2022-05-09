@@ -13,7 +13,7 @@ class ResellerDocumentsImporterData extends DocumentsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(DocumentsImporter::class)
-                ->setResellerId(static::RESELLER)
+                ->setObjectId(static::RESELLER)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();

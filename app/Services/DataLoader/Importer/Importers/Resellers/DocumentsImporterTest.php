@@ -52,7 +52,7 @@ class DocumentsImporterTest extends TestCase {
 
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
-            ->setResellerId(ResellerDocumentsImporterData::RESELLER)
+            ->setObjectId(ResellerDocumentsImporterData::RESELLER)
             ->setChunkSize(ResellerDocumentsImporterData::CHUNK)
             ->setLimit(ResellerDocumentsImporterData::LIMIT)
             ->start();
@@ -82,7 +82,7 @@ class DocumentsImporterTest extends TestCase {
 
         $this->app->make(DocumentsImporter::class)
             ->setUpdate(true)
-            ->setResellerId(ResellerDocumentsImporterData::RESELLER)
+            ->setObjectId(ResellerDocumentsImporterData::RESELLER)
             ->setChunkSize(ResellerDocumentsImporterData::CHUNK)
             ->setLimit(ResellerDocumentsImporterData::LIMIT)
             ->start();

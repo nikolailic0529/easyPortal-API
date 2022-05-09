@@ -53,7 +53,7 @@ class AssetsImporterTest extends TestCase {
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
-            ->setCustomerId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
+            ->setObjectId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithDocuments::CHUNK)
             ->setLimit(CustomerAssetsImporterDataWithDocuments::LIMIT)
@@ -84,7 +84,7 @@ class AssetsImporterTest extends TestCase {
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
-            ->setCustomerId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
+            ->setObjectId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithDocuments::CHUNK)
             ->setLimit(CustomerAssetsImporterDataWithDocuments::LIMIT)
@@ -129,7 +129,7 @@ class AssetsImporterTest extends TestCase {
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
-            ->setCustomerId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
+            ->setObjectId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithoutDocuments::CHUNK)
             ->setLimit(CustomerAssetsImporterDataWithoutDocuments::LIMIT)
@@ -160,7 +160,7 @@ class AssetsImporterTest extends TestCase {
 
         $this->app->make(AssetsImporter::class)
             ->setUpdate(true)
-            ->setCustomerId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
+            ->setObjectId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithoutDocuments::CHUNK)
             ->setLimit(CustomerAssetsImporterDataWithoutDocuments::LIMIT)

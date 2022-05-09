@@ -13,7 +13,7 @@ class CustomerDocumentsImporterData extends DocumentsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(DocumentsImporter::class)
-                ->setCustomerId(static::CUSTOMER)
+                ->setObjectId(static::CUSTOMER)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();
