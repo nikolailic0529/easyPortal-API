@@ -30,11 +30,8 @@ trait ChunkConverter {
         if ($converter) {
             foreach ($items as $key => $item) {
                 try {
-                    $item = $converter($item);
-
-                    if ($item !== null) {
-                        $converted[$key] = $item;
-                    }
+                    $item            = $converter($item);
+                    $converted[$key] = $item;
                 } catch (IteratorFatalError $exception) {
                     throw $exception;
                 } catch (Throwable $exception) {
