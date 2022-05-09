@@ -150,7 +150,7 @@ abstract class Importer extends IteratorProcessor {
      * @inheritDoc
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return new DataImported($data);
+        return !$data->isEmpty() ? new DataImported($data) : null;
     }
     // </editor-fold>
 

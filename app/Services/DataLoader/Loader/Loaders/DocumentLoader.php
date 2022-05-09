@@ -35,6 +35,7 @@ class DocumentLoader extends Loader {
                             [$state->objectId],
                         ));
                 },
+                $this->getModelNotFoundHandler(),
             ),
         ];
     }

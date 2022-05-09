@@ -12,8 +12,10 @@ use App\Services\DataLoader\Importer\Finders\AssetLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
+use App\Services\DataLoader\Importer\ImporterState;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\State;
+use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -51,9 +53,26 @@ abstract class Loader extends CompositeProcessor {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Abstract">
+    // <editor-fold desc="Process">
     // =========================================================================
     abstract protected function getModelNotFoundException(string $id): Exception;
+
+    /**
+     * @return Closure(TState, bool): void
+     */
+    protected function getModelNotFoundHandler(): Closure {
+        return function (LoaderState $state, bool $result): void {
+            if ($result) {
+                $current = $state->getCurrentState();
+                $result  = ($current instanceof ImporterState && $current->ignored === 0)
+                    && $current->processed !== 0;
+            }
+
+            if (!$result) {
+                throw $this->getModelNotFoundException($state->objectId);
+            }
+        };
+    }
     // </editor-fold>
 
     // <editor-fold desc="State">

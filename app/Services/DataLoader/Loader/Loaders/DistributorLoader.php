@@ -35,6 +35,7 @@ class DistributorLoader extends Loader {
                             [$state->objectId],
                         ));
                 },
+                $this->getModelNotFoundHandler(),
             ),
         ];
     }

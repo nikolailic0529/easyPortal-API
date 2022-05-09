@@ -42,6 +42,7 @@ class CustomerLoader extends CompanyLoader {
                             [$state->objectId],
                         ));
                 },
+                $this->getModelNotFoundHandler(),
             ),
             ...$this->getAssetsOperations(),
             ...$this->getDocumentsOperations(),

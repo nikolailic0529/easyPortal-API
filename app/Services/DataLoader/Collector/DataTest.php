@@ -73,4 +73,12 @@ class DataTest extends TestCase {
             $data->getData(),
         );
     }
+
+    /**
+     * @covers ::isEmpty
+     */
+    public function testIsEmpty(): void {
+        self::assertTrue((new Data())->isEmpty());
+        self::assertFalse((new Data())->collect(Asset::factory()->make())->isEmpty());
+    }
 }

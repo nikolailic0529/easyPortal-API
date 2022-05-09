@@ -52,6 +52,7 @@ class AssetLoader extends Loader {
                             [$state->objectId],
                         ));
                 },
+                $this->getModelNotFoundHandler(),
             ),
         ];
     }
