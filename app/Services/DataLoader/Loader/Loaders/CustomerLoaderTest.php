@@ -9,13 +9,9 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Exceptions\CustomerWarrantyCheckFailed;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
-use Mockery\MockInterface;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithDocuments;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithoutAssets;
@@ -172,29 +168,6 @@ class CustomerLoaderTest extends TestCase {
         $queries->flush();
 
         unset($events);
-    }
-
-    public function testProcessWithWarrantyCheck(): void {
-        $this->markTestIncomplete('Not implemented!');
-
-        $this->override(Client::class, static function (MockInterface $mock): void {
-            $mock
-                ->shouldReceive('runCustomerWarrantyCheck')
-                ->once()
-                ->andReturn(false);
-            $mock
-                ->shouldReceive('call')
-                ->never();
-        });
-
-        $id     = $this->faker->uuid();
-        $loader = $this->app->make(Container::class)
-            ->make(CustomerLoader::class)
-            ->setWithWarrantyCheck(true);
-
-        self::expectExceptionObject(new CustomerWarrantyCheckFailed($id));
-
-        $loader->create($id);
     }
 
     /**

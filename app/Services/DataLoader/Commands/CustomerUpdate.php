@@ -29,7 +29,7 @@ class CustomerUpdate extends ObjectUpdate {
 
     public function __invoke(Formatter $formatter, CustomerLoader $loader): int {
         $loader = $loader
-            // fixme(DataLoader)!: ->setWithWarrantyCheck((bool) $this->getBoolOption('warranty-check', false))
+            ->setWithWarrantyCheck((bool) $this->getBoolOption('warranty-check', false))
             ->setWithAssets((bool) $this->getBoolOption('assets', false))
             ->setWithAssetsDocuments((bool) $this->getBoolOption('assets-documents', true))
             ->setWithDocuments((bool) $this->getBoolOption('documents', false));

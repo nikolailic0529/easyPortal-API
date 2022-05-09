@@ -12506,6 +12506,11 @@ parameters:
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/CallbackLoader.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
@@ -12566,16 +12571,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/LoaderTest.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/LoaderTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
@@ -12586,9 +12581,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
 		-
-			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
+			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12626,9 +12621,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:operations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
@@ -12636,14 +12631,14 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter given\\.$#"
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Dynamic call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:markTestIncomplete\\(\\)\\.$#"
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -12677,11 +12672,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 

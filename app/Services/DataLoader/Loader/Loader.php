@@ -13,15 +13,12 @@ use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Importer\ImporterState;
+use App\Services\DataLoader\Loader\Concerns\WithLoaderState;
 use App\Utils\Processor\CompositeProcessor;
-use App\Utils\Processor\State;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Date;
-
-use function array_merge;
 
 /**
  * Load data from API and create app's objects.
@@ -31,6 +28,7 @@ use function array_merge;
  * @extends CompositeProcessor<TState>
  */
 abstract class Loader extends CompositeProcessor {
+    use WithLoaderState;
     use WithObjectId;
 
     public function __construct(
@@ -72,26 +70,6 @@ abstract class Loader extends CompositeProcessor {
                 throw $this->getModelNotFoundException($state->objectId);
             }
         };
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="State">
-    // =========================================================================
-    /**
-     * @inheritDoc
-     */
-    protected function restoreState(array $state): State {
-        return new LoaderState($state);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function defaultState(array $state): array {
-        return array_merge(parent::defaultState($state), [
-            'objectId' => $this->getObjectId(),
-            'started'  => Date::now(),
-        ]);
     }
     // </editor-fold>
 }

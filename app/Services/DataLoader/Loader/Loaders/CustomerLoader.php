@@ -4,22 +4,31 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Asset;
 use App\Models\Document;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter;
 use App\Services\DataLoader\Importer\Importers\Customers\IteratorImporter;
+use App\Services\DataLoader\Loader\CallbackLoader;
 use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Loader\CompanyLoaderState;
+use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\EmptyProcessor;
+use App\Utils\Processor\State;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+
+use function array_merge;
 
 /**
  * @extends CompanyLoader<CompanyLoaderState>
  */
 class CustomerLoader extends CompanyLoader {
+    use WithWarrantyCheck;
+
     // <editor-fold desc="Loader">
     // =========================================================================
     protected function getModelNotFoundException(string $id): Exception {
@@ -32,8 +41,24 @@ class CustomerLoader extends CompanyLoader {
     protected function operations(): array {
         return [
             new CompositeOperation(
-                'Customer update',
-                function (CompanyLoaderState $state): Processor {
+                'Warranty check',
+                function (CustomerLoaderState $state): Processor {
+                    if (!$state->withWarrantyCheck) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
+
+                    return $this
+                        ->getContainer()
+                        ->make(CallbackLoader::class)
+                        ->setObjectId($state->objectId)
+                        ->setCallback(static function (Client $client, string $objectId): void {
+                            $client->runCustomerWarrantyCheck($objectId);
+                        });
+                },
+            ),
+            new CompositeOperation(
+                'Customer properties update',
+                function (CustomerLoaderState $state): Processor {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
@@ -73,6 +98,25 @@ class CustomerLoader extends CompanyLoader {
         return Document::query()
             ->where('customer_id', '=', $state->objectId)
             ->where('synced_at', '<', $state->started);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new CustomerLoaderState($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'withWarrantyCheck' => $this->isWithWarrantyCheck(),
+        ]);
     }
     // </editor-fold>
 }

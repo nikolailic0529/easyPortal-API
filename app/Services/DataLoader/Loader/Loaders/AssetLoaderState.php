@@ -5,5 +5,6 @@ namespace App\Services\DataLoader\Loader\Loaders;
 use App\Services\DataLoader\Loader\LoaderState;
 
 class AssetLoaderState extends LoaderState {
-    public bool $withDocuments = false;
+    public bool $withWarrantyCheck = false;
+    public bool $withDocuments     = false;
 }
