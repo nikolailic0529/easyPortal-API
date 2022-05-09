@@ -25,8 +25,8 @@ class DocumentLoader extends Loader {
     protected function operations(): array {
         return [
             new CompositeOperation(
-                'Distributor update',
-                function (AssetLoaderState $state): Processor {
+                'Document update',
+                function (LoaderState $state): Processor {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)

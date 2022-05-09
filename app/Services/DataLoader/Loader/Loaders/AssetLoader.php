@@ -46,6 +46,7 @@ class AssetLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
+                        ->setWithDocuments($state->withDocuments)
                         ->setIterator(new ObjectsIterator(
                             $this->getExceptionHandler(),
                             [$state->objectId],

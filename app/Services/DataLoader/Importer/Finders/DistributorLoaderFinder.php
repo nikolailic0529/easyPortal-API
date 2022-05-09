@@ -9,6 +9,11 @@ use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 
 class DistributorLoaderFinder extends Finder implements DistributorFinder {
     public function find(string $key): ?Distributor {
-        return $this->container->make(DistributorLoader::class)->create($key);
+        $result = $this->container->make(DistributorLoader::class)->setObjectId($key)->start();
+        $model  = $result
+            ? Distributor::query()->whereKey($key)->first()
+            : null;
+
+        return $model;
     }
 }

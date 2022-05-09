@@ -9,6 +9,11 @@ use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 
 class CustomerLoaderFinder extends Finder implements CustomerFinder {
     public function find(string $key): ?Customer {
-        return $this->container->make(CustomerLoader::class)->create($key);
+        $result = $this->container->make(CustomerLoader::class)->setObjectId($key)->start();
+        $model  = $result
+            ? Customer::query()->whereKey($key)->first()
+            : null;
+
+        return $model;
     }
 }

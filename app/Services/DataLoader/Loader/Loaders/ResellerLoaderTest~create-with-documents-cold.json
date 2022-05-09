@@ -1,8 +1,39 @@
 [
     {
-        "query": "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "0309df71-936c-44ce-9477-b5e9221fc96a"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "e61ed796-d98b-525d-a422-6ae25969cb43"
+        ]
+    },
+    {
+        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "489a1253-814e-5258-b238-fdedf9a9fb9f"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0309df71-936c-44ce-9477-b5e9221fc96a",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
+        "bindings": [
+            "45ce9849-824c-574c-bad4-95920da639a3"
         ]
     },
     {
@@ -16,19 +47,6 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_type` = ? and `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "Reseller",
-            "0309df71-936c-44ce-9477-b5e9221fc96a"
-        ]
-    },
-    {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0309df71-936c-44ce-9477-b5e9221fc96a"
-        ]
-    },
-    {
         "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
         "bindings": []
     },
@@ -37,31 +55,10 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "6201 greenholt brooks suite 124",
-            "46795-2554"
-        ]
-    },
-    {
-        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`reseller_location_id` = ? and `reseller_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e61ed796-d98b-525d-a422-6ae25969cb43"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c"
-        ]
-    },
-    {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:02",
-            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:06",
             "0309df71-936c-44ce-9477-b5e9221fc96a"
         ]
     },
@@ -116,11 +113,11 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "140d36bc-5ed9-5a1b-829a-9860f973cb92",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
-            "81d534c5-a257-5850-afb6-72cad50161b8",
-            "8317af49-83a3-574e-97d3-12abdacae412",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
+            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
+            "e20bb605-a673-55c2-8df6-e533dbc04caa",
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4",
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c"
         ]
     },
     {
@@ -230,7 +227,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "3f1a6f6d-14f3-3759-b694-5e451f22d387",
-            "98ad4c7d-65d0-589e-9ed8-23a2b3f8cb1a",
+            "7cab6654-ee5f-519f-bee1-45b6fbd41ef5",
             "0309df71-936c-44ce-9477-b5e9221fc96a",
             "5b73014b-8822-47c9-80bf-68c4fd62cfcb",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -270,12 +267,12 @@
             "ff93f7ee-5add-5bb4-b77a-31d3c1dd5d1f",
             "2022-02-02 00:00:39",
             "b8ee65f3-840b-542a-a481-3ab25a2af07f",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "2022-02-02 00:00:39",
             "ff93f7ee-5add-5bb4-b77a-31d3c1dd5d1f",
             "2022-02-02 00:00:40",
             "5c0c285f-93d2-5996-8c57-995bd6033628",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "2022-02-02 00:00:40"
         ]
     },
@@ -301,7 +298,7 @@
             "123e38fa-c1bf-5caa-aec0-0fe239da7119",
             "312.00",
             "253.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "312.00",
             "81a36320-3dd4-38b1-b6f9-559e676b0c06",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -317,7 +314,7 @@
             "c4092391-dd6d-55a3-9070-19e0546816e4",
             "60.00",
             "48.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "60.00",
             "81a36320-3dd4-38b1-b6f9-559e676b0c06",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -333,7 +330,7 @@
             "b4b052f6-d18f-5e1a-a7b9-40735e81b263",
             "60.00",
             "48.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "60.00",
             "81a36320-3dd4-38b1-b6f9-559e676b0c06",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -349,7 +346,7 @@
             "2b418def-6ec2-502c-b27f-833b604fdb6a",
             "312.00",
             "253.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "312.00",
             "81a36320-3dd4-38b1-b6f9-559e676b0c06",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -383,7 +380,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "3c220c91-515f-37bc-93be-63d38c521c20",
-            "98ad4c7d-65d0-589e-9ed8-23a2b3f8cb1a",
+            "7cab6654-ee5f-519f-bee1-45b6fbd41ef5",
             "0309df71-936c-44ce-9477-b5e9221fc96a",
             "f6fb5789-928e-4faf-863f-164b50c1df5e",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -423,17 +420,17 @@
             "9dea4802-4cb6-53a4-a2bb-48e0d0719df2",
             "2022-02-02 00:01:00",
             "fac05a7e-c167-5c76-9713-32cb83574527",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "2022-02-02 00:01:00",
             "9dea4802-4cb6-53a4-a2bb-48e0d0719df2",
             "2022-02-02 00:01:01",
             "0d108752-9e32-5436-94fe-657eaad81671",
-            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
             "2022-02-02 00:01:01",
             "9dea4802-4cb6-53a4-a2bb-48e0d0719df2",
             "2022-02-02 00:01:02",
             "0b7968bb-c8da-5d92-bb46-b77e77748fab",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "2022-02-02 00:01:02"
         ]
     },
@@ -459,7 +456,7 @@
             "189afdbf-13f9-5e0c-861b-bf3341510fb4",
             "60.00",
             "48.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "60.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -475,7 +472,7 @@
             "2acb0def-0aa6-5e3f-9fb3-4c7ea337ec12",
             "60.00",
             "48.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "60.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -491,7 +488,7 @@
             "014565d2-3c7d-5f20-8602-925a97844816",
             "312.00",
             "253.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "312.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -507,7 +504,7 @@
             "35cc7b87-45b9-5268-bc0b-b6d029ef4183",
             "312.00",
             "253.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "312.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -541,7 +538,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "944bd9b9-5100-3f90-9b29-7e017038e2f1",
-            "98ad4c7d-65d0-589e-9ed8-23a2b3f8cb1a",
+            "7cab6654-ee5f-519f-bee1-45b6fbd41ef5",
             "0309df71-936c-44ce-9477-b5e9221fc96a",
             "fe91b8ad-1d56-4a31-aa3c-864e89f74382",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -581,17 +578,17 @@
             "a6b89f5f-9c6d-5476-bfa9-5d3f69665060",
             "2022-02-02 00:01:18",
             "1484bdfd-f95b-574d-9560-ba0e8f5c3320",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "2022-02-02 00:01:18",
             "a6b89f5f-9c6d-5476-bfa9-5d3f69665060",
             "2022-02-02 00:01:19",
             "999c02bb-b836-5b08-abfb-69d9bd1e038b",
-            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
             "2022-02-02 00:01:19",
             "a6b89f5f-9c6d-5476-bfa9-5d3f69665060",
             "2022-02-02 00:01:20",
             "1717c1dd-883b-5375-a4d5-5dc6d3c6527b",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "2022-02-02 00:01:20"
         ]
     },
@@ -617,7 +614,7 @@
             "c831d200-35e0-5bc7-870f-77b89621ad36",
             "60.00",
             "48.00",
-            "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
+            "4f6940dd-886c-57e3-9071-a8f436ba83f0",
             "60.00",
             "d372ad5a-1cf8-3eda-b688-fbc228177a8d",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -633,7 +630,7 @@
             "f089dfda-ce9f-5fa1-ade6-654290187bde",
             "11.00",
             "9.00",
-            "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
+            "4f6940dd-886c-57e3-9071-a8f436ba83f0",
             "11.00",
             "d372ad5a-1cf8-3eda-b688-fbc228177a8d",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -703,7 +700,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "3c220c91-515f-37bc-93be-63d38c521c20",
-            "0cdfa506-16f4-528f-a47d-0523a2aaf157",
+            "9f937290-4b20-5a8e-b3fe-7696a6ea8852",
             "0309df71-936c-44ce-9477-b5e9221fc96a",
             "f6fb5789-928e-4faf-863f-164b50c1df5e",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -743,17 +740,17 @@
             "64a92e66-0607-553d-a85a-05ee44f84c84",
             "2022-02-02 00:01:36",
             "a89d2e86-a3a8-50ab-87b0-cefd2413b6e8",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "2022-02-02 00:01:36",
             "64a92e66-0607-553d-a85a-05ee44f84c84",
             "2022-02-02 00:01:37",
             "f528c795-7d02-5769-acc9-23e1892eb6b3",
-            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
             "2022-02-02 00:01:37",
             "64a92e66-0607-553d-a85a-05ee44f84c84",
             "2022-02-02 00:01:38",
             "8d4460e3-ad52-5369-b348-0b483311a58a",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "2022-02-02 00:01:38"
         ]
     },
@@ -784,7 +781,7 @@
             "c7aec0ba-0480-5939-a374-a15a4dcf0909",
             "324.00",
             "263.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "324.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -800,7 +797,7 @@
             "71708473-89f1-5b9e-9315-86fb1fcbc61e",
             "60.00",
             "48.00",
-            "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "8844b349-c418-58d5-a90e-578712391fd4",
             "60.00",
             "1d450ad3-60e8-3dd4-b21d-f626332da0e9",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -852,7 +849,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "6a522e38-43a7-357f-b273-cfaba77a3738",
-            "98ad4c7d-65d0-589e-9ed8-23a2b3f8cb1a",
+            "7cab6654-ee5f-519f-bee1-45b6fbd41ef5",
             "0309df71-936c-44ce-9477-b5e9221fc96a",
             "8a0a715f-d71c-4312-9059-8b12bb0f091e",
             "5a87dcde-3a7c-55d8-afc0-1e2942c232fd",
@@ -892,12 +889,12 @@
             "3f6a38a6-23ab-59af-8dd5-f64f7a2b5b9a",
             "2022-02-02 00:01:58",
             "22b86c36-0bf0-5e52-8bbf-8fcdf0e111aa",
-            "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "2022-02-02 00:01:58",
             "3f6a38a6-23ab-59af-8dd5-f64f7a2b5b9a",
             "2022-02-02 00:01:59",
             "5b0132b0-6d3a-56cc-8b80-3a068d5f05e1",
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
+            "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "2022-02-02 00:01:59"
         ]
     },
@@ -918,7 +915,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "fb20b75a-a1c2-56b1-88f7-0b52a3a36987",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
             "c91c4b04-6efd-5bce-9458-9bb0a1662e15",
             "9ef13b92-4f78-5c27-9533-94562e45730b",
             "2022-02-02 00:02:01",
@@ -952,7 +949,7 @@
             "14e978bb-1c97-520b-9100-8e22e123392a",
             "728.00",
             "590.00",
-            "6d52b4eb-5aca-55f4-90de-38e6887906f4",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             "728.00",
             "25c2751c-d549-3cf1-afbe-5752ad70f054",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -968,7 +965,7 @@
             "923b5190-fc31-5b9a-9604-128b3c32c2d2",
             "78.00",
             "63.00",
-            "6d52b4eb-5aca-55f4-90de-38e6887906f4",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             "78.00",
             "25c2751c-d549-3cf1-afbe-5752ad70f054",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -984,7 +981,7 @@
             "0ee4856b-d528-5e87-b0b4-aa6230962571",
             "78.00",
             "63.00",
-            "6d52b4eb-5aca-55f4-90de-38e6887906f4",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             "78.00",
             "25c2751c-d549-3cf1-afbe-5752ad70f054",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1000,7 +997,7 @@
             "ca03181a-94bf-5377-b99a-ab8c3edc7d9d",
             "728.00",
             "590.00",
-            "6d52b4eb-5aca-55f4-90de-38e6887906f4",
+            "505a24fb-0e61-5e16-9cc8-517a6af529c8",
             "728.00",
             "25c2751c-d549-3cf1-afbe-5752ad70f054",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1010,17 +1007,17 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where `documents`.`reseller_id` = ? and `documents`.`reseller_id` is not null and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
+        "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a",
-            "2022-02-02T00:00:21+00:00"
+            "2022-02-02T00:00:01+00:00"
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where `documents`.`reseller_id` = ? and `documents`.`reseller_id` is not null and `synced_at` < ? and `documents`.`id` > ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
+        "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`id` > ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a",
-            "2022-02-02T00:00:21+00:00",
+            "2022-02-02T00:00:01+00:00",
             "00194785-9fba-4865-8106-7a833082c1cc"
         ]
     },
@@ -1126,7 +1123,7 @@
         "query": "update `documents` set `oem_said` = ?, `type_id` = ?, `customer_id` = ?, `reseller_id` = ?, `distributor_id` = ?, `number` = ?, `start` = ?, `end` = ?, `price` = ?, `currency_id` = ?, `language_id` = ?, `assets_count` = ?, `entries_count` = ?, `statuses_count` = ?, `changed_at` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "d6fb0144-9bbc-3366-9649-b1b8623b57e9",
-            "98ad4c7d-65d0-589e-9ed8-23a2b3f8cb1a",
+            "7cab6654-ee5f-519f-bee1-45b6fbd41ef5",
             "c1c5a133-c373-4212-a836-adfb33fa314c",
             "a36b83d1-a49b-45be-adb7-3c5defb55234",
             "143c456a-e894-4710-a1c2-745b9582ca47",
@@ -1167,7 +1164,7 @@
             "c35d98ff-aaf0-5e47-b905-c7faed97cb73",
             "809.00",
             "656.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "809.00",
             "95d6fd56-6bff-30bc-870a-34800cd6d7cf",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1183,7 +1180,7 @@
             "7b5967a0-3c05-570a-a251-27a6e37d460f",
             "666.00",
             "540.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "666.00",
             "95d6fd56-6bff-30bc-870a-34800cd6d7cf",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1199,7 +1196,7 @@
             "7a17faca-0331-511d-b769-b37b57bb4b2b",
             "809.00",
             "656.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "809.00",
             "95d6fd56-6bff-30bc-870a-34800cd6d7cf",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1215,7 +1212,7 @@
             "7e6d3290-97ea-52a5-a367-266933299575",
             "816.00",
             "662.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "816.00",
             "af2b6ec8-6fac-3cee-b8ca-81090bdffd40",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1231,7 +1228,7 @@
             "e3100002-c535-5697-a7ea-d3bd7b5b1ac7",
             "670.00",
             "544.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "670.00",
             "af2b6ec8-6fac-3cee-b8ca-81090bdffd40",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1247,7 +1244,7 @@
             "833b45b9-49a1-5d77-b8a3-ecb3e78a52eb",
             "816.00",
             "662.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "816.00",
             "af2b6ec8-6fac-3cee-b8ca-81090bdffd40",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1263,7 +1260,7 @@
             "f53e45ea-9540-5751-93e5-31da4f4c848e",
             "816.00",
             "662.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "816.00",
             "75a3139b-b563-33db-a4ce-91f88424c5ad",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1279,7 +1276,7 @@
             "41b1d0c3-0d7b-54aa-bc85-df9d074edfd7",
             "816.00",
             "662.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "816.00",
             "75a3139b-b563-33db-a4ce-91f88424c5ad",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1295,7 +1292,7 @@
             "6423ff5b-43d2-5f3b-b999-ee0a75dbf582",
             "670.00",
             "544.00",
-            "18e75f06-1346-5464-a4a8-0853c015f65a",
+            "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "670.00",
             "75a3139b-b563-33db-a4ce-91f88424c5ad",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1311,7 +1308,7 @@
             "4d7d1785-112b-56f8-926c-93b3c61e1e48",
             "809.00",
             "656.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "809.00",
             "13fdb291-f0e1-3879-a706-9d3e67c5eb12",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1327,7 +1324,7 @@
             "67e77706-b509-54c5-a59d-96a31a368beb",
             "809.00",
             "656.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "809.00",
             "13fdb291-f0e1-3879-a706-9d3e67c5eb12",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",
@@ -1343,7 +1340,7 @@
             "6be9a59a-8b3f-57b3-8228-df18046500f9",
             "666.00",
             "540.00",
-            "4b3773c3-f3de-5da5-b946-4f3ff6d1c869",
+            "17d3b957-caa0-543e-9b01-d6be5033d8e7",
             "666.00",
             "13fdb291-f0e1-3879-a706-9d3e67c5eb12",
             "134caa1b-d52d-53bb-bf64-fe10a39a0681",

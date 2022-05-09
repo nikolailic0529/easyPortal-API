@@ -3,7 +3,15 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Finders\AssetFinder;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\Concerns\WithObjectId;
+use App\Services\DataLoader\Importer\Finders\AssetLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\State;
 use Exception;
@@ -29,6 +37,11 @@ abstract class Loader extends CompositeProcessor {
         protected Container $container,
     ) {
         parent::__construct($exceptionHandler, $dispatcher);
+
+        $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
+        $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
+        $container->bind(AssetFinder::class, AssetLoaderFinder::class);
     }
 
     // <editor-fold desc="Getters / Setters">

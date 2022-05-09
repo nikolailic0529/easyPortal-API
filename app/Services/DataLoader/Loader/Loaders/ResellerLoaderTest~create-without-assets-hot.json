@@ -1,8 +1,45 @@
 [
     {
-        "query": "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "606a1145-730e-5c92-8353-6f54f0ba7ed9"
+        ]
+    },
+    {
+        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "c3ccc03d-9696-5f6f-8de3-77858d8deb2c"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
+        "bindings": [
+            "45b7eb07-c23d-5ae8-8ba2-c4c196226b4d"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "0d4098b2-824f-58e8-aa62-6df3c0f0fb14"
         ]
     },
     {
@@ -20,34 +57,6 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "colten rempel",
-            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e",
-            "reseller",
-            "+2351100468428"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "0d4098b2-824f-58e8-aa62-6df3c0f0fb14"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_type` = ? and `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "Reseller",
-            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
-        ]
-    },
-    {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
-        ]
-    },
-    {
         "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
         "bindings": []
     },
@@ -56,31 +65,10 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f05d35d8-6edc-5c65-a347-f66a691b36e3",
-            "7fd91fab-3309-5c6f-afca-f635f213fb13",
-            "3635 johnson drives suite 372",
-            "85046-1790"
-        ]
-    },
-    {
-        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`reseller_location_id` = ? and `reseller_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c3ccc03d-9696-5f6f-8de3-77858d8deb2c"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
-        "bindings": [
-            "45b7eb07-c23d-5ae8-8ba2-c4c196226b4d"
-        ]
-    },
-    {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:24",
-            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:26",
+            "2022-02-02 00:00:29",
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
         ]
     },

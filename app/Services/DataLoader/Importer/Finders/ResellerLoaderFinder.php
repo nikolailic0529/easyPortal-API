@@ -9,6 +9,11 @@ use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
 
 class ResellerLoaderFinder extends Finder implements ResellerFinder {
     public function find(string $key): ?Reseller {
-        return $this->container->make(ResellerLoader::class)->create($key);
+        $result = $this->container->make(ResellerLoader::class)->setObjectId($key)->start();
+        $model  = $result
+            ? Reseller::query()->whereKey($key)->first()
+            : null;
+
+        return $model;
     }
 }

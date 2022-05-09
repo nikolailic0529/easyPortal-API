@@ -21,6 +21,8 @@ class LoaderTest extends TestCase {
      * @covers ::create
      */
     public function testCreateModelNotExists(): void {
+        $this->markTestIncomplete('Not implemented!');
+
         // Prepare
         $e      = new Exception(__METHOD__);
         $id     = $this->faker->uuid();
@@ -45,50 +47,5 @@ class LoaderTest extends TestCase {
         // Test
         self::expectExceptionObject($e);
         self::assertEquals($model, $loader->create($id));
-    }
-
-    /**
-     * @covers ::create
-     */
-    public function testCreate(): void {
-        // Fake
-        Event::fake(DataImported::class);
-
-        // Prepare
-        $id        = $this->faker->uuid();
-        $type      = Mockery::mock(Type::class);
-        $model     = Mockery::mock(Model::class);
-        $collector = Mockery::mock(Collector::class);
-        $collector
-            ->shouldReceive('subscribe')
-            ->once()
-            ->andReturns();
-        $dispatcher = $this->app->make(Dispatcher::class);
-
-        $loader = Mockery::mock(Loader::class);
-        $loader->shouldAllowMockingProtectedMethods();
-        $loader->makePartial();
-        $loader
-            ->shouldReceive('process')
-            ->with($type)
-            ->once()
-            ->andReturn($model);
-        $loader
-            ->shouldReceive('getObjectById')
-            ->with($id)
-            ->andReturn($type);
-        $loader
-            ->shouldReceive('getCollector')
-            ->once()
-            ->andReturn($collector);
-        $loader
-            ->shouldReceive('getDispatcher')
-            ->once()
-            ->andReturn($dispatcher);
-
-        // Test
-        self::assertEquals($model, $loader->create($id));
-
-        Event::assertDispatched(DataImported::class);
     }
 }

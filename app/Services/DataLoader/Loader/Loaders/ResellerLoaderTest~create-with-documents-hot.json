@@ -1,8 +1,39 @@
 [
     {
-        "query": "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "0309df71-936c-44ce-9477-b5e9221fc96a"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "e61ed796-d98b-525d-a422-6ae25969cb43"
+        ]
+    },
+    {
+        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "489a1253-814e-5258-b238-fdedf9a9fb9f"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "0309df71-936c-44ce-9477-b5e9221fc96a",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
+        "bindings": [
+            "45ce9849-824c-574c-bad4-95920da639a3"
         ]
     },
     {
@@ -16,19 +47,6 @@
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_type` = ? and `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "Reseller",
-            "0309df71-936c-44ce-9477-b5e9221fc96a"
-        ]
-    },
-    {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` = ? and `reseller_locations`.`reseller_id` is not null and `reseller_locations`.`deleted_at` is null",
-        "bindings": [
-            "0309df71-936c-44ce-9477-b5e9221fc96a"
-        ]
-    },
-    {
         "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
         "bindings": []
     },
@@ -37,31 +55,10 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "6201 greenholt brooks suite 124",
-            "46795-2554"
-        ]
-    },
-    {
-        "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`reseller_location_id` = ? and `reseller_location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e61ed796-d98b-525d-a422-6ae25969cb43"
-        ]
-    },
-    {
-        "query": "select `kpis`.* from `kpis` where `kpis`.`id` = ? and `kpis`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6fb67836-e7d8-5ddb-9a1e-a6ed4fdd1b2c"
-        ]
-    },
-    {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:23",
-            "2022-02-02 00:03:26",
+            "2022-02-02 00:03:24",
+            "2022-02-02 00:03:27",
             "0309df71-936c-44ce-9477-b5e9221fc96a"
         ]
     },
@@ -127,16 +124,16 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "140d36bc-5ed9-5a1b-829a-9860f973cb92",
-            "3c837192-b5e7-5f91-aff4-fd40f49c94ce",
             "3f6a38a6-23ab-59af-8dd5-f64f7a2b5b9a",
             "64a92e66-0607-553d-a85a-05ee44f84c84",
-            "81d534c5-a257-5850-afb6-72cad50161b8",
-            "8317af49-83a3-574e-97d3-12abdacae412",
-            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
             "9dea4802-4cb6-53a4-a2bb-48e0d0719df2",
             "a6b89f5f-9c6d-5476-bfa9-5d3f69665060",
+            "b921b865-6cb1-5f24-8a00-1067b776d781",
             "c91c4b04-6efd-5bce-9458-9bb0a1662e15",
+            "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
+            "e20bb605-a673-55c2-8df6-e533dbc04caa",
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4",
+            "f5fee4c5-dd46-513a-b99f-61fe2650691c",
             "ff93f7ee-5add-5bb4-b77a-31d3c1dd5d1f"
         ]
     },
@@ -333,10 +330,10 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where `documents`.`reseller_id` = ? and `documents`.`reseller_id` is not null and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
+        "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a",
-            "2022-02-02T00:03:42+00:00"
+            "2022-02-02T00:03:22+00:00"
         ]
     }
 ]

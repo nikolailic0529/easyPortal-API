@@ -59,13 +59,13 @@ class DocumentLoaderTest extends TestCase {
             Distributor::class   => 1,
             Reseller::class      => 4,
             Customer::class      => 1,
-            Asset::class         => 0,
+            Asset::class         => 96,
             AssetWarranty::class => 0,
             Document::class      => 1,
-            DocumentEntry::class => 0,
+            DocumentEntry::class => 96,
         ]);
         self::assertDispatchedEventsEquals(
-            '~create-events.json',
+            '~create-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -83,7 +83,7 @@ class DocumentLoaderTest extends TestCase {
 
         self::assertQueryLogEquals('~create-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~create-events.json',
+            '~create-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

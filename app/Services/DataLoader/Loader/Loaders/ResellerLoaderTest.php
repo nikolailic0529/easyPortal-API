@@ -9,7 +9,6 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
@@ -50,14 +49,14 @@ class ResellerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithoutAssets::RESELLER)
+            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS)
+            ->start();
 
         self::assertQueryLogEquals('~create-without-assets-cold.json', $queries);
         self::assertModelsCount([
@@ -79,14 +78,14 @@ class ResellerLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithoutAssets::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithoutAssets::RESELLER)
+            ->setWithAssets(ResellerLoaderCreateWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithoutAssets::ASSETS)
+            ->start();
 
         self::assertQueryLogEquals('~create-without-assets-hot.json', $queries);
         self::assertDispatchedEventsEquals(
@@ -122,14 +121,14 @@ class ResellerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithAssets::RESELLER)
+            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-assets-cold.json', $queries);
         self::assertModelsCount([
@@ -151,14 +150,14 @@ class ResellerLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithAssets::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithAssets::RESELLER)
+            ->setWithAssets(ResellerLoaderCreateWithAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderCreateWithAssets::ASSETS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-assets-hot.json', $queries);
         self::assertDispatchedEventsEquals(
@@ -194,13 +193,13 @@ class ResellerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithDocuments(ResellerLoaderCreateWithDocuments::DOCUMENTS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithDocuments::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithDocuments::RESELLER)
+            ->setWithDocuments(ResellerLoaderCreateWithDocuments::DOCUMENTS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-documents-cold.json', $queries);
         self::assertModelsCount([
@@ -222,13 +221,13 @@ class ResellerLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(ResellerLoader::class)
-            ->setWithDocuments(ResellerLoaderCreateWithDocuments::DOCUMENTS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(ResellerLoaderCreateWithDocuments::RESELLER);
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderCreateWithDocuments::RESELLER)
+            ->setWithDocuments(ResellerLoaderCreateWithDocuments::DOCUMENTS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-documents-hot.json', $queries);
         self::assertDispatchedEventsEquals(

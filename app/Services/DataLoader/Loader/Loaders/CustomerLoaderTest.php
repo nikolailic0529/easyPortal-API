@@ -220,13 +220,13 @@ class CustomerLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(CustomerLoader::class)
-            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(CustomerLoaderCreateWithDocuments::CUSTOMER);
+        $this->app->make(CustomerLoader::class)
+            ->setObjectId(CustomerLoaderCreateWithDocuments::CUSTOMER)
+            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-documents-cold.json', $queries);
         self::assertModelsCount([
@@ -248,13 +248,13 @@ class CustomerLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(CustomerLoader::class)
-            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(CustomerLoaderCreateWithDocuments::CUSTOMER);
+        $this->app->make(CustomerLoader::class)
+            ->setObjectId(CustomerLoaderCreateWithDocuments::CUSTOMER)
+            ->setWithDocuments(CustomerLoaderCreateWithDocuments::DOCUMENTS)
+            ->start();
 
         self::assertQueryLogEquals('~create-with-documents-hot.json', $queries);
         self::assertDispatchedEventsEquals(
