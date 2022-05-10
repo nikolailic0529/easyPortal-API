@@ -57,7 +57,7 @@ class CustomerLoader extends CompanyLoader {
                 },
             ),
             new CompositeOperation(
-                'Properties',
+                'Updating properties',
                 function (CustomerLoaderState $state): Processor {
                     return $this
                         ->getContainer()
