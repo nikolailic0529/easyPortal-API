@@ -3,73 +3,91 @@
 namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
-use App\Services\DataLoader\Factory\Factories\AssetFactory;
-use App\Services\DataLoader\Factory\Factories\DocumentFactory;
-use App\Services\DataLoader\Factory\ModelFactory;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
+use App\Services\DataLoader\Loader\CallbackLoader;
+use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
-use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAsset;
+use App\Utils\Iterators\ObjectsIterator;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\CompositeState;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\EmptyProcessor;
+use App\Utils\Processor\State;
 use Exception;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 
+use function array_merge;
+
+/**
+ * @extends Loader<AssetLoaderState>
+ */
 class AssetLoader extends Loader {
+    use WithDocuments;
     use WithWarrantyCheck;
 
-    protected bool $withDocuments = false;
-
-    public function __construct(
-        Container $container,
-        ExceptionHandler $exceptionHandler,
-        Dispatcher $dispatcher,
-        Client $client,
-        Collector $collector,
-        protected AssetFactory $assets,
-        protected DocumentFactory $documents,
-    ) {
-        parent::__construct($container, $exceptionHandler, $dispatcher, $client, $collector);
-    }
-
-    public function isWithDocuments(): bool {
-        return $this->withDocuments;
-    }
-
-    public function setWithDocuments(bool $withDocuments): static {
-        $this->withDocuments = $withDocuments;
-
-        return $this;
+    // <editor-fold desc="Loader">
+    // =========================================================================
+    protected function getModelNotFoundException(string $id): Exception {
+        return new AssetNotFound($id);
     }
 
     /**
      * @inheritDoc
      */
-    protected function getObject(array $properties): ?Type {
-        return new ViewAsset($properties);
+    protected function operations(CompositeState $state): array {
+        return [
+            new CompositeOperation(
+                'Warranty Check',
+                function (AssetLoaderState $state): Processor {
+                    if (!$state->withWarrantyCheck) {
+                        return $this->getContainer()->make(EmptyProcessor::class);
+                    }
+
+                    return $this
+                        ->getContainer()
+                        ->make(CallbackLoader::class)
+                        ->setObjectId($state->objectId)
+                        ->setCallback(static function (Client $client, string $objectId): void {
+                            $client->runAssetWarrantyCheck($objectId);
+                        });
+                },
+            ),
+            new CompositeOperation(
+                'Updating properties',
+                function (AssetLoaderState $state): Processor {
+                    return $this
+                        ->getContainer()
+                        ->make(IteratorImporter::class)
+                        ->setWithDocuments($state->withDocuments)
+                        ->setIterator(new ObjectsIterator(
+                            $this->getExceptionHandler(),
+                            [$state->objectId],
+                        ));
+                },
+                $this->getModelNotFoundHandler(),
+            ),
+        ];
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="State">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function restoreState(array $state): State {
+        return new AssetLoaderState($state);
     }
 
-    protected function getObjectById(string $id): ?Type {
-        if ($this->isWithWarrantyCheck()) {
-            $this->runAssetWarrantyCheck($id);
-        }
-
-        return $this->isWithDocuments()
-            ? $this->client->getAssetByIdWithDocuments($id)
-            : $this->client->getAssetById($id);
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'withWarrantyCheck' => $this->isWithWarrantyCheck(),
+            'withDocuments'     => $this->isWithDocuments(),
+        ]);
     }
-
-    protected function getObjectFactory(): ModelFactory {
-        if ($this->isWithDocuments()) {
-            $this->assets->setDocumentFactory($this->documents);
-        }
-
-        return $this->assets;
-    }
-
-    protected function getModelNotFoundException(string $id): Exception {
-        return new AssetNotFound($id);
-    }
+    // </editor-fold>
 }

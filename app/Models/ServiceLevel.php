@@ -10,7 +10,6 @@ use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ServiceLevelFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,7 +34,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ServiceLevel newModelQuery()
  * @method static Builder|ServiceLevel newQuery()
  * @method static Builder|ServiceLevel query()
- * @mixin Eloquent
  */
 class ServiceLevel extends Model implements Translatable {
     use HasFactory;

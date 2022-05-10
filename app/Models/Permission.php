@@ -7,7 +7,6 @@ use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\PermissionFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Permission newModelQuery()
  * @method static Builder|Permission newQuery()
  * @method static Builder|Permission query()
- * @mixin Eloquent
  */
 class Permission extends Model implements Translatable {
     use HasFactory;

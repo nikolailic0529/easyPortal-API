@@ -23,17 +23,15 @@ trait ChunkConverter {
      */
     protected function chunkConvert(array $items): array {
         // Convert
+        $converter = $this->getConverter();
         $converted = [];
         $errors    = 0;
 
-        if ($this->getConverter()) {
+        if ($converter) {
             foreach ($items as $key => $item) {
                 try {
-                    $item = $this->chunkConvertItem($item);
-
-                    if ($item !== null) {
-                        $converted[$key] = $item;
-                    }
+                    $item            = $converter($item);
+                    $converted[$key] = $item;
                 } catch (IteratorFatalError $exception) {
                     throw $exception;
                 } catch (Throwable $exception) {
@@ -45,6 +43,7 @@ trait ChunkConverter {
                 }
             }
         } else {
+            /** @var array<T> $converted */
             $converted = $items;
         }
 
@@ -54,22 +53,6 @@ trait ChunkConverter {
         }
 
         // Return
-        return $converted;
-    }
-
-    /**
-     * @param T $item
-     *
-     * @return V
-     */
-    protected function chunkConvertItem(mixed $item): mixed {
-        $converter = $this->getConverter();
-        $converted = $item;
-
-        if ($converter) {
-            $converted = $converter($item);
-        }
-
         return $converted;
     }
 

@@ -4,7 +4,9 @@ namespace Tests;
 
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Laravel\Scout\Events\ModelsImported;
 use LogicException;
 
 use function file_put_contents;
@@ -48,6 +50,13 @@ trait WithEvents {
             $data = [
                 'model' => $event->getModel(),
                 'keys'  => $event->getKeys(),
+            ];
+        } elseif ($event instanceof ModelsImported) {
+            $data = [
+                'event'  => $event::class,
+                'models' => $event->models->map(static function (Model $model): mixed {
+                    return $model->getKey();
+                }),
             ];
         } else {
             throw new LogicException('Not yet supported.');

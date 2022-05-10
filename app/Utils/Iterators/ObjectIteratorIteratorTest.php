@@ -35,7 +35,7 @@ class ObjectIteratorIteratorTest extends TestCase {
                 1 => 20,
                 2 => 30,
                 3 => 40,
-                // 4 => 50 - skipped, because `null`
+                4 => null,
                 5 => 60,
                 6 => 70,
                 7 => 80,
@@ -48,7 +48,7 @@ class ObjectIteratorIteratorTest extends TestCase {
             [
                 0 => 30,
                 1 => 40,
-                // 2 => 50 - skipped, because `null`
+                2 => null,
                 3 => 60,
                 4 => 70,
                 5 => 80,

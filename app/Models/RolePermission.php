@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\RolePermissionFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -22,7 +21,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|RolePermission newModelQuery()
  * @method static Builder|RolePermission newQuery()
  * @method static Builder|RolePermission query()
- * @mixin Eloquent
  */
 class RolePermission extends Pivot {
     use HasFactory;

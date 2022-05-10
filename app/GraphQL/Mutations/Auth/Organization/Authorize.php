@@ -16,7 +16,7 @@ class Authorize {
     }
 
     /**
-     * @param array<string,mixed> $args
+     * @param array<string,array{input: array<string,mixed>}> $args
      */
     public function __invoke(Organization $organization, array $args): mixed {
         $me = null;

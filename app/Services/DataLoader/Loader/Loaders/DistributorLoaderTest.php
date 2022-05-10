@@ -9,11 +9,10 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
-use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
-use Tests\Data\Services\DataLoader\Loaders\DistributorLoaderCreate;
+use Tests\Data\Services\DataLoader\Loaders\DistributorLoaderData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -26,11 +25,11 @@ class DistributorLoaderTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::create
+     * @covers ::process
      */
-    public function testCreate(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(DistributorLoaderCreate::class);
+        $this->generateData(DistributorLoaderData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -48,14 +47,14 @@ class DistributorLoaderTest extends TestCase {
         ]);
 
         // Test (cold)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DistributorLoader::class);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
+        $this->app->make(DistributorLoader::class)
+            ->setObjectId(DistributorLoaderData::DISTRIBUTOR)
+            ->start();
 
-        self::assertQueryLogEquals('~create-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 0,
@@ -66,7 +65,7 @@ class DistributorLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~create-events.json',
+            '~process-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -75,16 +74,16 @@ class DistributorLoaderTest extends TestCase {
         unset($events);
 
         // Test (hot)
-        $events   = Event::fake(DataImported::class);
-        $queries  = $this->getQueryLog();
-        $importer = $this->app->make(Container::class)
-            ->make(DistributorLoader::class);
+        $events  = Event::fake(DataImported::class);
+        $queries = $this->getQueryLog();
 
-        $importer->create(DistributorLoaderCreate::DISTRIBUTOR);
+        $this->app->make(DistributorLoader::class)
+            ->setObjectId(DistributorLoaderData::DISTRIBUTOR)
+            ->start();
 
-        self::assertQueryLogEquals('~create-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~create-events.json',
+            '~process-events.json',
             $events->dispatched(DataImported::class),
         );
 

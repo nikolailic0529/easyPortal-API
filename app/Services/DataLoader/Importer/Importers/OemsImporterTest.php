@@ -30,7 +30,7 @@ class OemsImporterTest extends TestCase {
      * @covers ::parse
      * @covers ::registerEvents
      */
-    public function testImport(): void {
+    public function testProcess(): void {
         // Helpers
         $storage = new AppTranslations($this->app->make(AppDisk::class), 'fr_FR');
         $toArray = static function (Collection $models): array {
@@ -224,7 +224,7 @@ class OemsImporterTest extends TestCase {
      * @covers ::parse
      * @covers ::registerEvents
      */
-    public function testImportNoEnglish(): void {
+    public function testProcessNoEnglish(): void {
         // Pretest
         $this->assertModelsCount([
             Oem::class          => 0,

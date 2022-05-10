@@ -1,0 +1,71 @@
+[
+    {
+        "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?)) and `distributors`.`deleted_at` is null",
+        "bindings": [
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "eb1cb37a-48ab-43da-a01e-220220f8654a",
+            "74262ef0-5df5-4479-9f7c-de0625970696",
+            "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
+            "f066f65a-6455-4cff-8dfb-0aaaeba544f9"
+        ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "143c456a-e894-4710-a1c2-745b9582ca47",
+            "Kling, Gulgowski and Tillman",
+            "2021-09-08 10:51:24",
+            "2022-02-02 00:00:02",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
+        ]
+    },
+    {
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "eb1cb37a-48ab-43da-a01e-220220f8654a",
+            "Erdman-Lehner",
+            "2022-01-26 10:51:44",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:06",
+            "2022-02-02 00:00:06"
+        ]
+    },
+    {
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "74262ef0-5df5-4479-9f7c-de0625970696",
+            "Emmerich PLC",
+            "2022-01-26 10:21:40",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
+        ]
+    },
+    {
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
+            "Harris Ltd",
+            "2022-01-26 10:15:16",
+            "2022-02-02 00:00:11",
+            "2022-02-02 00:00:12",
+            "2022-02-02 00:00:12"
+        ]
+    },
+    {
+        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "f066f65a-6455-4cff-8dfb-0aaaeba544f9",
+            "Dooley, Koch and Bogan",
+            "2022-01-26 10:52:55",
+            "2022-02-02 00:00:14",
+            "2022-02-02 00:00:15",
+            "2022-02-02 00:00:15"
+        ]
+    }
+]

@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -19,7 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|AssetWarrantyServiceLevel newModelQuery()
  * @method static Builder|AssetWarrantyServiceLevel newQuery()
  * @method static Builder|AssetWarrantyServiceLevel query()
- * @mixin Eloquent
  */
 class AssetWarrantyServiceLevel extends Pivot {
     /**

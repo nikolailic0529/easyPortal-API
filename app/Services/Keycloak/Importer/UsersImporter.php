@@ -12,9 +12,10 @@ use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImport;
 use App\Services\Keycloak\Exceptions\FailedToImportObject;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
+use App\Services\Keycloak\Exceptions\ImportError;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -29,9 +30,9 @@ use function array_merge;
 use function in_array;
 
 /**
- * @extends Processor<KeycloakUser,UsersImporterChunkData,UsersImporterState>
+ * @extends IteratorProcessor<KeycloakUser,UsersImporterChunkData,UsersImporterState>
  */
-class UsersImporter extends Processor {
+class UsersImporter extends IteratorProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
@@ -59,7 +60,9 @@ class UsersImporter extends Processor {
 
     protected function report(Throwable $exception, mixed $item = null): void {
         if (!($exception instanceof FailedToImport)) {
-            $exception = new FailedToImportObject($item, $exception);
+            $exception = $item
+                ? new FailedToImportObject($this, $item, $exception)
+                : new ImportError($this, $exception);
         }
 
         $this->getExceptionHandler()->report($exception);

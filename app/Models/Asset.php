@@ -22,7 +22,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\AssetFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -79,7 +78,6 @@ use function count;
  * @method static Builder|Asset newModelQuery()
  * @method static Builder|Asset newQuery()
  * @method static Builder|Asset query()
- * @mixin Eloquent
  */
 class Asset extends Model implements OwnedByOrganization, Searchable {
     use SearchableImpl;

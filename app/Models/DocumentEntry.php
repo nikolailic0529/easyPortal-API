@@ -11,7 +11,6 @@ use App\Models\Relations\HasServiceLevel;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -45,7 +44,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|DocumentEntry newModelQuery()
  * @method static Builder|DocumentEntry newQuery()
  * @method static Builder|DocumentEntry query()
- * @mixin Eloquent
  */
 class DocumentEntry extends Model {
     use HasFactory;

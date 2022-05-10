@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Document;
-use App\Services\DataLoader\Commands\UpdateDocument;
+use App\Services\DataLoader\Commands\DocumentUpdate;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
@@ -42,7 +42,7 @@ class DocumentSync extends Sync {
 
     protected function syncProperties(ExceptionHandler $handler, Kernel $kernel): bool {
         try {
-            return $this->isCommandSuccessful($kernel->call(UpdateDocument::class, $this->getOptions([
+            return $this->isCommandSuccessful($kernel->call(DocumentUpdate::class, $this->getOptions([
                 'interaction' => false,
                 'id'          => $this->getObjectId(),
             ])));

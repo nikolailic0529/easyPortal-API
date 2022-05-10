@@ -46,12 +46,13 @@ parameters:
             path: **/*Test.php
 
         # False positive
-        # https://github.com/phpstan/phpstan/issues/6856
+        # https://github.com/phpstan/phpstan-mockery/issues/34
         -
-            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
-            paths:
-                - app/Services/DataLoader/Jobs/ImporterCronJob.php
-        -
-            message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Processor\\:\\:setKeys\\(\\)\\.$#"
-            paths:
-                - app/Services/Recalculator/Jobs/Recalculate.php
+            message: "#^Parameter \\#1 \\$callback of static method Closure\\:\\:fromCallable\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+            path: **/*Test.php
+
+        # False positive?
+        # https://github.com/phpstan/phpstan/issues/3960
+        # https://github.com/phpstan/phpstan/issues/6787
+        # https://github.com/phpstan/phpstan/issues/6621
+        - "#^Method [^\\s]+ should return [^\\s]+ of ([^\\s]+) but returns \\g{1}\\.$#"

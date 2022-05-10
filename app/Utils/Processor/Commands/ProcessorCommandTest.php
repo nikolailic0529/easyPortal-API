@@ -3,11 +3,16 @@
 namespace App\Utils\Processor\Commands;
 
 use App\Services\I18n\Formatter;
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\Contracts\StateStore;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\EloquentState;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
+use Closure;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Console\OutputStyle;
@@ -58,7 +63,7 @@ class ProcessorCommandTest extends TestCase {
         $buffer    = new BufferedOutput();
         $progress  = new ProgressBar($buffer);
         $formatter = Mockery::mock(Formatter::class);
-        $processor = Mockery::mock(Processor::class);
+        $processor = Mockery::mock(IteratorProcessor::class);
         $processor
             ->shouldReceive('setLimit')
             ->with($limit)
@@ -92,6 +97,10 @@ class ProcessorCommandTest extends TestCase {
             ->andReturnSelf();
         $processor
             ->shouldReceive('onProcess')
+            ->once()
+            ->andReturnSelf();
+        $processor
+            ->shouldReceive('setStore')
             ->once()
             ->andReturnSelf();
         $processor
@@ -130,6 +139,16 @@ class ProcessorCommandTest extends TestCase {
             ->with('limit')
             ->once()
             ->andReturn($limit);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('state')
+            ->once()
+            ->andReturn(true);
+        $input
+            ->shouldReceive('getOption')
+            ->with('state')
+            ->once()
+            ->andReturn(null);
 
         $output = Mockery::mock(OutputStyle::class);
         $output
@@ -147,12 +166,11 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Formatter $formatter, Processor $processor): int {
+            /**
+             * @param IteratorProcessor<mixed, mixed, State> $processor
+             */
+            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
                 return $this->process($formatter, $processor);
-            }
-
-            protected function process(Formatter $formatter, Processor $processor): int {
-                return parent::process($formatter, $processor);
             }
 
             protected function getReplacementsServiceName(): string {
@@ -222,6 +240,10 @@ class ProcessorCommandTest extends TestCase {
             ->once()
             ->andReturnSelf();
         $processor
+            ->shouldReceive('setStore')
+            ->once()
+            ->andReturnSelf();
+        $processor
             ->shouldReceive('start')
             ->once()
             ->andReturns();
@@ -267,6 +289,16 @@ class ProcessorCommandTest extends TestCase {
             ->with('limit')
             ->once()
             ->andReturn($limit);
+        $input
+            ->shouldReceive('hasOption')
+            ->with('state')
+            ->once()
+            ->andReturn(true);
+        $input
+            ->shouldReceive('getOption')
+            ->with('state')
+            ->once()
+            ->andReturn(null);
 
         $output = Mockery::mock(OutputStyle::class);
         $output
@@ -284,12 +316,11 @@ class ProcessorCommandTest extends TestCase {
             ->andReturns();
 
         $command = new class() extends ProcessorCommand {
-            public function __invoke(Formatter $formatter, Processor $processor): int {
+            /**
+             * @param IteratorProcessor<mixed, mixed, State> $processor
+             */
+            public function __invoke(Formatter $formatter, IteratorProcessor $processor): int {
                 return $this->process($formatter, $processor);
-            }
-
-            protected function process(Formatter $formatter, Processor $processor): int {
-                return parent::process($formatter, $processor);
             }
 
             protected function getReplacementsServiceName(): string {
@@ -314,41 +345,92 @@ class ProcessorCommandTest extends TestCase {
      */
     public function dataProviderConstruct(): array {
         return [
-            ProcessorCommand__ObjectsProcess::class => [
+            // @phpcs:disable Generic.Files.LineLength.TooLong
+            ProcessorCommand__ProcessorProcess::class           => [
                 <<<'HELP'
                 Description:
-                  Process objects.
+                  Process Processor.
 
                 Usage:
-                  ep:test-objects-process [options]
+                  ep:test-processor-process [options]
 
                 Options:
-                      --offset[=OFFSET]  start processing from given offset
-                      --limit[=LIMIT]    max objects to process
-                      --chunk[=CHUNK]    chunk size
+                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  chunk size
 
                 HELP,
-                ProcessorCommand__ObjectsProcess::class,
+                ProcessorCommand__ProcessorProcess::class,
             ],
-            ProcessorCommand__ModelsProcess::class  => [
+            ProcessorCommand__ProcessorLimitableProcess::class  => [
                 <<<'HELP'
                 Description:
-                  Process models.
+                  Process ProcessorLimitable.
 
                 Usage:
-                  ep:test-models-process [options] [--] [<id>...]
+                  ep:test-processor-limitable-process [options]
+
+                Options:
+                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  chunk size
+                      --limit[=LIMIT]  max ProcessorLimitable to process
+
+                HELP,
+                ProcessorCommand__ProcessorLimitableProcess::class,
+            ],
+            ProcessorCommand__ProcessorOffsetableProcess::class => [
+                <<<'HELP'
+                Description:
+                  Process ProcessorOffsetable.
+
+                Usage:
+                  ep:test-processor-offsetable-process [options]
+
+                Options:
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    chunk size
+                      --offset[=OFFSET]  start processing from given offset
+
+                HELP,
+                ProcessorCommand__ProcessorOffsetableProcess::class,
+            ],
+            ProcessorCommand__IteratorProcessorProcess::class   => [
+                <<<'HELP'
+                Description:
+                  Process IteratorProcessor.
+
+                Usage:
+                  ep:test-iterator-processor-process [options]
+
+                Options:
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    chunk size
+                      --limit[=LIMIT]    max IteratorProcessor to process
+                      --offset[=OFFSET]  start processing from given offset
+
+                HELP,
+                ProcessorCommand__IteratorProcessorProcess::class,
+            ],
+            ProcessorCommand__EloquentProcessorProcess::class   => [
+                <<<'HELP'
+                Description:
+                  Process EloquentProcessor.
+
+                Usage:
+                  ep:test-eloquent-processor-process [options] [--] [<id>...]
 
                 Arguments:
-                  id                     process only these models (if empty all models will be processed)
+                  id                     process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
 
                 Options:
-                      --offset[=OFFSET]  start processing from given offset
-                      --limit[=LIMIT]    max models to process
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]    chunk size
+                      --limit[=LIMIT]    max EloquentProcessor to process
+                      --offset[=OFFSET]  start processing from given offset
 
                 HELP,
-                ProcessorCommand__ModelsProcess::class,
+                ProcessorCommand__EloquentProcessorProcess::class,
             ],
+            // @phpcs:enable
         ];
     }
     // </editor-fold>
@@ -361,7 +443,7 @@ class ProcessorCommandTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends ProcessorCommand<Processor<mixed,mixed,State>>
+ * @extends ProcessorCommand<IteratorProcessor<mixed,mixed,State>>
  */
 abstract class ProcessorCommand__Command extends ProcessorCommand {
     protected function getReplacementsServiceName(): string {
@@ -377,8 +459,8 @@ abstract class ProcessorCommand__Command extends ProcessorCommand {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProcessorCommand__ObjectsProcess extends ProcessorCommand__Command {
-    public function __invoke(ProcessorCommand__Processor $processor): int {
+class ProcessorCommand__IteratorProcessorProcess extends ProcessorCommand__Command {
+    public function __invoke(ProcessorCommand__IteratorProcessor $processor): int {
         throw new Exception('should not be called');
     }
 }
@@ -387,9 +469,9 @@ class ProcessorCommand__ObjectsProcess extends ProcessorCommand__Command {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @extends Processor<mixed,mixed,State>
+ * @extends IteratorProcessor<mixed,mixed,State>
  */
-class ProcessorCommand__Processor extends Processor {
+class ProcessorCommand__IteratorProcessor extends IteratorProcessor {
     protected function getTotal(State $state): ?int {
         throw new Exception('should not be called');
     }
@@ -418,7 +500,7 @@ class ProcessorCommand__Processor extends Processor {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProcessorCommand__ModelsProcess extends ProcessorCommand__Command {
+class ProcessorCommand__EloquentProcessorProcess extends ProcessorCommand__Command {
     public function __invoke(ProcessorCommand__EloquentProcessor $processor): int {
         throw new Exception('should not be called');
     }
@@ -447,6 +529,132 @@ class ProcessorCommand__EloquentProcessor extends EloquentProcessor {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__ProcessorProcess extends ProcessorCommand__Command {
+    public function __invoke(ProcessorCommand__Processor $processor): int {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @implements Processor<Model,mixed,State>
+ */
+class ProcessorCommand__Processor implements Processor {
+    public function getChunkSize(): int {
+        throw new Exception('should not be called');
+    }
+
+    public function setChunkSize(?int $chunk): static {
+        throw new Exception('should not be called');
+    }
+
+    public function isStopped(): bool {
+        throw new Exception('should not be called');
+    }
+
+    public function isRunning(): bool {
+        throw new Exception('should not be called');
+    }
+
+    public function getState(): ?State {
+        throw new Exception('should not be called');
+    }
+
+    public function getStore(): ?StateStore {
+        throw new Exception('should not be called');
+    }
+
+    public function setStore(?StateStore $store): static {
+        throw new Exception('should not be called');
+    }
+
+    public function start(): bool {
+        throw new Exception('should not be called');
+    }
+
+    public function stop(): void {
+        throw new Exception('should not be called');
+    }
+
+    public function reset(): void {
+        throw new Exception('should not be called');
+    }
+
+    public function onInit(?Closure $closure): static {
+        throw new Exception('should not be called');
+    }
+
+    public function onChange(?Closure $closure): static {
+        throw new Exception('should not be called');
+    }
+
+    public function onFinish(?Closure $closure): static {
+        throw new Exception('should not be called');
+    }
+
+    public function onProcess(?Closure $closure): static {
+        throw new Exception('should not be called');
+    }
+
+    public function onReport(?Closure $closure): static {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__ProcessorLimitableProcess extends ProcessorCommand__Command {
+    public function __invoke(ProcessorCommand__ProcessorLimitable $processor): int {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__ProcessorLimitable extends ProcessorCommand__Processor implements Limitable {
+    public function getLimit(): ?int {
+        throw new Exception('should not be called');
+    }
+
+    public function setLimit(?int $limit): static {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__ProcessorOffsetableProcess extends ProcessorCommand__Command {
+    public function __invoke(ProcessorCommand__ProcessorOffsetable $processor): int {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__ProcessorOffsetable extends ProcessorCommand__Processor implements Offsetable {
+    public function getOffset(): string|int|null {
+        throw new Exception('should not be called');
+    }
+
+    public function setOffset(int|string|null $offset): static {
         throw new Exception('should not be called');
     }
 }

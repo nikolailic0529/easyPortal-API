@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Importer\Importers\AssetsIteratorImporter;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
@@ -36,7 +36,7 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(AssetsIteratorImporter::class)
+            $this->app->make(IteratorImporter::class)
                 ->setIterator(static::getIterator())
                 ->setWithDocuments(static::DOCUMENTS)
                 ->setChunkSize(static::CHUNK)

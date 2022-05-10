@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Pivot;
 use App\Utils\Eloquent\SmartSave\Upsertable;
 use Carbon\CarbonImmutable;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -21,7 +20,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|LocationCustomer newModelQuery()
  * @method static Builder|LocationCustomer newQuery()
  * @method static Builder|LocationCustomer query()
- * @mixin Eloquent
  */
 class LocationCustomer extends Pivot implements Upsertable {
     /**

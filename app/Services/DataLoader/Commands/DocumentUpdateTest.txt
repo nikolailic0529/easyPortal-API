@@ -1,0 +1,19 @@
+Description:
+  Update Document.
+
+Usage:
+  ep:data-loader-document-update [options] [--] <id>
+
+Arguments:
+  id                    Document ID
+
+Options:
+      --state[=STATE]   initial state, allows to continue processing (overwrites other options except `--chunk`)
+      --chunk[=CHUNK]   chunk size
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+      --env[=ENV]       The environment the command should run under
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug

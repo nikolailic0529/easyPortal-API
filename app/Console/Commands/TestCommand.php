@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands;
 
+use App\Utils\Console\WithOptions;
 use NunoMaduro\Collision\Adapters\Laravel\Commands\TestCommand as CollisionTestCommand;
 
 use function array_merge;
 
 class TestCommand extends CollisionTestCommand {
+    use WithOptions;
+
     /**
      * @var array<mixed>
      */
@@ -16,7 +19,7 @@ class TestCommand extends CollisionTestCommand {
         // GraphQL Schema generation is expensive and can take up to ~80% of
         // time while running tests. To speed up tests we enable the Lighthouse
         // cache and generate the Schema only one time before all tests.
-        $isParallel = (bool) $this->option('parallel');
+        $isParallel = $this->getBoolOption('parallel');
 
         if ($isParallel) {
             $this->call('lighthouse:cache');

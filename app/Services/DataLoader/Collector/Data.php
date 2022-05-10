@@ -15,6 +15,7 @@ use App\Services\DataLoader\Schema\ViewAsset as SchemaViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument as SchemaViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
 use App\Utils\Eloquent\Model;
+use Illuminate\Support\Arr;
 
 class Data {
     /**
@@ -96,5 +97,9 @@ class Data {
         if ($id && isset($this->data[$class])) {
             $this->data[$class][$id] = $id;
         }
+    }
+
+    public function isEmpty(): bool {
+        return Arr::first($this->data, static fn(array $data) => !!$data) === null;
     }
 }

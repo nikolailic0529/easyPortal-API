@@ -15,22 +15,10 @@ use IteratorAggregate;
  *
  * @extends IteratorAggregate<T>
  */
-interface ObjectIterator extends IteratorAggregate {
+interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunkable {
     public function getIndex(): int;
 
     public function setIndex(int $index): static;
-
-    public function getLimit(): ?int;
-
-    public function setLimit(?int $limit): static;
-
-    public function getChunkSize(): int;
-
-    public function setChunkSize(?int $chunk): static;
-
-    public function getOffset(): string|int|null;
-
-    public function setOffset(string|int|null $offset): static;
 
     /**
      * Sets the closure that will be called before iteration.

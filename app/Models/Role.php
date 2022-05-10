@@ -12,7 +12,6 @@ use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\RoleFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -35,7 +34,6 @@ use Illuminate\Support\Collection as BaseCollection;
  * @method static Builder|Role newModelQuery()
  * @method static Builder|Role newQuery()
  * @method static Builder|Role query()
- * @mixin Eloquent
  */
 class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShared {
     use HasFactory;

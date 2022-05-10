@@ -21,7 +21,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\CustomerFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,7 +55,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer newModelQuery()
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
- * @mixin Eloquent
  */
 class Customer extends Model implements OwnedByOrganization, Searchable {
     use SearchableImpl;

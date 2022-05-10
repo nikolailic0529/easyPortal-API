@@ -101,38 +101,46 @@ abstract class Data {
         }
 
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
-            $result = $result
-                && $this->kernel->call('ep:data-loader-update-distributor', [
-                    'id' => $context[ClientDumpContext::DISTRIBUTORS],
-                ]) === Command::SUCCESS;
+            foreach ((array) $context[ClientDumpContext::DISTRIBUTORS] as $distributor) {
+                $result = $result
+                    && $this->kernel->call('ep:data-loader-distributor-update', [
+                        'id' => $distributor,
+                    ]) === Command::SUCCESS;
+            }
         }
 
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
-            $result = $result
-                && $this->kernel->call('ep:data-loader-update-reseller', [
-                    'id' => $context[ClientDumpContext::RESELLERS],
-                ]) === Command::SUCCESS;
+            foreach ((array) $context[ClientDumpContext::RESELLERS] as $reseller) {
+                $result = $result
+                    && $this->kernel->call('ep:data-loader-reseller-update', [
+                        'id' => $reseller,
+                    ]) === Command::SUCCESS;
+            }
         }
 
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
-            $result = $result
-                && $this->kernel->call('ep:data-loader-update-customer', [
-                    'id' => $context[ClientDumpContext::CUSTOMERS],
-                ]) === Command::SUCCESS;
+            foreach ((array) $context[ClientDumpContext::CUSTOMERS] as $customer) {
+                $result = $result
+                    && $this->kernel->call('ep:data-loader-customer-update', [
+                        'id' => $customer,
+                    ]) === Command::SUCCESS;
+            }
         }
 
         if ($context[ClientDumpContext::ASSETS] ?? null) {
-            $result = $result
-                && $this->kernel->call('ep:data-loader-update-asset', [
-                    'id'             => $context[ClientDumpContext::ASSETS],
-                    '--no-documents' => true,
-                ]) === Command::SUCCESS;
+            foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
+                $result = $result
+                    && $this->kernel->call('ep:data-loader-asset-update', [
+                        'id'             => $asset,
+                        '--no-documents' => true,
+                    ]) === Command::SUCCESS;
+            }
         }
 
         if ($context[ClientDumpContext::TYPES] ?? null) {
             $owner = (new DocumentModel())->getMorphClass();
 
-            foreach ($context[ClientDumpContext::TYPES] as $key) {
+            foreach ((array) $context[ClientDumpContext::TYPES] as $key) {
                 // Create
                 $type              = new TypeModel();
                 $type->object_type = $owner;

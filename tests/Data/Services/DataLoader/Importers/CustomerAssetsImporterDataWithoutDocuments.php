@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\CustomerAssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 
 class CustomerAssetsImporterDataWithoutDocuments extends AssetsData {
@@ -13,8 +13,8 @@ class CustomerAssetsImporterDataWithoutDocuments extends AssetsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(CustomerAssetsImporter::class)
-                ->setCustomerId(static::CUSTOMER)
+            $this->app->make(AssetsImporter::class)
+                ->setObjectId(static::CUSTOMER)
                 ->setWithDocuments(static::DOCUMENTS)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)

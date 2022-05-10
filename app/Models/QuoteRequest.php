@@ -16,7 +16,6 @@ use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\QuoteRequestFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -53,7 +52,6 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @method static Builder|QuoteRequest newModelQuery()
  * @method static Builder|QuoteRequest newQuery()
  * @method static Builder|QuoteRequest query()
- * @mixin Eloquent
  */
 class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     use HasFactory;

@@ -8,7 +8,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\CoverageFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static Builder|Coverage newModelQuery()
  * @method static Builder|Coverage newQuery()
  * @method static Builder|Coverage query()
- * @mixin Eloquent
  */
 class Coverage extends Model implements Translatable {
     use HasFactory;

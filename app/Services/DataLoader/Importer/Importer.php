@@ -11,7 +11,7 @@ use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -26,12 +26,11 @@ use function array_merge;
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
  * @template TModel of \App\Utils\Eloquent\Model
  *
- * @extends Processor<TItem, TChunkData, TState>
+ * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
-abstract class Importer extends Processor {
-    private ?DateTimeInterface $from   = null;
-    private bool               $update = true;
-    private Collector          $collector;
+abstract class Importer extends IteratorProcessor {
+    private bool      $update = true;
+    private Collector $collector;
 
     /**
      * @var ModelFactory<TModel>
@@ -64,14 +63,8 @@ abstract class Importer extends Processor {
         return $this->container;
     }
 
-    public function getFrom(): ?DateTimeInterface {
-        return $this->from;
-    }
-
-    public function setFrom(?DateTimeInterface $from): static {
-        $this->from = $from;
-
-        return $this;
+    protected function getFrom(): ?DateTimeInterface {
+        return null;
     }
 
     public function isUpdate(): bool {
@@ -157,7 +150,7 @@ abstract class Importer extends Processor {
      * @inheritDoc
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return new DataImported($data);
+        return !$data->isEmpty() ? new DataImported($data) : null;
     }
     // </editor-fold>
 

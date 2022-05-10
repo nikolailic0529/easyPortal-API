@@ -3,10 +3,14 @@
 namespace App\Services\Keycloak\Exceptions;
 
 use App\Services\Keycloak\ServiceException;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\State;
 use Throwable;
 
 abstract class FailedToImport extends ServiceException {
+    /**
+     * @param Processor<mixed,mixed,State> $processor
+     */
     public function __construct(
         protected Processor $processor,
         protected object $object,

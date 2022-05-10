@@ -10,7 +10,6 @@ use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\CountryFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Country newModelQuery()
  * @method static Builder|Country newQuery()
  * @method static Builder|Country query()
- * @mixin Eloquent
  */
 class Country extends Model implements Translatable {
     use HasFactory;

@@ -2,19 +2,14 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Documents\Importer;
 use App\Services\I18n\Formatter;
 
 /**
- * @template TImporter of DocumentsImporter<\App\Services\DataLoader\Importer\Importers\DocumentsImporterState>
- *
- * @extends ObjectsImport<DocumentsImporter>
+ * @extends ObjectsImport<Importer>
  */
 class DocumentsImport extends ObjectsImport {
-    /**
-     * @param TImporter $importer
-     */
-    public function __invoke(Formatter $formatter, DocumentsImporter $importer): int {
+    public function __invoke(Formatter $formatter, Importer $importer): int {
         return $this->process($formatter, $importer);
     }
 }

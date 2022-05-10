@@ -2,14 +2,14 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importer\Importers\CustomersImporter;
+use App\Services\DataLoader\Importer\Importers\Customers\Importer;
 use App\Services\I18n\Formatter;
 
 /**
- * @extends ObjectsImport<CustomersImporter>
+ * @extends ObjectsImport<Importer>
  */
 class CustomersImport extends ObjectsImport {
-    public function __invoke(Formatter $formatter, CustomersImporter $importer): int {
+    public function __invoke(Formatter $formatter, Importer $importer): int {
         return $this->process($formatter, $importer);
     }
 }

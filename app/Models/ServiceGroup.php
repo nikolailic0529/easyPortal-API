@@ -10,7 +10,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ServiceGroupFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -34,7 +33,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|ServiceGroup newModelQuery()
  * @method static Builder|ServiceGroup newQuery()
  * @method static Builder|ServiceGroup query()
- * @mixin Eloquent
  */
 class ServiceGroup extends Model implements Translatable {
     use HasFactory;

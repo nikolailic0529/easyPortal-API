@@ -4,13 +4,14 @@ namespace App\Utils\Processor;
 
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
-use App\Services\Service;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
-use App\Utils\Iterators\Concerns\Limit;
-use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\Contracts\Processor as ProcessorContract;
+use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
@@ -40,22 +41,23 @@ use function min;
  * extend the {@see \App\Utils\Processor\State} class with
  * {@see Processor::restoreState()} and {@see Processor::defaultState()}.
  *
+ * @internal Please extend one of subclasses instead.
+ *
  * @see \App\Utils\Iterators\Contracts\ObjectIterator
  * @see \App\Services\Queue\Concerns\ProcessorJob
  *
  * @template TItem
  * @template TChunkData
- * @template TState of \App\Utils\Processor\State
+ * @template TState of State
+ *
+ * @implements ProcessorContract<TItem, TChunkData, TState>
  */
-abstract class Processor {
-    use Limit;
-    use Offset;
+abstract class Processor implements ProcessorContract {
     use ChunkSize;
 
-    private mixed    $cacheKey = null;
-    private ?Service $service  = null;
-    private bool     $stopped  = false;
-    private bool     $running  = false;
+    private ?StateStore $store   = null;
+    private bool        $stopped = false;
+    private bool        $running = false;
 
     /**
      * @var Dispatcher<TState>
@@ -111,17 +113,12 @@ abstract class Processor {
         return $this->running;
     }
 
-    protected function getService(): ?Service {
-        return $this->service;
+    public function getStore(): ?StateStore {
+        return $this->store;
     }
 
-    protected function getCacheKey(): mixed {
-        return $this->cacheKey;
-    }
-
-    public function setCacheKey(?Service $service, mixed $key): static {
-        $this->service  = $service;
-        $this->cacheKey = $key;
+    public function setStore(?StateStore $store): static {
+        $this->store = $store;
 
         return $this;
     }
@@ -135,7 +132,9 @@ abstract class Processor {
         $state         = $this->getState() ?? $this->getDefaultState();
 
         try {
-            $this->prepare($state);
+            $this->call(function () use ($state): void {
+                $this->invoke($state);
+            });
         } catch (Interrupt) {
             // ok
         } finally {
@@ -159,31 +158,47 @@ abstract class Processor {
 
     /**
      * @param TState $state
+     * @param TItem  $item
      */
-    protected function prepare(State $state): void {
-        $this->call(function () use ($state): void {
-            $this->run($state);
-        });
+    protected function success(mixed $state, mixed $item): void {
+        $state->processed++;
+        $state->success++;
+
+        $this->notifyOnProcess($state);
+        $this->dispatchOnProcess($item);
+    }
+
+    /**
+     * @param TState $state
+     * @param TItem  $item
+     */
+    protected function failed(mixed $state, mixed $item, Throwable $exception): void {
+        $state->processed++;
+        $state->failed++;
+
+        $this->report($exception, $item);
+        $this->notifyOnReport($state);
     }
 
     /**
      * @param TState $state
      */
-    protected function run(State $state): void {
+    protected function invoke(State $state): void {
         $data     = null;
         $sync     = static function (ObjectIterator $iterator) use ($state): void {
             $state->index  = $iterator->getIndex();
             $state->offset = $iterator->getOffset();
         };
-        $iterator = $this->getIterator($state)
+        $iterator = $this->getIterator($state);
+        $iterator = $iterator
             ->setIndex($state->index)
             ->setLimit($state->limit)
             ->setOffset($state->offset)
             ->setChunkSize($this->getChunkSize())
-            ->onInit(static function () use (&$iterator, $sync): void {
+            ->onInit(static function () use ($iterator, $sync): void {
                 $sync($iterator);
             })
-            ->onFinish(static function () use (&$iterator, $sync): void {
+            ->onFinish(static function () use ($iterator, $sync): void {
                 $sync($iterator);
             })
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
@@ -191,7 +206,7 @@ abstract class Processor {
 
                 $this->chunkLoaded($state, $items, $data);
             })
-            ->onAfterChunk(function (array $items) use (&$iterator, $sync, $state, &$data): void {
+            ->onAfterChunk(function (array $items) use ($iterator, $sync, $state, &$data): void {
                 $sync($iterator);
 
                 $this->chunkProcessed($state, $items, $data);
@@ -199,25 +214,18 @@ abstract class Processor {
                 $data = null;
             });
 
-        $this->init($state);
+        $this->init($state, $iterator);
 
         foreach ($iterator as $item) {
+            // Iterator updates index after element
+            $sync($iterator);
+
+            // Process
             try {
                 $this->process($state, $data, $item);
-
-                $state->processed++;
-                $state->success++;
-
-                $this->notifyOnProcess($state);
-                $this->dispatchOnProcess($item);
+                $this->success($state, $item);
             } catch (Throwable $exception) {
-                $state->processed++;
-                $state->failed++;
-
-                $this->report($exception, $item);
-                $this->notifyOnReport($state);
-            } finally {
-                $sync($iterator);
+                $this->failed($state, $item, $exception);
             }
         }
 
@@ -225,16 +233,12 @@ abstract class Processor {
     }
 
     /**
-     * @param TState $state
-     */
-    abstract protected function getTotal(State $state): ?int;
-
-    /**
-     * @param TState $state
+     * @param TState       $state
+     * @param array<TItem> $items
      *
-     * @return ObjectIterator<TItem>
+     * @return TChunkData
      */
-    abstract protected function getIterator(State $state): ObjectIterator;
+    abstract protected function prefetch(State $state, array $items): mixed;
 
     /**
      * @param TState     $state
@@ -249,20 +253,22 @@ abstract class Processor {
     abstract protected function report(Throwable $exception, mixed $item = null): void;
 
     /**
-     * @param TState       $state
-     * @param array<TItem> $items
-     *
-     * @return TChunkData
+     * @param TState $state
      */
-    abstract protected function prefetch(State $state, array $items): mixed;
-    //</editor-fold>
+    abstract protected function getTotal(State $state): ?int;
+
+    /**
+     * @param TState $state
+     *
+     * @return ObjectIterator<TItem>
+     */
+    abstract protected function getIterator(State $state): ObjectIterator;
+    // </editor-fold>
 
     // <editor-fold desc="Events">
     // =========================================================================
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onInit(?Closure $closure): static {
         if ($closure) {
@@ -282,9 +288,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
+     * @param Closure(TState): void|null $closure
      */
     public function onChange(?Closure $closure): static {
         if ($closure) {
@@ -305,8 +309,6 @@ abstract class Processor {
 
     /**
      * @param Closure(TState): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function onFinish(?Closure $closure): static {
         if ($closure) {
@@ -326,9 +328,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
+     * @param Closure(TState): void|null $closure
      */
     public function onProcess(?Closure $closure): static {
         if ($closure) {
@@ -348,9 +348,7 @@ abstract class Processor {
     }
 
     /**
-     * @param Closure(TState, array<TItem>): void|null $closure
-     *
-     * @return $this<TItem, TChunkData, TState>
+     * @param Closure(TState): void|null $closure
      */
     public function onReport(?Closure $closure): static {
         if ($closure) {
@@ -370,9 +368,10 @@ abstract class Processor {
     }
 
     /**
-     * @param TState $state
+     * @param TState                $state
+     * @param ObjectIterator<TItem> $iterator
      */
-    protected function init(State $state): void {
+    protected function init(State $state, ObjectIterator $iterator): void {
         $this->saveState($state);
         $this->notifyOnInit($state);
     }
@@ -408,7 +407,7 @@ abstract class Processor {
         $this->dispatchOnChange($state, $items, $data);
 
         // Stopped?
-        if ($this->stopped) {
+        if ($this->isStopped()) {
             throw new Interrupt();
         }
     }
@@ -460,16 +459,19 @@ abstract class Processor {
      * @return TState|null
      */
     public function getState(): ?State {
-        return $this->getService()?->get($this->getCacheKey(), function (array $state): ?State {
-            try {
-                return $this->restoreState($state);
-            } catch (Throwable $exception) {
-                $this->resetState();
-                $this->report($exception);
-            }
+        try {
+            $state = $this->getStore()?->get();
+            $state = $state !== null
+                ? $this->restoreState($state)
+                : null;
 
-            return null;
-        });
+            return $state;
+        } catch (Throwable $exception) {
+            $this->resetState();
+            $this->report($exception);
+        }
+
+        return null;
     }
 
     /**
@@ -477,8 +479,8 @@ abstract class Processor {
      */
     protected function getDefaultState(): State {
         // State
-        $limit  = $this->getLimit();
-        $offset = $this->getOffset();
+        $limit  = $this instanceof Limitable ? $this->getLimit() : null;
+        $offset = $this instanceof Offsetable ? $this->getOffset() : null;
         $state  = $this->restoreState($this->defaultState([
             'index'  => 0,
             'limit'  => $limit,
@@ -503,29 +505,29 @@ abstract class Processor {
      * @param TState $state
      */
     protected function saveState(State $state): void {
-        $this->getService()?->set($this->getCacheKey(), $state);
+        $this->getStore()?->save($state);
     }
 
     protected function resetState(): void {
-        $this->getService()?->delete($this->getCacheKey());
+        $this->getStore()?->delete();
     }
 
     /**
-     * @param array<mixed> $state
+     * @param array<string, mixed> $state
      *
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
     protected function defaultState(array $state): array {
         return $state;
     }
 
     /**
-     * @param array<mixed> $state
+     * @param array<string, mixed> $state
      *
      * @return TState
      */
     protected function restoreState(array $state): State {
-        return State::make($state);
+        return new State($state);
     }
     // </editor-fold>
 
@@ -536,7 +538,7 @@ abstract class Processor {
      *
      * @param Closure(): T $callback
      *
-     * @return T
+     * @return T|null
      */
     protected function call(Closure $callback): mixed {
         $result = null;

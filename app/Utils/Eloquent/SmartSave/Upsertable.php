@@ -4,7 +4,7 @@ namespace App\Utils\Eloquent\SmartSave;
 
 interface Upsertable {
     /**
-     * @return array<string>
+     * @return array<int, string>
      */
     public static function getUniqueKey(): array;
 }

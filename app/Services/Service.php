@@ -46,7 +46,7 @@ abstract class Service {
      *
      * @template T
      *
-     * @param Closure(mixed): T|null $factory
+     * @param Closure(mixed): ?T|null $factory
      *
      * @return T
      */
@@ -68,7 +68,11 @@ abstract class Service {
      * Sets the state value for the key. The method also sets the TTL to
      * automatically remove old unused keys from the cache.
      *
-     * @param JsonSerializable|array<mixed>|string|float|int|bool|null $value
+     * @template T of JsonSerializable|array<mixed>|string|float|int|bool|null
+     *
+     * @param T $value
+     *
+     * @return T
      */
     public function set(mixed $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
         $this->cache->set($this->getCacheKey($key), json_encode($value), $this->getDefaultTtl());

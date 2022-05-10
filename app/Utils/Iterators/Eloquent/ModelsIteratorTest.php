@@ -12,6 +12,7 @@ use Tests\TestCase;
 use Tests\WithQueryLogs;
 
 use function array_fill;
+use function count;
 use function iterator_to_array;
 
 /**
@@ -47,7 +48,6 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (new Collection($actual))->map(new GetKey());
 
         self::assertEquals($expected, $actual);
-
         self::assertCount(1, $queries);
 
         $queries->flush();
@@ -59,7 +59,6 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
         self::assertEquals($expected, $actual);
-
         self::assertCount(3, $queries);
 
         $queries->flush();
@@ -71,7 +70,6 @@ class ModelsIteratorTest extends TestCase {
         $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
 
         self::assertEquals($expected, $actual);
-
         self::assertCount(2, $queries);
 
         $queries->flush();
@@ -153,5 +151,22 @@ class ModelsIteratorTest extends TestCase {
             ->shouldHaveBeenCalled()
             ->withArgs($chunkB)
             ->once();
+    }
+
+    /**
+     * @covers ::count
+     */
+    public function testCount(): void {
+        // Prepare
+        $models   = array_fill(0, $this->faker->randomDigit(), 'abc');
+        $handler  = Mockery::mock(ExceptionHandler::class);
+        $builder  = Type::query();
+        $iterator = new ModelsIterator(
+            $handler,
+            $builder,
+            $models,
+        );
+
+        self::assertEquals(count($models), count($iterator));
     }
 }

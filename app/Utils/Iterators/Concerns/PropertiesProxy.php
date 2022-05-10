@@ -9,6 +9,9 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
  * @template V
  */
 trait PropertiesProxy {
+    /**
+     * @return ObjectIterator<T>
+     */
     abstract protected function getInternalIterator(): ObjectIterator;
 
     public function getIndex(): int {

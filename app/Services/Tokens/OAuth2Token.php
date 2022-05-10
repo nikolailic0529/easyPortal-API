@@ -10,6 +10,7 @@ use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
+use function is_array;
 use function rtrim;
 
 /**
@@ -32,8 +33,8 @@ abstract class OAuth2Token implements CacheKeyable {
         if ($this->token) {
             $token = $this->token;
         } else {
-            $token = $this->getService()->get($this, static function (array $token): AccessToken {
-                return new AccessToken($token);
+            $token = $this->getService()->get($this, static function (mixed $token): ?AccessToken {
+                return is_array($token) ? new AccessToken($token) : null;
             });
         }
 

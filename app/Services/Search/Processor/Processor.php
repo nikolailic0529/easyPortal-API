@@ -8,6 +8,7 @@ use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Exceptions\FailedToIndex;
 use App\Services\Search\Exceptions\IndexError;
 use App\Utils\Eloquent\ModelHelper;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
@@ -95,12 +96,12 @@ class Processor extends EloquentProcessor {
 
     // <editor-fold desc="Processor">
     // =========================================================================
-    protected function init(ProcessorState $state): void {
+    protected function init(ProcessorState $state, ObjectIterator $iterator): void {
         if ($state->rebuild) {
             $state->name = $this->createIndex($state);
         }
 
-        parent::init($state);
+        parent::init($state, $iterator);
     }
 
     protected function finish(ProcessorState $state): void {
@@ -201,6 +202,9 @@ class Processor extends EloquentProcessor {
 
     // <editor-fold desc="Index">
     // =========================================================================
+    /**
+     * @param TState $state
+     */
     protected function createIndex(State $state): string {
         $client = $this->getClient()->indices();
         $config = $this->getSearchConfiguration($state);
@@ -233,6 +237,9 @@ class Processor extends EloquentProcessor {
         return $index;
     }
 
+    /**
+     * @param TState $state
+     */
     protected function switchIndex(State $state): void {
         // Prepare
         $client  = $this->getClient()->indices();

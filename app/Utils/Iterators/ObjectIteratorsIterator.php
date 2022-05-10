@@ -39,7 +39,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,ObjectIterator> $iterators
+     * @param array<string,ObjectIterator<T>> $iterators
      */
     public function __construct(
         protected array $iterators,

@@ -4,7 +4,6 @@ namespace App\Models\Logs;
 
 use Carbon\CarbonImmutable;
 use Database\Factories\Logs\AnalyzeAssetFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|AnalyzeAsset newModelQuery()
  * @method static Builder|AnalyzeAsset newQuery()
  * @method static Builder|AnalyzeAsset query()
- * @mixin Eloquent
  */
 class AnalyzeAsset extends Model {
     use HasFactory;

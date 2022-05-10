@@ -11,7 +11,7 @@ use Throwable;
 
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model
- * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData
+ * @template TChunkData of \App\Services\Recalculator\Processor\ChunkData<TItem>
  * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
  * @extends EloquentProcessor<TItem, TChunkData, TState>

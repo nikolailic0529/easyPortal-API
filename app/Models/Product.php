@@ -6,7 +6,6 @@ use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ProductFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -27,7 +26,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Product newModelQuery()
  * @method static Builder|Product newQuery()
  * @method static Builder|Product query()
- * @mixin Eloquent
  */
 class Product extends Model {
     use HasFactory;

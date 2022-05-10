@@ -5,8 +5,6 @@ namespace App\Services\Search\Commands;
 use App\Models\Customer;
 use Tests\TestCase;
 
-use function sprintf;
-
 /**
  * @internal
  * @coversDefaultClass \App\Services\Search\Commands\IndexesRebuild
@@ -30,7 +28,6 @@ class IndexesRebuildTest extends TestCase {
                     'model' => Customer::class,
                 ],
             )
-            ->expectsOutput(sprintf('Processing `%s`:', Customer::class))
             ->expectsOutput('Done.')
             ->assertSuccessful();
     }

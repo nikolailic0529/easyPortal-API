@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DistributorFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,7 +22,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Distributor newModelQuery()
  * @method static Builder|Distributor newQuery()
  * @method static Builder|Distributor query()
- * @mixin Eloquent
  */
 class Distributor extends Model {
     use HasFactory;

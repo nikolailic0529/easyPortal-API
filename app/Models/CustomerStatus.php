@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -19,7 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|CustomerStatus newModelQuery()
  * @method static Builder|CustomerStatus newQuery()
  * @method static Builder|CustomerStatus query()
- * @mixin Eloquent
  */
 class CustomerStatus extends Pivot {
     /**

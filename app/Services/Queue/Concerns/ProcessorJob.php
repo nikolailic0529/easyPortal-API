@@ -8,19 +8,18 @@ use App\Services\Queue\Exceptions\JobStopped;
 use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
 use App\Services\Service;
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
+use App\Utils\Processor\ServiceStore;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
- * Special helper for {@see \App\Utils\Processor\Processor}.
+ * Special helper for {@see \App\Utils\Processor\Contracts\Processor}.
  *
- * @template TProcessor of \App\Utils\Processor\Processor
+ * @template TProcessor of Processor
  *
  * @mixin Job
- * @mixin CronJob
- * @mixin Progressable
  */
 trait ProcessorJob {
     /**
@@ -85,14 +84,14 @@ trait ProcessorJob {
             ->makeProcessor($container, $config)
             ->setChunkSize($chunk);
 
-        if ($this instanceof Progressable) {
+        if ($this instanceof Progressable && $service) {
             if ($this instanceof CronJob) {
-                $processor = $processor->setCacheKey($service, $this);
+                $processor = $processor->setStore(new ServiceStore($service, $this));
             } else {
-                $processor = $processor->setCacheKey($service, [
+                $processor = $processor->setStore(new ServiceStore($service, [
                     $this,
                     $this->getJob()->getJobId(),
-                ]);
+                ]));
             }
         }
 

@@ -15,7 +15,6 @@ use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionObject;
 
-use function array_is_list;
 use function array_map;
 use function count;
 use function explode;
@@ -26,7 +25,6 @@ use function is_object;
 use function preg_match;
 use function reset;
 use function sprintf;
-use function str_starts_with;
 
 /**
  * Convert JSON into an object, but be careful - this class doesn't worry about
@@ -51,7 +49,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     private static array $properties = [];
 
     /**
-     * @param array<mixed> $json
+     * @param array<string, mixed> $json
      */
     final public function __construct(array $json = []) {
         if ($json) {
@@ -66,21 +64,17 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     }
 
     /**
-     * @param array<string,mixed>|array<array<string,mixed>>|null $objects
+     * @param array<int, array<string,mixed>>|null $objects
      *
-     * @return array<static>|static
+     * @return array<static>
      */
-    public static function make(array|null $objects): static|array|null {
+    public static function make(array|null $objects): array|null {
         $result = null;
 
         if (is_array($objects)) {
-            if (array_is_list($objects)) {
-                $result = array_map(static function (array $object): static {
-                    return new static($object);
-                }, $objects);
-            } else {
-                $result = new static($objects);
-            }
+            $result = array_map(static function (array $object): static {
+                return new static($object);
+            }, $objects);
         }
 
         return $result;
@@ -215,22 +209,24 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     //
                     // @var array<Class>
                     // @var array<key, Class>
+                    // @var array<key, array<Class>>
+                    // @var array<key, class-string<Class>>
                     $attributes = $property->getAttributes(JsonObjectArray::class);
                     $attribute  = reset($attributes);
                     $isArray    = true;
                     $matches    = [];
-                    $comment    = $property->getDocComment();
-                    $regexp     = '/@var array\<(?:[^,]+,\s*)?(?P<type>[^>]+)\>/ui';
+                    $comment    = $property->getDocComment() ?: '';
+                    $regexp     = '/@var array\<(?:[^,]+,\s*)?(?P<type>[^<]+)(\<.+?\>)\>/ui';
                     $class      = $attribute instanceof ReflectionAttribute
                         ? $attribute->newInstance()->getType()
                         : null;
 
                     if (preg_match($regexp, $comment, $matches)) {
                         $type    = $matches['type'];
-                        $scalars = ['int', 'float', 'string', 'bool', 'mixed'];
+                        $scalars = ['int', 'float', 'string', 'bool', 'mixed', 'class-string', 'array'];
                         $invalid = $class
                             ? Arr::last(explode('\\', $class)) !== $type
-                            : (!in_array($type, $scalars, true) && !str_starts_with($type, 'array<'));
+                            : !in_array($type, $scalars, true);
 
                         if ($invalid) {
                             throw new LogicException('Impossible to determine type of array items.');
@@ -242,7 +238,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     $factory = static function (DateTimeInterface|string|null $json): ?DateTimeInterface {
                         return is_object($json) ? $json : ($json !== null ? Date::make($json) : null);
                     };
-                } elseif (is_a($class, self::class, true)) {
+                } elseif ($class && is_a($class, self::class, true)) {
                     $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
                         return is_object($json) ? $json : ($json !== null ? new $class($json) : null);

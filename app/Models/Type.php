@@ -12,7 +12,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\TypeFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -40,7 +39,6 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @method static Builder|Type newModelQuery()
  * @method static Builder|Type newQuery()
  * @method static Builder|Type query()
- * @mixin Eloquent
  */
 class Type extends PolymorphicModel implements Translatable {
     use HasFactory;

@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\KpiFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -46,7 +45,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Kpi newModelQuery()
  * @method static Builder|Kpi newQuery()
  * @method static Builder|Kpi query()
- * @mixin Eloquent
  */
 class Kpi extends Model {
     use HasFactory;

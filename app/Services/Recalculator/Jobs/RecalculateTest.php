@@ -2,7 +2,7 @@
 
 namespace App\Services\Recalculator\Jobs;
 
-use App\Utils\Processor\Processor;
+use App\Utils\Processor\Contracts\Processor;
 use Exception;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;

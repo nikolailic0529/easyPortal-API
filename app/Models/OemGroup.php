@@ -6,7 +6,6 @@ use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\OemGroupFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -25,7 +24,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|OemGroup newModelQuery()
  * @method static Builder|OemGroup newQuery()
  * @method static Builder|OemGroup query()
- * @mixin Eloquent
  */
 class OemGroup extends Model {
     use HasFactory;

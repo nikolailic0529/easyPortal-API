@@ -9,7 +9,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\ResellerLocationFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,7 +31,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|ResellerLocation newModelQuery()
  * @method static Builder|ResellerLocation newQuery()
  * @method static Builder|ResellerLocation query()
- * @mixin Eloquent
  */
 class ResellerLocation extends Model {
     use HasFactory;

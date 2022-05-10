@@ -12,7 +12,6 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\InvitationFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,7 +40,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Invitation newModelQuery()
  * @method static Builder|Invitation newQuery()
  * @method static Builder|Invitation query()
- * @mixin Eloquent
  */
 class Invitation extends Model implements OwnedByOrganization {
     use HasFactory;

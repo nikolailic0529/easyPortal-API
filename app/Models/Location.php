@@ -11,7 +11,6 @@ use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
 use Database\Factories\LocationFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,8 +26,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                         $state
  * @property string                         $line_one
  * @property string                         $line_two
- * @property mixed|null                     $latitude
- * @property mixed|null                     $longitude
+ * @property string|float|null              $latitude
+ * @property string|float|null              $longitude
  * @property string|null                    $geohash
  * @property int                            $customers_count
  * @property int                            $assets_count
@@ -44,7 +43,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Location newModelQuery()
  * @method static Builder|Location newQuery()
  * @method static Builder|Location query()
- * @mixin Eloquent
  */
 class Location extends Model implements OwnedByOrganization {
     use HasFactory;

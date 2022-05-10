@@ -6,7 +6,7 @@ use function is_bool;
 use function ltrim;
 
 /**
- * @see \App\Utils\Console\WithBooleanOptions
+ * @see \App\Utils\Console\WithOptions
  */
 trait CommandOptions {
     /**

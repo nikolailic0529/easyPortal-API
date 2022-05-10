@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
-use App\Utils\Processor\Processor;
+use App\Services\DataLoader\Importer\Importers\Documents\Importer;
+use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Imports documents.
  *
- * @extends ImporterCronJob<DocumentsImporter>
+ * @extends ImporterCronJob<\App\Services\DataLoader\Importer\Importers\Documents\Importer>
  */
 class DocumentsImporterCronJob extends ImporterCronJob {
     public function displayName(): string {
@@ -31,6 +31,6 @@ class DocumentsImporterCronJob extends ImporterCronJob {
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(DocumentsImporter::class);
+        return $container->make(Importer::class);
     }
 }

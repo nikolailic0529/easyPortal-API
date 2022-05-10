@@ -8,6 +8,7 @@ use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
 use ArrayIterator;
 use Exception;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use Illuminate\Database\Eloquent\Model;
 use JsonSerializable;
@@ -23,6 +24,8 @@ use function is_string;
 use function json_encode;
 use function sha1;
 use function sprintf;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
@@ -177,13 +180,13 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             Traversable::class                            => [
-                sha1(json_encode(['a' => 123, 'b' => 'value'])),
+                sha1(json_encode(['a' => 123, 'b' => 'value'], JSON_THROW_ON_ERROR)),
                 [
                     new ArrayIterator(['b' => 'value', 'a' => 123]),
                 ],
             ],
             JsonSerializable::class                       => [
-                sha1(json_encode(['json'])),
+                sha1(json_encode(['json'], JSON_THROW_ON_ERROR)),
                 [
                     [
                         new CacheKeyTest_JsonSerializable('json'),
@@ -191,7 +194,7 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             Geohash::class.' (encode)'                    => [
-                sha1(json_encode(['spey'])),
+                sha1(json_encode(['spey'], JSON_THROW_ON_ERROR)),
                 [
                     [
                         (new Geohash())->encode((new Geohash())->decode('spey61y')->getCoordinate(), 4),
@@ -199,15 +202,31 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             Geohash::class.' (decode)'                    => [
-                sha1(json_encode(['spey61ys0000'])),
+                sha1(json_encode(['spey61ys0000'], JSON_THROW_ON_ERROR)),
                 [
                     [
                         (new Geohash())->decode('spey61y'),
                     ],
                 ],
             ],
+            Command::class                                => [
+                sha1(json_encode(['$tests-test-command'], JSON_THROW_ON_ERROR)),
+                [
+                    [
+                        new CacheKeyTest_Command(),
+                    ],
+                ],
+            ],
+            Command::class.' (no name)'                   => [
+                new CacheKeyInvalidCommand(new CacheKeyTest_CommandWithoutName()),
+                [
+                    [
+                        new CacheKeyTest_CommandWithoutName(),
+                    ],
+                ],
+            ],
             'array (nested)'                              => [
-                sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true])),
+                sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true], JSON_THROW_ON_ERROR)),
                 [
                     ['b' => 'value', 'a' => 123, 'c' => true],
                 ],
@@ -228,13 +247,13 @@ class CacheKeyTest extends TestCase {
                 ],
             ],
             'list (nested, unordered keys)'               => [
-                sha1(json_encode([1, 1, 3])),
+                sha1(json_encode([1, 1, 3], JSON_THROW_ON_ERROR)),
                 [
                     [1, 3, 4 => 1],
                 ],
             ],
             'list (nested)'                               => [
-                sha1(json_encode([1, 2, 4])),
+                sha1(json_encode([1, 2, 4], JSON_THROW_ON_ERROR)),
                 [
                     [4, 1, 2],
                 ],
@@ -245,7 +264,7 @@ class CacheKeyTest extends TestCase {
                     'en_GB',
                     'Organization',
                     '00000000-0000-0000-0000-000000000000',
-                    sha1(json_encode(['a' => 456, 'b' => '123'])),
+                    sha1(json_encode(['a' => 456, 'b' => '123'], JSON_THROW_ON_ERROR)),
                 ]),
                 [
                     new CacheKeyTest_CacheKeyable(),
@@ -335,7 +354,6 @@ class CacheKeyTest_NamedJob implements NamedJob {
     }
 }
 
-
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
@@ -424,5 +442,39 @@ class CacheKeyTest_JsonSerializable implements JsonSerializable {
 
     public function jsonSerialize(): mixed {
         return $this->data;
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @property string $id
+ */
+class CacheKeyTest_Command extends Command {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $signature = 'tests:test-command';
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @property string $id
+ */
+class CacheKeyTest_CommandWithoutName extends Command {
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $signature = 'tests:test-command-without-name';
+
+    public function getName(): ?string {
+        return null;
     }
 }

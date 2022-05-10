@@ -59,7 +59,7 @@ class AggregatedTest extends TestCase {
                 if ($builder instanceof EloquentBuilder) {
                     $key = $builder->first()?->getKey();
                 } elseif ($builder instanceof QueryBuilder) {
-                    $key = $builder->first()?->id ?? null;
+                    $key = $builder->first()?->id;
                 } else {
                     // empty
                 }

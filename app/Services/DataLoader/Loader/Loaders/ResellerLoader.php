@@ -2,56 +2,78 @@
 
 namespace App\Services\DataLoader\Loader\Loaders;
 
+use App\Models\Asset;
+use App\Models\Document;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
-use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Importer\Importers\AssetsImporter;
-use App\Services\DataLoader\Importer\Importers\DocumentsImporter;
-use App\Services\DataLoader\Importer\Importers\ResellerAssetsImporter;
-use App\Services\DataLoader\Importer\Importers\ResellerDocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\IteratorImporter;
 use App\Services\DataLoader\Loader\CompanyLoader;
-use App\Services\DataLoader\Schema\Type;
-use App\Utils\Eloquent\Model;
+use App\Services\DataLoader\Loader\CompanyLoaderState;
+use App\Utils\Iterators\ObjectsIterator;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\CompositeState;
+use App\Utils\Processor\Contracts\Processor;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
- * @template TOwner of \App\Models\Reseller
- *
- * @extends CompanyLoader<TOwner>
+ * @extends CompanyLoader<CompanyLoaderState>
  */
 class ResellerLoader extends CompanyLoader {
-    // <editor-fold desc="API">
+    // <editor-fold desc="Loader">
     // =========================================================================
-    protected function getObjectById(string $id): ?Type {
-        return $this->client->getResellerById($id);
+    protected function getModelNotFoundException(string $id): Exception {
+        return new ResellerNotFound($id);
     }
 
     /**
-     * @return ModelFactory<TOwner>
+     * @inheritDoc
      */
-    protected function getObjectFactory(): ModelFactory {
-        return $this->getResellersFactory();
-    }
-
-    protected function getModelNotFoundException(string $id): Exception {
-        return new ResellerNotFound($id);
+    protected function operations(CompositeState $state): array {
+        return [
+            new CompositeOperation(
+                'Updating properties',
+                function (CompanyLoaderState $state): Processor {
+                    return $this
+                        ->getContainer()
+                        ->make(IteratorImporter::class)
+                        ->setIterator(new ObjectsIterator(
+                            $this->getExceptionHandler(),
+                            [$state->objectId],
+                        ));
+                },
+                $this->getModelNotFoundHandler(),
+            ),
+            ...$this->getAssetsOperations(),
+            ...$this->getDocumentsOperations(),
+        ];
     }
     // </editor-fold>
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getAssetsImporter(Model $owner): AssetsImporter {
-        return $this->getContainer()
-            ->make(ResellerAssetsImporter::class)
-            ->setResellerId($owner->getKey());
+    protected function getAssetsImporter(CompanyLoaderState $state): AssetsImporter {
+        return $this->getContainer()->make(AssetsImporter::class);
+    }
+
+    protected function getMissedAssets(CompanyLoaderState $state): Builder {
+        return Asset::query()
+            ->where('reseller_id', '=', $state->objectId)
+            ->where('synced_at', '<', $state->started);
     }
     // </editor-fold>
 
     // <editor-fold desc="WithDocuments">
     // =========================================================================
-    protected function getDocumentsImporter(Model $owner): DocumentsImporter {
-        return $this->getContainer()
-            ->make(ResellerDocumentsImporter::class)
-            ->setResellerId($owner->getKey());
+    protected function getDocumentsImporter(CompanyLoaderState $state): DocumentsImporter {
+        return $this->getContainer()->make(DocumentsImporter::class);
+    }
+
+    protected function getMissedDocuments(CompanyLoaderState $state): Builder {
+        return Document::query()
+            ->where('reseller_id', '=', $state->objectId)
+            ->where('synced_at', '<', $state->started);
     }
     // </editor-fold>
 }

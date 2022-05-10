@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\ResellerDocumentsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 
 class ResellerDocumentsImporterData extends DocumentsData {
@@ -12,8 +12,8 @@ class ResellerDocumentsImporterData extends DocumentsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $this->app->make(ResellerDocumentsImporter::class)
-                ->setResellerId(static::RESELLER)
+            $this->app->make(DocumentsImporter::class)
+                ->setObjectId(static::RESELLER)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();

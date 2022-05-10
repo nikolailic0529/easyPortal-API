@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\TeamFactory;
-use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -21,7 +20,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Team newModelQuery()
  * @method static Builder|Team newQuery()
  * @method static Builder|Team query()
- * @mixin Eloquent
  */
 class Team extends Model {
     use HasFactory;

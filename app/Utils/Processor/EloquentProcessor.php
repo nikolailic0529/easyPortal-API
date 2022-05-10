@@ -20,9 +20,9 @@ use function count;
  * @template TChunkData
  * @template TState of \App\Utils\Processor\EloquentState<TItem>
  *
- * @extends Processor<TItem, TChunkData, TState>
+ * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
-abstract class EloquentProcessor extends Processor {
+abstract class EloquentProcessor extends IteratorProcessor {
     /**
      * @var array<string>|null
      */

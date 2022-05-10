@@ -2,11 +2,14 @@
 
 namespace App\Utils\Processor;
 
-use App\Services\Service;
-use App\Utils\Cache\CacheKeyable;
+use App\Utils\Iterators\Concerns\Limit;
+use App\Utils\Iterators\Concerns\Offset;
+use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
+use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -27,7 +30,7 @@ class ProcessorTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::start
-     * @covers ::prepare
+     * @covers ::invoke
      */
     public function testStart(): void {
         $state     = new State(['offset' => $this->faker->uuid()]);
@@ -39,7 +42,7 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturn($state);
         $processor
-            ->shouldReceive('run')
+            ->shouldReceive('invoke')
             ->withArgs(static function (State $actual) use ($processor, $state): bool {
                 self::assertTrue($processor->isRunning());
                 self::assertFalse($processor->isStopped());
@@ -122,7 +125,7 @@ class ProcessorTest extends TestCase {
             ->once()
             ->andReturn(new State());
         $processor
-            ->shouldReceive('prepare')
+            ->shouldReceive('invoke')
             ->once()
             ->andReturnUsing(static function () use ($processor): void {
                 $processor->reset();
@@ -135,13 +138,13 @@ class ProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::run
+     * @covers ::invoke
      * @covers ::process
      * @covers ::report
      * @covers ::chunkLoaded
      * @covers ::chunkProcessed
      */
-    public function testRun(): void {
+    public function testInvoke(): void {
         $a         = new class() extends stdClass {
             // empty
         };
@@ -251,7 +254,7 @@ class ProcessorTest extends TestCase {
             ->onChange(Closure::fromCallable($onChange))
             ->onFinish(Closure::fromCallable($onFinish))
             ->setChunkSize($chunk)
-            ->run($state);
+            ->invoke($state);
 
         self::assertEquals(
             new State([
@@ -280,7 +283,10 @@ class ProcessorTest extends TestCase {
      * @covers ::getDefaultState
      */
     public function testGetDefaultState(): void {
-        $processor = new class() extends Processor {
+        $processor = new class() extends Processor implements Limitable, Offsetable {
+            use Limit;
+            use Offset;
+
             private ?int $total = null;
 
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -302,12 +308,8 @@ class ProcessorTest extends TestCase {
                 return $this;
             }
 
-            protected function getIterator(State $state): ObjectIterator {
-                throw new Exception();
-            }
-
-            protected function process(State $state, mixed $item, mixed $data): void {
-                throw new Exception();
+            protected function invoke(State $state): void {
+                // TODO: Implement invoke() method.
             }
 
             protected function report(Throwable $exception, mixed $item = null): void {
@@ -317,15 +319,23 @@ class ProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function prefetch(State $state, array $items): mixed {
+            protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
                 return null;
             }
 
             /**
              * @inheritDoc
              */
-            protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
+            protected function prefetch(State $state, array $items): mixed {
                 return null;
+            }
+
+            protected function process(State $state, mixed $data, mixed $item): void {
+                // empty
+            }
+
+            protected function getIterator(State $state): ObjectIterator {
+                throw new Exception('Not implemented.');
             }
         };
 
@@ -452,46 +462,39 @@ class ProcessorTest extends TestCase {
      * @covers ::getState
      */
     public function testGetState(): void {
-        $state   = new State();
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $state = [];
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('get')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
             ->andReturn($state);
 
-        $actual = $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+        $expected = new State($state);
+        $actual   = $this->app->make(ProcessorTest__Processor::class)
+            ->setStore($store)
             ->getState();
 
-        self::assertEquals($state, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     /**
      * @covers ::getState
      */
     public function testGetStateRestorationFailed(): void {
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('get')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
-            ->andReturnUsing(static function (mixed $key, Closure $factory): mixed {
-                return $factory(['invalid state']);
+            ->andReturnUsing(static function (): array {
+                return ['invalid state'];
             });
-        $service
+        $store
             ->shouldReceive('delete')
             ->once()
             ->andReturn(true);
 
         $actual = $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->getState();
 
         self::assertNull($actual);
@@ -501,21 +504,16 @@ class ProcessorTest extends TestCase {
      * @covers ::saveState
      */
     public function testSaveState(): void {
-        $state   = new State();
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
-            ->shouldReceive('set')
+        $state = new State();
+        $store = Mockery::mock(StateStore::class);
+        $store
+            ->shouldReceive('save')
             ->once()
-            ->with($key, Mockery::andAnyOtherArgs())
-            ->andReturnUsing(static function (mixed $key, mixed $value): mixed {
-                return $value;
-            });
+            ->with($state)
+            ->andReturn($state);
 
         $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->saveState($state);
     }
 
@@ -523,18 +521,14 @@ class ProcessorTest extends TestCase {
      * @covers ::resetState
      */
     public function testResetState(): void {
-        $key     = new class() implements CacheKeyable {
-            // empty
-        };
-        $service = Mockery::mock(Service::class);
-        $service
+        $store = Mockery::mock(StateStore::class);
+        $store
             ->shouldReceive('delete')
             ->once()
-            ->with($key)
             ->andReturn(true);
 
         $this->app->make(ProcessorTest__Processor::class)
-            ->setCacheKey($service, $key)
+            ->setStore($store)
             ->resetState();
     }
     // </editor-fold>
@@ -554,10 +548,6 @@ class ProcessorTest__Processor extends Processor {
         parent::__construct($exceptionHandler, $dispatcher);
     }
 
-    public function run(State $state): void {
-        parent::run($state);
-    }
-
     /**
      * @inheritDoc
      */
@@ -569,27 +559,8 @@ class ProcessorTest__Processor extends Processor {
         return null;
     }
 
-    protected function getIterator(State $state): ObjectIterator {
-        throw new Exception('should not be called');
-    }
-
-    protected function process(State $state, mixed $data, mixed $item): void {
-        throw new Exception('should not be called');
-    }
-
     protected function report(Throwable $exception, mixed $item = null): void {
         // empty
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function prefetch(State $state, array $items): mixed {
-        throw new Exception('should not be called');
-    }
-
-    public function getState(): ?State {
-        return parent::getState();
     }
 
     public function saveState(State $state): void {
@@ -598,5 +569,24 @@ class ProcessorTest__Processor extends Processor {
 
     public function resetState(): void {
         parent::resetState();
+    }
+
+    public function invoke(State $state): void {
+        parent::invoke($state);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function prefetch(State $state, array $items): mixed {
+        return null;
+    }
+
+    protected function process(State $state, mixed $data, mixed $item): void {
+        // empty
+    }
+
+    protected function getIterator(State $state): ObjectIterator {
+        throw new Exception('Not implemented');
     }
 }

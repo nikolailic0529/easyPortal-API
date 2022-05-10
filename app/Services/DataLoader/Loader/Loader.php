@@ -2,39 +2,46 @@
 
 namespace App\Services\DataLoader\Loader;
 
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Container\Isolated;
-use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Factory\ModelFactory;
-use App\Services\DataLoader\Importer\ImporterChunkData;
-use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use App\Utils\Eloquent\Model;
+use App\Services\DataLoader\Finders\AssetFinder;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Importer\Concerns\WithObjectId;
+use App\Services\DataLoader\Importer\Finders\AssetLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
+use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
+use App\Services\DataLoader\Importer\ImporterState;
+use App\Services\DataLoader\Loader\Concerns\WithLoaderState;
+use App\Utils\Processor\CompositeProcessor;
+use Closure;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 
-use function is_string;
-
 /**
- * Load data from API and create app's objects. You must use
- * {@link \App\Services\DataLoader\Container\Container} to obtain instance.
+ * Load data from API and create app's objects.
  *
- * @internal
+ * @template TState of \App\Services\DataLoader\Loader\LoaderState
+ *
+ * @extends CompositeProcessor<TState>
  */
-abstract class Loader implements Isolated {
+abstract class Loader extends CompositeProcessor {
+    use WithLoaderState;
+    use WithObjectId;
+
     public function __construct(
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
         protected Container $container,
-        protected ExceptionHandler $exceptionHandler,
-        protected Dispatcher $dispatcher,
-        protected Client $client,
-        protected Collector $collector,
     ) {
-        // empty
+        parent::__construct($exceptionHandler, $dispatcher);
+
+        $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
+        $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
+        $container->bind(AssetFinder::class, AssetLoaderFinder::class);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -42,96 +49,27 @@ abstract class Loader implements Isolated {
     protected function getContainer(): Container {
         return $this->container;
     }
-
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
-    }
-
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
-    }
-
-    protected function getClient(): Client {
-        return $this->client;
-    }
-
-    protected function getCollector(): Collector {
-        return $this->collector;
-    }
     // </editor-fold>
 
-    // <editor-fold desc="Abstract">
+    // <editor-fold desc="Process">
     // =========================================================================
-    /**
-     * @param array<string,mixed> $properties
-     */
-    abstract protected function getObject(array $properties): ?Type;
-
-    abstract protected function getObjectById(string $id): ?Type;
-
-    abstract protected function getObjectFactory(): ModelFactory;
-
     abstract protected function getModelNotFoundException(string $id): Exception;
-    // </editor-fold>
 
-    // <editor-fold desc="Load">
-    // =========================================================================
-    public function update(Type|string $object): ?Model {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
-            if (is_string($object)) {
-                if ($this->getObject([]) instanceof TypeWithId && !$this->isModelExists($object)) {
-                    throw $this->getModelNotFoundException($object);
-                } else {
-                    $object = $this->getObjectById($object);
-                }
-            } else {
-                if ($object instanceof TypeWithId && !$this->isModelExists($object->id)) {
-                    throw $this->getModelNotFoundException($object->id);
-                }
+    /**
+     * @return Closure(TState, bool): void
+     */
+    protected function getModelNotFoundHandler(): Closure {
+        return function (LoaderState $state, bool $result): void {
+            if ($result) {
+                $current = $state->getCurrentOperationState();
+                $result  = ($current instanceof ImporterState && $current->ignored === 0)
+                    && $current->processed !== 0;
             }
 
-            return $this->run($object);
-        });
-    }
-
-    public function create(Type|string $object): ?Model {
-        return GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($object): ?Model {
-            $object = is_string($object) ? $this->getObjectById($object) : $object;
-            $model  = $this->run($object);
-
-            return $model;
-        });
-    }
-
-    protected function run(?Type $object): ?Model {
-        // Object?
-        if (!$object) {
-            return null;
-        }
-
-        // Subscribe
-        $data = new ImporterChunkData([$object]);
-
-        $this->getCollector()->subscribe($data);
-
-        // Process
-        try {
-            $model = $this->process($object);
-        } finally {
-            $this->getDispatcher()->dispatch(
-                new DataImported($data),
-            );
-        }
-
-        return $model;
-    }
-
-    protected function process(Type $object): ?Model {
-        return $this->getObjectFactory()->create($object);
-    }
-
-    protected function isModelExists(string $id): bool {
-        return (bool) $this->getObjectFactory()->find($this->getObject(['id' => $id]));
+            if (!$result) {
+                throw $this->getModelNotFoundException($state->objectId);
+            }
+        };
     }
     // </editor-fold>
 }
