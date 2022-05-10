@@ -8,7 +8,6 @@ use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Iterators\ObjectsIterator;
 use Throwable;
 
-use function array_map;
 use function array_merge;
 use function count;
 
@@ -39,9 +38,13 @@ abstract class CompositeProcessor extends Processor {
     }
 
     protected function process(State $state, mixed $data, mixed $item): void {
-        $store     = new CompositeStore($state);
-        $handler   = $item->getHandler();
-        $processor = $item->getProcessor($state);
+        $state       = $state->setCurrentOperationName($item->getName());
+        $store       = new CompositeStore($state);
+        $handler     = $item->getHandler();
+        $processor   = $item->getProcessor($state);
+        $synchronize = static function (State $current) use ($state): void {
+            $state->setCurrentOperationState($current);
+        };
 
         if ($processor instanceof Limitable) {
             $processor = $processor->setLimit(null);
@@ -53,18 +56,25 @@ abstract class CompositeProcessor extends Processor {
 
         $result = $processor
             ->setStore($store)
-            ->setChunkSize($this->getChunkSize())
-            ->onChange(function () use ($processor, $state): void {
+            ->setChunkSize(parent::getChunkSize())
+            ->onInit($synchronize)
+            ->onChange(function (State $current) use ($processor, $state, $synchronize): void {
                 $this->saveState($state);
+
+                $synchronize($current);
 
                 if ($this->isStopped()) {
                     $processor->stop();
                 }
             })
-            ->onReport(function () use ($state): void {
+            ->onReport(function (State $current) use ($state, $synchronize): void {
+                $synchronize($current);
+
                 $this->notifyOnReport($state);
             })
-            ->onProcess(function () use ($state): void {
+            ->onProcess(function (State $current) use ($state, $synchronize): void {
+                $synchronize($current);
+
                 $this->notifyOnProcess($state);
             })
             ->start();
@@ -76,6 +86,14 @@ abstract class CompositeProcessor extends Processor {
 
     protected function report(Throwable $exception, mixed $item = null): void {
         throw $exception;
+    }
+
+    protected function init(State $state, ObjectIterator $iterator): void {
+        parent::init($state, $iterator->setChunkSize(1));
+    }
+
+    protected function finish(State $state): void {
+        parent::finish($state->resetCurrentOperation());
     }
 
     protected function getTotal(State $state): ?int {
@@ -113,26 +131,8 @@ abstract class CompositeProcessor extends Processor {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'operations' => $this->getStateOperations(),
+            'operations' => [],
         ]);
-    }
-
-    /**
-     * @return array<int, array<string, mixed>>
-     */
-    private function getStateOperations(): array {
-        $operations = $this->getOperations();
-        $operations = array_map(
-            static function (CompositeOperation $operation): array {
-                return [
-                    'name'  => $operation->getName(),
-                    'state' => null,
-                ];
-            },
-            $operations,
-        );
-
-        return $operations;
     }
     // </editor-fold>
 }

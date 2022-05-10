@@ -19,12 +19,14 @@ use ReflectionNamedType;
 use Symfony\Component\Console\Helper\ProgressBar;
 
 use function array_unique;
+use function explode;
 use function floor;
 use function implode;
 use function is_a;
 use function max;
 use function memory_get_usage;
 use function min;
+use function reset;
 use function sprintf;
 use function strtr;
 use function time;
@@ -71,11 +73,12 @@ abstract class ProcessorCommand extends Command {
             $processor = $processor->setKeys($keys);
         }
 
-        // Style
+        // Style & Settings
         // Operation name                                                  10 / 12
         // [▓▓░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░]   3%
         // ! 999:99:99 T: 115 000 000 P:   5 000 000 S:   5 000 000 F:         123
         // ~ 000:25:15 M:  143.05 MiB S:      e706aa47-4c00-4ffa-a1ac-bb10f4ada3b6
+        $progress->minSecondsBetweenRedraws(0.25);
         $progress->setBarWidth(64 - 3);
         $progress->setFormat(implode(PHP_EOL, [
             '%operation-name:-63.63s% %operation-index:2.2s% / %operation-total:2.2s%',
@@ -220,7 +223,10 @@ abstract class ProcessorCommand extends Command {
     }
 
     protected function getDefaultOperationName(): string {
-        return trim($this->getDescription(), '.');
+        $lines = explode("\n", $this->getDescription());
+        $name  = trim(trim(reset($lines) ?: ''), '.');
+
+        return $name;
     }
 
     private function updateProgressBar(
@@ -233,7 +239,7 @@ abstract class ProcessorCommand extends Command {
         $description = $this->getDefaultOperationName();
 
         if ($state instanceof CompositeState) {
-            $progress->setMessage($state->getCurrentState()->name ?? $description, 'operation-name');
+            $progress->setMessage($state->getCurrentOperationName() ?? $description, 'operation-name');
             $progress->setMessage((string) min($state->index + 1, $state->total), 'operation-index');
             $progress->setMessage((string) $state->total, 'operation-total');
         } else {
@@ -244,7 +250,7 @@ abstract class ProcessorCommand extends Command {
 
         // Overwrite
         if ($state instanceof CompositeState) {
-            $state = $state->getCurrentState()->state ?? $state;
+            $state = $state->getCurrentOperationState() ?? $state;
         }
 
         if ($state->total !== null) {

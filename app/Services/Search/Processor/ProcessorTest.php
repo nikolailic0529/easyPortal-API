@@ -10,6 +10,7 @@ use App\Services\Search\Properties\Property;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
@@ -273,6 +274,7 @@ class ProcessorTest extends TestCase {
      */
     public function testInit(): void {
         $name      = $this->faker->word();
+        $iterator  = Mockery::mock(ObjectIterator::class);
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
@@ -288,14 +290,14 @@ class ProcessorTest extends TestCase {
         // Update
         $state = new State(['rebuild' => false]);
 
-        $processor->init($state);
+        $processor->init($state, $iterator);
 
         self::assertNull($state->name);
 
         // Rebuild
         $state = new State(['rebuild' => true]);
 
-        $processor->init($state);
+        $processor->init($state, $iterator);
 
         self::assertEquals($name, $state->name);
     }

@@ -2,16 +2,39 @@
 
 namespace App\Utils\Processor;
 
-use App\Utils\JsonObject\JsonObjectArray;
-
 class CompositeState extends State {
     /**
-     * @var array<int, CompositeOperationState>
+     * @var array<int, array<string, mixed>|null>
      */
-    #[JsonObjectArray(CompositeOperationState::class)]
     public array $operations;
 
-    public function getCurrentState(): ?CompositeOperationState {
-        return $this->operations[$this->index] ?? null;
+    private ?string $currentOperationName = null;
+    private ?State $currentOperationState = null;
+
+    public function resetCurrentOperation(): static {
+        $this->setCurrentOperationName(null);
+        $this->setCurrentOperationState(null);
+
+        return $this;
+    }
+
+    public function getCurrentOperationName(): ?string {
+        return $this->currentOperationName;
+    }
+
+    public function setCurrentOperationName(?string $name): static {
+        $this->currentOperationName = $name;
+
+        return $this;
+    }
+
+    public function getCurrentOperationState(): ?State {
+        return $this->currentOperationState;
+    }
+
+    public function setCurrentOperationState(?State $state): static {
+        $this->currentOperationState = $state;
+
+        return $this;
     }
 }

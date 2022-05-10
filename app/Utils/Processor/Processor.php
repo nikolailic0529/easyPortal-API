@@ -214,7 +214,7 @@ abstract class Processor implements ProcessorContract {
                 $data = null;
             });
 
-        $this->init($state);
+        $this->init($state, $iterator);
 
         foreach ($iterator as $item) {
             // Iterator updates index after element
@@ -368,9 +368,10 @@ abstract class Processor implements ProcessorContract {
     }
 
     /**
-     * @param TState $state
+     * @param TState                $state
+     * @param ObjectIterator<TItem> $iterator
      */
-    protected function init(State $state): void {
+    protected function init(State $state, ObjectIterator $iterator): void {
         $this->saveState($state);
         $this->notifyOnInit($state);
     }

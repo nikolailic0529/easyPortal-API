@@ -15,7 +15,6 @@ use Throwable;
 
 use function array_fill;
 use function array_map;
-use function ceil;
 use function count;
 use function range;
 
@@ -122,40 +121,31 @@ class CompositeProcessorTest extends TestCase {
                 'failed'     => 0,
                 'operations' => [
                     [
-                        'name'  => 'A',
-                        'state' => [
-                            'offset'    => $countA,
-                            'index'     => $countA,
-                            'limit'     => null,
-                            'total'     => $countA,
-                            'processed' => $countA,
-                            'success'   => $countA,
-                            'failed'    => 0,
-                        ],
+                        'offset'    => $countA,
+                        'index'     => $countA,
+                        'limit'     => null,
+                        'total'     => $countA,
+                        'processed' => $countA,
+                        'success'   => $countA,
+                        'failed'    => 0,
                     ],
                     [
-                        'name'  => 'B',
-                        'state' => [
-                            'offset'    => $countB,
-                            'index'     => $countB,
-                            'limit'     => null,
-                            'total'     => $countB,
-                            'processed' => $countB,
-                            'success'   => $countB,
-                            'failed'    => 0,
-                        ],
+                        'offset'    => $countB,
+                        'index'     => $countB,
+                        'limit'     => null,
+                        'total'     => $countB,
+                        'processed' => $countB,
+                        'success'   => $countB,
+                        'failed'    => 0,
                     ],
                     [
-                        'name'  => 'C',
-                        'state' => [
-                            'offset'    => $countC,
-                            'index'     => $countC,
-                            'limit'     => null,
-                            'total'     => $countC,
-                            'processed' => $countC,
-                            'success'   => 0,
-                            'failed'    => $countC,
-                        ],
+                        'offset'    => $countC,
+                        'index'     => $countC,
+                        'limit'     => null,
+                        'total'     => $countC,
+                        'processed' => $countC,
+                        'success'   => 0,
+                        'failed'    => $countC,
                     ],
                 ],
             ]),
@@ -167,7 +157,7 @@ class CompositeProcessorTest extends TestCase {
             ->once();
         $onChange
             ->shouldHaveBeenCalled()
-            ->times((int) ceil(count($operations) / $chunk));
+            ->times(count($operations));
         $onFinish
             ->shouldHaveBeenCalled()
             ->once();
