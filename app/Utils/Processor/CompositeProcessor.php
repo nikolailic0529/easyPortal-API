@@ -27,7 +27,7 @@ abstract class CompositeProcessor extends Processor {
     // <editor-fold desc="Process">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator($this->getExceptionHandler(), $this->getOperations());
+        return new ObjectsIterator($this->getExceptionHandler(), $this->getOperations($state));
     }
 
     /**
@@ -97,24 +97,28 @@ abstract class CompositeProcessor extends Processor {
     }
 
     protected function getTotal(State $state): ?int {
-        return count($this->getOperations());
+        return count($this->getOperations($state));
     }
 
     /**
+     * @param TState $state
+     *
      * @return array<int, CompositeOperation<TState>>
      */
-    final protected function getOperations(): array {
+    final protected function getOperations(CompositeState $state): array {
         if (!isset($this->operations)) {
-            $this->operations = $this->operations();
+            $this->operations = $this->operations($state);
         }
 
         return $this->operations;
     }
 
     /**
+     * @param TState $state
+     *
      * @return array<int, CompositeOperation<TState>>
      */
-    abstract protected function operations(): array;
+    abstract protected function operations(CompositeState $state): array;
     //</editor-fold>
 
     // <editor-fold desc="State">

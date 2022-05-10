@@ -12,6 +12,7 @@ use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Loader\CompanyLoaderState;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,7 +30,7 @@ class ResellerLoader extends CompanyLoader {
     /**
      * @inheritDoc
      */
-    protected function operations(): array {
+    protected function operations(CompositeState $state): array {
         return [
             new CompositeOperation(
                 'Updating properties',

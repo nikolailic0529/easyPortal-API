@@ -269,7 +269,7 @@ class CompositeProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function operations(): array {
+            protected function operations(CompositeState $state): array {
                 return array_fill(0, $this->count, Mockery::mock(CompositeOperation::class));
             }
 

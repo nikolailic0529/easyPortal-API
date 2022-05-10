@@ -15,6 +15,7 @@ use App\Services\DataLoader\Loader\CompanyLoaderState;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
@@ -38,7 +39,7 @@ class CustomerLoader extends CompanyLoader {
     /**
      * @inheritDoc
      */
-    protected function operations(): array {
+    protected function operations(CompositeState $state): array {
         return [
             new CompositeOperation(
                 'Warranty Check',
