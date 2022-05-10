@@ -1,0 +1,29 @@
+[
+    {
+        "query": "select count(*) as aggregate from `customers`",
+        "bindings": []
+    },
+    {
+        "query": "select `customers`.* from `customers` order by `customers`.`id` asc limit 250 offset 0",
+        "bindings": []
+    },
+    {
+        "query": "select `resellers`.*, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `resellers` inner join `reseller_customers` on `resellers`.`id` = `reseller_customers`.`reseller_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`customer_id` in (?) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
+        ]
+    },
+    {
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`id` in (select distinct `customer_location_types`.`customer_location_id` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `types`.`id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null) and `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "bindings": [
+            "",
+            "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` > ? order by `customers`.`id` asc limit 250 offset 0",
+        "bindings": [
+            "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
+        ]
+    }
+]

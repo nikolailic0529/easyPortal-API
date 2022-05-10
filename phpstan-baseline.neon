@@ -16651,6 +16651,16 @@ parameters:
 			path: app/Services/Search/Listeners/IndexExpiredListenerTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessor\\:\\:operations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
+			count: 1
+			path: app/Services/Search/Processor/ModelsProcessor.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Utils\\\\Processor\\\\CompositeState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(\\)\\: App\\\\Services\\\\Search\\\\Processor\\\\Processor given\\.$#"
+			count: 1
+			path: app/Services/Search/Processor/ModelsProcessor.php
+
+		-
 			message: "#^Call to an undefined method App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:trashed\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/Processor.php

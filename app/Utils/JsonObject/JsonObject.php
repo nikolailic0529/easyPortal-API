@@ -25,7 +25,6 @@ use function is_object;
 use function preg_match;
 use function reset;
 use function sprintf;
-use function str_starts_with;
 
 /**
  * Convert JSON into an object, but be careful - this class doesn't worry about

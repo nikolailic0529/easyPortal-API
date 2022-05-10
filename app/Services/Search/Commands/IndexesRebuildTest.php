@@ -30,7 +30,6 @@ class IndexesRebuildTest extends TestCase {
                     'model' => Customer::class,
                 ],
             )
-            ->expectsOutput(sprintf('Processing `%s`:', Customer::class))
             ->expectsOutput('Done.')
             ->assertSuccessful();
     }

@@ -3,25 +3,24 @@
 namespace App\Services\Search\Commands;
 
 use App\Services\I18n\Formatter;
-use App\Services\Search\Eloquent\Searchable;
-use App\Services\Search\Processor\Processor;
-use App\Services\Search\Processor\State;
+use App\Services\Search\Processor\ModelsProcessor;
 use App\Services\Search\Service;
 use App\Utils\Processor\Commands\ProcessorCommand;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Console\Command;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
-use Throwable;
 
+use function array_filter;
 use function array_merge;
 use function array_unique;
 use function array_values;
+use function class_exists;
 use function count;
-use function str_contains;
+use function implode;
+use function is_a;
 
 /**
- * @extends ProcessorCommand<Processor<Model&Searchable, State<Model&Searchable>>>
+ * @extends ProcessorCommand<ModelsProcessor>
  */
 class IndexesRebuild extends ProcessorCommand {
     /**
@@ -35,61 +34,38 @@ class IndexesRebuild extends ProcessorCommand {
      * @inheritDoc
      */
     protected function getCommandSignature(array $signature): array {
-        return (new Collection(array_merge(parent::getCommandSignature($signature), [
+        return array_merge(parent::getCommandSignature($signature), [
             '{model?* : model(s) to rebuild (default all)}',
-        ])))
-            ->filter(static function (string $option): bool {
-                return !str_contains($option, '--offset=')
-                    && !str_contains($option, '--limit=')
-                    && !str_contains($option, 'id?*');
-            })
-            ->all();
+        ]);
     }
 
     public function __invoke(
         ExceptionHandler $handler,
-        Container $container,
         Service $service,
         Formatter $formatter,
+        ModelsProcessor $processor,
     ): int {
-        $result = 0;
-        $models = array_values(array_unique((array) $this->argument('model')) ?: $service->getSearchableModels());
+        // Models
+        $models  = array_values(array_unique((array) $this->argument('model')) ?: $service->getSearchableModels());
+        $invalid = array_filter($models, static function (string $model) use ($service): bool {
+            return !class_exists($model)
+                || !is_a($model, Model::class, true)
+                || !$service->isSearchableModel($model);
+        });
 
-        for ($i = 0, $c = count($models); $i < $c; $i++) {
-            $model = $models[$i];
-            $break = $i < $c - 1;
+        if (count($models) === 0) {
+            $this->warn('Nothing to rebuild.');
 
-            $this->output->writeln("Processing `<info>{$model}</info>`:");
-
-            try {
-                if ($service->isSearchableModel($model)) {
-                    $processor = $container->make(Processor::class)->setModel($model)->setRebuild(true);
-                    $result   += $this->process($formatter, $processor);
-                } else {
-                    $this->warn('    not searchable');
-
-                    $result += 1;
-                }
-            } catch (Throwable $exception) {
-                $this->newLine();
-                $this->error("    {$exception->getMessage()}");
-                $handler->report($exception);
-
-                $result += 1;
-            } finally {
-                if ($break) {
-                    $this->newLine();
-                }
-            }
+            return Command::SUCCESS;
         }
 
-        // Return
-        return $result === 0
-            ? self::SUCCESS
-            : self::FAILURE;
-    }
+        if (count($invalid) > 0) {
+            $this->warn('Following models are not searchable: `'.implode('`, `', $invalid).'`.');
 
-    protected function getProcessorClass(): string {
-        return Processor::class;
+            return Command::FAILURE;
+        }
+
+        // Run
+        return $this->process($formatter, $processor->setModels($models));
     }
 }
