@@ -8,7 +8,7 @@ Arguments:
   id                    Distributor ID
 
 Options:
-      --state[=STATE]   initial state, allows continue processing (will overwrite other options)
+      --state[=STATE]   initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]   chunk size
   -h, --help            Display help for the given command. When no command is given display help for the list command
   -q, --quiet           Do not output any message

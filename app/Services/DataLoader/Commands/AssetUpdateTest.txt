@@ -8,7 +8,7 @@ Arguments:
   id                       Asset ID
 
 Options:
-      --state[=STATE]      initial state, allows continue processing (will overwrite other options)
+      --state[=STATE]      initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]      chunk size
       --warranty-check     run warranty check before update
       --no-warranty-check  do not run warranty check before update (default)

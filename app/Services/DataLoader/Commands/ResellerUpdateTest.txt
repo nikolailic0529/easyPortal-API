@@ -8,7 +8,7 @@ Arguments:
   id                         Reseller ID
 
 Options:
-      --state[=STATE]        initial state, allows continue processing (will overwrite other options)
+      --state[=STATE]        initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]        chunk size
   -a, --assets               Load assets
   -A, --no-assets            Skip assets (default)

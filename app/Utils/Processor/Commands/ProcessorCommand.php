@@ -175,7 +175,7 @@ abstract class ProcessorCommand extends Command {
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
-            '{--state= : initial state, allows continue processing (will overwrite other options)}',
+            '{--state= : initial state, allows to continue processing (overwrites other options except `--chunk`)}',
             '{--chunk= : chunk size}',
         ];
 

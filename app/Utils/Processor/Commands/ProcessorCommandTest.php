@@ -345,6 +345,7 @@ class ProcessorCommandTest extends TestCase {
      */
     public function dataProviderConstruct(): array {
         return [
+            // @phpcs:disable Generic.Files.LineLength.TooLong
             ProcessorCommand__ProcessorProcess::class           => [
                 <<<'HELP'
                 Description:
@@ -354,7 +355,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows continue processing (will overwrite other options)
+                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]  chunk size
 
                 HELP,
@@ -369,7 +370,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-limitable-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows continue processing (will overwrite other options)
+                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]  chunk size
                       --limit[=LIMIT]  max ProcessorLimitable to process
 
@@ -385,7 +386,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-offsetable-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]    chunk size
                       --offset[=OFFSET]  start processing from given offset
 
@@ -401,7 +402,7 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-iterator-processor-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]    chunk size
                       --limit[=LIMIT]    max IteratorProcessor to process
                       --offset[=OFFSET]  start processing from given offset
@@ -410,7 +411,6 @@ class ProcessorCommandTest extends TestCase {
                 ProcessorCommand__IteratorProcessorProcess::class,
             ],
             ProcessorCommand__EloquentProcessorProcess::class   => [
-                // @phpcs:disable Generic.Files.LineLength.TooLong
                 <<<'HELP'
                 Description:
                   Process EloquentProcessor.
@@ -422,15 +422,15 @@ class ProcessorCommandTest extends TestCase {
                   id                     process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
 
                 Options:
-                      --state[=STATE]    initial state, allows continue processing (will overwrite other options)
+                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
                       --chunk[=CHUNK]    chunk size
                       --limit[=LIMIT]    max EloquentProcessor to process
                       --offset[=OFFSET]  start processing from given offset
 
                 HELP,
-                // @phpcs:enable
                 ProcessorCommand__EloquentProcessorProcess::class,
             ],
+            // @phpcs:enable
         ];
     }
     // </editor-fold>
