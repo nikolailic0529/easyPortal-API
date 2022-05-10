@@ -137,7 +137,15 @@ class Cache {
     }
 
     public function markExpired(): static {
-        $this->set(static::MARKER_EXPIRED, Date::now());
+        try {
+            $this->cache->set(
+                $this->service->getCacheKey(static::MARKER_EXPIRED),
+                Date::now(),
+                $this->getTtl(),
+            );
+        } catch (Throwable $exception) {
+            $this->exceptionHandler->report($exception);
+        }
 
         return $this;
     }
@@ -181,7 +189,17 @@ class Cache {
     }
 
     protected function getExpired(): ?DateTimeInterface {
-        return Date::make($this->get(static::MARKER_EXPIRED));
+        try {
+            $key  = $this->service->getCacheKey(static::MARKER_EXPIRED);
+            $date = Date::make($this->cache->get($key));
+
+            return $date;
+        } catch (Throwable) {
+            // If `unserialize()` fail it is not critical and should not break
+            // anything.
+        }
+
+        return null;
     }
 
     protected function isExpiring(DateTimeInterface $datetime, DateTimeInterface $expire): bool {
