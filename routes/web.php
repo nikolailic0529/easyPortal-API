@@ -16,10 +16,11 @@ use App\Http\Controllers\FilesController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 Route::get('/', [IndexController::class, 'index']);
-Route::get('/application', [IndexController::class, 'index']);
+Route::middleware(AcceptJson::class)->get('/application', [IndexController::class, 'index']);
 
 Route::group(['middleware' => ['auth', 'organization']], static function (Router $router): void {
     $router->post('/download/csv', [ExportController::class, 'csv']);

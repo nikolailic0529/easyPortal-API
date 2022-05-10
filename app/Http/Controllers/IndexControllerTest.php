@@ -48,7 +48,7 @@ class IndexControllerTest extends TestCase {
     /**
      * @covers ::index
      *
-     * @dataProvider dataProviderIndex
+     * @dataProvider dataProviderIndexApplication
      *
      * @param OrganizationFactory $orgFactory
      * @param array<mixed>        $headers
@@ -85,6 +85,39 @@ class IndexControllerTest extends TestCase {
                         new HtmlContentType(),
                     ),
                     [],
+                ],
+                'Accept application/json'               => [
+                    new OkResponse(self::class),
+                    [
+                        'Accept' => 'application/json',
+                    ],
+                ],
+                'Accept application/json (maintenance)' => [
+                    new OkResponse(self::class),
+                    [
+                        'Accept' => 'application/json',
+                    ],
+                    [
+                        'enabled' => true,
+                        'message' => 'abc',
+                    ],
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderIndexApplication(): array {
+        return (new CompositeDataProvider(
+            new AnyOrganizationDataProvider(),
+            new ArrayDataProvider([
+                'Accept text/html'                      => [
+                    new OkResponse(self::class),
+                    [
+                        // empty
+                    ],
                 ],
                 'Accept application/json'               => [
                     new OkResponse(self::class),
