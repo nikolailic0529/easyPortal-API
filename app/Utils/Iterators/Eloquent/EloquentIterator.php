@@ -20,7 +20,10 @@ class EloquentIterator implements ObjectIterator {
     /**
      * @phpstan-use Subjects<T>
      */
-    use Subjects;
+    use Subjects {
+        __clone as __cloneSubjects;
+    }
+
     use ChunkSize;
 
     /**
@@ -37,6 +40,8 @@ class EloquentIterator implements ObjectIterator {
         // empty
     }
 
+    // <editor-fold desc="ObjectIterator">
+    // =========================================================================
     public function getIterator(): Generator {
         try {
             $this->init();
@@ -98,19 +103,27 @@ class EloquentIterator implements ObjectIterator {
 
         return $this;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Functions">
+    // =========================================================================
     /**
-     * @param Closure(array<T>) :void|null $closure
+     * @param Closure(array<int, T>) :void|null $closure
      *
-     * @return Closure(Collection<int, T>) :void|null
+     * @return Closure(Collection<int, T>):void
      */
-    protected function wrapClosure(?Closure $closure): ?Closure {
+    protected function wrapClosure(?Closure $closure): Closure {
         return static function (Collection $items) use ($closure): void {
-            $closure($items->all());
+            if ($closure) {
+                $closure($items->all());
+            }
         };
     }
 
     public function __clone(): void {
         $this->iterator = clone $this->iterator;
+
+        $this->__cloneSubjects();
     }
+    // </editor-fold>
 }

@@ -17546,12 +17546,12 @@ parameters:
 			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
 
 		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
 
 		-
-			message: "#^Trying to invoke \\(Closure\\(array\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\: void\\)\\|null but it might not be a callable\\.$#"
+			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
 
