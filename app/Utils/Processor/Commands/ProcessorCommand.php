@@ -7,6 +7,8 @@ use App\Services\Service;
 use App\Utils\Console\WithOptions;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\CompositeOperation;
+use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EloquentProcessor;
@@ -20,9 +22,11 @@ use Symfony\Component\Console\Helper\ProgressBar;
 
 use function array_unique;
 use function explode;
+use function filter_var;
 use function floor;
 use function implode;
 use function is_a;
+use function is_array;
 use function max;
 use function memory_get_usage;
 use function min;
@@ -32,6 +36,7 @@ use function strtr;
 use function time;
 use function trim;
 
+use const FILTER_VALIDATE_INT;
 use const PHP_EOL;
 
 /**
@@ -91,7 +96,8 @@ abstract class ProcessorCommand extends Command {
         $progress->start();
 
         // Process
-        $sync = function (State $state) use ($formatter, $progress, $store): void {
+        $state = null;
+        $sync  = function (State $state) use ($formatter, $progress, $store): void {
             $this->updateProgressBar($formatter, $progress, $store, $state);
         };
 
@@ -108,13 +114,15 @@ abstract class ProcessorCommand extends Command {
         $processor
             ->setStore($store)
             ->setChunkSize($chunk)
-            ->onInit(static function (State $state) use ($progress, $sync): void {
-                $sync($state);
+            ->onInit(static function (State $current) use ($progress, $sync): void {
+                $sync($current);
 
                 $progress->display();
             })
-            ->onFinish(static function (State $state) use ($progress, $sync): void {
-                $sync($state);
+            ->onFinish(static function (State $current) use ($progress, $sync, &$state): void {
+                $state = $current;
+
+                $sync($current);
 
                 $progress->finish();
             })
@@ -123,8 +131,15 @@ abstract class ProcessorCommand extends Command {
             ->onProcess($sync)
             ->start();
 
+        // Summary
+        if ($processor instanceof CompositeProcessor && $state instanceof CompositeState) {
+            $this->showCompositeProcessorSummary($formatter, $processor, $state);
+        } else {
+            $this->newLine();
+        }
+
         // Done
-        $this->newLine(2);
+        $this->newLine();
         $this->info('Done.');
 
         // Return
@@ -319,6 +334,99 @@ abstract class ProcessorCommand extends Command {
         $progress->setMessage($this->getDefaultOperationName(), 'operation-name');
         $progress->setMessage('?', 'operation-index');
         $progress->setMessage('?', 'operation-total');
+    }
+
+    /**
+     * @param CompositeProcessor<CompositeState> $processor
+     */
+    private function showCompositeProcessorSummary(
+        Formatter $formatter,
+        CompositeProcessor $processor,
+        CompositeState $state,
+    ): void {
+        $operations = $this->getCompositeProcessorOperations($processor, $state);
+        $integer    = static function (mixed $value, string $style = null) use ($formatter): string {
+            $value = filter_var($value, FILTER_VALIDATE_INT);
+
+            if ($value !== false) {
+                $zero  = $value === 0;
+                $value = $formatter->integer($value);
+
+                if ($style && !$zero) {
+                    $value = "<{$style}>{$value}</{$style}>";
+                }
+            } else {
+                $value = '-';
+            }
+
+            return $value;
+        };
+        $summary    = [];
+
+        foreach ($operations as $index => $operation) {
+            $operationName  = $operation->getName();
+            $operationState = $state->operations[$index] ?? null;
+
+            if (is_array($operationState)) {
+                $summary[] = [
+                    $operationName,
+                    $integer($operationState['total'] ?? null),
+                    $integer($operationState['processed'] ?? null),
+                    $integer($operationState['success'] ?? null, 'info'),
+                    $integer($operationState['failed'] ?? null, 'comment'),
+                ];
+            } else {
+                $summary[] = [
+                    $operationName,
+                    '-',
+                    '-',
+                    '-',
+                    '-',
+                ];
+            }
+        }
+
+        $this->newLine(2);
+        $this->table(
+            ['Operation', 'Total', 'Processed', 'Success', 'Failed'],
+            $summary,
+        );
+    }
+
+    /**
+     * @param CompositeProcessor<CompositeState> $processor
+     *
+     * @return array<int, CompositeOperation<CompositeState>>
+     */
+    private function getCompositeProcessorOperations(
+        CompositeProcessor $processor,
+        CompositeState $state,
+    ): array {
+        return (new class() extends CompositeProcessor {
+            /**
+             * @noinspection PhpMissingParentConstructorInspection
+             * @phpstan-ignore-next-line
+             */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @param CompositeProcessor<CompositeState> $processor
+             *
+             * @return array<CompositeOperation<CompositeState>>
+             */
+            public function getProcessorOperations(CompositeProcessor $processor, CompositeState $state): array {
+                return $processor->getOperations($state);
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected function getOperations(CompositeState $state): array {
+                return [];
+            }
+        })->getProcessorOperations($processor, $state);
     }
 
     protected function getService(): ?Service {

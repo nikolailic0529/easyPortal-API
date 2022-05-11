@@ -12621,7 +12621,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:operations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
@@ -16651,7 +16651,7 @@ parameters:
 			path: app/Services/Search/Listeners/IndexExpiredListenerTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessor\\:\\:operations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessor\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processor\\\\ModelsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processor/ModelsProcessor.php
 
@@ -17546,12 +17546,12 @@ parameters:
 			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
 
 		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
 
 		-
-			message: "#^Trying to invoke \\(Closure\\(array\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\)\\: void\\)\\|null but it might not be a callable\\.$#"
+			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
 

@@ -14,7 +14,7 @@ class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**
      * @var array<mixed>
      */
-    protected array $items;
+    private array $items;
 
     /**
      * @inheritDoc

@@ -80,8 +80,8 @@ class CompositeProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('operations')
-            ->once()
+            ->shouldReceive('getOperations')
+            ->twice()
             ->andReturn($operations);
 
         $finish    = null;
@@ -205,8 +205,8 @@ class CompositeProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('operations')
-            ->once()
+            ->shouldReceive('getOperations')
+            ->twice()
             ->andReturn($operations);
 
         $onInit    = Mockery::spy(static function (): void {
@@ -269,7 +269,7 @@ class CompositeProcessorTest extends TestCase {
             /**
              * @inheritDoc
              */
-            protected function operations(CompositeState $state): array {
+            protected function getOperations(CompositeState $state): array {
                 return array_fill(0, $this->count, Mockery::mock(CompositeOperation::class));
             }
 

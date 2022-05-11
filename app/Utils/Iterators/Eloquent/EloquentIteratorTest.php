@@ -5,7 +5,9 @@ namespace App\Utils\Iterators\Eloquent;
 use App\Models\Type;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
@@ -148,5 +150,23 @@ class EloquentIteratorTest extends TestCase {
             ->shouldHaveBeenCalled()
             ->withArgs($chunkB)
             ->once();
+    }
+
+    /**
+     * @covers ::__clone
+     */
+    public function testClone(): void {
+        $builder  = Type::query();
+        $iterator = new class($builder->getChunkedIterator()) extends EloquentIterator {
+            /**
+             * @return Iterator<Model>
+             */
+            public function getInternalIterator(): Iterator {
+                return $this->iterator;
+            }
+        };
+        $clone    = clone $iterator;
+
+        self::assertNotSame($iterator->getInternalIterator(), $clone->getInternalIterator());
     }
 }

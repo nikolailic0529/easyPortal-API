@@ -56,7 +56,7 @@ class ModelsProcessor extends CompositeProcessor {
     /**
      * @inheritDoc
      */
-    protected function operations(CompositeState $state): array {
+    protected function getOperations(CompositeState $state): array {
         return array_map(
             function (string $model): CompositeOperation {
                 return new CompositeOperation($model, function () use ($model): Processor {

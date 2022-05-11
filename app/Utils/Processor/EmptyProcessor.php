@@ -9,7 +9,7 @@ use Throwable;
 /**
  * @extends Processor<mixed, null, State>
  */
-class EmptyProcessor extends Processor {
+final class EmptyProcessor extends Processor {
     /**
      * @inheritDoc
      */
