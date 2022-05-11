@@ -14,6 +14,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOutdated as GraphQLSignUp
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUsed as GraphQLSignUpByInviteInvitationUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUserNotFound as GraphQLSignUpByInviteInvitationUserNotFound;
 use App\GraphQL\Mutations\Auth\SignUpByInviteTokenInvalid as GraphQLSignUpByInviteTokenInvalid;
+use App\GraphQL\Mutations\ImportOemsImportFailed as GraphQLImportOemsImportFailedAlias;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
 use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers as GraphQLDeleteImpossibleAssignedToUsers;
@@ -78,6 +79,7 @@ class ErrorCodes {
         GraphQLSignUpByInviteInvitationUserNotFound::class         => 'GraphQL012',
         GraphQLSignUpByInviteInvitationOrganizationNotFound::class => 'GraphQL013',
         GraphQLInviteImpossibleKeycloakUserDisabled::class         => 'GraphQL014',
+        GraphQLImportOemsImportFailedAlias::class                  => 'GraphQL015',
 
         // Queue
         QueueServiceNotFound::class                                => 'Queue001',

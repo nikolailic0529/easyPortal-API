@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Closure;
-use Illuminate\Console\Command;
 use Illuminate\Http\UploadedFile;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -55,9 +54,9 @@ class ImportOemsTest extends TestCase {
                 $this->override(OemsImporter::class, static function (MockInterface $mock) use ($file): void {
                     $mock
                         ->shouldReceive('import')
-                        ->with($file->getPathname())
+                        ->with($file)
                         ->once()
-                        ->andReturn(Command::SUCCESS);
+                        ->andReturns();
                 });
             }
         } else {

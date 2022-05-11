@@ -2,13 +2,13 @@
 
 namespace App\GraphQL\Mutations;
 
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\Kernel;
+use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Illuminate\Http\UploadedFile;
+use Maatwebsite\Excel\Exceptions\LaravelExcelException;
 
 class ImportOems {
     public function __construct(
-        protected Kernel $artisan,
+        protected OemsImporter $importer,
     ) {
         // empty
     }
@@ -27,10 +27,14 @@ class ImportOems {
             ];
         }
 
+        try {
+            $this->importer->import($file);
+        } catch (LaravelExcelException $exception) {
+            throw new ImportOemsImportFailed($exception);
+        }
+
         return [
-            'result' => $this->artisan->call('ep:data-loader-oems-import', [
-                'file' => $file->getPathname(),
-            ]) === Command::SUCCESS,
+            'result' => true,
         ];
     }
 }

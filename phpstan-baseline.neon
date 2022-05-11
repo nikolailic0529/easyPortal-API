@@ -1971,6 +1971,11 @@ parameters:
 			path: app/GraphQL/Mutations/ImportOems.php
 
 		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/ImportOemsImportFailed.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsTest\\:\\:testInvoke\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
