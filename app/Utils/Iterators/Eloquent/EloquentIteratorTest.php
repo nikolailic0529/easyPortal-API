@@ -5,6 +5,7 @@ namespace App\Utils\Iterators\Eloquent;
 use App\Models\Type;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator;
 use Mockery;
@@ -157,6 +158,9 @@ class EloquentIteratorTest extends TestCase {
     public function testClone(): void {
         $builder  = Type::query();
         $iterator = new class($builder->getChunkedIterator()) extends EloquentIterator {
+            /**
+             * @return Iterator<Model>
+             */
             public function getInternalIterator(): Iterator {
                 return $this->iterator;
             }
