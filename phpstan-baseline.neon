@@ -14561,6 +14561,11 @@ parameters:
 			path: app/Services/Maintenance/Commands/VersionUpdate.php
 
 		-
+			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
+			count: 1
+			path: app/Services/Maintenance/Jobs/TelescopeCleaner.php
+
+		-
 			message: "#^Cannot call method sub\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Maintenance.php

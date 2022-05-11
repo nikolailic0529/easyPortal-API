@@ -20,6 +20,7 @@ use App\Services\Logger\Logger;
 use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
+use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleaner;
 use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
 use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
@@ -1670,6 +1671,40 @@ interface Constants {
     #[Group('maintenance')]
     #[Internal]
     public const EP_MAINTENANCE_NOTIFY_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_MAINTENANCE_TELESCOPE_CLEANER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(MaintenanceTelescopeCleaner::class, 'enabled')]
+    #[Group('maintenance')]
+    public const EP_MAINTENANCE_TELESCOPE_CLEANER_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(MaintenanceTelescopeCleaner::class, 'cron')]
+    #[Group('maintenance')]
+    #[Type(CronExpression::class)]
+    public const EP_MAINTENANCE_TELESCOPE_CLEANER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(MaintenanceTelescopeCleaner::class, 'queue')]
+    #[Group('maintenance')]
+    #[Internal]
+    public const EP_MAINTENANCE_TELESCOPE_CLEANER_QUEUE = Queues::DEFAULT;
+
+    /**
+     * Expiration interval.
+     */
+    #[Service(MaintenanceTelescopeCleaner::class, 'settings.expire')]
+    #[Group('maintenance')]
+    #[Type(Duration::class)]
+    public const EP_MAINTENANCE_TELESCOPE_CLEANER_EXPIRE = 'P1M';
     // </editor-fold>
     // </editor-fold>
 
