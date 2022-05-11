@@ -33,7 +33,7 @@ class ResellerLoader extends CompanyLoader {
     protected function getOperations(CompositeState $state): array {
         return [
             new CompositeOperation(
-                'Updating properties',
+                'Update properties',
                 function (CompanyLoaderState $state): Processor {
                     return $this
                         ->getContainer()

@@ -52,7 +52,7 @@ trait WithAssets {
     protected function getAssetsOperations(): array {
         return [
             new CompositeOperation(
-                'Loading assets',
+                'Update assets',
                 function (CompanyLoaderState $state): Processor {
                     if (!$state->withAssets) {
                         return $this->getContainer()->make(EmptyProcessor::class);
@@ -65,7 +65,7 @@ trait WithAssets {
                 },
             ),
             new CompositeOperation(
-                'Checking outdated assets',
+                'Update outdated assets',
                 function (CompanyLoaderState $state): Processor {
                     if (!$state->withAssets) {
                         return $this->getContainer()->make(EmptyProcessor::class);

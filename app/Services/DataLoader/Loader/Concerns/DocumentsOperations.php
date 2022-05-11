@@ -31,7 +31,7 @@ trait DocumentsOperations {
     protected function getDocumentsOperations(): array {
         return [
             new CompositeOperation(
-                'Loading documents',
+                'Update documents',
                 function (CompanyLoaderState $state): Processor {
                     if (!$state->withDocuments) {
                         return $this->getContainer()->make(EmptyProcessor::class);
@@ -43,7 +43,7 @@ trait DocumentsOperations {
                 },
             ),
             new CompositeOperation(
-                'Checking outdated documents',
+                'Update outdated documents',
                 function (CompanyLoaderState $state): Processor {
                     if (!$state->withDocuments) {
                         return $this->getContainer()->make(EmptyProcessor::class);

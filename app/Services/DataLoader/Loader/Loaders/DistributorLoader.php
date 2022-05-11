@@ -26,7 +26,7 @@ class DistributorLoader extends Loader {
     protected function getOperations(CompositeState $state): array {
         return [
             new CompositeOperation(
-                'Updating properties',
+                'Update properties',
                 function (LoaderState $state): Processor {
                     return $this
                         ->getContainer()

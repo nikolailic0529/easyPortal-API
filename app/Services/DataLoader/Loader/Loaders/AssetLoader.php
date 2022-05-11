@@ -54,7 +54,7 @@ class AssetLoader extends Loader {
                 },
             ),
             new CompositeOperation(
-                'Updating properties',
+                'Update properties',
                 function (AssetLoaderState $state): Processor {
                     return $this
                         ->getContainer()

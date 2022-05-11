@@ -349,7 +349,7 @@ abstract class ProcessorCommand extends Command {
             $value = filter_var($value, FILTER_VALIDATE_INT);
 
             if ($value !== false) {
-                $zero  = $value !== 0;
+                $zero  = $value === 0;
                 $value = $formatter->integer($value);
 
                 if ($style && !$zero) {
