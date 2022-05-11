@@ -23,7 +23,7 @@ class DistributorLoader extends Loader {
     /**
      * @inheritDoc
      */
-    protected function operations(CompositeState $state): array {
+    protected function getOperations(CompositeState $state): array {
         return [
             new CompositeOperation(
                 'Updating properties',

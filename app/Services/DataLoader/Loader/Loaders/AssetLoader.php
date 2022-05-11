@@ -35,7 +35,7 @@ class AssetLoader extends Loader {
     /**
      * @inheritDoc
      */
-    protected function operations(CompositeState $state): array {
+    protected function getOperations(CompositeState $state): array {
         return [
             new CompositeOperation(
                 'Warranty Check',

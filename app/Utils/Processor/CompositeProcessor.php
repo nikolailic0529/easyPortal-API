@@ -19,11 +19,6 @@ use function count;
  * @extends Processor<CompositeOperation<TState>, null, TState>
  */
 abstract class CompositeProcessor extends Processor {
-    /**
-     * @var array<int, CompositeOperation<TState>>
-     */
-    private array $operations;
-
     // <editor-fold desc="Process">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
@@ -38,10 +33,16 @@ abstract class CompositeProcessor extends Processor {
     }
 
     protected function process(State $state, mixed $data, mixed $item): void {
+        // Empty?
+        $processor = $item->getProcessor($state);
+
+        if ($processor instanceof EmptyProcessor) {
+            return;
+        }
+
+        // Process
         $state       = $state->setCurrentOperationName($item->getName());
         $store       = new CompositeStore($state);
-        $handler     = $item->getHandler();
-        $processor   = $item->getProcessor($state);
         $synchronize = static function (State $current) use ($state): void {
             $state->setCurrentOperationState($current);
         };
@@ -79,6 +80,9 @@ abstract class CompositeProcessor extends Processor {
             })
             ->start();
 
+        // Call operation handler if defined
+        $handler = $item->getHandler();
+
         if ($handler && !$processor->isStopped()) {
             $handler($state, $result);
         }
@@ -105,20 +109,7 @@ abstract class CompositeProcessor extends Processor {
      *
      * @return array<int, CompositeOperation<TState>>
      */
-    final protected function getOperations(CompositeState $state): array {
-        if (!isset($this->operations)) {
-            $this->operations = $this->operations($state);
-        }
-
-        return $this->operations;
-    }
-
-    /**
-     * @param TState $state
-     *
-     * @return array<int, CompositeOperation<TState>>
-     */
-    abstract protected function operations(CompositeState $state): array;
+    abstract protected function getOperations(CompositeState $state): array;
     //</editor-fold>
 
     // <editor-fold desc="State">

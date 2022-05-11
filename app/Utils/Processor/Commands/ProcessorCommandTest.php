@@ -157,7 +157,7 @@ class ProcessorCommandTest extends TestCase {
             ->andReturn($progress);
         $output
             ->shouldReceive('newLine')
-            ->once()
+            ->twice()
             ->andReturns();
         $output
             ->shouldReceive('writeln')
@@ -307,7 +307,7 @@ class ProcessorCommandTest extends TestCase {
             ->andReturn($progress);
         $output
             ->shouldReceive('newLine')
-            ->once()
+            ->twice()
             ->andReturns();
         $output
             ->shouldReceive('writeln')
