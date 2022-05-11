@@ -9,7 +9,10 @@ use App\Services\DataLoader\Loader\Loaders\AssetLoader;
 
 class AssetLoaderFinder extends Finder implements AssetFinder {
     public function find(string $key): ?Asset {
-        $result = $this->container->make(AssetLoader::class)->setObjectId($key)->start();
+        $result = $this->container->make(AssetLoader::class)
+            ->setObjectId($key)
+            ->setWithDocuments(true)
+            ->start();
         $model  = $result
             ? Asset::query()->whereKey($key)->first()
             : null;
