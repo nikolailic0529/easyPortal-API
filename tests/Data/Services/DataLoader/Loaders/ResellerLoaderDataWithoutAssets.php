@@ -25,7 +25,7 @@ class ResellerLoaderDataWithoutAssets extends AssetsData {
         return $this->dumpClientResponses($path, function (): bool {
             $results = [
                 $this->kernel->call('ep:data-loader-reseller-update', $this->getOptions([
-                    'id'          => [static::RESELLER],
+                    'id'          => static::RESELLER,
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
                 ])),

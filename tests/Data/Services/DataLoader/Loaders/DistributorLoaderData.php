@@ -11,7 +11,7 @@ class DistributorLoaderData extends Data {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $result  = $this->kernel->call('ep:data-loader-distributor-update', [
-                'id' => [static::DISTRIBUTOR],
+                'id' => static::DISTRIBUTOR,
             ]);
             $success = $result === Command::SUCCESS;
 

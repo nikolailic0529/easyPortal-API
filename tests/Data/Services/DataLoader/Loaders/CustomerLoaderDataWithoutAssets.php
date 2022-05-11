@@ -25,7 +25,7 @@ class CustomerLoaderDataWithoutAssets extends AssetsData {
         return $this->dumpClientResponses($path, function (): bool {
             $results = [
                 $this->kernel->call('ep:data-loader-customer-update', $this->getOptions([
-                    'id'          => [static::CUSTOMER],
+                    'id'          => static::CUSTOMER,
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
                 ])),

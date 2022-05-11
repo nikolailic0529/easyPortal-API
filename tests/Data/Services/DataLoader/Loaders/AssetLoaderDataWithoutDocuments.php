@@ -17,7 +17,7 @@ class AssetLoaderDataWithoutDocuments extends AssetsData {
                 ? ['--documents' => true]
                 : ['--no-documents' => true];
             $result  = $this->kernel->call('ep:data-loader-asset-update', array_merge($options, [
-                'id' => [static::ASSET],
+                'id' => static::ASSET,
             ]));
             $success = $result === Command::SUCCESS;
 
