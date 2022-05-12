@@ -1,0 +1,143 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "5fc9b61a-8796-46ba-b649-4f8aaf00631f"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "5fc9b61a-8796-46ba-b649-4f8aaf00631f",
+                    "type": "Quote renewal",
+                    "documentNumber": "bd59a63f-2d69-31ed-9c78-ae7f8b0c2506",
+                    "startDate": "2020-11-26",
+                    "endDate": "2021-11-25",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1637909226148",
+                    "resellerId": "a36b83d1-a49b-45be-adb7-3c5defb55234",
+                    "customerId": "f22dfe1b-55e8-4f36-8154-a60dc6337de9",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "cae033c1-14b8-3509-be22-3a98b8ab57a2",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+14256693451",
+                            "name": "Dandre Krajcik",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14256693451",
+                            "name": "Dandre Krajcik",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14256693451",
+                            "name": "Dandre Krajcik",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "3f30bbe7-00e3-4cf4-98a8-06dcfe8dc020",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": "2017-10-31",
+                            "startDate": "2020-11-26",
+                            "endDate": "2021-11-25",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-22",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "d04cc87f-55ec-49c6-b95e-1b215f721c7c",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-11-26",
+                            "endDate": "2021-11-25",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "576",
+                            "discount": "-11",
+                            "listPrice": "709",
+                            "estimatedValueRenewal": "709",
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "20c15f8f-765a-4d33-a7e1-6460a60d3b39",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-11-26",
+                            "endDate": "2021-11-25",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "303",
+                            "discount": "-5",
+                            "listPrice": "373",
+                            "estimatedValueRenewal": "373",
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "63bb4817-b9ef-467e-8561-15510d7dcb28",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-11-26",
+                            "endDate": "2021-11-25",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-53",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        },
+                        {
+                            "assetId": "5139a959-874c-4c24-a666-b9117337a240",
+                            "skuNumber": "HT7A0AC",
+                            "skuDescription": "HPE Hardware and Software Support",
+                            "supportPackage": "HT6Z0AC",
+                            "supportPackageDescription": "HPE NS 4H Parts Exchange Support",
+                            "warrantyEndDate": null,
+                            "startDate": "2020-11-26",
+                            "endDate": "2021-11-25",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "171",
+                            "discount": "-3",
+                            "listPrice": "211",
+                            "estimatedValueRenewal": "211",
+                            "productLineDescription": "N3 - Nimble Storage Suppo"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

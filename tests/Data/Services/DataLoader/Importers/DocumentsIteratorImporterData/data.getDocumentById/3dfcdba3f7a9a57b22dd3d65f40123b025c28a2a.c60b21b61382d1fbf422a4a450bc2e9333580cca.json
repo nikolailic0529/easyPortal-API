@@ -1,0 +1,143 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "3cae1cdf-5610-4f49-af6b-5a68949f7e02"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "3cae1cdf-5610-4f49-af6b-5a68949f7e02",
+                    "type": "Quote renewal",
+                    "documentNumber": "213057ed-68c6-3540-9b11-75dafd85afe4",
+                    "startDate": "2019-01-01",
+                    "endDate": "2019-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "5c0c8f15-a86f-4534-980b-9208a2e01233",
+                    "customerId": "e7d2a0af-d7ad-4180-acf5-6346a54b01de",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "e2898043-18d8-3a41-99fa-0634f7869978",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+13517139281",
+                            "name": "Samantha Watsica",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13517139281",
+                            "name": "Samantha Watsica",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+13517139281",
+                            "name": "Samantha Watsica",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "4c967218-1683-46da-a768-e75f6bd31d67",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates SVC",
+                            "supportPackage": "H8B35AC",
+                            "supportPackageDescription": "HPE Proactive Care Adv 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-01-01",
+                            "endDate": "2019-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-33",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        },
+                        {
+                            "assetId": "e749f80e-dad7-4355-b9b7-bccd6e9d3b28",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Telefonische SW Unterstützung",
+                            "supportPackage": "H8B35AC",
+                            "supportPackageDescription": "HPE Proactive Care Adv 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-01-01",
+                            "endDate": "2019-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-76",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        },
+                        {
+                            "assetId": "33708135-d587-4384-89f8-6b8943eda759",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H8B35AC",
+                            "supportPackageDescription": "HPE Proactive Care Adv 24x7 SVC",
+                            "warrantyEndDate": "2013-08-04",
+                            "startDate": "2019-01-01",
+                            "endDate": "2019-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-134",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "R8 - Storage Support"
+                        },
+                        {
+                            "assetId": "48ad16a9-b5e9-4fcc-acc9-713eda41908b",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates SVC",
+                            "supportPackage": "H8B35AC",
+                            "supportPackageDescription": "HPE Proactive Care Adv 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-01-01",
+                            "endDate": "2019-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-23",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        },
+                        {
+                            "assetId": "a3cad3cf-559b-4187-8666-c07d9c5ac13c",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Telefonische SW Unterstützung",
+                            "supportPackage": "H8B35AC",
+                            "supportPackageDescription": "HPE Proactive Care Adv 24x7 SVC",
+                            "warrantyEndDate": null,
+                            "startDate": "2019-01-01",
+                            "endDate": "2019-12-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-53",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "K3 - HP Technology Softwa"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

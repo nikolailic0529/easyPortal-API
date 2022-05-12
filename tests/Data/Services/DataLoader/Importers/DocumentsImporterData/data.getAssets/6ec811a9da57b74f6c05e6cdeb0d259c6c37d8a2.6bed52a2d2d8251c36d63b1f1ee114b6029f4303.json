@@ -1,0 +1,432 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "6ab9b540-a353-438a-b4fa-fa638aa0b541"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "6ab9b540-a353-438a-b4fa-fa638aa0b541",
+                    "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                    "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                    "serialNumber": "bff12166-75f6-3f3d-9dea-e69964849ad1",
+                    "productDescription": "HPE NS HF40 Hybrid CTO Base Array",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "Q8H39A",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "24109-9236",
+                    "city": "East Adolphus",
+                    "address": "53095 Corene Extensions Suite 814",
+                    "address2": "",
+                    "country": "Ethiopia",
+                    "latitude": "34.421568",
+                    "longitude": "121.360374",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630816935999",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "5306be21-acd7-3ebc-9417-e471aaa13e95",
+                            "document": {
+                                "id": "89ef29fc-6a16-436b-a8a6-ec110032f0ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "5306be21-acd7-3ebc-9417-e471aaa13e95",
+                                "startDate": "2021-05-01",
+                                "endDate": "2022-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-05-01",
+                            "endDate": "2022-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-147",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "5306be21-acd7-3ebc-9417-e471aaa13e95",
+                            "document": {
+                                "id": "89ef29fc-6a16-436b-a8a6-ec110032f0ba",
+                                "type": "Quote renewal",
+                                "documentNumber": "5306be21-acd7-3ebc-9417-e471aaa13e95",
+                                "startDate": "2021-05-01",
+                                "endDate": "2022-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-05-01",
+                            "endDate": "2022-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-133",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "0a17d4b1-f12d-355c-b0cd-70350f84afec",
+                            "document": {
+                                "id": "d0a4fddd-1bc3-4ac2-be88-fbf246a6fdfc",
+                                "type": "Delivery contract",
+                                "documentNumber": "0a17d4b1-f12d-355c-b0cd-70350f84afec",
+                                "startDate": "2019-04-02",
+                                "endDate": "2020-04-01",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a054a230-3c0e-3851-b5c3-9ba8896fb7dc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-04-02",
+                            "endDate": "2020-04-01",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "6f57ad28-bc5f-3eb3-afcd-ebbb834aaa1e",
+                            "document": {
+                                "id": "f298064e-20af-4942-b26b-acd5c5de168f",
+                                "type": "Quote renewal",
+                                "documentNumber": "6f57ad28-bc5f-3eb3-afcd-ebbb834aaa1e",
+                                "startDate": "2020-04-02",
+                                "endDate": "2021-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a054a230-3c0e-3851-b5c3-9ba8896fb7dc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-04-02",
+                            "endDate": "2021-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-49",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "0a17d4b1-f12d-355c-b0cd-70350f84afec",
+                            "document": {
+                                "id": "d0a4fddd-1bc3-4ac2-be88-fbf246a6fdfc",
+                                "type": "Delivery contract",
+                                "documentNumber": "0a17d4b1-f12d-355c-b0cd-70350f84afec",
+                                "startDate": "2019-04-02",
+                                "endDate": "2020-04-01",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a054a230-3c0e-3851-b5c3-9ba8896fb7dc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-04-02",
+                            "endDate": "2020-04-01",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "7eeb24d6-aaa5-3cc8-af5d-3371b1c49f12",
+                            "document": {
+                                "id": "001b00bd-d1c1-434c-859f-936098b00929",
+                                "type": "Quote New Business",
+                                "documentNumber": "7eeb24d6-aaa5-3cc8-af5d-3371b1c49f12",
+                                "startDate": "2020-04-02",
+                                "endDate": "2023-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-133",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "6322f4ed-c4d7-37a1-a6db-52ccfa1a5baf",
+                            "document": {
+                                "id": "4eb9d60c-1345-443d-9ec7-df23c8863e01",
+                                "type": "Quote New Business",
+                                "documentNumber": "6322f4ed-c4d7-37a1-a6db-52ccfa1a5baf",
+                                "startDate": "2020-04-02",
+                                "endDate": "2021-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-04-02",
+                            "endDate": "2021-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-147",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "7eeb24d6-aaa5-3cc8-af5d-3371b1c49f12",
+                            "document": {
+                                "id": "001b00bd-d1c1-434c-859f-936098b00929",
+                                "type": "Quote New Business",
+                                "documentNumber": "7eeb24d6-aaa5-3cc8-af5d-3371b1c49f12",
+                                "startDate": "2020-04-02",
+                                "endDate": "2023-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-04-02",
+                            "endDate": "2023-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-154",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        },
+                        {
+                            "skuNumber": "HT7A0AC",
+                            "supportPackage": "HT6Z0AC",
+                            "warrantyEndDate": "2020-04-13",
+                            "documentNumber": "6322f4ed-c4d7-37a1-a6db-52ccfa1a5baf",
+                            "document": {
+                                "id": "4eb9d60c-1345-443d-9ec7-df23c8863e01",
+                                "type": "Quote New Business",
+                                "documentNumber": "6322f4ed-c4d7-37a1-a6db-52ccfa1a5baf",
+                                "startDate": "2020-04-02",
+                                "endDate": "2021-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "01627949-996a-3e0e-a212-909e5cf062fd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28",
+                                "customerId": "d674d244-8a3c-4357-8b62-3bc908495789",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-04-02",
+                            "endDate": "2021-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": null,
+                            "discount": "-125",
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "8575462b-5c87-4bf9-8dc5-f9ce5705ed28"
+                            },
+                            "customer": {
+                                "id": "d674d244-8a3c-4357-8b62-3bc908495789"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18704069996",
+                            "name": "Garnet Thompson",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

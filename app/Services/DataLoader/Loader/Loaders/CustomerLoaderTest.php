@@ -185,10 +185,10 @@ class CustomerLoaderTest extends TestCase {
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 5,
-            Customer::class      => 3,
+            Customer::class      => 4,
             Asset::class         => 9,
-            AssetWarranty::class => 0,
-            Document::class      => 1,
+            AssetWarranty::class => 53,
+            Document::class      => 21,
             DocumentEntry::class => 0,
         ]);
 
@@ -205,11 +205,11 @@ class CustomerLoaderTest extends TestCase {
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 5,
-            Customer::class      => 3,
+            Customer::class      => 4,
             Asset::class         => 9,
-            AssetWarranty::class => 0,
-            Document::class      => 16,
-            DocumentEntry::class => 132,
+            AssetWarranty::class => 53,
+            Document::class      => 21,
+            DocumentEntry::class => 120,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-cold-events.json',

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
@@ -27,7 +28,7 @@ use Illuminate\Contracts\Events\Dispatcher;
  *
  * @extends CompositeProcessor<TState>
  */
-abstract class Loader extends CompositeProcessor {
+abstract class Loader extends CompositeProcessor implements Isolated {
     use WithLoaderState;
     use WithObjectId;
 

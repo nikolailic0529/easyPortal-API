@@ -356,34 +356,6 @@ class DocumentFactory extends ModelFactory {
             $model->synced_at   = Date::now();
             $model->statuses    = $this->documentStatuses($model, $document);
 
-            // Entries & Warranties
-            if (isset($document->documentEntries)) {
-                try {
-                    // Prefetch
-                    $this->getAssetResolver()->prefetch(
-                        (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
-                        static function (EloquentCollection $assets): void {
-                            $assets->loadMissing('oem');
-                        },
-                    );
-
-                    // Entries
-                    try {
-                        $model->entries = $this->documentEntries($model, $document);
-
-                        $model->save();
-                    } finally {
-                        unset($model->entries);
-                    }
-
-                    // Warranties
-                    // TODO: Not implemented
-                } finally {
-                    $this->getAssetResolver()->reset();
-                    $model->save();
-                }
-            }
-
             // Save
             $model->save();
 
@@ -400,6 +372,35 @@ class DocumentFactory extends ModelFactory {
         // Update
         if (!$created && !$this->isSearchMode()) {
             $factory($model);
+        }
+
+        // Entries & Warranties
+        if ($model && !$this->isSearchMode() && isset($document->documentEntries)) {
+            try {
+                // Prefetch
+                $this->getAssetResolver()->prefetch(
+                    (new ImporterChunkData($document->documentEntries))->get(AssetModel::class),
+                    static function (EloquentCollection $assets): void {
+                        $assets->loadMissing('oem');
+                    },
+                );
+
+                // Entries
+                try {
+                    $model->entries   = $this->documentEntries($model, $document);
+                    $model->synced_at = Date::now();
+
+                    $model->save();
+                } finally {
+                    unset($model->entries);
+                }
+
+                // Warranties
+                // TODO: Not implemented
+            } finally {
+                $this->getAssetResolver()->reset();
+                $model->save();
+            }
         }
 
         // Return

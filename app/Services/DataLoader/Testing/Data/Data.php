@@ -131,8 +131,8 @@ abstract class Data {
             foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
                 $result = $result
                     && $this->kernel->call('ep:data-loader-asset-update', [
-                        'id'             => $asset,
-                        '--no-documents' => true,
+                        'id'          => $asset,
+                        '--documents' => true,
                     ]) === Command::SUCCESS;
             }
         }
@@ -142,12 +142,17 @@ abstract class Data {
 
             foreach ((array) $context[ClientDumpContext::TYPES] as $key) {
                 // Create
-                $type              = new TypeModel();
-                $type->object_type = $owner;
-                $type->key         = $this->normalizer->string($key);
-                $type->name        = $this->normalizer->string($key);
+                $key  = $this->normalizer->string($key);
+                $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
 
-                $type->save();
+                if (!$type) {
+                    $type              = new TypeModel();
+                    $type->object_type = $owner;
+                    $type->key         = $key;
+                    $type->name        = $key;
+
+                    $type->save();
+                }
 
                 // Collect settings
                 if (mb_stripos($key, 'contract') !== false) {

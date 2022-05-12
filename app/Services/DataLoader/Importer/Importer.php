@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Importer;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
@@ -28,7 +29,7 @@ use function array_merge;
  *
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
-abstract class Importer extends IteratorProcessor {
+abstract class Importer extends IteratorProcessor implements Isolated {
     private bool      $update = true;
     private Collector $collector;
 

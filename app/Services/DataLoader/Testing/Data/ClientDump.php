@@ -12,10 +12,11 @@ use Exception;
 use Generator;
 use Illuminate\Support\Arr;
 
+use function array_is_list;
 use function array_slice;
 use function explode;
 use function implode;
-use function is_object;
+use function is_array;
 use function sprintf;
 
 class ClientDump extends JsonObject {
@@ -36,6 +37,7 @@ class ClientDump extends JsonObject {
      * @return Generator<object>
      */
     public function getResponseIterator(bool $save = false): Generator {
+        /** @var array<string, class-string<JsonObject>> $selectors */
         $selectors = [
             'data.getAssets'                   => ViewAsset::class,
             'data.getCompanyById'              => Company::class,
@@ -61,11 +63,9 @@ class ClientDump extends JsonObject {
         }
 
         $data = Arr::get($this->response, $selector);
-        $data = $class::make($data);
-
-        if (is_object($data)) {
-            $data = [$data];
-        }
+        $data = is_array($data)
+            ? (array_is_list($data) ? $class::make($data) : [new $class($data)])
+            : null;
 
         if ($data !== null) {
             yield from new JsonObjectIterator($data);

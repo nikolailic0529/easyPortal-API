@@ -1,0 +1,227 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "74975389-cd85-4c28-b70a-3ca9e7c3bd6b"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "74975389-cd85-4c28-b70a-3ca9e7c3bd6b",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+                    "serialNumber": "53a94d31-b097-3f2e-b94c-0f1da18e58b8",
+                    "productDescription": "HP ML350pT08 E5-2620 1P SP76781 EURO",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "470065-668",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "18598",
+                    "city": "West Fernandoland",
+                    "address": "530 Denis Summit",
+                    "address2": "",
+                    "country": "Saint Helena",
+                    "latitude": "33.169766",
+                    "longitude": "107.587101",
+                    "countryCode": "IN",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630776883437",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "11f962ca-659a-3513-a6f9-2a13c555bd12",
+                            "document": {
+                                "id": "235c1663-bb6c-43b6-bf44-19a128cf0eb0",
+                                "type": "Quote renewal",
+                                "documentNumber": "11f962ca-659a-3513-a6f9-2a13c555bd12",
+                                "startDate": "2018-04-01",
+                                "endDate": "2019-03-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "418",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b041685e-45c1-30e0-ba1b-fcc4902418c5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2018-04-01",
+                            "endDate": "2019-03-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "39",
+                            "discount": "0",
+                            "listPrice": "48",
+                            "estimatedValueRenewal": "48",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "11f962ca-659a-3513-a6f9-2a13c555bd12",
+                            "document": {
+                                "id": "235c1663-bb6c-43b6-bf44-19a128cf0eb0",
+                                "type": "Quote renewal",
+                                "documentNumber": "11f962ca-659a-3513-a6f9-2a13c555bd12",
+                                "startDate": "2018-04-01",
+                                "endDate": "2019-03-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "418",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b041685e-45c1-30e0-ba1b-fcc4902418c5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2018-04-01",
+                            "endDate": "2019-03-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "379",
+                            "discount": "-7",
+                            "listPrice": "468",
+                            "estimatedValueRenewal": "468",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "a9bec168-6fe4-37f9-8226-3371fe02f1e5",
+                            "document": {
+                                "id": "c6353b19-9c72-48e8-883f-91bec4cd6120",
+                                "type": "Quote renewal",
+                                "documentNumber": "a9bec168-6fe4-37f9-8226-3371fe02f1e5",
+                                "startDate": "2019-04-01",
+                                "endDate": "2020-03-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "438",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b041685e-45c1-30e0-ba1b-fcc4902418c5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-04-01",
+                            "endDate": "2020-03-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "399",
+                            "discount": "-7",
+                            "listPrice": "492",
+                            "estimatedValueRenewal": "492",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "a9bec168-6fe4-37f9-8226-3371fe02f1e5",
+                            "document": {
+                                "id": "c6353b19-9c72-48e8-883f-91bec4cd6120",
+                                "type": "Quote renewal",
+                                "documentNumber": "a9bec168-6fe4-37f9-8226-3371fe02f1e5",
+                                "startDate": "2019-04-01",
+                                "endDate": "2020-03-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "438",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b041685e-45c1-30e0-ba1b-fcc4902418c5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-04-01",
+                            "endDate": "2020-03-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "39",
+                            "discount": "0",
+                            "listPrice": "48",
+                            "estimatedValueRenewal": "48",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "5cd15353-390f-4ed7-8f7f-2dc04a09a11d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

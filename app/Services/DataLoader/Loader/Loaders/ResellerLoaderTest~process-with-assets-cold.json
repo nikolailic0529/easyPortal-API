@@ -126,10 +126,6 @@
         "bindings": []
     },
     {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "hardware",
@@ -192,14 +188,6 @@
             "2022-02-02 00:00:24",
             "2022-02-02 00:00:24"
         ]
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
@@ -1320,14 +1308,6 @@
         ]
     },
     {
-        "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "software",
@@ -1344,14 +1324,6 @@
             "2022-02-02 00:02:57",
             "2022-02-02 00:02:57"
         ]
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `products`.* from `products` where `products`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
@@ -1372,14 +1344,6 @@
             "2022-02-02 00:02:58",
             "2022-02-02 00:02:58"
         ]
-    },
-    {
-        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `contacts`.* from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
@@ -1439,10 +1403,6 @@
         ]
     },
     {
-        "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `tags`.* from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
         "bindings": [
             "software"
@@ -1458,26 +1418,10 @@
         ]
     },
     {
-        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "98c557c4-68bd-4272-8420-1972789c10da"
         ]
-    },
-    {
-        "query": "select `currencies`.* from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `languages`.* from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -1504,14 +1448,6 @@
             "2022-02-02 00:03:08",
             "2022-02-02 00:03:08"
         ]
-    },
-    {
-        "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "update `assets` set `product_id` = ?, `type_id` = ?, `reseller_id` = ?, `customer_id` = ?, `location_id` = ?, `status_id` = ?, `serial_number` = ?, `data_quality` = ?, `contacts_count` = ?, `coverages_count` = ?, `changed_at` = ?, `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",

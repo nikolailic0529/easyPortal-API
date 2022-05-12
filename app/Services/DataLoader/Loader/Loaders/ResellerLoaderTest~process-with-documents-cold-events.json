@@ -32,39 +32,16 @@
             "9beb616e-b180-41c6-ae54-65f6bba998d5": "9beb616e-b180-41c6-ae54-65f6bba998d5"
         },
         "App\\Models\\Location": {
-            "6e9f3163-aff2-572f-a118-948b6e59edf0": "6e9f3163-aff2-572f-a118-948b6e59edf0",
+            "3c8c1839-b9a3-5de0-893f-536c6502079f": "3c8c1839-b9a3-5de0-893f-536c6502079f",
             "adefed16-5702-56cd-8112-ae204dbbb580": "adefed16-5702-56cd-8112-ae204dbbb580",
             "140d36bc-5ed9-5a1b-829a-9860f973cb92": "140d36bc-5ed9-5a1b-829a-9860f973cb92",
-            "d8ba5992-c637-5305-ac53-1e02cc040d0e": "d8ba5992-c637-5305-ac53-1e02cc040d0e"
+            "9b1f5381-530f-5228-b7d0-671d68eac944": "9b1f5381-530f-5228-b7d0-671d68eac944"
         },
         "App\\Models\\Asset": {
             "9f7d0a8b-a50a-4e67-a373-d09113e85907": "9f7d0a8b-a50a-4e67-a373-d09113e85907",
             "f95b9945-61f7-4bbe-8781-aa4c513f2668": "f95b9945-61f7-4bbe-8781-aa4c513f2668",
             "b5362b68-ca3a-4d94-9122-31990f9c3dfa": "b5362b68-ca3a-4d94-9122-31990f9c3dfa",
             "f5888e0b-4993-4220-8d2b-5105bad2b46a": "f5888e0b-4993-4220-8d2b-5105bad2b46a"
-        }
-    },
-    {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
-        "App\\Models\\Reseller": {
-            "a36b83d1-a49b-45be-adb7-3c5defb55234": "a36b83d1-a49b-45be-adb7-3c5defb55234"
-        },
-        "App\\Models\\Customer": {
-            "c1c5a133-c373-4212-a836-adfb33fa314c": "c1c5a133-c373-4212-a836-adfb33fa314c"
-        },
-        "App\\Models\\Document": {
-            "00194785-9fba-4865-8106-7a833082c1cc": "00194785-9fba-4865-8106-7a833082c1cc"
-        },
-        "App\\Models\\Location": {
-            "8bc07e89-51b5-5f40-80f3-667e7e3085ce": "8bc07e89-51b5-5f40-80f3-667e7e3085ce"
-        },
-        "App\\Models\\Asset": {
-            "885302d1-a356-4dff-b4c3-0364cfd86b54": "885302d1-a356-4dff-b4c3-0364cfd86b54",
-            "e7b3d616-8fd2-4db0-9107-4a24ef1bdf42": "e7b3d616-8fd2-4db0-9107-4a24ef1bdf42",
-            "18585d28-7d33-4b54-b945-a71289a6eca7": "18585d28-7d33-4b54-b945-a71289a6eca7",
-            "5c5025a0-094e-4d82-aeb3-45ffad5b2fa0": "5c5025a0-094e-4d82-aeb3-45ffad5b2fa0"
         }
     }
 ]

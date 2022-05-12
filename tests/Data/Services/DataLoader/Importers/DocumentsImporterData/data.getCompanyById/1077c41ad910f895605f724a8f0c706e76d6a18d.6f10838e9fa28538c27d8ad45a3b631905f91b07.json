@@ -10,7 +10,7 @@
                 {
                     "id": "72d3b860-3667-408a-8ead-6056e10b2481",
                     "name": "Jacobson, Erdman and Kub",
-                    "updatedAt": "1646897416051",
+                    "updatedAt": "1652317032987",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -35,8 +35,8 @@
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 742,
-                        "activeAssets": 2,
-                        "activeAssetsPercentage": 0.2695417789757413,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": 17,
                         "newActiveCustomers": 0,
                         "activeContracts": 0,

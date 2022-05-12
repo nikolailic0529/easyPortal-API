@@ -10,7 +10,7 @@
                 {
                     "id": "bfacdad6-d1f8-4633-8830-f88c95929114",
                     "name": "Cole-Klein",
-                    "updatedAt": "1646898300067",
+                    "updatedAt": "1652318273697",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -99,9 +99,9 @@
                             "address": "8082 Cartwright Hills",
                             "city": "New Robert",
                             "locationType": null,
-                            "country": "Ethiopia",
-                            "latitude": "-65.1514",
-                            "longitude": "-95.127113",
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
                             "countryCode": "KP"
                         }
                     ],
@@ -118,8 +118,8 @@
                         "expiringContracts": 0,
                         "activeQuotes": 137,
                         "activeQuotesTotalAmount": 9442.03,
-                        "newActiveQuotes": 17,
-                        "expiringQuotes": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 3,
                         "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

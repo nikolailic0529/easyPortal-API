@@ -37,10 +37,10 @@ class ImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 2,
-            Reseller::class      => 39,
-            Customer::class      => 16,
+            Reseller::class      => 65,
+            Customer::class      => 32,
             Asset::class         => 88,
-            Document::class      => 0,
+            Document::class      => 75,
             DocumentEntry::class => 0,
         ]);
 
@@ -57,7 +57,7 @@ class ImporterTest extends TestCase {
 
         self::assertQueryLogEquals('~process-cold.json', $queries);
         self::assertModelsCount([
-            Document::class => DocumentsImporterData::LIMIT,
+            Document::class => 76,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-events.json',

@@ -38,11 +38,11 @@ class IteratorImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 4,
-            Reseller::class      => 7,
-            Customer::class      => 4,
-            Asset::class         => 6,
-            AssetWarranty::class => 0,
-            Document::class      => 0,
+            Reseller::class      => 17,
+            Customer::class      => 12,
+            Asset::class         => 25,
+            AssetWarranty::class => 49,
+            Document::class      => 28,
             DocumentEntry::class => 0,
         ]);
 
@@ -60,12 +60,12 @@ class IteratorImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-cold.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 4,
-            Reseller::class      => 7,
-            Customer::class      => 4,
-            Asset::class         => 6,
-            AssetWarranty::class => 0,
-            Document::class      => 4,
-            DocumentEntry::class => 10,
+            Reseller::class      => 17,
+            Customer::class      => 12,
+            Asset::class         => 25,
+            AssetWarranty::class => 49,
+            Document::class      => 31,
+            DocumentEntry::class => 35,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-events.json',
