@@ -10,7 +10,7 @@
                 {
                     "id": "da74b920-3b84-4c87-afbf-cc9026e41a68",
                     "name": "Auer-Pollich",
-                    "updatedAt": "1646898595661",
+                    "updatedAt": "1652318688704",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,7 +46,7 @@
                         "activeQuotes": 3,
                         "activeQuotesTotalAmount": 435.08,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 1,
+                        "expiringQuotes": 2,
                         "expiredQuotes": 29,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

@@ -1,5 +1,5 @@
 {
-    "generated": "2022-05-02T06:08:39+00:00",
+    "generated": "2022-05-12T07:34:49+00:00",
     "distributors": [
         "143c456a-e894-4710-a1c2-745b9582ca47"
     ],
@@ -11,7 +11,8 @@
     ],
     "customers": [
         "50eafa81-454b-4203-871d-07a0e9bfff9f",
-        "a04716f3-95de-4046-ab13-7a575cf67f85"
+        "a04716f3-95de-4046-ab13-7a575cf67f85",
+        "3a9b599c-5a65-43a9-9063-ed4d736dec19"
     ],
     "assets": [
         "4b93af42-500a-4ada-b509-c16dcea7ab8a",
@@ -21,8 +22,9 @@
         "605f71ef-4aa1-489d-86d6-07b1274576ba"
     ],
     "types": [
-        "Quote renewal",
-        "Delivery only"
+        "Quote New Business",
+        "Delivery only",
+        "Quote renewal"
     ],
     "oems": "oem.csv"
 }

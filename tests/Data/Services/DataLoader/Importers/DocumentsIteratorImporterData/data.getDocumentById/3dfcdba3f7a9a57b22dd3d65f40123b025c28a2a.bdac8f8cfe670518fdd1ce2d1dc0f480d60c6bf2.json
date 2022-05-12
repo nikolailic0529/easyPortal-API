@@ -1,0 +1,143 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "ef318f78-9909-45b0-a3dc-f829322378e6"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "ef318f78-9909-45b0-a3dc-f829322378e6",
+                    "type": "Quote renewal",
+                    "documentNumber": "049cb05f-2788-3360-bcc5-6540645832eb",
+                    "startDate": "2020-07-01",
+                    "endDate": "2020-09-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": "EN",
+                    "updatedAt": "1626353498687",
+                    "resellerId": "94e87f44-69cf-49c7-8260-f928d4af7c6f",
+                    "customerId": "77a633d3-a4de-419f-b1b6-c002fa678654",
+                    "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "bfc874fd-f493-3875-9510-b5c7c4e88b5a",
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+15759783677",
+                            "name": "Yasmin Hudson",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Eladio Metz",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15759783677",
+                            "name": "Yasmin Hudson",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "eb876004-b71d-4b31-b2b3-c9c4a87d55eb",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": null,
+                            "warrantyEndDate": null,
+                            "startDate": "2020-07-01",
+                            "endDate": "2020-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "0",
+                            "discount": "0",
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "productLineDescription": "UY - Multivendor Support"
+                        },
+                        {
+                            "assetId": "b6f2eb57-6bf7-4d69-b983-a2002c2637b4",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": "H1K92AC",
+                            "supportPackageDescription": "HPE Proactive Care 24x7 SVC",
+                            "warrantyEndDate": "2020-06-30",
+                            "startDate": "2020-07-01",
+                            "endDate": "2020-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "44",
+                            "discount": "-3",
+                            "listPrice": "54",
+                            "estimatedValueRenewal": "54",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "b6f2eb57-6bf7-4d69-b983-a2002c2637b4",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates SVC",
+                            "supportPackage": "H1K92AC",
+                            "supportPackageDescription": "HPE Proactive Care 24x7 SVC",
+                            "warrantyEndDate": "2020-06-30",
+                            "startDate": "2020-07-01",
+                            "endDate": "2020-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "211",
+                            "discount": "-15",
+                            "listPrice": "258",
+                            "estimatedValueRenewal": "258",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "b6f2eb57-6bf7-4d69-b983-a2002c2637b4",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": "H1K92AC",
+                            "supportPackageDescription": "HPE Proactive Care 24x7 SVC",
+                            "warrantyEndDate": "2020-06-30",
+                            "startDate": "2020-07-01",
+                            "endDate": "2020-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "666",
+                            "discount": "-48",
+                            "listPrice": "813",
+                            "estimatedValueRenewal": "813",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        },
+                        {
+                            "assetId": "b6f2eb57-6bf7-4d69-b983-a2002c2637b4",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "Telefonische SW Unterstützung",
+                            "supportPackage": "H1K92AC",
+                            "supportPackageDescription": "HPE Proactive Care 24x7 SVC",
+                            "warrantyEndDate": "2020-06-30",
+                            "startDate": "2020-07-01",
+                            "endDate": "2020-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "602",
+                            "discount": "-44",
+                            "listPrice": "735",
+                            "estimatedValueRenewal": "735",
+                            "productLineDescription": "96 - Industry Standard Se"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                }
+            ]
+        }
+    }
+}

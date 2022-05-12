@@ -60,7 +60,7 @@ class DocumentLoaderTest extends TestCase {
             Reseller::class      => 4,
             Customer::class      => 1,
             Asset::class         => 96,
-            AssetWarranty::class => 0,
+            AssetWarranty::class => 96,
             Document::class      => 1,
             DocumentEntry::class => 96,
         ]);

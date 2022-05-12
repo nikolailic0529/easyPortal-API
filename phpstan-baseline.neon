@@ -13561,7 +13561,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDataCleaner.php
 
 		-
-			message: "#^Call to function is_object\\(\\) with array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\CentralAssetDbStatistics\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\|null will always evaluate to false\\.$#"
+			message: "#^Parameter \\#1 \\$objects of static method App\\\\Utils\\\\JsonObject\\\\JsonObject\\:\\:make\\(\\) expects array\\<int, array\\<string, mixed\\>\\>\\|null, array\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/ClientDump.php
 
@@ -13621,7 +13621,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function mb_stripos expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$haystack of function mb_stripos expects string, string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Testing/Data/Data.php
 

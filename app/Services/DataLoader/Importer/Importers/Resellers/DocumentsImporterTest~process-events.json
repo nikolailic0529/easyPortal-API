@@ -73,7 +73,7 @@
         },
         "App\\Models\\Location": {
             "99301f92-a3fe-5235-b610-277dcdeff04e": "99301f92-a3fe-5235-b610-277dcdeff04e",
-            "5fe20ecf-6732-5053-8dc9-3aca8960ee9f": "5fe20ecf-6732-5053-8dc9-3aca8960ee9f",
+            "d3ae52dd-2dd5-5b54-9d38-058e0f19826f": "d3ae52dd-2dd5-5b54-9d38-058e0f19826f",
             "72776ca6-50a8-5b68-abd8-ee0f30d1e558": "72776ca6-50a8-5b68-abd8-ee0f30d1e558"
         },
         "App\\Models\\Asset": {

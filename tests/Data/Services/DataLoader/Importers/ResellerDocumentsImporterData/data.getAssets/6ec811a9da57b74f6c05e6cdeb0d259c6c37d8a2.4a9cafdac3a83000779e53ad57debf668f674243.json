@@ -1,0 +1,145 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "5abe2f16-57d2-4751-a6c7-0936c26ebb24"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "5abe2f16-57d2-4751-a6c7-0936c26ebb24",
+                    "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                    "customerId": "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b",
+                    "serialNumber": "b03f7b50-3b66-3c9a-857c-878783f32d6a",
+                    "productDescription": "HP ML350pT08 E5-2609 LFF Entry FR Svr",
+                    "assetTag": "Matériel",
+                    "assetType": "Matériel",
+                    "vendor": "HPE",
+                    "sku": "646675-051",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "76149-8269",
+                    "city": "North Ryannfort",
+                    "address": "89535 Hamill Plain Suite 519",
+                    "address2": "",
+                    "country": "Saint Helena",
+                    "latitude": "-65.121217",
+                    "longitude": "-16.650444",
+                    "countryCode": "IN",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630793497339",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2017-07-09",
+                            "documentNumber": "7b2bcfc7-894d-3eb7-aa49-21ee1aba082b",
+                            "document": {
+                                "id": "4d8aaa18-2a95-46ef-8f67-37de0a1e8769",
+                                "type": "Quote New Business",
+                                "documentNumber": "7b2bcfc7-894d-3eb7-aa49-21ee1aba082b",
+                                "startDate": "2018-04-09",
+                                "endDate": "2019-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "715",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "1fdd50cb-c3c6-327c-8bce-0078812dc365",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2018-04-09",
+                            "endDate": "2019-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "41",
+                            "discount": "0",
+                            "listPrice": "50",
+                            "estimatedValueRenewal": "50",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "H7J32AC",
+                            "warrantyEndDate": "2017-07-09",
+                            "documentNumber": "7b2bcfc7-894d-3eb7-aa49-21ee1aba082b",
+                            "document": {
+                                "id": "4d8aaa18-2a95-46ef-8f67-37de0a1e8769",
+                                "type": "Quote New Business",
+                                "documentNumber": "7b2bcfc7-894d-3eb7-aa49-21ee1aba082b",
+                                "startDate": "2018-04-09",
+                                "endDate": "2019-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "715",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "1fdd50cb-c3c6-327c-8bce-0078812dc365",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "1391a181-977e-489c-85ca-b2f9b450a765",
+                                "customerId": "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2018-04-09",
+                            "endDate": "2019-04-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "403",
+                            "discount": "-7",
+                            "listPrice": "496",
+                            "estimatedValueRenewal": "496",
+                            "reseller": {
+                                "id": "1391a181-977e-489c-85ca-b2f9b450a765"
+                            },
+                            "customer": {
+                                "id": "01c3085f-a8a5-4756-a8de-45ef9c6dfe3b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16825914079",
+                            "name": "Miss Laisha Crist",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

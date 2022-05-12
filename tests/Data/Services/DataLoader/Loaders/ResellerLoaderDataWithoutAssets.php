@@ -7,7 +7,9 @@ use App\Models\Document;
 use App\Models\Oem;
 use App\Models\Type;
 use App\Services\DataLoader\Testing\Data\AssetsData;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Console\CommandOptions;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 
 use function array_sum;
@@ -54,27 +56,29 @@ class ResellerLoaderDataWithoutAssets extends AssetsData {
     public function restore(string $path, array $context): bool {
         $result = parent::restore($path, $context);
 
-        if (static::ASSET) {
-            Asset::factory()->create([
-                'id'          => static::ASSET,
-                'reseller_id' => static::RESELLER,
-                'customer_id' => null,
-                'location_id' => null,
-                'status_id'   => null,
-                'type_id'     => null,
-                'oem_id'      => Oem::query()->first(),
-            ]);
-        }
+        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function (): void {
+            if (static::ASSET && !Asset::query()->whereKey(static::ASSET)->exists()) {
+                Asset::factory()->create([
+                    'id'          => static::ASSET,
+                    'reseller_id' => static::RESELLER,
+                    'customer_id' => null,
+                    'location_id' => null,
+                    'status_id'   => null,
+                    'type_id'     => null,
+                    'oem_id'      => Oem::query()->first(),
+                ]);
+            }
 
-        if (static::DOCUMENT) {
-            Document::factory()->create([
-                'id'          => static::DOCUMENT,
-                'reseller_id' => static::RESELLER,
-                'customer_id' => null,
-                'type_id'     => Type::query()->first(),
-                'oem_id'      => Oem::query()->first(),
-            ]);
-        }
+            if (static::DOCUMENT && !Document::query()->whereKey(static::DOCUMENT)->exists()) {
+                Document::factory()->create([
+                    'id'          => static::DOCUMENT,
+                    'reseller_id' => static::RESELLER,
+                    'customer_id' => null,
+                    'type_id'     => Type::query()->first(),
+                    'oem_id'      => Oem::query()->first(),
+                ]);
+            }
+        });
 
         return $result;
     }

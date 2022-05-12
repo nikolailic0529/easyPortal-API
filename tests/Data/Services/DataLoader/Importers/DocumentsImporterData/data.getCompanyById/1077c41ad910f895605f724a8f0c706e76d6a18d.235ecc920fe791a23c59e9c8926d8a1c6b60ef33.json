@@ -10,7 +10,7 @@
                 {
                     "id": "b4395316-23dc-4864-953f-e6a61ca26609",
                     "name": "Feest, Davis and Ebert",
-                    "updatedAt": "1646898177562",
+                    "updatedAt": "1652318094865",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,7 +46,7 @@
                         "activeQuotes": 4,
                         "activeQuotesTotalAmount": 2111.28,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 1,
+                        "expiringQuotes": 3,
                         "expiredQuotes": 8,
                         "expiredContracts": 0,
                         "orderedQuotes": null,

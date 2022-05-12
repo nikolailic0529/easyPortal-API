@@ -1,0 +1,57 @@
+{
+    "selector": "data.getDocumentById",
+    "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "params": {
+        "id": "e17cfda0-d8df-4007-8dd8-7f327376c9f8"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": [
+                {
+                    "id": "e17cfda0-d8df-4007-8dd8-7f327376c9f8",
+                    "type": "Quote renewal",
+                    "documentNumber": "0120a8a4-04bc-383a-bd9c-35ca9e9d19fd",
+                    "startDate": "2022-01-01",
+                    "endDate": "2022-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "0",
+                    "languageCode": null,
+                    "updatedAt": "1645517511700",
+                    "resellerId": "036b4a66-04f2-4ed4-804e-3ed2c3545140",
+                    "customerId": "31157917-72ef-416c-8c21-d1115a86dda5",
+                    "distributorId": "74262ef0-5df5-4479-9f7c-de0625970696",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": null,
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+13615928998",
+                            "name": "Mr. Griffin Bernier IV",
+                            "mail": "tmills@rowe.com",
+                            "type": "Customer Contact"
+                        },
+                        {
+                            "phoneNumber": "",
+                            "name": "Travon Feil",
+                            "mail": "bschumm@dare.com",
+                            "type": "Renewal Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        }
+                    ],
+                    "documentEntries": [],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}
