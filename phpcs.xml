@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<ruleset name="EasyPortalStandard"
+<ruleset name="IT Asset Hub Standard"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
-    <description>EasyPortal coding standard, based on PSR12</description>
+    <description>IT Asset Hub coding standard, based on PSR12</description>
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
     <file>./app</file>
     <file>./bootstrap/app.php</file>

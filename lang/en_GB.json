@@ -238,7 +238,7 @@
     "models.Permission.org-administer.description": "Ability to administrate the organization",
     "models.Permission.administer.name": "Portal administer",
     "models.Permission.administer.description": "Ability to administrate the portal",
-    "settings.groups.ep": "Easy Portal",
+    "settings.groups.ep": "IT Asset Hub",
     "settings.groups.client": "Client Application",
     "settings.groups.keycloak": "Keycloak",
     "settings.groups.data_loader": "Data Loader",

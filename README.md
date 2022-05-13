@@ -1,4 +1,4 @@
-# EasyPortal API
+# IT Asset Hub API
 
 ## Requirements
 
