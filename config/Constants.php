@@ -60,6 +60,30 @@ use Psr\Log\LogLevel as PsrLogLevel;
  * - other configuration files
  */
 interface Constants {
+    // <editor-fold desc="APP">
+    // =========================================================================
+    /**
+     * Application name.
+     */
+    #[Setting]
+    #[Group('ep')]
+    public const APP_NAME = 'IT Asset Hub';
+
+    /**
+     * Application URL
+     */
+    #[Setting]
+    #[Group('ep')]
+    public const APP_URL = 'http://localhost';
+
+    /**
+     * Debug mode.
+     */
+    #[Setting]
+    #[Group('ep')]
+    public const APP_DEBUG = false;
+    // </editor-fold>
+
     // <editor-fold desc="MAIL">
     // =========================================================================
     /**
