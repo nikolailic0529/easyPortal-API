@@ -6,6 +6,8 @@ use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
+use App\Services\Search\Exceptions\ElasticReadonly;
+use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Properties\Property;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -14,9 +16,12 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use Database\Factories\AssetFactory;
+use ElasticAdapter\Exceptions\BulkRequestException;
 use Elasticsearch\Client;
+use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -427,6 +432,31 @@ class ProcessorTest extends TestCase {
             $processor->setModel($model)->setKeys($keys)->setRebuild(false)->defaultState([]),
         );
     }
+
+    /**
+     * @dataProvider dataProviderReport
+     */
+    public function testReport(?Exception $expected, Exception $exception): void {
+        $processor = Mockery::mock(Processor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+
+        if ($expected === null) {
+            $handler = Mockery::mock(ExceptionHandler::class);
+            $handler
+                ->shouldReceive('report')
+                ->once();
+
+            $processor
+                ->shouldReceive('getExceptionHandler')
+                ->once()
+                ->andReturn($handler);
+        } else {
+            self::expectExceptionObject($expected);
+        }
+
+        $processor->report($exception);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -749,6 +779,43 @@ class ProcessorTest extends TestCase {
                 true,
                 true,
                 null,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{?Exception, Exception}>
+     */
+    public function dataProviderReport(): array {
+        return [
+            Exception::class                                     => [
+                null,
+                new Exception(),
+            ],
+            NoNodesAvailableException::class                     => [
+                new ElasticUnavailable(new NoNodesAvailableException()),
+                new NoNodesAvailableException(),
+            ],
+            BulkRequestException::class                          => [
+                null,
+                new BulkRequestException([]),
+            ],
+            BulkRequestException::class.' (disk usage exceeded)' => [
+                new ElasticReadonly(new BulkRequestException([])),
+                new BulkRequestException([
+                    'errors' => true,
+                    'items'  => [
+                        [
+                            'index' => [
+                                'error' => [
+                                    'type'   => 'cluster_block_exception',
+                                    'reason' => 'index [xxx] blocked by: [TOO_MANY_REQUESTS/12/disk usage exceeded '
+                                        .'flood-stage watermark, index has read-only-allow-delete block];',
+                                ],
+                            ],
+                        ],
+                    ],
+                ]),
             ],
         ];
     }

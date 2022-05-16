@@ -4,6 +4,7 @@ namespace App\Services\Search\Processor;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Exceptions\ElasticReadonly;
 use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Exceptions\FailedToIndex;
 use App\Services\Search\Exceptions\IndexError;
@@ -12,6 +13,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
+use ElasticAdapter\Exceptions\BulkRequestException;
 use Elasticsearch\Client;
 use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Illuminate\Contracts\Config\Repository;
@@ -28,6 +30,7 @@ use function array_filter;
 use function array_keys;
 use function array_merge;
 use function array_values;
+use function mb_strpos;
 
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
@@ -61,6 +64,9 @@ class Processor extends EloquentProcessor {
         return $this->client;
     }
 
+    /**
+     * @return class-string<TItem>
+     */
     public function getModel(): string {
         return $this->model;
     }
@@ -147,6 +153,14 @@ class Processor extends EloquentProcessor {
         // If Elasticsearch unavailable we cannot do anything -> break
         if ($exception instanceof NoNodesAvailableException) {
             throw new ElasticUnavailable($exception);
+        }
+
+        // If operation failed -> something may be really wrong -> break
+        if (
+            $exception instanceof BulkRequestException
+                && mb_strpos($exception->getMessage(), 'disk usage exceeded') !== false
+        ) {
+            throw new ElasticReadonly($exception);
         }
 
         // Report
