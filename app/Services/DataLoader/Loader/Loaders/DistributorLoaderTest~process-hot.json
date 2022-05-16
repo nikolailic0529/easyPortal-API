@@ -12,8 +12,8 @@
     {
         "query": "update `distributors` set `synced_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:11",
             "143c456a-e894-4710-a1c2-745b9582ca47"
         ]
     }

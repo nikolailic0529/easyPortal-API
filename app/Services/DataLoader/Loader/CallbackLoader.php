@@ -22,7 +22,7 @@ class CallbackLoader extends Processor {
     use WithObjectId;
 
     /**
-     * @var Closure(Client, string): void
+     * @var Closure(Dispatcher, Client, string): void
      */
     private Closure $callback;
 
@@ -37,7 +37,7 @@ class CallbackLoader extends Processor {
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @param Closure(Client, string): void $callback
+     * @param Closure(Dispatcher, Client, string): void $callback
      */
     public function setCallback(Closure $callback): static {
         $this->callback = $callback;
@@ -56,7 +56,7 @@ class CallbackLoader extends Processor {
     }
 
     protected function process(State $state, mixed $data, mixed $item): void {
-        ($this->callback)($this->client, $item);
+        ($this->callback)($this->getDispatcher(), $this->client, $item);
     }
 
     protected function report(Throwable $exception, mixed $item = null): void {

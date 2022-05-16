@@ -16,8 +16,18 @@
             "31c1944e-642e-4418-b97e-0a989de47cb9": "31c1944e-642e-4418-b97e-0a989de47cb9"
         },
         "App\\Models\\Location": {
-            "b21b4808-5998-528c-8e7d-d32fddf76a8a": "b21b4808-5998-528c-8e7d-d32fddf76a8a"
+            "7f2d0b64-dc9e-56d0-b76b-58c000840b01": "7f2d0b64-dc9e-56d0-b76b-58c000840b01"
         },
+        "App\\Models\\Asset": {
+            "03781b72-05b6-4722-879f-635b5fddde1d": "03781b72-05b6-4722-879f-635b5fddde1d"
+        }
+    },
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": [],
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
         "App\\Models\\Asset": {
             "03781b72-05b6-4722-879f-635b5fddde1d": "03781b72-05b6-4722-879f-635b5fddde1d"
         }

@@ -67,8 +67,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:26",
-            "2022-02-02 00:00:29",
+            "2022-02-02 00:00:27",
+            "2022-02-02 00:00:30",
             "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
         ]
     },

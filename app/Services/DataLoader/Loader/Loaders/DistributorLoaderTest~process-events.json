@@ -8,5 +8,15 @@
         "App\\Models\\Document": [],
         "App\\Models\\Location": [],
         "App\\Models\\Asset": []
+    },
+    {
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
+        },
+        "App\\Models\\Reseller": [],
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
+        "App\\Models\\Asset": []
     }
 ]

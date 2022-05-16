@@ -4,10 +4,15 @@ namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Asset;
 use App\Models\Document;
+use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Data;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\Resellers\DocumentsImporter;
 use App\Services\DataLoader\Importer\Importers\Resellers\IteratorImporter;
+use App\Services\DataLoader\Loader\CallbackLoader;
 use App\Services\DataLoader\Loader\CompanyLoader;
 use App\Services\DataLoader\Loader\CompanyLoaderState;
 use App\Utils\Iterators\ObjectsIterator;
@@ -15,6 +20,7 @@ use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use Exception;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -47,6 +53,20 @@ class ResellerLoader extends CompanyLoader {
             ),
             ...$this->getAssetsOperations(),
             ...$this->getDocumentsOperations(),
+            new CompositeOperation(
+                'Recalculate',
+                function (CompanyLoaderState $state): Processor {
+                    return $this
+                        ->getContainer()
+                        ->make(CallbackLoader::class)
+                        ->setObjectId($state->objectId)
+                        ->setCallback(static function (Dispatcher $dispatcher, Client $client, string $objectId): void {
+                            $dispatcher->dispatch(new DataImported(
+                                (new Data())->add(Reseller::class, $objectId),
+                            ));
+                        });
+                },
+            ),
         ];
     }
     // </editor-fold>

@@ -93,10 +93,12 @@ class Data {
     /**
      * @param class-string $class
      */
-    protected function add(string $class, ?string $id): void {
+    public function add(string $class, ?string $id): static {
         if ($id && isset($this->data[$class])) {
             $this->data[$class][$id] = $id;
         }
+
+        return $this;
     }
 
     public function isEmpty(): bool {

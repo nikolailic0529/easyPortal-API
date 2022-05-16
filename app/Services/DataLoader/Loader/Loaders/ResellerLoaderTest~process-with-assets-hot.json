@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
+            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
+            "7621f815-df52-5f5e-a92c-9244189847e5"
         ]
     },
     {
@@ -33,7 +33,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "7621f815-df52-5f5e-a92c-9244189847e5"
+            "6064ff66-f89d-574d-9e4a-b958bc105161"
         ]
     },
     {
@@ -57,8 +57,8 @@
     {
         "query": "update `resellers` set `synced_at` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:43",
-            "2022-02-02 00:03:46",
+            "2022-02-02 00:03:44",
+            "2022-02-02 00:03:47",
             "6c7c9474-3b59-4601-af72-1cd0f441b515"
         ]
     },
@@ -140,7 +140,7 @@
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "159b2b48-b002-524a-9678-3c124120e9af",
-            "a0855e8d-f891-5d5d-85e9-e8428af3ca38"
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
         ]
     },
     {
@@ -174,7 +174,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
+            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
         ]
     },
     {
@@ -192,7 +192,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "a0855e8d-f891-5d5d-85e9-e8428af3ca38"
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
         ]
     },
     {
@@ -239,8 +239,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:03",
-            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:04",
+            "2022-02-02 00:04:11",
             "45bdde5d-238d-4a63-8726-17dc7e40dedc"
         ]
     },
@@ -253,8 +253,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:35",
-            "2022-02-02 00:04:42",
+            "2022-02-02 00:04:36",
+            "2022-02-02 00:04:43",
             "520f5c49-6704-4044-b37d-0eb4d9caa4e5"
         ]
     },
@@ -267,8 +267,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:07",
-            "2022-02-02 00:05:14",
+            "2022-02-02 00:05:08",
+            "2022-02-02 00:05:15",
             "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9"
         ]
     },
@@ -281,15 +281,15 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:39",
-            "2022-02-02 00:05:46",
+            "2022-02-02 00:05:40",
+            "2022-02-02 00:05:47",
             "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "459a9b90-a31f-55c4-b5a7-5de3769f555e",
+            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
             "0a872c01-f844-590a-a819-942bfa09a5d2",
             "211 bechtelar village",
             "56011"
@@ -304,8 +304,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:06:11",
-            "2022-02-02 00:06:18",
+            "2022-02-02 00:06:12",
+            "2022-02-02 00:06:19",
             "d164e377-3780-4587-8f97-a77c7952e953"
         ]
     },
@@ -313,7 +313,7 @@
         "query": "select `assets`.* from `assets` where `reseller_id` = ? and `synced_at` < ? and `assets`.`deleted_at` is null order by `assets`.`id` asc limit 250 offset 0",
         "bindings": [
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
-            "2022-02-02T00:03:41+00:00"
+            "2022-02-02T00:03:42+00:00"
         ]
     }
 ]

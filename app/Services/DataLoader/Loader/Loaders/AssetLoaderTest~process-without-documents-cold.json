@@ -251,7 +251,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "550d314c-d667-501f-9cfc-7deba095117c",
+            "2f80a4c2-e8d4-516d-822a-233c9a874796",
             "53f409f5-cd8e-5b73-8f36-0dc72d7c5182",
             "8e0c42e3-f741-5455-8511-3a88b871fe58",
             "2022-02-02 00:00:26",

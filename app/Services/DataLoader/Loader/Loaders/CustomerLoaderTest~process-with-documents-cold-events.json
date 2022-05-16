@@ -10,7 +10,7 @@
         },
         "App\\Models\\Document": [],
         "App\\Models\\Location": {
-            "5e540a75-3fbd-50b2-97e5-5b244f6a3d52": "5e540a75-3fbd-50b2-97e5-5b244f6a3d52"
+            "a38d080e-0a99-51ba-b25e-05a0f175e183": "a38d080e-0a99-51ba-b25e-05a0f175e183"
         },
         "App\\Models\\Asset": []
     },
@@ -46,7 +46,7 @@
             "a7dd631f-9068-42ca-9745-3f94e1f67ad1": "a7dd631f-9068-42ca-9745-3f94e1f67ad1"
         },
         "App\\Models\\Location": {
-            "5e540a75-3fbd-50b2-97e5-5b244f6a3d52": "5e540a75-3fbd-50b2-97e5-5b244f6a3d52"
+            "a38d080e-0a99-51ba-b25e-05a0f175e183": "a38d080e-0a99-51ba-b25e-05a0f175e183"
         },
         "App\\Models\\Asset": {
             "6df23a3e-9115-448f-b337-b3d1e79db353": "6df23a3e-9115-448f-b337-b3d1e79db353",
@@ -55,5 +55,15 @@
             "605f71ef-4aa1-489d-86d6-07b1274576ba": "605f71ef-4aa1-489d-86d6-07b1274576ba",
             "603bf296-d3e6-4a4f-835c-4d26dece73bd": "603bf296-d3e6-4a4f-835c-4d26dece73bd"
         }
+    },
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": [],
+        "App\\Models\\Customer": {
+            "a04716f3-95de-4046-ab13-7a575cf67f85": "a04716f3-95de-4046-ab13-7a575cf67f85"
+        },
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
+        "App\\Models\\Asset": []
     }
 ]

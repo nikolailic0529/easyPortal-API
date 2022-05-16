@@ -12586,6 +12586,11 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
+
+		-
 			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
@@ -12641,6 +12646,11 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
+
+		-
 			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
@@ -12691,6 +12701,11 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
+
+		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
@@ -12736,6 +12751,11 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
 
 		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
+
+		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
@@ -12777,6 +12797,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 

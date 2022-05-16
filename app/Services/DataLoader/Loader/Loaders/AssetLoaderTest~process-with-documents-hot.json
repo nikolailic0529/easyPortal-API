@@ -50,7 +50,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "b21b4808-5998-528c-8e7d-d32fddf76a8a"
+            "7f2d0b64-dc9e-56d0-b76b-58c000840b01"
         ]
     },
     {
@@ -98,7 +98,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "b21b4808-5998-528c-8e7d-d32fddf76a8a"
+            "7f2d0b64-dc9e-56d0-b76b-58c000840b01"
         ]
     },
     {
@@ -159,8 +159,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:01:58",
-            "2022-02-02 00:03:16",
+            "2022-02-02 00:01:59",
+            "2022-02-02 00:03:17",
             "03781b72-05b6-4722-879f-635b5fddde1d"
         ]
     }

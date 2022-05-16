@@ -3,8 +3,11 @@
 namespace App\Services\DataLoader\Loader\Loaders;
 
 use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Document;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Collector\Data;
+use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter;
 use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter;
@@ -20,6 +23,7 @@ use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
 use Exception;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
 use function array_merge;
@@ -52,7 +56,7 @@ class CustomerLoader extends CompanyLoader {
                         ->getContainer()
                         ->make(CallbackLoader::class)
                         ->setObjectId($state->objectId)
-                        ->setCallback(static function (Client $client, string $objectId): void {
+                        ->setCallback(static function (Dispatcher $dispatcher, Client $client, string $objectId): void {
                             $client->runCustomerWarrantyCheck($objectId);
                         });
                 },
@@ -72,6 +76,20 @@ class CustomerLoader extends CompanyLoader {
             ),
             ...$this->getAssetsOperations(),
             ...$this->getDocumentsOperations(),
+            new CompositeOperation(
+                'Recalculate',
+                function (CustomerLoaderState $state): Processor {
+                    return $this
+                        ->getContainer()
+                        ->make(CallbackLoader::class)
+                        ->setObjectId($state->objectId)
+                        ->setCallback(static function (Dispatcher $dispatcher, Client $client, string $objectId): void {
+                            $dispatcher->dispatch(new DataImported(
+                                (new Data())->add(Customer::class, $objectId),
+                            ));
+                        });
+                },
+            ),
         ];
     }
     // </editor-fold>

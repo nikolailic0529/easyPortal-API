@@ -10,5 +10,15 @@
             "606a1145-730e-5c92-8353-6f54f0ba7ed9": "606a1145-730e-5c92-8353-6f54f0ba7ed9"
         },
         "App\\Models\\Asset": []
+    },
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": {
+            "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e": "6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e"
+        },
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
+        "App\\Models\\Asset": []
     }
 ]

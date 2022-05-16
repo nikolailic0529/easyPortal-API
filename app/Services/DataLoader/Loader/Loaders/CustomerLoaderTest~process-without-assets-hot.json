@@ -85,8 +85,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:00:19",
-            "2022-02-02 00:00:22",
+            "2022-02-02 00:00:20",
+            "2022-02-02 00:00:23",
             "a0df13a5-c42c-4269-ae57-71085acb5319"
         ]
     }
