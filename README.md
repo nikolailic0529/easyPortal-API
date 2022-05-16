@@ -10,15 +10,17 @@
 
 ### MySQL
 
-| Property                     | Value                | Description                                                            |
-|------------------------------|----------------------|------------------------------------------------------------------------|
-| Default Charset              | `utf8mb4`            |                                                                        |
-| Default Collation            | `utf8mb4_0900_as_ci` |                                                                        |
-| `default_storage_engine`     | `InnoDB`             |                                                                        |
-| `innodb_default_row_format`  | DYNAMIC/COMPRESSED   | "Large Index Key Prefix Support" required                              |
-| Fulltext `ngram` parser      | required             | See https://dev.mysql.com/doc/refman/8.0/en/fulltext-search-ngram.html |
-| `innodb_ft_enable_stopword`  | `0`                  |                                                                        |
-| `ngram_token_size`           | `1`                  | Depended on min searchable word length.                                |
+| Property                    | Value                | Description                                                            |
+|-----------------------------|----------------------|------------------------------------------------------------------------|
+| `character_set_server`      | `utf8mb4`            | Default Charset[^1]                                                    |
+| `collation_server`          | `utf8mb4_0900_as_ci` | Default Collation[^1]                                                  |
+| `default_storage_engine`    | `InnoDB`             |                                                                        |
+| `innodb_default_row_format` | DYNAMIC/COMPRESSED   | "Large Index Key Prefix Support" required                              |
+| Fulltext `ngram` parser     | required             | See https://dev.mysql.com/doc/refman/8.0/en/fulltext-search-ngram.html |
+| `innodb_ft_enable_stopword` | `0`                  |                                                                        |
+| `ngram_token_size`          | `1`                  | Depended on min searchable word length.                                |
+
+[^1]: can be set on database level, but should be applied for all app databases.
 
 ## Documentation
 

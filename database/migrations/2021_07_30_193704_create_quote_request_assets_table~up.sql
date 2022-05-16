@@ -36,10 +36,8 @@ CREATE TABLE IF NOT EXISTS `quote_request_assets` (
     FOREIGN KEY (`duration_id`)
     REFERENCES `quote_request_durations` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_as_ci;
+    ON UPDATE NO ACTION
+);
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
