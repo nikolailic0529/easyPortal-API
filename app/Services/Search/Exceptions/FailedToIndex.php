@@ -3,7 +3,7 @@
 namespace App\Services\Search\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
-use App\Services\Search\Processor\ModelProcessor;
+use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\ServiceException;
 use Illuminate\Database\Eloquent\Model;
 use Psr\Log\LogLevel;

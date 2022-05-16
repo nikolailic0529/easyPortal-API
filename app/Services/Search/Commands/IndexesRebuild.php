@@ -3,7 +3,7 @@
 namespace App\Services\Search\Commands;
 
 use App\Services\I18n\Formatter;
-use App\Services\Search\Processor\ModelsProcessor;
+use App\Services\Search\Processors\ModelsProcessor;
 use App\Services\Search\Service;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use Illuminate\Console\Command;

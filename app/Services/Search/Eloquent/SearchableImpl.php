@@ -4,7 +4,7 @@ namespace App\Services\Search\Eloquent;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
-use App\Services\Search\Processor\ModelProcessor;
+use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;

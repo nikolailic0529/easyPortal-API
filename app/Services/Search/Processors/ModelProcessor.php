@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Processor;
+namespace App\Services\Search\Processors;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
@@ -34,7 +34,7 @@ use function mb_strpos;
 
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
- * @template TState of \App\Services\Search\Processor\ModelProcessorState<TItem>
+ * @template TState of \App\Services\Search\Processors\ModelProcessorState<TItem>
  *
  * @extends EloquentProcessor<TItem, null, TState>
  */
@@ -100,7 +100,7 @@ class ModelProcessor extends EloquentProcessor {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Processor">
+    // <editor-fold desc="Processors">
     // =========================================================================
     protected function init(ProcessorState $state, ObjectIterator $iterator): void {
         if ($state->rebuild) {

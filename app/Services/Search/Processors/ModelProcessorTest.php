@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Processor;
+namespace App\Services\Search\Processors;
 
 use App\Models\Asset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
@@ -41,7 +41,7 @@ use function count;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processor\ModelProcessor
+ * @coversDefaultClass \App\Services\Search\Processors\ModelProcessor
  */
 class ModelProcessorTest extends TestCase {
     use WithSearch;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Processor;
+namespace App\Services\Search\Processors;
 
 use App\Services\Search\Eloquent\Searchable;
 use App\Utils\Processor\CompositeOperation;

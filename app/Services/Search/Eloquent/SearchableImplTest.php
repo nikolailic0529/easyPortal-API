@@ -9,7 +9,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Jobs\Index;
-use App\Services\Search\Processor\ModelProcessor;
+use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
