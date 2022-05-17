@@ -45,3 +45,5 @@
 * [Coding Standards](./docs/Coding-Standards.md)
 * [API Interaction](./docs/API-Interaction.md)
 * [Commits & Versioning](./docs/Commits-Versioning.md)
+* [Database Structure](./docs/database.mwb)
+* [Authorization Flow](./docs/AuthorizationFlow.drawio)
