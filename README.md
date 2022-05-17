@@ -2,11 +2,15 @@
 
 ## Requirements
 
-| Package    | Version                                          |
-|------------|--------------------------------------------------|
-| PHP        | ~8.0.0                                           |
-| MySQL      | 8.0+                                             |
-| Redis      | [phpredis](https://github.com/phpredis/phpredis) |
+| Package       | Version / Notes                                                                                                                                         |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PHP           | [~8.0.0](https://php.net/)                                                                                                                              |
+| MySQL         | [8.0+](https://www.mysql.com/)                                                                                                                          |
+| Redis         | and [phpredis](https://github.com/phpredis/phpredis) (recommended) or see https://laravel.com/docs/redis                                                |
+| Composer      | [^2.3](https://getcomposer.org/)                                                                                                                        |
+| Elasticsearch | [~7.10.0](https://www.elastic.co/) + [passwords for default users](https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html) |
+| Other         | Run `composer check-platform-reqs` to get list of required PHP extensions.                                                                              |
+
 
 ### MySQL
 
@@ -22,6 +26,7 @@
 
 [^1]: can be set on database level, but should be applied for all app databases.
 
+
 ## Documentation
 
 ### Application
@@ -32,6 +37,8 @@
 * [Cache](./docs/Application-Cache.md)
 * [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
 * [Data Loader](./docs/DataLoader.md)
+* [Keycloak Settings](docs/Keycloak/README.md)
+
 
 ### Development
 
