@@ -3821,16 +3821,6 @@ parameters:
 			path: app/GraphQL/Queries/Administration/UsersTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\ApplicationTest\\:\\:testQuery\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/ApplicationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\ApplicationTest\\:\\:testQuery\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/ApplicationTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\Jobs\\:\\:__invoke\\(\\) should return array\\<string, mixed\\> but returns array\\<int, array\\<string, mixed\\>\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Jobs.php
@@ -14556,21 +14546,6 @@ parameters:
 			path: app/Services/Maintenance/ApplicationInfo.php
 
 		-
-			message: "#^Offset 'name' on array\\{name\\: string, version\\: string, reference\\: string, pretty_version\\: string, aliases\\: array\\<string\\>, dev\\: bool, install_path\\: string, type\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Services/Maintenance/ApplicationInfo.php
-
-		-
-			message: "#^Offset 'pretty_version' on array\\{name\\: string, version\\: string, reference\\: string, pretty_version\\: string, aliases\\: array\\<string\\>, dev\\: bool, install_path\\: string, type\\: string\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Services/Maintenance/ApplicationInfo.php
-
-		-
-			message: "#^Strict comparison using \\!\\=\\= between string and null will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Maintenance/ApplicationInfo.php
-
-		-
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, Carbon\\\\CarbonInterval\\|null given\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/Start.php
@@ -14579,11 +14554,6 @@ parameters:
 			message: "#^Cannot call method diffInHours\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 3
 			path: app/Services/Maintenance/Commands/StartTest.php
-
-		-
-			message: "#^Cannot cast array\\|bool\\|string\\|null to string\\.$#"
-			count: 1
-			path: app/Services/Maintenance/Commands/VersionUpdate.php
 
 		-
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"

@@ -41,8 +41,8 @@ class VersionUpdate extends Command {
     public function __invoke(Dispatcher $dispatcher, Filesystem $filesystem, ApplicationInfo $info): int {
         // Version
         $previous = $info->getVersion();
-        $version  = ltrim(trim((string) $this->argument('version')), 'v.');
-        $version  = new SemanticVersion(($version ?: $previous) ?? '0.0.0');
+        $version  = ltrim(trim((string) $this->getStringArgument('version')), 'v.');
+        $version  = new SemanticVersion(($version ?: $previous) ?: ApplicationInfo::DEFAULT_VERSION);
         $commit   = $this->getStringOption('commit') ?: null;
         $build    = $this->getStringOption('build') ?: null;
         $meta     = null;

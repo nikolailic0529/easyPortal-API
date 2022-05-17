@@ -34,6 +34,13 @@ trait WithOptions {
         return $value;
     }
 
+    protected function getStringArgument(string $name, string $default = null): ?string {
+        $value = $this->hasArgument($name) ? $this->argument($name) : null;
+        $value = is_string($value) ? $value : $default;
+
+        return $value;
+    }
+
     protected function getBoolOption(string $name, bool $default = null): ?bool {
         $noName = "no-{$name}";
 

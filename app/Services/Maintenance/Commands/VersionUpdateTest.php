@@ -13,7 +13,6 @@ use Mockery\MockInterface;
 use Tests\TestCase;
 
 use function sprintf;
-use function str_starts_with;
 
 /**
  * @internal
@@ -67,10 +66,6 @@ class VersionUpdateTest extends TestCase {
         Event::assertDispatched(
             VersionUpdated::class,
             static function (VersionUpdated $event) use ($expected, $current): bool {
-                if ($current !== null && str_starts_with($current, 'dev-')) {
-                    $current = '0.0.0';
-                }
-
                 return $event->getVersion() === $expected
                     && $event->getPrevious() === $current;
             },
@@ -85,28 +80,21 @@ class VersionUpdateTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return [
-            'invalid version'                                        => [
+            'invalid version'                                      => [
                 new Exception('The `invalid` is not a valid Semantic Version string.'),
                 null,
                 [
                     'version' => 'invalid',
                 ],
             ],
-            'no version and no build but current version is known'   => [
+            'no version and no build but current version is known' => [
                 '1.1.1',
                 '1.1.1',
                 [
                     'version' => '',
                 ],
             ],
-            'no version and no build but current version is unknown' => [
-                '0.0.0',
-                null,
-                [
-                    'version' => '',
-                ],
-            ],
-            'build only'                                             => [
+            'build only'                                           => [
                 '1.1.1+123',
                 '1.1.1',
                 [
@@ -114,7 +102,7 @@ class VersionUpdateTest extends TestCase {
                     '--build' => '123',
                 ],
             ],
-            'valid version and build'                                => [
+            'valid version and build'                              => [
                 '1.2.3+123',
                 '1.1.1',
                 [
@@ -122,7 +110,7 @@ class VersionUpdateTest extends TestCase {
                     '--build' => '123',
                 ],
             ],
-            'valid version, commit and build'                        => [
+            'valid version, commit and build'                      => [
                 '1.2.3+21f1813.123',
                 '1.1.1',
                 [
@@ -131,7 +119,7 @@ class VersionUpdateTest extends TestCase {
                     '--commit' => '21f1813ebe182ff414c9ecc110ea7a148b0e938a',
                 ],
             ],
-            'valid version and commit'                               => [
+            'valid version and commit'                             => [
                 '1.2.3+21f1813',
                 '1.1.1',
                 [
@@ -139,7 +127,7 @@ class VersionUpdateTest extends TestCase {
                     '--commit' => '21f1813ebe182ff414c9ecc110ea7a148b0e938a',
                 ],
             ],
-            'empty build and commit'                                 => [
+            'empty build and commit'                               => [
                 '1.2.3',
                 '1.1.1',
                 [

@@ -46,7 +46,7 @@ class VersionResetTest extends TestCase {
             $mock
                 ->shouldReceive('getVersion')
                 ->once()
-                ->andReturn(null);
+                ->andReturn(ApplicationInfo::DEFAULT_VERSION);
         });
 
         Event::fake(VersionUpdated::class);
@@ -60,7 +60,7 @@ class VersionResetTest extends TestCase {
         Event::assertDispatched(
             VersionUpdated::class,
             static function (VersionUpdated $event) use ($current): bool {
-                return $event->getVersion() === null
+                return $event->getVersion() === ApplicationInfo::DEFAULT_VERSION
                     && $event->getPrevious() === $current;
             },
         );
@@ -93,7 +93,7 @@ class VersionResetTest extends TestCase {
             $mock
                 ->shouldReceive('getVersion')
                 ->once()
-                ->andReturn(null);
+                ->andReturn(ApplicationInfo::DEFAULT_VERSION);
         });
 
         Event::fake(VersionUpdated::class);
