@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Organization\RootOrganization;
+use Illuminate\Support\Facades\Hash;
 use LastDragon_ru\LaraASP\Migrator\Seeders\SmartSeeder;
 
 use function app;
@@ -23,6 +24,7 @@ class OrganizationSeeder extends SmartSeeder {
         // Root user
         $user                 = new User();
         $user->type           = UserType::local();
+        $user->password       = Hash::make('1234567890');
         $user->given_name     = 'Root';
         $user->family_name    = 'User';
         $user->email          = 'fakharanwar@hotmail.com';
