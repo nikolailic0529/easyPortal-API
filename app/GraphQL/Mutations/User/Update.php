@@ -39,9 +39,6 @@ class Update {
                     $properties->lastName = $value;
                     $user->family_name    = $value;
                     break;
-                case 'homepage':
-                    $user->homepage = $value;
-                    break;
                 case 'locale':
                     $user->locale         = $value;
                     $attributes['locale'] = $value ? Map::getKeycloakLocale($value) : null;

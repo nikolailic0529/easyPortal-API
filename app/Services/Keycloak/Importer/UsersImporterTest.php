@@ -79,8 +79,11 @@ class UsersImporterTest extends TestCase {
                 'photo'          => [
                     'http://example.com/photo.jpg',
                 ],
-                'locale' => [
+                'locale'         => [
                     'en',
+                ],
+                'homepage'       => [
+                    'https://example.com/',
                 ],
             ],
         ]);
@@ -141,6 +144,7 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($user->company, $keycloakUser->attributes['company'][0]);
         self::assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
         self::assertEquals($user->locale, Map::getAppLocale($keycloakUser->attributes['locale'][0]));
+        self::assertEquals($user->homepage, $keycloakUser->attributes['homepage'][0]);
 
         // Test
         $expected = [

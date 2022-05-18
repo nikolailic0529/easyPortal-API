@@ -757,6 +757,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => 'it_IT',
+                        'homepage'       => 'https://example.com/',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -789,6 +790,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'         => 'test@gmail.com',
                         'job_title'             => 'Manger',
                         'locale'                => 'it',
+                        'homepage'              => 'https://example.com/',
                     ];
                 },
             ],
@@ -812,6 +814,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => 'de_DE',
+                        'homepage'       => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -860,6 +863,7 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => null,
+                        'homepage'       => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
