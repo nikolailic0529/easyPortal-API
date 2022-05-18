@@ -759,6 +759,7 @@ class UserProviderTest extends TestCase {
                         'locale'         => 'it_IT',
                         'homepage'       => 'https://example.com/',
                         'timezone'       => 'Europe/Berlin',
+                        'company'        => 'Abc',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -793,6 +794,7 @@ class UserProviderTest extends TestCase {
                         'locale'                => 'it',
                         'homepage'              => 'https://example.com/',
                         'timezone'              => 'Europe/Berlin',
+                        'company'               => 'Abc',
                     ];
                 },
             ],
@@ -818,6 +820,7 @@ class UserProviderTest extends TestCase {
                         'locale'         => 'de_DE',
                         'homepage'       => null,
                         'timezone'       => null,
+                        'company'        => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -868,6 +871,7 @@ class UserProviderTest extends TestCase {
                         'locale'         => null,
                         'homepage'       => null,
                         'timezone'       => null,
+                        'company'        => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -937,6 +941,7 @@ class UserProviderTest extends TestCase {
                         'locale'         => null,
                         'homepage'       => null,
                         'timezone'       => null,
+                        'company'        => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
