@@ -29,8 +29,12 @@ class Token extends OAuth2Token {
     protected function getTokenParameters(): array {
         $parameters = parent::getTokenParameters();
 
-        if ($this->config->get('ep.data_loader.endpoint')) {
+        if ($this->config->get('ep.data_loader.resource')) {
+            $parameters['resource'] = $this->config->get('ep.data_loader.resource');
+        } elseif ($this->config->get('ep.data_loader.endpoint')) {
             $parameters['resource'] = $this->config->get('ep.data_loader.endpoint');
+        } else {
+            // empty
         }
 
         return $parameters;

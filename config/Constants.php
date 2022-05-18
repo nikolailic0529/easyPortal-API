@@ -883,6 +883,14 @@ interface Constants {
     public const EP_DATA_LOADER_ENDPOINT = null;
 
     /**
+     * Resource to access (optional, if empty {@see \Config\Constants::EP_DATA_LOADER_ENDPOINT} will be used).
+     */
+    #[Setting('ep.data_loader.resource')]
+    #[Group('data_loader')]
+    #[Type(StringType::class)]
+    public const EP_DATA_LOADER_RESOURCE = null;
+
+    /**
      * GraphQL queries that take more than `X` seconds will be logged (set to `0` to disable)
      */
     #[Setting('ep.data_loader.slowlog')]
