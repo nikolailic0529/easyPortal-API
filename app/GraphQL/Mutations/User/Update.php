@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
+use App\Services\Keycloak\Map;
 use Illuminate\Http\UploadedFile;
 
 class Update {
@@ -42,7 +43,8 @@ class Update {
                     $user->homepage = $value;
                     break;
                 case 'locale':
-                    $user->locale = $value;
+                    $user->locale         = $value;
+                    $attributes['locale'] = $value ? Map::getKeycloakLocale($value) : null;
                     break;
                 case 'timezone':
                     $user->timezone = $value;

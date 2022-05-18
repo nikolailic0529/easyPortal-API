@@ -13,6 +13,7 @@ use App\Services\Keycloak\Exceptions\FailedToImport;
 use App\Services\Keycloak\Exceptions\FailedToImportObject;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Keycloak\Exceptions\ImportError;
+use App\Services\Keycloak\Map;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
@@ -111,6 +112,7 @@ class UsersImporter extends IteratorProcessor {
         $user->phone          = $attributes['phone'][0] ?? null;
         $user->company        = $attributes['company'][0] ?? null;
         $user->photo          = $attributes['photo'][0] ?? null;
+        $user->locale         = Map::getAppLocale($attributes['locale'][0] ?? '');
         $user->organizations  = $this->getUserOrganizations($user, $item);
         $user->synced_at      = Date::now();
 
