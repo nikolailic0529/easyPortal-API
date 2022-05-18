@@ -41,8 +41,8 @@ use LogicException;
  * @property string                            $id
  * @property UserType                          $type
  * @property string|null                       $organization_id
- * @property string                            $given_name
- * @property string                            $family_name
+ * @property string|null                       $given_name
+ * @property string|null                       $family_name
  * @property string                            $email
  * @property bool                              $email_verified
  * @property string|null                       $phone

@@ -51,6 +51,9 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
     protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
     protected const CLAIM_LOCALE                = 'locale';
+    protected const CLAIM_HOMEPAGE              = 'homepage';
+    protected const CLAIM_TIMEZONE              = 'timezone';
+    protected const CLAIM_COMPANY               = 'company';
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null,map:callable}>
@@ -146,6 +149,25 @@ class UserProvider implements UserProviderContract {
             'default'  => null,
             'if'       => null,
             'map'      => [Map::class, 'getAppLocale'],
+        ],
+        self::CLAIM_HOMEPAGE              => [
+            'property' => 'homepage',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_TIMEZONE              => [
+            'property' => 'timezone',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+            'map'      => [Map::class, 'getAppTimezone'],
+        ],
+        self::CLAIM_COMPANY               => [
+            'property' => 'company',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
         ],
     ];
 

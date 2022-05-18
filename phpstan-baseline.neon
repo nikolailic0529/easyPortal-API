@@ -14036,16 +14036,6 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
 		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$family_name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$given_name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
 			message: "#^Property App\\\\Models\\\\User\\:\\:\\$organizations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
@@ -14081,7 +14071,7 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:396 given\\.$#"
+			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:409 given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
@@ -14702,11 +14692,6 @@ parameters:
 
 		-
 			message: "#^App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdater.php
-
-		-
-			message: "#^Parameter \\#1 \\$keycloakLocale of static method App\\\\Services\\\\Keycloak\\\\Map\\:\\:getAppLocale\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdater.php
 

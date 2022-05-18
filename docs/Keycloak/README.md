@@ -55,28 +55,35 @@
 
 ### Mappers
 
-While Sing In the application will update user properties from Access Token claims. Claims can be added as mappers from "Client Scopes" section or in "Client" settings. Application supports the following claims:
+While Sing In the application will update user properties from Access Token claims. Claims can be added as mappers from "Client Scopes" section or in "Client" settings. Application supports the following claims and the recommended setup is:
 
-* `enabled` (default)
-* `reseller_access`
-* `customer_access`
-* `email` (required; default; "email" client scope)
-* `email_verified` (default; "email" client scope)
-* `given_name` (required; default; "profile" client scope)
-* `family_name` (required; default; "profile" client scope)
-* `phone_number`
-* `phone_number_verified`
-* `photo`
-* `job_title`
-* `mobile_phone`
-* `office_phone`
-* `title`
-* `contact_email`
-* `academic_title`
-* `locale` (default; "profile" client scope)
+| Claim                    | Client Scope | Mapper Name           | Mapper Type    | Property              | Claim JSON Type |
+|--------------------------|--------------|-----------------------|----------------|-----------------------|-----------------|
+| `enabled`                |              | enabled               | User Property  | `enabled`             | boolean         |
+| `email`ᴿᴰ                | email        | email                 | User Property  | `email`               | string          |
+| `email_verified`ᴰ        | email        | email verified        | User Property  | `emailVerified`       | boolean         |
+| `given_name`ᴿᴰ           | profile      | given name            | User Property  | `firstName`           | string          |
+| `family_name`ᴿᴰ          | profile      | family name           | User Property  | `lastName`            | string          |
+| `locale`ᴰ                | profile      | locale                | User Attribute | `locale`              | string          |
+| `photo`                  | profile      | photo                 | User Attribute | `photo`               | string          |
+| `job_title`              | profile      | job_title             | User Attribute | `job_title`           | string          |
+| `mobile_phone`           | profile      | mobile_phone          | User Attribute | `mobile_phone`        | string          |
+| `office_phone`           | profile      | office_phone          | User Attribute | `office_phone`        | string          |
+| `title`                  | profile      | title                 | User Attribute | `title`               | string          |
+| `contact_email`          | profile      | contact_email         | User Attribute | `contact_email`       | string          |
+| `academic_title`         | profile      | academic_title        | User Attribute | `academic_title`      | string          |
+| `homepage`               | profile      | homepage              | User Attribute | `homepage`            | string          |
+| `timezone`               | profile      | timezone              | User Attribute | `timezone`            | string          |
+| `company`                | profile      | company               | User Attribute | `company`             | string          |
+| `phone_number`ᴰ          | phone        | phone number          | User Attribute | `phoneNumber`         | string          |
+| `phone_number_verified`ᴰ | phone        | phone number verified | User Attribute | `phoneNumberVerified` | boolean         |
 
-![image](./assets/ClientMappers.png)
-![image](./assets/ClientMapper.png)
+Legend:
+* ᴿ - required
+* ᴰ - default (= no action required)
+
+Mapper defaults:
+![image](./assets/MapperDefaults.png)
 
 To check current claims available in Assess Token you can "Evaluate" feature in the Client settings:
 

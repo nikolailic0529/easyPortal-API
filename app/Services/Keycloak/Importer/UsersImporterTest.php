@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
+use App\Services\Keycloak\Map;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Processor\State;
@@ -78,6 +79,15 @@ class UsersImporterTest extends TestCase {
                 'photo'          => [
                     'http://example.com/photo.jpg',
                 ],
+                'locale'         => [
+                    'en',
+                ],
+                'homepage'       => [
+                    'https://example.com/',
+                ],
+                'timezone'       => [
+                    'Europe/Berlin',
+                ],
             ],
         ]);
 
@@ -136,6 +146,9 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($user->phone, $keycloakUser->attributes['phone'][0]);
         self::assertEquals($user->company, $keycloakUser->attributes['company'][0]);
         self::assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
+        self::assertEquals($user->locale, Map::getAppLocale($keycloakUser->attributes['locale'][0]));
+        self::assertEquals($user->homepage, $keycloakUser->attributes['homepage'][0]);
+        self::assertEquals($user->timezone, $keycloakUser->attributes['timezone'][0]);
 
         // Test
         $expected = [

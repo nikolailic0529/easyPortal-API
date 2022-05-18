@@ -757,6 +757,9 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => 'it_IT',
+                        'homepage'       => 'https://example.com/',
+                        'timezone'       => 'Europe/Berlin',
+                        'company'        => 'Abc',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -789,6 +792,9 @@ class UserProviderTest extends TestCase {
                         'contact_email'         => 'test@gmail.com',
                         'job_title'             => 'Manger',
                         'locale'                => 'it',
+                        'homepage'              => 'https://example.com/',
+                        'timezone'              => 'Europe/Berlin',
+                        'company'               => 'Abc',
                     ];
                 },
             ],
@@ -812,6 +818,9 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => 'de_DE',
+                        'homepage'       => null,
+                        'timezone'       => null,
+                        'company'        => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -860,6 +869,9 @@ class UserProviderTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'job_title'      => 'Manger',
                         'locale'         => null,
+                        'homepage'       => null,
+                        'timezone'       => null,
+                        'company'        => null,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -904,6 +916,49 @@ class UserProviderTest extends TestCase {
                         'reseller_access'       => [
                             $organization->keycloak_scope => true,
                         ],
+                    ];
+                },
+            ],
+            'invalid timezone'                           => [
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'email'          => 'dun00101@eoopy.com',
+                        'email_verified' => true,
+                        'given_name'     => 'Tesg',
+                        'family_name'    => 'Test',
+                        'phone'          => null,
+                        'phone_verified' => null,
+                        'organization'   => $organization,
+                        'permissions'    => [],
+                        'photo'          => null,
+                        'enabled'        => true,
+                        'title'          => null,
+                        'academic_title' => null,
+                        'office_phone'   => null,
+                        'mobile_phone'   => null,
+                        'contact_email'  => null,
+                        'job_title'      => null,
+                        'locale'         => null,
+                        'homepage'       => null,
+                        'timezone'       => null,
+                        'company'        => null,
+                    ];
+                },
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'typ'                => 'Bearer',
+                        'scope'              => 'openid profile email',
+                        'email_verified'     => true,
+                        'name'               => 'Tesg Test',
+                        'preferred_username' => 'dun00101@eoopy.com',
+                        'given_name'         => 'Tesg',
+                        'family_name'        => 'Test',
+                        'email'              => 'dun00101@eoopy.com',
+                        'reseller_access'    => [
+                            $organization->keycloak_scope => true,
+                        ],
+                        'enabled'            => true,
+                        'timezone'           => 'invalid',
                     ];
                 },
             ],
