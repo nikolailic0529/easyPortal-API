@@ -43,9 +43,6 @@ class Update {
                     $user->locale         = $value;
                     $attributes['locale'] = Map::getKeycloakLocale($value);
                     break;
-                case 'timezone':
-                    $user->timezone = $value;
-                    break;
                 case 'photo':
                     $photo               = $this->store($user, $value);
                     $user->photo         = $photo;

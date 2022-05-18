@@ -85,6 +85,9 @@ class UsersImporterTest extends TestCase {
                 'homepage'       => [
                     'https://example.com/',
                 ],
+                'timezone'       => [
+                    'Europe/Berlin',
+                ],
             ],
         ]);
 
@@ -145,6 +148,7 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
         self::assertEquals($user->locale, Map::getAppLocale($keycloakUser->attributes['locale'][0]));
         self::assertEquals($user->homepage, $keycloakUser->attributes['homepage'][0]);
+        self::assertEquals($user->timezone, $keycloakUser->attributes['timezone'][0]);
 
         // Test
         $expected = [

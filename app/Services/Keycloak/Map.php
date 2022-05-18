@@ -2,6 +2,9 @@
 
 namespace App\Services\Keycloak;
 
+use Illuminate\Contracts\Validation\Factory;
+
+use function app;
 use function array_search;
 
 class Map {
@@ -21,5 +24,13 @@ class Map {
 
     public static function getAppLocale(?string $keycloakLocale): ?string {
         return self::$locales[$keycloakLocale] ?? null;
+    }
+
+    public static function getAppTimezone(?string $keycloakTimezone): ?string {
+        $factory   = app()->make(Factory::class);
+        $validator = $factory->make(['value' => $keycloakTimezone], ['value' => 'nullable|timezone']);
+        $timezone  = $validator->fails() ? null : $keycloakTimezone;
+
+        return $timezone;
     }
 }

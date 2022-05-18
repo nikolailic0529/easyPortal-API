@@ -113,6 +113,7 @@ class UsersImporter extends IteratorProcessor {
         $user->company        = $attributes['company'][0] ?? null;
         $user->photo          = $attributes['photo'][0] ?? null;
         $user->locale         = Map::getAppLocale($attributes['locale'][0] ?? null);
+        $user->timezone       = Map::getAppTimezone($attributes['timezone'][0] ?? null);
         $user->homepage       = $attributes['homepage'][0] ?? null;
         $user->organizations  = $this->getUserOrganizations($user, $item);
         $user->synced_at      = Date::now();

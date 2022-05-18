@@ -73,6 +73,7 @@ While Sing In the application will update user properties from Access Token clai
 | `contact_email`          | profile      | contact_email         | User Attribute | `contact_email`       | string          |
 | `academic_title`         | profile      | academic_title        | User Attribute | `academic_title`      | string          |
 | `homepage`               | profile      | homepage              | User Attribute | `homepage`            | string          |
+| `timezone`               | profile      | timezone              | User Attribute | `timezone`            | string          |
 | `phone_number`ᴰ          | phone        | phone number          | User Attribute | `phoneNumber`         | string          |
 | `phone_number_verified`ᴰ | phone        | phone number verified | User Attribute | `phoneNumberVerified` | boolean         |
 
