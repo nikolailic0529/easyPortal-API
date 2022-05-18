@@ -41,7 +41,7 @@ class Update {
                     break;
                 case 'locale':
                     $user->locale         = $value;
-                    $attributes['locale'] = $value ? Map::getKeycloakLocale($value) : null;
+                    $attributes['locale'] = Map::getKeycloakLocale($value);
                     break;
                 case 'timezone':
                     $user->timezone = $value;

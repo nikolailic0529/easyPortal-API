@@ -15,11 +15,11 @@ class Map {
         'it' => 'it_IT',
     ];
 
-    public static function getKeycloakLocale(string $appLocale): string {
+    public static function getKeycloakLocale(?string $appLocale): ?string {
         return array_search($appLocale, self::$locales, true) ?: $appLocale;
     }
 
-    public static function getAppLocale(string $keycloakLocale): ?string {
+    public static function getAppLocale(?string $keycloakLocale): ?string {
         return self::$locales[$keycloakLocale] ?? null;
     }
 }

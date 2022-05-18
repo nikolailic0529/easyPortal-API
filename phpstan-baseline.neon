@@ -14726,11 +14726,6 @@ parameters:
 			path: app/Services/Organization/Listeners/OrganizationUpdater.php
 
 		-
-			message: "#^Parameter \\#1 \\$keycloakLocale of static method App\\\\Services\\\\Keycloak\\\\Map\\:\\:getAppLocale\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdater.php
-
-		-
 			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
