@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Processors;
 
-use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Processors\Concerns\WithModels;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\CompositeState;
@@ -10,7 +10,6 @@ use App\Utils\Processor\State;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Model;
 
 use function array_map;
 use function array_merge;
@@ -20,9 +19,9 @@ use function array_merge;
  */
 class ModelsProcessor extends CompositeProcessor {
     /**
-     * @var array<int, class-string<Model&Searchable>>
+     * @use WithModels<\Illuminate\Database\Eloquent\Model&Searchable>>
      */
-    protected array $models;
+    use WithModels;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -31,25 +30,6 @@ class ModelsProcessor extends CompositeProcessor {
     ) {
         parent::__construct($exceptionHandler, $dispatcher);
     }
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    /**
-     * @param array<int, class-string<Model&Searchable>> $models
-     */
-    public function setModels(array $models): static {
-        $this->models = $models;
-
-        return $this;
-    }
-
-    /**
-     * @return array<int, class-string<Model&Searchable>>
-     */
-    public function getModels(): array {
-        return $this->models;
-    }
-    // </editor-fold>
 
     // <editor-fold desc="Description">
     // =========================================================================

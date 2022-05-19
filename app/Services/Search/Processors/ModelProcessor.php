@@ -7,7 +7,8 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Exceptions\ElasticReadonly;
 use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Exceptions\FailedToIndex;
-use App\Services\Search\Exceptions\IndexError;
+use App\Services\Search\Exceptions\ProcessorError;
+use App\Services\Search\Processors\Concerns\WithModel;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
@@ -40,10 +41,11 @@ use function mb_strpos;
  */
 class ModelProcessor extends EloquentProcessor {
     /**
-     * @var class-string<TItem>
+     * @use WithModel<TItem>
      */
-    private string $model;
-    private bool   $rebuild;
+    use WithModel;
+
+    private bool $rebuild;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -62,22 +64,6 @@ class ModelProcessor extends EloquentProcessor {
 
     protected function getClient(): Client {
         return $this->client;
-    }
-
-    /**
-     * @return class-string<TItem>
-     */
-    public function getModel(): string {
-        return $this->model;
-    }
-
-    /**
-     * @param class-string<TItem> $model
-     */
-    public function setModel(string $model): static {
-        $this->model = $model;
-
-        return $this;
     }
 
     public function isRebuild(): bool {
@@ -167,7 +153,7 @@ class ModelProcessor extends EloquentProcessor {
         $this->getExceptionHandler()->report(
             $item
                 ? new FailedToIndex($this, $item, $exception)
-                : new IndexError($this, $exception),
+                : new ProcessorError($this, $exception),
         );
     }
 
