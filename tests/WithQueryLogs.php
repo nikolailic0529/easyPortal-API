@@ -19,9 +19,13 @@ trait WithQueryLogs {
     use WithTestData;
     use WithQueryLog;
 
-    protected function assertQueryLogEquals(string $expected, QueryLog $log, string $message = ''): void {
+    /**
+     * @param QueryLog|array<array{query: string, bindings: array<mixed>}> $log
+     */
+    protected function assertQueryLogEquals(string $expected, QueryLog|array $log, string $message = ''): void {
         $data    = $this->getTestData();
-        $queries = $this->cleanupQueryLog($log->get());
+        $queries = $log instanceof QueryLog ? $log->get() : $log;
+        $queries = $this->cleanupQueryLog($queries);
         $actual  = json_encode($queries, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR);
         $content = trim($data->content($expected));
 
@@ -33,7 +37,7 @@ trait WithQueryLogs {
     }
 
     /**
-     * @param array<array{query: string, bindings: array<mixed>, time: float|null}> $queries
+     * @param array<array{query: string, bindings: array<mixed>, time?: float|null}> $queries
      *
      * @return array<array{query: string, bindings: array<mixed>}>
      */

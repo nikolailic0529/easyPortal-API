@@ -1,0 +1,26 @@
+[
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` DROP INDEX `ftx__name`;",
+        "bindings": []
+    },
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` ADD FULLTEXT KEY `ftx__name` (`name`) INVISIBLE",
+        "bindings": []
+    },
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` DROP INDEX `ftx__description`;",
+        "bindings": []
+    },
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` ADD FULLTEXT KEY `ftx__description` (`description`) INVISIBLE WITH PARSER `ngram`",
+        "bindings": []
+    },
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` DROP INDEX `ftx__name__description`;",
+        "bindings": []
+    },
+    {
+        "query": "ALTER TABLE `testing__search__fulltext_processors` ADD FULLTEXT KEY `ftx__name__description` (`description`,`name`) WITH PARSER `ngram`",
+        "bindings": []
+    }
+]

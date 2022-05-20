@@ -19,7 +19,7 @@ use function array_merge;
  */
 class ModelsProcessor extends CompositeProcessor {
     /**
-     * @use WithModels<\Illuminate\Database\Eloquent\Model&Searchable>>
+     * @use WithModels<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
      */
     use WithModels;
 

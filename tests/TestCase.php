@@ -30,6 +30,7 @@ use Tests\GraphQL\ASTBuilderPersistent;
 use Tests\Helpers\SequenceDateFactory;
 use Tests\Helpers\SequenceUuidFactory;
 
+use function array_merge;
 use function array_shift;
 use function file_put_contents;
 use function pathinfo;
@@ -39,7 +40,8 @@ use const PATHINFO_EXTENSION;
 abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
     use RefreshDatabaseIfEmpty {
-        RefreshDatabaseIfEmpty::refreshTestDatabase as protected laraaspRefreshTestDatabase;
+        refreshTestDatabase as databaseRefreshTestDatabase;
+        migrateFreshUsing as databaseMigrateFreshUsing;
     }
     use MakesGraphQLRequests;
     use WithTranslations;
@@ -136,7 +138,7 @@ abstract class TestCase extends BaseTestCase {
             }
         }
 
-        $this->laraaspRefreshTestDatabase();
+        $this->databaseRefreshTestDatabase();
     }
 
     /**
@@ -201,5 +203,20 @@ abstract class TestCase extends BaseTestCase {
         self::assertInstanceOf(PendingCommand::class, $result);
 
         return $result;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function migrateFreshUsing(): array {
+        $migrator = $this->app->make('migrator');
+
+        return array_merge($this->databaseMigrateFreshUsing(), [
+            '--realpath' => true,
+            '--path'     => array_merge($migrator->paths(), [
+                $this->app->databasePath('migrations'),
+                $this->app->databasePath('testing'),
+            ]),
+        ]);
     }
 }
