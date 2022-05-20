@@ -926,22 +926,22 @@ parameters:
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Metadata.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\Contains\\:\\:match\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/Contains.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\ContainsTest\\:\\:testApply\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\ContainsTest\\:\\:testApply\\(\\) has parameter \\$builderFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/ContainsTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWith\\:\\:match\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWith.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWithTest\\:\\:testApply\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
+			message: "#^Method App\\\\GraphQL\\\\Extensions\\\\LaraAsp\\\\SearchBy\\\\Operators\\\\Comparison\\\\EndsWithTest\\:\\:testApply\\(\\) has parameter \\$builderFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Extensions/LaraAsp/SearchBy/Operators/Comparison/EndsWithTest.php
 

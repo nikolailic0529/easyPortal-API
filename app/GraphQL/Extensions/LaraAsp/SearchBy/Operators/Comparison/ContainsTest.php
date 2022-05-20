@@ -24,14 +24,17 @@ class ContainsTest extends TestCase {
      * @dataProvider dataProviderApply
      *
      * @param array{query: string, bindings: array<mixed>} $expected
+     * @param array<string,mixed>                          $settings
      */
     public function testApply(
         array $expected,
-        Closure $builder,
+        Closure $builderFactory,
+        array $settings,
         string $property,
         bool $fulltext,
         mixed $value,
     ): void {
+        $this->setSettings($settings);
         $this->override(Metadata::class, static function (MockInterface $mock) use ($property, $fulltext): void {
             $mock
                 ->shouldReceive('isFulltextIndexExists')
@@ -41,7 +44,7 @@ class ContainsTest extends TestCase {
         });
 
         $operator = $this->app->make(Contains::class);
-        $builder  = $builder($this);
+        $builder  = $builderFactory($this);
         $builder  = $operator->apply($builder, $property, $value);
 
         self::assertDatabaseQueryEquals($expected, $builder);
@@ -57,7 +60,7 @@ class ContainsTest extends TestCase {
         return (new CompositeDataProvider(
             new BuilderDataProvider(),
             new ArrayDataProvider([
-                'with fulltext'    => [
+                'with fulltext'                                          => [
                     [
                         'query'    => <<<'SQL'
                             select *
@@ -72,20 +75,40 @@ class ContainsTest extends TestCase {
                             'a%b',
                         ],
                     ],
+                    [
+                        'ep.search.fulltext.ngram_token_size' => 2,
+                    ],
                     'property',
                     true,
                     'a%b',
                 ],
-                'without fulltext' => [
+                'without fulltext'                                       => [
                     [
                         'query'    => 'select * from `tmp` where `property` LIKE ? ESCAPE \'!\'',
                         'bindings' => [
                             '%a!%b%',
                         ],
                     ],
+                    [
+                        'ep.search.fulltext.ngram_token_size' => 2,
+                    ],
                     'property',
                     false,
                     'a%b',
+                ],
+                'value shorter than ep.search.fulltext.ngram_token_size' => [
+                    [
+                        'query'    => 'select * from `tmp` where `property` LIKE ? ESCAPE \'!\'',
+                        'bindings' => [
+                            '%abc%',
+                        ],
+                    ],
+                    [
+                        'ep.search.fulltext.ngram_token_size' => 4,
+                    ],
+                    'property',
+                    true,
+                    'abc',
                 ],
             ]),
         ))->getData();
