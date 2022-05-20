@@ -3,7 +3,7 @@
 namespace App\Services\Search\Commands;
 
 use App\Services\I18n\Formatter;
-use App\Services\Search\Processor\ModelsProcessor;
+use App\Services\Search\Processors\ModelsProcessor;
 use App\Services\Search\Service;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use Illuminate\Console\Command;
@@ -18,6 +18,7 @@ use function class_exists;
 use function count;
 use function implode;
 use function is_a;
+use function sort;
 
 /**
  * @extends ProcessorCommand<ModelsProcessor>
@@ -64,6 +65,8 @@ class IndexesRebuild extends ProcessorCommand {
 
             return Command::FAILURE;
         }
+
+        sort($models);
 
         // Run
         return $this->process($formatter, $processor->setModels($models));

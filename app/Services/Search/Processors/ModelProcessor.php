@@ -1,13 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Processor;
+namespace App\Services\Search\Processors;
 
 use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Exceptions\ElasticReadonly;
 use App\Services\Search\Exceptions\ElasticUnavailable;
 use App\Services\Search\Exceptions\FailedToIndex;
-use App\Services\Search\Exceptions\IndexError;
+use App\Services\Search\Exceptions\ProcessorError;
+use App\Services\Search\Processors\Concerns\WithModel;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
@@ -34,16 +35,17 @@ use function mb_strpos;
 
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
- * @template TState of \App\Services\Search\Processor\State<TItem>
+ * @template TState of \App\Services\Search\Processors\ModelProcessorState<TItem>
  *
  * @extends EloquentProcessor<TItem, null, TState>
  */
-class Processor extends EloquentProcessor {
+class ModelProcessor extends EloquentProcessor {
     /**
-     * @var class-string<TItem>
+     * @use WithModel<TItem>
      */
-    private string $model;
-    private bool   $rebuild;
+    use WithModel;
+
+    private bool $rebuild;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -62,22 +64,6 @@ class Processor extends EloquentProcessor {
 
     protected function getClient(): Client {
         return $this->client;
-    }
-
-    /**
-     * @return class-string<TItem>
-     */
-    public function getModel(): string {
-        return $this->model;
-    }
-
-    /**
-     * @param class-string<TItem> $model
-     */
-    public function setModel(string $model): static {
-        $this->model = $model;
-
-        return $this;
     }
 
     public function isRebuild(): bool {
@@ -100,7 +86,7 @@ class Processor extends EloquentProcessor {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Processor">
+    // <editor-fold desc="Processors">
     // =========================================================================
     protected function init(ProcessorState $state, ObjectIterator $iterator): void {
         if ($state->rebuild) {
@@ -126,8 +112,8 @@ class Processor extends EloquentProcessor {
     }
 
     /**
-     * @param State<TItem>     $state
-     * @param Model&Searchable $item
+     * @param ModelProcessorState<TItem> $state
+     * @param Model&Searchable           $item
      */
     protected function process(ProcessorState $state, mixed $data, mixed $item): void {
         $as   = $item->searchableAs();
@@ -167,7 +153,7 @@ class Processor extends EloquentProcessor {
         $this->getExceptionHandler()->report(
             $item
                 ? new FailedToIndex($this, $item, $exception)
-                : new IndexError($this, $exception),
+                : new ProcessorError($this, $exception),
         );
     }
 
@@ -195,8 +181,8 @@ class Processor extends EloquentProcessor {
     /**
      * @inheritDoc
      */
-    protected function restoreState(array $state): State {
-        return new State($state);
+    protected function restoreState(array $state): ModelProcessorState {
+        return new ModelProcessorState($state);
     }
 
     /**
@@ -219,7 +205,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function createIndex(State $state): string {
+    protected function createIndex(ModelProcessorState $state): string {
         $client = $this->getClient()->indices();
         $config = $this->getSearchConfiguration($state);
         $alias  = $config->getIndexAlias();
@@ -254,7 +240,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function switchIndex(State $state): void {
+    protected function switchIndex(ModelProcessorState $state): void {
         // Prepare
         $client  = $this->getClient()->indices();
         $config  = $this->getSearchConfiguration($state);
@@ -293,7 +279,7 @@ class Processor extends EloquentProcessor {
     /**
      * @param TState $state
      */
-    protected function getSearchConfiguration(State $state): Configuration {
+    protected function getSearchConfiguration(ModelProcessorState $state): Configuration {
         $model  = $state->model;
         $config = (new $model())->getSearchConfiguration();
 

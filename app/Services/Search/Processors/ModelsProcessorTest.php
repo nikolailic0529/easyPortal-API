@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Processor;
+namespace App\Services\Search\Processors;
 
 use App\Models\Customer;
 use Illuminate\Support\Facades\Event;
@@ -10,7 +10,7 @@ use Tests\WithQueryLogs;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Processor\ModelsProcessor
+ * @coversDefaultClass \App\Services\Search\Processors\ModelsProcessor
  */
 class ModelsProcessorTest extends TestCase {
     use WithQueryLogs;

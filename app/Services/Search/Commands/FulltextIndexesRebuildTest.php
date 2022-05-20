@@ -3,7 +3,7 @@
 namespace App\Services\Search\Commands;
 
 use App\Models\Customer;
-use App\Services\Search\Processors\ModelsProcessor;
+use App\Services\Search\Processors\FulltextsProcessor;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -13,25 +13,25 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Commands\IndexesRebuild
+ * @coversDefaultClass \App\Services\Search\Commands\FulltextIndexesRebuild
  */
-class IndexesRebuildTest extends TestCase {
+class FulltextIndexesRebuildTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testCommand(): void {
-        self::assertCommandDescription('ep:search-indexes-rebuild');
+        self::assertCommandDescription('ep:search-fulltext-indexes-rebuild');
     }
 
     /**
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $this->override(ModelsProcessor::class, static function (): MockInterface {
+        $this->override(FulltextsProcessor::class, static function (): MockInterface {
             $handler    = Mockery::mock(ExceptionHandler::class);
             $container  = Mockery::mock(Container::class);
             $dispatcher = Mockery::mock(Dispatcher::class);
-            $processor  = Mockery::mock(ModelsProcessor::class, [$handler, $dispatcher, $container]);
+            $processor  = Mockery::mock(FulltextsProcessor::class, [$handler, $dispatcher, $container]);
             $processor->makePartial();
             $processor
                 ->shouldReceive('setModels')
@@ -48,7 +48,7 @@ class IndexesRebuildTest extends TestCase {
 
         $this
             ->artisan(
-                'ep:search-indexes-rebuild',
+                'ep:search-fulltext-indexes-rebuild',
                 [
                     'model' => Customer::class,
                 ],

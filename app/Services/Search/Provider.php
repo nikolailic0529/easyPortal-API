@@ -3,6 +3,7 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Commands\FulltextIndexesRebuild;
 use App\Services\Search\Commands\IndexesRebuild;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
@@ -120,6 +121,7 @@ class Provider extends ServiceProvider {
     public function boot(): void {
         $this->bootCommands(
             IndexesRebuild::class,
+            FulltextIndexesRebuild::class,
         );
         $this->bootSchedule(
             AssetsIndexer::class,
