@@ -18,6 +18,7 @@ use function class_exists;
 use function count;
 use function implode;
 use function is_a;
+use function sort;
 
 /**
  * @extends ProcessorCommand<ModelsProcessor>
@@ -64,6 +65,8 @@ class IndexesRebuild extends ProcessorCommand {
 
             return Command::FAILURE;
         }
+
+        sort($models);
 
         // Run
         return $this->process($formatter, $processor->setModels($models));
