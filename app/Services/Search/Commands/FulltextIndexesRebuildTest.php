@@ -3,7 +3,8 @@
 namespace App\Services\Search\Commands;
 
 use App\Models\Customer;
-use App\Services\Search\Processors\FulltextProcessor;
+use App\Services\Search\Processors\FulltextsProcessor;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;
@@ -26,10 +27,11 @@ class FulltextIndexesRebuildTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $this->override(FulltextProcessor::class, static function (): MockInterface {
+        $this->override(FulltextsProcessor::class, static function (): MockInterface {
             $handler    = Mockery::mock(ExceptionHandler::class);
+            $container  = Mockery::mock(Container::class);
             $dispatcher = Mockery::mock(Dispatcher::class);
-            $processor  = Mockery::mock(FulltextProcessor::class, [$handler, $dispatcher]);
+            $processor  = Mockery::mock(FulltextsProcessor::class, [$handler, $dispatcher, $container]);
             $processor->makePartial();
             $processor
                 ->shouldReceive('setModels')

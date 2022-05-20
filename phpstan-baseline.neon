@@ -16631,9 +16631,19 @@ parameters:
 			path: app/Services/Search/Listeners/IndexExpiredListenerTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\FulltextProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\FulltextProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\Search\\\\Processors\\\\FulltextIndex\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Services\\\\Search\\\\Processors\\\\FulltextIndex\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/FulltextProcessor.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\FulltextsProcessor\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processors\\\\FulltextsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
+			count: 1
+			path: app/Services/Search/Processors/FulltextsProcessor.php
+
+		-
+			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Utils\\\\Processor\\\\CompositeState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(\\)\\: App\\\\Services\\\\Search\\\\Processors\\\\FulltextProcessor given\\.$#"
+			count: 1
+			path: app/Services/Search/Processors/FulltextsProcessor.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:trashed\\(\\)\\.$#"

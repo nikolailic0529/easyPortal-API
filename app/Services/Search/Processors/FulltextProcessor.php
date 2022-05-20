@@ -4,16 +4,16 @@ namespace App\Services\Search\Processors;
 
 use App\Services\Search\Exceptions\FailedToRebuildFulltextIndexes;
 use App\Services\Search\Exceptions\ProcessorError;
-use App\Services\Search\Processors\Concerns\WithModels;
+use App\Services\Search\Processors\Concerns\WithModel;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
+use Countable;
 use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Throwable;
 
-use function array_merge;
 use function count;
 use function explode;
 use function preg_match;
@@ -28,40 +28,44 @@ use function trim;
  * The `doctrine/dbal` doesn't support invisible indexes and parser for these
  * reasons the class uses raw sql.
  *
- * @extends Processor<class-string<Model>, null, FulltextProcessorState>
+ * @extends Processor<FulltextIndex, null, FulltextProcessorState>
  */
 class FulltextProcessor extends Processor {
     /**
-     * @use WithModels<Model>
+     * @use WithModel<Model>
      */
-    use WithModels;
+    use WithModel;
 
     // <editor-fold desc="Process">
     // =========================================================================
     protected function getTotal(State $state): ?int {
-        return count($state->models);
+        $iterator = $this->getIterator($state);
+        $count    = $iterator instanceof Countable
+            ? count($iterator)
+            : null;
+
+        return $count;
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator(
+        $model    = $this->getModelInstance($state);
+        $indexes  = $this->getFulltextIndexes($model);
+        $iterator = new ObjectsIterator(
             $this->getExceptionHandler(),
-            $state->models,
+            $indexes,
         );
+
+        return $iterator;
     }
 
     protected function process(State $state, mixed $data, mixed $item): void {
-        /** @var Model $model */
-        $model   = new $item();
-        $table   = $model->getTable();
-        $indexes = $this->getFulltextIndexes($model);
-        $queries = [];
+        $model = $this->getModelInstance($state);
+        $table = $model->getTable();
 
-        foreach ($indexes as $index) {
-            $queries[] = "ALTER TABLE `{$table}` DROP INDEX `{$index->getName()}`;";
-            $queries[] = "ALTER TABLE `{$table}` ADD {$index->getSql()}";
-        }
-
-        $this->execute($model, $queries);
+        $this->execute($model, [
+            "ALTER TABLE `{$table}` DROP INDEX `{$item->getName()}`;",
+            "ALTER TABLE `{$table}` ADD {$item->getSql()}",
+        ]);
     }
 
     protected function report(Throwable $exception, mixed $item = null): void {
@@ -88,19 +92,14 @@ class FulltextProcessor extends Processor {
     protected function restoreState(array $state): State {
         return new FulltextProcessorState($state);
     }
-
-    /**
-     * @inheritDoc
-     */
-    protected function defaultState(array $state): array {
-        return array_merge(parent::defaultState($state), [
-            'models' => $this->getModels(),
-        ]);
-    }
     // </editor-fold>
 
     // <editor-fold desc="Functions">
     // =========================================================================
+    protected function getModelInstance(FulltextProcessorState $state): Model {
+        return new ($state->model)();
+    }
+
     /**
      * @return array<FulltextIndex>
      */
@@ -115,7 +114,7 @@ class FulltextProcessor extends Processor {
             $line = preg_replace('#/\*![^\s]+\s(.+?)\s\*/#ui', '$1', $line) ?? '';
 
             if (str_starts_with($line, 'FULLTEXT ') && preg_match($regexp, $line, $matches)) {
-                $indexes[] = new FulltextIndex($matches[1], $line);
+                $indexes[] = new FulltextIndex($model::class, $matches[1], $line);
             }
         }
 

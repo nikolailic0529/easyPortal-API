@@ -3,26 +3,24 @@
 namespace App\Services\Search\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
+use App\Services\Search\Processors\FulltextIndex;
 use App\Services\Search\Processors\FulltextProcessor;
 use App\Services\Search\ServiceException;
-use Illuminate\Database\Eloquent\Model;
 use Throwable;
 
 use function sprintf;
 
 class FailedToRebuildFulltextIndexes extends ServiceException implements GenericException {
-    /**
-     * @param class-string<Model> $model
-     */
     public function __construct(
         protected FulltextProcessor $processor,
-        protected string $model,
+        protected FulltextIndex $index,
         Throwable $previous = null,
     ) {
         parent::__construct(
             sprintf(
-                'Failed to rebuild FULLTEXT indexes for `%s`.',
-                $this->model,
+                'Failed to rebuild FULLTEXT index `%s` for `%s`.',
+                $this->index->getName(),
+                $this->index->getModel(),
             ),
             $previous,
         );

@@ -1,5 +1,5 @@
 Description:
-  Rebuild the FULLTEXT indexes for the given model(s).
+  Rebuild the FULLTEXT indexes for models.
 
 Usage:
   ep:search-fulltext-indexes-rebuild [options] [--] [<model>...]

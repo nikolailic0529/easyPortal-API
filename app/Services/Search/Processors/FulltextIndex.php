@@ -2,21 +2,22 @@
 
 namespace App\Services\Search\Processors;
 
-use SplPriorityQueue;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * @extends SplPriorityQueue<int, string>
- */
-class FulltextIndex extends SplPriorityQueue {
+class FulltextIndex {
     /**
-     * @noinspection PhpMissingParentConstructorInspection
-     * @phpstan-ignore-next-line https://github.com/php/php-src/issues/8457
+     * @param class-string<Model> $model
      */
     public function __construct(
+        protected string $model,
         protected string $name,
         protected string $sql,
     ) {
         // empty
+    }
+
+    public function getModel(): string {
+        return $this->model;
     }
 
     public function getName(): string {

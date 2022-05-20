@@ -10,6 +10,7 @@ use Tests\TestCase;
 use Tests\WithQueryLogs;
 
 use function array_map;
+use function array_merge;
 
 /**
  * @internal
@@ -30,9 +31,10 @@ class FulltextProcessorTest extends TestCase {
         $processor->makePartial();
         $processor
             ->shouldReceive('execute')
+            ->atLeast()
             ->once()
             ->andReturnUsing(static function (Model $model, array $queries) use (&$log): void {
-                $log = array_map(
+                $log = array_merge($log, array_map(
                     static function (string $query): array {
                         return [
                             'query'    => $query,
@@ -40,11 +42,11 @@ class FulltextProcessorTest extends TestCase {
                         ];
                     },
                     $queries,
-                );
+                ));
             });
 
         $processor
-            ->setModels([FulltextProcessorTest_Model::class])
+            ->setModel(FulltextProcessorTest_Model::class)
             ->start();
 
         self::assertQueryLogEquals('~queries.json', $log);
@@ -57,8 +59,6 @@ class FulltextProcessorTest extends TestCase {
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
- *
- * @property string $id
  */
 class FulltextProcessorTest_Model extends Model {
     /**

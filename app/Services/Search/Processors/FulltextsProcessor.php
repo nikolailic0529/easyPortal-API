@@ -14,11 +14,13 @@ use Illuminate\Contracts\Events\Dispatcher;
 use function array_map;
 
 /**
- * @extends CompositeProcessor<ModelsProcessorState>
+ * Rebuild FULLTEXT indexes for Models.
+ *
+ * @extends CompositeProcessor<FulltextsProcessorState>
  */
-class ModelsProcessor extends CompositeProcessor {
+class FulltextsProcessor extends CompositeProcessor {
     /**
-     * @use WithModels<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
+     * @use WithModels<\Illuminate\Database\Eloquent\Model>
      */
     use WithModels;
 
@@ -38,8 +40,8 @@ class ModelsProcessor extends CompositeProcessor {
     protected function getOperations(CompositeState $state): array {
         return array_map(
             function (string $model): CompositeOperation {
-                return new CompositeOperation($model, function () use ($model): ModelProcessor {
-                    return $this->container->make(ModelProcessor::class)->setModel($model)->setRebuild(true);
+                return new CompositeOperation($model, function () use ($model): FulltextProcessor {
+                    return $this->container->make(FulltextProcessor::class)->setModel($model);
                 });
             },
             $state->models,
@@ -53,7 +55,7 @@ class ModelsProcessor extends CompositeProcessor {
      * @inheritDoc
      */
     protected function restoreState(array $state): State {
-        return new ModelsProcessorState($state);
+        return new FulltextsProcessorState($state);
     }
     // </editor-fold>
 }

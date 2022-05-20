@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FulltextProcessorState extends State {
     /**
-     * @var array<class-string<Model>>
+     * @var class-string<Model>
      */
-    public array $models;
+    public string $model;
 }

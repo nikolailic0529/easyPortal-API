@@ -2,6 +2,8 @@
 
 namespace App\Services\Search\Processors\Concerns;
 
+use function array_merge;
+
 /**
  * @template TItem of \Illuminate\Database\Eloquent\Model
  */
@@ -25,5 +27,14 @@ trait WithModels {
         $this->models = $models;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function defaultState(array $state): array {
+        return array_merge(parent::defaultState($state), [
+            'models' => $this->getModels(),
+        ]);
     }
 }

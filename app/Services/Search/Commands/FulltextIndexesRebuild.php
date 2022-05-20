@@ -3,7 +3,7 @@
 namespace App\Services\Search\Commands;
 
 use App\Services\I18n\Formatter;
-use App\Services\Search\Processors\FulltextProcessor;
+use App\Services\Search\Processors\FulltextsProcessor;
 use App\Utils\Processor\Commands\ProcessorCommand;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
@@ -19,10 +19,11 @@ use function class_exists;
 use function count;
 use function implode;
 use function is_a;
+use function sort;
 use function str_contains;
 
 /**
- * @extends ProcessorCommand<FulltextProcessor>
+ * @extends ProcessorCommand<FulltextsProcessor>
  */
 class FulltextIndexesRebuild extends ProcessorCommand {
     /**
@@ -30,7 +31,7 @@ class FulltextIndexesRebuild extends ProcessorCommand {
      *
      * @var string
      */
-    protected $description = 'Rebuild the FULLTEXT indexes for the given model(s).';
+    protected $description = 'Rebuild the FULLTEXT indexes for models.';
 
     /**
      * @inheritDoc
@@ -45,7 +46,7 @@ class FulltextIndexesRebuild extends ProcessorCommand {
             ->all();
     }
 
-    public function __invoke(Formatter $formatter, FulltextProcessor $processor): int {
+    public function __invoke(Formatter $formatter, FulltextsProcessor $processor): int {
         // Models
         $models  = array_values(array_unique((array) $this->argument('model')) ?: Relation::$morphMap);
         $valid   = array_filter($models, static function (string $model): bool {
@@ -65,6 +66,8 @@ class FulltextIndexesRebuild extends ProcessorCommand {
 
             return Command::FAILURE;
         }
+
+        sort($valid);
 
         // Return
         return $this->process($formatter, $processor->setModels($valid));
