@@ -11,18 +11,21 @@
 | Elasticsearch | [~7.10.0](https://www.elastic.co/) + [passwords for default users](https://www.elastic.co/guide/en/elasticsearch/reference/current/built-in-users.html) |
 | Other         | Run `composer check-platform-reqs` to get list of required PHP extensions.                                                                              |
 
-
 ### MySQL
 
-| Property                    | Value                | Description                                                            |
-|-----------------------------|----------------------|------------------------------------------------------------------------|
-| `character_set_server`      | `utf8mb4`            | Default Charset[^1]                                                    |
-| `collation_server`          | `utf8mb4_0900_as_ci` | Default Collation[^1]                                                  |
-| `default_storage_engine`    | `InnoDB`             |                                                                        |
-| `innodb_default_row_format` | DYNAMIC/COMPRESSED   | "Large Index Key Prefix Support" required                              |
-| Fulltext `ngram` parser     | required             | See https://dev.mysql.com/doc/refman/8.0/en/fulltext-search-ngram.html |
-| `innodb_ft_enable_stopword` | `0`                  |                                                                        |
-| `ngram_token_size`          | `1`                  | Depended on min searchable word length.                                |
+| Property                    | Value                 | Description                                                             |
+|-----------------------------|-----------------------|-------------------------------------------------------------------------|
+| `character_set_server`      | `utf8mb4`ᴿ            | Default Charset[^1]                                                     |
+| `collation_server`          | `utf8mb4_0900_as_ci`ᴿ | Default Collation[^1]                                                   |
+| `default_storage_engine`    | `InnoDB`ᴿ             |                                                                         |
+| `innodb_default_row_format` | DYNAMIC/COMPRESSED    | "Large Index Key Prefix Support" required                               |
+| Fulltext `ngram` parser     | required              | See https://dev.mysql.com/doc/refman/8.0/en/fulltext-search-ngram.html  |
+| `innodb_ft_enable_stopword` | `0`                   |                                                                         |
+| `ngram_token_size`          | `2`ᴰ                  | The `EP_SEARCH_FULLTEXT_NGRAM_TOKEN_SIZE` should be set to this value.  |
+
+Legend:
+* ᴿ - required
+* ᴰ - default/recommended value
 
 [^1]: can be set on database level, but should be applied for all app databases.
 
@@ -38,7 +41,6 @@
 * [GraphQL Cache](./docs/Application-GraphQL-Cache.md)
 * [Data Loader](./docs/DataLoader.md)
 * [Keycloak Settings](docs/Keycloak/README.md)
-
 
 ### Development
 
