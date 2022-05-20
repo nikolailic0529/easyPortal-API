@@ -1433,11 +1433,10 @@ interface Constants {
     /**
      * Minimal search string length to use FULLTEXT indexes in conditions.
      *
-     * The value should be the same as MySQL `ngram_token_size` setting. If value
-     * decreased, you should run `ep:search-fulltext-indexes-rebuild` to recreate
-     * FULLTEXT indexes, or you will get unexpected results while filtering. If
-     * value increased, rebuild is not required but recommended to better
-     * performance.
+     * The value should be the same as MySQL `ngram_token_size` setting. Please
+     * note that after changing the value of `ngram_token_size` you should run
+     * `ep:search-fulltext-indexes-rebuild` to recreate FULLTEXT indexes, or
+     * you will get unexpected results while filtering.
      *
      * The commended value is `2`, but you are free for experiments.
      */
