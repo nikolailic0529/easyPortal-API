@@ -8,6 +8,7 @@ use Carbon\CarbonInterval;
 use Closure;
 use DateInterval;
 use DateTimeInterface;
+use Illuminate\Cache\Lock;
 use Illuminate\Contracts\Cache\Factory as CacheFactory;
 use Illuminate\Contracts\Cache\LockProvider;
 use Illuminate\Contracts\Cache\LockTimeoutException;
@@ -88,6 +89,13 @@ class Cache {
         return $isLocked;
     }
 
+    /**
+     * @template T
+     *
+     * @param Closure(): T $closure
+     *
+     * @return T
+     */
     public function lock(mixed $key, Closure $closure): mixed {
         // Possible?
         $provider = $this->getLockProvider();
@@ -102,6 +110,10 @@ class Cache {
         $wait = new CarbonInterval($this->config->get('ep.cache.graphql.lock_wait') ?: 'PT35S');
         $lock = $provider->lock($key, (int) $time->totalSeconds);
 
+        if ($lock instanceof Lock) {
+            $lock->betweenBlockedAttemptsSleepFor($this->getLockSleepTimeMs());
+        }
+
         try {
             return $lock->block((int) $wait->totalSeconds, $closure);
         } catch (LockTimeoutException) {
@@ -111,11 +123,25 @@ class Cache {
         }
     }
 
-    public function isSlowQuery(float $time): bool {
+    public function isQueryWasLocked(?float $time): bool {
+        $threshold = $this->getLockSleepTimeMs();
+        $slept     = $threshold <= 0 || ($time !== null && $time >= $threshold);
+
+        return $slept;
+    }
+
+    public function isQuerySlow(?float $time): bool {
         $threshold = $this->config->get('ep.cache.graphql.threshold');
-        $slow      = $threshold === null || $threshold <= 0 || $time >= $threshold;
+        $slow      = $threshold === null || $threshold <= 0 || ($time !== null && $time >= $threshold);
 
         return $slow;
+    }
+
+    public function isQueryLockable(?float $time): bool {
+        $threshold = $this->config->get('ep.cache.graphql.lock_threshold');
+        $lockable  = $threshold === null || $threshold <= 0 || ($time !== null && $time >= $threshold);
+
+        return $lockable;
     }
 
     protected function getKey(mixed $key): string {
@@ -238,6 +264,10 @@ class Cache {
      */
     protected function getRandomNumber(): float {
         return mt_rand() / mt_getrandmax();
+    }
+
+    protected function getLockSleepTimeMs(): int {
+        return 250;
     }
 
     private function getLockProvider(): ?LockProvider {

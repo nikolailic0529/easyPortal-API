@@ -8,6 +8,7 @@ class CachedValue {
     public function __construct(
         public DateTimeInterface $created,
         public DateTimeInterface $expired,
+        public ?float $time,
         public mixed $value,
     ) {
         // empty

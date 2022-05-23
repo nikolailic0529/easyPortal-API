@@ -474,10 +474,20 @@ interface Constants {
     public const EP_CACHE_GRAPHQL_LOCK_WAIT = 'PT35S';
 
     /**
+     * GraphQL lock threshold (seconds with fraction part).
+     *
+     * Queries faster than this value will not use locks. The `0` disable
+     * threshold so all queries will use locks.
+     */
+    #[Setting('ep.cache.graphql.lock_threshold')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_LOCK_THRESHOLD = 2.5;
+
+    /**
      * GraphQL threshold (seconds with fraction part).
      *
-     * Nested queries faster than this value will not be cached. The `0`
-     * disable threshold so all queries will be cached.
+     * Queries faster than this value will not be cached. The `0` disable
+     * threshold so all queries will be cached.
      */
     #[Setting('ep.cache.graphql.threshold')]
     #[Group('cache')]

@@ -6,14 +6,9 @@ use LastDragon_ru\LaraASP\Core\Enum;
 
 class CachedMode extends Enum {
     /**
-     * In this mode all queries will be cached in addition the resolver will
-     * use Atomic Locks to reduce server load. The mode is designed for
-     * heavy/long queries.
-     *
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_TIMEOUT
-     * @see \Config\Constants::EP_CACHE_GRAPHQL_LOCK_WAIT
+     * In this mode all queries will be cached always.
      */
-    public static function lock(): static {
+    public static function normal(): static {
         return static::make(__FUNCTION__);
     }
 

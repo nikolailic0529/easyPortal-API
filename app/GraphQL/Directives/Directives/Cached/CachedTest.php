@@ -2,10 +2,12 @@
 
 namespace App\GraphQL\Directives\Directives\Cached;
 
+use App\GraphQL\Cache;
 use App\Models\Organization;
 use App\Utils\Cache\CacheKey;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use Mockery;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
@@ -139,8 +141,8 @@ class CachedTest extends TestCase {
             }
 
             public function resolveField(FieldValue $fieldValue): FieldValue {
-                return $fieldValue->setResolver(function (mixed $root): string {
-                    return (string) $this->getResolveMode($root);
+                return $fieldValue->setResolver(function (): string {
+                    return (string) $this->getResolveMode();
                 });
             }
         };
@@ -157,256 +159,23 @@ class CachedTest extends TestCase {
     /**
      * @covers ::resolve
      */
-    public function testResolveNotCachedModeLock(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
+    public function testResolveCachedActual(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function (): void {
             // empty
         });
-        $directive = Mockery::mock(Cached::class);
-        $directive->shouldAllowMockingProtectedMethods();
-        $directive->makePartial();
-        $directive
-            ->shouldReceive('getCacheKey')
-            ->once()
-            ->andReturn($key);
-        $directive
-            ->shouldReceive('getCachedValue')
-            ->with($key)
-            ->once()
-            ->andReturn([false, false, null]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->once()
-            ->andReturn(CachedMode::lock());
-        $directive
-            ->shouldReceive('resolveWithLock')
-            ->once()
-            ->with(
-                $key,
-                $resolver,
-                $root,
-                $args,
-                $context,
-                $resolve,
-            )
-            ->andReturn($value);
-
-        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
-
-        $resolver
-            ->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveNotCachedModeThreshold(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
-            // empty
-        });
-        $directive = Mockery::mock(Cached::class);
-        $directive->shouldAllowMockingProtectedMethods();
-        $directive->makePartial();
-        $directive
-            ->shouldReceive('getCacheKey')
-            ->once()
-            ->andReturn($key);
-        $directive
-            ->shouldReceive('getCachedValue')
-            ->with($key)
-            ->once()
-            ->andReturn([false, false, null]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->once()
-            ->andReturn(CachedMode::threshold());
-        $directive
-            ->shouldReceive('resolveWithThreshold')
-            ->once()
-            ->with(
-                $key,
-                $resolver,
-                $root,
-                $args,
-                $context,
-                $resolve,
-                false,
-            )
-            ->andReturn($value);
-
-        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
-
-        $resolver
-            ->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveCachedAndNotExpired(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
-            // empty
-        });
-        $directive = Mockery::mock(Cached::class);
-        $directive->shouldAllowMockingProtectedMethods();
-        $directive->makePartial();
-        $directive
-            ->shouldReceive('getCacheKey')
-            ->once()
-            ->andReturn($key);
-        $directive
-            ->shouldReceive('getCachedValue')
-            ->with($key)
-            ->once()
-            ->andReturn([true, false, $value]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->never();
-        $directive
-            ->shouldReceive('resolveWithLock')
-            ->never();
-        $directive
-            ->shouldReceive('resolveWithThreshold')
-            ->never();
-
-        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
-
-        $resolver
-            ->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveCachedExpiredModeThreshold(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
-            // empty
-        });
-        $directive = Mockery::mock(Cached::class);
-        $directive->shouldAllowMockingProtectedMethods();
-        $directive->makePartial();
-        $directive
-            ->shouldReceive('getCacheKey')
-            ->once()
-            ->andReturn($key);
-        $directive
-            ->shouldReceive('getCachedValue')
-            ->with($key)
-            ->once()
-            ->andReturn([true, true, null]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->once()
-            ->andReturn(CachedMode::threshold());
-        $directive
-            ->shouldReceive('resolveWithThreshold')
-            ->once()
-            ->with(
-                $key,
-                $resolver,
-                $root,
-                $args,
-                $context,
-                $resolve,
-                true,
-            )
-            ->andReturn($value);
-
-        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
-
-        $resolver
-            ->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveCachedExpiredModeLockNotLocked(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
-            // empty
-        });
-        $directive = Mockery::mock(Cached::class);
-        $directive->shouldAllowMockingProtectedMethods();
-        $directive->makePartial();
-        $directive
-            ->shouldReceive('getCacheKey')
-            ->once()
-            ->andReturn($key);
-        $directive
-            ->shouldReceive('getCachedValue')
-            ->with($key)
-            ->once()
-            ->andReturn([true, true, null]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->once()
-            ->andReturn(CachedMode::lock());
-        $directive
-            ->shouldReceive('resolveIsLocked')
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isExpired')
             ->once()
             ->andReturn(false);
-        $directive
-            ->shouldReceive('resolveWithLock')
-            ->once()
-            ->with(
-                $key,
-                $resolver,
-                $root,
-                $args,
-                $context,
-                $resolve,
-            )
-            ->andReturn($value);
 
-        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
-
-        $resolver
-            ->shouldNotHaveBeenCalled();
-    }
-
-    /**
-     * @covers ::resolve
-     */
-    public function testResolveCachedExpiredModeLockLocked(): void {
-        $key       = $this->faker->word();
-        $value     = $this->faker->sentence();
-        $root      = null;
-        $args      = [];
-        $context   = Mockery::mock(GraphQLContext::class);
-        $resolve   = Mockery::mock(ResolveInfo::class);
-        $resolver  = Mockery::spy(static function (): void {
-            // empty
-        });
-        $directive = Mockery::mock(Cached::class);
+        $directive = Mockery::mock(Cached::class, [$cache]);
         $directive->shouldAllowMockingProtectedMethods();
         $directive->makePartial();
         $directive
@@ -417,23 +186,351 @@ class CachedTest extends TestCase {
             ->shouldReceive('getCachedValue')
             ->with($key)
             ->once()
-            ->andReturn([true, true, $value]);
-        $directive
-            ->shouldReceive('getResolveMode')
-            ->once()
-            ->andReturn(CachedMode::lock());
-        $directive
-            ->shouldReceive('resolveIsLocked')
-            ->once()
-            ->andReturn(true);
-        $directive
-            ->shouldReceive('resolveWithLock')
-            ->never();
+            ->andReturn(
+                new CachedValue(Date::now(), Date::now(), null, $value),
+            );
 
         self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
 
         $resolver
             ->shouldNotHaveBeenCalled();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveCachedExpiredLockable(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function (): void {
+            // empty
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isExpired')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('isQueryLockable')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('isLocked')
+            ->once()
+            ->andReturn(true);
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::threshold());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(
+                new CachedValue(Date::now(), Date::now(), null, $value),
+            );
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldNotHaveBeenCalled();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveNotCachedNotLockable(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function () use ($value): mixed {
+            return $value;
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isQuerySlow')
+            ->once()
+            ->andReturn(true);
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::threshold());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(null);
+        $directive
+            ->shouldReceive('setCachedValue')
+            ->with($key, $value, Mockery::any())
+            ->once()
+            ->andReturn($value);
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldHaveBeenCalled()
+            ->once();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveNotCachedLockable(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function (): void {
+            // empty
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isQueryWasLocked')
+            ->once()
+            ->andReturn(false);
+        $cache
+            ->shouldReceive('lock')
+            ->with($key, Mockery::any())
+            ->once()
+            ->andReturnUsing(static function (mixed $key, Closure $resolver): mixed {
+                return $resolver();
+            });
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::normal());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(null);
+        $directive
+            ->shouldReceive('setCachedValue')
+            ->once()
+            ->andReturn($value);
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldHaveBeenCalled()
+            ->once();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveNotCachedLockableWasLockedButNotUpdatedInAnotherThread(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function () use ($value): mixed {
+            return $value;
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isExpired')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('isQueryWasLocked')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('lock')
+            ->with($key, Mockery::any())
+            ->once()
+            ->andReturnUsing(static function (mixed $key, Closure $resolver): mixed {
+                return $resolver();
+            });
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::normal());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(null);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(
+                new CachedValue(Date::now(), Date::now(), null, $value),
+            );
+        $directive
+            ->shouldReceive('setCachedValue')
+            ->once()
+            ->andReturn($value);
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldHaveBeenCalled()
+            ->once();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveNotCachedLockableWasLockedAndUpdatedInAnotherThread(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function (): void {
+            // empty
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isExpired')
+            ->once()
+            ->andReturn(false);
+        $cache
+            ->shouldReceive('isQueryWasLocked')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('lock')
+            ->with($key, Mockery::any())
+            ->once()
+            ->andReturnUsing(static function (mixed $key, Closure $resolver): mixed {
+                return $resolver();
+            });
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::normal());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(null);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(
+                new CachedValue(Date::now(), Date::now(), null, $value),
+            );
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldNotHaveBeenCalled();
+    }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveCachedExpiredThreshold(): void {
+        $key      = [$this->faker->word()];
+        $value    = $this->faker->sentence();
+        $root     = null;
+        $args     = [];
+        $context  = Mockery::mock(GraphQLContext::class);
+        $resolve  = Mockery::mock(ResolveInfo::class);
+        $resolver = Mockery::spy(static function () use ($value): mixed {
+            return $value;
+        });
+        $cache    = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('isExpired')
+            ->once()
+            ->andReturn(true);
+        $cache
+            ->shouldReceive('isQueryLockable')
+            ->once()
+            ->andReturn(false);
+        $cache
+            ->shouldReceive('isQuerySlow')
+            ->once()
+            ->andReturn(false);
+
+        $directive = Mockery::mock(Cached::class, [$cache]);
+        $directive->shouldAllowMockingProtectedMethods();
+        $directive->makePartial();
+        $directive
+            ->shouldReceive('getResolveMode')
+            ->once()
+            ->andReturn(CachedMode::threshold());
+        $directive
+            ->shouldReceive('getCacheKey')
+            ->once()
+            ->andReturn($key);
+        $directive
+            ->shouldReceive('getCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(
+                new CachedValue(Date::now(), Date::now(), null, null),
+            );
+        $directive
+            ->shouldReceive('deleteCachedValue')
+            ->with($key)
+            ->once()
+            ->andReturn(true);
+
+        self::assertEquals($value, $directive->resolve($resolver, $root, $args, $context, $resolve));
+
+        $resolver
+            ->shouldHaveBeenCalled()
+            ->once();
     }
     // </editor-fold>
 
@@ -681,7 +778,6 @@ class CachedTest extends TestCase {
      */
     public function dataProviderGetResolveMode(): array {
         $id           = 'b6369c49-6f20-4e05-8f5d-98d06bf871e6';
-        $model        = addslashes(Organization::class);
         $organization = static function () use ($id): Organization {
             return Organization::factory()->create([
                 'id' => $id,
@@ -689,8 +785,8 @@ class CachedTest extends TestCase {
         };
 
         return [
-            'default (root)'                      => [
-                new GraphQLSuccess('root', null, CachedMode::lock()),
+            'default (root)'                 => [
+                new GraphQLSuccess('root', null, CachedMode::normal()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -703,9 +799,9 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            'default (nested)'                    => [
+            'default (nested)'               => [
                 new GraphQLSuccess('root', null, [
-                    'id' => CachedMode::threshold(),
+                    'id' => CachedMode::normal(),
                 ]),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -725,12 +821,12 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            (string) CachedMode::lock()           => [
-                new GraphQLSuccess('root', null, CachedMode::lock()),
+            (string) CachedMode::normal()    => [
+                new GraphQLSuccess('root', null, CachedMode::normal()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
-                    root: String @cached(mode: Lock)
+                    root: String @cached(mode: Normal)
                 }
                 GRAPHQL,
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -739,7 +835,7 @@ class CachedTest extends TestCase {
                 }
                 GRAPHQL,
             ],
-            (string) CachedMode::threshold()      => [
+            (string) CachedMode::threshold() => [
                 new GraphQLSuccess('root', null, CachedMode::threshold()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
@@ -750,66 +846,6 @@ class CachedTest extends TestCase {
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
                     root
-                }
-                GRAPHQL,
-            ],
-            'aggregated (default) (without root)' => [
-                new GraphQLSuccess('aggregated', null, [
-                    'count' => CachedMode::lock(),
-                ]),
-                $organization,
-                /** @lang GraphQL */ <<<GRAPHQL
-                type Query {
-                    aggregated: Aggregated
-                    @aggregated(
-                        model: "{$model}"
-                    )
-                }
-
-                type Aggregated {
-                    count: String! @cached
-                }
-                GRAPHQL,
-                /** @lang GraphQL */ <<<'GRAPHQL'
-                query {
-                    aggregated {
-                        count
-                    }
-                }
-                GRAPHQL,
-            ],
-            'aggregated (default) (with root)'    => [
-                new GraphQLSuccess('models', null, [
-                    [
-                        'aggregated' => [
-                            'count' => CachedMode::threshold(),
-                        ],
-                    ],
-                ]),
-                $organization,
-                /** @lang GraphQL */ <<<GRAPHQL
-                type Query {
-                    models: [Organization!]! @all
-                }
-
-                type Organization {
-                    aggregated: Aggregated
-                    @aggregated(
-                        model: "{$model}"
-                    )
-                }
-
-                type Aggregated {
-                    count: String! @cached
-                }
-                GRAPHQL,
-                /** @lang GraphQL */ <<<'GRAPHQL'
-                query {
-                    models {
-                        aggregated {
-                            count
-                        }
-                    }
                 }
                 GRAPHQL,
             ],
