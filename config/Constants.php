@@ -491,7 +491,7 @@ interface Constants {
      */
     #[Setting('ep.cache.graphql.threshold')]
     #[Group('cache')]
-    public const EP_CACHE_GRAPHQL_THRESHOLD = 2.0;
+    public const EP_CACHE_GRAPHQL_THRESHOLD = 1.0;
 
     /**
      * GraphQL minimal lifetime for cached values.
