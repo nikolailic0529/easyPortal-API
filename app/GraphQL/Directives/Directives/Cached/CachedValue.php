@@ -3,8 +3,11 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use DateTimeInterface;
+use Illuminate\Queue\SerializesModels;
 
 class CachedValue {
+    use SerializesModels;
+
     public function __construct(
         public DateTimeInterface $created,
         public DateTimeInterface $expired,
