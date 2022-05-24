@@ -32,6 +32,8 @@ class Data {
         Asset::class       => [],
     ];
 
+    private bool $dirty = false;
+
     public function __construct() {
         // empty
     }
@@ -101,7 +103,35 @@ class Data {
         return $this;
     }
 
+    public function collectObjectChange(object $object): static {
+        // We are not interested in the list of changed objects now, so we just
+        // set the flag.
+        $this->dirty = $this->dirty
+            || ($object instanceof Model && $this->isModelChanged($object));
+
+        return $this;
+    }
+
     public function isEmpty(): bool {
         return Arr::first($this->data, static fn(array $data) => !!$data) === null;
+    }
+
+    public function isDirty(): bool {
+        return $this->dirty;
+    }
+
+    protected function isModelChanged(Model $model): bool {
+        // Created or Deleted?
+        if ($model->wasRecentlyCreated || !$model->exists) {
+            return true;
+        }
+
+        // Dirty?
+        $dirty = $model->getDirty();
+
+        unset($dirty[$model->getUpdatedAtColumn()]);
+        unset($dirty['synced_at']);
+
+        return (bool) $dirty;
     }
 }

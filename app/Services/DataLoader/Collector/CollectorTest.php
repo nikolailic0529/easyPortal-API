@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Collector;
 
+use App\Utils\Eloquent\Model;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
@@ -17,7 +18,7 @@ class CollectorTest extends TestCase {
      */
     public function testCollect(): void {
         // Mock
-        $collector = new Collector();
+        $collector = $this->app->make(Collector::class);
         $object    = new stdClass();
 
         $a = Mockery::mock(Data::class);
@@ -40,5 +41,38 @@ class CollectorTest extends TestCase {
 
         // Test
         $collector->collect($object);
+    }
+
+    /**
+     * @covers ::modelChanged
+     * @covers ::subscribe
+     */
+    public function testModelChanged(): void {
+        // Mock
+        $collector = $this->app->make(Collector::class);
+        $model     = new class() extends Model {
+            // empty
+        };
+
+        $a = Mockery::mock(Data::class);
+        $a
+            ->shouldReceive('collectObjectChange')
+            ->with($model)
+            ->once()
+            ->andReturns();
+
+        $b = Mockery::mock(Data::class);
+        $b
+            ->shouldReceive('collectObjectChange')
+            ->with($model)
+            ->once()
+            ->andReturns();
+
+        // Prepare
+        $collector->subscribe($a);
+        $collector->subscribe($b);
+
+        // Test
+        $collector->modelChanged($model);
     }
 }

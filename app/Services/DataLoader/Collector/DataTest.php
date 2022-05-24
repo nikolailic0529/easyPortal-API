@@ -8,6 +8,8 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Utils\Eloquent\Model;
+use Mockery;
 use stdClass;
 use Tests\TestCase;
 
@@ -80,5 +82,54 @@ class DataTest extends TestCase {
     public function testIsEmpty(): void {
         self::assertTrue((new Data())->isEmpty());
         self::assertFalse((new Data())->collect(Asset::factory()->make())->isEmpty());
+    }
+
+    /**
+     * @covers ::isDirty
+     */
+    public function testIsDirty(): void {
+        self::assertFalse((new Data())->isDirty());
+        self::assertTrue((new Data())->collectObjectChange(Asset::factory()->make())->isDirty());
+    }
+
+    /**
+     * @covers ::collectObjectChange
+     */
+    public function testCollectObjectChangeModel(): void {
+        $model = Mockery::mock(Model::class);
+        $data  = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->once()
+            ->andReturn(true);
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectChange($model);
+        $data->collectObjectChange($model);
+
+        self::assertTrue($data->isDirty());
+    }
+
+    /**
+     * @covers ::collectObjectChange
+     */
+    public function testCollectObjectChangeObject(): void {
+        $object = new stdClass();
+        $data   = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->never();
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectChange($object);
+        $data->collectObjectChange($object);
+
+        self::assertFalse($data->isDirty());
     }
 }
