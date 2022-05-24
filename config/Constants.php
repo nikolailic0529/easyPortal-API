@@ -21,7 +21,6 @@ use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleaner;
-use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
 use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
 use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator as RecalculatorResellersRecalculator;
@@ -1578,33 +1577,15 @@ interface Constants {
     // </editor-fold>
     // </editor-fold>
 
-    // <editor-fold desc="EP_JOBS">
+    // <editor-fold desc="EP_QUEUE">
     // =========================================================================
-    // <editor-fold desc="EP_JOBS_HORIZON_SNAPSHOT">
-    // -------------------------------------------------------------------------
     /**
-     * Enabled?
+     * Cron expression for `horizon:snapshot`.
      */
-    #[Service(QueueSnapshotCronJob::class, 'enabled')]
-    #[Group('jobs')]
-    public const EP_JOBS_HORIZON_SNAPSHOT_ENABLED = true;
-
-    /**
-     * Cron expression.
-     */
-    #[Service(QueueSnapshotCronJob::class, 'cron')]
-    #[Group('jobs')]
+    #[Setting('ep.queue.snapshot.cron')]
+    #[Group('queue')]
     #[Type(CronExpression::class)]
-    public const EP_JOBS_HORIZON_SNAPSHOT_CRON = '*/5 * * * *';
-
-    /**
-     * Queue name.
-     */
-    #[Service(QueueSnapshotCronJob::class, 'queue')]
-    #[Group('jobs')]
-    #[Internal]
-    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::QUEUE;
-    // </editor-fold>
+    public const EP_QUEUE_SNAPSHOT_CRON = '*/5 * * * *';
     // </editor-fold>
 
     // <editor-fold desc="EP_MAINTENANCE">

@@ -14901,6 +14901,11 @@ parameters:
 			path: app/Services/Queue/PingerTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$expression of method Illuminate\\\\Console\\\\Scheduling\\\\Event\\:\\:cron\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: app/Services/Queue/Provider.php
+
+		-
 			message: "#^Cannot access offset 'pushedAt' on mixed\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
