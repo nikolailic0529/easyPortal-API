@@ -18541,7 +18541,7 @@ parameters:
 			path: tests/Mixins/TranslatorMixin.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Translation\\\\Translator\\:\\:replaceLines\\(\\)\\.$#"
+			message: "#^Dynamic call to static method Illuminate\\\\Translation\\\\Translator\\:\\:replaceLines\\(\\)\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

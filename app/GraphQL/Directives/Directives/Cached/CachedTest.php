@@ -20,7 +20,6 @@ use Tests\WithGraphQLSchema;
 
 use function addslashes;
 use function json_encode;
-use function sprintf;
 
 /**
  * @internal
@@ -96,13 +95,7 @@ class CachedTest extends TestCase {
                         GraphQLContext $context,
                         ResolveInfo $resolveInfo,
                     ): mixed {
-                        return (string) new class(
-                            $this->getCacheKey($root, $args, $context, $resolveInfo),
-                        ) extends CacheKey {
-                            protected function hash(string $value): string {
-                                return $value;
-                            }
-                        };
+                        return $this->getCacheKey($root, $args, $context, $resolveInfo);
                     },
                 );
             }
@@ -160,7 +153,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedActual(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -200,7 +193,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedExpiredLockable(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -252,7 +245,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedNotLockable(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -300,7 +293,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedLockable(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -354,7 +347,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedLockableWasLockedButNotUpdatedInAnotherThread(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -419,7 +412,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveNotCachedLockableWasLockedAndUpdatedInAnotherThread(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -479,7 +472,7 @@ class CachedTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveCachedExpiredThreshold(): void {
-        $key      = [$this->faker->word()];
+        $key      = new CacheKey([$this->faker->word()]);
         $value    = $this->faker->sentence();
         $root     = null;
         $args     = [];
@@ -620,9 +613,12 @@ class CachedTest extends TestCase {
 
         return [
             'root (without args)'       => [
-                new GraphQLSuccess('root', null, json_encode(
-                    ':root::@cached',
-                )),
+                new GraphQLSuccess('root', null, json_encode((string) new CacheKey([
+                    '',
+                    'root',
+                    '',
+                    '@cached',
+                ]))),
                 $factory,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -636,13 +632,15 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'root (with args)'          => [
-                new GraphQLSuccess('root', null, json_encode(sprintf(
-                    ':root:%s:@cached',
-                    json_encode([
+                new GraphQLSuccess('root', null, json_encode((string) new CacheKey([
+                    '',
+                    'root',
+                    [
                         'param' => ['value'],
                         'where' => ['id' => ['equal' => '123']],
-                    ]),
-                ))),
+                    ],
+                    '@cached',
+                ]))),
                 $factory,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -662,10 +660,12 @@ class CachedTest extends TestCase {
             'models'                    => [
                 new GraphQLSuccess('models', null, [
                     [
-                        'value' => sprintf(
-                            '%s:value::@cached',
+                        'value' => (string) new CacheKey([
                             $cacheKey,
-                        ),
+                            'value',
+                            '',
+                            '@cached',
+                        ]),
                     ],
                 ]),
                 $factory,
@@ -693,12 +693,16 @@ class CachedTest extends TestCase {
             ],
             'aggregated (without root)' => [
                 new GraphQLSuccess('aggregated', null, [
-                    'count' => sprintf(
-                        ':aggregated:%s:count::@cached',
-                        json_encode([
+                    'count' => (string) new CacheKey([
+                        '',
+                        'aggregated',
+                        [
                             'where' => ['id' => ['notEqual' => '123']],
-                        ]),
-                    ),
+                        ],
+                        'count',
+                        '',
+                        '@cached',
+                    ]),
                 ]),
                 $factory,
                 /** @lang GraphQL */ <<<GRAPHQL
@@ -729,13 +733,16 @@ class CachedTest extends TestCase {
                 new GraphQLSuccess('models', null, [
                     [
                         'aggregated' => [
-                            'count' => sprintf(
-                                '%s:aggregated:%s:count::@cached',
+                            'count' => (string) new CacheKey([
                                 $cacheKey,
-                                json_encode([
+                                'aggregated',
+                                [
                                     'where' => ['id' => ['notEqual' => '123']],
-                                ]),
-                            ),
+                                ],
+                                'count',
+                                '',
+                                '@cached',
+                            ]),
                         ],
                     ],
                 ]),

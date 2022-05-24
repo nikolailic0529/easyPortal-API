@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\GraphQL\Cache;
+use App\Utils\Cache\CacheKey;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Model;
@@ -64,15 +65,13 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
     /**
      * @param array<mixed> $args
-     *
-     * @return array<mixed>
      */
     protected function getCacheKey(
         mixed $root,
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): array {
+    ): CacheKey {
         // Root
         $cacheable = true;
         $key       = [];
@@ -109,7 +108,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         $key[] = $this;
 
         // Return
-        return $key;
+        return new CacheKey($key);
     }
 
     protected function getCachedValue(mixed $key): ?CachedValue {
