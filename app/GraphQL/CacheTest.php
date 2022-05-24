@@ -27,16 +27,29 @@ class CacheTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::isSlowQuery
+     * @covers ::isQuerySlow
      *
-     * @dataProvider dataProviderIsSlowQuery
+     * @dataProvider dataProviderIsQuerySlow
      */
-    public function testIsSlowQuery(bool $expected, ?float $threshold, float $time): void {
+    public function testIsQuerySlow(bool $expected, ?float $threshold, ?float $time): void {
         $this->setSettings([
             'ep.cache.graphql.threshold' => $threshold,
         ]);
 
-        self::assertEquals($expected, $this->app->make(Cache::class)->isSlowQuery($time));
+        self::assertEquals($expected, $this->app->make(Cache::class)->isQuerySlow($time));
+    }
+
+    /**
+     * @covers ::isQueryLockable
+     *
+     * @dataProvider dataProviderIsQueryLockable
+     */
+    public function testIsQueryLockable(bool $expected, ?float $threshold, ?float $time): void {
+        $this->setSettings([
+            'ep.cache.graphql.lock_threshold' => $threshold,
+        ]);
+
+        self::assertEquals($expected, $this->app->make(Cache::class)->isQueryLockable($time));
     }
 
     /**
@@ -309,14 +322,28 @@ class CacheTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<string,array{bool,?float,float}>
+     * @return array<string,array{bool,?float,?float}>
      */
-    public function dataProviderIsSlowQuery(): array {
+    public function dataProviderIsQuerySlow(): array {
         return [
-            'null' => [true, null, 0],
-            'zero' => [true, 0.0, -1],
-            'slow' => [true, 1, 1.034],
-            'fast' => [false, 1, 0.034],
+            'null'    => [true, null, 0],
+            'zero'    => [true, 0.0, -1],
+            'slow'    => [true, 1, 1.034],
+            'fast'    => [false, 1, 0.034],
+            'unknown' => [false, 1, null],
+        ];
+    }
+
+    /**
+     * @return array<string,array{bool,?float,?float}>
+     */
+    public function dataProviderIsQueryLockable(): array {
+        return [
+            'null'    => [true, null, 0],
+            'zero'    => [true, 0.0, -1],
+            'slow'    => [true, 1, 1.034],
+            'fast'    => [false, 1, 0.034],
+            'unknown' => [false, 1, null],
         ];
     }
 

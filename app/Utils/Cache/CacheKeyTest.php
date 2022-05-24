@@ -225,6 +225,12 @@ class CacheKeyTest extends TestCase {
                     ],
                 ],
             ],
+            CacheKey::class                               => [
+                'a:b:c',
+                [
+                    new CacheKey(['a', 'b', 'c']),
+                ],
+            ],
             'array (nested)'                              => [
                 sha1(json_encode(['a' => 123, 'b' => 'value', 'c' => true], JSON_THROW_ON_ERROR)),
                 [

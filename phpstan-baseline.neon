@@ -196,11 +196,6 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Cache\\:\\:lock\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Cache.php
-
-		-
 			message: "#^Parameter \\#1 \\$name of method Illuminate\\\\Contracts\\\\Cache\\\\Factory\\:\\:store\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Cache.php
@@ -461,28 +456,8 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/RootTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) has parameter \\$resolver with no signature specified for callable\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Cached/Cached.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolveWithLock\\(\\) has parameter \\$resolver with no signature specified for callable\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Cached/Cached.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolveWithThreshold\\(\\) has parameter \\$resolver with no signature specified for callable\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Cached/Cached.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function mb_strtolower expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Cached/Cached.php
-
-		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
-			count: 1
+			count: 5
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
@@ -501,13 +476,8 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of class class@anonymous/app/GraphQL/Directives/Directives/Cached/CachedTest\\.php\\:97 constructor expects array, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
-			count: 6
+			message: "#^Parameter \\#1 \\$resolver of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\Cached\\:\\:resolve\\(\\) expects callable\\(mixed, array, Nuwave\\\\Lighthouse\\\\Support\\\\Contracts\\\\GraphQLContext, GraphQL\\\\Type\\\\Definition\\\\ResolveInfo\\)\\: mixed, Mockery\\\\MockInterface given\\.$#"
+			count: 7
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-

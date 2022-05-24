@@ -10,8 +10,8 @@ Some endpoints can return cached values to reduce server load and/or response ti
 
 To be more flexible there are two types of cache:
 
-1. Long-running queries (eg Asset statistics). These queries will be cached always.
-2. Queries that may be slow (eg Map areas). They will be cached only if their execution time is greater than `EP_CACHE_GRAPHQL_THRESHOLD`.
+1. `Normal`: For long-running queries (eg Asset statistics). These queries will be cached always.
+2. `Threshold`: For queries that may be slow (eg Map areas). They will be cached only if their execution time is greater than `EP_CACHE_GRAPHQL_THRESHOLD`.
 
 Independent of type each key/value pair has a lifetime limited by
 
@@ -36,6 +36,6 @@ The same applies to `EP_CACHE_GRAPHQL_LIFETIME`, but the interval is
 
 In addition to "Graceful Expiration", the Application also tries to use [Locks](https://laravel.com/docs/cache#atomic-locks) to reduce the amount of queries executed at the same time.
 
-When Locks is enabled (`EP_CACHE_GRAPHQL_LOCK_ENABLED`) the first request locks the query for `EP_CACHE_GRAPHQL_LOCK_TIMEOUT` (the lock will be released after this amount of time to avoid stuck) and execute it. All other requests just wait until it is finished (or timeout defined by `EP_CACHE_GRAPHQL_LOCK_WAIT` is ended) and then will use the calculated value from the cache/first query (or will run the query itself if the wait timeout ended).
+When Locks is enabled (`EP_CACHE_GRAPHQL_LOCK_ENABLED = true`) and query executing time is unknown (for `Normal` type only) or greater than `EP_CACHE_GRAPHQL_LOCK_THRESHOLD` (for all types) the first request locks the query for `EP_CACHE_GRAPHQL_LOCK_TIMEOUT` (the lock will be released after this amount of time to avoid stuck) and execute it. All other requests just wait until it is finished (or timeout defined by `EP_CACHE_GRAPHQL_LOCK_WAIT` is ended) and then will use the calculated value from the cache/first query (or will run the query itself if the wait timeout ended).
 
 The Lock is also guaranteeing that inside "Expiration Interval" only one request will execute the query. All other requests will immediately receive the expired value from the cache.

@@ -136,6 +136,8 @@ class CacheKey implements Stringable {
             }
 
             $normalized = str_replace(self::SEPARATOR, '-', "\${$value->getName()}");
+        } elseif ($value instanceof CacheKey) {
+            $normalized = (string) $value;
         } elseif ($value instanceof CacheKeyable) {
             $normalized = $value::class;
         } elseif ($value instanceof JsonSerializable) {

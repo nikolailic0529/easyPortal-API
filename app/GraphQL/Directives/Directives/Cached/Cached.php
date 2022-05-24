@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Cached;
 
 use App\GraphQL\Cache;
+use App\Utils\Cache\CacheKey;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Model;
@@ -16,6 +17,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use function array_slice;
 use function count;
 use function implode;
+use function is_string;
 use function mb_strtolower;
 use function microtime;
 use function sprintf;
@@ -69,7 +71,7 @@ class Cached extends BaseDirective implements FieldMiddleware {
         array $args,
         GraphQLContext $context,
         ResolveInfo $resolveInfo,
-    ): mixed {
+    ): CacheKey {
         // Root
         $cacheable = true;
         $key       = [];
@@ -106,29 +108,16 @@ class Cached extends BaseDirective implements FieldMiddleware {
         $key[] = $this;
 
         // Return
-        return $key;
+        return new CacheKey($key);
     }
 
-    /**
-     * @return array{bool,bool,mixed}
-     */
-    protected function getCachedValue(mixed $key): array {
-        $expired = false;
-        $cached  = false;
-        $value   = $this->cache->get($key);
+    protected function getCachedValue(mixed $key): ?CachedValue {
+        $value = $this->cache->get($key);
+        $value = $value instanceof CachedValue
+            ? $value
+            : null;
 
-        if ($value instanceof CachedValue) {
-            $expired = $this->cache->isExpired($value->created, $value->expired);
-            $cached  = true;
-            $value   = $value->value;
-        } elseif ($value !== null) {
-            $expired = true;
-            $cached  = true;
-        } else {
-            // empty
-        }
-
-        return [$cached, $expired, $value];
+        return $value;
     }
 
     /**
@@ -138,10 +127,10 @@ class Cached extends BaseDirective implements FieldMiddleware {
      *
      * @return T
      */
-    protected function setCachedValue(mixed $key, mixed $value): mixed {
+    protected function setCachedValue(mixed $key, mixed $value, float $time): mixed {
         $created = Date::now();
         $expired = Date::now()->add($this->cache->getTtl());
-        $cached  = new CachedValue($created, $expired, $value);
+        $cached  = new CachedValue($created, $expired, $time, $value);
 
         $this->cache->set($key, $cached);
 
@@ -153,7 +142,8 @@ class Cached extends BaseDirective implements FieldMiddleware {
     }
 
     /**
-     * @param array<mixed> $args
+     * @param Callable(mixed, array<mixed>, GraphQLContext, ResolveInfo):mixed $resolver
+     * @param array<mixed>                                                     $args
      */
     protected function resolve(
         callable $resolver,
@@ -163,100 +153,78 @@ class Cached extends BaseDirective implements FieldMiddleware {
         ResolveInfo $resolveInfo,
     ): mixed {
         // Cached?
-        $key                        = $this->getCacheKey($root, $args, $context, $resolveInfo);
-        [$cached, $expired, $value] = $this->getCachedValue($key);
+        $key     = $this->getCacheKey($root, $args, $context, $resolveInfo);
+        $cached  = $this->getCachedValue($key);
+        $expired = $cached && $this->cache->isExpired($cached->created, $cached->expired);
 
         if ($cached && !$expired) {
-            return $value;
+            return $cached->value;
         }
 
-        // Resolve value
-        if ($this->getResolveMode($root) === CachedMode::lock()) {
-            // If we have cached value and lock exist (=another request
-            // started to run the resolver already) we can just return
-            // the cached value
-            if (!$cached || !$this->resolveIsLocked($key)) {
-                $value = $this->resolveWithLock($key, $resolver, $root, $args, $context, $resolveInfo);
-            }
+        // If we have cached value and lock exist (=another request started to
+        // run the resolver already) we can just return the cached value
+        $mode     = $this->getResolveMode();
+        $lockable = $cached
+            ? $this->cache->isQueryLockable($cached->time ?? null)
+            : $mode === CachedMode::normal();
+
+        if ($cached && $lockable && $this->cache->isLocked($key)) {
+            return $cached->value;
+        }
+
+        // Resolve
+        $time    = null;
+        $value   = null;
+        $resolve = static function () use (&$time, $resolver, $root, $args, $context, $resolveInfo): mixed {
+            $begin = microtime(true);
+            $value = $resolver($root, $args, $context, $resolveInfo);
+            $time  = microtime(true) - $begin;
+
+            return $value;
+        };
+
+        if ($lockable) {
+            $start = microtime(true);
+            $value = $this->cache->lock(
+                $key,
+                function () use ($start, $key, $resolve): mixed {
+                    // Value may be already resolved in another process/request
+                    // so we can reuse it (if it was really locked of course).
+                    $cached = $this->cache->isQueryWasLocked(microtime(true) - $start)
+                        ? $this->getCachedValue($key)
+                        : null;
+                    $value  = $cached && !$this->cache->isExpired($cached->created, $cached->expired)
+                        ? $cached->value
+                        : $resolve();
+
+                    return $value;
+                },
+            );
         } else {
-            $value = $this->resolveWithThreshold($key, $resolver, $root, $args, $context, $resolveInfo, $expired);
+            $value = $resolve();
+        }
+
+        // Save if it was resolved in the current process/request
+        if ($time !== null) {
+            if ($mode === CachedMode::normal() || $this->cache->isQuerySlow($time)) {
+                $value = $this->setCachedValue($key, $value, $time);
+            } elseif ($expired && $mode === CachedMode::threshold()) {
+                $this->deleteCachedValue($key);
+            } else {
+                // empty
+            }
         }
 
         // Return
         return $value;
     }
 
-    protected function resolveIsLocked(mixed $key): bool {
-        return $this->cache->isLocked($key);
-    }
-
-    /**
-     * @param array<mixed> $args
-     */
-    protected function resolveWithThreshold(
-        mixed $key,
-        callable $resolver,
-        mixed $root,
-        array $args,
-        GraphQLContext $context,
-        ResolveInfo $resolveInfo,
-        bool $expired,
-    ): mixed {
-        $begin = microtime(true);
-        $value = $resolver($root, $args, $context, $resolveInfo);
-        $time  = microtime(true) - $begin;
-
-        if ($this->cache->isSlowQuery($time)) {
-            $value = $this->setCachedValue($key, $value);
-        } elseif ($expired) {
-            $this->deleteCachedValue($key);
-        } else {
-            // empty
-        }
-
-        return $value;
-    }
-
-    /**
-     * @param array<mixed> $args
-     */
-    protected function resolveWithLock(
-        mixed $key,
-        callable $resolver,
-        mixed $root,
-        array $args,
-        GraphQLContext $context,
-        ResolveInfo $resolveInfo,
-    ): mixed {
-        return $this->setCachedValue($key, $this->cache->lock(
-            $key,
-            function () use ($key, $resolver, $root, $args, $context, $resolveInfo): mixed {
-                // Value can be already resolved in another process/request
-                [$cached, $expired, $value] = $this->getCachedValue($key);
-
-                if (!$cached || $expired) {
-                    $value = $resolver($root, $args, $context, $resolveInfo);
-                }
-
-                return $value;
-            },
-        ));
-    }
-
-    protected function getResolveMode(mixed $root): CachedMode {
-        $arg  = $this->directiveArgValue('mode');
-        $mode = !$arg
-            ? ($this->isRootQuery($root) ? CachedMode::lock() : CachedMode::threshold())
-            : CachedMode::get(mb_strtolower($arg));
+    protected function getResolveMode(): CachedMode {
+        $mode = $this->directiveArgValue('mode');
+        $mode = is_string($mode) && $mode
+            ? CachedMode::get(mb_strtolower($mode))
+            : CachedMode::normal();
 
         return $mode;
-    }
-
-    protected function isRootQuery(mixed $root): bool {
-        if ($root instanceof ParentValue) {
-            $root = $root->getRoot();
-        }
-
-        return $root === null;
     }
 }
