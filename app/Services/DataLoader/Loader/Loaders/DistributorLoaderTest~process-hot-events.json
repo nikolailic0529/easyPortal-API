@@ -1,9 +1,9 @@
 [
     {
-        "App\\Models\\Distributor": [],
-        "App\\Models\\Reseller": {
-            "0309df71-936c-44ce-9477-b5e9221fc96a": "0309df71-936c-44ce-9477-b5e9221fc96a"
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
         },
+        "App\\Models\\Reseller": [],
         "App\\Models\\Customer": [],
         "App\\Models\\Document": [],
         "App\\Models\\Location": [],

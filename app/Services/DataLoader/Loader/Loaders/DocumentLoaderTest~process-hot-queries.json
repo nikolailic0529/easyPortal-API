@@ -208,8 +208,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:54:04",
-            "2022-02-02 00:54:07",
+            "2022-02-02 00:54:10",
+            "2022-02-02 00:54:13",
             "c63823c9-ccae-493b-92ca-5cb2a696da69"
         ]
     }

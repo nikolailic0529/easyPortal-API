@@ -2,10 +2,10 @@
     {
         "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": [],
-        "App\\Models\\Customer": [],
-        "App\\Models\\Document": {
-            "c63823c9-ccae-493b-92ca-5cb2a696da69": "c63823c9-ccae-493b-92ca-5cb2a696da69"
+        "App\\Models\\Customer": {
+            "a0df13a5-c42c-4269-ae57-71085acb5319": "a0df13a5-c42c-4269-ae57-71085acb5319"
         },
+        "App\\Models\\Document": [],
         "App\\Models\\Location": [],
         "App\\Models\\Asset": []
     }

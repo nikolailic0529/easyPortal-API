@@ -54,7 +54,7 @@ class DocumentLoaderTest extends TestCase {
             ->setObjectId(DocumentLoaderData::DOCUMENT)
             ->start();
 
-        self::assertQueryLogEquals('~process-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 4,
@@ -81,7 +81,7 @@ class DocumentLoaderTest extends TestCase {
             ->setObjectId(DocumentLoaderData::DOCUMENT)
             ->start();
 
-        self::assertQueryLogEquals('~process-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
             '~process-hot-events.json',
             $events->dispatched(DataImported::class),
