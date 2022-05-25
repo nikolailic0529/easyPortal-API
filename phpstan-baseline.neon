@@ -15106,17 +15106,17 @@ parameters:
 			path: app/Services/Recalculator/Jobs/ResellerRecalculate.php
 
 		-
-			message: "#^Cannot call method map\\(\\) on array\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\:\\:getAssetsCount\\(\\) should return array\\<string, int\\> but returns array\\<int\\|string, int\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\:\\:getAssetsCountFor\\(\\) should return array\\<string, array\\<string, array\\<string, int\\>\\>\\> but returns array\\<string, array\\<string, int\\>\\|int\\>\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Processor/ChunkData.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
@@ -15131,7 +15131,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$keys \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
+			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$keys \\(array\\<string\\>\\) does not accept array\\<string\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
@@ -15141,7 +15141,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/CustomersChunkData.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData constructor expects array\\<App\\\\Models\\\\Customer\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Customer\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData constructor expects array\\<App\\\\Models\\\\Customer\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Customer\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessor.php
 
@@ -15171,7 +15171,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
@@ -15226,7 +15226,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/ResellersProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData constructor expects array\\<App\\\\Models\\\\Reseller\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Reseller\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData constructor expects array\\<App\\\\Models\\\\Reseller\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Reseller\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/ResellersProcessor.php
 

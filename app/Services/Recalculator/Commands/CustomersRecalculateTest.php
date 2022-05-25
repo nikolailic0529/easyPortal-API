@@ -2,6 +2,7 @@
 
 namespace App\Services\Recalculator\Commands;
 
+use App\Services\Events\Eloquent\Subject;
 use App\Services\Recalculator\Processor\Processors\CustomersProcessor;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -22,6 +23,7 @@ class CustomersRecalculateTest extends TestCase {
             $mock = Mockery::mock(CustomersProcessor::class, [
                 Mockery::mock(ExceptionHandler::class),
                 $this->app->make(Dispatcher::class),
+                Mockery::mock(Subject::class),
             ]);
             $mock->shouldAllowMockingProtectedMethods();
             $mock->makePartial();

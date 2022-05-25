@@ -2,11 +2,14 @@
 
 namespace App\Services\Recalculator\Processor;
 
+use App\Services\Events\Eloquent\Subject;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Exceptions\FailedToRecalculateModel;
 use App\Services\Recalculator\Exceptions\RecalculateError;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
 
 /**
@@ -17,6 +20,14 @@ use Throwable;
  * @extends EloquentProcessor<TItem, TChunkData, TState>
  */
 abstract class Processor extends EloquentProcessor {
+    public function __construct(
+        ExceptionHandler $exceptionHandler,
+        Dispatcher $dispatcher,
+        private Subject $subject,
+    ) {
+        parent::__construct($exceptionHandler, $dispatcher);
+    }
+
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
             $item
@@ -28,7 +39,20 @@ abstract class Processor extends EloquentProcessor {
     /**
      * @inheritDoc
      */
+    protected function chunkLoaded(State $state, array $items, mixed $data): void {
+        // Configure
+        $this->subject->onModelEvent($data);
+
+        // Parent
+        parent::chunkLoaded($state, $items, $data);
+    }
+
+    /**
+     * @inheritDoc
+     */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return new ModelsRecalculated($state->model, $data->getKeys());
+        return $data->isDirty()
+            ? new ModelsRecalculated($state->model, $data->getKeys())
+            : null;
     }
 }

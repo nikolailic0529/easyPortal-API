@@ -3,8 +3,11 @@
 namespace App\Services\Recalculator\Processor;
 
 use App\Models\Asset;
+use App\Services\Events\Eloquent\OnModelDeleted;
+use App\Services\Events\Eloquent\OnModelSaved;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use stdClass;
@@ -12,7 +15,9 @@ use stdClass;
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
  */
-class ChunkData {
+class ChunkData implements OnModelSaved, OnModelDeleted {
+    private bool $dirty = false;
+
     /**
      * @var array<string>
      */
@@ -29,10 +34,14 @@ class ChunkData {
     private array $assetsCountFor;
 
     /**
-     * @param Collection<int,TModel>|array<TModel> $items
+     * @param Collection<array-key,TModel>|array<TModel> $items
      */
     public function __construct(Collection|array $items) {
-        $this->keys = $items->map(new GetKey())->all();
+        $this->keys = (new Collection($items))->map(new GetKey())->all();
+    }
+
+    public function isDirty(): bool {
+        return $this->dirty;
     }
 
     /**
@@ -102,5 +111,13 @@ class ChunkData {
         }
 
         return $this->assetsCountFor[$owner][$group];
+    }
+
+    public function modelSaved(Model $model): void {
+        $this->dirty = true;
+    }
+
+    public function modelDeleted(Model $model): void {
+        $this->dirty = true;
     }
 }
