@@ -1,0 +1,12 @@
+[
+    {
+        "App\\Models\\Distributor": [],
+        "App\\Models\\Reseller": [],
+        "App\\Models\\Customer": [],
+        "App\\Models\\Document": [],
+        "App\\Models\\Location": [],
+        "App\\Models\\Asset": {
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777": "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+        }
+    }
+]

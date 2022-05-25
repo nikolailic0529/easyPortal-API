@@ -57,7 +57,7 @@ class DocumentsImporterTest extends TestCase {
             ->setLimit(CustomerDocumentsImporterData::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 4,
@@ -68,7 +68,7 @@ class DocumentsImporterTest extends TestCase {
             DocumentEntry::class => 120,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -87,9 +87,9 @@ class DocumentsImporterTest extends TestCase {
             ->setLimit(CustomerDocumentsImporterData::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

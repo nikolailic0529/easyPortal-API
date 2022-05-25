@@ -1,20 +1,5 @@
 [
     {
-        "App\\Models\\Distributor": [],
-        "App\\Models\\Reseller": {
-            "82d0b9b4-32f9-4e17-b777-7f441b59faaa": "82d0b9b4-32f9-4e17-b777-7f441b59faaa",
-            "6c9f832e-357a-4882-9576-be86df03aa10": "6c9f832e-357a-4882-9576-be86df03aa10"
-        },
-        "App\\Models\\Customer": {
-            "a04716f3-95de-4046-ab13-7a575cf67f85": "a04716f3-95de-4046-ab13-7a575cf67f85"
-        },
-        "App\\Models\\Document": [],
-        "App\\Models\\Location": {
-            "a38d080e-0a99-51ba-b25e-05a0f175e183": "a38d080e-0a99-51ba-b25e-05a0f175e183"
-        },
-        "App\\Models\\Asset": []
-    },
-    {
         "App\\Models\\Distributor": {
             "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
         },

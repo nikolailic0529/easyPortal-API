@@ -55,12 +55,12 @@ class ImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~process-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Document::class => 76,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -79,9 +79,9 @@ class ImporterTest extends TestCase {
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~process-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

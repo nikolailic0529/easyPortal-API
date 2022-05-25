@@ -59,7 +59,7 @@ class IteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 2,
             Reseller::class      => 20,
@@ -70,7 +70,7 @@ class IteratorImporterTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-events.json',
+            '~process-with-documents-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -90,9 +90,9 @@ class IteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-events.json',
+            '~process-with-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -135,7 +135,7 @@ class IteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 30,
@@ -146,7 +146,7 @@ class IteratorImporterTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-without-documents-events.json',
+            '~process-without-documents-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -166,9 +166,9 @@ class IteratorImporterTest extends TestCase {
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-without-documents-events.json',
+            '~process-without-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

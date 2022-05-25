@@ -151,7 +151,9 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      * @inheritDoc
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return !$data->isEmpty() ? new DataImported($data) : null;
+        return $data->isDirty() && !$data->isEmpty()
+            ? new DataImported($data)
+            : null;
     }
     // </editor-fold>
 

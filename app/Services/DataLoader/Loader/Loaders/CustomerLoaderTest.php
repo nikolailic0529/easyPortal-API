@@ -58,7 +58,7 @@ class CustomerLoaderTest extends TestCase {
             ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-cold.json', $queries);
+        self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 1,
@@ -69,7 +69,7 @@ class CustomerLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-events.json',
+            '~process-without-assets-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -87,9 +87,9 @@ class CustomerLoaderTest extends TestCase {
             ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-hot.json', $queries);
+        self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-events.json',
+            '~process-without-assets-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -130,7 +130,7 @@ class CustomerLoaderTest extends TestCase {
             ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-assets-cold.json', $queries);
+        self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 6,
@@ -159,7 +159,7 @@ class CustomerLoaderTest extends TestCase {
             ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-assets-hot.json', $queries);
+        self::assertQueryLogEquals('~process-with-assets-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
             '~process-with-assets-hot-events.json',
             $events->dispatched(DataImported::class),
@@ -201,7 +201,7 @@ class CustomerLoaderTest extends TestCase {
             ->setWithDocuments(CustomerLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 5,
@@ -229,7 +229,7 @@ class CustomerLoaderTest extends TestCase {
             ->setWithDocuments(CustomerLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-hot-events.json',
             $events->dispatched(DataImported::class),
