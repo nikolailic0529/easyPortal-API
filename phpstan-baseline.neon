@@ -18614,4 +18614,3 @@ parameters:
 			message: "#^Parameter \\$user of method Tests\\\\TestCase\\:\\:setUser\\(\\) has invalid type Tests\\\\UserFactory\\.$#"
 			count: 1
 			path: tests/TestCase.php
-

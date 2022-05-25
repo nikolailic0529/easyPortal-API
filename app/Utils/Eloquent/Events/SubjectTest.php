@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Events\Eloquent;
+namespace App\Utils\Eloquent\Events;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
@@ -13,7 +13,7 @@ use function round;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Events\Eloquent\Subject
+ * @coversDefaultClass \App\Utils\Eloquent\Events\Subject
  */
 class SubjectTest extends TestCase {
     /**

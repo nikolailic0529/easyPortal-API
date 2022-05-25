@@ -1,16 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Events;
+namespace App\Providers;
 
-use App\Services\Events\Eloquent\Subject;
+use App\Utils\Eloquent\Events\Subject;
 use Illuminate\Contracts\Events\Dispatcher;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Events\Provider
+ * @coversDefaultClass \App\Providers\EventServiceProvider
  */
-class ProviderTest extends TestCase {
+class EventServiceProviderTest extends TestCase {
     /**
      * @coversNothing
      */

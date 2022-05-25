@@ -3,9 +3,9 @@
 namespace App\Services\Recalculator\Processor;
 
 use App\Models\Asset;
-use App\Services\Events\Eloquent\OnModelDeleted;
-use App\Services\Events\Eloquent\OnModelSaved;
 use App\Utils\Eloquent\Callbacks\GetKey;
+use App\Utils\Eloquent\Events\OnModelDeleted;
+use App\Utils\Eloquent\Events\OnModelSaved;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;

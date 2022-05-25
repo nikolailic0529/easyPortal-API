@@ -3,8 +3,8 @@
 namespace App\Services\Recalculator\Processor;
 
 use App\Models\Customer;
-use App\Services\Events\Eloquent\Subject;
 use App\Services\Recalculator\Events\ModelsRecalculated;
+use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Debug\ExceptionHandler;

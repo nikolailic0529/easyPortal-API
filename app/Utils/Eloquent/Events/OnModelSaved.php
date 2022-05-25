@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Events\Eloquent;
+namespace App\Utils\Eloquent\Events;
 
 use Illuminate\Database\Eloquent\Model;
 

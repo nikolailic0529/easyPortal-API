@@ -2,8 +2,8 @@
 
 namespace App\Services\Recalculator\Commands;
 
-use App\Services\Events\Eloquent\Subject;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
+use App\Utils\Eloquent\Events\Subject;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;

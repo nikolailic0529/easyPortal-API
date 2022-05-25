@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Events\Eloquent;
+namespace App\Utils\Eloquent\Events;
 
 use App\Events\Subscriber;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -9,6 +9,12 @@ use WeakMap;
 
 use function reset;
 
+/**
+ * Laravel doesn't provide any way to remove the concrete listener, but it is
+ * required e.g. for Processors while process huge amount of objects when
+ * listeners should be reset between chunks. This class designed specially
+ * to solve this problem, so you can relax and don't worry about unsubscribing.
+ */
 class Subject implements Subscriber {
     /**
      * @var WeakMap<OnModelSaved, OnModelSaved>

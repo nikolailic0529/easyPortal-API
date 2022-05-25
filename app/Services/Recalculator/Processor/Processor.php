@@ -2,10 +2,10 @@
 
 namespace App\Services\Recalculator\Processor;
 
-use App\Services\Events\Eloquent\Subject;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Exceptions\FailedToRecalculateModel;
 use App\Services\Recalculator\Exceptions\RecalculateError;
+use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Debug\ExceptionHandler;

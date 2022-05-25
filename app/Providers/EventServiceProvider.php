@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\Subscriber;
 use App\Services\Audit\Listeners\Audit;
 use App\Services\Organization\Listeners\OrganizationUpdater;
+use App\Utils\Eloquent\Events\Subject;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider {
@@ -29,7 +30,14 @@ class EventServiceProvider extends ServiceProvider {
     protected $subscribe = [
         OrganizationUpdater::class,
         Audit::class,
+        Subject::class,
     ];
+
+    public function register(): void {
+        parent::register();
+
+        $this->app->singleton(Subject::class);
+    }
 
     /**
      * Register any events for your application.

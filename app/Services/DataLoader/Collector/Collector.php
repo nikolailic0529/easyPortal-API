@@ -3,9 +3,9 @@
 namespace App\Services\DataLoader\Collector;
 
 use App\Services\DataLoader\Container\Singleton;
-use App\Services\Events\Eloquent\OnModelDeleted;
-use App\Services\Events\Eloquent\OnModelSaved;
-use App\Services\Events\Eloquent\Subject;
+use App\Utils\Eloquent\Events\OnModelDeleted;
+use App\Utils\Eloquent\Events\OnModelSaved;
+use App\Utils\Eloquent\Events\Subject;
 use Illuminate\Database\Eloquent\Model;
 use WeakMap;
 
