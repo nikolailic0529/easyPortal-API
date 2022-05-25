@@ -3,19 +3,22 @@
 namespace App\Services\DataLoader\Collector;
 
 use App\Services\DataLoader\Container\Singleton;
+use App\Services\Events\Eloquent\OnModelDeleted;
+use App\Services\Events\Eloquent\OnModelSaved;
+use App\Services\Events\Eloquent\Subject;
 use Illuminate\Database\Eloquent\Model;
 use WeakMap;
 
-class Collector implements Singleton {
+class Collector implements Singleton, OnModelSaved, OnModelDeleted {
     /**
      * @var WeakMap<Data,Data>
      */
     private WeakMap $subscribers;
 
-    public function __construct(Listener $listener) {
+    public function __construct(Subject $subject) {
         $this->subscribers = new WeakMap();
 
-        $listener->onModelChange($this);
+        $subject->onModelEvent($this);
     }
 
     public function collect(mixed $object): void {
@@ -24,7 +27,7 @@ class Collector implements Singleton {
         }
     }
 
-    public function modelChanged(Model $model): void {
+    protected function modelChanged(Model $model): void {
         foreach ($this->subscribers as $subscriber) {
             $subscriber->collectObjectChange($model);
         }
@@ -32,5 +35,13 @@ class Collector implements Singleton {
 
     public function subscribe(Data $subscriber): void {
         $this->subscribers[$subscriber] = $subscriber;
+    }
+
+    public function modelDeleted(Model $model): void {
+        $this->modelChanged($model);
+    }
+
+    public function modelSaved(Model $model): void {
+        $this->modelChanged($model);
     }
 }

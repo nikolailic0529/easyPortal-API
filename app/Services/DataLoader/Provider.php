@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader;
 
-use App\Services\DataLoader\Collector\Listener;
 use App\Services\DataLoader\Commands\AssetsAnalyze;
 use App\Services\DataLoader\Commands\AssetsCount;
 use App\Services\DataLoader\Commands\AssetsImport;
@@ -26,8 +25,6 @@ use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
 use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
@@ -35,12 +32,6 @@ use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
 class Provider extends ServiceProvider {
     use ProviderWithCommands;
     use ProviderWithSchedule;
-
-    public function register(): void {
-        parent::register();
-
-        $this->registerListeners();
-    }
 
     public function boot(): void {
         $this->bootCommands(
@@ -70,13 +61,5 @@ class Provider extends ServiceProvider {
             AssetsImporterCronJob::class,
             AssetsUpdaterCronJob::class,
         );
-    }
-
-    protected function registerListeners(): void {
-        $this->app->singleton(Listener::class);
-
-        $this->booting(static function (Repository $config, Dispatcher $dispatcher): void {
-            $dispatcher->subscribe(Listener::class);
-        });
     }
 }

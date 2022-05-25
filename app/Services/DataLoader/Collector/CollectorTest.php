@@ -45,9 +45,10 @@ class CollectorTest extends TestCase {
 
     /**
      * @covers ::modelChanged
+     * @covers ::modelDeleted
      * @covers ::subscribe
      */
-    public function testModelChanged(): void {
+    public function testModelEvents(): void {
         // Mock
         $collector = $this->app->make(Collector::class);
         $model     = new class() extends Model {
@@ -58,14 +59,14 @@ class CollectorTest extends TestCase {
         $a
             ->shouldReceive('collectObjectChange')
             ->with($model)
-            ->once()
+            ->twice()
             ->andReturns();
 
         $b = Mockery::mock(Data::class);
         $b
             ->shouldReceive('collectObjectChange')
             ->with($model)
-            ->once()
+            ->twice()
             ->andReturns();
 
         // Prepare
@@ -73,6 +74,7 @@ class CollectorTest extends TestCase {
         $collector->subscribe($b);
 
         // Test
-        $collector->modelChanged($model);
+        $collector->modelSaved($model);
+        $collector->modelDeleted($model);
     }
 }
