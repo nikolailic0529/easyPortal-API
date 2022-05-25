@@ -56,7 +56,7 @@ class AssetLoaderTest extends TestCase {
             ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 2,
@@ -67,7 +67,7 @@ class AssetLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-without-documents-events.json',
+            '~process-without-documents-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -84,9 +84,9 @@ class AssetLoaderTest extends TestCase {
             ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-without-documents-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-without-documents-events.json',
+            '~process-without-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -126,7 +126,7 @@ class AssetLoaderTest extends TestCase {
             ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-cold.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -137,7 +137,7 @@ class AssetLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-events.json',
+            '~process-with-documents-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -154,9 +154,9 @@ class AssetLoaderTest extends TestCase {
             ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-hot.json', $queries);
+        self::assertQueryLogEquals('~process-with-documents-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-events.json',
+            '~process-with-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

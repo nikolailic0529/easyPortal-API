@@ -56,7 +56,7 @@ class ImporterTest extends TestCase {
             ->setChunkSize(AssetsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~process-cold.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Asset::class         => AssetsImporterData::LIMIT,
             AssetWarranty::class => 108,
@@ -82,7 +82,7 @@ class ImporterTest extends TestCase {
             ->setChunkSize(AssetsImporterData::CHUNK)
             ->start();
 
-        self::assertQueryLogEquals('~process-hot.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
             '~process-hot-events.json',
             $events->dispatched(DataImported::class),

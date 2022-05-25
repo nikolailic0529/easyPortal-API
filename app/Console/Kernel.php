@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Console\Commands\TestCommand;
 use App\Dev\IdeHelper\ModelsCommand;
-use App\Services\Queue\Jobs\SnapshotCronJob as QueueSnapshotCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 use LastDragon_ru\LaraASP\Queue\Contracts\Cronable;
@@ -33,7 +32,7 @@ class Kernel extends ConsoleKernel {
      * @var array<class-string<Cronable>>
      */
     protected array $schedule = [
-        QueueSnapshotCronJob::class,
+        // empty
     ];
 
     /**

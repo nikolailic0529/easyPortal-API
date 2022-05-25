@@ -1,17 +1,5 @@
 [
     {
-        "App\\Models\\Distributor": [],
-        "App\\Models\\Reseller": {
-            "6c7c9474-3b59-4601-af72-1cd0f441b515": "6c7c9474-3b59-4601-af72-1cd0f441b515"
-        },
-        "App\\Models\\Customer": [],
-        "App\\Models\\Document": [],
-        "App\\Models\\Location": {
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b": "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
-        },
-        "App\\Models\\Asset": []
-    },
-    {
         "App\\Models\\Distributor": {
             "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
         },
