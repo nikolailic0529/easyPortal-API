@@ -1766,7 +1766,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    product_id: SearchByScalarID
+    product_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -2431,7 +2431,7 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
-    product_id: SearchByScalarID
+    product_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -6426,10 +6426,10 @@ type Asset {
 
     oem_id: ID!
 
-    product: Product!
+    product: Product
     @relation
 
-    product_id: ID!
+    product_id: ID
 
     quoteRequest: QuoteRequest
     @relation
@@ -7558,10 +7558,10 @@ type DocumentEntry {
     list_price: Float
     net_price: Float
 
-    product: Product!
+    product: Product
     @relation
 
-    product_id: ID!
+    product_id: ID
     renewal: Float
     serial_number: String
 

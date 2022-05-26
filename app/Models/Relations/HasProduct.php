@@ -16,7 +16,7 @@ trait HasProduct {
         return $this->belongsTo(Product::class);
     }
 
-    public function setProductAttribute(Product $product): void {
+    public function setProductAttribute(?Product $product): void {
         $this->product()->associate($product);
     }
 }

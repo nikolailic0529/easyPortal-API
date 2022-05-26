@@ -31,7 +31,7 @@ class RequestChange extends Mailable {
         $type   = $object->getMorphClass();
 
         if ($object instanceof Asset) {
-            $title = $object->product->name;
+            $title = $object->product->name ?? "#{$object->getKey()}";
         } elseif ($object instanceof Customer) {
             $title = $object->name;
         } elseif ($object instanceof Organization) {

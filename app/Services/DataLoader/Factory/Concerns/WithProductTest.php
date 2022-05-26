@@ -99,7 +99,6 @@ class WithProductTest extends TestCase {
             null,
         );
 
-        self::assertNotNull($created);
         self::assertEquals($oem->getKey(), $created->oem_id);
         self::assertEquals($sku, $created->sku);
         self::assertEquals($name, $created->name);

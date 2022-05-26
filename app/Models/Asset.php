@@ -40,7 +40,7 @@ use function count;
  *
  * @property string                              $id
  * @property string                              $oem_id
- * @property string                              $product_id
+ * @property string|null                         $product_id
  * @property string|null                         $type_id
  * @property string|null                         $reseller_id current
  * @property string|null                         $customer_id current
@@ -66,7 +66,7 @@ use function count;
  * @property Customer|null                       $customer
  * @property Location|null                       $location
  * @property Oem                                 $oem
- * @property Product                             $product
+ * @property Product|null                        $product
  * @property-read Collection<int, Document>      $quotes
  * @property Reseller|null                       $reseller
  * @property Status|null                         $status

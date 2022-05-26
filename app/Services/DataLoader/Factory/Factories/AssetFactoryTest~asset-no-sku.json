@@ -1,0 +1,29 @@
+{
+    "id": "abc49b20-5659-42a7-a657-32618f7c18a0",
+    "serialNumber": null,
+    "productDescription": null,
+    "assetTag": null,
+    "assetType": null,
+    "status": "ACTIVE",
+    "vendor": "HPE",
+    "sku": null,
+    "eolDate": null,
+    "eosDate": null,
+    "country": "Germany",
+    "countryCode": "DE",
+    "latitude": "51.5",
+    "longitude": "-0.116667",
+    "zip": "33378",
+    "city": "city",
+    "address": "address",
+    "address2": null,
+    "customerId": "d0f73021-943e-41e6-a0e2-70f510742428",
+    "resellerId": "fd231071-593c-4679-8bce-2775f401018e",
+    "updatedAt": "1653496158494",
+    "latestContactPersons": null,
+    "assetCoverage": [
+        "ARCHIVED"
+    ],
+    "coverageStatusCheck": null,
+    "dataQualityScore": "20"
+}
