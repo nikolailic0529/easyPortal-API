@@ -9966,11 +9966,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithOemTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Product will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
 			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
@@ -10421,11 +10416,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$location on App\\\\Models\\\\Asset\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$sku on App\\\\Models\\\\ServiceGroup\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -10512,7 +10502,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 8
+			count: 9
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-

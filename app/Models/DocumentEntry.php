@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string               $asset_id
  * @property string|null          $service_group_id
  * @property string|null          $service_level_id
- * @property string               $product_id
+ * @property string|null          $product_id
  * @property string|null          $serial_number
  * @property CarbonImmutable|null $start
  * @property CarbonImmutable|null $end
@@ -37,7 +37,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Asset                $asset
  * @property Currency|null        $currency
  * @property Document             $document
- * @property Product              $product
+ * @property Product|null         $product
  * @property ServiceGroup|null    $serviceGroup
  * @property ServiceLevel|null    $serviceLevel
  * @method static DocumentEntryFactory factory(...$parameters)

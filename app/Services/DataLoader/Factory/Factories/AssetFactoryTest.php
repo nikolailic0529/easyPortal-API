@@ -131,11 +131,11 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
         self::assertEquals($asset->vendor, $created->oem->key);
-        self::assertEquals($asset->productDescription, $created->product->name);
-        self::assertEquals($asset->sku, $created->product->sku);
-        self::assertNull($created->product->eos);
-        self::assertEquals($asset->eosDate, (string) $created->product->eos);
-        self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
+        self::assertEquals($asset->productDescription, $created->product->name ?? null);
+        self::assertEquals($asset->sku, $created->product->sku ?? null);
+        self::assertNull($created->product->eos ?? null);
+        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
+        self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
         self::assertEquals($asset->assetType, $created->type->key);
         self::assertEquals($asset->status, $created->status->key);
         self::assertEquals($asset->customerId, $created->customer->getKey());
@@ -259,10 +259,11 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
         self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
         self::assertEquals($asset->vendor, $updated->oem->key);
-        self::assertEquals($created->product->name, $updated->product->name);
-        self::assertEquals($asset->sku, $updated->product->sku);
-        self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
-        self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));
+        self::assertNotNull($created->product);
+        self::assertEquals($created->product->name, $updated->product->name ?? null);
+        self::assertEquals($asset->sku, $updated->product->sku ?? null);
+        self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
+        self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
         self::assertEquals($asset->assetType, $updated->type->key);
         self::assertEquals($asset->customerId, $updated->customer->getKey());
         self::assertNotNull($updated->warranty_end);
@@ -329,11 +330,11 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->vendor, $created->oem->key);
-        self::assertEquals($asset->productDescription, $created->product->name);
-        self::assertEquals($asset->sku, $created->product->sku);
-        self::assertNull($created->product->eos);
-        self::assertEquals($asset->eosDate, (string) $created->product->eos);
-        self::assertEquals($asset->eolDate, (string) $created->product->eol);
+        self::assertEquals($asset->productDescription, $created->product->name ?? null);
+        self::assertEquals($asset->sku, $created->product->sku ?? null);
+        self::assertNull($created->product->eos ?? null);
+        self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
+        self::assertEquals($asset->eolDate, (string) ($created->product->eol ?? null));
         self::assertEquals($asset->assetType, $created->type->key);
         self::assertNull($created->customer_id);
         self::assertNull($created->location_id);
@@ -384,6 +385,7 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
+        self::assertNotNull($created);
         self::assertNull($created->location);
     }
 
@@ -406,6 +408,28 @@ class AssetFactoryTest extends TestCase {
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertNull($created->type);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetWithoutSku(): void {
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
+
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $factory   = $container->make(AssetFactory::class);
+
+        // Test
+        $json    = $this->getTestData()->json('~asset-no-sku.json');
+        $asset   = new ViewAsset($json);
+        $created = $factory->create($asset);
+
+        self::assertNotNull($created);
+        self::assertNull($created->product_id);
     }
 
     /**
@@ -1503,7 +1527,7 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetType($asset);
     }
 
-    public function assetProduct(ViewAsset $asset): Product {
+    public function assetProduct(ViewAsset $asset): ?Product {
         return parent::assetProduct($asset);
     }
 
