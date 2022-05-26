@@ -2,11 +2,8 @@
 
 namespace App\Services\Queue;
 
-use App\Queues;
 use App\Services\Service as BaseService;
 
 class Service extends BaseService {
-    public static function getDefaultQueue(): string {
-        return Queues::QUEUE;
-    }
+    // empty
 }
