@@ -279,7 +279,14 @@
                     "$ref": "#/definitions/ID"
                 },
                 "product_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type_id": {
                     "$ref": "#/definitions/ID"
@@ -320,7 +327,14 @@
                     "$ref": "#/definitions/Oem"
                 },
                 "product": {
-                    "$ref": "#/definitions/Product"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "warranties": {
                     "type": "array",

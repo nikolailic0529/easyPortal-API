@@ -10,7 +10,7 @@ input DocumentEntriesQuery {
     serial_number: String
     start: Date
     end: Date
-    product_id: ID!
+    product_id: ID
     product: ProductsQuery
     service_group_id: ID
     service_level_id: ID

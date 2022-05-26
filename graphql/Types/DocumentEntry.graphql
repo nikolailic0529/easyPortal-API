@@ -8,8 +8,8 @@ type DocumentEntry {
     serial_number: String
     start: Date
     end: Date
-    product_id: ID!
-    product: Product! @relation
+    product_id: ID
+    product: Product @relation
     service_group_id: ID
     serviceGroup: ServiceGroup @relation
     service_level_id: ID
