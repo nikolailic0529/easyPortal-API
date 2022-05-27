@@ -3,6 +3,7 @@
 namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Services\Queue\Concerns\ProcessorJob;
+use App\Services\Queue\Concerns\WithModelKey;
 use App\Services\Queue\Job;
 use App\Services\Recalculator\Processor\ChunkData;
 use App\Services\Recalculator\Processor\Processor;
@@ -20,31 +21,13 @@ use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
  * @template TModel of \Illuminate\Database\Eloquent\Model
  */
 abstract class Recalculate extends Job implements Initializable, ShouldBeUnique, ShouldBeUniqueUntilProcessing {
+    use WithModelKey;
+
     /**
      * @phpstan-use ProcessorJob<Processor<TModel, ChunkData<TModel>, EloquentState<TModel>>>
      */
     use ProcessorJob {
         getProcessor as private createProcessor;
-    }
-
-    protected string $modelKey;
-
-    public function getModelKey(): string {
-        return $this->modelKey;
-    }
-
-    public function uniqueId(): string {
-        return $this->getModelKey();
-    }
-
-    public function init(string $key): static {
-        // Initialize
-        $this->modelKey = $key;
-
-        $this->initialized();
-
-        // Return
-        return $this;
     }
 
     /**
