@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs\Cron;
+namespace App\Services\Recalculator\Queue\Jobs;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Jobs\Cron\LocationsRecalculator
+ * @coversDefaultClass \App\Services\Recalculator\Queue\Jobs\LocationsRecalculator
  */
 class LocationsRecalculatorTest extends TestCase {
     /**

@@ -6,10 +6,10 @@ use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Queues;
-use App\Services\Recalculator\Jobs\CustomerRecalculate;
-use App\Services\Recalculator\Jobs\LocationRecalculate;
-use App\Services\Recalculator\Jobs\Recalculate;
-use App\Services\Recalculator\Jobs\ResellerRecalculate;
+use App\Services\Recalculator\Queue\Tasks\CustomerRecalculate;
+use App\Services\Recalculator\Queue\Tasks\LocationRecalculate;
+use App\Services\Recalculator\Queue\Tasks\Recalculate;
+use App\Services\Recalculator\Queue\Tasks\ResellerRecalculate;
 use App\Services\Service as BaseService;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ use function array_keys;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<Model>,class-string<Recalculate>>
+     * @var array<class-string<Model>,class-string<Recalculate<Model>>>
      */
     protected static array $recalculable = [
         Reseller::class => ResellerRecalculate::class,
@@ -35,7 +35,7 @@ class Service extends BaseService {
     /**
      * @param class-string<Model> $model
      *
-     * @return class-string<Recalculate>|null
+     * @return class-string<Recalculate<Model>>|null
      */
     public function getRecalculableModelJob(string $model): ?string {
         return static::$recalculable[$model] ?? null;

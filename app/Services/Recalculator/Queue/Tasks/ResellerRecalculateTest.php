@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs;
+namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Services\Recalculator\Processor\Processors\ResellersProcessor;
 use App\Utils\Processor\Contracts\Processor;
@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Jobs\ResellerRecalculate
+ * @coversDefaultClass \App\Services\Recalculator\Queue\Tasks\ResellerRecalculate
  */
 class ResellerRecalculateTest extends TestCase {
     /**

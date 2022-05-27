@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs\Cron;
+namespace App\Services\Recalculator\Queue\Jobs;
 
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;

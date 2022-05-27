@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs\Cron;
+namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Models\Location;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
@@ -9,11 +9,11 @@ use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends Recalculator<Location>
+ * @extends Recalculate<Location>
  */
-class LocationsRecalculator extends Recalculator {
+class LocationRecalculate extends Recalculate {
     public function displayName(): string {
-        return 'ep-recalculator-locations-recalculator';
+        return 'ep-recalculator-location-recalculate';
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {

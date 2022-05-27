@@ -1,22 +1,22 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs;
+namespace App\Services\Recalculator\Queue\Jobs;
 
-use App\Models\Reseller;
-use App\Services\Recalculator\Processor\Processors\ResellersProcessor;
+use App\Models\Location;
+use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends Recalculate<Reseller>
+ * @extends Recalculator<Location>
  */
-class ResellerRecalculate extends Recalculate {
+class LocationsRecalculator extends Recalculator {
     public function displayName(): string {
-        return 'ep-recalculator-reseller-recalculate';
+        return 'ep-recalculator-locations-recalculator';
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(ResellersProcessor::class);
+        return $container->make(LocationsProcessor::class);
     }
 }

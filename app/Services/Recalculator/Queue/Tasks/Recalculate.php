@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs;
+namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;

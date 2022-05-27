@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Recalculator\Jobs;
+namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Utils\Processor\Contracts\Processor;
 use Exception;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Recalculator\Jobs\Recalculate
+ * @coversDefaultClass \App\Services\Recalculator\Queue\Tasks\Recalculate
  */
 class RecalculateTest extends TestCase {
     /**
