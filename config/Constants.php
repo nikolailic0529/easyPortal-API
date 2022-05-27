@@ -24,9 +24,9 @@ use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleane
 use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator as RecalculatorCustomersRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator as RecalculatorLocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator as RecalculatorResellersRecalculator;
-use App\Services\Search\Jobs\Cron\AssetsIndexer as SearchAssetsIndexer;
-use App\Services\Search\Jobs\Cron\CustomersIndexer as SearchCustomersIndexer;
-use App\Services\Search\Jobs\Cron\DocumentsIndexer as SearchDocumentsIndexer;
+use App\Services\Search\Queue\Jobs\AssetsIndexer as SearchAssetsIndexer;
+use App\Services\Search\Queue\Jobs\CustomersIndexer as SearchCustomersIndexer;
+use App\Services\Search\Queue\Jobs\DocumentsIndexer as SearchDocumentsIndexer;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;

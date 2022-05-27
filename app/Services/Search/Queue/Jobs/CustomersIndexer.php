@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Jobs\Cron;
+namespace App\Services\Search\Queue\Jobs;
 
 use App\Models\Customer;
 

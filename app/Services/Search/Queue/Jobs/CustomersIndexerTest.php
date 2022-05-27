@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search\Jobs\Cron;
+namespace App\Services\Search\Queue\Jobs;
 
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Jobs\Cron\CustomersIndexer
+ * @coversDefaultClass \App\Services\Search\Queue\Jobs\CustomersIndexer
  */
 class CustomersIndexerTest extends TestCase {
     /**
