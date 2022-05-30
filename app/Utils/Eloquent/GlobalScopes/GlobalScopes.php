@@ -21,9 +21,24 @@ class GlobalScopes {
     }
 
     /**
+     * @template T
+     *
+     * @param Closure():T $closure
+     *
+     * @return T
+     */
+    public static function callWithoutAll(Closure $closure): mixed {
+        return State::callWithoutAll($closure);
+    }
+
+    /**
      * @param class-string<DisableableScope<TModel>> $scope
      */
     public static function setDisabled(string $scope, bool $disabled): bool {
         return State::setDisabled($scope, $disabled);
+    }
+
+    public static function setDisabledAll(bool $disabled): bool {
+        return State::setDisabledAll($disabled);
     }
 }

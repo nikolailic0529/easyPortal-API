@@ -9,14 +9,14 @@ use LogicException;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\PaginatedRelation
  */
 class PaginatedRelationTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">

@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Location;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -109,15 +108,12 @@ class CustomersProcessorTest extends TestCase {
 
         // Properties
         $locations  = static function (Customer $customer): Collection {
-            return GlobalScopes::callWithout(
-                OwnedByOrganizationScope::class,
-                static function () use ($customer): Collection {
-                    return CustomerLocation::query()
-                        ->where('customer_id', '=', $customer->getKey())
-                        ->orderBy('id')
-                        ->get();
-                },
-            );
+            return GlobalScopes::callWithoutAll(static function () use ($customer): Collection {
+                return CustomerLocation::query()
+                    ->where('customer_id', '=', $customer->getKey())
+                    ->orderBy('id')
+                    ->get();
+            });
         };
         $aCustomer  = $customerA->refresh();
         $aLocations = $locations($aCustomer);

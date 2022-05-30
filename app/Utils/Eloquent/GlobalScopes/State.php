@@ -17,7 +17,8 @@ class State {
     /**
      * @var array<class-string<DisableableScope<TModel>>, bool>
      */
-    protected static array $disabled = [];
+    protected static array $disabled    = [];
+    protected static bool  $disabledAll = false;
 
     /**
      * @param class-string<DisableableScope<TModel>> $scope
@@ -30,7 +31,7 @@ class State {
      * @param class-string<DisableableScope<TModel>> $scope
      */
     public static function isDisabled(string $scope): bool {
-        return self::$disabled[$scope] ?? false;
+        return self::$disabledAll || (self::$disabled[$scope] ?? false);
     }
 
     /**
@@ -54,6 +55,23 @@ class State {
             foreach ($previous as $scope => $disabled) {
                 self::setDisabled($scope, $disabled);
             }
+        }
+    }
+
+    /**
+     * @template T
+     *
+     * @param Closure():T $closure
+     *
+     * @return T
+     */
+    public static function callWithoutAll(Closure $closure): mixed {
+        $previous = self::setDisabledAll(true);
+
+        try {
+            return $closure();
+        } finally {
+            self::setDisabledAll($previous);
         }
     }
 
@@ -82,7 +100,15 @@ class State {
         return $previous;
     }
 
+    public static function setDisabledAll(bool $disabled): bool {
+        $previous          = self::$disabledAll;
+        self::$disabledAll = $disabled;
+
+        return $previous;
+    }
+
     public static function reset(): void {
-        self::$disabled = [];
+        self::$disabled    = [];
+        self::$disabledAll = false;
     }
 }

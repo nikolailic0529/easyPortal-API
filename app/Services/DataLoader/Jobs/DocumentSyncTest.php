@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Jobs;
 use App\Models\Asset;
 use App\Models\Document;
 use App\Services\DataLoader\Commands\DocumentUpdate;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Console\Command;
@@ -45,12 +44,9 @@ class DocumentSyncTest extends TestCase {
         });
 
         $this->override(AssetSync::class, static function (MockInterface $mock) use ($document): void {
-            $assets = GlobalScopes::callWithout(
-                OwnedByOrganizationScope::class,
-                static function () use ($document): Collection {
-                    return $document->assets;
-                },
-            );
+            $assets = GlobalScopes::callWithoutAll(static function () use ($document): Collection {
+                return $document->assets;
+            });
 
             $mock->makePartial();
             $mock

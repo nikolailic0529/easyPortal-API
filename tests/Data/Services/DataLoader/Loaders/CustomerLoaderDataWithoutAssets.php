@@ -7,7 +7,6 @@ use App\Models\Document;
 use App\Models\Oem;
 use App\Models\Type;
 use App\Services\DataLoader\Testing\Data\AssetsData;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
@@ -56,7 +55,7 @@ class CustomerLoaderDataWithoutAssets extends AssetsData {
     public function restore(string $path, array $context): bool {
         $result = parent::restore($path, $context);
 
-        GlobalScopes::callWithout(OwnedByOrganizationScope::class, static function (): void {
+        GlobalScopes::callWithoutAll(static function (): void {
             if (static::ASSET && !Asset::query()->whereKey(static::ASSET)->exists()) {
                 Asset::factory()->create([
                     'id'          => static::ASSET,

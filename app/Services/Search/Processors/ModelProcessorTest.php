@@ -3,7 +3,6 @@
 namespace App\Services\Search\Processors;
 
 use App\Models\Asset;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Exceptions\ElasticReadonly;
@@ -129,18 +128,15 @@ class ModelProcessorTest extends TestCase {
 
         self::assertEquals(
             $expected->map(new GetKey())->sort()->values(),
-            GlobalScopes::callWithout(
-                OwnedByOrganizationScope::class,
-                static function () use ($model): Collection {
-                    return $model::search()
-                        ->withTrashed()
-                        ->get()
-                        ->map(new GetKey())
-                        ->sort()
-                        ->values()
-                        ->toBase();
-                },
-            ),
+            GlobalScopes::callWithoutAll(static function () use ($model): Collection {
+                return $model::search()
+                    ->withTrashed()
+                    ->get()
+                    ->map(new GetKey())
+                    ->sort()
+                    ->values()
+                    ->toBase();
+            }),
         );
 
         $spyOnInit

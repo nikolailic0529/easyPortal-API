@@ -11,7 +11,6 @@ use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
 use App\Services\Keycloak\Map;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Processor\State;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -121,15 +120,12 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            static function () use ($keycloakUser) {
-                return User::query()
-                    ->with(['organizations'])
-                    ->whereKey($keycloakUser->id)
-                    ->first();
-            },
-        );
+        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser) {
+            return User::query()
+                ->with(['organizations'])
+                ->whereKey($keycloakUser->id)
+                ->first();
+        });
         self::assertNotNull($user);
         self::assertFalse($user->email_verified);
         self::assertFalse($user->enabled);
@@ -194,24 +190,21 @@ class UsersImporterTest extends TestCase {
             'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194335',
         ]);
 
-        GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            static function () use ($user, $orgA, $orgB, $roleB): void {
-                OrganizationUser::factory()->create([
-                    'organization_id' => $orgA,
-                    'user_id'         => $user,
-                    'role_id'         => null,
-                    'enabled'         => true,
-                ]);
+        GlobalScopes::callWithoutAll(static function () use ($user, $orgA, $orgB, $roleB): void {
+            OrganizationUser::factory()->create([
+                'organization_id' => $orgA,
+                'user_id'         => $user,
+                'role_id'         => null,
+                'enabled'         => true,
+            ]);
 
-                OrganizationUser::factory()->create([
-                    'organization_id' => $orgB,
-                    'user_id'         => $user,
-                    'role_id'         => $roleB,
-                    'enabled'         => false,
-                ]);
-            },
-        );
+            OrganizationUser::factory()->create([
+                'organization_id' => $orgB,
+                'user_id'         => $user,
+                'role_id'         => $roleB,
+                'enabled'         => false,
+            ]);
+        });
 
         $keycloakUser = new KeycloakUser([
             'id'            => $user->getKey(),
@@ -256,15 +249,12 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            static function () use ($keycloakUser) {
-                return User::query()
-                    ->with(['organizations'])
-                    ->whereKey($keycloakUser->id)
-                    ->first();
-            },
-        );
+        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser) {
+            return User::query()
+                ->with(['organizations'])
+                ->whereKey($keycloakUser->id)
+                ->first();
+        });
         self::assertNotNull($user);
         self::assertFalse($user->email_verified);
         self::assertTrue($user->enabled);

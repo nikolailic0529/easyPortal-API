@@ -12,7 +12,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function array_column;
 
@@ -21,7 +21,7 @@ use function array_column;
  * @coversDefaultClass \App\Services\DataLoader\Factory\Factories\ResellerFactory
  */
 class ResellerFactoryTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithQueryLog;
     use Helper;
 

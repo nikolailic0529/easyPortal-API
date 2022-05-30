@@ -12,7 +12,6 @@ use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Organization\RootOrganization;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -380,75 +379,69 @@ class UserProvider implements UserProviderContract {
         UnencryptedToken $token,
         ?Organization $organization,
     ): ?Organization {
-        return GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            static function () use ($user, $token, $organization): ?Organization {
-                $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-                $organizations = array_filter(array_keys(array_filter($organizations)));
-                $organization  = Organization::query()
-                    ->whereIn('keycloak_scope', $organizations)
-                    ->when($organization, static function (Builder $builder, Organization $organization): Builder {
-                        return $builder->whereKey($organization->getKey());
-                    })
-                    ->first();
-                $isMember      = false;
+        return GlobalScopes::callWithoutAll(static function () use ($user, $token, $organization): ?Organization {
+            $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
+            $organizations = array_filter(array_keys(array_filter($organizations)));
+            $organization  = Organization::query()
+                ->whereIn('keycloak_scope', $organizations)
+                ->when($organization, static function (Builder $builder, Organization $organization): Builder {
+                    return $builder->whereKey($organization->getKey());
+                })
+                ->first();
+            $isMember      = false;
 
-                if ($organization) {
-                    $isMember = $user->organizations
-                        ->contains(static function (OrganizationUser $user) use ($organization): bool {
-                            return $user->organization_id === $organization->getKey();
-                        });
-                }
+            if ($organization) {
+                $isMember = $user->organizations
+                    ->contains(static function (OrganizationUser $user) use ($organization): bool {
+                        return $user->organization_id === $organization->getKey();
+                    });
+            }
 
-                if (!$isMember) {
-                    $organization = null;
-                }
+            if (!$isMember) {
+                $organization = null;
+            }
 
-                return $organization;
-            },
-        );
+            return $organization;
+        });
     }
 
     /**
      * @return array<string>
      */
     protected function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
-        return GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            function () use ($user, $organization): array {
-                // Organization is required
-                if (!$organization) {
-                    return [];
-                }
+        return GlobalScopes::callWithoutAll(function () use ($user, $organization): array {
+            // Organization is required
+            if (!$organization) {
+                return [];
+            }
 
-                // Member of Organization?
-                /** @var OrganizationUser|null $member */
-                $member = $user->organizations
-                    ->first(static function (OrganizationUser $user) use ($organization): bool {
-                        return $user->organization_id === $organization->getKey()
-                            && $user->enabled;
-                    });
-                $role   = $member?->role;
+            // Member of Organization?
+            /** @var OrganizationUser|null $member */
+            $member = $user->organizations
+                ->first(static function (OrganizationUser $user) use ($organization): bool {
+                    return $user->organization_id === $organization->getKey()
+                        && $user->enabled;
+                });
+            $role   = $member?->role;
 
-                if (!$role) {
-                    return [];
-                }
+            if (!$role) {
+                return [];
+            }
 
-                // Available permissions
-                $available   = $this->getAvailablePermissions($organization);
-                $permissions = $role->permissions
-                    ->map(static function (Permission $permission): string {
-                        return $permission->key;
-                    })
-                    ->intersect($available)
-                    ->unique()
-                    ->values()
-                    ->all();
+            // Available permissions
+            $available   = $this->getAvailablePermissions($organization);
+            $permissions = $role->permissions
+                ->map(static function (Permission $permission): string {
+                    return $permission->key;
+                })
+                ->intersect($available)
+                ->unique()
+                ->values()
+                ->all();
 
-                // Return
-                return $permissions;
-            },
-        );
+            // Return
+            return $permissions;
+        });
     }
 
     protected function updateLocalUser(User $user): User {

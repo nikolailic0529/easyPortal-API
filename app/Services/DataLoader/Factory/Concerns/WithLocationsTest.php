@@ -19,7 +19,7 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function reset;
 use function tap;
@@ -29,7 +29,7 @@ use function tap;
  * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithLocations
  */
 class WithLocationsTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
 
     // <editor-fold desc="Tests">
     // =========================================================================

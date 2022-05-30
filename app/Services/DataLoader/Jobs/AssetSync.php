@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Jobs;
 use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Iterators\ObjectsIterator;
 use Exception;
@@ -26,14 +25,11 @@ class AssetSync extends Sync {
      * @return array{result: bool}
      */
     public function __invoke(ExceptionHandler $handler, Client $client, IteratorImporter $importer): array {
-        return GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
-            function () use ($handler, $client, $importer): array {
-                return [
-                    'result' => $this->syncProperties($handler, $client, $importer),
-                ];
-            },
-        );
+        return GlobalScopes::callWithoutAll(function () use ($handler, $client, $importer): array {
+            return [
+                'result' => $this->syncProperties($handler, $client, $importer),
+            ];
+        });
     }
 
     protected function syncProperties(

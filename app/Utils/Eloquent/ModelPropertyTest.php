@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\Utils\Eloquent\ModelProperty
  */
 class ModelPropertyTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
 
     /**
      * @covers ::__construct

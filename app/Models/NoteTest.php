@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\Models\Note
  */
 class NoteTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
 
     /**
      * @covers ::delete
