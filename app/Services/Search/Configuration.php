@@ -259,15 +259,15 @@ class Configuration {
     protected function buildProperties(array $metadata, array $properties): array {
         $model      = $this->getModel();
         $properties = [
-            static::METADATA   => $metadata,
-            static::PROPERTIES => $properties,
+            self::METADATA   => $metadata,
+            self::PROPERTIES => $properties,
         ];
 
         foreach ($model->getGlobalScopes() as $scope) {
             if ($scope instanceof ScopeWithMetadata) {
                 foreach ($scope->getSearchMetadata($model) as $key => $data) {
                     // Metadata should be unique to avoid any possible side effects.
-                    if (array_key_exists($key, $properties[static::METADATA])) {
+                    if (array_key_exists($key, $properties[self::METADATA])) {
                         throw new LogicException(sprintf(
                             'The `%s` trying to redefine `%s` in metadata.',
                             $scope::class,
@@ -276,7 +276,7 @@ class Configuration {
                     }
 
                     // Add
-                    $properties[static::METADATA][$key] = $data;
+                    $properties[self::METADATA][$key] = $data;
                 }
             }
         }

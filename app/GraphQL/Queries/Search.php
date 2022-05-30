@@ -19,6 +19,9 @@ class Search {
         // empty
     }
 
+    /**
+     * @return Builder<UnionModel>
+     */
     public function builder(): Builder {
         return UnionModel::query();
     }
@@ -52,7 +55,7 @@ class Search {
 
         // Add
         foreach ($models as $model => $scopes) {
-            $builder->addModel($model, $scopes, $boosts[$model] ?? null);
+            $builder->addModel($model, $scopes, $boosts[$model]);
         }
 
         // Return

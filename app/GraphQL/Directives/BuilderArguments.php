@@ -40,7 +40,7 @@ trait BuilderArguments {
     /**
      * @param array<mixed> $args
      *
-     * @return EloquentBuilder<Model>|QueryBuilder|SearchBuilder
+     * @return EloquentBuilder<Model>|QueryBuilder|SearchBuilder<Model>
      */
     protected function getBuilder(
         mixed $root,

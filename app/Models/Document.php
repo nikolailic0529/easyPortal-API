@@ -212,7 +212,7 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     /**
      * @inheritDoc
      */
-    protected static function getSearchProperties(): array {
+    public static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'number'   => new Text('number', true),

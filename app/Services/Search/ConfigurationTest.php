@@ -6,6 +6,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -74,9 +75,9 @@ class ConfigurationTest extends TestCase {
             ],
             [
                 'sku'      => new Text('sku'),
-                'oem'      => [
-                    'id' => new Uuid('oem.id'),
-                ],
+                'oem'      => new Relation('oem', [
+                    'id' => new Uuid('id'),
+                ]),
                 'relation' => new Relation('a', [
                     'nested' => new Relation('b', [
                         'property' => new Text('c'),
@@ -100,9 +101,9 @@ class ConfigurationTest extends TestCase {
             ],
             Configuration::getPropertyName() => [
                 'sku'      => new Text('sku'),
-                'oem'      => [
-                    'id' => new Uuid('oem.id'),
-                ],
+                'oem'      => new Relation('oem', [
+                    'id' => new Uuid('id'),
+                ]),
                 'relation' => new Relation('a', [
                     'nested' => new Relation('b', [
                         'property' => new Text('c'),
@@ -356,8 +357,8 @@ class ConfigurationTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param array<mixed> $metadata
-     * @param array<mixed> $properties
+     * @param array<string,Property> $metadata
+     * @param array<string,Property> $properties
      *
      * @return Model&Searchable
      */
@@ -366,26 +367,26 @@ class ConfigurationTest extends TestCase {
             use SearchableImpl;
 
             /**
-             * @var array<mixed>
+             * @var array<string,Property>
              */
             public static array $searchMetadata;
 
             /**
-             * @var array<mixed>
+             * @var array<string,Property>
              */
             public static array $searchProperties;
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchMetadata(): array {
+            public static function getSearchMetadata(): array {
                 return self::$searchMetadata;
             }
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchProperties(): array {
+            public static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
 
@@ -401,14 +402,14 @@ class ConfigurationTest extends TestCase {
     }
 
     /**
-     * @param array<mixed> $metadata
+     * @param array<string,Property> $metadata
      *
-     * @return Scope&ScopeWithMetadata
+     * @return Scope&ScopeWithMetadata<Model>
      */
     protected function getScope(array $metadata): Scope {
         $scope = new class() implements Scope, ScopeWithMetadata {
             /**
-             * @var array<mixed>
+             * @var array<string,Property>
              */
             public static array $searchMetadata;
 

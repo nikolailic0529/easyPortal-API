@@ -4311,6 +4311,11 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsAggregatedTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\ContractType' given\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Contracts/ContractsSearch.php
+
+		-
 			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
@@ -5051,6 +5056,11 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/Quotes.php
 
 		-
+			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\QuoteType' given\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Quotes/QuotesSearch.php
+
+		-
 			message: "#^Argument of an invalid type T of \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\)\\|\\(Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\>\\) supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
@@ -5141,17 +5151,7 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Search\\:\\:builder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Search.php
-
-		-
-			message: "#^Offset 'App\\\\\\\\Models\\\\\\\\Asset'\\|'App\\\\\\\\Models\\\\\\\\Customer'\\|'App\\\\\\\\Models\\\\\\\\Document' on array\\{App\\\\Models\\\\Customer\\: 3, App\\\\Models\\\\Asset\\: 2, App\\\\Models\\\\Document\\: 1\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Search.php
-
-		-
-			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\>, array\\<int, string\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\ContractType'\\|'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\QuoteType'\\} given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Search.php
 
@@ -5756,32 +5756,12 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:location\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:product\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -5886,11 +5866,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\)\\: string\\|null, Closure\\(App\\\\Services\\\\Search\\\\Properties\\\\Property\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -5956,11 +5931,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Asset\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -5978,11 +5948,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
 			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method App\\\\Models\\\\Asset\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Models/Asset.php
 
 		-
@@ -6546,11 +6511,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Customer\\:\\:headquarter\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Customer.php
@@ -6562,21 +6522,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Customer\\:\\:locations\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Models/Customer.php
 
@@ -6666,11 +6611,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\)\\: string\\|null, Closure\\(App\\\\Services\\\\Search\\\\Properties\\\\Property\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Models/Customer.php
@@ -6726,11 +6666,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Customer\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -6753,11 +6688,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$pivots of method App\\\\Models\\\\Customer\\:\\:syncBelongsToManyPivots\\(\\) expects array\\<string, Illuminate\\\\Support\\\\Collection\\<string, App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\>\\|Illuminate\\\\Support\\\\Collection, array\\<string, App\\\\Models\\\\ResellerCustomer\\>\\|Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\ResellerCustomer\\> given\\.$#"
 			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method App\\\\Models\\\\Customer\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Models/Customer.php
 
 		-
@@ -7011,22 +6941,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:language\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -7037,11 +6952,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:oemGroup\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -7126,11 +7036,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: string given\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -7186,11 +7091,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Document\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -7208,11 +7108,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
 			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method App\\\\Models\\\\Document\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Models/Document.php
 
 		-
@@ -8416,32 +8311,42 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Models/Scopes/ContractType.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
 			count: 1
 			path: app/Models/Scopes/ContractType.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			count: 1
+			path: app/Models/Scopes/ContractType.php
+
+		-
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			count: 1
+			path: app/Models/Scopes/ContractType.php
+
+		-
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentType.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:getSearchMetadata\\(\\) should return array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>\\>\\>\\> but returns array\\<int\\|string, App\\\\Services\\\\Search\\\\Properties\\\\Uuid\\>\\.$#"
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentType.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
 			count: 1
 			path: app/Models/Scopes/QuoteType.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			count: 1
+			path: app/Models/Scopes/QuoteType.php
+
+		-
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/QuoteType.php
 
@@ -14616,36 +14521,6 @@ parameters:
 			path: app/Services/Notificator/Notification.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:getSearchMetadata\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, App\\\\Services\\\\Search\\\\Properties\\\\Uuid\\>\\.$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:handle\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
-			message: "#^Parameter \\#1 \\$model \\(App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganization&App\\\\Utils\\\\Eloquent\\\\Model\\) of method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:getSearchMetadata\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method App\\\\Services\\\\Search\\\\Contracts\\\\ScopeWithMetadata\\:\\:getSearchMetadata\\(\\)$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
-			message: "#^Parameter \\#2 \\$model \\(App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganization&App\\\\Utils\\\\Eloquent\\\\Model\\) of method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:handleForSearch\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:handleForSearch\\(\\)$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
-			message: "#^Parameter \\#2 \\$model \\(App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganization&Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:handle\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:handle\\(\\)$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
-			message: "#^Return type \\(array\\<string, string\\>\\) of method App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByOrganizationScope\\:\\:getSearchMetadata\\(\\) should be compatible with return type \\(array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>\\>\\>\\>\\) of method App\\\\Services\\\\Search\\\\Contracts\\\\ScopeWithMetadata\\:\\:getSearchMetadata\\(\\)$#"
-			count: 1
-			path: app/Services/Organization/Eloquent/OwnedByOrganizationScope.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Organization\\\\Exceptions\\\\UnknownOrganization\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Exceptions/UnknownOrganization.php
@@ -15246,12 +15121,12 @@ parameters:
 			path: app/Services/Recalculator/Service.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\Search\\\\Contracts\\\\Scope and App\\\\Services\\\\Search\\\\Contracts\\\\Scope will always evaluate to true\\.$#"
+			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\:\\:__construct\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/Builder.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\:\\:__construct\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			message: "#^Parameter \\#2 \\$model of method App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:applyForSearch\\(\\) expects TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/Builder.php
 
@@ -15291,7 +15166,7 @@ parameters:
 			path: app/Services/Search/Builders/BuilderTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:37\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:33\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -15316,11 +15191,6 @@ parameters:
 			path: app/Services/Search/Builders/BuilderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\>, string given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, App\\\\Models\\\\Customer given\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
@@ -15341,21 +15211,6 @@ parameters:
 			path: app/Services/Search/Configuration.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Configuration\\:\\:buildProperties\\(\\) should return array\\<string, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>\\> but returns array\\<int\\|string, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>\\>\\>\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Configuration.php
-
-		-
-			message: "#^Parameter \\#1 \\$properties of method App\\\\Services\\\\Search\\\\Configuration\\:\\:getFlatPropertiesProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Configuration.php
-
-		-
-			message: "#^Parameter \\#1 \\$properties of method App\\\\Services\\\\Search\\\\Configuration\\:\\:getMappingsProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Configuration.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function sha1 expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Services/Search/Configuration.php
@@ -15366,52 +15221,17 @@ parameters:
 			path: app/Services/Search/Configuration.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:366\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:366\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:409\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:409\\:\\:getSearchMetadata\\(\\) should return array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>\\>\\>\\> but returns array\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:410\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
 
@@ -15426,18 +15246,8 @@ parameters:
 			path: app/Services/Search/ConfigurationTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$metadata of class App\\\\Services\\\\Search\\\\Configuration constructor expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array given\\.$#"
 			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:365\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Services/Search/ConfigurationTest.php
 
 		-
@@ -15496,21 +15306,6 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
@@ -15522,21 +15317,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
@@ -15561,21 +15341,6 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
@@ -15587,21 +15352,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
@@ -15621,21 +15371,6 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
@@ -15643,11 +15378,6 @@ parameters:
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
-			count: 5
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
@@ -15701,53 +15431,8 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:100\\} given\\.$#"
 			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
@@ -15816,6 +15501,11 @@ parameters:
 			path: app/Services/Search/Eloquent/Searchable.php
 
 		-
+			message: "#^Type static\\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\) in generic type App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<static\\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\)\\> in PHPDoc tag @return is not subtype of template type TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model of class App\\\\Services\\\\Search\\\\Builders\\\\Builder\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/Searchable.php
+
+		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\Search\\\\\\\\Configuration' and App\\\\Services\\\\Search\\\\Configuration will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -15841,21 +15531,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -15876,21 +15551,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -15902,21 +15562,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -15936,21 +15581,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -15962,21 +15592,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -16001,21 +15616,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -16031,21 +15631,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -16057,21 +15642,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -16096,21 +15666,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -16131,21 +15686,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -16157,21 +15697,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -16196,21 +15721,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -16218,11 +15728,6 @@ parameters:
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
-			count: 12
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
@@ -16296,128 +15801,13 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:queueMakeSearchable\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:queueMakeSearchable\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$models of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:scoutQueueMakeSearchable\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Collection, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:220\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:261\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:293\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:339\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:372\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:403\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:428\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:42\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:459\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:498\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:60\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
@@ -16427,6 +15817,26 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/UnionModel.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\:\\:search\\(\\) should return App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<static\\(App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\)\\> but returns App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/UnionModel.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/UnionModel.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\)\\: string\\|null, Closure\\(App\\\\Services\\\\Search\\\\Properties\\\\Property\\)\\: string\\|null given\\.$#"
+			count: 1
+			path: app/Services/Search/Eloquent/UnionModel.php
+
+		-
+			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/UnionModel.php
 
@@ -16446,27 +15856,7 @@ parameters:
 			path: app/Services/Search/Exceptions/FailedToIndex.php
 
 		-
-			message: "#^Parameter \\#2 \\$properties of method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverter\\:\\:convert\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverter.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
@@ -16477,11 +15867,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
@@ -16501,18 +15886,8 @@ parameters:
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\)\\> given\\.$#"
 			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
 		-
@@ -16726,21 +16101,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:search\\(\\) has parameter \\$callback with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -16752,21 +16112,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:makeAllSearchableUsing\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:makeAllSearchableUsing\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:queueMakeSearchable\\(\\) has parameter \\$models with generic class Illuminate\\\\Database\\\\Eloquent\\\\Collection but does not specify its types\\: TKey, TModel$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -16787,11 +16132,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects \\(callable\\(mixed, \\(int\\|string\\)\\)\\: bool\\)\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: bool given\\.$#"
-			count: 2
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array\\<string, mixed\\>, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: array\\<string, mixed\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -16856,16 +16196,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:toSearchableArrayProcess\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:createIndex\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -16893,16 +16223,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:394\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$properties of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:677\\:\\:toSearchableArrayProcess\\(\\) expects array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\>, array\\<string, App\\\\Services\\\\Search\\\\Properties\\\\Property\\|array\\> given\\.$#"
-			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
@@ -17351,12 +16671,7 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Utils/Eloquent/GlobalScopes/DisableableScope.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:handle\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Utils/Eloquent/GlobalScopes/DisableableScope.php
 

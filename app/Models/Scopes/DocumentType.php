@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
+/**
+ * @template TModel of \App\Models\Document|\App\Models\Type
+ *
+ * @implements ScopeWithMetadata<TModel>
+ */
 class DocumentType implements Scope, ScopeWithMetadata {
     public const SEARCH_METADATA = 'type';
 
@@ -16,10 +21,17 @@ class DocumentType implements Scope, ScopeWithMetadata {
         // empty
     }
 
+    /**
+     * @param EloquentBuilder<TModel> $builder
+     * @param TModel                  $model
+     */
     public function apply(EloquentBuilder $builder, Model $model): void {
         // empty
     }
 
+    /**
+     * @param TModel $model
+     */
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
         // empty
     }
@@ -29,7 +41,7 @@ class DocumentType implements Scope, ScopeWithMetadata {
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            static::SEARCH_METADATA => new Uuid('type_id'),
+            self::SEARCH_METADATA => new Uuid('type_id'),
         ];
     }
 }

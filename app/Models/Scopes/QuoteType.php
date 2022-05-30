@@ -15,8 +15,15 @@ use function in_array;
 /**
  * @see \App\Models\Type
  * @see \App\Models\Document
+ *
+ * @template TModel of \App\Models\Document|\App\Models\Type
+ *
+ * @implements SearchScope<TModel>
  */
 class QuoteType implements SearchScope, EloquentScope {
+    /**
+     * @param ContractType<TModel> $contractType
+     */
     public function __construct(
         protected Repository $config,
         protected ContractType $contractType,
@@ -24,6 +31,10 @@ class QuoteType implements SearchScope, EloquentScope {
         // empty
     }
 
+    /**
+     * @param EloquentBuilder<TModel> $builder
+     * @param TModel                  $model
+     */
     public function apply(EloquentBuilder $builder, Model $model): void {
         // if empty quotes type we will use ids not represented in contracts
         $contractTypes = $this->contractType->getTypeIds();

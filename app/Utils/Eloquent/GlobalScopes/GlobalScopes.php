@@ -4,12 +4,15 @@ namespace App\Utils\Eloquent\GlobalScopes;
 
 use Closure;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
 class GlobalScopes {
     /**
      * @template T
      *
-     * @param class-string<DisableableScope> $scope
-     * @param Closure():T                    $closure
+     * @param class-string<DisableableScope<TModel>> $scope
+     * @param Closure():T                            $closure
      *
      * @return T
      */
@@ -20,8 +23,8 @@ class GlobalScopes {
     /**
      * @template T
      *
-     * @param array<class-string<DisableableScope>> $scopes
-     * @param Closure():T                           $closure
+     * @param array<class-string<DisableableScope<TModel>>> $scopes
+     * @param Closure():T                                   $closure
      *
      * @return T
      */
@@ -30,7 +33,7 @@ class GlobalScopes {
     }
 
     /**
-     * @param class-string<DisableableScope> $scope
+     * @param class-string<DisableableScope<TModel>> $scope
      */
     public static function setGlobalScopeDisabled(string $scope, bool $disabled): bool {
         return State::setDisabled($scope, $disabled);

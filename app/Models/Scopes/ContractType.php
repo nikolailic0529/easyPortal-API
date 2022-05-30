@@ -15,6 +15,10 @@ use function in_array;
 /**
  * @see \App\Models\Type
  * @see \App\Models\Document
+ *
+ * @template TModel of \App\Models\Document|\App\Models\Type
+ *
+ * @implements SearchScope<TModel>
  */
 class ContractType implements SearchScope, EloquentScope {
     public function __construct(
@@ -23,6 +27,10 @@ class ContractType implements SearchScope, EloquentScope {
         // empty
     }
 
+    /**
+     * @param EloquentBuilder<TModel> $builder
+     * @param TModel                  $model
+     */
     public function apply(EloquentBuilder $builder, Model $model): void {
         $key   = $model instanceof Type ? $model->getKeyName() : 'type_id';
         $types = $this->getTypeIds() ?: ['empty'];
