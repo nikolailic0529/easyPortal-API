@@ -88,12 +88,13 @@ class ContractsAggregatedTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
+        $hidden  = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
         $params  = [
             'where' => [
                 'price' => ['lessThanOrEqual' => 100],
             ],
         ];
-        $factory = static function (TestCase $test, Organization $organization): void {
+        $factory = static function (TestCase $test, Organization $organization) use ($hidden): void {
             // Type
             $type = Type::factory()->create([
                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -157,6 +158,18 @@ class ContractsAggregatedTest extends TestCase {
                 'currency_id' => $currencyA,
                 'price'       => 10,
             ]);
+
+            // Hidden Status
+            Document::factory()
+                ->hasStatuses(1, [
+                    'id' => $hidden,
+                ])
+                ->create([
+                    'type_id'     => $type,
+                    'reseller_id' => $resellerA,
+                    'currency_id' => $currencyA,
+                    'price'       => 5,
+                ]);
         };
 
         return (new MergeDataProvider([
@@ -199,7 +212,10 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                $hidden,
+                            ],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -231,7 +247,10 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                $hidden,
+                            ],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -263,7 +282,10 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                $hidden,
+                            ],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -276,7 +298,10 @@ class ContractsAggregatedTest extends TestCase {
                             'prices' => [],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                $hidden,
+                            ],
+                            'ep.contract_types'           => [
                                 // empty
                             ],
                         ],
@@ -289,7 +314,10 @@ class ContractsAggregatedTest extends TestCase {
                             'prices' => [],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                $hidden,
+                            ],
+                            'ep.contract_types'           => [
                                 'da436d68-a6b5-424e-a25e-8394b697d191',
                             ],
                         ],

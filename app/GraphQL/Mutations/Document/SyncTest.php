@@ -168,7 +168,8 @@ class SyncTest extends TestCase {
                             ]),
                         ),
                         [
-                            'ep.contract_types' => [$type],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [$type],
                         ],
                         $factory,
                     ],
@@ -177,7 +178,8 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.contract_types' => ['90398f16-036f-4e6b-af90-06e19614c57c'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => ['90398f16-036f-4e6b-af90-06e19614c57c'],
                         ],
                         static function (self $test, Organization $organization): string {
                             $reseller = Reseller::factory()->create([
@@ -195,7 +197,8 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.contract_types' => [$type],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [$type],
                         ],
                         static function (self $test): string {
                             return $test->faker->uuid();
@@ -224,7 +227,8 @@ class SyncTest extends TestCase {
                             ]),
                         ),
                         [
-                            'ep.quote_types' => [$type],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [$type],
                         ],
                         $factory,
                     ],
@@ -233,7 +237,8 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.quote_types' => ['0a0354b5-16e8-4173-acb3-69ef10304681'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => ['0a0354b5-16e8-4173-acb3-69ef10304681'],
                         ],
                         static function (self $test, Organization $organization): string {
                             $reseller = Reseller::factory()->create([
@@ -251,7 +256,8 @@ class SyncTest extends TestCase {
                             return new ObjectNotFound((new Document())->getMorphClass());
                         }),
                         [
-                            'ep.quote_types' => [$type],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [$type],
                         ],
                         static function (self $test): string {
                             return $test->faker->uuid();

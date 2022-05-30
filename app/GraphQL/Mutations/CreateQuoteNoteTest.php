@@ -63,7 +63,8 @@ class CreateQuoteNoteTest extends TestCase {
 
             if (!$settings) {
                 $this->setSettings([
-                    'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                    'ep.document_statuses_hidden' => [],
+                    'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                 ]);
             }
 
@@ -172,9 +173,10 @@ class CreateQuoteNoteTest extends TestCase {
             'files'    => [UploadedFile::fake()->create('document.csv', 200)],
         ];
         $settings = [
-            'ep.file.max_size' => 250,
-            'ep.file.formats'  => ['csv'],
-            'ep.quote_types'   => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.file.max_size'            => 250,
+            'ep.file.formats'             => ['csv'],
+            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.document_statuses_hidden' => [],
         ];
 
         return (new MergeDataProvider([
@@ -195,7 +197,8 @@ class CreateQuoteNoteTest extends TestCase {
                             return [__('errors.validation_failed')];
                         }),
                         [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
                         static function (): void {
                             Document::factory()->create([
@@ -213,7 +216,8 @@ class CreateQuoteNoteTest extends TestCase {
                             return [__('errors.validation_failed')];
                         }),
                         [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
                         static function (): void {
                             Document::factory()->create([
@@ -235,7 +239,8 @@ class CreateQuoteNoteTest extends TestCase {
                             return [__('errors.validation_failed')];
                         }),
                         [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
                         static function (): void {
                             Document::factory()->create([
@@ -257,7 +262,8 @@ class CreateQuoteNoteTest extends TestCase {
                             return [__('errors.validation_failed')];
                         }),
                         [
-                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
                         static function (): void {
                             Document::factory()->create([

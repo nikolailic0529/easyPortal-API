@@ -63,7 +63,8 @@ class CreateContractNoteTest extends TestCase {
 
             if (!$settings) {
                 $this->setSettings([
-                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                    'ep.document_statuses_hidden' => [],
+                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                 ]);
             }
 
@@ -175,9 +176,10 @@ class CreateContractNoteTest extends TestCase {
             'files'       => [UploadedFile::fake()->create('document.csv', 200)],
         ];
         $settings = [
-            'ep.file.max_size'  => 250,
-            'ep.file.formats'   => ['csv'],
-            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.file.max_size'            => 250,
+            'ep.file.formats'             => ['csv'],
+            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.document_statuses_hidden' => [],
         ];
 
         return (new MergeDataProvider([
@@ -198,7 +200,8 @@ class CreateContractNoteTest extends TestCase {
                             return [__('errors.validation_failed')];
                         }),
                         [
-                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                         ],
                         static function (): void {
                             Document::factory()->create([

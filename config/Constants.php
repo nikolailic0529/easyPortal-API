@@ -38,6 +38,7 @@ use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DateTime;
+use App\Services\Settings\Types\DocumentStatus;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\Email;
@@ -236,6 +237,16 @@ interface Constants {
     #[Group('ep')]
     #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
+
+    /**
+     * Contracts/Quotes with these Statuses will not be visible on the Portal.
+     *
+     * If changed Assets must be recalculated.
+     */
+    #[Setting('ep.document_statuses_hidden')]
+    #[Group('ep')]
+    #[Type(DocumentStatus::class)]
+    public const EP_DOCUMENT_STATUSES_HIDDEN = [];
 
     /**
      * Type ID related to headquarter.

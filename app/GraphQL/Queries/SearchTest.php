@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
@@ -98,14 +99,20 @@ class SearchTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $settings = [
-            'ep.contract_types' => [
+            'ep.document_statuses_hidden' => [
+                'fb377814-592d-492c-aa05-e9e01afd4a11',
+            ],
+            'ep.contract_types'           => [
                 'a4cd3a25-5b9f-41c5-aa93-23c770086d6c',
             ],
-            'ep.quote_types'    => [
+            'ep.quote_types'              => [
                 '453a47d0-6607-4cf7-8d0a-bd57a962658a',
             ],
         ];
         $factory  = static function (TestCase $test, Organization $organization): Collection {
+            $status          = Status::factory()->create([
+                'id' => 'fb377814-592d-492c-aa05-e9e01afd4a11',
+            ]);
             $reseller        = Reseller::factory()->create([
                 'id' => $organization,
             ]);
@@ -134,6 +141,12 @@ class SearchTest extends TestCase {
                 'id' => 'a4cd3a25-5b9f-41c5-aa93-23c770086d6c',
             ]);
             $contractHidden  = Document::factory()->create([
+                'type_id'     => $contractType,
+                'reseller_id' => $reseller,
+                'number'      => 'Contract ABC',
+                'statuses'    => [$status],
+            ]);
+            $contractIgnored = Document::factory()->create([
                 'id'      => '474bbaf1-a30f-4dfd-a81e-10ebabe6ccb5',
                 'type_id' => $contractType,
                 'number'  => 'Contract ABC',
@@ -149,6 +162,12 @@ class SearchTest extends TestCase {
                 'id' => '453a47d0-6607-4cf7-8d0a-bd57a962658a',
             ]);
             $quoteHidden  = Document::factory()->create([
+                'type_id'     => $quoteType,
+                'reseller_id' => $reseller,
+                'number'      => 'Quote ABC',
+                'statuses'    => [$status],
+            ]);
+            $quoteIgnored = Document::factory()->create([
                 'id'      => '2d5a2cb9-b2b8-4a25-8f60-350af319fc0d',
                 'type_id' => $quoteType,
                 'number'  => 'Quote ABC',
@@ -172,8 +191,10 @@ class SearchTest extends TestCase {
                 $assetHidden,
                 $assetVisible,
                 $contractHidden,
+                $contractIgnored,
                 $contractVisible,
                 $quoteHidden,
+                $quoteIgnored,
                 $quoteVisible,
                 $document,
             ]);

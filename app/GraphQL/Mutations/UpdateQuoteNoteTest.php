@@ -67,7 +67,8 @@ class UpdateQuoteNoteTest extends TestCase {
 
             if (!$settings) {
                 $this->setSettings([
-                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                    'ep.document_statuses_hidden' => [],
+                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                 ]);
             }
 
@@ -196,9 +197,10 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]);
         };
         $settings = [
-            'ep.file.max_size' => 250,
-            'ep.file.formats'  => ['csv'],
-            'ep.quote_types'   => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.file.max_size'            => 250,
+            'ep.file.formats'             => ['csv'],
+            'ep.quote_types'              => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
+            'ep.document_statuses_hidden' => [],
         ];
 
         return (new MergeDataProvider([
@@ -336,7 +338,10 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLError('updateQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
-                        ['ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac']],
+                        [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',

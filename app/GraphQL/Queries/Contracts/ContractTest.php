@@ -61,7 +61,8 @@ class ContractTest extends TestCase {
             $contractId = $contract->id;
 
             $this->setSettings([
-                'ep.contract_types' => [$contract->type_id],
+                'ep.document_statuses_hidden' => [],
+                'ep.contract_types'           => [$contract->type_id],
             ]);
         }
 

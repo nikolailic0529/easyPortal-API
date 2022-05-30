@@ -497,7 +497,8 @@ class AssetsTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],

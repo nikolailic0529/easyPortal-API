@@ -123,7 +123,8 @@ class QuoteTypesTest extends TestCase {
             'quote_types match'                  => [
                 new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
                 [
-                    'ep.quote_types' => [
+                    'ep.document_statuses_hidden' => [],
+                    'ep.quote_types'              => [
                         'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                         '6f19ef5f-5963-437e-a798-29296db08d59',
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -147,7 +148,8 @@ class QuoteTypesTest extends TestCase {
                     // empty
                 ]),
                 [
-                    'ep.quote_types' => [
+                    'ep.document_statuses_hidden' => [],
+                    'ep.quote_types'              => [
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1650eg',
                     ],
                 ],
@@ -159,12 +161,9 @@ class QuoteTypesTest extends TestCase {
                     // empty
                 ]),
                 [
-                    'ep.contract_types' => [
-                        // empty
-                    ],
-                    'ep.quote_types'    => [
-                        // empty
-                    ],
+                    'ep.document_statuses_hidden' => [],
+                    'ep.contract_types'           => [],
+                    'ep.quote_types'              => [],
                 ],
                 $translation,
                 $factory,

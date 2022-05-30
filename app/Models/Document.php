@@ -12,6 +12,7 @@ use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Models\Scopes\ContractType;
+use App\Models\Scopes\DocumentStatusScopeImpl;
 use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;
 use App\Models\Scopes\QuoteType;
@@ -101,6 +102,7 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasContacts;
     use SyncHasMany;
     use DocumentTypeScope;
+    use DocumentStatusScopeImpl;
 
     /**
      * @use DocumentTypeQuery<static>
