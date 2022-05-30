@@ -545,7 +545,7 @@ abstract class Processor implements ProcessorContract {
 
         // Organization scope should be disabled because we want to process
         // all objects.
-        GlobalScopes::callWithoutGlobalScope(
+        GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use (&$result, $callback): void {
                 // Indexing should be disabled to avoid a lot of queued jobs and

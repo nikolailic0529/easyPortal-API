@@ -56,7 +56,7 @@ class CustomerLoaderDataWithoutAssets extends AssetsData {
     public function restore(string $path, array $context): bool {
         $result = parent::restore($path, $context);
 
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function (): void {
+        GlobalScopes::callWithout(OwnedByOrganizationScope::class, static function (): void {
             if (static::ASSET && !Asset::query()->whereKey(static::ASSET)->exists()) {
                 Asset::factory()->create([
                     'id'          => static::ASSET,

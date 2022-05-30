@@ -8326,6 +8326,11 @@ parameters:
 			path: app/Models/Scopes/ContractType.php
 
 		-
+			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentStatusScope\\:\\:getStatusesIds\\(\\) should return array\\<string\\> but returns array\\.$#"
+			count: 1
+			path: app/Models/Scopes/DocumentStatusScope.php
+
+		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentType.php
@@ -16449,6 +16454,21 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DateTime\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\DateTime\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DateTime.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
+			count: 1
+			path: app/Services/Settings/Types/DocumentStatus.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			count: 1
+			path: app/Services/Settings/Types/DocumentStatus.php
+
+		-
+			message: "#^Return type \\(Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) of method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should be compatible with return type \\(array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\) of method App\\\\Services\\\\Settings\\\\Types\\\\Type\\:\\:getValues\\(\\)$#"
+			count: 1
+			path: app/Services/Settings/Types/DocumentStatus.php
 
 		-
 			message: "#^Cannot call method map\\(\\) on array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"

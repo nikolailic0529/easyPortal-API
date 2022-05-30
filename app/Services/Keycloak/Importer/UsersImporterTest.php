@@ -121,7 +121,7 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithoutGlobalScope(
+        $user = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($keycloakUser) {
                 return User::query()
@@ -194,7 +194,7 @@ class UsersImporterTest extends TestCase {
             'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194335',
         ]);
 
-        GlobalScopes::callWithoutGlobalScope(
+        GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($user, $orgA, $orgB, $roleB): void {
                 OrganizationUser::factory()->create([
@@ -256,7 +256,7 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithoutGlobalScope(
+        $user = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($keycloakUser) {
                 return User::query()

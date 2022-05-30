@@ -264,7 +264,7 @@ class User extends Model implements
         }
 
         // Member of organization?
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($organization): bool {
                 $orgUser = null;

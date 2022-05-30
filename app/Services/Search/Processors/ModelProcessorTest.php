@@ -129,7 +129,7 @@ class ModelProcessorTest extends TestCase {
 
         self::assertEquals(
             $expected->map(new GetKey())->sort()->values(),
-            GlobalScopes::callWithoutGlobalScope(
+            GlobalScopes::callWithout(
                 OwnedByOrganizationScope::class,
                 static function () use ($model): Collection {
                     return $model::search()

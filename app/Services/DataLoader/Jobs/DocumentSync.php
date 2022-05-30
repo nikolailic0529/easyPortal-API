@@ -26,7 +26,7 @@ class DocumentSync extends Sync {
      * @return array{result: bool, assets: bool}
      */
     public function __invoke(ExceptionHandler $handler, Container $container, Kernel $kernel): array {
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($container, $handler, $kernel): array {
                 $result = $this->syncProperties($handler, $kernel);

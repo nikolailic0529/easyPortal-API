@@ -109,7 +109,7 @@ class CustomersProcessorTest extends TestCase {
 
         // Properties
         $locations  = static function (Customer $customer): Collection {
-            return GlobalScopes::callWithoutGlobalScope(
+            return GlobalScopes::callWithout(
                 OwnedByOrganizationScope::class,
                 static function () use ($customer): Collection {
                     return CustomerLocation::query()

@@ -45,7 +45,7 @@ class DocumentSyncTest extends TestCase {
         });
 
         $this->override(AssetSync::class, static function (MockInterface $mock) use ($document): void {
-            $assets = GlobalScopes::callWithoutGlobalScope(
+            $assets = GlobalScopes::callWithout(
                 OwnedByOrganizationScope::class,
                 static function () use ($document): Collection {
                     return $document->assets;

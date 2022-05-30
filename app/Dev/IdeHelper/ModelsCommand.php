@@ -9,7 +9,7 @@ use Barryvdh\LaravelIdeHelper\Console\ModelsCommand as LaravelIdeHelperModelsCom
 class ModelsCommand extends LaravelIdeHelperModelsCommand {
     public function getPropertiesFromMethods(mixed $model): void {
         // Required to fix "Organization is unknown" error.
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use ($model): void {
+        GlobalScopes::callWithout(OwnedByOrganizationScope::class, function () use ($model): void {
             parent::getPropertiesFromMethods($model);
         });
     }

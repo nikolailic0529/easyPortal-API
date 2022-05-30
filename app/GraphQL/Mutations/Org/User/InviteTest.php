@@ -77,7 +77,7 @@ class InviteTest extends TestCase {
         Notification::fake();
 
         // Count
-        $organizationUsers = GlobalScopes::callWithoutGlobalScope(
+        $organizationUsers = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function (): int {
                 return OrganizationUser::query()->count();

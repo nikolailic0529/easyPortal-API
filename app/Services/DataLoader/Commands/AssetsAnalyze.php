@@ -86,7 +86,7 @@ class AssetsAnalyze extends Command {
         }
 
         // Process
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
+        GlobalScopes::callWithout(OwnedByOrganizationScope::class, function () use (
             $lastId,
             $chunk,
             $client,

@@ -26,7 +26,7 @@ class AssetSync extends Sync {
      * @return array{result: bool}
      */
     public function __invoke(ExceptionHandler $handler, Client $client, IteratorImporter $importer): array {
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($handler, $client, $importer): array {
                 return [

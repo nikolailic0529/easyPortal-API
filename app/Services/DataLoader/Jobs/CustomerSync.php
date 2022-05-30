@@ -26,7 +26,7 @@ class CustomerSync extends Sync {
      * @return array{result: bool, warranty: bool}
      */
     public function __invoke(ExceptionHandler $handler, Kernel $kernel, Client $client): array {
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($handler, $kernel, $client): array {
                 $warranty = $this->checkWarranty($handler, $client);

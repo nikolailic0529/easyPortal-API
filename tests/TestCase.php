@@ -148,7 +148,7 @@ abstract class TestCase extends BaseTestCase {
         $actual = [];
 
         foreach ($expected as $model => $count) {
-            $actual[$model] = GlobalScopes::callWithoutGlobalScope(
+            $actual[$model] = GlobalScopes::callWithout(
                 OwnedByOrganizationScope::class,
                 static function () use ($model): int {
                     return $model::query()->count();

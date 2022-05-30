@@ -102,7 +102,7 @@ class SignUpByInvite {
 
         // Invitation
         /** @var Invitation|null $invitation */
-        $invitation = GlobalScopes::callWithoutGlobalScope(
+        $invitation = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($id): ?Invitation {
                 return Invitation::query()->whereKey($id)->first();
@@ -121,7 +121,7 @@ class SignUpByInvite {
             throw new SignUpByInviteInvitationExpired($invitation);
         }
 
-        $last = GlobalScopes::callWithoutGlobalScope(
+        $last = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($invitation): ?Invitation {
                 return Invitation::query()
@@ -141,7 +141,7 @@ class SignUpByInvite {
     }
 
     protected function getOrganizationUser(Invitation $invitation): OrganizationUser {
-        $user = GlobalScopes::callWithoutGlobalScope(
+        $user = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($invitation): ?OrganizationUser {
                 return OrganizationUser::query()

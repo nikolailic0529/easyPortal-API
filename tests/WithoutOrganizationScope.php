@@ -16,14 +16,14 @@ trait WithoutOrganizationScope {
      */
     public function initWithoutOrganizationScope(): void {
         $this->afterApplicationCreated(function (): void {
-            $this->withoutOrganizationScope = GlobalScopes::setGlobalScopeDisabled(
+            $this->withoutOrganizationScope = GlobalScopes::setDisabled(
                 OwnedByOrganizationScope::class,
                 true,
             );
         });
 
         $this->beforeApplicationDestroyed(function (): void {
-            GlobalScopes::setGlobalScopeDisabled(
+            GlobalScopes::setDisabled(
                 OwnedByOrganizationScope::class,
                 $this->withoutOrganizationScope,
             );

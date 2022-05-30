@@ -130,7 +130,7 @@ class UserTest extends TestCase {
     public function testStatus(Status $expected, Closure $organizationUserFactory): void {
         $user   = $organizationUserFactory($this);
         $query  = $this->app->make(UserQuery::class);
-        $actual = GlobalScopes::callWithoutGlobalScope(
+        $actual = GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($user, $query): Status {
                 return $query->status($user);

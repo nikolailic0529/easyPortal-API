@@ -72,7 +72,7 @@ class CascadeProcessor {
     }
 
     protected function runDelete(Model $model, string $name, Relation $relation): void {
-        GlobalScopes::callWithoutGlobalScope(
+        GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($model, $name, $relation): void {
                 foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {

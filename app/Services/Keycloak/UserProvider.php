@@ -380,7 +380,7 @@ class UserProvider implements UserProviderContract {
         UnencryptedToken $token,
         ?Organization $organization,
     ): ?Organization {
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             static function () use ($user, $token, $organization): ?Organization {
                 $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
@@ -413,7 +413,7 @@ class UserProvider implements UserProviderContract {
      * @return array<string>
      */
     protected function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($user, $organization): array {
                 // Organization is required

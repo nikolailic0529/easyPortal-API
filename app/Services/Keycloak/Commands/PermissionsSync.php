@@ -42,7 +42,7 @@ class PermissionsSync extends Command {
     }
 
     public function handle(): int {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): void {
+        GlobalScopes::callWithout(OwnedByOrganizationScope::class, function (): void {
             $this->process();
         });
 
