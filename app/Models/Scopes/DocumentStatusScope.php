@@ -3,14 +3,19 @@
 namespace App\Models\Scopes;
 
 use App\Models\Document;
+use App\Models\Status;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Uuid;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
+use function array_intersect;
 
 /**
  * @extends DisableableScope<Document>
@@ -62,5 +67,23 @@ class DocumentStatusScope extends DisableableScope implements ScopeWithMetadata 
      */
     protected function getStatusesIds(): array {
         return (array) $this->config->get('ep.document_statuses_hidden');
+    }
+
+    /**
+     * @param Collection<array-key, Status>|Status|string $status
+     */
+    public function isHidden(Collection|Status|string $status): bool {
+        $hidden   = $this->getStatusesIds();
+        $statuses = [];
+
+        if ($status instanceof Collection) {
+            $statuses = $status->map(new GetKey())->all();
+        } elseif ($status instanceof Status) {
+            $statuses = [$status->getKey()];
+        } else {
+            $statuses = [$status];
+        }
+
+        return !!array_intersect($statuses, $hidden);
     }
 }

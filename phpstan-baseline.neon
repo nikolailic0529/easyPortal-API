@@ -11666,6 +11666,11 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
+
+		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
@@ -12747,6 +12752,16 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:resolve\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Resolver/Resolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Resolver/Resolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects array\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
 

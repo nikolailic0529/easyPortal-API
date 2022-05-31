@@ -12,6 +12,7 @@ use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
 use App\Models\Scopes\ContractType;
+use App\Models\Scopes\DocumentStatusScope;
 use App\Models\Scopes\DocumentStatusScopeImpl;
 use App\Models\Scopes\DocumentTypeQuery;
 use App\Models\Scopes\DocumentTypeScope;
@@ -71,6 +72,8 @@ use function count;
  * @property Currency|null                  $currency
  * @property Customer|null                  $customer
  * @property Distributor|null               $distributor
+ * @property-read bool                      $is_hidden
+ * @property-read bool                      $is_visible
  * @property-read bool                      $is_contract
  * @property-read bool                      $is_quote
  * @property-read Collection<int, Asset>    $assets
@@ -202,6 +205,14 @@ class Document extends Model implements OwnedByOrganization, Searchable {
 
     public function getIsQuoteAttribute(): bool {
         return app()->make(QuoteType::class)->isQuoteType($this->type_id);
+    }
+
+    public function getIsHiddenAttribute(): bool {
+        return app()->make(DocumentStatusScope::class)->isHidden($this->statuses);
+    }
+
+    public function getIsVisibleAttribute(): bool {
+        return !$this->getIsHiddenAttribute();
     }
     // </editor-fold>
 

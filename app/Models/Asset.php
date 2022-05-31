@@ -139,7 +139,8 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
         $this->syncHasMany('warranties', $warranties);
         $this->warranty_end = $this->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_id === null || ($warranty->document && $warranty->document->is_contract);
+                return $warranty->document_id === null
+                    || ($warranty->document && $warranty->document->is_visible && $warranty->document->is_contract);
             })
             ->pluck('end')
             ->max();

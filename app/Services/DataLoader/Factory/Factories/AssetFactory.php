@@ -415,9 +415,9 @@ class AssetFactory extends ModelFactory {
      */
     protected function assetDocumentsWarrantiesExtended(Asset $model, ViewAsset $asset): array {
         // Prepare
-        $serviceLevels = [];
-        $warranties    = [];
-        $existing      = $model->warranties
+        $serviceLevels  = [];
+        $warranties     = [];
+        $existing       = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
                 return static::isWarrantyExtended($warranty);
             })
@@ -432,15 +432,16 @@ class AssetFactory extends ModelFactory {
                     $warranty->end?->startOfDay(),
                 ]);
             });
-        $documents     = $this->assetDocuments($model, $asset);
+        $assetDocuments = $this->assetDocuments($model, $asset);
+        $documents      = $this->assetDocumentDocuments($model, $assetDocuments);
 
         // Warranties
         $normalizer = $this->getNormalizer();
 
-        foreach ($documents as $assetDocument) {
+        foreach ($assetDocuments as $assetDocument) {
             try {
                 // Valid?
-                $document = $this->assetDocumentDocument($model, $assetDocument);
+                $document = $documents->get($assetDocument->document->id ?? '');
                 $number   = $assetDocument->documentNumber;
                 $group    = $this->assetDocumentServiceGroup($model, $assetDocument);
                 $level    = $this->assetDocumentServiceLevel($model, $assetDocument);
@@ -503,6 +504,46 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return array_values($warranties);
+    }
+
+    /**
+     * @param Collection<int, ViewAssetDocument> $assetDocuments
+     *
+     * @return Collection<string, Document>
+     */
+    protected function assetDocumentDocuments(Asset $model, Collection $assetDocuments): Collection {
+        // Prefetch
+        $resolver = $this->getDocumentFactory()?->getDocumentResolver();
+
+        if ($resolver) {
+            $keys = [];
+
+            foreach ($assetDocuments as $assetDocument) {
+                if (isset($assetDocument->document->id)) {
+                    $keys[$assetDocument->document->id] = $assetDocument->document->id;
+                }
+            }
+
+            $resolver->prefetch($keys);
+        }
+
+        // Convert
+        /** @var EloquentCollection<string, Document> $documents */
+        $documents = new EloquentCollection();
+
+        foreach ($assetDocuments as $assetDocument) {
+            $document = $this->assetDocumentDocument($model, $assetDocument);
+
+            if ($document) {
+                $documents[$document->getKey()] = $document;
+            }
+        }
+
+        // Eager Load
+        $documents->loadMissing('statuses');
+
+        // Return
+        return $documents;
     }
 
     protected function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
