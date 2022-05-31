@@ -5756,6 +5756,11 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
+			message: "#^Method App\\\\Models\\\\Asset\\:\\:getWarrantyEnd\\(\\) should return Carbon\\\\CarbonImmutable\\|null but returns mixed\\.$#"
+			count: 1
+			path: app/Models/Asset.php
+
+		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:location\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -5947,11 +5952,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Contact\\> given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$warranty_end \\(Carbon\\\\CarbonImmutable\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -12761,11 +12761,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects array\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
 			message: "#^Strict comparison using \\!\\=\\= between TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model and null will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
@@ -14946,6 +14941,16 @@ parameters:
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsChunkData constructor expects array\\<App\\\\Models\\\\Asset\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Asset\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Processor/Processors/AssetsProcessor.php
+
+		-
+			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\{App\\\\Models\\\\Status\\}\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Processor/Processors/AssetsProcessorTest.php
+
+		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData\\:\\:getCustomerAssetsCountFor\\(\\) should return int but returns array\\<string, int\\>\\|int\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/CustomersChunkData.php
@@ -15056,6 +15061,11 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/ResellersProcessorTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\AssetsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Asset, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Asset\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsProcessor\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Queue/Jobs/AssetsRecalculator.php
+
+		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\CustomersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Customer, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/CustomersRecalculator.php
@@ -15089,6 +15099,11 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\ResellersRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Reseller, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/ResellersRecalculator.php
+
+		-
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\AssetRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Asset, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Asset\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Asset\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsProcessor\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Queue/Tasks/AssetRecalculate.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Customer, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Customer\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessor\\.$#"
@@ -15126,7 +15141,7 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/ResellerRecalculate.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\Recalculate\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\ResellerRecalculate', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\CustomerRecalculate', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\LocationRecalculate'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\Recalculate\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\AssetRecalculate', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\ResellerRecalculate', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\CustomerRecalculate', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\LocationRecalculate'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 

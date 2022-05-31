@@ -21,6 +21,7 @@ use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleaner;
+use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator as RecalculatorAssetsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator as RecalculatorCustomersRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator as RecalculatorLocationsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator as RecalculatorResellersRecalculator;
@@ -1808,6 +1809,24 @@ interface Constants {
     #[Group('jobs')]
     #[Type(CronExpression::class)]
     public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_ASSETS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorAssetsRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_ASSETS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorAssetsRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_ASSETS_RECALCULATOR_CRON = '0 0 1 * *';
     // </editor-fold>
     // </editor-fold>
 }

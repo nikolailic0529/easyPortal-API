@@ -2,10 +2,12 @@
 
 namespace App\Services\Recalculator;
 
+use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Queues;
+use App\Services\Recalculator\Queue\Tasks\AssetRecalculate;
 use App\Services\Recalculator\Queue\Tasks\CustomerRecalculate;
 use App\Services\Recalculator\Queue\Tasks\LocationRecalculate;
 use App\Services\Recalculator\Queue\Tasks\Recalculate;
@@ -20,6 +22,7 @@ class Service extends BaseService {
      * @var array<class-string<Model>,class-string<Recalculate<Model>>>
      */
     protected static array $recalculable = [
+        Asset::class    => AssetRecalculate::class,
         Reseller::class => ResellerRecalculate::class,
         Customer::class => CustomerRecalculate::class,
         Location::class => LocationRecalculate::class,
