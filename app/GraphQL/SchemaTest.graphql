@@ -5104,11 +5104,6 @@ input SortByClauseDocumentsSearchSort {
     """
     Property clause.
     """
-    price: SortByDirection
-
-    """
-    Property clause.
-    """
     start: SortByDirection
 }
 

@@ -2,38 +2,54 @@
 
 namespace App\Models\Scopes;
 
+use App\Models\Document;
+use App\Models\Type;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Uuid;
+use App\Utils\Eloquent\GlobalScopes\DisableableScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Scope;
+
+use function array_merge;
 
 /**
  * @template TModel of \App\Models\Document|\App\Models\Type
  *
+ * @extends DisableableScope<TModel>
  * @implements ScopeWithMetadata<TModel>
  */
-class DocumentType implements Scope, ScopeWithMetadata {
+class DocumentType extends DisableableScope implements ScopeWithMetadata {
     public const SEARCH_METADATA = 'type';
 
-    public function __construct() {
+    /**
+     * @param ContractType<Document> $contractType
+     * @param QuoteType<Document>    $quoteType
+     */
+    public function __construct(
+        private ContractType $contractType,
+        private QuoteType $quoteType,
+    ) {
         // empty
     }
 
-    /**
-     * @param EloquentBuilder<TModel> $builder
-     * @param TModel                  $model
-     */
-    public function apply(EloquentBuilder $builder, Model $model): void {
-        // empty
+    protected function handle(EloquentBuilder $builder, Model $model): void {
+        $contractTypes = $this->contractType->getTypeIds();
+        $quoteTypes    = $this->quoteType->getTypeIds();
+        $key           = $model instanceof Type ? $model->getKeyName() : 'type_id';
+
+        if ($contractTypes && $quoteTypes) {
+            $builder->whereIn($key, array_merge($contractTypes, $quoteTypes));
+        }
     }
 
-    /**
-     * @param TModel $model
-     */
-    public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        // empty
+    protected function handleForSearch(SearchBuilder $builder, Model $model): void {
+        $contractTypes = $this->contractType->getTypeIds();
+        $quoteTypes    = $this->quoteType->getTypeIds();
+
+        if ($contractTypes && $quoteTypes) {
+            $builder->whereMetadataIn(self::SEARCH_METADATA, array_merge($contractTypes, $quoteTypes));
+        }
     }
 
     /**

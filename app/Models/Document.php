@@ -22,7 +22,6 @@ use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
-use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -218,10 +217,6 @@ class Document extends Model implements OwnedByOrganization, Searchable {
 
     // <editor-fold desc="Searchable">
     // =========================================================================
-    public function shouldBeSearchable(): bool {
-        return $this->is_contract || $this->is_quote;
-    }
-
     /**
      * @inheritDoc
      */
@@ -231,7 +226,6 @@ class Document extends Model implements OwnedByOrganization, Searchable {
             'number'   => new Text('number', true),
             'start'    => new Date('start'),
             'end'      => new Date('end'),
-            'price'    => new Double('price'),
             'customer' => new Relation('customer', [
                 'name' => new Text('name', true),
             ]),

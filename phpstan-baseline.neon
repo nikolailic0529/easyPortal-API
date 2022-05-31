@@ -8331,16 +8331,6 @@ parameters:
 			path: app/Models/Scopes/DocumentStatusScope.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
-			count: 1
-			path: app/Models/Scopes/DocumentType.php
-
-		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
-			count: 1
-			path: app/Models/Scopes/DocumentType.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
 			count: 1
 			path: app/Models/Scopes/QuoteType.php

@@ -143,19 +143,19 @@ class SearchTest extends TestCase {
             $contractHidden  = Document::factory()->create([
                 'type_id'     => $contractType,
                 'reseller_id' => $reseller,
-                'number'      => 'Contract ABC',
+                'number'      => 'Hidden Contract ABC',
                 'statuses'    => [$status],
             ]);
             $contractIgnored = Document::factory()->create([
                 'id'      => '474bbaf1-a30f-4dfd-a81e-10ebabe6ccb5',
                 'type_id' => $contractType,
-                'number'  => 'Contract ABC',
+                'number'  => 'Ignored Contract ABC',
             ]);
             $contractVisible = Document::factory()->create([
                 'id'          => '9d9bb184-cf20-437e-a6f6-2d5268f8814b',
                 'type_id'     => $contractType,
                 'reseller_id' => $reseller,
-                'number'      => 'Contract ABC',
+                'number'      => 'Visible Contract ABC',
             ]);
 
             $quoteType    = Type::factory()->create([
@@ -164,19 +164,19 @@ class SearchTest extends TestCase {
             $quoteHidden  = Document::factory()->create([
                 'type_id'     => $quoteType,
                 'reseller_id' => $reseller,
-                'number'      => 'Quote ABC',
+                'number'      => 'Hidden Quote ABC',
                 'statuses'    => [$status],
             ]);
             $quoteIgnored = Document::factory()->create([
                 'id'      => '2d5a2cb9-b2b8-4a25-8f60-350af319fc0d',
                 'type_id' => $quoteType,
-                'number'  => 'Quote ABC',
+                'number'  => 'Ignored Quote ABC',
             ]);
             $quoteVisible = Document::factory()->create([
                 'id'          => 'a3e3d637-dc22-4283-a170-af950e1f2996',
                 'type_id'     => $quoteType,
                 'reseller_id' => $reseller,
-                'number'      => 'Quote ABC',
+                'number'      => 'Visible Quote ABC',
             ]);
 
             $document = Document::factory()->create([
