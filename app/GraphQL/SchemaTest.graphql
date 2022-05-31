@@ -9838,7 +9838,7 @@ type Query {
         order: [SortByClauseDocumentsSearchSort!]
         @sortBy
 
-        search: String!
+        search: SearchString!
         @search
         @builder(
             method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch"
@@ -9856,7 +9856,7 @@ type Query {
     @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
     """
     contractsSearchAggregated(
-        search: String!
+        search: SearchString!
         @search
         @builder(
             method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch"
@@ -10776,7 +10776,7 @@ type Query {
         order: [SortByClauseDocumentsSearchSort!]
         @sortBy
 
-        search: String!
+        search: SearchString!
         @search
         @builder(
             method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
@@ -10794,7 +10794,7 @@ type Query {
     @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesSearchAggregated(
-        search: String!
+        search: SearchString!
         @search
         @builder(
             method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"

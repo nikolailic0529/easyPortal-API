@@ -28,7 +28,7 @@ extend type Query {
     @paginated
 
     contractsSearch(
-        search: String!
+        search: SearchString!
         @search
         @builder(method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch")
 

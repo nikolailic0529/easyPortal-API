@@ -35,7 +35,7 @@ extend type Query {
     @find
 
     quotesSearch(
-        search: String!
+        search: SearchString!
         @search
         @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
 
