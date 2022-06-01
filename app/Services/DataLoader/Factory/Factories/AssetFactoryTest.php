@@ -43,7 +43,7 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function array_column;
 use function count;
@@ -53,7 +53,7 @@ use function count;
  * @coversDefaultClass AssetFactory
  */
 class AssetFactoryTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithQueryLog;
     use Helper;
 

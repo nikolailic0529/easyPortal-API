@@ -5,7 +5,7 @@ namespace App\Services\Recalculator\Listeners;
 use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\Recalculator\Jobs\CustomerRecalculate;
+use App\Services\Recalculator\Queue\Tasks\CustomerRecalculate;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;

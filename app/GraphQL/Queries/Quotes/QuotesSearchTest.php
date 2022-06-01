@@ -413,9 +413,20 @@ class QuotesSearchTest extends TestCase {
                 ]),
             ]);
 
+            $documentC = Document::factory()
+                ->for($distributor)
+                ->for($reseller)
+                ->for($customer)
+                ->for($type)
+                ->hasStatuses(1, [
+                    'id' => '12dcd0c7-2fac-4140-8808-4a72aa8600ab',
+                ])
+                ->create();
+
             return new Collection([
                 $documentA,
                 $documentB,
+                $documentC,
             ]);
         };
         $objects = [
@@ -591,7 +602,8 @@ class QuotesSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('quotesSearch', null),
                         [
-                            'ep.quote_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -617,7 +629,8 @@ class QuotesSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('quotesSearch', null),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -654,7 +667,10 @@ class QuotesSearchTest extends TestCase {
                             'count' => count($objects),
                         ]),
                         [
-                            'ep.quote_types' => [
+                            'ep.document_statuses_hidden' => [
+                                '12dcd0c7-2fac-4140-8808-4a72aa8600ab',
+                            ],
+                            'ep.quote_types'              => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -665,7 +681,10 @@ class QuotesSearchTest extends TestCase {
                             'count' => count($objects),
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                '12dcd0c7-2fac-4140-8808-4a72aa8600ab',
+                            ],
+                            'ep.contract_types'           => [
                                 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
                             ],
                         ],
@@ -681,7 +700,8 @@ class QuotesSearchTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -705,7 +725,8 @@ class QuotesSearchTest extends TestCase {
                             'count' => 0,
                         ]),
                         [
-                            'ep.quote_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -722,12 +743,9 @@ class QuotesSearchTest extends TestCase {
                             'count' => 0,
                         ]),
                         [
-                            'ep.contract_types' => [
-                                // empty
-                            ],
-                            'ep.quote_types'    => [
-                                // empty
-                            ],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
+                            'ep.quote_types'              => [],
                         ],
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create([

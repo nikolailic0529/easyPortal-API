@@ -15,7 +15,7 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 use Tests\WithSearch;
 
 use function json_encode;
@@ -25,7 +25,7 @@ use function json_encode;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\Aggregated
  */
 class AggregatedTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
     use WithSearch;
 

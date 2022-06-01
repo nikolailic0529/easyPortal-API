@@ -2,7 +2,6 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
 use Exception;
@@ -72,24 +71,21 @@ class CascadeProcessor {
     }
 
     protected function runDelete(Model $model, string $name, Relation $relation): void {
-        GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            function () use ($model, $name, $relation): void {
-                foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {
-                    if ($object instanceof Model) {
-                        if (property_exists($object, 'forceDeleting')) {
-                            $object->forceDeleting = property_exists($model, 'forceDeleting')
-                                ? $model->forceDeleting
-                                : false;
-                        }
+        GlobalScopes::callWithoutAll(function () use ($model, $name, $relation): void {
+            foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {
+                if ($object instanceof Model) {
+                    if (property_exists($object, 'forceDeleting')) {
+                        $object->forceDeleting = property_exists($model, 'forceDeleting')
+                            ? $model->forceDeleting
+                            : false;
+                    }
 
-                        if (!$object->delete()) {
-                            throw new Exception('Unknown error while deleting children.');
-                        }
+                    if (!$object->delete()) {
+                        throw new Exception('Unknown error while deleting children.');
                     }
                 }
-            },
-        );
+            }
+        });
     }
 
     /**

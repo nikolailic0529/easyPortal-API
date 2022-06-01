@@ -14,7 +14,6 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewCompany;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Console\WithOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
@@ -86,7 +85,7 @@ class AssetsAnalyze extends Command {
         }
 
         // Process
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function () use (
+        GlobalScopes::callWithoutAll(function () use (
             $lastId,
             $chunk,
             $client,

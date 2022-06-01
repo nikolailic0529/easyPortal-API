@@ -440,14 +440,6 @@
         ]
     },
     {
-        "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "d78edac9-1f57-4e6d-b804-dd30636b1c49",
@@ -466,11 +458,11 @@
             "dfa9342e-7408-3ab9-97a0-40ab59960d58",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:01:05",
+            "2022-02-02 00:00:49",
             0,
             0,
-            "2022-02-02 00:01:06",
-            "2022-02-02 00:01:06"
+            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:50"
         ]
     },
     {
@@ -492,11 +484,11 @@
             "6409db34-faea-3fc6-b668-66c47d9663bd",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:01:14",
+            "2022-02-02 00:00:54",
             0,
             0,
-            "2022-02-02 00:01:15",
-            "2022-02-02 00:01:15"
+            "2022-02-02 00:00:55",
+            "2022-02-02 00:00:55"
         ]
     },
     {
@@ -518,12 +510,29 @@
             "9530dd8a-32ee-3e02-b45f-0274aa255bfa",
             "2021-07-15 12:51:38",
             0,
-            "2022-02-02 00:01:27",
+            "2022-02-02 00:00:59",
             0,
             0,
-            "2022-02-02 00:01:28",
-            "2022-02-02 00:01:28"
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "06d30f36-55a6-4a33-95f2-33637b4d0681",
+            "31c1944e-642e-4418-b97e-0a989de47cb9",
+            "4a1c9f7c-4baa-4e95-b893-5023ef90c337",
+            "d78edac9-1f57-4e6d-b804-dd30636b1c49"
+        ]
+    },
+    {
+        "query": "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
+        "bindings": []
     },
     {
         "query": "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

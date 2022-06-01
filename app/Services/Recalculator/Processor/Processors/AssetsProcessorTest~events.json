@@ -1,0 +1,9 @@
+[
+    {
+        "model": "App\\Models\\Asset",
+        "keys": [
+            "81f52c19-1b2c-53ab-8c20-05df3a36e367",
+            "bcad5775-d072-5354-9869-13a0ed45d98f"
+        ]
+    }
+]

@@ -65,6 +65,7 @@ abstract class BaseImporter extends Importer {
     protected function prefetch(State $state, array $items): mixed {
         $data      = new ImporterChunkData($items);
         $container = $this->getContainer();
+        $documents = $container->make(DocumentResolver::class);
         $locations = $container->make(LocationResolver::class);
         $contacts  = $container->make(ContactResolver::class);
 
@@ -72,14 +73,15 @@ abstract class BaseImporter extends Importer {
             ->make(AssetResolver::class)
             ->prefetch(
                 $data->get(Asset::class),
-                static function (Collection $assets) use ($locations, $contacts): void {
+                static function (Collection $assets) use ($documents, $locations, $contacts): void {
                     $assets->loadMissing('warranties.serviceLevels');
-                    $assets->loadMissing('warranties.document');
+                    $assets->loadMissing('warranties.document.statuses');
                     $assets->loadMissing('contacts.types');
                     $assets->loadMissing('location');
                     $assets->loadMissing('tags');
                     $assets->loadMissing('oem');
 
+                    $documents->put($assets->pluck('warranties')->flatten()->pluck('document')->flatten());
                     $locations->put($assets->pluck('locations')->flatten());
                     $contacts->put($assets->pluck('contacts')->flatten());
                 },
@@ -104,7 +106,9 @@ abstract class BaseImporter extends Importer {
         if ($state->withDocuments) {
             $container
                 ->make(DocumentResolver::class)
-                ->prefetch($data->get(Document::class));
+                ->prefetch($data->get(Document::class), static function (Collection $documents): void {
+                    $documents->loadMissing('statuses');
+                });
         }
 
         return $data;

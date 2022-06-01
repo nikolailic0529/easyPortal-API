@@ -10,14 +10,14 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\PaginatedLimit
  */
 class PaginatedLimitTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
 
     // <editor-fold desc="Tests">
     // =========================================================================

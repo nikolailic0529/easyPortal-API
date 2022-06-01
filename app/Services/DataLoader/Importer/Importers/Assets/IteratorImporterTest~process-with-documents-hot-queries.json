@@ -69,6 +69,24 @@
         ]
     },
     {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
+            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
+            "2f242f3a-2052-4894-bca6-b8821f8ef662",
+            "3cf865d5-3810-4dce-80eb-5a962403c8e7",
+            "632508e0-7f5c-4651-9094-ece89da275e8",
+            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
+            "916cb400-7119-4088-a641-f8e96eba49f9",
+            "b1400cda-07e6-495c-9d18-772b2c38f47f",
+            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
+            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
+            "cd6a2bca-5a78-4b93-b135-49c7999149fd",
+            "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
+            "efdbd056-ca96-4fea-a3d1-96aadb5405ad"
+        ]
+    },
+    {
         "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "1e59d9e8-a7b6-4b37-a867-c2e4d2e6ccc4",
@@ -226,23 +244,17 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?) or (`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
         "bindings": [
-            "cd6a2bca-5a78-4b93-b135-49c7999149fd",
-            "c04ee374-6da4-4c4d-bb55-0d8e5b1d98b2",
-            "916cb400-7119-4088-a641-f8e96eba49f9",
             "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922",
-            "d8b81381-5c12-4eb1-9b11-3f3f901e842a",
+            "8feec411-b709-44d9-b585-6c7a4ee50790"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
             "8feec411-b709-44d9-b585-6c7a4ee50790",
-            "3cf865d5-3810-4dce-80eb-5a962403c8e7",
-            "73d55565-57b7-43cf-b5c5-8a1ae31d5bb5",
-            "bf9b92db-7a9e-426c-a21c-cd7af0f4abe6",
-            "0b1618bc-c668-41e4-8eda-c594f20a0ae1",
-            "b1400cda-07e6-495c-9d18-772b2c38f47f",
-            "efdbd056-ca96-4fea-a3d1-96aadb5405ad",
-            "2f242f3a-2052-4894-bca6-b8821f8ef662",
-            "1122c985-ec0b-40a8-a794-05a62f1dee7a",
-            "632508e0-7f5c-4651-9094-ece89da275e8"
+            "c0b9cdc6-4dc2-4eea-ad96-fe40d67e9922"
         ]
     },
     {

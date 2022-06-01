@@ -1,13 +1,13 @@
 [
     {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?)) and `distributors`.`deleted_at` is null",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47"
         ]
-    },
-    {
-        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",

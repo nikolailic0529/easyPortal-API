@@ -4,7 +4,6 @@ namespace Tests;
 
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Settings\Storage;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\GlobalScopes\State;
@@ -148,12 +147,9 @@ abstract class TestCase extends BaseTestCase {
         $actual = [];
 
         foreach ($expected as $model => $count) {
-            $actual[$model] = GlobalScopes::callWithoutGlobalScope(
-                OwnedByOrganizationScope::class,
-                static function () use ($model): int {
-                    return $model::query()->count();
-                },
-            );
+            $actual[$model] = GlobalScopes::callWithoutAll(static function () use ($model): int {
+                return $model::query()->count();
+            });
         }
 
         self::assertEquals($expected, $actual);

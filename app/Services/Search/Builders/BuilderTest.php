@@ -4,27 +4,23 @@ namespace App\Services\Search\Builders;
 
 use App\Models\Customer;
 use App\Services\Search\Configuration;
-use App\Services\Search\Contracts\Scope;
 use App\Services\Search\Contracts\Scope as SearchScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
-use InvalidArgumentException;
 use Mockery;
-use stdClass;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 use Tests\WithSearch;
 
 use function count;
-use function sprintf;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithSearch;
 
     /**
@@ -173,27 +169,6 @@ class BuilderTest extends TestCase {
             ->andReturns();
 
         $builder->applyScope($scope);
-    }
-
-    /**
-     * @covers ::applyScope
-     */
-    public function testApplyScopeNotAScope(): void {
-        $builder = $this->app->make(Builder::class, [
-            'query' => '123',
-            'model' => new class() extends Model {
-                // empty
-            },
-        ]);
-
-        self::expectExceptionObject(new InvalidArgumentException(sprintf(
-            'The `%s` must be instance of `%s`, `%s` given.',
-            '$scope',
-            Scope::class,
-            stdClass::class,
-        )));
-
-        $builder->applyScope(stdClass::class);
     }
 
     /**

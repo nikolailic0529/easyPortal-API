@@ -28,7 +28,7 @@ class UserTest extends TestCase {
      */
     public function testDelete(): void {
         // Disable unwanted scopes
-        GlobalScopes::setGlobalScopeDisabled(
+        GlobalScopes::setDisabled(
             OwnedByOrganizationScope::class,
             true,
         );

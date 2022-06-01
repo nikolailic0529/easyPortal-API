@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Document;
 use App\Services\DataLoader\Commands\DocumentUpdate;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Contracts\Console\Kernel;
@@ -26,18 +25,15 @@ class DocumentSync extends Sync {
      * @return array{result: bool, assets: bool}
      */
     public function __invoke(ExceptionHandler $handler, Container $container, Kernel $kernel): array {
-        return GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            function () use ($container, $handler, $kernel): array {
-                $result = $this->syncProperties($handler, $kernel);
-                $assets = $result && $this->syncAssets($handler, $container);
+        return GlobalScopes::callWithoutAll(function () use ($container, $handler, $kernel): array {
+            $result = $this->syncProperties($handler, $kernel);
+            $assets = $result && $this->syncAssets($handler, $container);
 
-                return [
-                    'result' => $result,
-                    'assets' => $assets,
-                ];
-            },
-        );
+            return [
+                'result' => $result,
+                'assets' => $assets,
+            ];
+        });
     }
 
     protected function syncProperties(ExceptionHandler $handler, Kernel $kernel): bool {

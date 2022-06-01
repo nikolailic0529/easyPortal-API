@@ -97,7 +97,6 @@ class DocumentFactory extends ModelFactory {
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
         protected AssetResolver $assetResolver,
-        protected AssetFactory $assetFactory,
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
         protected ProductResolver $productResolver,
@@ -126,6 +125,10 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    public function getDocumentResolver(): DocumentResolver {
+        return $this->documentResolver;
+    }
+
     protected function getDistributorResolver(): DistributorResolver {
         return $this->distributorResolver;
     }
@@ -208,10 +211,6 @@ class DocumentFactory extends ModelFactory {
 
     protected function getAssetResolver(): AssetResolver {
         return $this->assetResolver;
-    }
-
-    protected function getAssetFactory(): ?AssetFactory {
-        return $this->assetFactory;
     }
     // </editor-fold>
 

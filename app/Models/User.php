@@ -264,18 +264,14 @@ class User extends Model implements
         }
 
         // Member of organization?
-        return GlobalScopes::callWithoutGlobalScope(
+        return GlobalScopes::callWithout(
             OwnedByOrganizationScope::class,
             function () use ($organization): bool {
-                $orgUser = null;
-
-                if ($organization) {
-                    $orgUser = $this->organizations
-                        ->first(static function (OrganizationUser $user) use ($organization): bool {
-                            return $user->organization_id === $organization->getKey()
-                                && $user->invited === false;
-                        });
-                }
+                $orgUser = $this->organizations
+                    ->first(static function (OrganizationUser $user) use ($organization): bool {
+                        return $user->organization_id === $organization->getKey()
+                            && $user->invited === false;
+                    });
 
                 return $orgUser instanceof OrganizationUser
                     && $orgUser->enabled;

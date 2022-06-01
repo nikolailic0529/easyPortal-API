@@ -11,6 +11,12 @@ use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization
+ *
+ * @extends DisableableScope<TModel>
+ * @implements ScopeWithMetadata<TModel>
+ */
 class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMetadata {
     protected const SEARCH_METADATA = 'organization';
 
@@ -22,9 +28,6 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
 
     // <editor-fold desc="Eloquent">
     // =========================================================================
-    /**
-     * @param Model&OwnedByOrganization $model
-     */
     protected function handle(EloquentBuilder $builder, Model $model): void {
         // Root organization can view all data
         if ($this->organization->isRoot()) {
@@ -56,9 +59,6 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
 
     // <editor-fold desc="Search">
     // =========================================================================
-    /**
-     * @param \App\Utils\Eloquent\Model&OwnedByOrganization $model
-     */
     protected function handleForSearch(Builder $builder, Model $model): void {
         /** TODO {@link \App\Services\Organization\Eloquent\OwnedByShared} support? */
 
@@ -72,13 +72,11 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
     }
 
     /**
-     * @param \App\Utils\Eloquent\Model&OwnedByOrganization $model
-     *
-     * @return array<string,string>
+     * @inheritDoc
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            static::SEARCH_METADATA => new Uuid($model->getOrganizationColumn()),
+            self::SEARCH_METADATA => new Uuid($model->getOrganizationColumn()),
         ];
     }
     // </editor-fold>

@@ -11,16 +11,17 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
-use App\Models\Scopes\ContractType;
-use App\Models\Scopes\DocumentTypeQuery;
-use App\Models\Scopes\DocumentTypeScope;
-use App\Models\Scopes\QuoteType;
+use App\Models\Scopes\DocumentStatusScope;
+use App\Models\Scopes\DocumentStatusScopeImpl;
+use App\Models\Scopes\DocumentTypeContractScope;
+use App\Models\Scopes\DocumentTypeQueries;
+use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentTypeScopeImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
-use App\Services\Search\Properties\Double;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -70,6 +71,8 @@ use function count;
  * @property Currency|null                  $currency
  * @property Customer|null                  $customer
  * @property Distributor|null               $distributor
+ * @property-read bool                      $is_hidden
+ * @property-read bool                      $is_visible
  * @property-read bool                      $is_contract
  * @property-read bool                      $is_quote
  * @property-read Collection<int, Asset>    $assets
@@ -100,12 +103,13 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
-    use DocumentTypeScope;
+    use DocumentTypeScopeImpl;
+    use DocumentStatusScopeImpl;
 
     /**
-     * @use DocumentTypeQuery<static>
+     * @use DocumentTypeQueries<static>
      */
-    use DocumentTypeQuery;
+    use DocumentTypeQueries;
 
     protected const CASTS = [
         'changed_at' => 'datetime',
@@ -195,30 +199,33 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     // <editor-fold desc="Attributes">
     // =========================================================================
     public function getIsContractAttribute(): bool {
-        return app()->make(ContractType::class)->isContractType($this->type_id);
+        return app()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
     }
 
     public function getIsQuoteAttribute(): bool {
-        return app()->make(QuoteType::class)->isQuoteType($this->type_id);
+        return app()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
+    }
+
+    public function getIsHiddenAttribute(): bool {
+        return app()->make(DocumentStatusScope::class)->isHidden($this->statuses);
+    }
+
+    public function getIsVisibleAttribute(): bool {
+        return !$this->getIsHiddenAttribute();
     }
     // </editor-fold>
 
     // <editor-fold desc="Searchable">
     // =========================================================================
-    public function shouldBeSearchable(): bool {
-        return $this->is_contract || $this->is_quote;
-    }
-
     /**
      * @inheritDoc
      */
-    protected static function getSearchProperties(): array {
+    public static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'number'   => new Text('number', true),
             'start'    => new Date('start'),
             'end'      => new Date('end'),
-            'price'    => new Double('price'),
             'customer' => new Relation('customer', [
                 'name' => new Text('name', true),
             ]),

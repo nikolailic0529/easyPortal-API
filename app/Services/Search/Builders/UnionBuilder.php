@@ -8,9 +8,12 @@ use App\Services\Search\Eloquent\UnionModel;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @extends Builder<Model&Searchable>
+ */
 class UnionBuilder extends Builder {
     /**
-     * @var array<class-string<Model&Searchable>,array{scopes:array<Scope>,boost:float|null}> $models
+     * @var array<class-string<Model&Searchable>,array{scopes:array<Scope<Model&Searchable>>,boost:float|null}> $models
      */
     protected array $models = [];
 
@@ -26,7 +29,7 @@ class UnionBuilder extends Builder {
 
     /**
      * @param class-string<Model&Searchable> $model
-     * @param array<Scope>                   $scopes
+     * @param array<Scope<Model&Searchable>> $scopes
      */
     public function addModel(string $model, array $scopes, float $boost = null): static {
         $this->models[$model] = [
@@ -39,7 +42,7 @@ class UnionBuilder extends Builder {
     }
 
     /**
-     * @return array<class-string<Model&Searchable>,array{scopes:array<Scope>,boost:float|null}>
+     * @return array<class-string<Model&Searchable>,array{scopes:array<Scope<Model&Searchable>>,boost:float|null}>
      */
     public function getModels(): array {
         return $this->models;

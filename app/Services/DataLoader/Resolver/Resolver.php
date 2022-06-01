@@ -11,11 +11,11 @@ use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use LogicException;
 
-use function array_map;
 use function is_array;
 use function is_string;
 
@@ -108,8 +108,8 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @param array<mixed>                                                              $keys
-     * @param Closure(\Illuminate\Database\Eloquent\Collection<int, TModel>): void|null $callback
+     * @param array<mixed>                                              $keys
+     * @param Closure(EloquentCollection<array-key, TModel>): void|null $callback
      */
     protected function prefetch(array $keys, Closure|null $callback = null): static {
         // Possible?
@@ -125,25 +125,43 @@ abstract class Resolver implements Singleton, KeyRetriever {
         }
 
         // Prefetch
-        $keys  = array_map(fn(mixed $key): Key => $this->getCacheKey($key), $keys);
-        $items = $builder
-            ->where(function (Builder $builder) use ($keys): Builder {
-                foreach ($keys as $key) {
-                    $builder = $builder->orWhere(function (Builder $builder) use ($key): Builder {
-                        return $this->getFindWhere($builder, $key);
-                    });
-                }
+        $cache    = $this->getCache();
+        $items    = new EloquentCollection();
+        $internal = [];
 
-                return $builder;
-            })
-            ->get();
+        foreach ($keys as $key) {
+            $key  = $this->getCacheKey($key);
+            $item = $cache->get($key);
+
+            if ($item === null && !$cache->has($key)) {
+                $internal[] = $key;
+            } elseif ($item) {
+                $items[] = $item;
+            } else {
+                // empty
+            }
+        }
+
+        if ($internal) {
+            $loaded = $builder
+                ->where(function (Builder $builder) use ($internal): Builder {
+                    foreach ($internal as $key) {
+                        $builder = $builder->orWhere(function (Builder $builder) use ($key): Builder {
+                            return $this->getFindWhere($builder, $key);
+                        });
+                    }
+
+                    return $builder;
+                })
+                ->get();
+            $items  = $items->merge($loaded);
+
+            $this->putNull($internal)->put($loaded);
+        }
 
         if ($callback) {
             $callback($items);
         }
-
-        // Fill cache
-        $this->putNull($keys)->put($items);
 
         // Return
         return $this;

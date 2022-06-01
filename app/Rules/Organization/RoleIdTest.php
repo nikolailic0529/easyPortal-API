@@ -11,14 +11,14 @@ use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Tests\TestCase;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\Organization\RoleId
  */
 class RoleIdTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
 
     // <editor-fold desc="Tests">
     // =========================================================================

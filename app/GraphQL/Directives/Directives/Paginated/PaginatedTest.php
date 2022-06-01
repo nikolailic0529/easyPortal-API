@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function json_encode;
 
@@ -18,7 +18,7 @@ use function json_encode;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\Paginated
  */
 class PaginatedTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">

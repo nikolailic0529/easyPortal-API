@@ -65,7 +65,8 @@ class RequestContractChangeTest extends TestCase {
 
             if (!$settings) {
                 $this->setSettings([
-                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                    'ep.document_statuses_hidden' => [],
+                    'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
                 ]);
             }
 
@@ -156,8 +157,9 @@ class RequestContractChangeTest extends TestCase {
             ]);
         };
         $settings = [
-            'ep.email_address'  => 'test@example.com',
-            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+            'ep.email_address'            => 'test@example.com',
+            'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+            'ep.document_statuses_hidden' => [],
         ];
 
         return (new CompositeDataProvider(

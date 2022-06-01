@@ -19,7 +19,7 @@ class BuilderValue extends ParentValue {
     /**
      * @inheritDoc
      *
-     * @param EloquentBuilder<TModel>|QueryBuilder|SearchBuilder $builder
+     * @param EloquentBuilder<TModel>|QueryBuilder|SearchBuilder<TModel> $builder
      */
     public function __construct(
         mixed $root,
@@ -32,7 +32,7 @@ class BuilderValue extends ParentValue {
     }
 
     /**
-     * @return EloquentBuilder<TModel>|SearchBuilder|QueryBuilder
+     * @return EloquentBuilder<TModel>|SearchBuilder<TModel>|QueryBuilder
      */
     public function getBuilder(): EloquentBuilder|SearchBuilder|QueryBuilder {
         return clone $this->builder;

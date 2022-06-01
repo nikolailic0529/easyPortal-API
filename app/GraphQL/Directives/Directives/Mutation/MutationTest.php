@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function json_encode;
 
@@ -19,7 +19,7 @@ use function json_encode;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\Mutation
  */
 class MutationTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
     /**

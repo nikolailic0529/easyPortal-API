@@ -50,36 +50,9 @@ trait SearchableImpl {
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
-     * Returns properties that must be added to the index.
-     *
-     * *Warning:* If array structure is changed the search index MUST be rebuilt.
-     *
-     * Should return array where:
-     * - `key`   - key that will be used in index;
-     * - `value` - property name (not value!) that may contain dots to get
-     *             properties from related models, OR array with properties;
-     *
-     * Example:
-     *      [
-     *          'name' => new Text('name', true),         // $model->name
-     *          'product' => [
-     *              'sku'  => new Text('product.sku'),    // $model->product->sku
-     *              'name' => new Text('product.name'),   // $model->product->name
-     *          ],
-     *      ]
-     *
      * @return array<string,Property>
      */
-    abstract protected static function getSearchProperties(): array;
-
-    /**
-     * Returns properties that must be added to the index as metadata.
-     *
-     * @see getSearchProperties()
-     *
-     * @return array<string,Property>
-     */
-    protected static function getSearchMetadata(): array {
+    public static function getSearchMetadata(): array {
         return [];
     }
     // </editor-fold>
@@ -150,16 +123,27 @@ trait SearchableImpl {
             ->start();
     }
 
+    /**
+     * @param Builder<static> $query
+     *
+     * @return Builder<static>
+     */
     public function makeAllSearchableUsing(Builder $query): Builder {
         return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
+    /**
+     * @param EloquentCollection<array-key, static> $models
+     */
     public function queueMakeSearchable(EloquentCollection $models): void {
         // shouldBeSearchable() is not used here by default...
         // https://github.com/laravel/scout/issues/320
         $this->scoutQueueMakeSearchable($models->filter->shouldBeSearchable());
     }
 
+    /**
+     * @return SearchBuilder<static>
+     */
     public static function search(string $query = '', Closure $callback = null): SearchBuilder {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return static::scoutSearch($query, $callback);
@@ -215,11 +199,13 @@ trait SearchableImpl {
             if ($property instanceof Relation) {
                 if ($value instanceof Collection) {
                     $values[$name] = $value
-                        ->map(function (Model $model) use ($property): mixed {
-                            return $this->toSearchableArrayProcess($model, $property->getProperties());
+                        ->map(function (mixed $model) use ($property): mixed {
+                            return $model instanceof Model
+                                ? $this->toSearchableArrayProcess($model, $property->getProperties())
+                                : null;
                         })
                         ->all();
-                } elseif ($value !== null) {
+                } elseif ($value instanceof Model) {
                     $values[$name] = $this->toSearchableArrayProcess($value, $property->getProperties());
                 } else {
                     $values[$name] = null;

@@ -21,12 +21,13 @@ use App\Services\Maintenance\Jobs\CompleteCronJob as MaintenanceCompleteCronJob;
 use App\Services\Maintenance\Jobs\NotifyCronJob as MaintenanceNotifyCronJob;
 use App\Services\Maintenance\Jobs\StartCronJob as MaintenanceStartCronJob;
 use App\Services\Maintenance\Jobs\TelescopeCleaner as MaintenanceTelescopeCleaner;
-use App\Services\Recalculator\Jobs\Cron\CustomersRecalculator as RecalculatorCustomersRecalculator;
-use App\Services\Recalculator\Jobs\Cron\LocationsRecalculator as RecalculatorLocationsRecalculator;
-use App\Services\Recalculator\Jobs\Cron\ResellersRecalculator as RecalculatorResellersRecalculator;
-use App\Services\Search\Jobs\Cron\AssetsIndexer as SearchAssetsIndexer;
-use App\Services\Search\Jobs\Cron\CustomersIndexer as SearchCustomersIndexer;
-use App\Services\Search\Jobs\Cron\DocumentsIndexer as SearchDocumentsIndexer;
+use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator as RecalculatorAssetsRecalculator;
+use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator as RecalculatorCustomersRecalculator;
+use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator as RecalculatorLocationsRecalculator;
+use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator as RecalculatorResellersRecalculator;
+use App\Services\Search\Queue\Jobs\AssetsIndexer as SearchAssetsIndexer;
+use App\Services\Search\Queue\Jobs\CustomersIndexer as SearchCustomersIndexer;
+use App\Services\Search\Queue\Jobs\DocumentsIndexer as SearchDocumentsIndexer;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
@@ -38,6 +39,7 @@ use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DateTime;
+use App\Services\Settings\Types\DocumentStatus;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\Email;
@@ -236,6 +238,16 @@ interface Constants {
     #[Group('ep')]
     #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
+
+    /**
+     * Contracts/Quotes with these Statuses will not be visible on the Portal.
+     *
+     * If changed Assets must be recalculated.
+     */
+    #[Setting('ep.document_statuses_hidden')]
+    #[Group('ep')]
+    #[Type(DocumentStatus::class)]
+    public const EP_DOCUMENT_STATUSES_HIDDEN = [];
 
     /**
      * Type ID related to headquarter.
@@ -1797,6 +1809,24 @@ interface Constants {
     #[Group('jobs')]
     #[Type(CronExpression::class)]
     public const EP_RECALCULATOR_LOCATIONS_RECALCULATOR_CRON = '0 0 1 * *';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_RECALCULATOR_ASSETS_RECALCULATOR">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(RecalculatorAssetsRecalculator::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_RECALCULATOR_ASSETS_RECALCULATOR_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(RecalculatorAssetsRecalculator::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_RECALCULATOR_ASSETS_RECALCULATOR_CRON = '0 0 1 * *';
     // </editor-fold>
     // </editor-fold>
 }

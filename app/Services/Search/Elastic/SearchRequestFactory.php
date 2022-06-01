@@ -59,7 +59,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         foreach ($builder->getModels() as $model => $settings) {
             // Builder
-            /** @var SearchBuilder $modelBuilder */
+            /** @var SearchBuilder<Model&Searchable> $modelBuilder */
             $modelBuilder = $model::search($builder->query);
 
             foreach ($settings['scopes'] as $scope) {

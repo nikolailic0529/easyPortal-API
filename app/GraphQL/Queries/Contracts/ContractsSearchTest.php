@@ -257,7 +257,8 @@ class ContractsSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contractsSearch', null),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -283,7 +284,8 @@ class ContractsSearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contractsSearch', null),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -486,7 +488,10 @@ class ContractsSearchTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                'c466a12d-39f5-470f-b5a4-a161659855ae',
+                            ],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -653,9 +658,20 @@ class ContractsSearchTest extends TestCase {
                                 'type_id' => Type::factory()->create(),
                             ]);
 
+                            $documentC = Document::factory()
+                                ->for($distributor)
+                                ->for($reseller)
+                                ->for($customer)
+                                ->for($type)
+                                ->hasStatuses(1, [
+                                    'id' => 'c466a12d-39f5-470f-b5a4-a161659855ae',
+                                ])
+                                ->create();
+
                             return new Collection([
                                 $documentA,
                                 $documentB,
+                                $documentC,
                             ]);
                         },
                     ],
@@ -664,7 +680,8 @@ class ContractsSearchTest extends TestCase {
                             'count' => 0,
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 // empty
                             ],
                         ],
@@ -681,7 +698,8 @@ class ContractsSearchTest extends TestCase {
                             'count' => 0,
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],

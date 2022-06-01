@@ -137,12 +137,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
      */
     public function setWarrantiesAttribute(BaseCollection|array $warranties): void {
         $this->syncHasMany('warranties', $warranties);
-        $this->warranty_end = $this->warranties
-            ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_id === null || ($warranty->document && $warranty->document->is_contract);
-            })
-            ->pluck('end')
-            ->max();
+        $this->warranty_end = self::getWarrantyEnd($this->warranties);
     }
 
     #[CascadeDelete(false)]
@@ -240,7 +235,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
     /**
      * @inheritDoc
      */
-    protected static function getSearchProperties(): array {
+    public static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'serial_number' => new Text('serial_number', true),
@@ -253,6 +248,22 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
                 'name' => new Text('name', true),
             ]),
         ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @param Collection<array-key, AssetWarranty> $warranties
+     */
+    public static function getWarrantyEnd(Collection $warranties): ?CarbonImmutable {
+        return $warranties
+            ->filter(static function (AssetWarranty $warranty): bool {
+                return $warranty->document_id === null
+                    || ($warranty->document && $warranty->document->is_visible && $warranty->document->is_contract);
+            })
+            ->pluck('end')
+            ->max();
     }
     // </editor-fold>
 }

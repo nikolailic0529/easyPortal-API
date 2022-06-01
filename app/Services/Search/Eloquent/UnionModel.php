@@ -2,12 +2,12 @@
 
 namespace App\Services\Search\Eloquent;
 
+use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Elastic\UnionEngine;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Engines\Engine;
-use Laravel\Scout\Searchable;
 
 use function app;
 use function config;
@@ -15,8 +15,8 @@ use function config;
 /**
  * Fake model for Lighthouse to create {@link \App\Services\Search\Builders\UnionBuilder}.
  */
-class UnionModel extends Model {
-    use Searchable;
+class UnionModel extends Model implements Searchable {
+    use SearchableImpl;
 
     /**
      * @param array<string, mixed> $attributes
@@ -25,7 +25,7 @@ class UnionModel extends Model {
         parent::__construct($attributes);
     }
 
-    public static function search(string $query = '', Closure $callback = null): UnionBuilder {
+    public static function search(string $query = '', Closure $callback = null): Builder {
         return app()->make(UnionBuilder::class, [
             'model'      => new static(),
             'query'      => $query,
@@ -36,5 +36,12 @@ class UnionModel extends Model {
 
     public function searchableUsing(): Engine {
         return app()->make(UnionEngine::class);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchProperties(): array {
+        return [];
     }
 }

@@ -20,7 +20,7 @@ use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function array_map;
 use function is_object;
@@ -31,7 +31,7 @@ use function json_encode;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationCall
  */
 class MutationCallTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
     /**

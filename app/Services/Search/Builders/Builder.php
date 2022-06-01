@@ -6,13 +6,14 @@ use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\Scope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
-use InvalidArgumentException;
 use Laravel\Scout\Builder as ScoutBuilder;
 
 use function is_a;
 use function is_string;
-use function sprintf;
 
+/**
+ * @template TModel of \Illuminate\Database\Eloquent\Model
+ */
 class Builder extends ScoutBuilder {
     /**
      * The "where not" constraints added to the query.
@@ -33,6 +34,9 @@ class Builder extends ScoutBuilder {
      */
     public ?int $offset = null;
 
+    /**
+     * @param TModel $model
+     */
     public function __construct(
         protected Container $container,
         Model $model,
@@ -54,20 +58,11 @@ class Builder extends ScoutBuilder {
     }
 
     /**
-     * @param Scope|class-string<Scope> $scope
+     * @param Scope<TModel>|class-string<Scope<TModel>> $scope
      */
     public function applyScope(Scope|string $scope): static {
         if (is_string($scope)) {
             $scope = $this->container->make($scope);
-        }
-
-        if (!($scope instanceof Scope)) {
-            throw new InvalidArgumentException(sprintf(
-                'The `%s` must be instance of `%s`, `%s` given.',
-                '$scope',
-                Scope::class,
-                $scope::class,
-            ));
         }
 
         $scope->applyForSearch($this, $this->model);

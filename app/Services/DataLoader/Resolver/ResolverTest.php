@@ -210,7 +210,7 @@ class ResolverTest extends TestCase {
             ->andReturn($builder);
         $resolver
             ->shouldReceive('getCache')
-            ->times(3)
+            ->times(4)
             ->andReturn($cache);
         $resolver
             ->shouldReceive('getCacheKey')

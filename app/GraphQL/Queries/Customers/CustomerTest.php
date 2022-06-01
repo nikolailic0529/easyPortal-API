@@ -1117,7 +1117,8 @@ class CustomerTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],
@@ -1789,7 +1790,8 @@ class CustomerTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -1958,7 +1960,8 @@ class CustomerTest extends TestCase {
                             $customerEmptyContract,
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 // empty
                             ],
                         ],
@@ -1971,7 +1974,8 @@ class CustomerTest extends TestCase {
                             $customerEmptyContract,
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -1980,9 +1984,8 @@ class CustomerTest extends TestCase {
                     'not allowed'    => [
                         new GraphQLSuccess('customer', null, null),
                         [
-                            'ep.contract_types' => [
-                                // empty
-                            ],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
                         ],
                         static function (TestCase $test, Organization $organization): Customer {
                             $reseller = Reseller::factory()->create([
@@ -2412,7 +2415,8 @@ class CustomerTest extends TestCase {
                             $customerQuote,
                         ),
                         [
-                            'ep.quote_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -2421,9 +2425,8 @@ class CustomerTest extends TestCase {
                     'not allowed'                               => [
                         new GraphQLSuccess('customer', null, null),
                         [
-                            'ep.contract_types' => [
-                                // empty
-                            ],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
                         ],
                         static function (TestCase $test, Organization $organization): Customer {
                             $reseller = Reseller::factory()->create([
@@ -2453,7 +2456,8 @@ class CustomerTest extends TestCase {
                             $customerQuote,
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
                             ],
                         ],
@@ -2466,7 +2470,8 @@ class CustomerTest extends TestCase {
                             $customerEmptyQuote,
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -2479,7 +2484,8 @@ class CustomerTest extends TestCase {
                             $customerEmptyQuote,
                         ),
                         [
-                            'ep.quote_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.quote_types'              => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac2498a',
                             ],
                         ],
@@ -2492,12 +2498,9 @@ class CustomerTest extends TestCase {
                             $customerEmptyQuote,
                         ),
                         [
-                            'ep.contract_types' => [
-                                // empty
-                            ],
-                            'ep.quote_types'    => [
-                                // empty
-                            ],
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [],
+                            'ep.quote_types'              => [],
                         ],
                         $customerQuoteEmptyFactory,
                     ],
@@ -2776,7 +2779,8 @@ class CustomerTest extends TestCase {
                         ],
                     ),
                     [
-                        'ep.contract_types' => $type,
+                        'ep.document_statuses_hidden' => [],
+                        'ep.contract_types'           => $type,
                     ],
                     $factory,
                     $params,

@@ -11,7 +11,6 @@ use App\Models\Role;
 use App\Models\Status;
 use App\Models\Team;
 use App\Models\User;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Support\Facades\Date;
@@ -130,12 +129,9 @@ class UserTest extends TestCase {
     public function testStatus(Status $expected, Closure $organizationUserFactory): void {
         $user   = $organizationUserFactory($this);
         $query  = $this->app->make(UserQuery::class);
-        $actual = GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($user, $query): Status {
-                return $query->status($user);
-            },
-        );
+        $actual = GlobalScopes::callWithoutAll(static function () use ($user, $query): Status {
+            return $query->status($user);
+        });
 
         self::assertEquals($expected, $actual);
     }

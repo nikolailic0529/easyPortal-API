@@ -10,7 +10,6 @@ use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Role;
 use App\Services\Keycloak\Exceptions\OrgAdminGroupNotFound;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
@@ -42,7 +41,7 @@ class PermissionsSync extends Command {
     }
 
     public function handle(): int {
-        GlobalScopes::callWithoutGlobalScope(OwnedByOrganizationScope::class, function (): void {
+        GlobalScopes::callWithoutAll(function (): void {
             $this->process();
         });
 

@@ -61,7 +61,8 @@ class QuoteTest extends TestCase {
             $quoteId = $quote->id;
 
             $this->setSettings([
-                'ep.quote_types' => [$quote->type_id],
+                'ep.document_statuses_hidden' => [],
+                'ep.quote_types'              => [$quote->type_id],
             ]);
         }
 
@@ -252,7 +253,8 @@ class QuoteTest extends TestCase {
             $quoteId = $quote->id;
 
             $this->setSettings([
-                'ep.quote_types' => [$quote->type_id],
+                'ep.document_statuses_hidden' => [],
+                'ep.quote_types'              => [$quote->type_id],
             ]);
         }
 

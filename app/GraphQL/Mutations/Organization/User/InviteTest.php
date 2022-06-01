@@ -12,7 +12,6 @@ use App\Models\User;
 use App\Notifications\OrganizationUserInvitation;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
 use Illuminate\Support\Facades\Notification;
@@ -77,12 +76,9 @@ class InviteTest extends TestCase {
         Notification::fake();
 
         // Count
-        $organizationUsers = GlobalScopes::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function (): int {
-                return OrganizationUser::query()->count();
-            },
-        );
+        $organizationUsers = GlobalScopes::callWithoutAll(static function (): int {
+            return OrganizationUser::query()->count();
+        });
 
         // Test
         $response = $this

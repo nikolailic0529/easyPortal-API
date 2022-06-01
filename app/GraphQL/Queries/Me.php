@@ -60,7 +60,7 @@ class Me {
         $value = null;
 
         if ($user) {
-            $value = GlobalScopes::callWithoutGlobalScope(
+            $value = GlobalScopes::callWithout(
                 OwnedByOrganizationScope::class,
                 static function () use ($user): ?DateTimeInterface {
                     return Audit::query()

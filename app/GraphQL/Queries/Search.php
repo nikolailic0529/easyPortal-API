@@ -5,8 +5,8 @@ namespace App\GraphQL\Queries;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\Scopes\ContractType;
-use App\Models\Scopes\QuoteType;
+use App\Models\Scopes\DocumentTypeContractScope;
+use App\Models\Scopes\DocumentTypeQuoteType;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\UnionModel;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -19,6 +19,9 @@ class Search {
         // empty
     }
 
+    /**
+     * @return Builder<UnionModel>
+     */
     public function builder(): Builder {
         return UnionModel::query();
     }
@@ -43,16 +46,16 @@ class Search {
         if ($this->gate->any(['customers-view']) || $this->gate->check(['contracts-view', 'quotes-view'])) {
             $models[Document::class] = [];
         } elseif ($this->gate->check(['contracts-view'])) {
-            $models[Document::class] = [ContractType::class];
+            $models[Document::class] = [DocumentTypeContractScope::class];
         } elseif ($this->gate->check(['quotes-view'])) {
-            $models[Document::class] = [QuoteType::class];
+            $models[Document::class] = [DocumentTypeQuoteType::class];
         } else {
             // empty
         }
 
         // Add
         foreach ($models as $model => $scopes) {
-            $builder->addModel($model, $scopes, $boosts[$model] ?? null);
+            $builder->addModel($model, $scopes, $boosts[$model]);
         }
 
         // Return

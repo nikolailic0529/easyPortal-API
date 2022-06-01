@@ -265,9 +265,10 @@ class CreateTest extends TestCase {
                 ]);
         };
         $settings = [
-            'ep.file.max_size' => 250,
-            'ep.file.formats'  => ['csv'],
-            'ep.quote_types'   => [$type],
+            'ep.file.max_size'            => 250,
+            'ep.file.formats'             => ['csv'],
+            'ep.quote_types'              => [$type],
+            'ep.document_statuses_hidden' => [],
         ];
 
         return (new CompositeDataProvider(

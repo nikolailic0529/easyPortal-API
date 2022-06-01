@@ -11,7 +11,7 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithoutOrganizationScope;
+use Tests\WithoutGlobalScopes;
 
 use function json_encode;
 
@@ -20,7 +20,7 @@ use function json_encode;
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Mutation\MutationMutate
  */
 class MutationMutateTest extends TestCase {
-    use WithoutOrganizationScope;
+    use WithoutGlobalScopes;
     use WithGraphQLSchema;
 
     /**

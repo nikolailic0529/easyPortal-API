@@ -257,7 +257,8 @@ class ContractsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contracts', null),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -283,7 +284,8 @@ class ContractsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('contracts', null),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -490,7 +492,10 @@ class ContractsTest extends TestCase {
                             ],
                         ),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [
+                                '23a609cc-fd52-4547-a731-143597b69e9b',
+                            ],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -655,6 +660,16 @@ class ContractsTest extends TestCase {
                             Document::factory()->create([
                                 'type_id' => Type::factory()->create(),
                             ]);
+
+                            Document::factory()
+                                ->for($distributor)
+                                ->for($reseller)
+                                ->for($customer)
+                                ->for($type)
+                                ->hasStatuses(1, [
+                                    'id' => '23a609cc-fd52-4547-a731-143597b69e9b',
+                                ])
+                                ->create();
                         },
                     ],
                     'no types'       => [
@@ -662,7 +677,8 @@ class ContractsTest extends TestCase {
                             // empty
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 // empty
                             ],
                         ],
@@ -679,7 +695,8 @@ class ContractsTest extends TestCase {
                             // empty
                         ]),
                         [
-                            'ep.contract_types' => [
+                            'ep.document_statuses_hidden' => [],
+                            'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
