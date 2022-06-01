@@ -4311,7 +4311,7 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsAggregatedTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\ContractType' given\\.$#"
+			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeContractScope' given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearch.php
 
@@ -5056,7 +5056,7 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/Quotes.php
 
 		-
-			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\QuoteType' given\\.$#"
+			message: "#^Parameter \\#1 \\$scope of method App\\\\Services\\\\Search\\\\Builders\\\\Builder\\<App\\\\Models\\\\Document\\>\\:\\:applyScope\\(\\) expects App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\|class\\-string\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Models\\\\Document\\>\\>, 'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeQuoteType' given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearch.php
 
@@ -5151,7 +5151,7 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\ContractType'\\|'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\QuoteType'\\} given\\.$#"
+			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeContractScope'\\|'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeQuoteType'\\} given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Search.php
 
@@ -8311,39 +8311,39 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/ContractType.php
-
-		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
-			count: 1
-			path: app/Models/Scopes/ContractType.php
-
-		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\ContractType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
-			count: 1
-			path: app/Models/Scopes/ContractType.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentStatusScope\\:\\:getStatusesIds\\(\\) should return array\\<string\\> but returns array\\.$#"
 			count: 1
 			path: app/Models/Scopes/DocumentStatusScope.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
+			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
 			count: 1
-			path: app/Models/Scopes/QuoteType.php
+			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/QuoteType.php
+			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\QuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
-			path: app/Models/Scopes/QuoteType.php
+			path: app/Models/Scopes/DocumentTypeContractScope.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
+			count: 1
+			path: app/Models/Scopes/DocumentTypeQuoteType.php
+
+		-
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			count: 1
+			path: app/Models/Scopes/DocumentTypeQuoteType.php
+
+		-
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			count: 1
+			path: app/Models/Scopes/DocumentTypeQuoteType.php
 
 		-
 			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:documentEntries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"

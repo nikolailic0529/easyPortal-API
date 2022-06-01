@@ -20,7 +20,7 @@ use function in_array;
  *
  * @implements SearchScope<TModel>
  */
-class ContractType implements SearchScope, EloquentScope {
+class DocumentTypeContractScope implements SearchScope, EloquentScope {
     public function __construct(
         protected Repository $config,
     ) {
@@ -39,7 +39,7 @@ class ContractType implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $key   = DocumentType::SEARCH_METADATA;
+        $key   = DocumentTypeScope::SEARCH_METADATA;
         $types = $this->getTypeIds() ?: ['empty'];
 
         $builder->whereMetadataIn($key, $types);

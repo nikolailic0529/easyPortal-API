@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContracts;
 use App\Models\Relations\HasQuotes;
-use App\Models\Scopes\DocumentTypeQuery;
+use App\Models\Scopes\DocumentTypeQueries;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -48,9 +48,9 @@ class Type extends PolymorphicModel implements Translatable {
     use HasQuotes;
 
     /**
-     * @use DocumentTypeQuery<static>
+     * @use DocumentTypeQueries<static>
      */
-    use DocumentTypeQuery;
+    use DocumentTypeQueries;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

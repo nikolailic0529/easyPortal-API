@@ -11,12 +11,12 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
-use App\Models\Scopes\ContractType;
 use App\Models\Scopes\DocumentStatusScope;
 use App\Models\Scopes\DocumentStatusScopeImpl;
-use App\Models\Scopes\DocumentTypeQuery;
-use App\Models\Scopes\DocumentTypeScope;
-use App\Models\Scopes\QuoteType;
+use App\Models\Scopes\DocumentTypeContractScope;
+use App\Models\Scopes\DocumentTypeQueries;
+use App\Models\Scopes\DocumentTypeQuoteType;
+use App\Models\Scopes\DocumentTypeScopeImpl;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
@@ -103,13 +103,13 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
-    use DocumentTypeScope;
+    use DocumentTypeScopeImpl;
     use DocumentStatusScopeImpl;
 
     /**
-     * @use DocumentTypeQuery<static>
+     * @use DocumentTypeQueries<static>
      */
-    use DocumentTypeQuery;
+    use DocumentTypeQueries;
 
     protected const CASTS = [
         'changed_at' => 'datetime',
@@ -199,11 +199,11 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     // <editor-fold desc="Attributes">
     // =========================================================================
     public function getIsContractAttribute(): bool {
-        return app()->make(ContractType::class)->isContractType($this->type_id);
+        return app()->make(DocumentTypeContractScope::class)->isContractType($this->type_id);
     }
 
     public function getIsQuoteAttribute(): bool {
-        return app()->make(QuoteType::class)->isQuoteType($this->type_id);
+        return app()->make(DocumentTypeQuoteType::class)->isQuoteType($this->type_id);
     }
 
     public function getIsHiddenAttribute(): bool {

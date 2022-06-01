@@ -20,13 +20,13 @@ use function in_array;
  *
  * @implements SearchScope<TModel>
  */
-class QuoteType implements SearchScope, EloquentScope {
+class DocumentTypeQuoteType implements SearchScope, EloquentScope {
     /**
-     * @param ContractType<TModel> $contractType
+     * @param DocumentTypeContractScope<TModel> $contractType
      */
     public function __construct(
         protected Repository $config,
-        protected ContractType $contractType,
+        protected DocumentTypeContractScope $contractType,
     ) {
         // empty
     }
@@ -54,7 +54,7 @@ class QuoteType implements SearchScope, EloquentScope {
         // if empty quotes type we will use ids not represented in contracts
         $contractTypes = $this->contractType->getTypeIds();
         $quoteTypes    = $this->getTypeIds();
-        $key           = DocumentType::SEARCH_METADATA;
+        $key           = DocumentTypeScope::SEARCH_METADATA;
 
         if ($quoteTypes) {
             $builder->whereMetadataIn($key, $quoteTypes);

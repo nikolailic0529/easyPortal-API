@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use function app;
 
 /**
- * @see \App\Models\Scopes\DocumentType
+ * @see \App\Models\Scopes\DocumentTypeScope
  *
  * @mixin Model
  *
@@ -18,7 +18,7 @@ use function app;
  * @method Builder<TModel> queryDocuments()
  * @method Builder<TModel> queryQuotes()
  */
-trait DocumentTypeQuery {
+trait DocumentTypeQueries {
     /**
      * @template T of Builder<TModel>
      *
@@ -27,7 +27,7 @@ trait DocumentTypeQuery {
      * @return T
      */
     public function scopeQueryContracts(Builder $builder): Builder {
-        app()->make(ContractType::class)->apply($builder, $this);
+        app()->make(DocumentTypeContractScope::class)->apply($builder, $this);
 
         return $builder;
     }
@@ -40,7 +40,7 @@ trait DocumentTypeQuery {
      * @return T
      */
     public function scopeQueryQuotes(Builder $builder): Builder {
-        app()->make(QuoteType::class)->apply($builder, $this);
+        app()->make(DocumentTypeQuoteType::class)->apply($builder, $this);
 
         return $builder;
     }
