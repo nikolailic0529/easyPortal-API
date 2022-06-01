@@ -250,6 +250,14 @@ interface Constants {
     public const EP_DOCUMENT_STATUSES_HIDDEN = [];
 
     /**
+     * Price of Contracts/Quotes with these Statuses will not be visible on the Portal.
+     */
+    #[Setting('ep.document_statuses_no_price')]
+    #[Group('ep')]
+    #[Type(DocumentStatus::class)]
+    public const EP_DOCUMENT_STATUSES_NO_PRICE = [];
+
+    /**
      * Type ID related to headquarter.
      */
     #[Setting('ep.headquarter_type')]

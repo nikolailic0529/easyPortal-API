@@ -36,6 +36,7 @@ use Tests\TestCase;
 use Tests\WithSearch;
 
 use function count;
+use function json_encode;
 
 /**
  * @internal
@@ -752,6 +753,46 @@ class QuotesSearchTest extends TestCase {
                                 'reseller_id' => Reseller::factory()->create([
                                     'id' => $organization,
                                 ]),
+                            ]);
+                        },
+                    ],
+                    'hiding price'                              => [
+                        new GraphQLPaginated(
+                            'quotesSearch',
+                            self::class,
+                            new JsonFragment('0.price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'b68cde4c-38ae-44c1-9e47-7ea273548243',
+                            ],
+                            'ep.quote_types'                => [
+                                'f0e97e84-6c9e-4182-aebd-77d8f867d992',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => 'f0e97e84-6c9e-4182-aebd-77d8f867d992',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'b68cde4c-38ae-44c1-9e47-7ea273548243',
+                                ])
+                                ->create([
+                                    'price'       => 100,
+                                    'customer_id' => null,
+                                ]);
+
+                            return new Collection([
+                                $document,
                             ]);
                         },
                     ],

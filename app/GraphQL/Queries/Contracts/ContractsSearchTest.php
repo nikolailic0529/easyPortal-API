@@ -31,8 +31,11 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithSearch;
+
+use function json_encode;
 
 /**
  * @internal
@@ -708,6 +711,46 @@ class ContractsSearchTest extends TestCase {
                                 'reseller_id' => Reseller::factory()->create([
                                     'id' => $organization,
                                 ]),
+                            ]);
+                        },
+                    ],
+                    'hiding price'   => [
+                        new GraphQLPaginated(
+                            'contractsSearch',
+                            self::class,
+                            new JsonFragment('0.price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'a8276e36-efab-4a5e-8d58-d6fd517bea9e',
+                            ],
+                            'ep.contract_types'             => [
+                                'dc8dd5ae-f1f6-4b91-8d11-8a73b7257b10',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => 'dc8dd5ae-f1f6-4b91-8d11-8a73b7257b10',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'a8276e36-efab-4a5e-8d58-d6fd517bea9e',
+                                ])
+                                ->create([
+                                    'price'       => 100,
+                                    'customer_id' => null,
+                                ]);
+
+                            return new Collection([
+                                $document,
                             ]);
                         },
                     ],

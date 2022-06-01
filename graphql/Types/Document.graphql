@@ -6,7 +6,15 @@ type Document {
     number: String!
     start: Date
     end: Date
+
     price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "statuses"
+    )
+
     currency_id: ID
     currency: Currency @relation
     customer: Customer @relation

@@ -31,8 +31,11 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+
+use function json_encode;
 
 /**
  * @internal
@@ -61,8 +64,9 @@ class QuoteTest extends TestCase {
             $quoteId = $quote->id;
 
             $this->setSettings([
-                'ep.document_statuses_hidden' => [],
-                'ep.quote_types'              => [$quote->type_id],
+                'ep.document_statuses_no_price' => ['874e9e92-6328-4d44-ab70-4589029e3dad'],
+                'ep.document_statuses_hidden'   => [],
+                'ep.quote_types'                => [$quote->type_id],
             ]);
         }
 
@@ -349,7 +353,7 @@ class QuoteTest extends TestCase {
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok' => [
+                    'ok'           => [
                         new GraphQLSuccess('quote', self::class, [
                             'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -672,6 +676,28 @@ class QuoteTest extends TestCase {
                                     'statuses_count' => 1,
                                     'changed_at'     => '2021-10-19 10:15:00',
                                     'synced_at'      => '2021-10-19 10:25:00',
+                                ]);
+                        },
+                    ],
+                    'hiding price' => [
+                        new GraphQLSuccess('quote', self::class, new JsonFragment('price', json_encode(null))),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+
+                            return Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '874e9e92-6328-4d44-ab70-4589029e3dad',
+                                ])
+                                ->create([
+                                    'price'       => 100,
+                                    'customer_id' => null,
                                 ]);
                         },
                     ],

@@ -3961,7 +3961,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/SettingsTest.php
 
 		-
-			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/SettingsTest\\.php\\:55\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
+			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/SettingsTest\\.php\\:56\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/SettingsTest.php
 

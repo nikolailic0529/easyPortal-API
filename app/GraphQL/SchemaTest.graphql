@@ -7516,7 +7516,14 @@ type Document {
 
     oem_id: ID!
     oem_said: String
+
     price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "statuses"
+    )
 
     reseller: Reseller
     @relation
@@ -12264,3 +12271,21 @@ repeatable on
     | FIELD_DEFINITION
     | INPUT_FIELD_DEFINITION
     | INPUT_OBJECT
+
+"""
+Eager-load an Eloquent relation.
+"""
+directive @with(
+    """
+    Specify the relationship method name in the model class,
+    if it is named different from the field in the schema.
+    """
+    relation: String
+
+    """
+    Apply scopes to the underlying query.
+    """
+    scopes: [String!]
+)
+repeatable on
+    | FIELD_DEFINITION

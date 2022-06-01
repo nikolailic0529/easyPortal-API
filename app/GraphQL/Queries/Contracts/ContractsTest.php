@@ -30,7 +30,10 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+
+use function json_encode;
 
 /**
  * @internal
@@ -706,6 +709,43 @@ class ContractsTest extends TestCase {
                                     'id' => $organization,
                                 ]),
                             ]);
+                        },
+                    ],
+                    'hiding price'   => [
+                        new GraphQLPaginated(
+                            'contracts',
+                            self::class,
+                            new JsonFragment('0.price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
+                            ],
+                            'ep.contract_types'             => [
+                                '0fc4416c-f4a7-4860-951e-7190874ebd69',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => '0fc4416c-f4a7-4860-951e-7190874ebd69',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+
+                            Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
+                                ])
+                                ->create([
+                                    'price'       => 100,
+                                    'customer_id' => null,
+                                ]);
                         },
                     ],
                 ]),

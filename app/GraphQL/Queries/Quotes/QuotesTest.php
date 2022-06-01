@@ -34,6 +34,7 @@ use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
 use function count;
+use function json_encode;
 
 /**
  * @internal
@@ -745,6 +746,43 @@ class QuotesTest extends TestCase {
                                     'id' => $organization,
                                 ]),
                             ]);
+                        },
+                    ],
+                    'hiding price'                              => [
+                        new GraphQLPaginated(
+                            'quotes',
+                            self::class,
+                            new JsonFragment('0.price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
+                            ],
+                            'ep.quote_types'                => [
+                                '2f976425-dd92-4941-a0ff-ec6bf96400d4',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => '2f976425-dd92-4941-a0ff-ec6bf96400d4',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+
+                            Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id'   => '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
+                                ])
+                                ->create([
+                                    'price'       => 100,
+                                    'customer_id' => null,
+                                ]);
                         },
                     ],
                 ]),
