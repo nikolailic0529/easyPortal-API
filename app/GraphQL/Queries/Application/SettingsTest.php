@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job;
@@ -99,6 +100,11 @@ class SettingsTest extends TestCase {
                                   id
                                   name
                                 }
+                                ... on Status {
+                                  __typename
+                                  id
+                                  name
+                                }
                                 ... on StringValue {
                                   __typename
                                   value
@@ -170,6 +176,11 @@ class SettingsTest extends TestCase {
                                         '__typename' => 'Type',
                                         'id'         => '3dd66188-0fb9-408e-8d7d-80700ba182de',
                                         'name'       => 'type-a',
+                                    ],
+                                    [
+                                        '__typename' => 'Status',
+                                        'id'         => 'fbeb61a2-5f30-4abc-bea8-47e777eec4ee',
+                                        'name'       => 'status-a',
                                     ],
                                     [
                                         '__typename' => 'StringValue',
@@ -313,6 +324,10 @@ class SettingsTest_TypeWithValues extends Type {
             TypeModel::factory()->make([
                 'id'   => '3dd66188-0fb9-408e-8d7d-80700ba182de',
                 'name' => 'type-a',
+            ]),
+            StatusModel::factory()->make([
+                'id'   => 'fbeb61a2-5f30-4abc-bea8-47e777eec4ee',
+                'name' => 'status-a',
             ]),
             'string',
         ];

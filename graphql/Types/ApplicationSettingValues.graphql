@@ -1,1 +1,1 @@
-union ApplicationSettingValues = Type | StringValue
+union ApplicationSettingValues = Status | Type | StringValue

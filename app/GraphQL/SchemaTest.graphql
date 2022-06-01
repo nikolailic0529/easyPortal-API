@@ -11676,6 +11676,7 @@ type recoverApplicationSettingsPayload {
 }
 
 union ApplicationSettingValues =
+    | Status
     | StringValue
     | Type
 
