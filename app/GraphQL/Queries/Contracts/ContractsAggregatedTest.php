@@ -91,7 +91,18 @@ class ContractsAggregatedTest extends TestCase {
         $hidden  = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
         $params  = [
             'where' => [
-                'price' => ['lessThanOrEqual' => 100],
+                'anyOf' => [
+                    [
+                        'currency_id' => [
+                            'notEqual' => '920cc290-1cc9-484a-b4c5-7d4e74299811',
+                        ],
+                    ],
+                    [
+                        'currency_id' => [
+                            'isNull' => 'yes',
+                        ],
+                    ],
+                ],
             ],
         ];
         $factory = static function (TestCase $test, Organization $organization) use ($hidden): void {
@@ -116,6 +127,11 @@ class ContractsAggregatedTest extends TestCase {
                 'id'   => '8457ba3b-defd-4442-a8ab-125f3ad89fa9',
                 'code' => 'B',
                 'name' => 'B',
+            ]);
+            $currencyC = Currency::factory()->create([
+                'id'   => '920cc290-1cc9-484a-b4c5-7d4e74299811',
+                'code' => 'C',
+                'name' => 'C',
             ]);
 
             // Documents
@@ -148,7 +164,7 @@ class ContractsAggregatedTest extends TestCase {
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerA,
-                'currency_id' => $currencyA,
+                'currency_id' => $currencyC,
                 'price'       => 1000,
             ]);
 

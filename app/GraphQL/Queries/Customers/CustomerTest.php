@@ -2689,6 +2689,11 @@ class CustomerTest extends TestCase {
                 'code' => 'USD',
                 'name' => 'USD',
             ]);
+            $currencyC = Currency::factory()->create([
+                'id'   => '7a83e827-2b8c-4e6f-9905-7ca1ca5b6364',
+                'code' => 'UNK',
+                'name' => 'UNK',
+            ]);
             $type      = Type::factory()->create([
                 'id' => $type,
             ]);
@@ -2717,7 +2722,7 @@ class CustomerTest extends TestCase {
             Document::factory()->create([
                 'reseller_id' => $reseller,
                 'customer_id' => $customer,
-                'currency_id' => $currencyA,
+                'currency_id' => $currencyC,
                 'type_id'     => $type,
                 'price'       => '10.00',
             ]);
@@ -2734,8 +2739,17 @@ class CustomerTest extends TestCase {
         };
         $params  = [
             'where' => [
-                'price' => [
-                    'greaterThan' => 10,
+                'anyOf' => [
+                    [
+                        'currency_id' => [
+                            'notEqual' => '7a83e827-2b8c-4e6f-9905-7ca1ca5b6364',
+                        ],
+                    ],
+                    [
+                        'currency_id' => [
+                            'isNull' => 'yes',
+                        ],
+                    ],
                 ],
             ],
         ];

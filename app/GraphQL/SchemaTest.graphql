@@ -2409,16 +2409,6 @@ input SearchByConditionDocumentEntriesQuery {
     id: SearchByScalarID
 
     """
-    Property condition.
-    """
-    list_price: SearchByScalarFloatOrNull
-
-    """
-    Property condition.
-    """
-    net_price: SearchByScalarFloatOrNull
-
-    """
     Not.
     """
     not: SearchByConditionDocumentEntriesQuery
@@ -2552,11 +2542,6 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     oem_id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    price: SearchByScalarFloatOrNull
 
     """
     Property condition.
@@ -4874,16 +4859,6 @@ input SortByClauseDocumentEntriesQuery {
     """
     Property clause.
     """
-    list_price: SortByDirection
-
-    """
-    Property clause.
-    """
-    net_price: SortByDirection
-
-    """
-    Property clause.
-    """
     product: SortByClauseProductsQuery
 
     """
@@ -4995,11 +4970,6 @@ input SortByClauseDocumentsQuery {
     Property clause.
     """
     oem_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    price: SortByDirection
 
     """
     Property clause.
