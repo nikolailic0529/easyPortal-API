@@ -24,16 +24,20 @@ class ContractStatusesTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param array<string, mixed>|null $settings
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $translationsFactory = null,
         Closure $statusesFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setSettings($settings);
         $this->setTranslations($translationsFactory);
 
         if ($statusesFactory) {
@@ -74,6 +78,11 @@ class ContractStatusesTest extends TestCase {
                         'name' => 'No translation',
                     ],
                 ]),
+                [
+                    'ep.document_statuses_hidden' => [
+                        '8e3b1231-1890-402c-bbdf-7086c1256ea8',
+                    ],
+                ],
                 static function (TestCase $test, string $locale): array {
                     $model = (new Status())->getMorphClass();
 
@@ -104,6 +113,12 @@ class ContractStatusesTest extends TestCase {
                     ]);
                     Status::factory()->create([
                         'name' => 'Wrong object_type',
+                    ]);
+                    Status::factory()->create([
+                        'id'          => '8e3b1231-1890-402c-bbdf-7086c1256ea8',
+                        'key'         => 'ignored',
+                        'name'        => 'Should be ignored',
+                        'object_type' => (new Document())->getMorphClass(),
                     ]);
                 },
             ],

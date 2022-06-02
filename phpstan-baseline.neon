@@ -4211,7 +4211,7 @@ parameters:
 			path: app/GraphQL/Queries/Client/TranslationsTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractStatuses\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Cannot call method orderByKey\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractStatuses.php
 
