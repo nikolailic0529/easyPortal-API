@@ -247,7 +247,7 @@ class Settings {
         return $this->storage->save($stored->all());
     }
 
-    protected function parseValue(Setting $setting, ?string $value): mixed {
+    public function parseValue(Setting $setting, ?string $value): mixed {
         $type   = $setting->getType();
         $result = $value;
 

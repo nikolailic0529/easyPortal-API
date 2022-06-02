@@ -10,7 +10,6 @@ use Illuminate\Contracts\Validation\Validator;
 
 use function __;
 use function array_map;
-use function explode;
 use function implode;
 use function trim;
 
@@ -18,6 +17,7 @@ class SettingValue implements Rule {
     protected Validator|null $validator = null;
 
     public function __construct(
+        protected Settings $settings,
         protected Factory $factory,
         protected Setting $setting,
     ) {
@@ -36,16 +36,8 @@ class SettingValue implements Rule {
         }
 
         // Create validator
-        $key = 'value';
-
-        if ($this->setting->isArray()) {
-            $key   = "{$key}.*";
-            $value = explode(Settings::DELIMITER, $value);
-            $value = array_map(static function (string $value): string {
-                return trim($value);
-            }, $value);
-        }
-
+        $key             = $this->setting->isArray() ? 'value.*' : 'value';
+        $value           = $this->settings->parseValue($this->setting, $value);
         $this->validator = $this->factory->make(['value' => $value], [$key => $rules]);
 
         // Validate
