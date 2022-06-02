@@ -7557,8 +7557,22 @@ type DocumentEntry {
     document_id: ID!
     end: Date
     id: ID!
+
     list_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
     net_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
 
     product: Product
     @relation

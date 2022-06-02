@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Note;
@@ -352,7 +353,7 @@ class ContractTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'            => [
+                    'ok'                         => [
                         new GraphQLSuccess('contract', self::class, [
                             'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -679,7 +680,7 @@ class ContractTest extends TestCase {
                                 ]);
                         },
                     ],
-                    'hiding prices' => [
+                    'hiding price'               => [
                         new GraphQLSuccess('contract', self::class, new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
@@ -699,6 +700,70 @@ class ContractTest extends TestCase {
                                     'price'       => '100',
                                     'customer_id' => null,
                                 ]);
+                        },
+                    ],
+                    'entries: hiding list_price' => [
+                        new GraphQLSuccess(
+                            'contract',
+                            self::class,
+                            new JsonFragment('entries.0.list_price', json_encode(null)),
+                        ),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+
+                            return $document;
+                        },
+                    ],
+                    'entries: hiding net_price'  => [
+                        new GraphQLSuccess(
+                            'contract',
+                            self::class,
+                            new JsonFragment('entries.0.net_price', json_encode(null)),
+                        ),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '479ddc80-35fd-442c-9634-0b9c51063e45',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+
+                            return $document;
                         },
                     ],
                 ]),

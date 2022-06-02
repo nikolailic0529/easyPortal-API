@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Oem;
@@ -790,6 +791,96 @@ class QuotesSearchTest extends TestCase {
                                     'price'       => 100,
                                     'customer_id' => null,
                                 ]);
+
+                            return new Collection([
+                                $document,
+                            ]);
+                        },
+                    ],
+                    'entries: hiding list_price'                => [
+                        new GraphQLPaginated(
+                            'quotesSearch',
+                            self::class,
+                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'd595c47c-6dbb-4da4-b850-25b58011ad79',
+                            ],
+                            'ep.quote_types'                => [
+                                'aa879f76-3dbe-4928-a444-d587e80c0130',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => 'aa879f76-3dbe-4928-a444-d587e80c0130',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'd595c47c-6dbb-4da4-b850-25b58011ad79',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+
+                            return new Collection([
+                                $document,
+                            ]);
+                        },
+                    ],
+                    'entries: hiding net_price'                 => [
+                        new GraphQLPaginated(
+                            'quotesSearch',
+                            self::class,
+                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'c73886d7-fc40-49cc-8d26-053493c715db',
+                            ],
+                            'ep.quote_types'                => [
+                                '663a3697-5a2f-45df-aaab-34bcc865da6a',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => '663a3697-5a2f-45df-aaab-34bcc865da6a',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'c73886d7-fc40-49cc-8d26-053493c715db',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
 
                             return new Collection([
                                 $document,

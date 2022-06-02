@@ -3,14 +3,21 @@
 namespace App\GraphQL\Queries\Documents;
 
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use Closure;
+use GraphQL\Type\Definition\ResolveInfo;
+use Mockery;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\TestCase;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Documents\Price
  */
 class PriceTest extends TestCase {
+    use WithoutGlobalScopes;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -18,15 +25,18 @@ class PriceTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string, mixed>      $settings
-     * @param Closure(static): Document $factory
+     * @param array<string, mixed>                      $settings
+     * @param Closure(static): (Document|DocumentEntry) $factory
      */
-    public function testInvoke(?string $expected, array $settings, Closure $factory): void {
+    public function testInvoke(?string $expected, array $settings, Closure $factory, string $field): void {
         $this->setSettings($settings);
 
-        $document = $factory($this);
-        $resolver = $this->app->make(Price::class);
-        $actual   = ($resolver)($document);
+        $info            = Mockery::mock(ResolveInfo::class);
+        $info->fieldName = $field;
+        $resolver        = $this->app->make(Price::class);
+        $context         = Mockery::mock(GraphQLContext::class);
+        $object          = $factory($this);
+        $actual          = ($resolver)($object, [], $context, $info);
 
         self::assertEquals($expected, $actual);
     }
@@ -35,11 +45,11 @@ class PriceTest extends TestCase {
     // <editor-fold desc="DataProvider">
     // =========================================================================
     /**
-     * @return array<string, array{?string, array<string, mixed>, Closure(static): Document}>
+     * @return array<string, array{?string, array<string, mixed>, Closure(static): (Document|DocumentEntry)}>
      */
     public function dataProviderInvoke(): array {
         return [
-            'no price' => [
+            'Document: no price'      => [
                 null,
                 [
                     'ep.document_statuses_no_price' => [
@@ -55,8 +65,9 @@ class PriceTest extends TestCase {
                             'price' => null,
                         ]);
                 },
+                'price',
             ],
-            'price'    => [
+            'Document: price'         => [
                 '123.45',
                 [
                     'ep.document_statuses_no_price' => [
@@ -72,8 +83,9 @@ class PriceTest extends TestCase {
                             'price' => '123.45',
                         ]);
                 },
+                'price',
             ],
-            'hidden'   => [
+            'Document: hidden'        => [
                 null,
                 [
                     'ep.document_statuses_no_price' => [
@@ -89,6 +101,69 @@ class PriceTest extends TestCase {
                             'price' => '123.45',
                         ]);
                 },
+                'price',
+            ],
+            'DocumentEntry: no price' => [
+                null,
+                [
+                    'ep.document_statuses_no_price' => [
+                        'd70b179f-b788-4e15-a9ac-c25a3e9d48e4',
+                    ],
+                ],
+                static function (): DocumentEntry {
+                    $document = Document::factory()
+                        ->hasStatuses(1, [
+                            'id' => 'd70b179f-b788-4e15-a9ac-c25a3e9d48e4',
+                        ])
+                        ->create();
+                    $entry    = DocumentEntry::factory()->create([
+                        'document_id' => $document,
+                        'list_price'  => null,
+                    ]);
+
+                    return $entry;
+                },
+                'list_price',
+            ],
+            'DocumentEntry: price'    => [
+                '123.45',
+                [
+                    'ep.document_statuses_no_price' => [
+                        '974cad03-3852-4e1c-98d8-4e6e165f4a2b',
+                    ],
+                ],
+                static function (): DocumentEntry {
+                    $document = Document::factory()->create();
+                    $entry    = DocumentEntry::factory()->create([
+                        'document_id' => $document,
+                        'list_price'  => '123.45',
+                    ]);
+
+                    return $entry;
+                },
+                'list_price',
+            ],
+            'DocumentEntry: hidden'   => [
+                null,
+                [
+                    'ep.document_statuses_no_price' => [
+                        '3c4b6422-4dcf-4162-989d-95145feba60a',
+                    ],
+                ],
+                static function (): DocumentEntry {
+                    $document = Document::factory()
+                        ->hasStatuses(1, [
+                            'id' => '3c4b6422-4dcf-4162-989d-95145feba60a',
+                        ])
+                        ->create();
+                    $entry    = DocumentEntry::factory()->create([
+                        'document_id' => $document,
+                        'list_price'  => '123.45',
+                    ]);
+
+                    return $entry;
+                },
+                'list_price',
             ],
         ];
     }
