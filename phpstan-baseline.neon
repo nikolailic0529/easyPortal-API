@@ -13631,14 +13631,9 @@ parameters:
 			path: app/Services/I18n/Timezone.php
 
 		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\Translation\\\\TranslationDefaults\\:\\:getModels\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\I18n\\\\Translation\\\\TranslationDefaults\\:\\:getModels\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/I18n/Translation/TranslationDefaults.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/I18n/Translation/TranslationDefaultsTest\\.php\\:64\\:\\:getModels\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable\\> but returns Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Services/I18n/Translation/TranslationDefaultsTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Translation\\\\TranslationLoader\\:\\:load\\(\\) return type has no value type specified in iterable type array\\.$#"

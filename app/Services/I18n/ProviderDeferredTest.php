@@ -7,9 +7,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Provider
+ * @coversDefaultClass \App\Services\I18n\ProviderDeferred
  */
-class ProviderTest extends TestCase {
+class ProviderDeferredTest extends TestCase {
     /**
      * @covers ::registerLoader
      */

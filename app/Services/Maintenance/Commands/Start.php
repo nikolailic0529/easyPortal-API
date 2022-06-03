@@ -38,7 +38,7 @@ class Start extends Command {
         $duration = CarbonInterval::make((string) $this->getStringOption('duration'));
         $message  = $this->getStringOption('message');
         $end      = Date::now()->add($duration);
-        $force    = (bool) $this->getBoolOption('force', false);
+        $force    = $this->getBoolOption('force', false);
         $result   = $maintenance->start($end, $message, $force);
 
         // Wait?

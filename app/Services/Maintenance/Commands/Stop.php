@@ -31,7 +31,7 @@ class Stop extends Command {
 
     public function handle(Maintenance $maintenance): int {
         // Start
-        $force  = (bool) $this->getBoolOption('force', false);
+        $force  = $this->getBoolOption('force', false);
         $result = $maintenance->stop($force);
 
         // Wait?

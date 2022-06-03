@@ -2,24 +2,16 @@
 
 namespace App\Services\I18n;
 
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\I18n\Translation\TranslationLoader;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Foundation\Application;
-use Illuminate\Translation\FileLoader;
-use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
+use App\Services\I18n\Commands\LocaleExport;
+use Illuminate\Support\ServiceProvider;
+use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 
-class Provider extends IlluminateTranslationServiceProvider {
-    protected function registerLoader(): void {
-        $this->app->alias('translation.loader', TranslationLoader::class);
-        $this->app->singleton('translation.loader', static function (Application $app): FileLoader {
-            return new TranslationLoader(
-                $app,
-                $app->make(AppDisk::class),
-                $app->make(ExceptionHandler::class),
-                $app['files'],
-                $app['path.lang'],
-            );
-        });
+class Provider extends ServiceProvider {
+    use ProviderWithCommands;
+
+    public function boot(): void {
+        $this->bootCommands(
+            LocaleExport::class,
+        );
     }
 }
