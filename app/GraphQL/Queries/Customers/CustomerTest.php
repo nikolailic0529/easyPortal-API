@@ -2670,8 +2670,17 @@ class CustomerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryContractsAggregate(): array {
-        $type    = '184a9fb0-ba79-47fa-8a19-9f712876f16b';
-        $factory = static function (TestCase $test, Organization $organization) use ($type): Customer {
+        $noPriceStatus = '3eb78558-b799-481f-9121-dd528dc085c8';
+        $hiddenStatus  = 'fc52c5b5-cbfc-4481-872a-ad35035f5890';
+        $type          = '184a9fb0-ba79-47fa-8a19-9f712876f16b';
+        $factory       = static function (
+            TestCase $test,
+            Organization $organization,
+        ) use (
+            $type,
+            $hiddenStatus,
+            $noPriceStatus,
+        ): Customer {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
@@ -2735,9 +2744,36 @@ class CustomerTest extends TestCase {
                 'price'       => '543.21',
             ]);
 
+            // Hidden Status
+            Document::factory()
+                ->hasStatuses(1, [
+                    'id' => $hiddenStatus,
+                ])
+                ->create([
+                    'reseller_id' => $reseller,
+                    'customer_id' => $customer,
+                    'currency_id' => $currencyA,
+                    'type_id'     => $type,
+                    'price'       => 5,
+                ]);
+
+            // No Price Status
+            Document::factory()
+                ->hasStatuses(1, [
+                    'id' => $noPriceStatus,
+                ])
+                ->create([
+                    'reseller_id' => $reseller,
+                    'customer_id' => $customer,
+                    'currency_id' => $currencyA,
+                    'type_id'     => $type,
+                    'price'       => 5,
+                ]);
+
+            // Return
             return $customer;
         };
-        $params  = [
+        $params        = [
             'where' => [
                 'anyOf' => [
                     [
@@ -2760,16 +2796,16 @@ class CustomerTest extends TestCase {
                 'customers-view',
             ]),
             new ArrayDataProvider([
-                'ok' => [
+                'ok'               => [
                     new GraphQLSuccess(
                         'customer',
                         new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
                             'contractsAggregated' => [
-                                'count'  => 3,
+                                'count'  => 4,
                                 'prices' => [
                                     [
-                                        'count'       => 2,
+                                        'count'       => 3,
                                         'amount'      => 246.9,
                                         'currency_id' => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
                                         'currency'    => [
@@ -2793,8 +2829,57 @@ class CustomerTest extends TestCase {
                         ],
                     ),
                     [
-                        'ep.document_statuses_hidden' => [],
-                        'ep.contract_types'           => $type,
+                        'ep.document_statuses_no_price' => [
+                            $noPriceStatus,
+                        ],
+                        'ep.document_statuses_hidden'   => [
+                            $hiddenStatus,
+                        ],
+                        'ep.contract_types'             => $type,
+                    ],
+                    $factory,
+                    $params,
+                ],
+                'no hidden prices' => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
+                        [
+                            'contractsAggregated' => [
+                                'count'  => 4,
+                                'prices' => [
+                                    [
+                                        'count'       => 3,
+                                        'amount'      => 251.9,
+                                        'currency_id' => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                        'currency'    => [
+                                            'id'   => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                            'name' => 'EUR',
+                                            'code' => 'EUR',
+                                        ],
+                                    ],
+                                    [
+                                        'count'       => 1,
+                                        'amount'      => 123.45,
+                                        'currency_id' => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                        'currency'    => [
+                                            'id'   => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                            'name' => 'USD',
+                                            'code' => 'USD',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ),
+                    [
+                        'ep.document_statuses_no_price' => [
+                            // empty
+                        ],
+                        'ep.document_statuses_hidden'   => [
+                            $hiddenStatus,
+                        ],
+                        'ep.contract_types'             => $type,
                     ],
                     $factory,
                     $params,
