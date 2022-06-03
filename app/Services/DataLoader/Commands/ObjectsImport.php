@@ -27,7 +27,7 @@ abstract class ObjectsImport extends ProcessorCommand {
 
     protected function process(Formatter $formatter, Processor $processor): int {
         $from      = $this->getDateTimeOption('from');
-        $update    = (bool) $this->getBoolOption('update', true);
+        $update    = $this->getBoolOption('update', true);
         $processor = $processor
             ->setUpdate($update)
             ->setFrom($from);

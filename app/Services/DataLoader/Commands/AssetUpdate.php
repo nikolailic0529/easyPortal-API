@@ -25,8 +25,8 @@ class AssetUpdate extends ObjectUpdate {
 
     public function __invoke(Formatter $formatter, AssetLoader $loader): int {
         $loader = $loader
-            ->setWithWarrantyCheck((bool) $this->getBoolOption('warranty-check', false))
-            ->setWithDocuments((bool) $this->getBoolOption('documents', true));
+            ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false))
+            ->setWithDocuments($this->getBoolOption('documents', true));
 
         return $this->process($formatter, $loader);
     }

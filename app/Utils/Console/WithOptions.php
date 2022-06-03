@@ -34,6 +34,9 @@ trait WithOptions {
         return $value;
     }
 
+    /**
+     * @return ($default is string ? string : string|null)
+     */
     protected function getStringArgument(string $name, string $default = null): ?string {
         $value = $this->hasArgument($name) ? $this->argument($name) : null;
         $value = is_string($value) ? $value : $default;
@@ -41,6 +44,9 @@ trait WithOptions {
         return $value;
     }
 
+    /**
+     * @return ($default is bool ? bool : bool|null)
+     */
     protected function getBoolOption(string $name, bool $default = null): ?bool {
         $noName = "no-{$name}";
 
@@ -55,6 +61,9 @@ trait WithOptions {
         return $default;
     }
 
+    /**
+     * @return ($default is int ? int : int|null)
+     */
     protected function getIntOption(string $name, int $default = null): ?int {
         $value = $this->hasOption($name) ? $this->option($name) : null;
         $value = filter_var($value, FILTER_VALIDATE_INT) !== false
@@ -64,6 +73,9 @@ trait WithOptions {
         return $value;
     }
 
+    /**
+     * @return ($default is string ? string : string|null)
+     */
     protected function getStringOption(string $name, string $default = null): ?string {
         $value = $this->hasOption($name) ? $this->option($name) : null;
         $value = is_string($value) ? $value : $default;
@@ -71,6 +83,9 @@ trait WithOptions {
         return $value;
     }
 
+    /**
+     * @return ($default is DateTimeInterface ? DateTimeInterface : DateTimeInterface|null)
+     */
     protected function getDateTimeOption(string $name, DateTimeInterface $default = null): ?DateTimeInterface {
         $value = $this->getStringOption($name);
         $value = Date::make($value) ?? $default;
