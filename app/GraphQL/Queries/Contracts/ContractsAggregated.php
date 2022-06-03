@@ -3,10 +3,14 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
+use App\Models\Currency;
+use App\Models\Document;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Support\Collection;
+use stdClass;
 
 use function reset;
 
@@ -18,7 +22,7 @@ class ContractsAggregated {
     }
 
     /**
-     * @param BuilderValue<Model> $root
+     * @param BuilderValue<Document> $root
      *
      * @return array<mixed>
      */
@@ -31,7 +35,7 @@ class ContractsAggregated {
 
         if ($statuses) {
             $has   = $model->newQueryWithoutScopes()
-                ->whereHas('statuses', static function (Builder $builder) use ($statuses): void {
+                ->whereHas('statuses', static function (EloquentBuilder $builder) use ($statuses): void {
                     $builder->whereIn($builder->getModel()->getQualifiedKeyName(), $statuses);
                 })
                 ->toBase();
@@ -43,13 +47,32 @@ class ContractsAggregated {
             }
         }
 
-        return $builder
+        /** @var Collection<int, stdClass> $results */
+        $results    = $builder
             ->select("{$model->qualifyColumn('currency_id')} as currency_id")
             ->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as count")
             ->selectRaw("SUM(IF({$query}, 0, IFNULL({$model->qualifyColumn('price')}, 0))) as amount", $bindings)
             ->groupBy($model->qualifyColumn('currency_id'))
-            ->with('currency')
+            ->having('count', '>', '0')
+            ->orderBy('currency_id')
+            ->toBase()
+            ->get();
+        $currencies = Currency::query()
+            ->whereKey($results->pluck('currency_id')->all())
             ->get()
-            ->all();
+            ->keyBy(new GetKey());
+        $aggregated = [];
+
+        foreach ($results as $result) {
+            $currency     = $currencies->get($result->currency_id);
+            $aggregated[] = [
+                'count'       => (int) $result->count,
+                'amount'      => (float) $result->amount,
+                'currency_id' => $result->currency_id,
+                'currency'    => $currency,
+            ];
+        }
+
+        return $aggregated;
     }
 }

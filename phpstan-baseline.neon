@@ -4296,6 +4296,11 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/Contracts.php
 
 		-
+			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\Currency\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\Currency, int\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Contracts/ContractsAggregated.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsAggregatedTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsAggregatedTest.php
