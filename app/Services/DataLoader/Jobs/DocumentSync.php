@@ -3,10 +3,9 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Document;
-use App\Services\DataLoader\Commands\DocumentUpdate;
+use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
@@ -24,9 +23,9 @@ class DocumentSync extends Sync {
     /**
      * @return array{result: bool, assets: bool}
      */
-    public function __invoke(ExceptionHandler $handler, Container $container, Kernel $kernel): array {
-        return GlobalScopes::callWithoutAll(function () use ($container, $handler, $kernel): array {
-            $result = $this->syncProperties($handler, $kernel);
+    public function __invoke(ExceptionHandler $handler, Container $container, DocumentLoader $loader): array {
+        return GlobalScopes::callWithoutAll(function () use ($container, $handler, $loader): array {
+            $result = $this->syncProperties($handler, $loader);
             $assets = $result && $this->syncAssets($handler, $container);
 
             return [
@@ -36,12 +35,11 @@ class DocumentSync extends Sync {
         });
     }
 
-    protected function syncProperties(ExceptionHandler $handler, Kernel $kernel): bool {
+    protected function syncProperties(ExceptionHandler $handler, DocumentLoader $loader): bool {
         try {
-            return $this->isCommandSuccessful($kernel->call(DocumentUpdate::class, $this->getOptions([
-                'interaction' => false,
-                'id'          => $this->getObjectId(),
-            ])));
+            return $loader
+                ->setObjectId($this->getObjectId())
+                ->start();
         } catch (Exception $exception) {
             $handler->report($exception);
         }
