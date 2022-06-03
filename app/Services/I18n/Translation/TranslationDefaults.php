@@ -68,7 +68,7 @@ class TranslationDefaults extends TranslationLoader {
     /**
      * @param class-string<Model&Translatable> $model
      *
-     * @return Collection<int,Translatable>
+     * @return Collection<int,Model&Translatable>
      */
     protected function getModels(string $model): Collection {
         return $model::query()->get();
