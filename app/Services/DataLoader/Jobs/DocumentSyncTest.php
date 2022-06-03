@@ -4,11 +4,9 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Asset;
 use App\Models\Document;
-use App\Services\DataLoader\Commands\DocumentUpdate;
+use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Mockery;
@@ -32,15 +30,16 @@ class DocumentSyncTest extends TestCase {
 
         $this->override(ExceptionHandler::class);
 
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($document): void {
+        $this->override(DocumentLoader::class, static function (MockInterface $mock) use ($document): void {
             $mock
-                ->shouldReceive('call')
-                ->with(DocumentUpdate::class, [
-                    '--no-interaction' => true,
-                    'id'               => $document->getKey(),
-                ])
+                ->shouldReceive('setObjectId')
+                ->with($document->getKey())
                 ->once()
-                ->andReturn(Command::SUCCESS);
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
         });
 
         $this->override(AssetSync::class, static function (MockInterface $mock) use ($document): void {
@@ -92,12 +91,16 @@ class DocumentSyncTest extends TestCase {
                 ->andReturns();
         });
 
-        $this->override(Kernel::class, static function (MockInterface $mock): void {
+        $this->override(DocumentLoader::class, static function (MockInterface $mock) use ($document): void {
             $mock
-                ->shouldReceive('call')
-                ->with(DocumentUpdate::class, Mockery::any())
+                ->shouldReceive('setObjectId')
+                ->with($document->getKey())
                 ->once()
-                ->andReturn(Command::SUCCESS);
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
         });
 
         $this->override(AssetSync::class, static function (MockInterface $mock) use ($exception): void {

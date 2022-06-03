@@ -4,12 +4,9 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Commands\CustomerUpdate;
+use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use Exception;
-use Illuminate\Console\Command;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -36,17 +33,36 @@ class CustomerSyncTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
+        $this->override(CustomerLoader::class, static function (MockInterface $mock) use ($customer): void {
             $mock
-                ->shouldReceive('call')
-                ->with(CustomerUpdate::class, [
-                    '--no-interaction'   => true,
-                    'id'                 => $customer->getKey(),
-                    '--assets'           => true,
-                    '--assets-documents' => true,
-                ])
+                ->shouldReceive('setObjectId')
+                ->with($customer->getKey())
                 ->once()
-                ->andReturn(Command::SUCCESS);
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithAssets')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithAssetsDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithWarrantyCheck')
+                ->with(false)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
         });
 
         $job      = $this->app->make(CustomerSync::class)->init($customer);
@@ -82,10 +98,9 @@ class CustomerSyncTest extends TestCase {
                 ->andThrow($exception);
         });
 
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($exception): void {
+        $this->override(CustomerLoader::class, static function (MockInterface $mock) use ($exception): void {
             $mock
-                ->shouldReceive('call')
-                ->with(CustomerUpdate::class, Mockery::any())
+                ->shouldReceive('setObjectId')
                 ->once()
                 ->andThrow($exception);
         });
@@ -116,17 +131,36 @@ class CustomerSyncTest extends TestCase {
                 ->andReturn(false);
         });
 
-        $this->override(Kernel::class, static function (MockInterface $mock) use ($customer): void {
+        $this->override(CustomerLoader::class, static function (MockInterface $mock) use ($customer): void {
             $mock
-                ->shouldReceive('call')
-                ->with(CustomerUpdate::class, [
-                    '--no-interaction'   => true,
-                    'id'                 => $customer->getKey(),
-                    '--no-assets'        => true,
-                    '--assets-documents' => true,
-                ])
+                ->shouldReceive('setObjectId')
+                ->with($customer->getKey())
                 ->once()
-                ->andReturn(Command::SUCCESS);
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithAssets')
+                ->with(false)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithAssetsDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithWarrantyCheck')
+                ->with(false)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
         });
 
         $job      = $this->app->make(CustomerSync::class)->init($customer);

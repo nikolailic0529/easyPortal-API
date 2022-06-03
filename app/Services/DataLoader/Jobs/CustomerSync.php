@@ -4,10 +4,9 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Commands\CustomerUpdate;
+use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
-use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class CustomerSync extends Sync {
@@ -24,10 +23,10 @@ class CustomerSync extends Sync {
     /**
      * @return array{result: bool, warranty: bool}
      */
-    public function __invoke(ExceptionHandler $handler, Kernel $kernel, Client $client): array {
-        return GlobalScopes::callWithoutAll(function () use ($handler, $kernel, $client): array {
+    public function __invoke(ExceptionHandler $handler, Client $client, CustomerLoader $loader): array {
+        return GlobalScopes::callWithoutAll(function () use ($handler, $client, $loader): array {
             $warranty = $this->checkWarranty($handler, $client);
-            $result   = $this->syncProperties($handler, $kernel, $warranty);
+            $result   = $this->syncProperties($handler, $loader, $warranty);
 
             return [
                 'warranty' => $warranty,
@@ -46,14 +45,15 @@ class CustomerSync extends Sync {
         return false;
     }
 
-    protected function syncProperties(ExceptionHandler $handler, Kernel $kernel, bool $assets): bool {
+    protected function syncProperties(ExceptionHandler $handler, CustomerLoader $loader, bool $assets): bool {
         try {
-            return $this->isCommandSuccessful($kernel->call(CustomerUpdate::class, $this->getOptions([
-                'interaction'      => false,
-                'id'               => $this->getObjectId(),
-                'assets'           => $assets,
-                'assets-documents' => true,
-            ])));
+            return $loader
+                ->setObjectId($this->getObjectId())
+                ->setWithDocuments(true)
+                ->setWithAssets($assets)
+                ->setWithAssetsDocuments(true)
+                ->setWithWarrantyCheck(false)
+                ->start();
         } catch (Exception $exception) {
             $handler->report($exception);
         }
