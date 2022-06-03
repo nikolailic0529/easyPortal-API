@@ -9,7 +9,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
 
-class Provider extends IlluminateTranslationServiceProvider {
+class ProviderDeferred extends IlluminateTranslationServiceProvider {
     protected function registerLoader(): void {
         $this->app->alias('translation.loader', TranslationLoader::class);
         $this->app->singleton('translation.loader', static function (Application $app): FileLoader {
