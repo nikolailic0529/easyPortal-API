@@ -88,13 +88,31 @@ class ContractsAggregatedTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $hidden  = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
-        $params  = [
+        $noPriceStatus = '685d912c-bf6a-4745-96d8-b3cb74f42c1b';
+        $hiddenStatus  = '5d9b319b-f69f-4ef1-94dc-749f89c0fe3d';
+        $params        = [
             'where' => [
-                'price' => ['lessThanOrEqual' => 100],
+                'anyOf' => [
+                    [
+                        'currency_id' => [
+                            'notEqual' => '920cc290-1cc9-484a-b4c5-7d4e74299811',
+                        ],
+                    ],
+                    [
+                        'currency_id' => [
+                            'isNull' => 'yes',
+                        ],
+                    ],
+                ],
             ],
         ];
-        $factory = static function (TestCase $test, Organization $organization) use ($hidden): void {
+        $factory       = static function (
+            TestCase $test,
+            Organization $organization,
+        ) use (
+            $hiddenStatus,
+            $noPriceStatus,
+        ): void {
             // Type
             $type = Type::factory()->create([
                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -116,6 +134,11 @@ class ContractsAggregatedTest extends TestCase {
                 'id'   => '8457ba3b-defd-4442-a8ab-125f3ad89fa9',
                 'code' => 'B',
                 'name' => 'B',
+            ]);
+            $currencyC = Currency::factory()->create([
+                'id'   => '920cc290-1cc9-484a-b4c5-7d4e74299811',
+                'code' => 'C',
+                'name' => 'C',
             ]);
 
             // Documents
@@ -148,7 +171,7 @@ class ContractsAggregatedTest extends TestCase {
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerA,
-                'currency_id' => $currencyA,
+                'currency_id' => $currencyC,
                 'price'       => 1000,
             ]);
 
@@ -162,7 +185,19 @@ class ContractsAggregatedTest extends TestCase {
             // Hidden Status
             Document::factory()
                 ->hasStatuses(1, [
-                    'id' => $hidden,
+                    'id' => $hiddenStatus,
+                ])
+                ->create([
+                    'type_id'     => $type,
+                    'reseller_id' => $resellerA,
+                    'currency_id' => $currencyA,
+                    'price'       => 5,
+                ]);
+
+            // No Price Status
+            Document::factory()
+                ->hasStatuses(1, [
+                    'id' => $noPriceStatus,
                 ])
                 ->create([
                     'type_id'     => $type,
@@ -181,7 +216,7 @@ class ContractsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contractsAggregated', self::class, [
-                            'count'  => 4,
+                            'count'  => 5,
                             'prices' => [
                                 [
                                     'count'       => 1,
@@ -200,7 +235,7 @@ class ContractsAggregatedTest extends TestCase {
                                     ],
                                 ],
                                 [
-                                    'count'       => 2,
+                                    'count'       => 3,
                                     'amount'      => 25,
                                     'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
                                     'currency'    => [
@@ -212,10 +247,13 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                $hidden,
+                            'ep.document_statuses_no_price' => [
+                                $noPriceStatus,
                             ],
-                            'ep.contract_types'           => [
+                            'ep.document_statuses_hidden'   => [
+                                $hiddenStatus,
+                            ],
+                            'ep.contract_types'             => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -232,10 +270,10 @@ class ContractsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contractsAggregated', self::class, [
-                            'count'  => 1,
+                            'count'  => 2,
                             'prices' => [
                                 [
-                                    'count'       => 1,
+                                    'count'       => 2,
                                     'amount'      => 10,
                                     'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
                                     'currency'    => [
@@ -247,10 +285,13 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                $hidden,
+                            'ep.document_statuses_no_price' => [
+                                $noPriceStatus,
                             ],
-                            'ep.contract_types'           => [
+                            'ep.document_statuses_hidden'   => [
+                                $hiddenStatus,
+                            ],
+                            'ep.contract_types'             => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
@@ -265,12 +306,12 @@ class ContractsAggregatedTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'               => [
                         new GraphQLSuccess('contractsAggregated', self::class, [
-                            'count'  => 1,
+                            'count'  => 2,
                             'prices' => [
                                 [
-                                    'count'       => 1,
+                                    'count'       => 2,
                                     'amount'      => 10,
                                     'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
                                     'currency'    => [
@@ -282,24 +323,27 @@ class ContractsAggregatedTest extends TestCase {
                             ],
                         ]),
                         [
-                            'ep.document_statuses_hidden' => [
-                                $hidden,
+                            'ep.document_statuses_no_price' => [
+                                $noPriceStatus,
                             ],
-                            'ep.contract_types'           => [
+                            'ep.document_statuses_hidden'   => [
+                                $hiddenStatus,
+                            ],
+                            'ep.contract_types'             => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
                         $factory,
                         $params,
                     ],
-                    'no types'       => [
+                    'no types'         => [
                         new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 0,
                             'prices' => [],
                         ]),
                         [
                             'ep.document_statuses_hidden' => [
-                                $hidden,
+                                $hiddenStatus,
                             ],
                             'ep.contract_types'           => [
                                 // empty
@@ -308,17 +352,47 @@ class ContractsAggregatedTest extends TestCase {
                         $factory,
                         $params,
                     ],
-                    'type not match' => [
+                    'type not match'   => [
                         new GraphQLSuccess('contractsAggregated', self::class, [
                             'count'  => 0,
                             'prices' => [],
                         ]),
                         [
                             'ep.document_statuses_hidden' => [
-                                $hidden,
+                                $hiddenStatus,
                             ],
                             'ep.contract_types'           => [
                                 'da436d68-a6b5-424e-a25e-8394b697d191',
+                            ],
+                        ],
+                        $factory,
+                        $params,
+                    ],
+                    'no hidden prices' => [
+                        new GraphQLSuccess('contractsAggregated', self::class, [
+                            'count'  => 2,
+                            'prices' => [
+                                [
+                                    'count'       => 2,
+                                    'amount'      => 15,
+                                    'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
+                                    'currency'    => [
+                                        'id'   => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
+                                        'name' => 'A',
+                                        'code' => 'A',
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                // empty
+                            ],
+                            'ep.document_statuses_hidden'   => [
+                                $hiddenStatus,
+                            ],
+                            'ep.contract_types'             => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
                         $factory,

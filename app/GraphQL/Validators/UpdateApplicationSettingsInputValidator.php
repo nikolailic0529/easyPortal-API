@@ -23,7 +23,7 @@ class UpdateApplicationSettingsInputValidator extends Validator {
         $setting = $this->settings->getEditableSetting($name);
 
         return $setting ? [
-            'value' => [new SettingValue($this->validator, $setting)],
+            'value' => [new SettingValue($this->settings, $this->validator, $setting)],
         ] : [];
     }
 }

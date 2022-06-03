@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Oem;
@@ -783,6 +784,88 @@ class QuotesTest extends TestCase {
                                     'price'       => 100,
                                     'customer_id' => null,
                                 ]);
+                        },
+                    ],
+                    'entries: hiding list_price'                => [
+                        new GraphQLPaginated(
+                            'quotes',
+                            self::class,
+                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                            ],
+                            'ep.quote_types'                => [
+                                '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id'   => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+                        },
+                    ],
+                    'entries: hiding net_price'                 => [
+                        new GraphQLPaginated(
+                            'quotes',
+                            self::class,
+                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                            ],
+                            'ep.quote_types'                => [
+                                '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id'   => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
                         },
                     ],
                 ]),

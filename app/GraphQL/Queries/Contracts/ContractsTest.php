@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Oem;
@@ -320,7 +321,7 @@ class ContractsTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'                       => [
                         new GraphQLPaginated(
                             'contracts',
                             self::class,
@@ -675,7 +676,7 @@ class ContractsTest extends TestCase {
                                 ->create();
                         },
                     ],
-                    'no types'       => [
+                    'no types'                 => [
                         new GraphQLPaginated('contracts', self::class, [
                             // empty
                         ]),
@@ -693,7 +694,7 @@ class ContractsTest extends TestCase {
                             ]);
                         },
                     ],
-                    'type not match' => [
+                    'type not match'           => [
                         new GraphQLPaginated('contracts', self::class, [
                             // empty
                         ]),
@@ -711,7 +712,7 @@ class ContractsTest extends TestCase {
                             ]);
                         },
                     ],
-                    'hiding price'   => [
+                    'hiding price'             => [
                         new GraphQLPaginated(
                             'contracts',
                             self::class,
@@ -746,6 +747,88 @@ class ContractsTest extends TestCase {
                                     'price'       => 100,
                                     'customer_id' => null,
                                 ]);
+                        },
+                    ],
+                    'entry: hiding list_price' => [
+                        new GraphQLPaginated(
+                            'contracts',
+                            self::class,
+                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                            ],
+                            'ep.contract_types'             => [
+                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+                        },
+                    ],
+                    'entry: hiding net_price'  => [
+                        new GraphQLPaginated(
+                            'contracts',
+                            self::class,
+                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
+                            ],
+                            'ep.contract_types'             => [
+                                '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): void {
+                            $type     = Type::factory()->create([
+                                'id' => '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
                         },
                     ],
                 ]),

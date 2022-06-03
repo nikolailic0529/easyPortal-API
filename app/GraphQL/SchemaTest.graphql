@@ -2409,16 +2409,6 @@ input SearchByConditionDocumentEntriesQuery {
     id: SearchByScalarID
 
     """
-    Property condition.
-    """
-    list_price: SearchByScalarFloatOrNull
-
-    """
-    Property condition.
-    """
-    net_price: SearchByScalarFloatOrNull
-
-    """
     Not.
     """
     not: SearchByConditionDocumentEntriesQuery
@@ -2552,11 +2542,6 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     oem_id: SearchByScalarID
-
-    """
-    Property condition.
-    """
-    price: SearchByScalarFloatOrNull
 
     """
     Property condition.
@@ -4151,176 +4136,6 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
-Sort clause for input AssetWarrantiesQuery (only one property allowed at a time).
-"""
-input SortByClauseAssetWarrantiesQuery {
-    """
-    Property clause.
-    """
-    asset: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    customer: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    customer_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    document: SortByClauseDocumentsQuery
-
-    """
-    Property clause.
-    """
-    document_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    end: SortByDirection
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    reseller: SortByClauseResellersQuery
-
-    """
-    Property clause.
-    """
-    reseller_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    serviceLevels: SortByClauseServiceLevelsQuery
-
-    """
-    Property clause.
-    """
-    service_group_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    start: SortByDirection
-}
-
-"""
-Sort clause for input AssetsQuery (only one property allowed at a time).
-"""
-input SortByClauseAssetsQuery {
-    """
-    Property clause.
-    """
-    contracts: SortByClauseDocumentsQuery
-
-    """
-    Property clause.
-    """
-    coverages: SortByClauseCoveragesQuery
-
-    """
-    Property clause.
-    """
-    coverages_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    customer: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    customer_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    location: SortByClauseLocationsQuery
-
-    """
-    Property clause.
-    """
-    location_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    nickname: SortByDirection
-
-    """
-    Property clause.
-    """
-    oem_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    product: SortByClauseProductsQuery
-
-    """
-    Property clause.
-    """
-    product_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    quotes: SortByClauseDocumentsQuery
-
-    """
-    Property clause.
-    """
-    reseller_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    serial_number: SortByDirection
-
-    """
-    Property clause.
-    """
-    status_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    tags: SortByClauseTagsQuery
-
-    """
-    Property clause.
-    """
-    type_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    warranties: SortByClauseAssetWarrantiesQuery
-
-    """
-    Property clause.
-    """
-    warranty_end: SortByDirection
-}
-
-"""
 Sort clause for input AssetsSearchCustomerSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSearchCustomerSort {
@@ -4461,36 +4276,6 @@ input SortByClauseAuditsSort {
 }
 
 """
-Sort clause for input CitiesQuery (only one property allowed at a time).
-"""
-input SortByClauseCitiesQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    country_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    customers: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
 Sort clause for input CitiesSort (only one property allowed at a time).
 """
 input SortByClauseCitiesSort {
@@ -4508,51 +4293,6 @@ input SortByClauseCitiesSort {
     Property clause.
     """
     name: SortByDirection
-}
-
-"""
-Sort clause for input ContactsQuery (only one property allowed at a time).
-"""
-input SortByClauseContactsQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    customers: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    email: SortByDirection
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-
-    """
-    Property clause.
-    """
-    phone_number: SortByDirection
-
-    """
-    Property clause.
-    """
-    phone_valid: SortByDirection
-
-    """
-    Property clause.
-    """
-    types: SortByClauseTypesQuery
 }
 
 """
@@ -4581,41 +4321,6 @@ input SortByClauseContactsSort {
 }
 
 """
-Sort clause for input CountriesQuery (only one property allowed at a time).
-"""
-input SortByClauseCountriesQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    cities: SortByClauseCitiesQuery
-
-    """
-    Property clause.
-    """
-    code: SortByDirection
-
-    """
-    Property clause.
-    """
-    customers: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
 Sort clause for input CountriesSort (only one property allowed at a time).
 """
 input SortByClauseCountriesSort {
@@ -4636,113 +4341,13 @@ input SortByClauseCountriesSort {
 }
 
 """
-Sort clause for input CoveragesQuery (only one property allowed at a time).
-"""
-input SortByClauseCoveragesQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-}
-
-"""
-Sort clause for input CustomerLocationsQuery (only one property allowed at a time).
-"""
-input SortByClauseCustomerLocationsQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    location: SortByClauseLocationsQuery
-
-    """
-    Property clause.
-    """
-    location_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    types: SortByClauseTypesQuery
-}
-
-"""
 Sort clause for input CustomerLocationsSort (only one property allowed at a time).
 """
 input SortByClauseCustomerLocationsSort {
     """
     Property clause.
     """
-    location: SortByClauseLocationsQuery
-}
-
-"""
-Sort clause for input CustomersQuery (only one property allowed at a time).
-"""
-input SortByClauseCustomersQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    contacts: SortByClauseContactsQuery
-
-    """
-    Property clause.
-    """
-    contacts_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    contracts: SortByClauseDocumentsQuery
-
-    """
-    Property clause.
-    """
-    headquarter: SortByClauseCustomerLocationsQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    locations: SortByClauseCustomerLocationsQuery
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-
-    """
-    Property clause.
-    """
-    quotes: SortByClauseDocumentsQuery
-
-    """
-    Property clause.
-    """
-    statuses: SortByClauseStatusesQuery
-
-    """
-    Property clause.
-    """
-    statuses_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    type_id: SortByDirection
+    location: SortByClauseLocationsSort
 }
 
 """
@@ -4815,226 +4420,6 @@ input SortByClauseCustomersSort {
     Property clause.
     """
     type: SortByClauseTypesSort
-}
-
-"""
-Sort clause for input DistributorsQuery (only one property allowed at a time).
-"""
-input SortByClauseDistributorsQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
-Sort clause for input DocumentEntriesQuery (only one property allowed at a time).
-"""
-input SortByClauseDocumentEntriesQuery {
-    """
-    Property clause.
-    """
-    asset: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    asset_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    currency_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    discount: SortByDirection
-
-    """
-    Property clause.
-    """
-    document_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    end: SortByDirection
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    list_price: SortByDirection
-
-    """
-    Property clause.
-    """
-    net_price: SortByDirection
-
-    """
-    Property clause.
-    """
-    product: SortByClauseProductsQuery
-
-    """
-    Property clause.
-    """
-    product_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    renewal: SortByDirection
-
-    """
-    Property clause.
-    """
-    serial_number: SortByDirection
-
-    """
-    Property clause.
-    """
-    service_group_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    service_level_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    start: SortByDirection
-}
-
-"""
-Sort clause for input DocumentsQuery (only one property allowed at a time).
-"""
-input SortByClauseDocumentsQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    contacts: SortByClauseContactsQuery
-
-    """
-    Property clause.
-    """
-    contacts_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    currency_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    customer: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    customer_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    distributor: SortByClauseDistributorsQuery
-
-    """
-    Property clause.
-    """
-    distributor_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    end: SortByDirection
-
-    """
-    Property clause.
-    """
-    entries: SortByClauseDocumentEntriesQuery
-
-    """
-    Property clause.
-    """
-    entries_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    language_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    number: SortByDirection
-
-    """
-    Property clause.
-    """
-    oem_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    price: SortByDirection
-
-    """
-    Property clause.
-    """
-    reseller: SortByClauseResellersQuery
-
-    """
-    Property clause.
-    """
-    reseller_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    serial_number: SortByDirection
-
-    """
-    Property clause.
-    """
-    start: SortByDirection
-
-    """
-    Property clause.
-    """
-    statuses: SortByClauseStatusesQuery
-
-    """
-    Property clause.
-    """
-    statuses_count: SortByDirection
-
-    """
-    Property clause.
-    """
-    type_id: SortByDirection
 }
 
 """
@@ -5268,76 +4653,6 @@ input SortByClauseKpiSort {
 }
 
 """
-Sort clause for input LocationsQuery (only one property allowed at a time).
-"""
-input SortByClauseLocationsQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    city: SortByClauseCitiesQuery
-
-    """
-    Property clause.
-    """
-    city_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    country: SortByClauseCountriesQuery
-
-    """
-    Property clause.
-    """
-    country_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    customers: SortByClauseCustomersQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    latitude: SortByDirection
-
-    """
-    Property clause.
-    """
-    line_one: SortByDirection
-
-    """
-    Property clause.
-    """
-    line_two: SortByDirection
-
-    """
-    Property clause.
-    """
-    longitude: SortByDirection
-
-    """
-    Property clause.
-    """
-    postcode: SortByDirection
-
-    """
-    Property clause.
-    """
-    state: SortByDirection
-}
-
-"""
 Sort clause for input LocationsSort (only one property allowed at a time).
 """
 input SortByClauseLocationsSort {
@@ -5443,31 +4758,6 @@ input SortByClauseOrganizationsSort {
 }
 
 """
-Sort clause for input ProductsQuery (only one property allowed at a time).
-"""
-input SortByClauseProductsQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-
-    """
-    Property clause.
-    """
-    oem_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    sku: SortByDirection
-}
-
-"""
 Sort clause for input ProductsSort (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
@@ -5504,52 +4794,7 @@ input SortByClauseResellerLocationsSort {
     """
     Property clause.
     """
-    location: SortByClauseLocationsQuery
-}
-
-"""
-Sort clause for input ResellersQuery (only one property allowed at a time).
-"""
-input SortByClauseResellersQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
-Sort clause for input ServiceLevelsQuery (only one property allowed at a time).
-"""
-input SortByClauseServiceLevelsQuery {
-    """
-    Property clause.
-    """
-    documentEntries: SortByClauseDocumentEntriesQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    oem_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    service_group_id: SortByDirection
-
-    """
-    Property clause.
-    """
-    sku: SortByDirection
+    location: SortByClauseLocationsSort
 }
 
 """
@@ -5560,16 +4805,6 @@ input SortByClauseStatusSort {
     Property clause.
     """
     name: SortByDirection
-}
-
-"""
-Sort clause for input StatusesQuery (only one property allowed at a time).
-"""
-input SortByClauseStatusesQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
 }
 
 """
@@ -5585,36 +4820,6 @@ input SortByClauseTag {
     Property clause.
     """
     name: SortByDirection
-}
-
-"""
-Sort clause for input TagsQuery (only one property allowed at a time).
-"""
-input SortByClauseTagsQuery {
-    """
-    Property clause.
-    """
-    assets: SortByClauseAssetsQuery
-
-    """
-    Property clause.
-    """
-    id: SortByDirection
-
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
-Sort clause for input TypesQuery (only one property allowed at a time).
-"""
-input SortByClauseTypesQuery {
-    """
-    Property clause.
-    """
-    id: SortByDirection
 }
 
 """
@@ -7557,8 +6762,22 @@ type DocumentEntry {
     document_id: ID!
     end: Date
     id: ID!
+
     list_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
     net_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
 
     product: Product
     @relation

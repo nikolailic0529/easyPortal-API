@@ -4211,7 +4211,7 @@ parameters:
 			path: app/GraphQL/Queries/Client/TranslationsTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractStatuses\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Cannot call method orderByKey\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractStatuses.php
 
@@ -4294,6 +4294,11 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\Contracts\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/Contracts.php
+
+		-
+			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\Currency\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(App\\\\Models\\\\Currency, int\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Contracts/ContractsAggregated.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsAggregatedTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
@@ -16546,7 +16551,7 @@ parameters:
 			path: app/Services/Settings/Validation/SettingValue.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Validation/SettingValue.php
 

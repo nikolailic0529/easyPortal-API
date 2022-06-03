@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Oem;
@@ -320,7 +321,7 @@ class ContractsSearchTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'             => [
+                    'ok'                         => [
                         new GraphQLPaginated(
                             'contractsSearch',
                             self::class,
@@ -678,7 +679,7 @@ class ContractsSearchTest extends TestCase {
                             ]);
                         },
                     ],
-                    'no types'       => [
+                    'no types'                   => [
                         new GraphQLPaginated('contractsSearch', self::class, [], [
                             'count' => 0,
                         ]),
@@ -696,7 +697,7 @@ class ContractsSearchTest extends TestCase {
                             ]);
                         },
                     ],
-                    'type not match' => [
+                    'type not match'             => [
                         new GraphQLPaginated('contractsSearch', self::class, [], [
                             'count' => 0,
                         ]),
@@ -714,7 +715,7 @@ class ContractsSearchTest extends TestCase {
                             ]);
                         },
                     ],
-                    'hiding price'   => [
+                    'hiding price'               => [
                         new GraphQLPaginated(
                             'contractsSearch',
                             self::class,
@@ -748,6 +749,96 @@ class ContractsSearchTest extends TestCase {
                                     'price'       => 100,
                                     'customer_id' => null,
                                 ]);
+
+                            return new Collection([
+                                $document,
+                            ]);
+                        },
+                    ],
+                    'entries: hiding list_price' => [
+                        new GraphQLPaginated(
+                            'contractsSearch',
+                            self::class,
+                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'b33b4e2d-c3b1-4d31-9f8e-1d6a287b68e4',
+                            ],
+                            'ep.contract_types'             => [
+                                '57d75344-30b9-4091-ba44-77af3b0b4856',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => '57d75344-30b9-4091-ba44-77af3b0b4856',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => 'b33b4e2d-c3b1-4d31-9f8e-1d6a287b68e4',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
+
+                            return new Collection([
+                                $document,
+                            ]);
+                        },
+                    ],
+                    'entries: hiding net_price'  => [
+                        new GraphQLPaginated(
+                            'contractsSearch',
+                            self::class,
+                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
+                            [
+                                'count' => 1,
+                            ],
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                '27414eb0-0c64-4270-bd2a-c8a90a2adb96',
+                            ],
+                            'ep.contract_types'             => [
+                                '264e9633-e16b-47c1-9707-ccd0f554bc53',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $organization): Collection {
+                            $type     = Type::factory()->create([
+                                'id' => '264e9633-e16b-47c1-9707-ccd0f554bc53',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '27414eb0-0c64-4270-bd2a-c8a90a2adb96',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'list_price'  => 100,
+                                'net_price'   => 100,
+                            ]);
 
                             return new Collection([
                                 $document,

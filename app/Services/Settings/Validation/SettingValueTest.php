@@ -5,6 +5,7 @@ namespace App\Services\Settings\Validation;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Setting;
+use App\Services\Settings\Settings;
 use App\Services\Settings\Types\Type;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Validation\Rule;
@@ -25,8 +26,9 @@ class SettingValueTest extends TestCase {
      */
     public function testPasses(bool $expected, string $class, string $name, string $value): void {
         $validator = $this->app->make(Factory::class);
+        $settings  = $this->app->make(Settings::class);
         $setting   = new Setting(new ReflectionClassConstant($class, $name));
-        $rule      = new SettingValue($validator, $setting);
+        $rule      = new SettingValue($settings, $validator, $setting);
 
         self::assertEquals($expected, $rule->passes('test', $value));
     }
@@ -44,8 +46,9 @@ class SettingValueTest extends TestCase {
         });
 
         $validator = $this->app->make(Factory::class);
+        $settings  = $this->app->make(Settings::class);
         $setting   = new Setting(new ReflectionClassConstant(SettingValueTest_Constants::class, 'VALUE'));
-        $rule      = new SettingValue($validator, $setting);
+        $rule      = new SettingValue($settings, $validator, $setting);
 
         self::assertFalse($rule->passes('test', 'invalid'));
         self::assertEquals('The VALUE is invalid: The selected value is invalid.', $rule->message());
@@ -59,9 +62,12 @@ class SettingValueTest extends TestCase {
      */
     public function dataProviderPasses(): array {
         return [
+            'null '                    => [false, SettingValueTest_Constants::class, 'VALUE', 'null'],
             'valid'                    => [true, SettingValueTest_Constants::class, 'VALUE', 'valid'],
             'invalid'                  => [false, SettingValueTest_Constants::class, 'VALUE', 'invalid value'],
+            'null array'               => [false, SettingValueTest_Constants::class, 'ARRAY', 'null'],
             'valid array'              => [true, SettingValueTest_Constants::class, 'ARRAY', 'valid,valid'],
+            'empty array'              => [true, SettingValueTest_Constants::class, 'ARRAY', ''],
             'valid array (whitespace)' => [true, SettingValueTest_Constants::class, 'ARRAY', 'valid, valid'],
             'invalid array'            => [false, SettingValueTest_Constants::class, 'ARRAY', 'valid,invalid value'],
         ];
