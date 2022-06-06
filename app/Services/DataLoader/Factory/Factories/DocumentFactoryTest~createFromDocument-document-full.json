@@ -107,6 +107,32 @@
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"
+        },
+        {
+            "assetId": null,
+            "skuNumber": "HA151AC",
+            "supportPackage": "H7J34AC",
+            "startDate": null,
+            "endDate": "1740700800000",
+            "warrantyEndDate": null,
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48",
+            "currencyCode": "EUR",
+            "estimatedValueRenewal": "24.3"
+        },
+        {
+            "assetId": null,
+            "skuNumber": "HA151AC",
+            "supportPackage": "H7J34AC",
+            "startDate": null,
+            "endDate": "1740700800000",
+            "warrantyEndDate": null,
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48",
+            "currencyCode": "EUR",
+            "estimatedValueRenewal": "24.3"
         }
     ]
 }

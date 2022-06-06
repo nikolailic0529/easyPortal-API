@@ -10,6 +10,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
@@ -468,8 +469,8 @@ class DocumentFactory extends ModelFactory {
         $entry                = new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
-        $entry->product_id    = $asset->product_id;
-        $entry->serial_number = $asset->serial_number;
+        $entry->product_id    = $asset->product_id ?? null;
+        $entry->serial_number = $asset->serial_number ?? null;
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
@@ -483,11 +484,19 @@ class DocumentFactory extends ModelFactory {
         return $entry;
     }
 
-    protected function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): AssetModel {
-        $asset = $this->asset($documentEntry);
+    protected function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?AssetModel {
+        $asset = null;
 
-        if (!$asset) {
-            throw new FailedToProcessDocumentEntryNoAsset($model, $documentEntry);
+        try {
+            $asset = $this->asset($documentEntry);
+
+            if (!$asset) {
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessDocumentEntryNoAsset($model, $documentEntry),
+                );
+            }
+        } catch (AssetNotFound $exception) {
+            $this->getExceptionHandler()->report($exception);
         }
 
         return $asset;

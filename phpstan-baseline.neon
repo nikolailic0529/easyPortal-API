@@ -6006,11 +6006,6 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:asset\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:customer\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -7041,11 +7036,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: string, Closure\\(App\\\\Models\\\\DocumentEntry\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, int\\)\\: string\\|null, Closure\\(App\\\\Services\\\\Search\\\\Properties\\\\Property\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -7124,11 +7114,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:asset\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
 
 		-
 			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:currency\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -7769,11 +7754,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:asset\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestAsset.php
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:duration\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -10672,12 +10652,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 3
+			count: 4
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 5
+			count: 6
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-

@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Schema;
 
 class DocumentEntry extends Type {
-    public string  $assetId;
+    public ?string $assetId;
     public ?string $skuNumber;
     public ?string $skuDescription;
     public ?string $supportPackage;
