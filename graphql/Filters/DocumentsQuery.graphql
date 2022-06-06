@@ -7,7 +7,6 @@ input DocumentsQuery {
     end: Date!
     currency_id: ID
     language_id: ID
-    serial_number: String
     customer_id: ID
     customer: CustomersQuery
     reseller_id: ID

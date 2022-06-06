@@ -2556,11 +2556,6 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    serial_number: SearchByScalarStringOrNull
-
-    """
-    Property condition.
-    """
     start: SearchByScalarDate
 
     """
