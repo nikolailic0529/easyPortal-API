@@ -52,7 +52,7 @@ class DocumentTypeContractScope implements SearchScope, EloquentScope {
         return (array) $this->config->get('ep.contract_types');
     }
 
-    public function isContractType(Type|string $type): bool {
+    public function isContractType(Type|string|null $type): bool {
         $type  = $type instanceof Type ? $type->getKey() : $type;
         $types = $this->getTypeIds();
 

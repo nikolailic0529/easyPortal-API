@@ -37,7 +37,7 @@ class RequestChange extends Mailable {
         } elseif ($object instanceof Organization) {
             $title = $object->name;
         } elseif ($object instanceof Document) {
-            $title = $object->number;
+            $title = $object->number ?? "#{$object->getKey()}";
 
             if ($object->is_contract) {
                 $type = 'Contract';

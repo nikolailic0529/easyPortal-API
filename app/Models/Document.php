@@ -11,6 +11,7 @@ use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasType;
+use App\Models\Relations\HasTypeNullable;
 use App\Models\Scopes\DocumentStatusScope;
 use App\Models\Scopes\DocumentStatusScopeImpl;
 use App\Models\Scopes\DocumentTypeContractScope;
@@ -48,11 +49,11 @@ use function count;
  * @property string|null                    $oem_id
  * @property string|null                    $oem_said
  * @property string|null                    $oem_group_id
- * @property string                         $type_id
+ * @property string|null                    $type_id
  * @property string|null                    $customer_id
  * @property string|null                    $reseller_id
  * @property string|null                    $distributor_id
- * @property string                         $number
+ * @property string|null                    $number
  * @property CarbonImmutable|null           $start
  * @property CarbonImmutable|null           $end
  * @property string|null                    $price
@@ -83,7 +84,7 @@ use function count;
  * @property OemGroup|null                  $oemGroup
  * @property Reseller|null                  $reseller
  * @property Collection<int, Status>        $statuses
- * @property Type                           $type
+ * @property Type|null                      $type
  * @method static DocumentFactory factory(...$parameters)
  * @method static Builder|Document newModelQuery()
  * @method static Builder|Document newQuery()
@@ -94,7 +95,7 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use SearchableImpl;
     use OwnedByResellerImpl;
     use HasOemNullable;
-    use HasType;
+    use HasTypeNullable;
     use HasStatuses;
     use HasServiceGroup;
     use HasResellerNullable;
