@@ -132,4 +132,36 @@ class WithOemTest extends TestCase {
 
         self::assertEquals($oem, $factory->oem($oem->key));
     }
+
+    /**
+     * @covers ::oem
+     */
+    public function testOemOemNull(): void {
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(OemResolver::class);
+        $factory    = new class($normalizer, $resolver) extends Factory {
+            use WithOem {
+                oem as public;
+            }
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected OemResolver $oemResolver,
+            ) {
+                // empty
+            }
+
+            protected function getOemResolver(): OemResolver {
+                return $this->oemResolver;
+            }
+
+            protected function getOemFinder(): ?OemFinder {
+                return null;
+            }
+        };
+
+        self::assertNull($factory->oem(''));
+        self::assertNull($factory->oem(null));
+    }
 }

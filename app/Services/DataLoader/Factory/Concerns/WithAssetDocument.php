@@ -15,7 +15,7 @@ trait WithAssetDocument {
     use WithServiceGroup;
     use WithServiceLevel;
 
-    protected function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): Oem {
+    protected function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): ?Oem {
         return isset($assetDocument->document)
             ? $this->documentOem($assetDocument->document)
             : $asset->oem;
@@ -46,7 +46,7 @@ trait WithAssetDocument {
         return $level;
     }
 
-    protected function documentOem(Document|ViewDocument $document): Oem {
+    protected function documentOem(Document|ViewDocument $document): ?Oem {
         return $this->oem($document->vendorSpecificFields->vendor);
     }
 }

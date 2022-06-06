@@ -139,11 +139,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
-        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key);
         self::assertEquals('CUR', $created->currency->code);
         self::assertEquals('fr', $created->language->code);
-        self::assertEquals('HPE', $created->oem->key);
         self::assertEquals('1234 4678 9012', $created->oem_said);
         self::assertEquals('abc-de', $created->oemGroup->key);
         self::assertEquals(0, $created->assets_count);
@@ -690,7 +689,7 @@ class DocumentFactoryTest extends TestCase {
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
-                'vendor' => $document->oem->key,
+                'vendor' => $document->oem->key ?? null,
             ],
             'documentEntries'      => [
                 [
@@ -834,11 +833,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
-        self::assertEquals('HPE', $created->oem->key);
+        self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key);
         self::assertEquals('CUR', $created->currency->code);
         self::assertEquals('fr', $created->language->code);
-        self::assertEquals('HPE', $created->oem->key);
         self::assertEquals('1234 4678 9012', $created->oem_said);
         self::assertEquals('abc-de', $created->oemGroup->key);
         self::assertEquals(1, $created->assets_count);

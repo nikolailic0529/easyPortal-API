@@ -413,7 +413,9 @@ class DocumentFactory extends ModelFactory {
 
         if ($key) {
             $oem   = $this->documentOem($document);
-            $group = $this->oemGroup($oem, $key, (string) $desc);
+            $group = $oem
+                ? $this->oemGroup($oem, $key, (string) $desc)
+                : null;
         }
 
         return $group;
@@ -493,7 +495,7 @@ class DocumentFactory extends ModelFactory {
         $sku   = $documentEntry->supportPackage ?? null;
         $group = null;
 
-        if ($sku) {
+        if ($sku && $model->oem) {
             $group = $this->serviceGroup($model->oem, $sku);
         }
 
@@ -505,7 +507,7 @@ class DocumentFactory extends ModelFactory {
         $group = $this->documentEntryServiceGroup($model, $documentEntry);
         $level = null;
 
-        if ($group && $sku) {
+        if ($group && $sku && $model->oem) {
             $level = $this->serviceLevel($model->oem, $group, $sku);
         }
 

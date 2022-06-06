@@ -9506,26 +9506,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\OemNotFound constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Finders\\\\OemFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceGroupNotFound constructor expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
@@ -9851,21 +9831,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\OemNotFound constructor expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithOemTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Finders\\\\OemFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithOemTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithOemTest.php
-
-		-
 			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
@@ -10106,11 +10071,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetAsset\\(\\) should return App\\\\Models\\\\Asset but returns App\\\\Models\\\\Asset\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
@@ -10162,21 +10122,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\OemNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Finders\\\\OemFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -10402,7 +10347,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 9
+			count: 11
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
@@ -10856,11 +10801,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:children\\(\\) should return C of Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
@@ -10897,21 +10837,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\OemNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Finders\\\\OemFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
