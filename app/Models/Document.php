@@ -6,7 +6,7 @@ use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasLanguage;
-use App\Models\Relations\HasOem;
+use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
@@ -45,7 +45,7 @@ use function count;
  * Document.
  *
  * @property string                         $id
- * @property string                         $oem_id
+ * @property string|null                    $oem_id
  * @property string|null                    $oem_said
  * @property string|null                    $oem_group_id
  * @property string                         $type_id
@@ -79,7 +79,7 @@ use function count;
  * @property Collection<int, DocumentEntry> $entries
  * @property Language|null                  $language
  * @property-read Collection<int, Note>     $notes
- * @property Oem                            $oem
+ * @property Oem|null                       $oem
  * @property OemGroup|null                  $oemGroup
  * @property Reseller|null                  $reseller
  * @property Collection<int, Status>        $statuses
@@ -93,7 +93,7 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasFactory;
     use SearchableImpl;
     use OwnedByResellerImpl;
-    use HasOem;
+    use HasOemNullable;
     use HasType;
     use HasStatuses;
     use HasServiceGroup;
