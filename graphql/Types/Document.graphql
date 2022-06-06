@@ -1,6 +1,6 @@
 type Document {
     id: ID!
-    oem_id: ID!
+    oem_id: ID
     type_id: ID!
     customer_id: ID
     number: String!
@@ -18,7 +18,7 @@ type Document {
     currency_id: ID
     currency: Currency @relation
     customer: Customer @relation
-    oem: Oem! @relation
+    oem: Oem @relation
     oem_said: String
     oemGroup: OemGroup @relation
     reseller_id: ID

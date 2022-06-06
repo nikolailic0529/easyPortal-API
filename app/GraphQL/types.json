@@ -276,7 +276,14 @@
             ],
             "properties": {
                 "oem_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "product_id": {
                     "oneOf": [
@@ -324,7 +331,14 @@
                     "$ref": "#/definitions/Customer"
                 },
                 "oem": {
-                    "$ref": "#/definitions/Oem"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Oem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "product": {
                     "oneOf": [
@@ -597,7 +611,14 @@
                     "$ref": "#/definitions/ID"
                 },
                 "oem_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "oem_said": {
                     "type": [
@@ -700,7 +721,14 @@
                     ]
                 },
                 "oem": {
-                    "$ref": "#/definitions/Oem"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Oem"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reseller": {
                     "oneOf": [
