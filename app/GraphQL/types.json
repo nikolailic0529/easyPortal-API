@@ -1041,7 +1041,14 @@
                     "$ref": "#/definitions/Document"
                 },
                 "asset_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "asset": {
                     "oneOf": [

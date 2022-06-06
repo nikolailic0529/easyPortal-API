@@ -2381,7 +2381,7 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
-    asset_id: SearchByScalarID
+    asset_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -6607,14 +6607,14 @@ type Document {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6747,7 +6747,7 @@ type DocumentEntry {
     asset: Asset
     @relation
 
-    asset_id: ID!
+    asset_id: ID
 
     currency: Currency
     @relation
