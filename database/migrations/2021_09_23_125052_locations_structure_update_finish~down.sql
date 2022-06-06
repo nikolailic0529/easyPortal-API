@@ -8,21 +8,22 @@ ALTER TABLE `assets`
 
 -- Restore fields and tables
 CREATE TABLE IF NOT EXISTS `locations_outdated` (
-    `id`          CHAR(36)       NOT NULL,
-    `object_id`   CHAR(36)       NULL,
-    `object_type` VARCHAR(255)   NOT NULL,
-    `country_id`  CHAR(36)       NOT NULL,
-    `city_id`     CHAR(36)       NOT NULL,
-    `postcode`    VARCHAR(45)    NOT NULL,
-    `state`       VARCHAR(255)   NOT NULL,
-    `line_one`    VARCHAR(255)   NOT NULL,
-    `line_two`    VARCHAR(255)   NOT NULL,
-    `latitude`    DECIMAL(10, 8) NULL,
-    `longitude`   DECIMAL(11, 8) NULL,
-    `created_at`  TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`  TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `deleted_at`  TIMESTAMP      NULL,
-    `deleted_not` TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null), 1, NULL)) STORED,
+    `id`           CHAR(36)         NOT NULL,
+    `object_id`    CHAR(36)         NULL,
+    `object_type`  VARCHAR(255)     NOT NULL,
+    `country_id`   CHAR(36)         NOT NULL,
+    `city_id`      CHAR(36)         NOT NULL,
+    `postcode`     VARCHAR(45)      NOT NULL,
+    `state`        VARCHAR(255)     NOT NULL,
+    `line_one`     VARCHAR(255)     NOT NULL,
+    `line_two`     VARCHAR(255)     NOT NULL,
+    `latitude`     DECIMAL(10, 8)   NULL,
+    `longitude`    DECIMAL(11, 8)   NULL,
+    `assets_count` INT(10) UNSIGNED NOT NULL DEFAULT 0,
+    `created_at`   TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at`   TIMESTAMP        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `deleted_at`   TIMESTAMP        NULL,
+    `deleted_not`  TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null), 1, NULL)) STORED,
     PRIMARY KEY (`id`),
     INDEX `fk_locations_countries1_idx`(`country_id` ASC) VISIBLE,
     INDEX `fk_locations_cities1_idx`(`city_id` ASC) VISIBLE,
@@ -30,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `locations_outdated` (
     INDEX `idx__postcode__deleted_at`(`postcode` ASC, `deleted_at` ASC) VISIBLE,
     INDEX `idx__object_id__object_type__deleted_at`(`object_id` ASC, `object_type` ASC, `deleted_at` ASC) VISIBLE,
     INDEX `idx__latitude__longitude__deleted_at`(`latitude` ASC, `longitude` ASC, `deleted_at` ASC) VISIBLE,
+    INDEX `idx__longitude__latitude__deleted_at`(`longitude` ASC, `latitude` ASC, `deleted_at` ASC) VISIBLE,
     CONSTRAINT `fk_locations_cities10`
         FOREIGN KEY (`city_id`)
             REFERENCES `cities`(`id`)
@@ -70,11 +72,11 @@ CREATE TABLE IF NOT EXISTS `location_types_outdated` (
 -- Add helpers
 ALTER TABLE `locations_outdated`
     ADD COLUMN `hash` VARCHAR(632) GENERATED ALWAYS AS (CONCAT(country_id, '/', city_id, '/', postcode, '/', line_one, ' ', line_two)) STORED AFTER `deleted_not`,
-    ADD INDEX `idx__hash` (`hash` ASC) VISIBLE;
+    ADD INDEX `idx__hash`(`hash` ASC) VISIBLE;
 
 ALTER TABLE `locations`
     ADD COLUMN `hash` VARCHAR(632) GENERATED ALWAYS AS (CONCAT(country_id, '/', city_id, '/', postcode, '/', line_one, ' ', line_two)) STORED AFTER `deleted_not`,
-    ADD INDEX `idx__hash` (`hash` ASC) VISIBLE;
+    ADD INDEX `idx__hash`(`hash` ASC) VISIBLE;
 
 -- Map
 CREATE TABLE IF NOT EXISTS `tmp_locations_map` (

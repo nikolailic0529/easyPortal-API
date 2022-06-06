@@ -7,8 +7,8 @@ return new class() extends RawDataMigration {
     protected function runRawUp(): void {
         $kernel = $this->getContainer()->make(Kernel::class);
 
-        $kernel->call('ep:recalculator-recalculate-resellers');
-        $kernel->call('ep:recalculator-recalculate-customers');
-        $kernel->call('ep:recalculator-recalculate-locations');
+        $kernel->call('ep:recalculator-resellers-recalculate');
+        $kernel->call('ep:recalculator-customers-recalculate');
+        $kernel->call('ep:recalculator-locations-recalculate');
     }
 };
