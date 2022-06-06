@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Relations\HasAsset;
+use App\Models\Relations\HasAssetNullable;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasProduct;
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string               $id
  * @property string               $document_id
- * @property string               $asset_id
+ * @property string|null          $asset_id
  * @property string|null          $service_group_id
  * @property string|null          $service_level_id
  * @property string|null          $product_id
@@ -34,7 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
- * @property Asset                $asset
+ * @property Asset|null           $asset
  * @property Currency|null        $currency
  * @property Document             $document
  * @property Product|null         $product
@@ -47,7 +47,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class DocumentEntry extends Model {
     use HasFactory;
-    use HasAsset;
+    use HasAssetNullable;
     use HasServiceGroup;
     use HasServiceLevel;
     use HasProduct;

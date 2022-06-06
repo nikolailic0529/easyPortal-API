@@ -10,7 +10,6 @@ use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
-use App\Models\Relations\HasType;
 use App\Models\Relations\HasTypeNullable;
 use App\Models\Scopes\DocumentStatusScope;
 use App\Models\Scopes\DocumentStatusScopeImpl;
@@ -148,13 +147,20 @@ class Document extends Model implements OwnedByOrganization, Searchable {
      */
     public function setEntriesAttribute(BaseCollection|array $entries): void {
         $this->syncHasMany('entries', $entries);
-        $this->entries_count = count($entries);
-        $this->assets_count  = (new BaseCollection($entries))
-            ->map(static function (DocumentEntry $entry): string {
-                return $entry->asset_id;
-            })
-            ->unique()
-            ->count();
+        $this->entries_count = count($this->entries);
+        $this->assets_count  = 0
+            + $this->entries
+                ->map(static function (DocumentEntry $entry): ?string {
+                    return $entry->asset_id;
+                })
+                ->filter()
+                ->unique()
+                ->count()
+            + $this->entries
+                ->filter(static function (DocumentEntry $entry): bool {
+                    return $entry->asset_id === null;
+                })
+                ->count();
     }
 
     #[CascadeDelete(false)]
