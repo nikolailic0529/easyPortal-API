@@ -570,7 +570,7 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
-        return isset($asset->assetType)
+        return isset($asset->assetType) && $this->getNormalizer()->string($asset->assetType)
             ? $this->type(new Asset(), $asset->assetType)
             : null;
     }

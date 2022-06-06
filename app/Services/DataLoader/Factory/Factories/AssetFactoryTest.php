@@ -976,11 +976,16 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $asset      = new ViewAsset(['assetType' => $this->faker->word()]);
+        $factory    = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
         $factory
             ->shouldReceive('type')
             ->with(Mockery::any(), $asset->assetType)

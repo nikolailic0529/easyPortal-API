@@ -279,7 +279,7 @@ class DocumentFactory extends ModelFactory {
                 $model->start         = $normalizer->datetime($document->startDate);
                 $model->end           = $normalizer->datetime($document->endDate);
                 $model->price         = $normalizer->decimal($document->totalNetPrice);
-                $model->number        = $normalizer->string($document->documentNumber);
+                $model->number        = $normalizer->string($document->documentNumber) ?: null;
                 $model->changed_at    = $normalizer->datetime($document->updatedAt);
                 $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);
                 $model->synced_at     = Date::now();
@@ -349,7 +349,7 @@ class DocumentFactory extends ModelFactory {
             $model->start       = $normalizer->datetime($document->startDate);
             $model->end         = $normalizer->datetime($document->endDate);
             $model->price       = $normalizer->decimal($document->totalNetPrice);
-            $model->number      = $normalizer->string($document->documentNumber);
+            $model->number      = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at  = $normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
             $model->synced_at   = Date::now();
@@ -421,8 +421,10 @@ class DocumentFactory extends ModelFactory {
         return $group;
     }
 
-    protected function documentType(Document|ViewDocument $document): TypeModel {
-        return $this->type(new DocumentModel(), $document->type);
+    protected function documentType(Document|ViewDocument $document): ?TypeModel {
+        return isset($document->type) && $this->getNormalizer()->string($document->type)
+            ? $this->type(new DocumentModel(), $document->type)
+            : null;
     }
 
     /**
