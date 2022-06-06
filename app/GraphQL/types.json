@@ -637,7 +637,14 @@
                     ]
                 },
                 "type_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "customer_id": {
                     "oneOf": [
@@ -660,7 +667,7 @@
                     ]
                 },
                 "number": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "start": {
                     "oneOf": [
@@ -741,7 +748,14 @@
                     ]
                 },
                 "type": {
-                    "$ref": "#/definitions/Type"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Type"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "statuses": {
                     "type": "array",

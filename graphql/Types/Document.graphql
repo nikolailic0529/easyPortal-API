@@ -1,9 +1,9 @@
 type Document {
     id: ID!
     oem_id: ID
-    type_id: ID!
+    type_id: ID
     customer_id: ID
-    number: String!
+    number: String
     start: Date
     end: Date
 
@@ -23,7 +23,7 @@ type Document {
     oemGroup: OemGroup @relation
     reseller_id: ID
     reseller: Reseller @relation
-    type: Type! @relation
+    type: Type @relation
     statuses: [Status!]! @relation
     statuses_count: Int!
     is_contract: Boolean!

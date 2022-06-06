@@ -1,8 +1,8 @@
 input DocumentsQuery {
     id: ID!
     oem_id: ID
-    type_id: ID!
-    number: String!
+    type_id: ID
+    number: String
     start: Date!
     end: Date!
     currency_id: ID

@@ -2536,7 +2536,7 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    number: SearchByScalarString
+    number: SearchByScalarStringOrNull
 
     """
     Property condition.
@@ -2576,7 +2576,7 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    type_id: SearchByScalarID
+    type_id: SearchByScalarIDOrNull
 }
 
 """
@@ -6711,7 +6711,7 @@ type Document {
         relation: "notes"
     )
 
-    number: String!
+    number: String
 
     oem: Oem
     @relation
@@ -6742,10 +6742,10 @@ type Document {
     statuses_count: Int!
     synced_at: DateTime!
 
-    type: Type!
+    type: Type
     @relation
 
-    type_id: ID!
+    type_id: ID
 }
 
 type DocumentEntry {
