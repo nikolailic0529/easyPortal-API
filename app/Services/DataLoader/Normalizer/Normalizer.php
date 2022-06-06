@@ -37,10 +37,16 @@ class Normalizer implements Singleton {
         return $this->uuid->normalize($value);
     }
 
+    /**
+     * @return ($value is string ? string : string|null)
+     */
     public function string(mixed $value): ?string {
         return $this->string->normalize($value);
     }
 
+    /**
+     * @return ($value is string ? string : string|null)
+     */
     public function text(mixed $value): ?string {
         return $this->text->normalize($value);
     }
@@ -65,6 +71,9 @@ class Normalizer implements Singleton {
         return $this->color->normalize($value);
     }
 
+    /**
+     * @return ($value is string ? string : string|null)
+     */
     public function name(mixed $value): ?string {
         return $this->name->normalize($value);
     }
@@ -78,11 +87,7 @@ class Normalizer implements Singleton {
     }
 
     /**
-     * @template T of float|int|null
-     *
-     * @param T $value
-     *
-     * @return T
+     * @return ($value is float ? float : ($value is int ? int : null))
      */
     public function unsigned(mixed $value): mixed {
         return $this->unsigned->normalize($value);

@@ -9031,11 +9031,6 @@ parameters:
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function mb_strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/Key.php
-
-		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Client/Client.php
@@ -9376,26 +9371,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
@@ -9406,22 +9381,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
@@ -9504,36 +9464,6 @@ parameters:
 			message: "#^Unable to resolve the template type C in call to method class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:64\\:\\:children\\(\\)$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceGroupNotFound constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceGroupFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceLevelNotFound constructor expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceLevelFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithAssetDocumentTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithAssetTest\\:\\:testAssetAssetNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
@@ -9621,16 +9551,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Coverage will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
@@ -9639,26 +9559,6 @@ parameters:
 			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithCoverageTest\\.php\\:29\\:\\:coverage\\(\\) should return App\\\\Models\\\\Coverage but returns App\\\\Models\\\\Coverage\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Currency\\:\\:\\$code \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCurrencyTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Currency\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCurrencyTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithCustomerTest\\:\\:testCustomerCustomerNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
@@ -9704,16 +9604,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$model of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyKpis constructor expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\|App\\\\Models\\\\ResellerCustomer given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithKpiTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Language\\:\\:\\$code \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLanguageTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Language\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLanguageTest.php
 
 		-
 			message: "#^Access to an undefined property R of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
@@ -9801,32 +9691,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\OemGroup will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
 
 		-
 			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithOemGroupTest\\.php\\:31\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OemGroup\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OemGroup\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
 
@@ -9842,11 +9712,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#5 \\$eos of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithProductTest\\.php\\:32\\:\\:product\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Product\\:\\:\\$sku \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
 
@@ -9871,52 +9736,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceGroupNotFound constructor expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceGroupTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceGroupFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceGroupTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceGroupTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceLevelNotFound constructor expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceLevelTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceLevelFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceLevelTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithServiceLevelTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Status will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
 		-
 			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithStatusTest\\.php\\:34\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
@@ -9942,16 +9767,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTypeTest\\.php\\:34\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
 
@@ -10136,21 +9951,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Parameter \\#2 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceGroupNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceGroupFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Parameter \\#2 \\$type of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
@@ -10158,21 +9958,6 @@ parameters:
 		-
 			message: "#^Parameter \\#3 \\$getType of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceLevelNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceLevelFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
@@ -10203,41 +9988,6 @@ parameters:
 		-
 			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$warranties \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\>\\) does not accept array\\<App\\\\Models\\\\AssetWarranty\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Product\\:\\:\\$sku \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
@@ -10306,22 +10056,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -10392,11 +10127,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\>\\) does not accept array\\<App\\\\Models\\\\CustomerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
@@ -10691,22 +10421,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
@@ -10726,32 +10441,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Distributor\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactory.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
@@ -10851,21 +10546,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Parameter \\#2 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceGroupNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceGroupFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Parameter \\#2 \\$type of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
@@ -10876,32 +10556,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Parameter \\#3 \\$key of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ServiceLevelNotFound constructor expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Finders\\\\ServiceLevelFinder\\:\\:find\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#3 \\$sku of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Parameter \\#4 \\$factory of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Currency\\:\\:\\$code \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Currency\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -10916,58 +10571,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$number \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Language\\:\\:\\$code \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Language\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OemGroup\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OemGroup\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Product\\:\\:\\$sku \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
@@ -11036,22 +10641,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -11111,11 +10701,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function mb_strtoupper expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
 			message: "#^Parameter \\#2 \\$name of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:city\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
@@ -11127,41 +10712,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$postcode of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:location\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\City\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\City\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Country\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$line_one \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$line_two \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$postcode \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$state \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
 
@@ -11186,22 +10736,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
@@ -11247,11 +10782,6 @@ parameters:
 
 		-
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\>\\) does not accept array\\<App\\\\Models\\\\ResellerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
 
@@ -11526,22 +11056,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
@@ -11601,22 +11116,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
@@ -11651,22 +11151,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
 
@@ -11686,22 +11171,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
 
@@ -11731,22 +11201,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
 
@@ -11766,22 +11221,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
@@ -11816,22 +11256,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
@@ -11851,22 +11276,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
@@ -11901,22 +11311,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
 
@@ -11941,22 +11336,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
@@ -11991,22 +11371,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
@@ -12096,22 +11461,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
@@ -12141,22 +11491,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
 
@@ -12176,22 +11511,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
@@ -12226,22 +11546,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
@@ -12381,22 +11686,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
@@ -12441,22 +11731,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
@@ -12491,22 +11766,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
@@ -12541,22 +11801,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
@@ -12591,22 +11836,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:getAssetCoverages\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\> but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:getContacts\\(\\) should return array\\<string, array\\{name\\: string\\|null, phone\\: string\\|null, mail\\: string\\|null, types\\: array\\<string\\>\\}\\> but returns array\\<non\\-empty\\-string, array\\{mail\\: string\\|null, name\\: string\\|null, phone\\: string\\|null, types\\: array\\<int, string\\|null\\>\\}\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:getStatuses\\(\\) should return array\\<string, array\\{key\\: string, name\\: string\\}\\>\\|null but returns array\\<string, array\\{key\\: string, name\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 
@@ -12619,11 +11849,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Normalizer\\\\Normalizer\\:\\:unsigned\\(\\) should return T of float\\|int\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizer.php
 
 		-
 			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|false\\.$#"
@@ -12646,17 +11871,7 @@ parameters:
 			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
-
-		-
-			message: "#^Parameter \\#3 \\$subject of function str_replace expects array\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
 
@@ -13378,6 +12593,11 @@ parameters:
 		-
 			message: "#^Call to function is_array\\(\\) with array\\<int, string\\|null\\> will always evaluate to true\\.$#"
 			count: 1
+			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 2
 			path: app/Services/DataLoader/Testing/Data/ClientDumpContext.php
 
 		-
@@ -14449,11 +13669,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Organization\\\\Exceptions\\\\UnknownOrganization\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Exceptions/UnknownOrganization.php
-
-		-
-			message: "#^App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdater.php
 
 		-
 			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
@@ -17569,21 +16784,6 @@ parameters:
 			message: "#^Return type \\(array\\) of method Database\\\\Factories\\\\UserSearchFactory\\:\\:definition\\(\\) should be covariant with return type \\(array\\<string, mixed\\>\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\UserSearch\\>\\:\\:definition\\(\\)$#"
 			count: 1
 			path: database/factories/UserSearchFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Coverage\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: database/migrations/2022_03_02_110511_coverages_types_statuses_convert_name.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Status\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: database/migrations/2022_03_02_110511_coverages_types_statuses_convert_name.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: database/migrations/2022_03_02_110511_coverages_types_statuses_convert_name.php
 
 		-
 			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\AssetsIteratorImporterDataWithoutDocuments\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
