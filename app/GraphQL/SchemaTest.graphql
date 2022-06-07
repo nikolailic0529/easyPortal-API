@@ -5778,8 +5778,8 @@ type AssetsAggregatedCoverage {
 
 type AssetsAggregatedType {
     count: Int!
-    type: Type!
-    type_id: ID!
+    type: Type
+    type_id: ID
 }
 
 type Audit {
