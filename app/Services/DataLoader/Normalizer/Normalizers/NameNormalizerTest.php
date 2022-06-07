@@ -30,9 +30,11 @@ class NameNormalizerTest extends TestCase {
         return [
             ['Delivery Contract', 'Delivery contract'],
             ['K3 - Hp Technology Software', 'K3 - HP Technology Software'],
+            ['Reseller', 'Reseller'],
             ['Reseller', 'RESELLER'],
             ['Software Contact', 'SOFTWARE_CONTACT'],
             ['Expires In 30 Days', 'EXPIRES_IN_30_DAYS'],
+            ['Fixed Support Service', 'FixedSupportService'],
         ];
     }
     // </editor-fold>
