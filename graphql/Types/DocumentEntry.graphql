@@ -31,6 +31,6 @@ type DocumentEntry {
     serviceLevel: ServiceLevel @relation
     currency_id: ID
     currency: Currency @relation
-    asset_id: ID!
+    asset_id: ID
     asset: Asset @relation
 }

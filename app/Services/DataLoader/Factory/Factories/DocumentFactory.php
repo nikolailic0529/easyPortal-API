@@ -10,6 +10,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
@@ -279,7 +280,7 @@ class DocumentFactory extends ModelFactory {
                 $model->start         = $normalizer->datetime($document->startDate);
                 $model->end           = $normalizer->datetime($document->endDate);
                 $model->price         = $normalizer->decimal($document->totalNetPrice);
-                $model->number        = $normalizer->string($document->documentNumber);
+                $model->number        = $normalizer->string($document->documentNumber) ?: null;
                 $model->changed_at    = $normalizer->datetime($document->updatedAt);
                 $model->contacts      = $this->objectContacts($model, (array) $document->contactPersons);
                 $model->synced_at     = Date::now();
@@ -349,7 +350,7 @@ class DocumentFactory extends ModelFactory {
             $model->start       = $normalizer->datetime($document->startDate);
             $model->end         = $normalizer->datetime($document->endDate);
             $model->price       = $normalizer->decimal($document->totalNetPrice);
-            $model->number      = $normalizer->string($document->documentNumber);
+            $model->number      = $normalizer->string($document->documentNumber) ?: null;
             $model->changed_at  = $normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
             $model->synced_at   = Date::now();
@@ -413,14 +414,18 @@ class DocumentFactory extends ModelFactory {
 
         if ($key) {
             $oem   = $this->documentOem($document);
-            $group = $this->oemGroup($oem, $key, (string) $desc);
+            $group = $oem
+                ? $this->oemGroup($oem, $key, (string) $desc)
+                : null;
         }
 
         return $group;
     }
 
-    protected function documentType(Document|ViewDocument $document): TypeModel {
-        return $this->type(new DocumentModel(), $document->type);
+    protected function documentType(Document|ViewDocument $document): ?TypeModel {
+        return isset($document->type) && $this->getNormalizer()->string($document->type)
+            ? $this->type(new DocumentModel(), $document->type)
+            : null;
     }
 
     /**
@@ -464,8 +469,8 @@ class DocumentFactory extends ModelFactory {
         $entry                = new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
-        $entry->product_id    = $asset->product_id;
-        $entry->serial_number = $asset->serial_number;
+        $entry->product_id    = $asset->product_id ?? null;
+        $entry->serial_number = $asset->serial_number ?? null;
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
@@ -479,11 +484,19 @@ class DocumentFactory extends ModelFactory {
         return $entry;
     }
 
-    protected function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): AssetModel {
-        $asset = $this->asset($documentEntry);
+    protected function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?AssetModel {
+        $asset = null;
 
-        if (!$asset) {
-            throw new FailedToProcessDocumentEntryNoAsset($model, $documentEntry);
+        try {
+            $asset = $this->asset($documentEntry);
+
+            if (!$asset) {
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessDocumentEntryNoAsset($model, $documentEntry),
+                );
+            }
+        } catch (AssetNotFound $exception) {
+            $this->getExceptionHandler()->report($exception);
         }
 
         return $asset;
@@ -493,7 +506,7 @@ class DocumentFactory extends ModelFactory {
         $sku   = $documentEntry->supportPackage ?? null;
         $group = null;
 
-        if ($sku) {
+        if ($sku && $model->oem) {
             $group = $this->serviceGroup($model->oem, $sku);
         }
 
@@ -505,7 +518,7 @@ class DocumentFactory extends ModelFactory {
         $group = $this->documentEntryServiceGroup($model, $documentEntry);
         $level = null;
 
-        if ($group && $sku) {
+        if ($group && $sku && $model->oem) {
             $level = $this->serviceLevel($model->oem, $group, $sku);
         }
 

@@ -36,35 +36,35 @@ ALTER TABLE `organizations`
 -- Move existing data into `customers` and `organizations` tables
 UPDATE `customers`
     LEFT JOIN `kpis` ON `kpis`.`object_type` = 'Customer' AND `kpis`.`object_id` = `customers`.`id`
-SET `customers`.`kpi_assets_total` = `kpis`.`assets_total`,
-    `customers`.`kpi_assets_active` = `kpis`.`assets_active`,
-    `customers`.`kpi_assets_covered` = `kpis`.`assets_covered`,
-    `customers`.`kpi_customers_active` = `kpis`.`customers_active`,
-    `customers`.`kpi_customers_active_new` = `kpis`.`customers_active_new`,
-    `customers`.`kpi_contracts_active` = `kpis`.`contracts_active`,
-    `customers`.`kpi_contracts_active_amount` = `kpis`.`contracts_active_amount`,
-    `customers`.`kpi_contracts_active_new` = `kpis`.`contracts_active_new`,
-    `customers`.`kpi_contracts_expiring` =  `kpis`.`contracts_expiring`,
-    `customers`.`kpi_quotes_active` = `kpis`.`quotes_active`,
-    `customers`.`kpi_quotes_active_amount` = `kpis`.`quotes_active_amount`,
-    `customers`.`kpi_quotes_active_new` = `kpis`.`quotes_active_new`,
-    `customers`.`kpi_quotes_expiring` = `kpis`.`quotes_expiring`;
+SET `customers`.`kpi_assets_total` = IFNULL(`kpis`.`assets_total`, 0),
+    `customers`.`kpi_assets_active` = IFNULL(`kpis`.`assets_active`, 0),
+    `customers`.`kpi_assets_covered` = IFNULL(`kpis`.`assets_covered`, 0),
+    `customers`.`kpi_customers_active` = IFNULL(`kpis`.`customers_active`, 0),
+    `customers`.`kpi_customers_active_new` = IFNULL(`kpis`.`customers_active_new`, 0),
+    `customers`.`kpi_contracts_active` = IFNULL(`kpis`.`contracts_active`, 0),
+    `customers`.`kpi_contracts_active_amount` = IFNULL(`kpis`.`contracts_active_amount`, 0),
+    `customers`.`kpi_contracts_active_new` = IFNULL(`kpis`.`contracts_active_new`, 0),
+    `customers`.`kpi_contracts_expiring` = IFNULL(`kpis`.`contracts_expiring`, 0),
+    `customers`.`kpi_quotes_active` = IFNULL(`kpis`.`quotes_active`, 0),
+    `customers`.`kpi_quotes_active_amount` = IFNULL(`kpis`.`quotes_active_amount`, 0),
+    `customers`.`kpi_quotes_active_new` = IFNULL(`kpis`.`quotes_active_new`, 0),
+    `customers`.`kpi_quotes_expiring` = IFNULL(`kpis`.`quotes_expiring`, 0);
 
 UPDATE `organizations`
     LEFT JOIN `kpis` ON `kpis`.`object_type` = 'Reseller' AND `kpis`.`object_id` = `organizations`.`id`
-SET `organizations`.`kpi_assets_total` = `kpis`.`assets_total`,
-    `organizations`.`kpi_assets_active` = `kpis`.`assets_active`,
-    `organizations`.`kpi_assets_covered` = `kpis`.`assets_covered`,
-    `organizations`.`kpi_customers_active` = `kpis`.`customers_active`,
-    `organizations`.`kpi_customers_active_new` = `kpis`.`customers_active_new`,
-    `organizations`.`kpi_contracts_active` = `kpis`.`contracts_active`,
-    `organizations`.`kpi_contracts_active_amount` = `kpis`.`contracts_active_amount`,
-    `organizations`.`kpi_contracts_active_new` = `kpis`.`contracts_active_new`,
-    `organizations`.`kpi_contracts_expiring` =  `kpis`.`contracts_expiring`,
-    `organizations`.`kpi_quotes_active` = `kpis`.`quotes_active`,
-    `organizations`.`kpi_quotes_active_amount` = `kpis`.`quotes_active_amount`,
-    `organizations`.`kpi_quotes_active_new` = `kpis`.`quotes_active_new`,
-    `organizations`.`kpi_quotes_expiring` = `kpis`.`quotes_expiring`;
+SET `organizations`.`kpi_assets_total` = IFNULL(`kpis`.`assets_total`, 0),
+    `organizations`.`kpi_assets_active` = IFNULL(`kpis`.`assets_active`, 0),
+    `organizations`.`kpi_assets_covered` = IFNULL(`kpis`.`assets_covered`, 0),
+    `organizations`.`kpi_customers_active` = IFNULL(`kpis`.`customers_active`, 0),
+    `organizations`.`kpi_customers_active_new` = IFNULL(`kpis`.`customers_active_new`, 0),
+    `organizations`.`kpi_contracts_active` = IFNULL(`kpis`.`contracts_active`, 0),
+    `organizations`.`kpi_contracts_active_amount` = IFNULL(`kpis`.`contracts_active_amount`, 0),
+    `organizations`.`kpi_contracts_active_new` = IFNULL(`kpis`.`contracts_active_new`, 0),
+    `organizations`.`kpi_contracts_expiring` = IFNULL(`kpis`.`contracts_expiring`, 0),
+    `organizations`.`kpi_quotes_active` = IFNULL(`kpis`.`quotes_active`, 0),
+    `organizations`.`kpi_quotes_active_amount` = IFNULL(`kpis`.`quotes_active_amount`, 0),
+    `organizations`.`kpi_quotes_active_new` = IFNULL(`kpis`.`quotes_active_new`, 0),
+    `organizations`.`kpi_quotes_expiring` = IFNULL(`kpis`.`quotes_expiring`, 0);
 
 -- Remove table
 DROP TABLE IF EXISTS `kpis`;

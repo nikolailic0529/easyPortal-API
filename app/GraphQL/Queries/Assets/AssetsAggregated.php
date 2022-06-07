@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Type;
+use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -37,24 +38,23 @@ class AssetsAggregated {
         $key        = $model->type()->getForeignKeyName();
         $results    = $builder
             ->select($key, new Expression('COUNT(*) as `count`'))
-            ->whereNotNull($key)
             ->groupBy($key)
             ->having('count', '>', 0)
+            ->orderBy($key)
             ->toBase()
-            ->get()
-            ->keyBy($key)
-            ->sortKeys();
-        $types      = Type::query()
-            ->whereKey($results->keys()->all())
             ->get();
+        $types      = Type::query()
+            ->whereKey($results->pluck($key)->all())
+            ->get()
+            ->keyBy(new GetKey());
         $aggregated = [];
 
-        foreach ($types as $type) {
+        foreach ($results as $result) {
             /** @var stdClass $result */
-            $result       = $results->get($type->getKey());
+            $type         = $types->get($result->{$key});
             $aggregated[] = [
                 'count'   => (int) $result->count,
-                'type_id' => $type->getKey(),
+                'type_id' => $type?->getKey(),
                 'type'    => $type,
             ];
         }

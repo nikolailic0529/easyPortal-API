@@ -6,8 +6,8 @@ use App\Utils\JsonObject\JsonObjectArray;
 
 class Document extends Type implements TypeWithId {
     public string                      $id;
-    public string                      $type;
-    public string                      $documentNumber;
+    public ?string                     $type;
+    public ?string                     $documentNumber;
     public ?string                     $startDate;
     public ?string                     $endDate;
     public ?string                     $currencyCode;

@@ -130,7 +130,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
-        self::assertEquals($asset->vendor, $created->oem->key);
+        self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->productDescription, $created->product->name ?? null);
         self::assertEquals($asset->sku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
@@ -258,7 +258,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $updated->serial_number);
         self::assertEquals($asset->dataQualityScore, $updated->data_quality);
         self::assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
-        self::assertEquals($asset->vendor, $updated->oem->key);
+        self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
         self::assertEquals($created->product->name, $updated->product->name ?? null);
         self::assertEquals($asset->sku, $updated->product->sku ?? null);
@@ -329,7 +329,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->id, $created->getKey());
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
-        self::assertEquals($asset->vendor, $created->oem->key);
+        self::assertEquals($asset->vendor, $created->oem->key ?? null);
         self::assertEquals($asset->productDescription, $created->product->name ?? null);
         self::assertEquals($asset->sku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
@@ -430,6 +430,52 @@ class AssetFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->product_id);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetOemNull(): void {
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
+
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $factory   = $container->make(AssetFactory::class);
+
+        // Test
+        $json    = $this->getTestData()->json('~asset-oem-null.json');
+        $asset   = new ViewAsset($json);
+        $created = $factory->create($asset);
+
+        self::assertNotNull($created);
+        self::assertNull($created->oem_id);
+        self::assertNull($created->oem);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetOemEmpty(): void {
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
+
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $factory   = $container->make(AssetFactory::class);
+
+        // Test
+        $json    = $this->getTestData()->json('~asset-oem-empty.json');
+        $asset   = new ViewAsset($json);
+        $created = $factory->create($asset);
+
+        self::assertNotNull($created);
+        self::assertNull($created->oem_id);
+        self::assertNull($created->oem);
     }
 
     /**
@@ -628,7 +674,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentA->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key,
+                            'vendor' => $documentA->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -643,7 +689,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentA->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key,
+                            'vendor' => $documentA->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -658,7 +704,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentA->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key,
+                            'vendor' => $documentA->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -675,7 +721,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentA->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key,
+                            'vendor' => $documentA->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -692,7 +738,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentA->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentA->oem->key,
+                            'vendor' => $documentA->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -709,7 +755,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentB->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentB->oem->key,
+                            'vendor' => $documentB->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => [
@@ -741,7 +787,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentB->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentB->oem->key,
+                            'vendor' => $documentB->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => null,
@@ -758,7 +804,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentB->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentB->oem->key,
+                            'vendor' => $documentB->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => [
@@ -779,7 +825,7 @@ class AssetFactoryTest extends TestCase {
                     'document'       => [
                         'id'                   => $documentB->getKey(),
                         'vendorSpecificFields' => [
-                            'vendor' => $documentB->oem->key,
+                            'vendor' => $documentB->oem->key ?? null,
                         ],
                     ],
                     'reseller'       => [
@@ -930,11 +976,16 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $asset   = new ViewAsset(['assetType' => $this->faker->word()]);
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $asset      = new ViewAsset(['assetType' => $this->faker->word()]);
+        $factory    = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
         $factory
             ->shouldReceive('type')
             ->with(Mockery::any(), $asset->assetType)
@@ -1519,7 +1570,7 @@ class AssetFactoryTest extends TestCase {
 class AssetFactoryTest_Factory extends AssetFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
-    public function assetOem(ViewAsset $asset): Oem {
+    public function assetOem(ViewAsset $asset): ?Oem {
         return parent::assetOem($asset);
     }
 

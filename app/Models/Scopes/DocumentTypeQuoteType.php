@@ -72,7 +72,7 @@ class DocumentTypeQuoteType implements SearchScope, EloquentScope {
         return (array) $this->config->get('ep.quote_types');
     }
 
-    public function isQuoteType(Type|string $type): bool {
+    public function isQuoteType(Type|string|null $type): bool {
         $contractTypes = $this->contractType->getTypeIds();
         $quoteTypes    = $this->getTypeIds();
         $type          = $type instanceof Type ? $type->getKey() : $type;

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -97,20 +98,20 @@ class ServicesTest extends TestCase {
         }
 
         // Queue
-        $queue = $this->override(Queue::class);
-
         if ($queueStateFactory) {
-            $queue->shouldAllowMockingProtectedMethods();
-            $queue->makePartial();
-            $queue
-                ->shouldReceive('getContainer')
-                ->atLeast()
-                ->once()
-                ->andReturn($this->app);
-            $queue
-                ->shouldReceive('getStates')
-                ->once()
-                ->andReturn($queueStateFactory($this));
+            $this->override(Queue::class, function (MockInterface $mock) use ($queueStateFactory): void {
+                $mock->shouldAllowMockingProtectedMethods();
+                $mock->makePartial();
+                $mock
+                    ->shouldReceive('getContainer')
+                    ->atLeast()
+                    ->once()
+                    ->andReturn($this->app);
+                $mock
+                    ->shouldReceive('getStates')
+                    ->once()
+                    ->andReturn($queueStateFactory($this));
+            });
         }
 
         // Test

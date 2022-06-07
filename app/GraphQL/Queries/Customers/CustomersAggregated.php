@@ -38,6 +38,7 @@ class CustomersAggregated {
         if ($this->organization->isRoot()) {
             $assets = (int) $builder
                 ->select(new Expression("IFNULL(SUM({$model->qualifyColumn('assets_count')}), 0) as assets"))
+                ->toBase()
                 ->value('assets');
         } else {
             $assets = Asset::query()

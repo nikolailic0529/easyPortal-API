@@ -94,8 +94,17 @@ class AssetsAggregatedTest extends TestCase {
     public function dataProviderQuery(): array {
         $params  = [
             'where' => [
-                'type_id' => [
-                    'equal' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'anyOf' => [
+                    [
+                        'type_id' => [
+                            'equal' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
+                    ],
+                    [
+                        'type_id' => [
+                            'isNull' => 'yes',
+                        ],
+                    ],
                 ],
             ],
         ];
@@ -132,6 +141,10 @@ class AssetsAggregatedTest extends TestCase {
                 'type_id'     => $type2,
                 'reseller_id' => $reseller,
             ]);
+            Asset::factory()->create([
+                'type_id'     => null,
+                'reseller_id' => $reseller,
+            ]);
         };
 
         return (new MergeDataProvider([
@@ -143,8 +156,13 @@ class AssetsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
-                            'count'     => 2,
+                            'count'     => 3,
                             'types'     => [
+                                [
+                                    'count'   => 1,
+                                    'type_id' => null,
+                                    'type'    => null,
+                                ],
                                 [
                                     'count'   => 2,
                                     'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -180,8 +198,13 @@ class AssetsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
-                            'count'     => 2,
+                            'count'     => 3,
                             'types'     => [
+                                [
+                                    'count'   => 1,
+                                    'type_id' => null,
+                                    'type'    => null,
+                                ],
                                 [
                                     'count'   => 2,
                                     'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -217,8 +240,13 @@ class AssetsAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
-                            'count'     => 2,
+                            'count'     => 3,
                             'types'     => [
+                                [
+                                    'count'   => 1,
+                                    'type_id' => null,
+                                    'type'    => null,
+                                ],
                                 [
                                     'count'   => 2,
                                     'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',

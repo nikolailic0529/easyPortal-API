@@ -382,6 +382,8 @@ class SearchableImplTest extends TestCase {
             }
         };
 
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
+
         // Test
         Queue::fake();
 
@@ -412,6 +414,8 @@ class SearchableImplTest extends TestCase {
                 ];
             }
         };
+
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
 
         // Test
         Queue::fake();

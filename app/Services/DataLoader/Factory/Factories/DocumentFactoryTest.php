@@ -30,6 +30,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -37,6 +38,7 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
+use Throwable;
 
 use function array_column;
 use function is_null;
@@ -139,11 +141,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
-        self::assertEquals('HPE', $created->oem->key);
-        self::assertEquals('MultiNational Quote', $created->type->key);
+        self::assertEquals('HPE', $created->oem->key ?? null);
+        self::assertEquals('MultiNational Quote', $created->type->key ?? null);
         self::assertEquals('CUR', $created->currency->code);
         self::assertEquals('fr', $created->language->code);
-        self::assertEquals('HPE', $created->oem->key);
         self::assertEquals('1234 4678 9012', $created->oem_said);
         self::assertEquals('abc-de', $created->oemGroup->key);
         self::assertEquals(0, $created->assets_count);
@@ -223,6 +224,33 @@ class DocumentFactoryTest extends TestCase {
         self::assertNotNull($created);
         self::assertNull($created->reseller_id);
         self::assertNull($created->customer_id);
+    }
+
+    /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObjectTypeNull(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Factory
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+
+        // Create
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-type-null.json');
+        $asset   = new ViewAsset($json);
+        $model   = AssetModel::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object  = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+        ]);
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        self::assertNotNull($created);
+        self::assertNull($created->type_id);
     }
 
     /**
@@ -328,21 +356,35 @@ class DocumentFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderDocument
      *
-     * @template     T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
+     * @template T of \App\Services\DataLoader\Schema\Document|\App\Services\DataLoader\Schema\ViewDocument
      *
      * @param Closure(static): T $documentFactory
      */
     public function testDocumentType(Closure $documentFactory): void {
-        $document = $documentFactory($this);
-        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $document   = $documentFactory($this);
+        $factory    = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
-        $factory
-            ->shouldReceive('type')
-            ->with(Mockery::any(), $document->type)
-            ->once()
-            ->andReturns();
+        if ($document->type) {
+            $factory
+                ->shouldReceive('getNormalizer')
+                ->once()
+                ->andReturn($normalizer);
+            $factory
+                ->shouldReceive('type')
+                ->with(Mockery::any(), $document->type)
+                ->once()
+                ->andReturns();
+        } else {
+            $factory
+                ->shouldReceive('getNormalizer')
+                ->never();
+            $factory
+                ->shouldReceive('type')
+                ->never();
+        }
 
         $factory->documentType($document);
     }
@@ -580,16 +622,29 @@ class DocumentFactoryTest extends TestCase {
             'assetId' => $model->getKey(),
         ]);
 
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $handler
+            ->shouldReceive('report')
+            ->withArgs(static function (Throwable $error) use ($model, $entry): bool {
+                return $error instanceof FailedToProcessDocumentEntryNoAsset
+                    && $error->getDocument() === $model
+                    && $error->getEntry() === $entry;
+            })
+            ->once()
+            ->andReturns();
+
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
+        $factory
+            ->shouldReceive('getExceptionHandler')
+            ->once()
+            ->andReturn($handler);
         $factory
             ->shouldReceive('asset')
             ->with($entry)
             ->once()
             ->andReturn(null);
-
-        self::expectExceptionObject(new FailedToProcessDocumentEntryNoAsset($model, $entry));
 
         $factory->documentEntryAsset($model, $entry);
     }
@@ -690,7 +745,7 @@ class DocumentFactoryTest extends TestCase {
         $object       = new Document([
             'id'                   => $document->getKey(),
             'vendorSpecificFields' => [
-                'vendor' => $document->oem->key,
+                'vendor' => $document->oem->key ?? null,
             ],
             'documentEntries'      => [
                 [
@@ -834,15 +889,14 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->start));
         self::assertEquals('1614470400000', $this->getDatetime($created->end));
         self::assertNull($this->getDatetime($created->changed_at));
-        self::assertEquals('HPE', $created->oem->key);
-        self::assertEquals('MultiNational Quote', $created->type->key);
+        self::assertEquals('HPE', $created->oem->key ?? null);
+        self::assertEquals('MultiNational Quote', $created->type->key ?? null);
         self::assertEquals('CUR', $created->currency->code);
         self::assertEquals('fr', $created->language->code);
-        self::assertEquals('HPE', $created->oem->key);
         self::assertEquals('1234 4678 9012', $created->oem_said);
         self::assertEquals('abc-de', $created->oemGroup->key);
-        self::assertEquals(1, $created->assets_count);
-        self::assertEquals(6, $created->entries_count);
+        self::assertEquals(3, $created->assets_count);
+        self::assertEquals(8, $created->entries_count);
         self::assertEquals(1, $created->contacts_count);
         self::assertEquals(1, $created->statuses_count);
         self::assertCount($created->entries_count, $created->entries);
@@ -926,6 +980,32 @@ class DocumentFactoryTest extends TestCase {
 
         $this->flushQueryLog();
     }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentTypeNull(): void {
+        // Mock
+        $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
+        $this->overrideFinders();
+        $this->overrideAssetFinder();
+
+        // Factory
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+
+        // Create
+        // ---------------------------------------------------------------------
+        $json   = $this->getTestData()->json('~createFromDocument-document-type-null.json');
+        $object = new Document($json);
+
+        $this->flushQueryLog();
+
+        // Test
+        $created = $factory->createFromDocument($object);
+
+        self::assertNotNull($created);
+        self::assertNull($created->type_id);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -971,7 +1051,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function dataProviderDocument(): array {
         return [
-            Document::class     => [
+            Document::class                    => [
                 static function (TestCase $test): Type {
                     return new Document([
                         'type'                 => $test->faker->word(),
@@ -983,10 +1063,34 @@ class DocumentFactoryTest extends TestCase {
                     ]);
                 },
             ],
-            ViewDocument::class => [
+            Document::class.' (type null)'     => [
+                static function (TestCase $test): Type {
+                    return new Document([
+                        'type'                 => null,
+                        'vendorSpecificFields' => [
+                            'vendor'           => $test->faker->word(),
+                            'groupId'          => $test->faker->word(),
+                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence()]),
+                        ],
+                    ]);
+                },
+            ],
+            ViewDocument::class                => [
                 static function (TestCase $test): Type {
                     return new ViewDocument([
                         'type'                 => $test->faker->word(),
+                        'vendorSpecificFields' => [
+                            'vendor'           => $test->faker->word(),
+                            'groupId'          => $test->faker->word(),
+                            'groupDescription' => $test->faker->randomElement([null, $test->faker->sentence()]),
+                        ],
+                    ]);
+                },
+            ],
+            ViewDocument::class.' (type null)' => [
+                static function (TestCase $test): Type {
+                    return new ViewDocument([
+                        'type'                 => null,
                         'vendorSpecificFields' => [
                             'vendor'           => $test->faker->word(),
                             'groupId'          => $test->faker->word(),
@@ -1014,7 +1118,7 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentOemGroup($document);
     }
 
-    public function documentType(Document|ViewDocument $document): TypeModel {
+    public function documentType(Document|ViewDocument $document): ?TypeModel {
         return parent::documentType($document);
     }
 
@@ -1026,7 +1130,7 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::createFromDocument($document);
     }
 
-    public function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): AssetModel {
+    public function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?AssetModel {
         return parent::documentEntryAsset($model, $documentEntry);
     }
 

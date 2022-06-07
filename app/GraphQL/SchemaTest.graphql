@@ -1756,7 +1756,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    oem_id: SearchByScalarID
+    oem_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -2381,7 +2381,7 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
-    asset_id: SearchByScalarID
+    asset_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -2536,12 +2536,12 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    number: SearchByScalarString
+    number: SearchByScalarStringOrNull
 
     """
     Property condition.
     """
-    oem_id: SearchByScalarID
+    oem_id: SearchByScalarIDOrNull
 
     """
     Property condition.
@@ -2552,11 +2552,6 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     reseller_id: SearchByScalarIDOrNull
-
-    """
-    Property condition.
-    """
-    serial_number: SearchByScalarStringOrNull
 
     """
     Property condition.
@@ -2576,7 +2571,7 @@ input SearchByConditionDocumentsQuery {
     """
     Property condition.
     """
-    type_id: SearchByScalarID
+    type_id: SearchByScalarIDOrNull
 }
 
 """
@@ -5621,10 +5616,10 @@ type Asset {
     location_id: ID
     nickname: String
 
-    oem: Oem!
+    oem: Oem
     @relation
 
-    oem_id: ID!
+    oem_id: ID
 
     product: Product
     @relation
@@ -5783,8 +5778,8 @@ type AssetsAggregatedCoverage {
 
 type AssetsAggregatedType {
     count: Int!
-    type: Type!
-    type_id: ID!
+    type: Type
+    type_id: ID
 }
 
 type Audit {
@@ -6261,6 +6256,8 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6270,8 +6267,6 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Document!]!
@@ -6296,6 +6291,8 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6305,8 +6302,6 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): DocumentsAggregated
@@ -6394,6 +6389,8 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6403,8 +6400,6 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Document!]!
@@ -6429,6 +6424,8 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6438,8 +6435,6 @@ type Customer {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): DocumentsAggregated
@@ -6612,14 +6607,14 @@ type Document {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -6711,15 +6706,15 @@ type Document {
         relation: "notes"
     )
 
-    number: String!
+    number: String
 
-    oem: Oem!
+    oem: Oem
     @relation
 
     oemGroup: OemGroup
     @relation
 
-    oem_id: ID!
+    oem_id: ID
     oem_said: String
 
     price: Float
@@ -6742,17 +6737,17 @@ type Document {
     statuses_count: Int!
     synced_at: DateTime!
 
-    type: Type!
+    type: Type
     @relation
 
-    type_id: ID!
+    type_id: ID
 }
 
 type DocumentEntry {
     asset: Asset
     @relation
 
-    asset_id: ID!
+    asset_id: ID
 
     currency: Currency
     @relation
@@ -8874,11 +8869,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Status!]!
@@ -8916,11 +8911,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Type!]!
@@ -8970,6 +8965,8 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -8979,8 +8976,6 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Document!]!
@@ -9010,6 +9005,8 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -9019,8 +9016,6 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): DocumentsAggregated
@@ -9154,11 +9149,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Currency!]!
@@ -9439,11 +9434,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Language!]!
@@ -9812,11 +9807,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Status!]!
@@ -9854,11 +9849,11 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Type!]!
@@ -9908,6 +9903,8 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -9917,8 +9914,6 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): [Document!]!
@@ -9948,6 +9943,8 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
                 "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
@@ -9957,8 +9954,6 @@ type Query {
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
                 "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
             ]
         )
     ): DocumentsAggregated

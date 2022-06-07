@@ -1,5 +1,5 @@
 type AssetsAggregatedType {
     count: Int!
-    type_id: ID!
-    type: Type!
+    type_id: ID
+    type: Type
 }

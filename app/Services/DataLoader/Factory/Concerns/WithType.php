@@ -17,6 +17,7 @@ trait WithType {
     abstract protected function getTypeResolver(): TypeResolver;
 
     protected function type(Model $owner, string $type): Type {
+        $type = $this->getNormalizer()->string($type);
         $type = $this->getTypeResolver()->get($owner, $type, $this->factory(function () use ($owner, $type): Type {
             $model              = new Type();
             $normalizer         = $this->getNormalizer();

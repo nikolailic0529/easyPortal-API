@@ -565,12 +565,12 @@ class AssetFactory extends ModelFactory {
         return $document;
     }
 
-    protected function assetOem(ViewAsset $asset): Oem {
+    protected function assetOem(ViewAsset $asset): ?Oem {
         return $this->oem($asset->vendor);
     }
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
-        return isset($asset->assetType)
+        return isset($asset->assetType) && $this->getNormalizer()->string($asset->assetType)
             ? $this->type(new Asset(), $asset->assetType)
             : null;
     }
@@ -580,13 +580,9 @@ class AssetFactory extends ModelFactory {
 
         if ($asset->sku) {
             $oem     = $this->assetOem($asset);
-            $product = $this->product(
-                $oem,
-                $asset->sku,
-                $asset->productDescription,
-                $asset->eolDate,
-                $asset->eosDate,
-            );
+            $product = $oem
+                ? $this->product($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+                : null;
         }
 
         return $product;

@@ -1,0 +1,29 @@
+{
+    "id": "93044680-b918-4b40-a188-e51a5aacdb0a",
+    "resellerId": "cd52a979-8d40-4a18-bdcf-19d47a811426",
+    "customerId": "7d670557-8af9-43b2-963b-ced43ff5c8c4",
+    "serialNumber": "524122b3-d2d2-4a8f-a03d-97e2f906031c",
+    "productDescription": null,
+    "assetTag": null,
+    "assetType": null,
+    "vendor": "",
+    "sku": "491324-421",
+    "eolDate": null,
+    "eosDate": null,
+    "country": "Germany",
+    "countryCode": "DE",
+    "latitude": "51.5",
+    "longitude": "-0.116667",
+    "zip": "33378",
+    "city": "city",
+    "address": "address",
+    "address2": null,
+    "status": "ACTIVE",
+    "updatedAt": "1653956223337",
+    "assetCoverage": [
+        "ARCHIVED"
+    ],
+    "dataQualityScore": "80",
+    "latestContactPersons": null,
+    "coverageStatusCheck": null
+}

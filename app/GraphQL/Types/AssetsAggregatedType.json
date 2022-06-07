@@ -12,10 +12,24 @@
             "type": "integer"
         },
         "type_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "type": {
-            "$ref": "../types.json#/definitions/Type"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Type"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

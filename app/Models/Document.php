@@ -6,11 +6,11 @@ use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasLanguage;
-use App\Models\Relations\HasOem;
+use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
-use App\Models\Relations\HasType;
+use App\Models\Relations\HasTypeNullable;
 use App\Models\Scopes\DocumentStatusScope;
 use App\Models\Scopes\DocumentStatusScopeImpl;
 use App\Models\Scopes\DocumentTypeContractScope;
@@ -45,14 +45,14 @@ use function count;
  * Document.
  *
  * @property string                         $id
- * @property string                         $oem_id
+ * @property string|null                    $oem_id
  * @property string|null                    $oem_said
  * @property string|null                    $oem_group_id
- * @property string                         $type_id
+ * @property string|null                    $type_id
  * @property string|null                    $customer_id
  * @property string|null                    $reseller_id
  * @property string|null                    $distributor_id
- * @property string                         $number
+ * @property string|null                    $number
  * @property CarbonImmutable|null           $start
  * @property CarbonImmutable|null           $end
  * @property string|null                    $price
@@ -79,11 +79,11 @@ use function count;
  * @property Collection<int, DocumentEntry> $entries
  * @property Language|null                  $language
  * @property-read Collection<int, Note>     $notes
- * @property Oem                            $oem
+ * @property Oem|null                       $oem
  * @property OemGroup|null                  $oemGroup
  * @property Reseller|null                  $reseller
  * @property Collection<int, Status>        $statuses
- * @property Type                           $type
+ * @property Type|null                      $type
  * @method static DocumentFactory factory(...$parameters)
  * @method static Builder|Document newModelQuery()
  * @method static Builder|Document newQuery()
@@ -93,8 +93,8 @@ class Document extends Model implements OwnedByOrganization, Searchable {
     use HasFactory;
     use SearchableImpl;
     use OwnedByResellerImpl;
-    use HasOem;
-    use HasType;
+    use HasOemNullable;
+    use HasTypeNullable;
     use HasStatuses;
     use HasServiceGroup;
     use HasResellerNullable;
@@ -147,13 +147,20 @@ class Document extends Model implements OwnedByOrganization, Searchable {
      */
     public function setEntriesAttribute(BaseCollection|array $entries): void {
         $this->syncHasMany('entries', $entries);
-        $this->entries_count = count($entries);
-        $this->assets_count  = (new BaseCollection($entries))
-            ->map(static function (DocumentEntry $entry): string {
-                return $entry->asset_id;
-            })
-            ->unique()
-            ->count();
+        $this->entries_count = count($this->entries);
+        $this->assets_count  = 0
+            + $this->entries
+                ->map(static function (DocumentEntry $entry): ?string {
+                    return $entry->asset_id;
+                })
+                ->filter()
+                ->unique()
+                ->count()
+            + $this->entries
+                ->filter(static function (DocumentEntry $entry): bool {
+                    return $entry->asset_id === null;
+                })
+                ->count();
     }
 
     #[CascadeDelete(false)]

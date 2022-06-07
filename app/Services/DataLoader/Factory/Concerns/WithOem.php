@@ -19,8 +19,15 @@ trait WithOem {
 
     abstract protected function getOemResolver(): OemResolver;
 
-    protected function oem(string $key): Oem {
-        $key = $this->getNormalizer()->string($key);
+    protected function oem(?string $key): ?Oem {
+        // Null?
+        $key = $this->getNormalizer()->string($key) ?: null;
+
+        if ($key === null) {
+            return null;
+        }
+
+        // Find
         $oem = $this->getOemResolver()->get($key, $this->factory(
             function () use ($key): ?Oem {
                 return $this->getOemFinder()?->find($key);

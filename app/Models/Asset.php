@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomerNullable;
-use App\Models\Relations\HasOem;
+use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasResellerNullable;
 use App\Models\Relations\HasStatus;
@@ -39,7 +39,7 @@ use function count;
  * Asset.
  *
  * @property string                              $id
- * @property string                              $oem_id
+ * @property string|null                         $oem_id
  * @property string|null                         $product_id
  * @property string|null                         $type_id
  * @property string|null                         $reseller_id current
@@ -65,7 +65,7 @@ use function count;
  * @property Collection<int, Coverage>           $coverages
  * @property Customer|null                       $customer
  * @property Location|null                       $location
- * @property Oem                                 $oem
+ * @property Oem|null                            $oem
  * @property Product|null                        $product
  * @property-read Collection<int, Document>      $quotes
  * @property Reseller|null                       $reseller
@@ -84,7 +84,7 @@ class Asset extends Model implements OwnedByOrganization, Searchable {
     use OwnedByResellerImpl;
     use HasFactory;
     use SyncHasMany;
-    use HasOem;
+    use HasOemNullable;
     use HasTypeNullable;
     use HasProduct;
     use HasResellerNullable;

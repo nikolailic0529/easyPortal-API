@@ -1,6 +1,6 @@
 type Asset {
     id: ID!
-    oem_id: ID!,
+    oem_id: ID,
     product_id: ID
     type_id: ID
     customer_id: ID
@@ -12,7 +12,7 @@ type Asset {
     warranty_changed_at: DateTime
     customer: Customer @relation
     location: Location @relation
-    oem: Oem! @relation
+    oem: Oem @relation
     product: Product @relation
     type: Type @relation
     warranties: [AssetWarranty!]! @relation(relation: "contractWarranties")
