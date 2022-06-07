@@ -16,21 +16,22 @@ trait WithCurrency {
     abstract protected function getCurrencyResolver(): CurrencyResolver;
 
     protected function currency(?string $code): ?Currency {
-        $currency = null;
+        // Null?
+        $code = $this->getNormalizer()->string($code) ?: null;
 
-        if ($code !== null) {
-            $currency = $this->getCurrencyResolver()->get($code, $this->factory(function () use ($code): Currency {
-                $model       = new Currency();
-                $normalizer  = $this->getNormalizer();
-                $model->code = $normalizer->string($code);
-                $model->name = $normalizer->string($code);
-
-                $model->save();
-
-                return $model;
-            }));
+        if ($code === null) {
+            return null;
         }
 
-        return $currency;
+        // Find/Create
+        return $this->getCurrencyResolver()->get($code, $this->factory(static function () use ($code): Currency {
+            $model       = new Currency();
+            $model->code = $code;
+            $model->name = $code;
+
+            $model->save();
+
+            return $model;
+        }));
     }
 }

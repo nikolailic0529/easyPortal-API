@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Currency;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -31,25 +31,27 @@ class CurrencyResolverTest extends TestCase {
         // Run
         $provider = $this->app->make(CurrencyResolver::class);
         $actual   = $provider->get('a', $factory);
+        $queries  = $this->getQueryLog();
 
-        $this->flushQueryLog();
+        $queries->flush();
 
         // Basic
-        self::assertNotNull($actual);
         self::assertEquals('a', $actual->code);
 
         // Second call should return same instance
         self::assertSame($actual, $provider->get('a', $factory));
         self::assertSame($actual, $provider->get(' a ', $factory));
         self::assertSame($actual, $provider->get('A', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // All value should be loaded, so get() should not perform any queries
-        self::assertNotNull($provider->get('b', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        $provider->get('b', $factory);
 
-        self::assertNotNull($provider->get('c', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
+
+        $provider->get('c', $factory);
+
+        self::assertCount(0, $queries);
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Currency {
@@ -62,23 +64,24 @@ class CurrencyResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
         self::assertEquals('UN', $created->code);
         self::assertEquals('unknown name', $created->name);
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
 
-        $this->flushQueryLog();
+        $queries->flush();
 
         // The created object should be in cache
         self::assertSame($created, $provider->get('Un', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should be found
         $c = Currency::factory()->create();
 
-        $this->flushQueryLog();
+        $queries->flush();
+
         self::assertEquals($c->getKey(), $provider->get($c->code)?->getKey());
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
+
+        $queries->flush();
     }
 }

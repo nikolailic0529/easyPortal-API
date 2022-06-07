@@ -8,7 +8,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -51,14 +51,13 @@ class WithCurrencyTest extends TestCase {
                 return null;
             }
         };
-
-        $this->flushQueryLog();
+        $queries    = $this->getQueryLog();
 
         // If model exists - no action required
         self::assertEquals($currency, $factory->currency($currency->code));
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
 
-        $this->flushQueryLog();
+        $queries->flush();
 
         // If not - it should be created
         $created = $factory->currency('new ');
@@ -67,9 +66,12 @@ class WithCurrencyTest extends TestCase {
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('new', $created->code);
         self::assertEquals('new', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
 
-        // If null - null should be returned
+        $queries->flush();
+
+        // If null or empty - null should be returned
         self::assertNull($factory->currency(null));
+        self::assertNull($factory->currency('  '));
     }
 }

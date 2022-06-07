@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Currency>
  */
 class CurrencyResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Currency|null $factory
+     *
+     * @return ($factory is null ? Currency|null : Currency)
+     */
     public function get(string $code, Closure $factory = null): ?Currency {
         return $this->resolve($this->getUniqueKey($code), $factory);
     }
