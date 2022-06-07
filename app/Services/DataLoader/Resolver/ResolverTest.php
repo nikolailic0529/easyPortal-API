@@ -50,7 +50,7 @@ class ResolverTest extends TestCase {
         // The second call with factory must call factory
         self::assertNotNull($provider->resolve(
             $key,
-            static function () use ($key): ?Model {
+            static function () use ($key): Model {
                 return new class($key) extends Model {
                     /** @noinspection PhpMissingParentConstructorInspection */
                     public function __construct(string $key) {

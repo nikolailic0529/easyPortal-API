@@ -67,7 +67,7 @@
     "select `service_groups`.* from `service_groups` where `service_groups`.`deleted_at` is null",
     "insert into `service_groups` (`id`, `oem_id`, `key`, `sku`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
     "select `service_levels`.* from `service_levels` where `service_levels`.`deleted_at` is null",
-    "insert into `service_levels` (`id`, `oem_id`, `service_group_id`, `key`, `sku`, `name`, `description`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    "insert into `service_levels` (`key`, `oem_id`, `sku`, `name`, `description`, `service_group_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranties` (`start`, `end`, `asset_id`, `type_id`, `status_id`, `description`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)"
 ]

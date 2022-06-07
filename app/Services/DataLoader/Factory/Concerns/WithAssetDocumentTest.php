@@ -9,7 +9,6 @@ use App\Models\ServiceLevel;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
@@ -211,7 +210,6 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
-        protected ?ServiceLevelFinder $serviceLevelFinder = null,
         protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($exceptionHandler, $normalizer);
@@ -235,10 +233,6 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
 
     protected function getServiceGroupResolver(): ServiceGroupResolver {
         return $this->serviceGroupResolver;
-    }
-
-    protected function getServiceLevelFinder(): ?ServiceLevelFinder {
-        return $this->serviceLevelFinder;
     }
 
     protected function getServiceLevelResolver(): ServiceLevelResolver {

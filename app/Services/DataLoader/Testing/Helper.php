@@ -20,7 +20,6 @@ use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContra
 use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
 use App\Services\DataLoader\Finders\ServiceGroupFinder as ServiceGroupFinderContract;
-use App\Services\DataLoader\Finders\ServiceLevelFinder as ServiceLevelFinderContract;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
@@ -35,7 +34,6 @@ use App\Services\DataLoader\Testing\Finders\DistributorFinder;
 use App\Services\DataLoader\Testing\Finders\OemFinder;
 use App\Services\DataLoader\Testing\Finders\ResellerFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use libphonenumber\NumberParseException;
@@ -405,7 +403,6 @@ trait Helper {
     // =========================================================================
     protected function overrideFinders(): void {
         $this->overrideServiceGroupFinder();
-        $this->overrideServiceLevelFinder();
         $this->overrideDistributorFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
@@ -421,12 +418,6 @@ trait Helper {
     protected function overrideServiceGroupFinder(): void {
         $this->override(ServiceGroupFinderContract::class, static function (): ServiceGroupFinderContract {
             return new ServiceGroupFinder();
-        });
-    }
-
-    protected function overrideServiceLevelFinder(): void {
-        $this->override(ServiceLevelFinderContract::class, static function (): ServiceLevelFinderContract {
-            return new ServiceLevelFinder();
         });
     }
 

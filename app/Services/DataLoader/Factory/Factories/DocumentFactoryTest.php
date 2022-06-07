@@ -14,7 +14,6 @@ use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
@@ -450,7 +449,6 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentEntry(): void {
         $this->overrideServiceGroupFinder();
-        $this->overrideServiceLevelFinder();
 
         $document       = DocumentModel::factory()->make();
         $asset          = AssetModel::factory()->create([
@@ -487,7 +485,6 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
             $this->app->make(ServiceGroupFinder::class),
-            $this->app->make(ServiceLevelFinder::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -499,7 +496,6 @@ class DocumentFactoryTest extends TestCase {
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
-                protected ?ServiceLevelFinder $serviceLevelFinder = null,
             ) {
                 // empty
             }
@@ -714,7 +710,6 @@ class DocumentFactoryTest extends TestCase {
     public function testDocumentEntries(): void {
         // Mock
         $this->overrideServiceGroupFinder();
-        $this->overrideServiceLevelFinder();
 
         // Prepare
         $assetA       = AssetModel::factory()->create();
@@ -795,7 +790,6 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
             $this->app->make(ServiceGroupFinder::class),
-            $this->app->make(ServiceLevelFinder::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -807,7 +801,6 @@ class DocumentFactoryTest extends TestCase {
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
-                protected ?ServiceLevelFinder $serviceLevelFinder = null,
             ) {
                 // empty
             }

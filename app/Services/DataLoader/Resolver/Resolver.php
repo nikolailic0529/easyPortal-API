@@ -60,7 +60,9 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return TModel|null
+     * @param Closure(Normalizer=): TModel|null $factory
+     *
+     * @return ($factory is null ? TModel|null : TModel)
      */
     protected function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
         // Model already in cache or can be found?
