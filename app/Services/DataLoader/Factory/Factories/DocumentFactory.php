@@ -35,10 +35,7 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
@@ -113,9 +110,6 @@ class DocumentFactory extends ModelFactory {
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
         protected ?AssetFinder $assetFinder = null,
-        protected ?ServiceGroupFinder $serviceGroupFinder = null,
-        protected ?ServiceLevelFinder $serviceLevelFinder = null,
-        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($exceptionHandler, $normalizer);
     }
@@ -162,10 +156,6 @@ class DocumentFactory extends ModelFactory {
         return $this->oemResolver;
     }
 
-    protected function getOemFinder(): ?OemFinder {
-        return $this->oemFinder;
-    }
-
     protected function getProductResolver(): ProductResolver {
         return $this->productResolver;
     }
@@ -186,16 +176,8 @@ class DocumentFactory extends ModelFactory {
         return $this->serviceGroupResolver;
     }
 
-    protected function getServiceGroupFinder(): ?ServiceGroupFinder {
-        return $this->serviceGroupFinder;
-    }
-
     protected function getServiceLevelResolver(): ServiceLevelResolver {
         return $this->serviceLevelResolver;
-    }
-
-    protected function getServiceLevelFinder(): ?ServiceLevelFinder {
-        return $this->serviceLevelFinder;
     }
 
     protected function getCurrencyResolver(): CurrencyResolver {

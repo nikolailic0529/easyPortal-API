@@ -2,25 +2,7 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Services\DataLoader\Finders\OemFinder;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Finders\ServiceLevelFinder;
-use App\Services\DataLoader\Testing\Finders\OemFinder as OemFinderImpl;
-use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder as ServiceGroupFinderImpl;
-use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder as ServiceLevelFinderImpl;
-
 abstract class AssetsData extends Data {
-    /**
-     * @inheritDoc
-     */
-    protected function generateBindings(): array {
-        return [
-            OemFinder::class          => OemFinderImpl::class,
-            ServiceGroupFinder::class => ServiceGroupFinderImpl::class,
-            ServiceLevelFinder::class => ServiceLevelFinderImpl::class,
-        ];
-    }
-
     /**
      * @return array<mixed>
      */

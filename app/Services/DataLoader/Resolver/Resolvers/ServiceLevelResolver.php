@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<ServiceLevel>
  */
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): ServiceLevel|null $factory
+     *
+     * @return ($factory is null ? ServiceLevel|null : ServiceLevel)
+     */
     public function get(Oem $oem, ServiceGroup $group, string $sku, Closure $factory = null): ?ServiceLevel {
         return $this->resolve($this->getUniqueKey($oem, $group, $sku), $factory);
     }

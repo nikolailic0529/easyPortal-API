@@ -17,10 +17,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
-use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
-use App\Services\DataLoader\Finders\ServiceGroupFinder as ServiceGroupFinderContract;
-use App\Services\DataLoader\Finders\ServiceLevelFinder as ServiceLevelFinderContract;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
@@ -32,10 +29,7 @@ use App\Services\DataLoader\Testing\Data\DataGenerator;
 use App\Services\DataLoader\Testing\Finders\AssetFinder;
 use App\Services\DataLoader\Testing\Finders\CustomerFinder;
 use App\Services\DataLoader\Testing\Finders\DistributorFinder;
-use App\Services\DataLoader\Testing\Finders\OemFinder;
 use App\Services\DataLoader\Testing\Finders\ResellerFinder;
-use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
-use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use libphonenumber\NumberParseException;
@@ -404,30 +398,9 @@ trait Helper {
     // <editor-fold desc="Finders">
     // =========================================================================
     protected function overrideFinders(): void {
-        $this->overrideServiceGroupFinder();
-        $this->overrideServiceLevelFinder();
         $this->overrideDistributorFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
-        $this->overrideOemFinder();
-    }
-
-    protected function overrideOemFinder(): void {
-        $this->override(OemFinderContract::class, static function (): OemFinderContract {
-            return new OemFinder();
-        });
-    }
-
-    protected function overrideServiceGroupFinder(): void {
-        $this->override(ServiceGroupFinderContract::class, static function (): ServiceGroupFinderContract {
-            return new ServiceGroupFinder();
-        });
-    }
-
-    protected function overrideServiceLevelFinder(): void {
-        $this->override(ServiceLevelFinderContract::class, static function (): ServiceLevelFinderContract {
-            return new ServiceLevelFinder();
-        });
     }
 
     protected function overrideDistributorFinder(): void {

@@ -9941,7 +9941,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1461 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1446 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -11256,21 +11256,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:getOem\\(\\) should return App\\\\Models\\\\Oem but returns App\\\\Models\\\\Oem\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:getServiceGroup\\(\\) should return App\\\\Models\\\\ServiceGroup but returns App\\\\Models\\\\ServiceGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:getServiceLevel\\(\\) should return App\\\\Models\\\\ServiceLevel but returns App\\\\Models\\\\ServiceLevel\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:registerEvents\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
@@ -11292,21 +11277,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects array\\<int\\>\\|PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\CellAddress\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$group of closure expects App\\\\Models\\\\ServiceGroup, App\\\\Models\\\\ServiceGroup\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$level of closure expects App\\\\Models\\\\ServiceLevel, App\\\\Models\\\\ServiceLevel\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$oem of closure expects App\\\\Models\\\\Oem, App\\\\Models\\\\Oem\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
@@ -11756,11 +11726,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:resolve\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolver.php
-
-		-
 			message: "#^Parameter \\#1 \\$ of closure expects Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
@@ -11771,12 +11736,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
 		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Exceptions\\\\\\\\FactorySearchModeException' and App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FactorySearchModeException will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Exceptions\\\\\\\\FactorySearchModeException' and App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FactorySearchModeException will always evaluate to true\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with Illuminate\\\\Database\\\\Eloquent\\\\Model will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
@@ -11787,16 +11752,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Resolver/ResolverTest\\.php\\:132\\:\\:resolve\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Resolver/ResolverTest\\.php\\:41\\:\\:resolve\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 
@@ -11961,11 +11916,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
@@ -11996,22 +11946,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceGroupResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceGroupResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\ServiceLevel and App\\\\Models\\\\ServiceLevel will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ServiceLevelResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ServiceLevelResolver.php
 
