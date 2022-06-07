@@ -33,7 +33,6 @@ use App\Services\DataLoader\Factory\Concerns\WithTag;
 use App\Services\DataLoader\Factory\Concerns\WithType;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
-use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
@@ -105,7 +104,6 @@ class AssetFactory extends ModelFactory {
         protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
-        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($exceptionHandler, $normalizer);
     }
@@ -152,10 +150,6 @@ class AssetFactory extends ModelFactory {
 
     protected function getOemResolver(): OemResolver {
         return $this->oemResolver;
-    }
-
-    protected function getOemFinder(): ?OemFinder {
-        return $this->oemFinder;
     }
 
     protected function getProductResolver(): ProductResolver {

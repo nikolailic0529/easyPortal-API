@@ -35,7 +35,6 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
-use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Importer\ImporterChunkData;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -111,7 +110,6 @@ class DocumentFactory extends ModelFactory {
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
         protected ?AssetFinder $assetFinder = null,
-        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($exceptionHandler, $normalizer);
     }
@@ -156,10 +154,6 @@ class DocumentFactory extends ModelFactory {
 
     protected function getOemResolver(): OemResolver {
         return $this->oemResolver;
-    }
-
-    protected function getOemFinder(): ?OemFinder {
-        return $this->oemFinder;
     }
 
     protected function getProductResolver(): ProductResolver {

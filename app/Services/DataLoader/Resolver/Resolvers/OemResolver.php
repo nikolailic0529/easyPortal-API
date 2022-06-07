@@ -14,6 +14,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Oem>
  */
 class OemResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Oem|null $factory
+     *
+     * @return ($factory is null ? Oem|null : Oem)
+     */
     public function get(string $key, Closure $factory = null): ?Oem {
         return $this->resolve($this->getUniqueKey($key), $factory);
     }

@@ -9941,7 +9941,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1457 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1446 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -11256,11 +11256,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:getOem\\(\\) should return App\\\\Models\\\\Oem but returns App\\\\Models\\\\Oem\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:registerEvents\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
@@ -11282,11 +11277,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects array\\<int\\>\\|PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\CellAddress\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$oem of closure expects App\\\\Models\\\\Oem, App\\\\Models\\\\Oem\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
@@ -11922,11 +11912,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Oem and App\\\\Models\\\\Oem will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemResolver.php
 

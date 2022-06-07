@@ -3,9 +3,7 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Oem;
-use App\Services\DataLoader\Exceptions\OemNotFound;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 
@@ -14,8 +12,6 @@ use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
  */
 trait WithOem {
     abstract protected function getNormalizer(): Normalizer;
-
-    abstract protected function getOemFinder(): ?OemFinder;
 
     abstract protected function getOemResolver(): OemResolver;
 
@@ -28,16 +24,16 @@ trait WithOem {
         }
 
         // Find
-        $oem = $this->getOemResolver()->get($key, $this->factory(
-            function () use ($key): ?Oem {
-                return $this->getOemFinder()?->find($key);
+        return $this->getOemResolver()->get($key, $this->factory(
+            static function () use ($key): Oem {
+                $oem       = new Oem();
+                $oem->key  = $key;
+                $oem->name = $key;
+
+                $oem->save();
+
+                return $oem;
             },
         ));
-
-        if (!$oem) {
-            throw new OemNotFound($key);
-        }
-
-        return $oem;
     }
 }

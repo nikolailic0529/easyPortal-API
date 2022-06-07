@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Oem;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -31,11 +31,11 @@ class OemResolverTest extends TestCase {
         // Run
         $provider = $this->app->make(OemResolver::class);
         $actual   = $provider->get('a', $factory);
+        $queries  = $this->getQueryLog();
 
-        $this->flushQueryLog();
+        $queries->flush();
 
         // Basic
-        self::assertNotNull($actual);
         self::assertEquals('a', $actual->key);
 
         // Second call should return same instance
@@ -44,11 +44,11 @@ class OemResolverTest extends TestCase {
         self::assertSame($actual, $provider->get('A', $factory));
 
         // All value should be loaded, so get() should not perform any queries
-        self::assertNotNull($provider->get('b', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        $provider->get('b', $factory);
+        self::assertCount(0, $queries);
 
-        self::assertNotNull($provider->get('c', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        $provider->get('c', $factory);
+        self::assertCount(0, $queries);
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Oem {
@@ -61,23 +61,24 @@ class OemResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
         self::assertEquals('unKnown', $created->key);
         self::assertEquals('unKnown', $created->name);
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
-        $this->flushQueryLog();
+        $queries->flush();
 
         // The created object should be in cache
         self::assertSame($created, $provider->get('unknoWn', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should NOT be found
         $c = Oem::factory()->create();
 
-        $this->flushQueryLog();
+        $queries->flush();
+
         self::assertNull($provider->get($c->key));
-        self::assertCount(0, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(0, $queries);
+
+        $queries->flush();
     }
 }

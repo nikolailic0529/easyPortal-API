@@ -1,7 +1,7 @@
 [
     "select `assets`.* from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1",
     "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
-    "insert into `oems` (`id`, `key`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?)",
+    "insert into `oems` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `types`.* from `types` where `types`.`deleted_at` is null",
     "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",

@@ -17,7 +17,6 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
-use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
@@ -30,7 +29,6 @@ use App\Services\DataLoader\Testing\Data\DataGenerator;
 use App\Services\DataLoader\Testing\Finders\AssetFinder;
 use App\Services\DataLoader\Testing\Finders\CustomerFinder;
 use App\Services\DataLoader\Testing\Finders\DistributorFinder;
-use App\Services\DataLoader\Testing\Finders\OemFinder;
 use App\Services\DataLoader\Testing\Finders\ResellerFinder;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
@@ -403,13 +401,6 @@ trait Helper {
         $this->overrideDistributorFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
-        $this->overrideOemFinder();
-    }
-
-    protected function overrideOemFinder(): void {
-        $this->override(OemFinderContract::class, static function (): OemFinderContract {
-            return new OemFinder();
-        });
     }
 
     protected function overrideDistributorFinder(): void {

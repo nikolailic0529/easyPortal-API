@@ -312,9 +312,6 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetOnly(): void {
-        // Mock
-        $this->overrideOemFinder();
-
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -355,7 +352,6 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetNoCustomer(): void {
         // Mock
         $this->overrideResellerFinder();
-        $this->overrideOemFinder();
 
         // Prepare
         $factory = $this->app->make(AssetFactory::class);
@@ -373,7 +369,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAssetWithoutZip(): void {
         // Mock
-        $this->overrideOemFinder();
         $this->overrideCustomerFinder();
 
         // Prepare
@@ -393,9 +388,6 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetTypeNull(): void {
-        // Mock
-        $this->overrideOemFinder();
-
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -415,7 +407,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAssetWithoutSku(): void {
         // Mock
-        $this->overrideOemFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
 
@@ -437,7 +428,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAssetOemNull(): void {
         // Mock
-        $this->overrideOemFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
 
@@ -460,7 +450,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testCreateFromAssetOemEmpty(): void {
         // Mock
-        $this->overrideOemFinder();
         $this->overrideResellerFinder();
         $this->overrideCustomerFinder();
 
