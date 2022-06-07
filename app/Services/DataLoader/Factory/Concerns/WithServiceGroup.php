@@ -4,9 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
-use App\Services\DataLoader\Exceptions\ServiceGroupNotFound;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 
@@ -16,22 +14,29 @@ use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 trait WithServiceGroup {
     abstract protected function getNormalizer(): Normalizer;
 
-    abstract protected function getServiceGroupFinder(): ?ServiceGroupFinder;
-
     abstract protected function getServiceGroupResolver(): ServiceGroupResolver;
 
     protected function serviceGroup(Oem $oem, string $sku): ?ServiceGroup {
-        $sku   = $this->getNormalizer()->string($sku);
-        $group = $this->getServiceGroupResolver()->get($oem, $sku, $this->factory(
-            function () use ($oem, $sku): ?ServiceGroup {
-                return $this->getServiceGroupFinder()?->find($oem, $sku);
-            },
-        ));
+        // Null?
+        $sku = $this->getNormalizer()->string($sku) ?: null;
 
-        if (!$group) {
-            throw new ServiceGroupNotFound($oem, $sku);
+        if ($sku === null) {
+            return null;
         }
 
-        return $group;
+        // Find/Create
+        return $this->getServiceGroupResolver()->get($oem, $sku, $this->factory(
+            static function () use ($oem, $sku): ServiceGroup {
+                $group       = new ServiceGroup();
+                $group->key  = "{$oem->getTranslatableKey()}/{$sku}";
+                $group->oem  = $oem;
+                $group->sku  = $sku;
+                $group->name = $sku;
+
+                $group->save();
+
+                return $group;
+            },
+        ));
     }
 }

@@ -625,9 +625,6 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocumentsWarrantiesExtended
      */
     public function testAssetDocumentsWarrantiesExtended(): void {
-        // Mock
-        $this->overrideServiceGroupFinder();
-
         // Prepare
         $container      = $this->app->make(Container::class);
         $documents      = $container->make(DocumentFactory::class);

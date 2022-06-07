@@ -35,7 +35,6 @@ use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CoverageResolver;
@@ -106,7 +105,6 @@ class AssetFactory extends ModelFactory {
         protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
-        protected ?ServiceGroupFinder $serviceGroupFinder = null,
         protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($exceptionHandler, $normalizer);
@@ -174,10 +172,6 @@ class AssetFactory extends ModelFactory {
 
     protected function getServiceGroupResolver(): ServiceGroupResolver {
         return $this->serviceGroupResolver;
-    }
-
-    protected function getServiceGroupFinder(): ?ServiceGroupFinder {
-        return $this->serviceGroupFinder;
     }
 
     protected function getServiceLevelResolver(): ServiceLevelResolver {

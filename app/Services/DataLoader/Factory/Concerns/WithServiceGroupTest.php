@@ -2,13 +2,12 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
+use App\Models\Oem;
 use App\Models\ServiceGroup;
-use App\Services\DataLoader\Exceptions\ServiceGroupNotFound;
 use App\Services\DataLoader\Factory\Factory;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
-use Mockery;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -16,97 +15,19 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\DataLoader\Factory\Concerns\WithServiceGroup
  */
 class WithServiceGroupTest extends TestCase {
+    use WithQueryLog;
+
     /**
      * @covers ::serviceGroup
      */
     public function testServiceGroupExistsThroughProvider(): void {
-        $group      = ServiceGroup::factory()->make();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = Mockery::mock(ServiceGroupResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($group->oem, $group->sku, Mockery::any())
-            ->once()
-            ->andReturn($group);
-
-        $factory = new class($normalizer, $resolver) extends Factory {
-            use WithServiceGroup {
-                serviceGroup as public;
-            }
-
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected ServiceGroupResolver $serviceGroupResolver,
-            ) {
-                // empty
-            }
-
-            protected function getServiceGroupResolver(): ServiceGroupResolver {
-                return $this->serviceGroupResolver;
-            }
-
-            protected function getServiceGroupFinder(): ?ServiceGroupFinder {
-                return null;
-            }
-        };
-
-        self::assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
-    }
-
-    /**
-     * @covers ::serviceGroup
-     */
-    public function testServiceGroupExistsThroughFinder(): void {
-        $group      = ServiceGroup::factory()->make();
+        $oem        = Oem::factory()->create();
+        $group      = ServiceGroup::factory()->create([
+            'oem_id' => $oem,
+        ]);
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(ServiceGroupResolver::class);
-        $finder     = Mockery::mock(ServiceGroupFinder::class);
-        $finder
-            ->shouldReceive('find')
-            ->with($group->oem, $group->sku)
-            ->once()
-            ->andReturn($group);
-
-        $factory = new class($normalizer, $resolver, $finder) extends Factory {
-            use WithServiceGroup {
-                serviceGroup as public;
-            }
-
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected ServiceGroupResolver $serviceGroupResolver,
-                protected ServiceGroupFinder $serviceGroupFinder,
-            ) {
-                // empty
-            }
-
-            protected function getServiceGroupResolver(): ServiceGroupResolver {
-                return $this->serviceGroupResolver;
-            }
-
-            protected function getServiceGroupFinder(): ?ServiceGroupFinder {
-                return $this->serviceGroupFinder;
-            }
-        };
-
-        self::assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
-    }
-
-    /**
-     * @covers ::serviceGroup
-     */
-    public function testServiceGroupServiceGroupNotFound(): void {
-        $group      = ServiceGroup::factory()->make();
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = Mockery::mock(ServiceGroupResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($normalizer, $resolver) extends Factory {
+        $factory    = new class($normalizer, $resolver) extends Factory {
             use WithServiceGroup {
                 serviceGroup as public;
             }
@@ -122,14 +43,29 @@ class WithServiceGroupTest extends TestCase {
             protected function getServiceGroupResolver(): ServiceGroupResolver {
                 return $this->serviceGroupResolver;
             }
-
-            protected function getServiceGroupFinder(): ?ServiceGroupFinder {
-                return null;
-            }
         };
 
-        self::expectException(ServiceGroupNotFound::class);
+        // If not - it should be created
+        $queries = $this->getQueryLog();
+        $created = $factory->serviceGroup($oem, ' SKU ');
 
-        self::assertEquals($group, $factory->serviceGroup($group->oem, $group->sku));
+        self::assertNotNull($created);
+        self::assertTrue($created->wasRecentlyCreated);
+        self::assertEquals("{$oem->getTranslatableKey()}/SKU", $created->key);
+        self::assertEquals($oem->getKey(), $created->oem_id);
+        self::assertEquals('SKU', $created->sku);
+        self::assertEquals('SKU', $created->name);
+        self::assertCount(2, $queries);
+
+        $queries->flush();
+
+        // If model exists - no action required
+        self::assertEquals($group, $factory->serviceGroup($oem, $group->sku));
+        self::assertCount(0, $queries);
+
+        $queries->flush();
+
+        // Empty sku
+        self::assertNull($factory->serviceGroup($oem, ' '));
     }
 }

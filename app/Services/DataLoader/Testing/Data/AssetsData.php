@@ -3,9 +3,7 @@
 namespace App\Services\DataLoader\Testing\Data;
 
 use App\Services\DataLoader\Finders\OemFinder;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Testing\Finders\OemFinder as OemFinderImpl;
-use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder as ServiceGroupFinderImpl;
 
 abstract class AssetsData extends Data {
     /**
@@ -13,8 +11,7 @@ abstract class AssetsData extends Data {
      */
     protected function generateBindings(): array {
         return [
-            OemFinder::class          => OemFinderImpl::class,
-            ServiceGroupFinder::class => ServiceGroupFinderImpl::class,
+            OemFinder::class => OemFinderImpl::class,
         ];
     }
 

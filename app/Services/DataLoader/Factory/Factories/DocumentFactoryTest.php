@@ -13,7 +13,6 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
-use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
@@ -448,8 +447,6 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentEntry
      */
     public function testDocumentEntry(): void {
-        $this->overrideServiceGroupFinder();
-
         $document       = DocumentModel::factory()->make();
         $asset          = AssetModel::factory()->create([
             'id'            => $this->faker->uuid(),
@@ -484,7 +481,6 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
-            $this->app->make(ServiceGroupFinder::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -495,7 +491,6 @@ class DocumentFactoryTest extends TestCase {
                 protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
-                protected ?ServiceGroupFinder $serviceGroupFinder = null,
             ) {
                 // empty
             }
@@ -708,9 +703,6 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentEntries
      */
     public function testDocumentEntries(): void {
-        // Mock
-        $this->overrideServiceGroupFinder();
-
         // Prepare
         $assetA       = AssetModel::factory()->create();
         $assetB       = AssetModel::factory()->create();
@@ -789,7 +781,6 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
-            $this->app->make(ServiceGroupFinder::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -800,7 +791,6 @@ class DocumentFactoryTest extends TestCase {
                 protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
-                protected ?ServiceGroupFinder $serviceGroupFinder = null,
             ) {
                 // empty
             }
