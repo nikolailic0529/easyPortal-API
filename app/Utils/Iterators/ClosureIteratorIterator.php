@@ -79,7 +79,7 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
         }
 
         // Broken?
-        if (count($items) > 1 && $valid === 0 && $errors === count($items)) {
+        if (count($items) > 1 && $valid === 0 && $errors === count($items) && $errors === $this->getChunkSize()) {
             throw new BrokenIteratorDetected($this::class);
         }
 

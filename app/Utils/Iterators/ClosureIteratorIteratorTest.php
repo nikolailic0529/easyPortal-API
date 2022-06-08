@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Mockery;
 use Tests\TestCase;
 
+use function count;
 use function iterator_to_array;
 
 /**
@@ -205,7 +206,7 @@ class ClosureIteratorIteratorTest extends TestCase {
     /**
      * @covers ::chunkConvert
      */
-    public function testChunkConvertBrokenIteratorDetection(): void {
+    public function testChunkConvertBrokenIteratorDetectionChunkFull(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Error();
         $convert  = static function () use ($error): int {
@@ -222,6 +223,27 @@ class ClosureIteratorIteratorTest extends TestCase {
 
         self::expectExceptionObject(new BrokenIteratorDetected($iterator::class));
 
-        $iterator->chunkConvert($items);
+        $iterator->setChunkSize(count($items))->chunkConvert($items);
+    }
+
+    /**
+     * @covers ::chunkConvert
+     */
+    public function testChunkConvertBrokenIteratorDetectionChunkPart(): void {
+        $items    = [1, 2, 3, 4, 5];
+        $error    = new Error();
+        $convert  = static function () use ($error): int {
+            throw $error;
+        };
+        $iterator = new class(new ObjectsIterator($items), $convert) extends ClosureIteratorIterator {
+            /**
+             * @inheritDoc
+             */
+            public function chunkConvert(array $items): array {
+                return parent::chunkConvert($items);
+            }
+        };
+
+        self::assertCount(0, $iterator->chunkConvert($items));
     }
 }
