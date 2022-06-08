@@ -22,7 +22,7 @@ abstract class CompositeProcessor extends Processor {
     // <editor-fold desc="Process">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator($this->getExceptionHandler(), $this->getOperations($state));
+        return new ObjectsIterator($this->getOperations($state));
     }
 
     /**

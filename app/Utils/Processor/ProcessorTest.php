@@ -62,7 +62,6 @@ class ProcessorTest extends TestCase {
     public function testStop(): void {
         $processor = Mockery::mock(Processor::class);
         $iterator  = new OneChunkOffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             static function () use ($processor): array {
                 $processor->stop();
 
@@ -160,7 +159,6 @@ class ProcessorTest extends TestCase {
         $exception = new Exception();
 
         $iterator = Mockery::mock(ObjectsIterator::class, [
-            Mockery::mock(ExceptionHandler::class),
             [$a, $b],
         ]);
         $iterator->shouldAllowMockingProtectedMethods();

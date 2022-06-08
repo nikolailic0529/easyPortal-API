@@ -69,7 +69,7 @@ abstract class EloquentProcessor extends IteratorProcessor {
         $builder  = $this->getBuilder($state);
         $iterator = $state->keys === null
             ? new EloquentIterator($builder->getChangeSafeIterator())
-            : new ModelsIterator($this->getExceptionHandler(), $builder, $state->keys);
+            : new ModelsIterator($builder, $state->keys);
 
         return $iterator;
     }

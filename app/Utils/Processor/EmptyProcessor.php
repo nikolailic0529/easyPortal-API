@@ -30,6 +30,6 @@ final class EmptyProcessor extends Processor {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator($this->getExceptionHandler(), []);
+        return new ObjectsIterator([]);
     }
 }
