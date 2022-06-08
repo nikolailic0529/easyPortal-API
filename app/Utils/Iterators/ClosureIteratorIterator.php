@@ -5,7 +5,6 @@ namespace App\Utils\Iterators;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\BrokenIteratorDetected;
-use App\Utils\Iterators\Exceptions\ClosureIteratorConvertError;
 use Closure;
 use Exception;
 use Throwable;
@@ -16,7 +15,7 @@ use function count;
  * @template TItem
  * @template TValue
  *
- * @extends ObjectIteratorIterator<TItem,TValue, ClosureIteratorConvertError>
+ * @extends ObjectIteratorIterator<TItem,TValue>
  */
 class ClosureIteratorIterator extends ObjectIteratorIterator {
     /**
@@ -40,7 +39,7 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Abstract">
+    // <editor-fold desc="Convert">
     // =========================================================================
     /**
      * @inheritDoc
@@ -48,20 +47,18 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
     protected function chunkConvert(array $items): array {
         // Convert
         $converter = $this->getConverter();
-        $converted = [];
         $errors    = 0;
         $valid     = 0;
+        $chunk     = [];
 
         foreach ($items as $key => $item) {
             try {
-                $item = $converter($item);
+                $converted = $converter($item);
 
-                if ($item !== null) {
-                    $converted[$key] = $item;
+                if ($converted !== null) {
+                    $chunk[$key] = $converted;
                 } else {
-                    $this->error(
-                        new ClosureIteratorConvertError($item),
-                    );
+                    $this->report($item, null);
                 }
 
                 $valid++;
@@ -72,9 +69,7 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
                     $errors++;
                 }
 
-                $this->error(
-                    new ClosureIteratorConvertError($item, $exception),
-                );
+                $this->report($item, $exception);
             }
         }
 
@@ -84,7 +79,7 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
         }
 
         // Return
-        return $converted;
+        return $chunk;
     }
     // </editor-fold>
 }

@@ -7,7 +7,7 @@ use Throwable;
 /**
  * @template TItem
  */
-class ClosureIteratorConvertError extends IteratorException {
+class ObjectIteratorIteratorError extends IteratorException {
     /**
      * @param TItem $item
      */

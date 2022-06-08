@@ -21,7 +21,7 @@ use function count;
  *
  * @template TItem of \Illuminate\Database\Eloquent\Model
  *
- * @extends ObjectIteratorIterator<TItem, string|int, ModelNotFoundException>
+ * @extends ObjectIteratorIterator<TItem, string|int>
  */
 class ModelsIterator extends ObjectIteratorIterator implements Countable {
     /**
@@ -54,7 +54,7 @@ class ModelsIterator extends ObjectIteratorIterator implements Countable {
                 if ($converted !== null) {
                     $chunk[$key] = $converted;
                 } else {
-                    $this->error((new ModelNotFoundException())->setModel($model::class, [$item]));
+                    $this->report($item, (new ModelNotFoundException())->setModel($model::class, [$item]));
                 }
             }
         }

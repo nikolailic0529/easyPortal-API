@@ -2,17 +2,13 @@
 
 namespace App\Utils\Iterators\Concerns;
 
-use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 use Throwable;
 
 
 /**
- * @template TItem
  * @template TError of Throwable
- *
- * @mixin ObjectIterator<TItem>
  */
 trait ErrorableSubjects {
     /**

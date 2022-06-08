@@ -8,14 +8,15 @@ use App\Utils\Iterators\Concerns\PropertiesProxy;
 use App\Utils\Iterators\Concerns\Subjects;
 use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\Exceptions\ObjectIteratorIteratorError;
 use Iterator;
+use Throwable;
 
 use function count;
 
 /**
  * @template TItem
  * @template TValue
- * @template TError of \Throwable
  *
  * @implements ObjectIterator<TItem>
  */
@@ -38,10 +39,11 @@ abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
     }
 
     /**
-     * @phpstan-use ErrorableSubjects<string|int, TError>
+     * @phpstan-use ErrorableSubjects<ObjectIteratorIteratorError<TValue>>
      */
     use ErrorableSubjects {
         ErrorableSubjects::__clone as __cloneErrorableSubjects;
+        ErrorableSubjects::error as private;
     }
 
     /**
@@ -117,6 +119,13 @@ abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
         if ($items) {
             yield $index++ => $items;
         }
+    }
+
+    /**
+     * @param TValue $item
+     */
+    protected function report(mixed $item, ?Throwable $error): void {
+        $this->error(new ObjectIteratorIteratorError($item, $error));
     }
 
     public function __clone(): void {
