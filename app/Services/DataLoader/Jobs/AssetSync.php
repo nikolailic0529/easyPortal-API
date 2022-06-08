@@ -38,7 +38,7 @@ class AssetSync extends Sync {
         IteratorImporter $importer,
     ): bool {
         try {
-            $iterator = new ObjectsIterator($handler, [$this->getObjectId()]);
+            $iterator = new ObjectsIterator([$this->getObjectId()]);
             $importer = $importer
                 ->setIterator($iterator)
                 ->setWithDocuments(true);

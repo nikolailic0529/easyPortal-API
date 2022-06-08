@@ -7,8 +7,6 @@ use App\Services\DataLoader\Importer\Importers\Distributors\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Mockery;
 
 use function array_fill_keys;
 use function array_flip;
@@ -58,7 +56,6 @@ class DistributorsIteratorImporterData extends Data {
         }
 
         return new ObjectsIterator(
-            Mockery::mock(ExceptionHandler::class),
             $distributors,
         );
     }

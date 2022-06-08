@@ -684,19 +684,19 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed>             $params
+     * @param array<string,mixed>      $params
      * @param Closure(array<mixed>): T $retriever
      *
-     * @return OffsetBasedIterator<T, array<mixed>>
+     * @return QueryIterator<T, array<mixed>>
      */
     public function getOffsetBasedIterator(
         string $selector,
         string $graphql,
         array $params,
         Closure $retriever,
-    ): OffsetBasedIterator {
-        return (new OffsetBasedIterator(
-            $this->handler,
+    ): QueryIterator {
+        return (new QueryIterator(
+            OffsetBasedIterator::class,
             new Query($this, "data.{$selector}", $graphql, $params),
             $retriever,
         ))
@@ -706,19 +706,19 @@ class Client {
     /**
      * @template T
      *
-     * @param array<mixed>             $params
+     * @param array<string,mixed>      $params
      * @param Closure(array<mixed>): T $retriever
      *
-     * @return LastIdBasedIterator<T, array<mixed>>
+     * @return QueryIterator<T, array<mixed>>
      */
     public function getLastIdBasedIterator(
         string $selector,
         string $graphql,
         array $params,
         Closure $retriever,
-    ): LastIdBasedIterator {
-        return (new LastIdBasedIterator(
-            $this->handler,
+    ): QueryIterator {
+        return (new QueryIterator(
+            LastIdBasedIterator::class,
             new Query($this, "data.{$selector}", $graphql, $params),
             $retriever,
         ))
