@@ -14,16 +14,11 @@ use function sprintf;
 use const FILTER_VALIDATE_INT;
 
 /**
- * @template T
- * @template V
+ * @template TItem
  *
- * @extends ObjectIteratorImpl<T, V>
+ * @extends ObjectIteratorImpl<TItem, array{limit: int, offset: int}>
  */
 class OffsetBasedObjectIterator extends ObjectIteratorImpl {
-    public function getOffset(): int|null {
-        return parent::getOffset();
-    }
-
     public function setOffset(string|int|null $offset): static {
         if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {
             $offset = (int) $offset;
@@ -50,10 +45,10 @@ class OffsetBasedObjectIterator extends ObjectIteratorImpl {
     }
 
     /**
-     * @param array<T> $items
+     * @param array<TItem> $items
      */
     protected function chunkProcessed(array $items): bool {
-        $this->setOffset($this->getOffset() + count($items));
+        $this->setOffset((int) $this->getOffset() + count($items));
 
         return parent::chunkProcessed($items);
     }

@@ -4,11 +4,9 @@ namespace App\Utils\Iterators;
 
 use App\Utils\Iterators\Exceptions\InfiniteLoopDetected;
 use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use Mockery;
 use Tests\TestCase;
-use Throwable;
 
 use function array_slice;
 use function iterator_to_array;
@@ -34,7 +32,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             return array_slice($data, $variables['offset'] ?? 0, $variables['limit']);
         });
         $iterator = (new OffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             Closure::fromCallable($executor),
         ))
             ->setChunkSize(5)
@@ -67,7 +64,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             // empty
         });
         $iterator      = (new OffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             Closure::fromCallable($executor),
         ))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
@@ -99,7 +95,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
 
         $expected = $data;
         $iterator = (new OffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             Closure::fromCallable($executor),
         ))
             ->setChunkSize(2)
@@ -124,7 +119,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
 
         $expected = [1, 2];
         $iterator = (new OffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             Closure::fromCallable($executor),
         ))
             ->setChunkSize(50)
@@ -146,7 +140,6 @@ class OffsetBasedObjectIteratorTest extends TestCase {
 
         $expected = [];
         $iterator = (new OffsetBasedObjectIterator(
-            Mockery::mock(ExceptionHandler::class),
             Closure::fromCallable($executor),
         ))
             ->setLimit(0);
@@ -166,38 +159,26 @@ class OffsetBasedObjectIteratorTest extends TestCase {
             return $data;
         });
 
-        $handler = Mockery::mock(ExceptionHandler::class);
-        $handler
-            ->shouldReceive('report')
-            ->once()
-            ->withArgs(static function (Throwable $exception): bool {
-                return $exception instanceof InfiniteLoopDetected;
-            })
-            ->andReturns();
-
         $iterator = (new OffsetBasedObjectIterator(
-            $handler,
             Closure::fromCallable($executor),
         ))
             ->setChunkSize(5);
-        $expected = $data;
-        $actual   = iterator_to_array($iterator);
 
-        self::assertEquals($expected, $actual);
+        self::expectException(InfiniteLoopDetected::class);
 
-        $executor->shouldHaveBeenCalled()->times(2);
+        iterator_to_array($iterator);
     }
 
     /**
      * @covers ::setOffset
      */
     public function testSetOffset(): void {
-        $handler  = Mockery::mock(ExceptionHandler::class);
-        $iterator = new OffsetBasedObjectIterator($handler, static function (): array {
+        $iterator = new OffsetBasedObjectIterator(static function (): array {
             return [];
         });
 
-        self::assertNotNull($iterator->setOffset('123'));
+        self::assertEquals(123, $iterator->setOffset('123')->getOffset());
+        self::assertEquals(321, $iterator->setOffset(321)->getOffset());
     }
 
     /**
@@ -206,8 +187,7 @@ class OffsetBasedObjectIteratorTest extends TestCase {
     public function testSetOffsetInvalidType(): void {
         self::expectException(InvalidArgumentException::class);
 
-        $handler  = Mockery::mock(ExceptionHandler::class);
-        $iterator = new OffsetBasedObjectIterator($handler, static function (): array {
+        $iterator = new OffsetBasedObjectIterator(static function (): array {
             return [];
         });
 

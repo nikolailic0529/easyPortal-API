@@ -5,7 +5,6 @@ namespace App\Utils\Iterators\Eloquent;
 use App\Models\Type;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Mockery;
 use Tests\TestCase;
@@ -33,17 +32,15 @@ class ModelsIteratorTest extends TestCase {
             ->map(static function (): Type {
                 return Type::factory()->create();
             });
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = new ModelsIterator(
-            $handler,
             $builder,
             $models->map(new GetKey())->all(),
         );
 
         // All
         $queries  = $this->getQueryLog();
-        $expected = $models->map(new GetKey())->sort()->values();
+        $expected = $models->map(new GetKey())->values();
         $actual   = (clone $iterator);
         $actual   = (new Collection($actual))->map(new GetKey());
 
@@ -54,9 +51,9 @@ class ModelsIteratorTest extends TestCase {
 
         // All chunked
         $queries  = $this->getQueryLog();
-        $expected = $models->map(new GetKey())->sort()->values();
+        $expected = $models->map(new GetKey())->values();
         $actual   = (clone $iterator)->setChunkSize(4);
-        $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
+        $actual   = (new Collection($actual))->map(new GetKey())->values();
 
         self::assertEquals($expected, $actual);
         self::assertCount(3, $queries);
@@ -65,9 +62,9 @@ class ModelsIteratorTest extends TestCase {
 
         // Part
         $queries  = $this->getQueryLog();
-        $expected = $models->slice(2, 5)->map(new GetKey())->sort()->values();
+        $expected = $models->slice(2, 5)->map(new GetKey())->values();
         $actual   = (clone $iterator)->setOffset(2)->setLimit(5)->setChunkSize(4);
-        $actual   = (new Collection($actual))->map(new GetKey())->sort()->values();
+        $actual   = (new Collection($actual))->map(new GetKey())->values();
 
         self::assertEquals($expected, $actual);
         self::assertCount(2, $queries);
@@ -99,10 +96,8 @@ class ModelsIteratorTest extends TestCase {
             ->map(static function (): Type {
                 return Type::factory()->create();
             });
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $builder  = Type::query()->orderBy((new Type())->getKeyName());
         $iterator = (new ModelsIterator(
-            $handler,
             $builder,
             $models->map(new GetKey())->all(),
         ))
@@ -117,14 +112,14 @@ class ModelsIteratorTest extends TestCase {
         iterator_to_array($iterator);
 
         $chunkA = static function (array $items) use ($models): bool {
-            $expected = $models->slice(2, 2)->map(new GetKey())->sort()->values()->all();
-            $actual   = (new Collection($items))->map(new GetKey())->all();
+            $expected = $models->slice(2, 2)->map(new GetKey())->values()->all();
+            $actual   = (new Collection($items))->map(new GetKey())->values()->all();
 
             return $expected === $actual;
         };
         $chunkB = static function (array $items) use ($models): bool {
-            $expected = $models->slice(4, 1)->map(new GetKey())->sort()->values()->all();
-            $actual   = (new Collection($items))->map(new GetKey())->all();
+            $expected = $models->slice(4, 1)->map(new GetKey())->values()->all();
+            $actual   = (new Collection($items))->map(new GetKey())->values()->all();
 
             return $expected === $actual;
         };
@@ -159,10 +154,8 @@ class ModelsIteratorTest extends TestCase {
     public function testCount(): void {
         // Prepare
         $models   = array_fill(0, $this->faker->randomDigit(), 'abc');
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $builder  = Type::query();
         $iterator = new ModelsIterator(
-            $handler,
             $builder,
             $models,
         );

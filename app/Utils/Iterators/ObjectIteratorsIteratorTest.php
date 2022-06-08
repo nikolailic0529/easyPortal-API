@@ -251,13 +251,13 @@ class ObjectIteratorsIteratorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  *
- * @template T
+ * @template TItem
  *
- * @implements ObjectIterator<T>
+ * @implements ObjectIterator<TItem>
  */
 class ObjectIteratorsIteratorTest__Iterator implements ObjectIterator {
     /**
-     * @phpstan-use Subjects<T>
+     * @phpstan-use Subjects<TItem>
      */
     use Subjects;
 

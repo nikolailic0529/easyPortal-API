@@ -6,10 +6,11 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 
+
 /**
- * @template T
+ * @template TItem
  *
- * @mixin ObjectIterator<T>
+ * @mixin ObjectIterator<TItem>
  */
 trait Subjects {
     /**
@@ -23,12 +24,12 @@ trait Subjects {
     private Dispatcher $onFinishDispatcher;
 
     /**
-     * @var Dispatcher<array<T>>
+     * @var Dispatcher<array<TItem>>
      */
     private Dispatcher $onBeforeChunkDispatcher;
 
     /**
-     * @var Dispatcher<array<T>>
+     * @var Dispatcher<array<TItem>>
      */
     private Dispatcher $onAfterChunkDispatcher;
 
@@ -103,9 +104,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after received each non-empty chunk.
      *
-     * @param Closure(array<T>): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
+     * @param Closure(array<TItem>): void|null $closure `null` removes all observers
      */
     public function onBeforeChunk(?Closure $closure): static {
         if ($closure) {
@@ -118,7 +117,7 @@ trait Subjects {
     }
 
     /**
-     * @param array<T> $items
+     * @param array<TItem> $items
      */
     protected function chunkLoaded(array $items): void {
         if ($items) {
@@ -127,7 +126,7 @@ trait Subjects {
     }
 
     /**
-     * @return Dispatcher<array<T>>
+     * @return Dispatcher<array<TItem>>
      */
     private function getOnBeforeChunkDispatcher(): Dispatcher {
         if (!isset($this->onBeforeChunkDispatcher)) {
@@ -140,9 +139,7 @@ trait Subjects {
     /**
      * Sets the closure that will be called after non-empty chunk processed.
      *
-     * @param Closure(array<T>): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
+     * @param Closure(array<TItem>): void|null $closure `null` removes all observers
      */
     public function onAfterChunk(?Closure $closure): static {
         if ($closure) {
@@ -155,7 +152,7 @@ trait Subjects {
     }
 
     /**
-     * @param array<T> $items
+     * @param array<TItem> $items
      */
     protected function chunkProcessed(array $items): bool {
         if ($items) {
@@ -166,7 +163,7 @@ trait Subjects {
     }
 
     /**
-     * @return Dispatcher<array<T>>
+     * @return Dispatcher<array<TItem>>
      */
     private function getOnAfterChunkDispatcher(): Dispatcher {
         if (!isset($this->onAfterChunkDispatcher)) {

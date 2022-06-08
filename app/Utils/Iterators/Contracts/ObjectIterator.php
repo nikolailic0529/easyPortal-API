@@ -11,9 +11,9 @@ use IteratorAggregate;
  * offset, provides chunks support, and should implement error handling to avoid
  * stopping iteration if one item failed.
  *
- * @template T
+ * @template TItem
  *
- * @extends IteratorAggregate<T>
+ * @extends IteratorAggregate<TItem>
  */
 interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunkable {
     public function getIndex(): int;
@@ -24,8 +24,6 @@ interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunk
      * Sets the closure that will be called before iteration.
      *
      * @param Closure(): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
      */
     public function onInit(?Closure $closure): static;
 
@@ -33,26 +31,20 @@ interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunk
      * Sets the closure that will be called after iteration.
      *
      * @param Closure(): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
      */
     public function onFinish(?Closure $closure): static;
 
     /**
      * Sets the closure that will be called after received each non-empty chunk.
      *
-     * @param Closure(array<T>): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
+     * @param Closure(array<TItem>): void|null $closure `null` removes all observers
      */
     public function onBeforeChunk(?Closure $closure): static;
 
     /**
      * Sets the closure that will be called after non-empty chunk processed.
      *
-     * @param Closure(array<T>): void|null $closure `null` removes all observers
-     *
-     * @return $this<T>
+     * @param Closure(array<TItem>): void|null $closure `null` removes all observers
      */
     public function onAfterChunk(?Closure $closure): static;
 }

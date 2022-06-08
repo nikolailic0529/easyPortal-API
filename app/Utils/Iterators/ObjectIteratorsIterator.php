@@ -17,19 +17,19 @@ use function min;
 use function sprintf;
 
 /**
- * @template T
+ * @template TItem
  *
- * @implements ObjectIterator<T>
+ * @implements ObjectIterator<TItem>
  */
 class ObjectIteratorsIterator implements ObjectIterator {
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<TItem>
      */
     use InitialState;
     use Properties;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<TItem>
      */
     use Subjects {
         chunkLoaded as private;
@@ -39,7 +39,7 @@ class ObjectIteratorsIterator implements ObjectIterator {
     protected ?string $current = null;
 
     /**
-     * @param array<string,ObjectIterator<T>> $iterators
+     * @param array<string,ObjectIterator<TItem>> $iterators
      */
     public function __construct(
         protected array $iterators,
@@ -68,8 +68,6 @@ class ObjectIteratorsIterator implements ObjectIterator {
      * @param string|int|null $offset in the following format: `<name>[@<offset>]`,
      *                                where `<offset>` the offset for the iterator
      *                                with index `<name>`.
-     *
-     * @return $this
      */
     public function setOffset(string|int|null $offset): static {
         // Valid?
