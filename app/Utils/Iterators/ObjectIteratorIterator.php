@@ -2,9 +2,11 @@
 
 namespace App\Utils\Iterators;
 
+use App\Utils\Iterators\Concerns\ErrorableSubjects;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\PropertiesProxy;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Iterator;
 
@@ -13,10 +15,11 @@ use function count;
 /**
  * @template TItem
  * @template TValue
+ * @template TError of \Throwable
  *
  * @implements ObjectIterator<TItem>
  */
-abstract class ObjectIteratorIterator implements ObjectIterator {
+abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
     /**
      * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<TValue>
      */
@@ -28,9 +31,18 @@ abstract class ObjectIteratorIterator implements ObjectIterator {
     use InitialState;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<TItem>
+     * @phpstan-use Subjects<TItem>
      */
-    use Subjects;
+    use Subjects {
+        Subjects::__clone as __cloneSubjects;
+    }
+
+    /**
+     * @phpstan-use ErrorableSubjects<string|int, TError>
+     */
+    use ErrorableSubjects {
+        ErrorableSubjects::__clone as __cloneErrorableSubjects;
+    }
 
     /**
      * @param ObjectIterator<TValue> $internalIterator
@@ -107,6 +119,14 @@ abstract class ObjectIteratorIterator implements ObjectIterator {
         }
     }
 
+    public function __clone(): void {
+        $this->__cloneSubjects();
+        $this->__cloneErrorableSubjects();
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="Abstract">
+    // =========================================================================
     /**
      * @param array<TValue> $items
      *

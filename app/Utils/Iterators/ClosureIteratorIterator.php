@@ -2,8 +2,6 @@
 
 namespace App\Utils\Iterators;
 
-use App\Utils\Iterators\Concerns\ErrorableSubjects;
-use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\BrokenIteratorDetected;
@@ -18,16 +16,9 @@ use function count;
  * @template TItem
  * @template TValue
  *
- * @extends ObjectIteratorIterator<TItem|null,TValue>
+ * @extends ObjectIteratorIterator<TItem,TValue, ClosureIteratorConvertError>
  */
-class ClosureIteratorIterator extends ObjectIteratorIterator implements Errorable {
-    /**
-     * @use ErrorableSubjects<TValue>
-     */
-    use ErrorableSubjects {
-        __clone as __cloneErrorableSubjects;
-    }
-
+class ClosureIteratorIterator extends ObjectIteratorIterator {
     /**
      * @param ObjectIterator<TValue> $internalIterator
      * @param Closure(TValue): TItem $converter
@@ -62,11 +53,16 @@ class ClosureIteratorIterator extends ObjectIteratorIterator implements Errorabl
         $valid     = 0;
 
         foreach ($items as $key => $item) {
-            $converted[$key] = null;
-
             try {
-                $item            = $converter($item);
-                $converted[$key] = $item;
+                $item = $converter($item);
+
+                if ($item !== null) {
+                    $converted[$key] = $item;
+                } else {
+                    $this->error(
+                        new ClosureIteratorConvertError($item),
+                    );
+                }
 
                 $valid++;
             } catch (IteratorFatalError $exception) {
@@ -76,7 +72,9 @@ class ClosureIteratorIterator extends ObjectIteratorIterator implements Errorabl
                     $errors++;
                 }
 
-                $this->error($item, $exception);
+                $this->error(
+                    new ClosureIteratorConvertError($item, $exception),
+                );
             }
         }
 
@@ -87,23 +85,6 @@ class ClosureIteratorIterator extends ObjectIteratorIterator implements Errorabl
 
         // Return
         return $converted;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Functions">
-    // =========================================================================
-    /**
-     * @param TValue $item
-     */
-    protected function error(mixed $item, Throwable $error): void {
-        $this->getOnErrorDispatcher()->notify(
-            new ClosureIteratorConvertError($item, $error),
-        );
-    }
-
-    public function __clone(): void {
-        parent::__clone();
-        $this->__cloneErrorableSubjects();
     }
     // </editor-fold>
 }

@@ -7,6 +7,7 @@ use App\Utils\Iterators\ObjectIteratorIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use Countable;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use function count;
 
@@ -16,11 +17,11 @@ use function count;
  * In some situations (eg while import) we need to iterate so many keys that
  * `whereIn()` will fail. In this case, this iterator is your choice - it split
  * keys into chunks and then load and return models for each chunk. Please note
- * that if model is not exist the `null` will be returned.
+ * that if model is not exist the item will be skipped.
  *
  * @template TItem of \Illuminate\Database\Eloquent\Model
  *
- * @extends ObjectIteratorIterator<TItem|null, string|int>
+ * @extends ObjectIteratorIterator<TItem, string|int, ModelNotFoundException>
  */
 class ModelsIterator extends ObjectIteratorIterator implements Countable {
     /**
@@ -38,7 +39,7 @@ class ModelsIterator extends ObjectIteratorIterator implements Countable {
      * @inheritDoc
      */
     protected function chunkConvert(array $items): array {
-        $converted = [];
+        $chunk = [];
 
         if ($items) {
             $model  = $this->builder->getModel();
@@ -48,11 +49,17 @@ class ModelsIterator extends ObjectIteratorIterator implements Countable {
                 ->keyBy(new GetKey());
 
             foreach ($items as $key => $item) {
-                $converted[$key] = $models->get($item);
+                $converted = $models->get($item);
+
+                if ($converted !== null) {
+                    $chunk[$key] = $converted;
+                } else {
+                    $this->error((new ModelNotFoundException())->setModel($model::class, [$item]));
+                }
             }
         }
 
-        return $converted;
+        return $chunk;
     }
 
     public function count(): int {

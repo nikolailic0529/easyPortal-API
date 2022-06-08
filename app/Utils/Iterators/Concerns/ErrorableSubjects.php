@@ -10,12 +10,13 @@ use Throwable;
 
 /**
  * @template TItem
+ * @template TError of Throwable
  *
  * @mixin ObjectIterator<TItem>
  */
 trait ErrorableSubjects {
     /**
-     * @var Dispatcher<Throwable>
+     * @var Dispatcher<TError>
      */
     private Dispatcher $onErrorDispatcher;
 
@@ -26,7 +27,7 @@ trait ErrorableSubjects {
     }
 
     /**
-     * @param Closure(Throwable): void|null $closure `null` removes all observers
+     * @param Closure(TError): void|null $closure `null` removes all observers
      */
     public function onError(?Closure $closure): static {
         if ($closure) {
@@ -39,7 +40,7 @@ trait ErrorableSubjects {
     }
 
     /**
-     * @return Dispatcher<Throwable>
+     * @return Dispatcher<TError>
      */
     private function getOnErrorDispatcher(): Dispatcher {
         if (!isset($this->onErrorDispatcher)) {
@@ -47,5 +48,12 @@ trait ErrorableSubjects {
         }
 
         return $this->onErrorDispatcher;
+    }
+
+    /**
+     * @param TError $error
+     */
+    protected function error(Throwable $error): void {
+        $this->getOnErrorDispatcher()->notify($error);
     }
 }

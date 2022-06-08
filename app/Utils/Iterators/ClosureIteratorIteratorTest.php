@@ -7,6 +7,7 @@ use App\Utils\Iterators\Exceptions\BrokenIteratorDetected;
 use Closure;
 use Error;
 use Exception;
+use Illuminate\Support\Arr;
 use Mockery;
 use Tests\TestCase;
 
@@ -37,7 +38,6 @@ class ClosureIteratorIteratorTest extends TestCase {
                 1 => 20,
                 2 => 30,
                 3 => 40,
-                4 => null,
                 5 => 60,
                 6 => 70,
                 7 => 80,
@@ -50,7 +50,6 @@ class ClosureIteratorIteratorTest extends TestCase {
             [
                 0 => 30,
                 1 => 40,
-                2 => null,
                 3 => 60,
                 4 => 70,
                 5 => 80,
@@ -129,7 +128,6 @@ class ClosureIteratorIteratorTest extends TestCase {
             ->shouldHaveBeenCalled()
             ->with([
                 2 => 30,
-                3 => null,
             ])
             ->once();
         $after
@@ -143,7 +141,6 @@ class ClosureIteratorIteratorTest extends TestCase {
             ->shouldHaveBeenCalled()
             ->with([
                 2 => 30,
-                3 => null,
             ])
             ->once();
     }
@@ -171,7 +168,7 @@ class ClosureIteratorIteratorTest extends TestCase {
         };
 
         self::assertEquals(
-            [1, 2, null, 4, 5],
+            Arr::except($items, 2),
             $iterator->chunkConvert($items),
         );
     }
@@ -211,7 +208,7 @@ class ClosureIteratorIteratorTest extends TestCase {
     public function testChunkConvertBrokenIteratorDetection(): void {
         $items    = [1, 2, 3, 4, 5];
         $error    = new Error();
-        $convert  = static function (int $item) use ($error): int {
+        $convert  = static function () use ($error): int {
             throw $error;
         };
         $iterator = new class(new ObjectsIterator($items), $convert) extends ClosureIteratorIterator {
