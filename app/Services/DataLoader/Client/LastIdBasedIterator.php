@@ -2,23 +2,19 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Iterators\ObjectIteratorImpl;
 
 use function end;
+use function is_array;
+use function is_int;
+use function is_string;
 
 /**
  * @template T
- * @template V
  *
- * @extends ObjectIteratorImpl<T, V>
+ * @extends ObjectIteratorImpl<T, array{limit: int, lastId: string|int|null}>
  */
 class LastIdBasedIterator extends ObjectIteratorImpl {
-    /**
-     * @phpstan-use \App\Services\DataLoader\Client\IteratorErrorHandler<T, V>
-     */
-    use IteratorErrorHandler;
-
     /**
      * @inheritDoc
      */
@@ -36,8 +32,8 @@ class LastIdBasedIterator extends ObjectIteratorImpl {
         $last     = end($items);
         $continue = false;
 
-        if ($last instanceof TypeWithId && isset($last->id)) {
-            $this->setOffset($last->id);
+        if (is_array($last) && isset($last['id']) && (is_string($last['id']) || is_int($last['id']))) {
+            $this->setOffset($last['id']);
 
             $continue = true;
         }

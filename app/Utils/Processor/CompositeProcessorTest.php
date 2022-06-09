@@ -304,7 +304,7 @@ class CompositeProcessorTest__Processor extends IteratorProcessor {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator($this->getExceptionHandler(), $this->items);
+        return new ObjectsIterator($this->items);
     }
 
     protected function process(State $state, mixed $data, mixed $item): void {

@@ -68,7 +68,7 @@ class CallbackLoader extends Processor {
     }
 
     protected function getIterator(State $state): ObjectIterator {
-        return new ObjectsIterator($this->getExceptionHandler(), [$state->objectId]);
+        return new ObjectsIterator([$state->objectId]);
     }
     // </editor-fold>
 }

@@ -38,7 +38,6 @@ class DocumentLoader extends Loader {
                         ->getContainer()
                         ->make(IteratorImporter::class)
                         ->setIterator(new ObjectsIterator(
-                            $this->getExceptionHandler(),
                             [$state->objectId],
                         ));
                 },

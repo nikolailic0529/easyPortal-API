@@ -7,10 +7,9 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\I18n\Formatter;
+use App\Utils\Iterators\ClosureIteratorIterator;
 use App\Utils\Iterators\ObjectsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Str;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -46,9 +45,8 @@ class AssetsCountTest extends TestCase {
                 ->shouldReceive('getAssetsByResellerId')
                 ->with($reseller->getKey())
                 ->once()
-                ->andReturn(new ObjectsIterator(
-                    Mockery::mock(ExceptionHandler::class),
-                    $assets,
+                ->andReturn(new ClosureIteratorIterator(
+                    new ObjectsIterator($assets),
                     static function (array $item): ViewAsset {
                         return new ViewAsset($item);
                     },

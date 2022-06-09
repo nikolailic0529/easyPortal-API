@@ -6,13 +6,9 @@ use App\Utils\Iterators\OffsetBasedObjectIterator;
 
 /**
  * @template T
- * @template V
  *
- * @extends OffsetBasedObjectIterator<T, V>
+ * @extends OffsetBasedObjectIterator<T>
  */
 class OffsetBasedIterator extends OffsetBasedObjectIterator {
-    /**
-     * @phpstan-use \App\Services\DataLoader\Client\IteratorErrorHandler<T, V>
-     */
-    use IteratorErrorHandler;
+    // empty
 }

@@ -5,11 +5,14 @@ namespace App\Utils\Iterators\Concerns;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 
 /**
- * @template T
+ * @template TItem
  *
- * @mixin ObjectIterator<T>
+ * @mixin ObjectIterator<TItem>
  */
 trait InitialState {
+    /**
+     * @var ObjectIterator<TItem>|null
+     */
     private ?ObjectIterator $initial = null;
 
     protected function init(): void {

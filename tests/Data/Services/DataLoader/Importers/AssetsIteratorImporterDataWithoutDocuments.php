@@ -7,8 +7,6 @@ use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Mockery;
 
 use function array_fill_keys;
 use function array_flip;
@@ -62,7 +60,6 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
         }
 
         return new ObjectsIterator(
-            Mockery::mock(ExceptionHandler::class),
             $assets,
         );
     }

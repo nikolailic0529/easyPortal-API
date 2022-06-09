@@ -2,37 +2,29 @@
 
 namespace App\Utils\Iterators;
 
-use Closure;
 use Countable;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 
 use function count;
 
 /**
- * @template T
- * @template V
+ * @template TItem
  *
- * @extends OneChunkOffsetBasedObjectIterator<T, V>
+ * @extends OneChunkOffsetBasedObjectIterator<TItem>
  */
 class ObjectsIterator extends OneChunkOffsetBasedObjectIterator implements Countable {
     /**
-     * @param Collection<array-key, V>|array<V> $items
-     * @param Closure(V):T|null                 $converter
+     * @param Collection<array-key, TItem>|array<TItem> $items
      */
     public function __construct(
-        ExceptionHandler $exceptionHandler,
         private Collection|array $items,
-        ?Closure $converter = null,
     ) {
         parent::__construct(
-            $exceptionHandler,
             function (): array {
                 return $this->items instanceof Collection
                     ? $this->items->all()
                     : $this->items;
             },
-            $converter,
         );
     }
 

@@ -3,10 +3,10 @@
 namespace App\Utils\Iterators;
 
 use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;
 
+use function array_map;
 use function iterator_to_array;
 
 /**
@@ -20,14 +20,19 @@ class ObjectIteratorIteratorTest extends TestCase {
      * @covers ::setLimit
      */
     public function testGetIterator(): void {
-        $handler  = Mockery::mock(ExceptionHandler::class);
-        $iterator = new ObjectIteratorIterator(
-            $handler,
-            new ObjectsIterator($handler, [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
-            static function (int $item): ?int {
-                return $item !== 5 ? $item * 10 : null;
-            },
-        );
+        $iterator = new class(new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])) extends ObjectIteratorIterator {
+            /**
+             * @inheritDoc
+             */
+            protected function chunkConvert(array $items): array {
+                return array_map(
+                    static function (int $item): ?int {
+                        return $item !== 5 ? $item * 10 : null;
+                    },
+                    $items,
+                );
+            }
+        };
 
         self::assertEquals(
             [
@@ -82,14 +87,20 @@ class ObjectIteratorIteratorTest extends TestCase {
             // empty
         });
 
-        $handler  = Mockery::mock(ExceptionHandler::class);
-        $iterator = (new ObjectIteratorIterator(
-            $handler,
-            new ObjectsIterator($handler, [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]),
-            static function (int $item): int {
-                return $item * 10;
-            },
-        ))
+        $iterator = new class(new ObjectsIterator([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])) extends ObjectIteratorIterator {
+            /**
+             * @inheritDoc
+             */
+            protected function chunkConvert(array $items): array {
+                return array_map(
+                    static function (int $item): int {
+                        return $item * 10;
+                    },
+                    $items,
+                );
+            }
+        };
+        $iterator = $iterator
             ->onInit(Closure::fromCallable($init))
             ->onFinish(Closure::fromCallable($finish))
             ->onBeforeChunk(Closure::fromCallable($before))

@@ -10,6 +10,9 @@ use Throwable;
 use function array_merge;
 
 final class FailedToProcessChunkItem extends FailedToProcessObject implements GenericException {
+    /**
+     * @param Query<mixed> $query
+     */
     public function __construct(
         protected Query $query,
         protected mixed $item,
@@ -30,6 +33,9 @@ final class FailedToProcessChunkItem extends FailedToProcessObject implements Ge
         return $this->item;
     }
 
+    /**
+     * @return Query<mixed>
+     */
     public function getQuery(): Query {
         return $this->query;
     }

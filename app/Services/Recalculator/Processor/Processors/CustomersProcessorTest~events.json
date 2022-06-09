@@ -2,8 +2,8 @@
     {
         "model": "App\\Models\\Customer",
         "keys": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     }
 ]

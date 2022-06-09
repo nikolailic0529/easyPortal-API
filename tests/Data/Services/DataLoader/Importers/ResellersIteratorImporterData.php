@@ -8,8 +8,6 @@ use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
-use Mockery;
 
 use function array_fill_keys;
 use function array_flip;
@@ -73,7 +71,6 @@ class ResellersIteratorImporterData extends Data {
         }
 
         return new ObjectsIterator(
-            Mockery::mock(ExceptionHandler::class),
             $resellers,
         );
     }

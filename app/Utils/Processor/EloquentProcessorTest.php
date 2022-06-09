@@ -4,7 +4,6 @@ namespace App\Utils\Processor;
 
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Iterators\Eloquent\ModelsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -200,12 +199,6 @@ class EloquentProcessorTest extends TestCase {
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
-            ->shouldReceive('getExceptionHandler')
-            ->once()
-            ->andReturn(
-                Mockery::mock(ExceptionHandler::class),
-            );
-        $processor
             ->shouldReceive('getBuilder')
             ->with($state)
             ->once()
@@ -222,8 +215,14 @@ class EloquentProcessorTest extends TestCase {
      */
     protected function getBuilderMock(): MockInterface {
         $model = new class() extends Model {
+            /**
+             * @var Builder<static>
+             */
             public static Builder $builder;
 
+            /**
+             * @return Builder<static>
+             */
             public static function query(): Builder {
                 return self::$builder;
             }
@@ -247,8 +246,14 @@ class EloquentProcessorTest extends TestCase {
         $model = new class() extends Model {
             use SoftDeletes;
 
+            /**
+             * @var Builder<static>
+             */
             public static Builder $builder;
 
+            /**
+             * @return Builder<static>
+             */
             public static function query(): Builder {
                 return self::$builder;
             }

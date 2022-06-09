@@ -182,8 +182,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:42",
-            "2022-02-02 00:02:45",
+            "2022-02-02 00:02:38",
+            "2022-02-02 00:02:41",
             "fd865591-18fc-4278-9c35-000e761d49d9"
         ]
     },
@@ -196,8 +196,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:10",
-            "2022-02-02 00:03:13",
+            "2022-02-02 00:03:02",
+            "2022-02-02 00:03:05",
             "cc5799fa-e7c3-4a47-b879-e5f731a7ed8f"
         ]
     },
@@ -210,8 +210,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:38",
-            "2022-02-02 00:03:41",
+            "2022-02-02 00:03:26",
+            "2022-02-02 00:03:29",
             "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0"
         ]
     },
@@ -224,8 +224,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:06",
-            "2022-02-02 00:04:09",
+            "2022-02-02 00:03:50",
+            "2022-02-02 00:03:53",
             "ca3fd926-367d-4690-bde9-e895916ab4df"
         ]
     },
@@ -238,8 +238,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:34",
-            "2022-02-02 00:04:37",
+            "2022-02-02 00:04:14",
+            "2022-02-02 00:04:17",
             "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8"
         ]
     },
@@ -252,8 +252,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:02",
-            "2022-02-02 00:05:05",
+            "2022-02-02 00:04:38",
+            "2022-02-02 00:04:41",
             "3125937c-24bf-46ad-97c5-0727cb3b76bd"
         ]
     },
@@ -266,8 +266,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:30",
-            "2022-02-02 00:05:33",
+            "2022-02-02 00:05:02",
+            "2022-02-02 00:05:05",
             "f67c0662-4715-4807-a5fb-807d75d5c92d"
         ]
     },
@@ -280,8 +280,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:05:58",
-            "2022-02-02 00:06:01",
+            "2022-02-02 00:05:26",
+            "2022-02-02 00:05:29",
             "9ed7937c-537c-460f-abc4-d167aab8c28c"
         ]
     },
@@ -294,8 +294,8 @@
     {
         "query": "update `customers` set `synced_at` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:06:26",
-            "2022-02-02 00:06:29",
+            "2022-02-02 00:05:50",
+            "2022-02-02 00:05:53",
             "ada5cb92-2351-4b09-9502-7f767805b2f3"
         ]
     }

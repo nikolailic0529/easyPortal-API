@@ -5,12 +5,11 @@ namespace App\Utils\Iterators\Concerns;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 
 /**
- * @template T
- * @template V
+ * @template TItem
  */
 trait PropertiesProxy {
     /**
-     * @return ObjectIterator<T>
+     * @return ObjectIterator<TItem>
      */
     abstract protected function getInternalIterator(): ObjectIterator;
 
@@ -18,9 +17,6 @@ trait PropertiesProxy {
         return $this->getInternalIterator()->getIndex();
     }
 
-    /**
-     * @return $this<T,V>
-     */
     public function setIndex(int $index): static {
         $this->getInternalIterator()->setIndex($index);
 
@@ -31,9 +27,6 @@ trait PropertiesProxy {
         return $this->getInternalIterator()->getLimit();
     }
 
-    /**
-     * @return $this<T,V>
-     */
     public function setLimit(?int $limit): static {
         $this->getInternalIterator()->setLimit($limit);
 
@@ -44,9 +37,6 @@ trait PropertiesProxy {
         return $this->getInternalIterator()->getChunkSize();
     }
 
-    /**
-     * @return $this<T,V>
-     */
     public function setChunkSize(?int $chunk): static {
         $this->getInternalIterator()->setChunkSize($chunk);
 
@@ -57,9 +47,6 @@ trait PropertiesProxy {
         return $this->getInternalIterator()->getOffset();
     }
 
-    /**
-     * @return $this<T,V>
-     */
     public function setOffset(int|string|null $offset): static {
         $this->getInternalIterator()->setOffset($offset);
 

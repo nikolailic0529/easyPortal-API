@@ -2,16 +2,14 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\TypeWithId;
 use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
-use Mockery\MockInterface;
 use Tests\TestCase;
 
 use function array_map;
 use function array_slice;
+use function is_array;
+use function is_string;
 use function iterator_to_array;
 use function range;
 
@@ -27,12 +25,10 @@ class LastIdBasedIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $data     = $this->getData();
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy($this->getRetriever($data));
-
         $expected = $data;
         $actual   = iterator_to_array(
-            (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setChunkSize(5),
+            (new LastIdBasedIterator(Closure::fromCallable($executor)))->setChunkSize(5),
         );
 
         self::assertEquals($expected, $actual);
@@ -47,7 +43,6 @@ class LastIdBasedIteratorTest extends TestCase {
      */
     public function testIteratorWithLimitLastId(): void {
         $data          = $this->getData();
-        $handler       = Mockery::mock(ExceptionHandler::class);
         $executor      = Mockery::spy($this->getRetriever($data));
         $onBeforeChunk = Mockery::spy(static function (): void {
             // empty
@@ -55,7 +50,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
+        $iterator      = (new LastIdBasedIterator(Closure::fromCallable($executor)))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset('5')
@@ -64,8 +59,10 @@ class LastIdBasedIteratorTest extends TestCase {
 
         $expected = ['6', '7'];
         $actual   = iterator_to_array($iterator);
-        $actual   = array_map(static function (Type $type): ?string {
-            return $type instanceof TypeWithId ? $type->id : null;
+        $actual   = array_map(static function (mixed $type): ?string {
+            return is_array($type) && isset($type['id']) && is_string($type['id'])
+                ? $type['id']
+                : null;
         }, $actual);
 
         self::assertEquals($expected, $actual);
@@ -82,7 +79,6 @@ class LastIdBasedIteratorTest extends TestCase {
      */
     public function testIteratorChunkLessThanLimit(): void {
         $data     = $this->getData();
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy(function (array $params = []) use ($data) {
             self::assertEquals(2, $params['limit']);
 
@@ -90,7 +86,7 @@ class LastIdBasedIteratorTest extends TestCase {
         });
 
         $expected = $data;
-        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
+        $iterator = (new LastIdBasedIterator(Closure::fromCallable($executor)))
             ->setLimit(10)
             ->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
@@ -107,7 +103,6 @@ class LastIdBasedIteratorTest extends TestCase {
      */
     public function testIteratorChunkGreaterThanLimit(): void {
         $data     = $this->getData();
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy(function (array $params = []) use ($data) {
             self::assertEquals(2, $params['limit']);
 
@@ -115,12 +110,14 @@ class LastIdBasedIteratorTest extends TestCase {
         });
 
         $expected = ['1', '2'];
-        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))
+        $iterator = (new LastIdBasedIterator(Closure::fromCallable($executor)))
             ->setLimit(2)
             ->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
-        $actual   = array_map(static function (Type $type): ?string {
-            return $type instanceof TypeWithId ? $type->id : null;
+        $actual   = array_map(static function (mixed $type): ?string {
+            return is_array($type) && isset($type['id']) && is_string($type['id'])
+                ? $type['id']
+                : null;
         }, $actual);
 
         self::assertEquals($expected, $actual);
@@ -134,13 +131,12 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorLimitZero(): void {
-        $handler  = Mockery::mock(ExceptionHandler::class);
         $executor = Mockery::spy(static function (array $params = []): mixed {
             return null;
         });
 
         $expected = [];
-        $iterator = (new LastIdBasedIterator($handler, $this->getQuery($executor)))->setLimit(0);
+        $iterator = (new LastIdBasedIterator(Closure::fromCallable($executor)))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         self::assertEquals($expected, $actual);
@@ -152,18 +148,16 @@ class LastIdBasedIteratorTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @return array<int,Type>
+     * @return array<int,array<string, mixed>>
      */
     protected function getData(): array {
-        return array_map(static function (int $id): Type {
-            return new class(['id' => (string) $id]) extends Type implements TypeWithId {
-                public string $id;
-            };
+        return array_map(static function (int $id): array {
+            return ['id' => (string) $id];
         }, range(1, 10));
     }
 
     /**
-     * @param array<int,Type> $data
+     * @param array<int,array<string, mixed>> $data
      */
     protected function getRetriever(array $data): Closure {
         return static function (array $params = []) use ($data) {
@@ -171,32 +165,14 @@ class LastIdBasedIteratorTest extends TestCase {
 
             if ($params['lastId']) {
                 foreach ($data as $i => $type) {
-                    if ($type instanceof TypeWithId && $type->id === $params['lastId']) {
+                    if (isset($type['id']) && $type['id'] === $params['lastId']) {
                         $index = $i + 1;
                         break;
                     }
                 }
             }
 
-            return array_slice($data, $index, $params['limit']);
-        };
-    }
-
-    protected function getQuery(MockInterface $executor): Query {
-        return new class($executor) extends Query {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected MockInterface $executor,
-            ) {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function __invoke(array $variables): array {
-                return ($this->executor)($variables);
-            }
+            return array_slice($data, $index, $params['limit'], true);
         };
     }
     //</editor-fold>

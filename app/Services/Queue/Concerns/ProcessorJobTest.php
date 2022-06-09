@@ -239,7 +239,6 @@ abstract class ProcessorJobTest__Processor extends IteratorProcessor {
 
     protected function getIterator(State $state): ObjectIterator {
         return new ObjectsIterator(
-            Mockery::mock(ExceptionHandler::class),
             [1, 2, 3, 4, 5],
         );
     }

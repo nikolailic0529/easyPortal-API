@@ -2,71 +2,63 @@
 
 namespace App\Utils\Iterators;
 
-use App\Utils\Iterators\Concerns\ChunkConverter;
+use App\Utils\Iterators\Concerns\ErrorableSubjects;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\PropertiesProxy;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use Closure;
-use Illuminate\Contracts\Debug\ExceptionHandler;
+use App\Utils\Iterators\Exceptions\ObjectIteratorIteratorError;
 use Iterator;
+use Throwable;
 
 use function count;
 
 /**
- * @template T
- * @template V
+ * @template TItem
+ * @template TValue
  *
- * @implements ObjectIterator<T>
+ * @implements ObjectIterator<TItem>
  */
-class ObjectIteratorIterator implements ObjectIterator {
+abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<T,V>
+     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<TValue>
      */
     use PropertiesProxy;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\ChunkConverter<T,V>
-     */
-    use ChunkConverter;
-
-    /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<T>
+     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<TItem>
      */
     use InitialState;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\Subjects<T>
+     * @phpstan-use Subjects<TItem>
      */
-    use Subjects;
+    use Subjects {
+        Subjects::__clone as __cloneSubjects;
+    }
 
     /**
-     * @param ObjectIterator<V> $internalIterator
-     * @param Closure(V): T     $converter
+     * @phpstan-use ErrorableSubjects<ObjectIteratorIteratorError<TValue>>
+     */
+    use ErrorableSubjects {
+        ErrorableSubjects::__clone as __cloneErrorableSubjects;
+        ErrorableSubjects::error as private;
+    }
+
+    /**
+     * @param ObjectIterator<TValue> $internalIterator
      */
     public function __construct(
-        protected ExceptionHandler $exceptionHandler,
         protected ObjectIterator $internalIterator,
-        protected Closure $converter,
     ) {
         // empty
     }
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
-    protected function getExceptionHandler(): ExceptionHandler {
-        return $this->exceptionHandler;
-    }
-
     /**
-     * @return Closure(V): T|null
-     */
-    protected function getConverter(): ?Closure {
-        return $this->converter;
-    }
-
-    /**
-     * @return ObjectIterator<V>
+     * @return ObjectIterator<TValue>
      */
     protected function getInternalIterator(): ObjectIterator {
         return $this->internalIterator;
@@ -76,7 +68,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     // <editor-fold desc="IteratorAggregate">
     // =========================================================================
     /**
-     * @return Iterator<T>
+     * @return Iterator<TItem>
      */
     public function getIterator(): Iterator {
         try {
@@ -100,7 +92,7 @@ class ObjectIteratorIterator implements ObjectIterator {
     // <editor-fold desc="Functions">
     // =========================================================================
     /**
-     * @return Iterator<array<V>>
+     * @return Iterator<array<TValue>>
      */
     protected function getChunks(): Iterator {
         // Split sequence into groups
@@ -128,5 +120,27 @@ class ObjectIteratorIterator implements ObjectIterator {
             yield $index++ => $items;
         }
     }
+
+    /**
+     * @param TValue $item
+     */
+    protected function report(mixed $item, ?Throwable $error): void {
+        $this->error(new ObjectIteratorIteratorError($item, $error));
+    }
+
+    public function __clone(): void {
+        $this->__cloneSubjects();
+        $this->__cloneErrorableSubjects();
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="Abstract">
+    // =========================================================================
+    /**
+     * @param array<TValue> $items
+     *
+     * @return array<TItem>
+     */
+    abstract protected function chunkConvert(array $items): array;
     //</editor-fold>
 }

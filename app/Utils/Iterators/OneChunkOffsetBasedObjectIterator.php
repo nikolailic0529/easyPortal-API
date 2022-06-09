@@ -5,14 +5,13 @@ namespace App\Utils\Iterators;
 use function array_slice;
 
 /**
- * @template T
- * @template V
+ * @template TItem
  *
- * @extends OffsetBasedObjectIterator<T, V>
+ * @extends OffsetBasedObjectIterator<TItem>
  */
 class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
     /**
-     * @var array<mixed>
+     * @var array<TItem>
      */
     private array $items;
 
@@ -27,14 +26,5 @@ class OneChunkOffsetBasedObjectIterator extends OffsetBasedObjectIterator {
 
         // Return chunk
         return array_slice($this->items, (int) $this->getOffset(), $limit);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getChunkVariables(int $limit): array {
-        return [
-            // All data loaded by one query so there are no reasons to return any variables.
-        ];
     }
 }

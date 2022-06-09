@@ -12,13 +12,13 @@ use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
 
 /**
- * @template T of \Illuminate\Database\Eloquent\Model
+ * @template TModel of \Illuminate\Database\Eloquent\Model
  *
- * @implements ObjectIterator<T>
+ * @implements ObjectIterator<TModel>
  */
 class EloquentIterator implements ObjectIterator {
     /**
-     * @phpstan-use Subjects<T>
+     * @phpstan-use Subjects<TModel>
      */
     use Subjects {
         __clone as __cloneSubjects;
@@ -27,12 +27,12 @@ class EloquentIterator implements ObjectIterator {
     use ChunkSize;
 
     /**
-     * @phpstan-use InitialState<T>
+     * @phpstan-use InitialState<TModel>
      */
     use InitialState;
 
     /**
-     * @param LaraASPIterator<T> $iterator
+     * @param LaraASPIterator<TModel> $iterator
      */
     public function __construct(
         protected LaraASPIterator $iterator,
@@ -108,9 +108,9 @@ class EloquentIterator implements ObjectIterator {
     // <editor-fold desc="Functions">
     // =========================================================================
     /**
-     * @param Closure(array<int, T>) :void|null $closure
+     * @param Closure(array<int, TModel>) :void|null $closure
      *
-     * @return Closure(Collection<int, T>):void
+     * @return Closure(Collection<int, TModel>):void
      */
     protected function wrapClosure(?Closure $closure): Closure {
         return static function (Collection $items) use ($closure): void {

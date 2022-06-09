@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Importer\Concerns;
 
-use App\Services\DataLoader\Importer\IteratorIterator;
 use App\Utils\Eloquent\Model;
+use App\Utils\Iterators\ClosureIteratorIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
 use Countable;
@@ -43,8 +43,7 @@ trait WithIterator {
      * @return ObjectIterator<TItem>
      */
     protected function getIterator(State $state): ObjectIterator {
-        return new IteratorIterator(
-            $this->getExceptionHandler(),
+        return new ClosureIteratorIterator(
             $this->iterator,
             function (Model|string $model) use ($state): mixed {
                 $item = is_object($model) ? $model->getKey() : $model;
