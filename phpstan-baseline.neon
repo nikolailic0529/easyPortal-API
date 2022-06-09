@@ -9416,11 +9416,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithKpiTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyKpis constructor expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\|App\\\\Models\\\\ResellerCustomer given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithKpiTest.php
-
-		-
 			message: "#^Access to an undefined property R of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
@@ -9932,11 +9927,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,App\\\\Models\\\\ResellerCustomer\\>\\:\\:get\\(\\) expects int, string given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyKpis constructor expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\|App\\\\Models\\\\ResellerCustomer given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
@@ -10589,11 +10579,6 @@ parameters:
 			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessCompanyKpis constructor expects App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller\\|App\\\\Models\\\\ResellerCustomer given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"

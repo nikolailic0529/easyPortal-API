@@ -2,15 +2,17 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
+use App\Models\Customer;
+use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Services\DataLoader\Schema\CompanyKpis;
-use App\Utils\Eloquent\Model;
 use Throwable;
 
 use function sprintf;
 
 class FailedToProcessCompanyKpis extends FailedToProcessObject {
     public function __construct(
-        protected Model $model,
+        protected Reseller|Customer|ResellerCustomer $model,
         protected CompanyKpis $kpi,
         Throwable $previous = null,
     ) {

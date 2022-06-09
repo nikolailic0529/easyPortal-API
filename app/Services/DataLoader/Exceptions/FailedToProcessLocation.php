@@ -2,15 +2,16 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
+use App\Models\Customer;
+use App\Models\Reseller;
 use App\Services\DataLoader\Schema\Location;
-use App\Utils\Eloquent\Model;
 use Throwable;
 
 use function sprintf;
 
 class FailedToProcessLocation extends FailedToProcessObject {
     public function __construct(
-        protected Model $model,
+        protected Reseller|Customer $model,
         protected Location $location,
         Throwable $previous = null,
     ) {
