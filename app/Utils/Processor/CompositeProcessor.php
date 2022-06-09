@@ -78,6 +78,11 @@ abstract class CompositeProcessor extends Processor {
 
                 $this->notifyOnProcess($state);
             })
+            ->onFinish(function (State $current) use ($state, $synchronize): void {
+                $synchronize($current);
+
+                $this->saveState($state);
+            })
             ->start();
 
         // Call operation handler if defined

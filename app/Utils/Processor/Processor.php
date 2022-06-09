@@ -6,6 +6,7 @@ use App\Services\Search\Service as SearchService;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\SmartSave\BatchSave;
 use App\Utils\Iterators\Concerns\ChunkSize;
+use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Contracts\Offsetable;
@@ -168,8 +169,8 @@ abstract class Processor implements ProcessorContract {
     }
 
     /**
-     * @param TState $state
-     * @param TItem  $item
+     * @param TState     $state
+     * @param TItem|null $item
      */
     protected function failed(mixed $state, mixed $item, Throwable $exception): void {
         $state->processed++;
@@ -212,6 +213,14 @@ abstract class Processor implements ProcessorContract {
 
                 $data = null;
             });
+
+        if ($iterator instanceof Errorable) {
+            $iterator = $iterator->onError(function (Throwable $exception) use ($iterator, $sync, $state): void {
+                $this->failed($state, null, $exception);
+
+                $sync($iterator);
+            });
+        }
 
         $this->init($state, $iterator);
 
@@ -379,6 +388,7 @@ abstract class Processor implements ProcessorContract {
      * @param TState $state
      */
     protected function finish(State $state): void {
+        $this->saveState($state);
         $this->notifyOnFinish($state);
         $this->resetState();
     }
