@@ -51,7 +51,6 @@ class FulltextProcessor extends Processor {
         $model    = $this->getModelInstance($state);
         $indexes  = $this->getFulltextIndexes($model);
         $iterator = new ObjectsIterator(
-            $this->getExceptionHandler(),
             $indexes,
         );
 

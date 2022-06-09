@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Models\Logs\AnalyzeAsset;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\LastIdBasedIterator;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Resolver\Resolvers\AnalyzeAssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
@@ -110,8 +110,11 @@ class AssetsAnalyze extends Command {
         return self::SUCCESS;
     }
 
+    /**
+     * @param QueryIterator<ViewAsset, array<mixed>> $iterator
+     */
     protected function process(
-        LastIdBasedIterator $iterator,
+        QueryIterator $iterator,
         AssetResolver $assetResolver,
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
@@ -257,7 +260,10 @@ class AssetsAnalyze extends Command {
         }, $company->companyTypes ?? [])));
     }
 
-    protected function getIterator(Client $client, ?string $lastId, int $chunk): LastIdBasedIterator {
+    /**
+     * @return QueryIterator<ViewAsset, array<mixed>>
+     */
+    protected function getIterator(Client $client, ?string $lastId, int $chunk): QueryIterator {
         return $client
             ->getLastIdBasedIterator(
                 'getAssets',

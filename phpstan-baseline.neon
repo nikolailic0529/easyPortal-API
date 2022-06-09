@@ -5381,7 +5381,7 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<array\\<string, mixed\\>\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<array\\<string, mixed\\>\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
@@ -5391,12 +5391,12 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,mixed\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Parameter \\#1 \\$limit of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,mixed\\>\\:\\:setLimit\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$limit of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setLimit\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
@@ -8911,16 +8911,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getLastIdBasedIterator\\(\\) should return App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIterator\\<T, array\\> but returns App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIterator\\<T, mixed\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getOffsetBasedIterator\\(\\) should return App\\\\Services\\\\DataLoader\\\\Client\\\\OffsetBasedIterator\\<T, array\\> but returns App\\\\Services\\\\DataLoader\\\\Client\\\\OffsetBasedIterator\\<T, mixed\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:updateCompanyFavicon\\(\\) should return string\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
@@ -8946,7 +8936,7 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<T,mixed\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\<T,array\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Client/Client.php
 
@@ -8971,13 +8961,8 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIterator constructor expects \\(Closure\\(mixed\\)\\: T\\)\\|null, Closure\\(array\\)\\: T given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Client\\\\OffsetBasedIterator constructor expects \\(Closure\\(mixed\\)\\: T\\)\\|null, Closure\\(array\\)\\: T given\\.$#"
-			count: 1
+			message: "#^Parameter \\#2 \\$query of class App\\\\Services\\\\DataLoader\\\\Client\\\\QueryIterator constructor expects App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<array\\>, App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<mixed\\> given\\.$#"
+			count: 2
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
@@ -9016,22 +9001,7 @@ parameters:
 			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIteratorTest\\:\\:getQuery\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query does not specify its types\\: V$#"
-			count: 1
-			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIteratorTest\\:\\:getRetriever\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
-
-		-
-			message: "#^Trying to invoke Mockery\\\\MockInterface but it might not be a callable\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/LastIdBasedIteratorTest.php
 
@@ -9039,6 +9009,11 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\:\\:__invoke\\(\\) should return array\\<V\\> but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Query.php
+
+		-
+			message: "#^Parameter \\#1 \\$query of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem constructor expects App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<mixed\\>, App\\\\Services\\\\DataLoader\\\\Client\\\\Query\\<TValue of array\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Client/QueryIterator.php
 
 		-
 			message: "#^Parameter \\#1 \\$url of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
@@ -9066,17 +9041,7 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIterator does not specify its types\\: T, V$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getPrefetcher\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:process\\(\\) has parameter \\$iterator with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\LastIdBasedIterator but does not specify its types\\: T, V$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
@@ -9154,21 +9119,6 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:\\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToImportObject.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem\\:\\:__construct\\(\\) has parameter \\$query with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query but does not specify its types\\: V$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessChunkItem.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem\\:\\:getQuery\\(\\) return type with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query does not specify its types\\: V$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessChunkItem.php
-
-		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessChunkItem\\:\\:\\$query with generic class App\\\\Services\\\\DataLoader\\\\Client\\\\Query does not specify its types\\: V$#"
-			count: 1
-			path: app/Services/DataLoader/Exceptions/FailedToProcessChunkItem.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ImportError\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
@@ -11001,17 +10951,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|null, App\\\\Models\\\\Asset\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
 
@@ -11106,17 +11046,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Customer\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
 
@@ -11161,17 +11091,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Distributor\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
 
@@ -11221,17 +11141,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|null, App\\\\Models\\\\Document\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
 
@@ -11366,17 +11276,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator\\<App\\\\Utils\\\\Eloquent\\\\Model\\|string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#2 \\$internalIterator of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\>, App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
-
-		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Services\\\\DataLoader\\\\Importer\\\\IteratorIterator constructor expects Closure\\(V of App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: T of App\\\\Utils\\\\Eloquent\\\\Model\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\|string\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Reseller\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
 
@@ -11401,7 +11301,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
@@ -11434,11 +11334,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CallbackLoader.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
@@ -11501,7 +11396,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
@@ -11546,7 +11441,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
@@ -11586,7 +11481,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
 
@@ -11621,7 +11516,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
 
@@ -11656,7 +11551,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, string\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
@@ -12631,7 +12526,7 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUsersIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUsersIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -12653,11 +12548,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User constructor expects array\\<string, mixed\\>, mixed given\\.$#"
 			count: 3
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$limit of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUsers\\(\\) expects int, mixed given\\.$#"
-			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
@@ -12683,11 +12573,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$array of function array_map expects array, mixed given\\.$#"
 			count: 2
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#2 \\$offset of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUsers\\(\\) expects int, mixed given\\.$#"
-			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
@@ -12876,7 +12761,7 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:399 given\\.$#"
+			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:386 given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
@@ -13609,11 +13494,6 @@ parameters:
 			message: "#^Cannot access property \\$token on App\\\\Models\\\\PasswordReset\\|null\\.$#"
 			count: 1
 			path: app/Services/Passwords/TokenRepositoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<int\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, int\\>\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__ProcessorJob\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
@@ -14856,11 +14736,6 @@ parameters:
 			path: app/Services/Search/Listeners/IndexExpiredListenerTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\FulltextProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\Search\\\\Processors\\\\FulltextIndex\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Services\\\\Search\\\\Processors\\\\FulltextIndex\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/FulltextProcessor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\FulltextsProcessor\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processors\\\\FulltextsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/FulltextsProcessor.php
@@ -15746,27 +15621,47 @@ parameters:
 			path: app/Utils/Eloquent/SmartSave/BatchSave.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\Concerns\\\\ChunkConverterTest_ChunkConverter\\:\\:__construct\\(\\) has parameter \\$converter with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
+			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
+			count: 3
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\Concerns\\\\ChunkConverterTest_ChunkConverter\\:\\:getConverter\\(\\) return type has no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
+			message: "#^Cannot call method with\\(\\) on mixed\\.$#"
+			count: 4
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
 
 		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\Concerns\\\\ChunkConverterTest_ChunkConverter\\:\\:\\$converter type has no signature specified for Closure\\.$#"
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:162 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
 			count: 1
-			path: app/Utils/Iterators/Concerns/ChunkConverterTest.php
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array given\\.$#"
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:192 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
 			count: 1
-			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
 
 		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:215 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
+			count: 1
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:238 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
+			count: 1
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$converter of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:162 constructor expects Closure\\(mixed\\)\\: mixed, Closure\\(int\\)\\: int\\<min, 2\\>\\|int\\<4, max\\> given\\.$#"
+			count: 1
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$converter of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:192 constructor expects Closure\\(mixed\\)\\: mixed, Closure\\(int\\)\\: int\\<min, 2\\>\\|int\\<4, max\\> given\\.$#"
+			count: 1
+			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
 
@@ -15786,17 +15681,7 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/EloquentIteratorTest.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereIn\\(\\)\\.$#"
-			count: 1
-			path: app/Utils/Iterators/Eloquent/ModelsIterator.php
-
-		-
-			message: "#^Parameter \\#2 \\$offset of function array_slice expects int, mixed given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/Eloquent/ModelsIterator.php
-
-		-
-			message: "#^Parameter \\#3 \\$length of function array_slice expects int\\|null, mixed given\\.$#"
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:whereIn\\(\\)\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/ModelsIterator.php
 
@@ -15811,21 +15696,6 @@ parameters:
 			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$keys of class App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator constructor expects array\\<int, V of string\\>, array\\<int, int\\|string\\> given\\.$#"
-			count: 2
-			path: app/Utils/Iterators/Eloquent/ModelsIteratorTest.php
-
-		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorImpl.php
-
-		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIterator.php
-
-		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
@@ -15836,19 +15706,24 @@ parameters:
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator constructor expects Closure\\(mixed\\)\\: int, Closure\\(int\\)\\: int given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(int\\)\\: int given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$converter of class App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator constructor expects Closure\\(mixed\\)\\: int\\|null, Closure\\(int\\)\\: int\\<min, 40\\>\\|int\\<60, max\\>\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(int\\)\\: int\\<min, 40\\>\\|int\\<60, max\\>\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
-			message: "#^Property App\\\\Utils\\\\Iterators\\\\ObjectIteratorsIterator\\:\\:\\$initial with generic interface App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator does not specify its types\\: T$#"
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ObjectIteratorIteratorTest\\.php\\:23 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
 			count: 1
-			path: app/Utils/Iterators/ObjectIteratorsIterator.php
+			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ObjectIteratorIteratorTest\\.php\\:90 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
+			count: 1
+			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
@@ -15859,21 +15734,6 @@ parameters:
 			message: "#^Cannot call method with\\(\\) on mixed\\.$#"
 			count: 4
 			path: app/Utils/Iterators/ObjectsIteratorTest.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\:\\:getOffset\\(\\) should return int\\|null but returns int\\|string\\|null\\.$#"
-			count: 1
-			path: app/Utils/Iterators/OffsetBasedObjectIterator.php
-
-		-
-			message: "#^Only numeric types are allowed in \\+, int\\|null given on the left side\\.$#"
-			count: 1
-			path: app/Utils/Iterators/OffsetBasedObjectIterator.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed, mixed\\> will always evaluate to true\\.$#"
-			count: 1
-			path: app/Utils/Iterators/OffsetBasedObjectIteratorTest.php
 
 		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
@@ -15882,13 +15742,8 @@ parameters:
 
 		-
 			message: "#^Cannot call method times\\(\\) on mixed\\.$#"
-			count: 5
+			count: 4
 			path: app/Utils/Iterators/OffsetBasedObjectIteratorTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Utils\\\\Iterators\\\\OneChunkOffsetBasedObjectIterator\\<mixed, mixed\\> will always evaluate to true\\.$#"
-			count: 1
-			path: app/Utils/Iterators/OneChunkOffsetBasedObjectIteratorTest.php
 
 		-
 			message: "#^Cannot call method times\\(\\) on mixed\\.$#"
@@ -15956,11 +15811,6 @@ parameters:
 			path: app/Utils/Processor/Commands/ProcessorCommand.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\CompositeProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Utils\\\\Processor\\\\CompositeState\\>\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
-			count: 1
-			path: app/Utils/Processor/CompositeProcessor.php
-
-		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 3
 			path: app/Utils/Processor/CompositeProcessorTest.php
@@ -15996,7 +15846,7 @@ parameters:
 			path: app/Utils/Processor/EloquentProcessor.php
 
 		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model, string\\>\\.$#"
+			message: "#^Method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessor.php
 
@@ -16012,26 +15862,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Utils\\\\Processor\\\\EloquentProcessorTest\\:\\:getBuilderMockSoftDeletes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/EloquentProcessorTest\\.php\\:224\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Processor/EloquentProcessorTest\\.php\\:247\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessorTest.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Processor/EloquentProcessorTest\\.php\\:224\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessorTest.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Processor/EloquentProcessorTest\\.php\\:247\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessorTest.php
 
@@ -16561,27 +16391,27 @@ parameters:
 			path: database/factories/UserSearchFactory.php
 
 		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\AssetsIteratorImporterDataWithoutDocuments\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\AssetsIteratorImporterDataWithoutDocuments\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/AssetsIteratorImporterDataWithoutDocuments.php
 
 		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\CustomersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\CustomersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/CustomersIteratorImporterData.php
 
 		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DistributorsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DistributorsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/DistributorsIteratorImporterData.php
 
 		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
 
 		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\ResellersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed, mixed\\>\\.$#"
+			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\ResellersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: tests/Data/Services/DataLoader/Importers/ResellersIteratorImporterData.php
 

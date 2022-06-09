@@ -4,7 +4,6 @@ namespace App\Utils\Processor;
 
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Iterators\Eloquent\ModelsIterator;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

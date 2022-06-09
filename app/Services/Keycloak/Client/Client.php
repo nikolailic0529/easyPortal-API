@@ -448,7 +448,6 @@ class Client {
      */
     public function getUsersIterator(): ObjectIterator {
         return new OffsetBasedObjectIterator(
-            $this->getExceptionHandler(),
             function (array $variables): array {
                 return $this->getUsers($variables['limit'], $variables['offset']);
             },
