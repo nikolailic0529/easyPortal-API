@@ -375,7 +375,7 @@ interface Constants {
     #[Setting]
     #[Group('log')]
     #[Type(LogLevel::class)]
-    public const EP_LOG_SENTRY_LEVEL = self::LOG_LEVEL;
+    public const EP_LOG_SENTRY_LEVEL = PsrLogLevel::WARNING;
 
     /**
      * Exceptions that will not be sent to Sentry. Some exception like
