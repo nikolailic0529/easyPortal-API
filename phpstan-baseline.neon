@@ -641,11 +641,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Org/Loader.php
 
 		-
-			message: "#^Parameter \\#3 \\$default of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:when\\(\\) expects \\(callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, mixed\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: void given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Org/Loader.php
-
-		-
 			message: "#^Anonymous function should return App\\\\Models\\\\Organization but returns App\\\\Models\\\\Organization\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Org/LoaderTest.php
@@ -4066,11 +4061,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetTypesTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$value of method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:having\\(\\) expects string\\|null, int given\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Assets/AssetsAggregated.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsAggregatedTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsAggregatedTest.php
@@ -5701,17 +5691,7 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\Asset\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Asset\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Asset\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -5951,11 +5931,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
@@ -6124,11 +6099,6 @@ parameters:
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Audits\\\\Model\\:\\:\\$casts is not the same as PHPDoc type array\\<string, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Audits/Model.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\ChangeRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
 
 		-
 			message: "#^Method App\\\\Models\\\\ChangeRequest\\:\\:files\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany does not specify its types\\: TRelatedModel$#"
@@ -6441,18 +6411,8 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\Customer\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
-			count: 1
 			path: app/Models/Customer.php
 
 		-
@@ -6656,11 +6616,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
@@ -6846,17 +6801,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\Document\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Document\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Document\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -7052,11 +6997,6 @@ parameters:
 
 		-
 			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -7321,17 +7261,7 @@ parameters:
 			path: app/Models/Logs/Model.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\Note\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Note\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -7382,11 +7312,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Note\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -7576,17 +7501,7 @@ parameters:
 			path: app/Models/Product.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\QuoteRequest\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\QuoteRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\QuoteRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
 
@@ -7666,11 +7581,6 @@ parameters:
 			path: app/Models/QuoteRequest.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:duration\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/QuoteRequestAsset.php
@@ -7741,17 +7651,7 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Instanceof between App\\\\Utils\\\\Eloquent\\\\PolymorphicModel and class\\-string\\<App\\\\Models\\\\Reseller\\> will always evaluate to false\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\MorphMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -7918,11 +7818,6 @@ parameters:
 		-
 			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
 			path: app/Models/Reseller.php
 
 		-
@@ -8886,6 +8781,11 @@ parameters:
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
+			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Cache/CacheTest.php
+
+		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:putAll\\(\\) expects Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Cache/CacheTest.php
@@ -9242,11 +9142,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setAttribute\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:64\\:\\:children\\(\\) should return C of Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
 
@@ -9702,11 +9597,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetDocumentsWarrantiesExtended\\(\\) should return array\\<App\\\\Models\\\\AssetWarranty\\> but returns array\\<int, App\\\\Models\\\\AssetWarranty\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:children\\(\\) should return C of Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -10302,11 +10192,6 @@ parameters:
 
 		-
 			message: "#^Cannot call method setAttribute\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:children\\(\\) should return C of Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Support\\\\Collection\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -11594,11 +11479,6 @@ parameters:
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function mb_strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/UuidNormalizer.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:getCache\\(\\) should return App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
@@ -14326,11 +14206,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Cannot call method toSearchableArray\\(\\) on class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\|Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Dynamic call to static method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:103\\:\\:find\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -15056,7 +14931,7 @@ parameters:
 			path: app/Services/Search/Queue/Tasks/Index.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Queue\\\\Tasks\\\\Index\\:\\:init\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\>\\|class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Queue\\\\Tasks\\\\Index\\:\\:init\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable\\>&class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Tasks/Index.php
 
@@ -15871,17 +15746,7 @@ parameters:
 			path: app/Utils/Processor/ProcessorTest.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
-			count: 1
-			path: app/Utils/Validation/Validator.php
-
-		-
 			message: "#^Property Illuminate\\\\Validation\\\\Validator\\:\\:\\$currentRule \\(string\\) in isset\\(\\) is not nullable\\.$#"
-			count: 1
-			path: app/Utils/Validation/Validator.php
-
-		-
-			message: "#^Result of && is always true\\.$#"
 			count: 1
 			path: app/Utils/Validation/Validator.php
 
