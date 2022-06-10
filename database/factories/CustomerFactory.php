@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
-use App\Models\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -30,14 +29,9 @@ class CustomerFactory extends Factory {
      * @return array<mixed>
      */
     public function definition(): array {
-        $object = $this->newModel()->getMorphClass();
-
         return [
             'id'              => $this->faker->uuid(),
             'name'            => $this->faker->company(),
-            'type_id'         => static function () use ($object): Type {
-                return Type::factory()->create(['object_type' => $object]);
-            },
             'kpi_id'          => null,
             'assets_count'    => 0,
             'locations_count' => 0,

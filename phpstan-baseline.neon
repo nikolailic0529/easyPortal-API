@@ -4511,31 +4511,6 @@ parameters:
 			path: app/GraphQL/Queries/Customers/CustomerTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypes.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypesTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypesTest\\:\\:testInvoke\\(\\) has parameter \\$typesFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTypesTest\\:\\:testInvoke\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTypesTest.php
-
-		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersAggregated.php
@@ -6501,11 +6476,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:type\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -7718,11 +7688,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Reseller\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
 			count: 5
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Reseller\\:\\:type\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
 			path: app/Models/Reseller.php
 
 		-
@@ -9086,17 +9051,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
@@ -9107,16 +9062,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:testCompanyType\\(\\) has parameter \\$ownerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:testCompanyType\\(\\) has parameter \\$typesFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
@@ -9756,11 +9701,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -10121,11 +10061,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
@@ -10142,11 +10077,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
@@ -10336,11 +10266,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
@@ -10427,11 +10352,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
@@ -10746,11 +10666,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
@@ -10806,11 +10721,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
@@ -10831,11 +10741,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
@@ -10847,11 +10752,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
 
@@ -10881,11 +10781,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
@@ -10897,11 +10792,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
@@ -10926,11 +10816,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
@@ -10942,11 +10827,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
@@ -10971,11 +10851,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
@@ -10996,11 +10871,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
@@ -11017,11 +10887,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
@@ -11081,11 +10946,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
@@ -11111,11 +10971,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
@@ -11127,11 +10982,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
@@ -11152,11 +11002,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
@@ -11291,11 +11136,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
@@ -11336,11 +11176,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
@@ -11367,11 +11202,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
@@ -11406,11 +11236,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
@@ -11437,11 +11262,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:getCompanyType\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 

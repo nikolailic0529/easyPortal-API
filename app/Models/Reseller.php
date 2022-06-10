@@ -9,7 +9,6 @@ use App\Models\Relations\HasDocuments;
 use App\Models\Relations\HasKpi;
 use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
-use App\Models\Relations\HasType;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -23,7 +22,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Reseller.
  *
  * @property string                            $id
- * @property string                            $type_id
  * @property string                            $name
  * @property string|null                       $kpi_id
  * @property int                               $customers_count
@@ -44,7 +42,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Kpi|null                          $kpi
  * @property Collection<int, ResellerLocation> $locations
  * @property Collection<int, Status>           $statuses
- * @property Type                              $type
  * @method static ResellerFactory factory(...$parameters)
  * @method static Builder|Reseller newModelQuery()
  * @method static Builder|Reseller newQuery()
@@ -53,7 +50,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Reseller extends Model {
     use HasFactory;
     use HasAssets;
-    use HasType;
     use HasStatuses;
     use HasContacts;
     use HasKpi;

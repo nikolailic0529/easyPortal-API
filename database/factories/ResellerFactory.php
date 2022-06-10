@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Reseller;
-use App\Models\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -30,13 +29,8 @@ class ResellerFactory extends Factory {
      * @return array<mixed>
      */
     public function definition(): array {
-        $object = $this->newModel()->getMorphClass();
-
         return [
             'id'              => $this->faker->uuid(),
-            'type_id'         => static function () use ($object): Type {
-                return Type::factory()->create(['object_type' => $object]);
-            },
             'kpi_id'          => null,
             'name'            => $this->faker->company(),
             'customers_count' => 0,

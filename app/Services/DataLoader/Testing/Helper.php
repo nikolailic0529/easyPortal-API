@@ -20,7 +20,6 @@ use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContra
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -36,11 +35,8 @@ use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use Tests\TestCase;
 
-use function array_map;
-use function array_unique;
 use function array_values;
 use function is_null;
-use function reset;
 
 /**
  * @mixin TestCase
@@ -248,14 +244,6 @@ trait Helper {
 
     // <editor-fold desc="Company">
     // =========================================================================
-    protected function getCompanyType(Company $company): string {
-        $types = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->type;
-        }, $company->companyTypes));
-
-        return reset($types);
-    }
-
     /**
      * @return array<mixed>
      */

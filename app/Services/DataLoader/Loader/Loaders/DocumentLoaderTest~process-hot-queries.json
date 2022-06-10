@@ -42,7 +42,7 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "5843b334-8762-5dbf-bfdf-41caca78e497",
-            "8bc07e89-51b5-5f40-80f3-667e7e3085ce",
+            "5e540a75-3fbd-50b2-97e5-5b244f6a3d52",
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17"
         ]
     },

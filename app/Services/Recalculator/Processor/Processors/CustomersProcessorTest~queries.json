@@ -46,7 +46,7 @@
         "query": "update `customer_locations` set `assets_count` = ?, `customer_locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:02:05",
+            "2021-08-30 00:01:59",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5"
         ]
     },
@@ -57,7 +57,7 @@
             1,
             1,
             2,
-            "2021-08-30 00:02:13",
+            "2021-08-30 00:02:07",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
         ]
     },
@@ -65,7 +65,7 @@
         "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:02:21",
+            "2021-08-30 00:02:15",
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a"
         ]
     }

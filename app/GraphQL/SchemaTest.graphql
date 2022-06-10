@@ -2225,31 +2225,6 @@ input SearchByConditionCustomerStatusesQuery {
 }
 
 """
-Available conditions for input CustomerTypesQuery (only one property allowed at a time).
-"""
-input SearchByConditionCustomerTypesQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionCustomerTypesQuery!]
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionCustomerTypesQuery!]
-
-    """
-    Property condition.
-    """
-    customers: SearchByComplexRelationCustomersQuery
-
-    """
-    Not.
-    """
-    not: SearchByConditionCustomerTypesQuery
-}
-
-"""
 Available conditions for input CustomersQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomersQuery {
@@ -2322,11 +2297,6 @@ input SearchByConditionCustomersQuery {
     Property condition.
     """
     statuses_count: SearchByScalarInt
-
-    """
-    Property condition.
-    """
-    type_id: SearchByScalarID
 }
 
 """
@@ -4410,11 +4380,6 @@ input SortByClauseCustomersSort {
     Property clause.
     """
     name: SortByDirection
-
-    """
-    Property clause.
-    """
-    type: SortByClauseTypesSort
 }
 
 """
@@ -4811,16 +4776,6 @@ input SortByClauseTag {
     """
     id: SortByDirection
 
-    """
-    Property clause.
-    """
-    name: SortByDirection
-}
-
-"""
-Sort clause for input TypesSort (only one property allowed at a time).
-"""
-input SortByClauseTypesSort {
     """
     Property clause.
     """
@@ -6449,11 +6404,6 @@ type Customer {
     @relation
 
     synced_at: DateTime!
-
-    type: Type!
-    @relation
-
-    type_id: ID!
 }
 
 type CustomerLocation {
@@ -9218,48 +9168,6 @@ type Query {
     )
     @all(
         builder: "App\\GraphQL\\Queries\\Customers\\CustomerStatuses"
-    )
-    @cached
-
-    """
-    List of all possible customer types.
-
-    @require <organization> Authenticated user must be a member of the current organization.
-
-    @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-    """
-    customerTypes(
-        where: SearchByConditionCustomerTypesQuery
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
-                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
-            ]
-        )
-    ): [Type!]!
-    @organization
-    @me(
-        permissions: ["customers-view"]
-    )
-    @all(
-        builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
     )
     @cached
 

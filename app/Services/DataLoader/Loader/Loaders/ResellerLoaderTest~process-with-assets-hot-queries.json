@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
+            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "7621f815-df52-5f5e-a92c-9244189847e5"
+            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
         ]
     },
     {
@@ -33,12 +33,8 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "6064ff66-f89d-574d-9e4a-b958bc105161"
+            "7621f815-df52-5f5e-a92c-9244189847e5"
         ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
@@ -52,6 +48,10 @@
     },
     {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -147,7 +147,7 @@
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
             "159b2b48-b002-524a-9678-3c124120e9af",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "76657ada-28d9-5d39-8709-2e525e4082c7"
         ]
     },
     {
@@ -181,7 +181,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
+            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
         ]
     },
     {
@@ -199,7 +199,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "76657ada-28d9-5d39-8709-2e525e4082c7"
         ]
     },
     {
@@ -289,8 +289,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
+            "81d534c5-a257-5850-afb6-72cad50161b8",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
             "211 bechtelar village",
             "56011"
         ]

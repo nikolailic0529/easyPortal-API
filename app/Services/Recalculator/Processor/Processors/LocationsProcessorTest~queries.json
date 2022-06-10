@@ -57,11 +57,11 @@
         "query": "insert into `location_resellers` (`assets_count`, `created_at`, `id`, `location_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             2,
-            "2021-08-30 00:01:59",
+            "2021-08-30 00:01:44",
             "bb5cf030-282d-5742-abdb-557648ab4139",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "2021-08-30 00:01:59"
+            "2021-08-30 00:01:44"
         ]
     },
     {
@@ -74,7 +74,7 @@
         "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             2,
-            "2021-08-30 00:02:03",
+            "2021-08-30 00:01:48",
             "09477b7e-4f12-5f29-ad60-559bab1718e4"
         ]
     },
@@ -82,24 +82,24 @@
         "query": "insert into `location_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `location_id`, `updated_at`) values (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
-            "2021-08-30 00:02:01",
+            "2021-08-30 00:01:46",
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-08-30 00:02:01",
+            "2021-08-30 00:01:46",
             1,
-            "2021-08-30 00:02:02",
+            "2021-08-30 00:01:47",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "2021-08-30 00:02:02"
+            "2021-08-30 00:01:47"
         ]
     },
     {
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             2,
-            "2021-08-30 00:02:13",
+            "2021-08-30 00:01:58",
             "09477b7e-4f12-5f29-ad60-559bab1718e4"
         ]
     },
@@ -119,7 +119,7 @@
         "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             0,
-            "2021-08-30 00:02:21",
+            "2021-08-30 00:02:06",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234"
         ]
     },
@@ -127,7 +127,7 @@
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:02:29",
+            "2021-08-30 00:02:14",
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234"
         ]
     },
@@ -147,7 +147,7 @@
         "query": "update `locations` set `customers_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             0,
-            "2021-08-30 00:02:37",
+            "2021-08-30 00:02:22",
             "78282ba7-a73f-59f8-9871-ba703198d433"
         ]
     },
@@ -155,7 +155,7 @@
         "query": "update `locations` set `assets_count` = ?, `locations`.`updated_at` = ? where `id` = ?",
         "bindings": [
             0,
-            "2021-08-30 00:02:45",
+            "2021-08-30 00:02:30",
             "78282ba7-a73f-59f8-9871-ba703198d433"
         ]
     }

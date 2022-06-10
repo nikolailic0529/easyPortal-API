@@ -10,7 +10,6 @@ use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasQuotes;
 use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
-use App\Models\Relations\HasType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Customer.
  *
  * @property string                           $id
- * @property string                           $type_id
  * @property string                           $name
  * @property string|null                      $kpi_id
  * @property int                              $assets_count
@@ -50,7 +48,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property-read Collection<int, Document>   $quotes
  * @property-read Collection<int, Reseller>   $resellers
  * @property Collection<int, Status>          $statuses
- * @property Type                             $type
  * @method static CustomerFactory factory(...$parameters)
  * @method static Builder|Customer newModelQuery()
  * @method static Builder|Customer newQuery()
@@ -59,7 +56,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Customer extends Model implements OwnedByOrganization, Searchable {
     use SearchableImpl;
     use HasFactory;
-    use HasType;
     use HasStatuses;
     use HasAssets;
     use HasContacts;

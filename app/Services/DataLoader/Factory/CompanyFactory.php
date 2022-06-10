@@ -3,9 +3,6 @@
 namespace App\Services\DataLoader\Factory;
 
 use App\Models\Status;
-use App\Models\Type;
-use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
-use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;
@@ -16,15 +13,9 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
-
-use function array_map;
-use function array_unique;
-use function count;
-use function reset;
 
 /**
  * @template TCompany of \App\Models\Reseller|\App\Models\Customer
@@ -87,26 +78,6 @@ abstract class CompanyFactory extends ModelFactory {
             })
             ->unique()
             ->all();
-    }
-
-    /**
-     * @param array<CompanyType> $types
-     */
-    protected function companyType(Model $owner, array $types): Type {
-        $type  = null;
-        $names = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->type;
-        }, $types));
-
-        if (count($names) > 1) {
-            throw new FailedToProcessCompanyMultipleTypes($owner->getKey(), $names);
-        } elseif (count($names) < 1) {
-            throw new FailedToProcessCompanyUnknownType($owner->getKey());
-        } else {
-            $type = $this->type($owner, reset($names));
-        }
-
-        return $type;
     }
     // </editor-fold>
 }
