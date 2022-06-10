@@ -9431,11 +9431,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Anonymous function should return string but returns string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Cannot access property \\$asset on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
@@ -9587,11 +9582,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:pull\\(\\) expects int, int\\|string\\|true given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$document of class App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToProcessViewAssetDocumentNoDocument constructor expects App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument, App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAssetDocument\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 

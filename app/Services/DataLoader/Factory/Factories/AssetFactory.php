@@ -16,7 +16,6 @@ use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
 use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetCoverageEntry;
-use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAssetDocument;
@@ -353,21 +352,6 @@ class AssetFactory extends ModelFactory {
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
 
-        // Log assets were documents is missed
-        (new Collection($asset->assetDocument))
-            ->filter(static function (ViewAssetDocument $document): bool {
-                return isset($document->documentNumber) && !isset($document->document->id);
-            })
-            ->groupBy(static function (ViewAssetDocument $document): string {
-                return $document->documentNumber;
-            })
-            ->each(function (Collection $entries) use ($model): void {
-                $this->getExceptionHandler()->report(
-                    new FailedToProcessViewAssetDocumentNoDocument($model, $entries->first()),
-                );
-            });
-
-        // Return
         return (new Collection($asset->assetDocument))
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber);

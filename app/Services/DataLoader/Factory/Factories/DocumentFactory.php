@@ -13,7 +13,6 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
 use App\Services\DataLoader\Factory\Concerns\WithAsset;
@@ -232,10 +231,7 @@ class DocumentFactory extends ModelFactory {
     protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
         // Document exists?
         if (!isset($object->document->document->id)) {
-            throw new FailedToProcessViewAssetDocumentNoDocument(
-                $object->asset,
-                $object->document,
-            );
+            return null;
         }
 
         // Get/Create/Update

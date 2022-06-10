@@ -11,7 +11,6 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
-use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
@@ -188,12 +187,7 @@ class DocumentFactoryTest extends TestCase {
             'document' => reset($asset->assetDocument),
         ]);
 
-        self::expectExceptionObject(new FailedToProcessViewAssetDocumentNoDocument(
-            $object->asset,
-            $object->document,
-        ));
-
-        $factory->createFromAssetDocumentObject($object);
+        self::assertNull($factory->createFromAssetDocumentObject($object));
     }
 
     /**
