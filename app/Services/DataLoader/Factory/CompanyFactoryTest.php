@@ -2,21 +2,14 @@
 
 namespace App\Services\DataLoader\Factory;
 
-use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
-use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Company as CompanyObject;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Model;
-use Closure;
-use Exception;
 use Tests\TestCase;
 
-use function tap;
 
 /**
  * @internal
@@ -85,119 +78,6 @@ class CompanyFactoryTest extends TestCase {
 
         self::assertCount(2, $statuses);
         self::assertEquals($expected, $this->statuses($statuses));
-    }
-
-    /**
-     * @covers ::companyType
-     *
-     * @dataProvider dataProviderCompanyType
-     */
-    public function testCompanyType(string|Exception $expected, Closure $ownerFactory, Closure $typesFactory): void {
-        // Prepare
-        $factory = new class() extends CompanyFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public function create(Type $type): ?Model {
-                return null;
-            }
-
-            protected function type(Model $model, string $type): TypeModel {
-                return TypeModel::factory()->make([
-                    'object_type' => $model,
-                    'key'         => $type,
-                ]);
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function companyType(Model $owner, array $types): TypeModel {
-                return parent::companyType($owner, $types);
-            }
-        };
-
-        // Test
-        if ($expected instanceof Exception) {
-            self::expectExceptionObject($expected);
-        }
-
-        $owner  = $ownerFactory($this);
-        $types  = $typesFactory($this);
-        $actual = $factory->companyType($owner, $types);
-
-        self::assertNotNull($actual);
-        self::assertEquals($expected, $actual->key);
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="DataProviders">
-    // =========================================================================
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderCompanyType(): array {
-        $id           = '5393c8a2-f0ef-4216-85a3-46fb458c9ff3';
-        $ownerFactory = static function () use ($id): Model {
-            $owner = new class() extends Model {
-                // empty
-            };
-
-            $owner->setAttribute($owner->getKeyName(), $id);
-
-            return $owner;
-        };
-
-        return [
-            'one value'                => [
-                'value',
-                $ownerFactory,
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values, but same' => [
-                'value',
-                $ownerFactory,
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values'           => [
-                new FailedToProcessCompanyMultipleTypes($id, ['value a', 'value b']),
-                $ownerFactory,
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value a';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value b';
-                        }),
-                    ];
-                },
-            ],
-            'empty'                    => [
-                new FailedToProcessCompanyUnknownType($id),
-                $ownerFactory,
-                static function (): array {
-                    return [];
-                },
-            ],
-        ];
     }
     // </editor-fold>
 }

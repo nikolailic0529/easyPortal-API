@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
+            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "7621f815-df52-5f5e-a92c-9244189847e5"
+            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
         ]
     },
     {
@@ -33,12 +33,8 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "6064ff66-f89d-574d-9e4a-b958bc105161"
+            "7621f815-df52-5f5e-a92c-9244189847e5"
         ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
@@ -52,6 +48,10 @@
     },
     {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -93,7 +93,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "1144a493-a8f7-5d65-8c73-cd4f74fe314b"
+            "cdf952b8-62aa-56e0-9ca1-16f443edde92"
         ]
     },
     {
@@ -111,7 +111,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5"
+            "76657ada-28d9-5d39-8709-2e525e4082c7"
         ]
     },
     {
@@ -254,7 +254,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "2021-10-01 00:16:33",
             "d3138db9-8219-3fc0-ab80-4c641bf8b571",
             "130",
@@ -285,12 +285,12 @@
             "c6884308-c689-5596-8b93-6e85fd3cb8e4",
             "2022-02-02 00:00:36",
             "24887de2-db5b-5df6-95d5-fc8f32823b90",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:00:36",
             "c6884308-c689-5596-8b93-6e85fd3cb8e4",
             "2022-02-02 00:00:37",
             "59fd9897-f77a-55bb-b83e-22e40f93c112",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:00:37"
         ]
     },
@@ -311,7 +311,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "e37b2c5e-e622-5bb4-8db3-2eb27581da13",
             "65a06849-8a2a-5b0b-9d83-2f2d3a4e0e75",
             "2022-02-02 00:00:39",
@@ -394,7 +394,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "60711d0f-f5f3-58d4-bc16-21b1b9695580",
+            "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -420,7 +420,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "3974e30b-711f-5aca-a025-6db8456649a0",
+            "bce374ad-c509-587b-bc55-d6996979b482",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -546,7 +546,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "2021-12-10 09:53:07",
             "9a210907-8bf1-3e9c-8e83-c3eda652060f",
             "130",
@@ -577,12 +577,12 @@
             "c3587515-4a4a-5bb0-af92-ab4521ca7f2a",
             "2022-02-02 00:01:16",
             "b0a39809-81d2-5ab2-9f49-c3a4eb26bfbf",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:01:16",
             "c3587515-4a4a-5bb0-af92-ab4521ca7f2a",
             "2022-02-02 00:01:17",
             "7544a321-416c-5ffc-9238-da9ac93763a3",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:01:17"
         ]
     },
@@ -603,7 +603,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "75997dbe-524f-58ed-8bae-d24e011cb8d0",
             "c2cfac1c-df93-525d-81a2-ae95f811b6d1",
             "2022-02-02 00:01:19",
@@ -711,7 +711,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "2021-10-01 00:16:35",
             "d23ba064-b451-35b2-91bd-1e64b70084c8",
             "130",
@@ -742,12 +742,12 @@
             "4cdd166f-3579-5cb4-87d2-d0a3ffe7112d",
             "2022-02-02 00:01:43",
             "48aa0887-b4d3-54ab-b227-11f780517916",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:01:43",
             "4cdd166f-3579-5cb4-87d2-d0a3ffe7112d",
             "2022-02-02 00:01:44",
             "82955c99-4db7-5da0-a259-f71a07184bb8",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:01:44"
         ]
     },
@@ -768,7 +768,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "e29235dd-0fdb-5f2e-a8ab-bf57e7dc8864",
             "79796c0d-5073-512f-bc67-dc59cb6a09a5",
             "2022-02-02 00:01:46",
@@ -876,7 +876,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "2021-10-01 00:16:36",
             "15289d99-6173-36f2-8541-3412124ace5f",
             "130",
@@ -907,12 +907,12 @@
             "6d857b29-3ab8-59e6-8df6-8a64ee9032f7",
             "2022-02-02 00:02:10",
             "e6d2afbc-f8bb-5f69-b06e-7b6a7bd3dc79",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:02:10",
             "6d857b29-3ab8-59e6-8df6-8a64ee9032f7",
             "2022-02-02 00:02:11",
             "bbd957d4-5854-5050-910b-83ff5c321f72",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:02:11"
         ]
     },
@@ -933,7 +933,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "958db2c2-57b0-58d4-ae0e-dcb64c4dc734",
             "a997a8f7-1cc1-5c30-9bd7-6a9c18cba481",
             "2022-02-02 00:02:13",
@@ -1034,8 +1034,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
+            "81d534c5-a257-5850-afb6-72cad50161b8",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
             "211 bechtelar village",
             "56011"
         ]
@@ -1043,8 +1043,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "0a872c01-f844-590a-a819-942bfa09a5d2",
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
+            "eabf4f13-5992-5b75-a46c-5738f0e87a69",
+            "81d534c5-a257-5850-afb6-72cad50161b8",
             "56011",
             "",
             "211 Bechtelar Village",
@@ -1098,12 +1098,12 @@
             "8d17f0e9-81dd-552e-b933-1d25327e3709",
             "2022-02-02 00:02:38",
             "7f503938-2c72-5549-a24b-d06561dcdaf4",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:02:38",
             "8d17f0e9-81dd-552e-b933-1d25327e3709",
             "2022-02-02 00:02:39",
             "76b01b2e-d88e-5d12-858d-2ba0514f29e3",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:02:39"
         ]
     },
@@ -1124,7 +1124,7 @@
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "5361b9a3-ccf0-5b28-9d52-6b4f6979776d",
             "b2ce2834-98a8-5b0b-90fb-94e43e38cc38",
             "2022-02-02 00:02:41",
@@ -1287,7 +1287,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "d16a26dd-c9b3-5b59-b2f5-a2b6df3f76b1"
+            "eb616e0a-0031-5990-9a2b-a515560ffd96"
         ]
     },
     {
@@ -1305,7 +1305,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "a4774fd9-b268-55a8-9e22-455d21c5b8c2"
+            "b921b865-6cb1-5f24-8a00-1067b776d781"
         ]
     },
     {
@@ -1437,7 +1437,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "4ae114f6-f2f3-3999-b195-3df3197f8273",
-            "3974e30b-711f-5aca-a025-6db8456649a0",
+            "bce374ad-c509-587b-bc55-d6996979b482",
             "21f48d0b-e7fa-43dc-8099-33ebe099cbbe",
             "0173bb5b-bb26-4945-a127-9b7c035aeed4",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -1469,7 +1469,7 @@
             "5b306736-ed02-512a-bd70-106f48e9c4b5",
             "21f48d0b-e7fa-43dc-8099-33ebe099cbbe",
             "0173bb5b-bb26-4945-a127-9b7c035aeed4",
-            "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
+            "b921b865-6cb1-5f24-8a00-1067b776d781",
             "5297eb43-98a7-5979-8b8d-aca88d5e71b2",
             null,
             "70",
@@ -1487,17 +1487,17 @@
             "4a44252a-7c98-5812-9b59-aa54c4f76d92",
             "2022-02-02 00:03:38",
             "230ed6f6-71cc-5780-aea1-22f0321a97e4",
-            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
+            "f10232e3-9024-567f-9383-55ba191f128d",
             "2022-02-02 00:03:38",
             "4a44252a-7c98-5812-9b59-aa54c4f76d92",
             "2022-02-02 00:03:39",
             "ae78e6d3-4404-5528-91f1-b95e3b667421",
-            "b921b865-6cb1-5f24-8a00-1067b776d781",
+            "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "2022-02-02 00:03:39",
             "e0a79525-787b-5bb4-8fde-7319d5ffede4",
             "2022-02-02 00:03:40",
             "2b719401-2cce-5639-a4f5-ed6a2fa7d069",
-            "4c01bb5a-8d5e-59ee-a7db-f619415a5da1",
+            "6c6d5af5-90e0-5272-b30d-3aaa2a439633",
             "2022-02-02 00:03:40"
         ]
     },

@@ -63,20 +63,20 @@
         "bindings": [
             "0058a1fb-5cc4-5d87-af14-ab8e8a368d5b",
             "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
-            "0593ec50-95af-5996-a8bd-887ed8c832e5",
             "059e44b8-e3ad-5096-804e-49c8a2a45d59",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             "4a0381cc-5f50-549d-9681-a9e61e299cfc",
             "5a8ad59e-46e7-52ff-b48e-e8008dae9000",
             "60e07e52-6704-5c13-ba23-c44fec57ce69",
-            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "8bb66c17-c929-5a98-9427-93b4d8d6a802",
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "95efb1d0-bb22-5761-828d-18f9957d86fe",
+            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "b4f932d3-6231-5d8b-a158-617c38d9ebdd",
             "bb01f74e-ea1b-5429-8bfc-af6ef89ebbf2",
             "bcc32455-cced-5dc7-a8b7-e48664234c62",
-            "cbbc9cb7-d0bc-5c5c-bc43-9604e274b027"
+            "cbbc9cb7-d0bc-5c5c-bc43-9604e274b027",
+            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca"
         ]
     },
     {
@@ -548,17 +548,17 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "0593ec50-95af-5996-a8bd-887ed8c832e5",
             "2176c240-73ad-5c49-ae73-b7c68401b095",
             "27d1acb7-c718-51a9-a7a9-a28cbbc31345",
             "39e4625b-b7f5-5a76-90d1-6f56adf5020c",
             "48b540c5-a1b8-524f-908f-3b508a4c8dab",
             "6082117e-cacb-566f-a768-e24121c25f11",
-            "76657ada-28d9-5d39-8709-2e525e4082c7",
             "7a334a1e-a143-5db7-8fd2-9103cf040b9a",
             "90168e4a-6f66-578f-a697-0831bebf1a99",
+            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "a9564db2-3557-5f9c-a42c-758624a62803",
             "c3b58bec-b1b0-5d2d-9979-813f80f6df0d",
+            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
             "f3596ddc-962e-5ddc-ab8b-f243660f6e59"
         ]
     },

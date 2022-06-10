@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "a38d080e-0a99-51ba-b25e-05a0f175e183"
+            "40940c08-224e-5fc1-8090-4fb12d9837d2"
         ]
     },
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`deleted_at` is null and `customer_location_types`.`customer_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "ce2dbe99-a500-5027-b814-5e976350fcb9"
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4"
         ]
     },
     {
@@ -33,7 +33,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "bfed16ba-537b-5382-a8c3-eaef6c3e8897"
+            "f4510e55-457f-5cef-b3b5-6febd400acdf"
         ]
     },
     {
@@ -45,8 +45,8 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "271890ae-435b-595c-8e00-d23495b5bbbd",
-            "f6de2667-5990-59c3-92a5-07ad44454b8c"
+            "bfed16ba-537b-5382-a8c3-eaef6c3e8897",
+            "ce2dbe99-a500-5027-b814-5e976350fcb9"
         ]
     },
     {
@@ -59,13 +59,9 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "8317af49-83a3-574e-97d3-12abdacae412",
-            "d784ea67-eeab-5220-acad-43a21486cfa7"
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            "f6de2667-5990-59c3-92a5-07ad44454b8c"
         ]
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
@@ -76,6 +72,10 @@
         "bindings": [
             "a04716f3-95de-4046-ab13-7a575cf67f85"
         ]
+    },
+    {
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
     },
     {
         "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
@@ -179,17 +179,17 @@
             "6423ff5b-43d2-5f3b-b999-ee0a75dbf582",
             "71708473-89f1-5b9e-9315-86fb1fcbc61e",
             "7f6c1358-3e5a-5b31-b51b-c51954f4f5cd",
-            "8317af49-83a3-574e-97d3-12abdacae412",
             "905e69e8-ab2b-50f9-8aae-a9ff06658ba1",
             "9dea4802-4cb6-53a4-a2bb-48e0d0719df2",
             "af7ac4a4-f262-5b72-a379-a8a4faf2c9b7",
             "b1285b02-2938-5c37-a7f6-e0f074393b00",
             "c7aec0ba-0480-5939-a374-a15a4dcf0909",
             "d48b266f-30b7-5e40-bdd8-ec1a0d61bf40",
-            "d784ea67-eeab-5220-acad-43a21486cfa7",
             "d90e623b-e372-596c-88f0-1119efd13be2",
             "daa589e0-932b-5084-ab57-e4f965db8418",
             "f0d65096-589f-5987-87bd-636af55a91a4",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
+            "f6de2667-5990-59c3-92a5-07ad44454b8c",
             "fac05a7e-c167-5c76-9713-32cb83574527"
         ]
     },
