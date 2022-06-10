@@ -33,7 +33,10 @@ class Normalizer implements Singleton {
         // empty
     }
 
-    public function uuid(mixed $value): string {
+    /**
+     * @return ($value is string ? string : string|null)
+     */
+    public function uuid(mixed $value): ?string {
         return $this->uuid->normalize($value);
     }
 

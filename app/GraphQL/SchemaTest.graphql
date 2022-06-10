@@ -10997,6 +10997,17 @@ Returns the count of a given relationship or model.
 """
 directive @count(
     """
+    Count only rows where the given columns are non-null.
+    `*` counts every row.
+    """
+    columns: [String!]! = ["*"]
+
+    """
+    Should exclude duplicated rows?
+    """
+    distinct: Boolean! = false
+
+    """
     The model to count.
     Mutually exclusive with the `relation` argument.
     """

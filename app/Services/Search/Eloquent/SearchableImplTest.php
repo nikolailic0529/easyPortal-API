@@ -150,7 +150,7 @@ class SearchableImplTest extends TestCase {
         $model->addGlobalScope($scope);
 
         // Test
-        $actual   = $model->find($group->getKey())->toSearchableArray();
+        $actual   = $model->find($group->getKey())?->toSearchableArray();
         $expected = [
             Configuration::getMetadataName() => [
                 'sku' => $sku,

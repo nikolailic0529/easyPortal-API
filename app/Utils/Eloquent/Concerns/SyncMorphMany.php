@@ -23,10 +23,7 @@ trait SyncMorphMany {
         // TODO [refactor] Probably we need move it into MorphMany class
 
         // Prepare
-        /** @var MorphMany<$this> $morph */
         $morph = (new ModelHelper($this))->getRelation($relation);
-        $model = $morph->make();
-        $class = $model::class;
 
         if (!($morph instanceof MorphMany)) {
             throw new InvalidArgumentException(sprintf(
@@ -36,6 +33,8 @@ trait SyncMorphMany {
         }
 
         // Create/Update existing
+        $model    = $morph->make();
+        $class    = $model::class;
         $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
         $children = new EloquentCollection($objects);
 

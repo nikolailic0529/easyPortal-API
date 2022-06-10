@@ -37,9 +37,6 @@ abstract class Recalculate extends Job implements Initializable, ShouldBeUnique,
         return $this->getModelKey();
     }
 
-    /**
-     * @return $this<TModel>
-     */
     public function init(string $key): static {
         // Initialize
         $this->modelKey = $key;

@@ -6,8 +6,11 @@ use App\Services\Maintenance\ApplicationInfo;
 use Exception;
 use Mockery\MockInterface;
 use Sentry\Breadcrumb;
+use Sentry\Event;
+use Sentry\EventHint;
 use Sentry\ExceptionDataBag;
 use Tests\TestCase;
+use Throwable;
 
 use function reset;
 
@@ -93,5 +96,44 @@ class SentryHandlerTest extends TestCase {
 
         self::assertEquals('package@1.2.3', $handler::getRelease());
         self::assertEquals('package@1.2.3', $handler::getRelease()); // should be cached
+    }
+
+    /**
+     * @covers ::beforeSend
+     */
+    public function testBeforeSendIgnoredException(): void {
+        $this->setSettings([
+            'ep.log.sentry.ignored_exceptions' => Exception::class,
+        ]);
+
+        $event = Event::createEvent();
+        $hit   = EventHint::fromArray([
+            'exception' => new Exception(),
+        ]);
+
+        self::assertNull(SentryHandler::beforeSend($event, $hit));
+    }
+
+    /**
+     * @covers ::isIgnoredException
+     */
+    public function testIsIgnoredException(): void {
+        $a = new Exception();
+        $b = new class() extends Exception {
+            // empty
+        };
+
+        $this->setSettings([
+            'ep.log.sentry.ignored_exceptions' => $a::class,
+        ]);
+
+        $handler = new class() extends SentryHandler {
+            public static function isIgnoredException(Throwable $exception): bool {
+                return parent::isIgnoredException($exception);
+            }
+        };
+
+        self::assertTrue($handler::isIgnoredException($a));
+        self::assertFalse($handler::isIgnoredException($b));
     }
 }

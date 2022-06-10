@@ -51,6 +51,7 @@ use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
 use Psr\Log\LogLevel as PsrLogLevel;
+use RedisException;
 
 /**
  * A list of application settings.
@@ -374,7 +375,19 @@ interface Constants {
     #[Setting]
     #[Group('log')]
     #[Type(LogLevel::class)]
-    public const EP_LOG_SENTRY_LEVEL = self::LOG_LEVEL;
+    public const EP_LOG_SENTRY_LEVEL = PsrLogLevel::WARNING;
+
+    /**
+     * Exceptions that will not be sent to Sentry. Some exception like
+     * `RedisException` may create a lot of report and reach the limit very
+     * fast. To avoid this you can ignore them by class name.
+     */
+    #[Setting('ep.log.sentry.ignored_exceptions')]
+    #[Group('log')]
+    #[Type(StringType::class)]
+    public const EP_LOG_SENTRY_IGNORED_EXCEPTIONS = [
+        RedisException::class,
+    ];
 
     /**
      * Send errors to emails?

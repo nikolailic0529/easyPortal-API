@@ -39,8 +39,6 @@ abstract class EloquentProcessor extends IteratorProcessor {
 
     /**
      * @param array<string>|null $keys
-     *
-     * @return $this<TItem, TChunkData, TState>
      */
     public function setKeys(?array $keys): static {
         $this->keys = $keys !== null
