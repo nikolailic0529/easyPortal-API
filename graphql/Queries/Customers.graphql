@@ -8,15 +8,6 @@ extend type Query {
     )
     @cached
 
-    "List of all possible customer types."
-    customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
-    @organization
-    @me(permissions: ["customers-view"])
-    @all(
-        builder: "App\\GraphQL\\Queries\\Customers\\CustomerTypes"
-    )
-    @cached
-
     "List of Customers."
     customers (
         where: CustomersQuery @searchBy

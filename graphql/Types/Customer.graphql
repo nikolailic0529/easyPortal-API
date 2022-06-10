@@ -1,8 +1,6 @@
 type Customer {
     id: ID!
     name: String!
-    type: Type! @relation
-    type_id: ID!
     statuses: [Status!]! @relation
 
     contacts_count: Int!

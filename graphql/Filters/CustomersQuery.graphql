@@ -1,7 +1,6 @@
 input CustomersQuery {
     id: ID!
     name: String!
-    type_id: ID!
     statuses: StatusesQuery!
     statuses_count: Int!
     locations: CustomerLocationsQuery
