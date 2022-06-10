@@ -1772,7 +1772,7 @@ interface Constants {
     #[Service(MaintenanceTelescopeCleaner::class, 'settings.expire')]
     #[Group('maintenance')]
     #[Type(Duration::class)]
-    public const EP_MAINTENANCE_TELESCOPE_CLEANER_EXPIRE = 'P1M';
+    public const EP_MAINTENANCE_TELESCOPE_CLEANER_EXPIRE = 'P1W';
     // </editor-fold>
     // </editor-fold>
 
