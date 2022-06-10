@@ -3,6 +3,7 @@
 namespace App\Exceptions\Handlers;
 
 use App\Services\Maintenance\ApplicationInfo;
+use Illuminate\Config\Repository;
 use ReflectionClass;
 use Sentry\Breadcrumb;
 use Sentry\Event;
@@ -18,6 +19,7 @@ use Throwable;
 use function app;
 use function array_is_list;
 use function array_merge;
+use function in_array;
 use function is_a;
 use function is_array;
 use function strtolower;
@@ -25,7 +27,12 @@ use function strtolower;
 class SentryHandler {
     protected static string $release;
 
-    public static function beforeSend(Event $event, ?EventHint $hint): Event {
+    public static function beforeSend(Event $event, ?EventHint $hint): ?Event {
+        // Ignored?
+        if ($hint && $hint->exception && static::isIgnoredException($hint->exception)) {
+            return null;
+        }
+
         // Prepare
         $key   = 'log_context';
         $extra = $event->getExtra();
@@ -160,5 +167,13 @@ class SentryHandler {
         }
 
         return static::$release;
+    }
+
+    protected static function isIgnoredException(Throwable $exception): bool {
+        $config    = app()->make(Repository::class);
+        $ignored   = (array) $config->get('ep.log.sentry.ignored_exceptions') ?: [];
+        $isIgnored = in_array($exception::class, $ignored, true);
+
+        return $isIgnored;
     }
 }
