@@ -252,6 +252,7 @@
     "settings.groups.sentry": "Sentry (sentry.io)",
     "settings.groups.search": "Search",
     "settings.groups.queue": "Queue",
+    "settings.groups.telescope": "Telescope",
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "http.controllers.export.graphql_query_invalid": "GraphQL query is invalid.",

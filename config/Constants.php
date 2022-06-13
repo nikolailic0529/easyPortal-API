@@ -191,6 +191,85 @@ interface Constants {
     public const SENTRY_LARAVEL_DSN = null;
     // </editor-fold>
 
+    // <editor-fold desc="TELESCOPE">
+    // =========================================================================
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_ENABLED = false;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_BATCH_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_CACHE_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_CLIENT_REQUEST_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_COMMAND_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_DUMP_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_EVENT_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_EXCEPTION_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_GATE_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_JOB_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_LOG_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_MAIL_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_MODEL_WATCHER = false;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_NOTIFICATION_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_QUERY_WATCHER = false;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_REDIS_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_REQUEST_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_SCHEDULE_WATCHER = true;
+
+    #[Setting]
+    #[Group('telescope')]
+    public const TELESCOPE_VIEW_WATCHER = true;
+    // </editor-fold>
+
     // <editor-fold desc="EP">
     // =========================================================================
     /**
