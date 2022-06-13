@@ -43,6 +43,7 @@ class CachedTest extends TestCase {
     ): void {
         $this->setOrganization($organizationFactory);
         $this->setSettings([
+            'ep.cache.graphql.enabled'   => true,
             'ep.cache.graphql.threshold' => null,
         ]);
 
@@ -62,6 +63,49 @@ class CachedTest extends TestCase {
             ->assertThat($expected);
 
         $resolver->shouldHaveBeenCalled()->once();
+    }
+
+    /**
+     * @covers ::handleField
+     */
+    public function testResolveFieldDisabled(): void {
+        $this->setOrganization(static function (): Organization {
+            return Organization::factory()->create();
+        });
+        $this->setSettings([
+            'ep.cache.graphql.enabled' => false,
+        ]);
+
+        $expected = new GraphQLSuccess('root', null, json_encode('value'));
+        $resolver = Mockery::spy(static function (): string {
+            return 'value';
+        });
+        $graphql  = /** @lang GraphQL */
+            <<<'GRAPHQL'
+            query {
+                root
+            }
+            GRAPHQL;
+
+        $this->mockResolver($resolver);
+
+        $this->useGraphQLSchema(
+            /** @lang GraphQL */
+            <<<'GRAPHQL'
+            type Query {
+                root: String @cached @mock
+            }
+            GRAPHQL,
+        );
+
+        $this
+            ->graphQL($graphql)
+            ->assertThat($expected);
+        $this
+            ->graphQL($graphql)
+            ->assertThat($expected);
+
+        $resolver->shouldHaveBeenCalled()->twice();
     }
 
     /**

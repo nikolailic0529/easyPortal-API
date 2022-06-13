@@ -15,7 +15,6 @@ use Illuminate\Contracts\Cache\Repository as CacheContract;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
-use LogicException;
 use Mockery;
 use Tests\TestCase;
 
@@ -57,6 +56,10 @@ class CacheTest extends TestCase {
      * @covers ::markExpired
      */
     public function testGetExpired(): void {
+        $this->setSettings([
+            'ep.cache.graphql.enabled' => true,
+        ]);
+
         $handler      = Mockery::mock(ExceptionHandler::class);
         $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
@@ -74,6 +77,34 @@ class CacheTest extends TestCase {
         $cache->markExpired();
 
         self::assertInstanceOf(DateTimeInterface::class, $cache->getExpired());
+    }
+
+    /**
+     * @covers ::getExpired
+     * @covers ::markExpired
+     */
+    public function testGetExpiredDisabled(): void {
+        $this->setSettings([
+            'ep.cache.graphql.enabled' => false,
+        ]);
+
+        $handler      = Mockery::mock(ExceptionHandler::class);
+        $config       = $this->app->make(ConfigContract::class);
+        $service      = $this->app->make(Service::class);
+        $organization = $this->app->make(CurrentOrganization::class);
+        $locale       = $this->app->make(Locale::class);
+        $factory      = $this->app->make(CacheFactory::class);
+        $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
+            public function getExpired(): ?DateTimeInterface {
+                return parent::getExpired();
+            }
+        };
+
+        self::assertNull($cache->getExpired());
+
+        $cache->markExpired();
+
+        self::assertNull($cache->getExpired());
     }
 
     /**
@@ -144,30 +175,34 @@ class CacheTest extends TestCase {
      */
     public function testLockNotSupported(): void {
         $this->setSettings([
+            'ep.cache.graphql.enabled'      => true,
             'ep.cache.graphql.lock_enabled' => true,
         ]);
 
-        $handler      = Mockery::mock(ExceptionHandler::class);
-        $config       = $this->app->make(ConfigContract::class);
-        $service      = $this->app->make(Service::class);
-        $organization = Mockery::mock(CurrentOrganization::class);
-        $locale       = Mockery::mock(Locale::class);
-        $factory      = Mockery::mock(CacheFactory::class);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $config  = $this->app->make(ConfigContract::class);
+        $service = $this->app->make(Service::class);
+        $locale  = Mockery::mock(Locale::class);
+        $org     = Mockery::mock(CurrentOrganization::class);
+
+        $store = Mockery::mock(CacheContract::class);
+        $store
+            ->shouldReceive('getStore')
+            ->once()
+            ->andReturn(null);
+
+        $factory = Mockery::mock(CacheFactory::class);
         $factory
             ->shouldReceive('store')
             ->once()
-            ->andReturn(
-                Mockery::mock(CacheContract::class),
-            );
+            ->andReturn($store);
 
-        $cache    = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
+        $cache    = new class($handler, $config, $service, $org, $locale, $factory) extends Cache {
             // empty
         };
         $callback = static function (): void {
             // empty
         };
-
-        self::expectException(LogicException::class);
 
         $cache->lock('test', Closure::fromCallable($callback));
     }
@@ -182,6 +217,7 @@ class CacheTest extends TestCase {
 
         $this->setSettings([
             'ep.cache.graphql.store'        => $graphqlStore,
+            'ep.cache.graphql.enabled'      => true,
             'ep.cache.graphql.lock_enabled' => true,
             'ep.cache.graphql.lock_timeout' => "PT{$lockTimeout}S",
             'ep.cache.graphql.lock_wait'    => "PT{$lockWait}S",
@@ -255,29 +291,33 @@ class CacheTest extends TestCase {
      */
     public function testIsLockedNotSupported(): void {
         $this->setSettings([
+            'ep.cache.graphql.enabled'      => true,
             'ep.cache.graphql.lock_enabled' => true,
         ]);
 
-        $handler      = Mockery::mock(ExceptionHandler::class);
-        $config       = $this->app->make(ConfigContract::class);
-        $service      = $this->app->make(Service::class);
-        $organization = Mockery::mock(CurrentOrganization::class);
-        $locale       = Mockery::mock(Locale::class);
-        $factory      = Mockery::mock(CacheFactory::class);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $config  = $this->app->make(ConfigContract::class);
+        $service = $this->app->make(Service::class);
+        $locale  = Mockery::mock(Locale::class);
+        $org     = Mockery::mock(CurrentOrganization::class);
+
+        $store = Mockery::mock(CacheContract::class);
+        $store
+            ->shouldReceive('getStore')
+            ->once()
+            ->andReturn(null);
+
+        $factory = Mockery::mock(CacheFactory::class);
         $factory
             ->shouldReceive('store')
             ->once()
-            ->andReturn(
-                Mockery::mock(CacheContract::class),
-            );
+            ->andReturn($store);
 
-        $cache = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
+        $cache = new class($handler, $config, $service, $org, $locale, $factory) extends Cache {
             // empty
         };
 
-        self::expectException(LogicException::class);
-
-        $cache->isLocked('test');
+        self::assertFalse($cache->isLocked('test'));
     }
 
     /**
@@ -285,6 +325,7 @@ class CacheTest extends TestCase {
      */
     public function testIsLocked(): void {
         $this->setSettings([
+            'ep.cache.graphql.enabled'      => true,
             'ep.cache.graphql.lock_enabled' => true,
         ]);
 

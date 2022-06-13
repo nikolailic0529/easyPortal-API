@@ -45,20 +45,23 @@ class Cached extends BaseDirective implements FieldMiddleware {
 
     public function handleField(FieldValue $fieldValue, Closure $next): FieldValue {
         $fieldValue = $next($fieldValue);
-        $resolver   = $fieldValue->getResolver();
 
-        $fieldValue->setResolver(
-            function (
-                mixed $root,
-                array $args,
-                GraphQLContext $context,
-                ResolveInfo $resolveInfo,
-            ) use (
-                $resolver,
-            ): mixed {
-                return $this->resolve($resolver, $root, $args, $context, $resolveInfo);
-            },
-        );
+        if ($this->cache->isEnabled()) {
+            $resolver = $fieldValue->getResolver();
+
+            $fieldValue->setResolver(
+                function (
+                    mixed $root,
+                    array $args,
+                    GraphQLContext $context,
+                    ResolveInfo $resolveInfo,
+                ) use (
+                    $resolver,
+                ): mixed {
+                    return $this->resolve($resolver, $root, $args, $context, $resolveInfo);
+                },
+            );
+        }
 
         return $fieldValue;
     }

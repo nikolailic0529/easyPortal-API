@@ -16,7 +16,6 @@ use Illuminate\Contracts\Cache\Repository as CacheContract;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
-use RuntimeException;
 use Throwable;
 
 use function array_merge;
@@ -30,7 +29,7 @@ class Cache {
     protected const DEFAULT_TTL    = 'P1W';
     protected const MARKER_EXPIRED = '_expired';
 
-    private CacheContract $cache;
+    private ?CacheContract $cache = null;
 
     public function __construct(
         protected ExceptionHandler $exceptionHandler,
@@ -40,23 +39,34 @@ class Cache {
         protected Locale $locale,
         CacheFactory $cache,
     ) {
-        $this->cache = $this->getStore($cache);
+        if ($this->config->get('ep.cache.graphql.enabled') ?? true) {
+            $this->cache = $this->getStore($cache);
+        }
     }
 
     public function get(mixed $key): mixed {
+        $value = null;
+
         try {
-            return $this->cache->get($this->getKey($key));
+            $value = $this->cache?->get($this->getKey($key));
         } catch (Throwable) {
             // If `unserialize()` fail it is not critical and should not break
             // anything.
         }
 
-        return null;
+        return $value;
     }
 
+    /**
+     * @template T
+     *
+     * @param T $value
+     *
+     * @return T
+     */
     public function set(mixed $key, mixed $value): mixed {
         try {
-            $this->cache->set($this->getKey($key), $value, $this->getTtl());
+            $this->cache?->set($this->getKey($key), $value, $this->getTtl());
         } catch (Throwable $exception) {
             $this->exceptionHandler->report($exception);
         }
@@ -65,11 +75,17 @@ class Cache {
     }
 
     public function delete(mixed $key): bool {
-        return $this->cache->delete($this->getKey($key));
+        return $this->cache === null
+            || $this->cache->delete($this->getKey($key));
     }
 
     public function has(mixed $key): bool {
-        return $this->cache->has($this->getKey($key));
+        return $this->cache !== null
+            && $this->cache->has($this->getKey($key));
+    }
+
+    public function isEnabled(): bool {
+        return $this->cache !== null;
     }
 
     public function isLocked(mixed $key): bool {
@@ -164,7 +180,7 @@ class Cache {
 
     public function markExpired(): static {
         try {
-            $this->cache->set(
+            $this->cache?->set(
                 $this->service->getCacheKey(static::MARKER_EXPIRED),
                 Date::now(),
                 $this->getTtl(),
@@ -215,17 +231,17 @@ class Cache {
     }
 
     protected function getExpired(): ?DateTimeInterface {
+        $date = null;
+
         try {
             $key  = $this->service->getCacheKey(static::MARKER_EXPIRED);
-            $date = Date::make($this->cache->get($key));
-
-            return $date;
+            $date = Date::make($this->cache?->get($key));
         } catch (Throwable) {
             // If `unserialize()` fail it is not critical and should not break
             // anything.
         }
 
-        return null;
+        return $date;
     }
 
     protected function isExpiring(DateTimeInterface $datetime, DateTimeInterface $expire): bool {
@@ -279,10 +295,10 @@ class Cache {
         }
 
         // Supported?
-        $store = $this->cache->getStore();
+        $store = $this->cache?->getStore();
 
         if (!($store instanceof LockProvider)) {
-            throw new RuntimeException('Atomic Locks is not available.');
+            $store = null;
         }
 
         // Return

@@ -436,6 +436,13 @@ interface Constants {
     public const EP_CACHE_SERVICE_TTL = 'P6M';
 
     /**
+     * GraphQL Cache enabled?
+     */
+    #[Setting('ep.cache.graphql.enabled')]
+    #[Group('cache')]
+    public const EP_CACHE_GRAPHQL_ENABLED = false;
+
+    /**
      * GraphQL Cache store.
      */
     #[Setting('ep.cache.graphql.store')]
