@@ -68,7 +68,7 @@ class WithProductTest extends TestCase {
 
         $this->flushQueryLog();
 
-        // If model exists and changed - it should be updated
+        // If model exists and changed - it should be updated except `name`
         $newEos  = $this->faker->randomElement(['', null]);
         $newEol  = Date::now();
         $newName = $this->faker->sentence();
@@ -83,6 +83,28 @@ class WithProductTest extends TestCase {
         self::assertEquals($product->name, $updated->name);
         self::assertEquals($newEol, $newEol);
         self::assertNull($updated->eos);
+
+        self::assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // If model exists and changed - empty `name` should be updated
+        $product       = $updated;
+        $product->name = '';
+        $product->save();
+
+        $this->flushQueryLog();
+
+        $newName = $this->faker->sentence();
+        $updated = $factory->product(
+            $oem,
+            $product->sku,
+            $newName,
+            (string) $product->eol?->getTimestampMs(),
+            (string) $product->eos?->getTimestampMs(),
+        );
+
+        self::assertEquals($newName, $updated->name);
 
         self::assertCount(1, $this->getQueryLog());
 

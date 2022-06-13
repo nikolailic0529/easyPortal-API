@@ -34,7 +34,7 @@ trait WithProduct {
                 $product->eol = $normalizer->datetime($eol);
                 $product->eos = $normalizer->datetime($eos);
 
-                if ($created) {
+                if ($created || !$product->name) {
                     // Product name may be inconsistent, eg
                     // - 'HPE Hardware Maintenance Onsite Support'
                     // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
