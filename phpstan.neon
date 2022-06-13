@@ -32,7 +32,6 @@ includes:
     - ./vendor/nunomaduro/larastan/extension.neon
 
     # App
-    - .phpstan/Extensions/Date/extension.neon
     - .phpstan/Extensions/Container/extension.neon
 
     # Baseline
