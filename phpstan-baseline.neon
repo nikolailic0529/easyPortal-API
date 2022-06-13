@@ -461,6 +461,11 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
+			message: "#^Cannot call method twice\\(\\) on mixed\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Cached\\\\CachedTest\\:\\:testGetCacheKey\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
@@ -482,7 +487,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$content of class Tests\\\\GraphQL\\\\GraphQLSuccess constructor expects array\\|JsonSerializable\\|SplFileInfo\\|stdClass\\|string\\|Tests\\\\GraphQL\\\\JsonFragment\\|null, string\\|false given\\.$#"
-			count: 3
+			count: 4
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
