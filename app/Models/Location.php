@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasCustomers;
 use App\Models\Relations\HasResellers;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -44,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static Builder|Location newQuery()
  * @method static Builder|Location query()
  */
-class Location extends Model implements OwnedByOrganization {
+class Location extends Model {
     use HasFactory;
     use HasAssets;
 

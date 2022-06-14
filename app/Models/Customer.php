@@ -11,6 +11,7 @@ use App\Models\Relations\HasQuotes;
 use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
@@ -54,6 +55,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer query()
  */
 class Customer extends Model implements OwnedByOrganization, Searchable {
+    use OwnedByResellerImpl;
     use SearchableImpl;
     use HasFactory;
     use HasStatuses;
@@ -125,6 +127,13 @@ class Customer extends Model implements OwnedByOrganization, Searchable {
                 ]),
             ]),
         ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="OwnedByOrganization">
+    // =========================================================================
+    public function getOrganizationColumn(): string {
+        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
     }
     // </editor-fold>
 }

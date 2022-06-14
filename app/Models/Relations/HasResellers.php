@@ -3,7 +3,6 @@
 namespace App\Models\Relations;
 
 use App\Models\Reseller;
-use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
@@ -20,7 +19,6 @@ use Illuminate\Support\Collection;
  * @mixin Model
  */
 trait HasResellers {
-    use OwnedByResellerImpl;
     use SyncBelongsToMany;
 
     // <editor-fold desc="Relations">
@@ -70,13 +68,6 @@ trait HasResellers {
 
     protected function getResellersForeignPivotKey(): ?string {
         return null;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="OwnedByOrganization">
-    // =========================================================================
-    public function getOrganizationColumn(): string {
-        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
     }
     // </editor-fold>
 }

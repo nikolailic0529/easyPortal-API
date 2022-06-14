@@ -306,15 +306,16 @@ class CustomersTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('map', null, new JsonFragment('customers', [
                             [
-                                'latitude'        => 1,
-                                'longitude'       => 1,
+                                'latitude'        => 1.05,
+                                'longitude'       => 1.05,
                                 'objects_count'   => 1,
                                 'objects_ids'     => [
                                     'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
-                                'locations_count' => 1,
+                                'locations_count' => 2,
                                 'locations_ids'   => [
                                     '4d9133ff-482b-4605-870f-9ee88c2062ae',
+                                    '6aa4fc05-c3f2-4ad5-a9de-e867772a7335',
                                 ],
                                 'boundingBox'     => [
                                     'southLatitude' => 61.875,
