@@ -425,7 +425,7 @@ class ModelProcessorTest extends TestCase {
                 'rebuild'     => false,
                 'name'        => null,
             ],
-            $processor->setModel($model)->setKeys($keys)->setRebuild(false)->defaultState([]),
+            $processor->setModel($model)->setKeys($keys)->defaultState([]),
         );
     }
 
