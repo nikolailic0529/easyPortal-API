@@ -11,7 +11,6 @@ use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
 use App\Utils\Eloquent\ModelProperty;
 use Carbon\CarbonInterface;
-use Closure;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -83,8 +82,8 @@ trait SearchableImpl {
         // Relations don't matter here because method used only in ModelObserver
         $properties = (new Collection($this->getSearchConfiguration()->getProperties()))
             ->flatten()
-            ->map(static function (Property $property): ?string {
-                return (new ModelProperty($property->getName()))->isAttribute()
+            ->map(static function (mixed $property): ?string {
+                return $property instanceof Property && (new ModelProperty($property->getName()))->isAttribute()
                     ? $property->getName()
                     : null;
             })
@@ -161,9 +160,9 @@ trait SearchableImpl {
     /**
      * @return SearchBuilder<static>
      */
-    public static function search(string $query = '', Closure $callback = null): SearchBuilder {
+    public static function search(string $query = ''): SearchBuilder {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return static::scoutSearch($query, $callback);
+        return static::scoutSearch($query);
     }
     // </editor-fold>
 

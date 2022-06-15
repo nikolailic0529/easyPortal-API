@@ -28,7 +28,7 @@ interface Searchable {
     /**
      * @return SearchBuilder<static>
      */
-    public static function search(string $query = '', Closure $callback = null): SearchBuilder;
+    public static function search(string $query = ''): SearchBuilder;
 
     public static function isSearchSyncingEnabled(): bool;
 

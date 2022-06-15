@@ -21,7 +21,7 @@ class Data {
     /**
      * We are using a whitelist here to reduce memory usage.
      *
-     * @var array<class-string,array<string,string>>
+     * @var array<class-string<Model>,array<string,string>>
      */
     private array $data = [
         Distributor::class => [],
@@ -46,7 +46,7 @@ class Data {
     }
 
     /**
-     * @return array<class-string,array<string,string>>
+     * @return array<class-string<Model>,array<string,string>>
      */
     public function getData(): array {
         return $this->data;
@@ -93,7 +93,7 @@ class Data {
     }
 
     /**
-     * @param class-string $class
+     * @param class-string<Model> $class
      */
     public function add(string $class, ?string $id): static {
         if ($id && isset($this->data[$class])) {

@@ -25,11 +25,11 @@ class UnionModel extends Model implements Searchable {
         parent::__construct($attributes);
     }
 
-    public static function search(string $query = '', Closure $callback = null): Builder {
+    public static function search(string $query = ''): Builder {
         return app()->make(UnionBuilder::class, [
             'model'      => new static(),
             'query'      => $query,
-            'callback'   => $callback,
+            'callback'   => null,
             'softDelete' => static::usesSoftDelete() && config('scout.soft_delete', false),
         ]);
     }
