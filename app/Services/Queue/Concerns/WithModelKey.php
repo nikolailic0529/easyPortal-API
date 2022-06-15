@@ -8,7 +8,10 @@ use LastDragon_ru\LaraASP\Queue\Concerns\WithInitialization;
  * @mixin WithInitialization
  */
 trait WithModelKey {
-    private string $modelKey;
+    /**
+     * @private
+     */
+    protected string $modelKey;
 
     public function getModelKey(): string {
         return $this->modelKey;

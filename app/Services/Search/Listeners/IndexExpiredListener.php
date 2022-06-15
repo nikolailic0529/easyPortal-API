@@ -5,18 +5,15 @@ namespace App\Services\Search\Listeners;
 use App\Events\Subscriber;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
-use App\Services\Search\Queue\Tasks\Index;
+use App\Services\Search\Indexer;
 use App\Services\Search\Service;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
-use function array_values;
-
 class IndexExpiredListener implements Subscriber {
     public function __construct(
-        protected Container $container,
         protected Service $service,
+        protected Indexer $indexer,
     ) {
         // empty
     }
@@ -47,12 +44,9 @@ class IndexExpiredListener implements Subscriber {
         }
 
         // Dispatch
-        $keys = array_values($keys);
-
-        if ($keys) {
-            $this->container->make(Index::class)
-                ->init($model, $keys)
-                ->dispatch();
-        }
+        $this->indexer->update([
+            'model' => $model,
+            'keys'  => $keys,
+        ]);
     }
 }

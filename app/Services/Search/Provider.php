@@ -13,7 +13,7 @@ use App\Services\Search\Listeners\IndexExpiredListener;
 use App\Services\Search\Queue\Jobs\AssetsIndexer;
 use App\Services\Search\Queue\Jobs\CustomersIndexer;
 use App\Services\Search\Queue\Jobs\DocumentsIndexer;
-use App\Services\Search\Queue\Tasks\Index;
+use App\Services\Search\Queue\Tasks\ModelsIndex;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
@@ -52,11 +52,12 @@ class Provider extends ServiceProvider {
     }
 
     protected function registerJobs(): void {
-        Scout::$makeSearchableJob   = Index::class;
-        Scout::$removeFromSearchJob = Index::class;
+        Scout::$makeSearchableJob   = ModelsIndex::class;
+        Scout::$removeFromSearchJob = ModelsIndex::class;
     }
 
     protected function registerBindings(): void {
+        $this->app->singleton(Indexer::class);
         $this->app->bind(ScoutBuilder::class, SearchBuilder::class);
         $this->app->bind(SearchRequestFactoryInterface::class, SearchRequestFactory::class);
         $this->app->bind(ColumnResolver::class, ScoutColumnResolver::class);

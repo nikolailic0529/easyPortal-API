@@ -4,6 +4,7 @@ namespace App\Services\Search\Eloquent;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
+use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Laravel\Scout\Engines\Engine;
 use Laravel\Scout\ModelObserver;
 use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
@@ -25,6 +27,7 @@ use function app;
 use function array_filter;
 use function array_intersect;
 use function array_keys;
+use function config;
 use function count;
 use function is_array;
 use function is_iterable;
@@ -33,6 +36,8 @@ use function is_scalar;
 
 /**
  * @mixin \App\Utils\Eloquent\Model
+ *
+ * @method Engine searchableUsing()
  */
 trait SearchableImpl {
     use ScoutSearchable {
@@ -40,7 +45,6 @@ trait SearchableImpl {
         searchable as protected scoutSearchable;
         unsearchable as protected scoutUnsearchable;
         searchableAs as protected scoutSearchableAs;
-        queueMakeSearchable as protected scoutQueueMakeSearchable;
         enableSearchSyncing as protected scoutEnableSearchSyncing;
         disableSearchSyncing as protected scoutDisableSearchSyncing;
     }
@@ -136,9 +140,22 @@ trait SearchableImpl {
      * @param EloquentCollection<array-key, static> $models
      */
     public function queueMakeSearchable(EloquentCollection $models): void {
-        // shouldBeSearchable() is not used here by default...
-        // https://github.com/laravel/scout/issues/320
-        $this->scoutQueueMakeSearchable($models->filter->shouldBeSearchable());
+        if (config('scout.queue')) {
+            app()->make(Indexer::class)->update($models);
+        } else {
+            $this->searchableUsing()->update($models);
+        }
+    }
+
+    /**
+     * @param EloquentCollection<array-key, static> $models
+     */
+    public function queueRemoveFromSearch(EloquentCollection $models): void {
+        if (config('scout.queue')) {
+            app()->make(Indexer::class)->update($models);
+        } else {
+            $this->searchableUsing()->delete($models);
+        }
     }
 
     /**

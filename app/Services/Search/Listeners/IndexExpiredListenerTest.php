@@ -7,14 +7,12 @@ use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\Recalculator\Events\ModelsRecalculated;
-use App\Services\Search\Queue\Tasks\Index;
+use App\Services\Search\Indexer;
+use App\Services\Search\Service;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
-
-use function array_values;
 
 /**
  * @internal
@@ -46,44 +44,62 @@ class IndexExpiredListenerTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeDataImported(): void {
-        $data     = (new Data())
+        $data  = (new Data())
             ->collect(Asset::factory()->make())
             ->collect(Customer::factory()->make());
-        $event    = new DataImported($data);
+        $event = new DataImported($data);
+
+        $this->override(Service::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('isSearchableModel')
+                ->atLeast()
+                ->once()
+                ->andReturns(true);
+        });
+
+        $this->override(Indexer::class, static function (MockInterface $mock) use ($data): void {
+            foreach ($data->getData() as $model => $keys) {
+                $mock
+                    ->shouldReceive('update')
+                    ->with([
+                        'model' => $model,
+                        'keys'  => $keys,
+                    ])
+                    ->once()
+                    ->andReturns();
+            }
+        });
+
         $listener = $this->app->make(IndexExpiredListener::class);
 
-        Queue::fake();
-
         $listener($event);
-
-        Queue::assertPushed(Index::class, 2);
-        Queue::assertPushed(static function (Index $job) use ($data): bool {
-            self::assertEquals($job->getKeys(), array_values($data->get($job->getModel())));
-
-            return true;
-        });
     }
 
     /**
      * @covers ::__invoke
      */
     public function testInvokeModelsRecalculated(): void {
-        $event    = new ModelsRecalculated(Customer::class, [
+        $model = Customer::class;
+        $keys  = [
             $this->faker->uuid(),
             $this->faker->uuid(),
-        ]);
+        ];
+        $event = new ModelsRecalculated($model, $keys);
+
+        $this->override(Indexer::class, static function (MockInterface $mock) use ($model, $keys): void {
+            $mock
+                ->shouldReceive('update')
+                ->with([
+                    'model' => $model,
+                    'keys'  => $keys,
+                ])
+                ->once()
+                ->andReturns();
+        });
+
         $listener = $this->app->make(IndexExpiredListener::class);
 
-        Queue::fake();
-
         $listener($event);
-
-        Queue::assertPushed(Index::class, 1);
-        Queue::assertPushed(static function (Index $job) use ($event): bool {
-            self::assertEquals($job->getKeys(), $event->getKeys());
-
-            return true;
-        });
     }
     // </editor-fold>
 
