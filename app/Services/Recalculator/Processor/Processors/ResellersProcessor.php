@@ -11,7 +11,6 @@ use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
 use function array_filter;
-use function array_intersect;
 use function array_keys;
 use function array_merge;
 use function array_unique;
@@ -50,7 +49,6 @@ class ResellersProcessor extends Processor {
         $resellerAssetsByLocation    = $data->getResellerAssetsByLocation($reseller);
         $resellerCustomersByLocation = $data->getResellerCustomersByLocation($reseller);
         $resellerDocumentsByCustomer = $data->getResellerDocumentsByCustomer($reseller);
-        $resellerCustomerLocations   = $data->getResellerCustomerLocations($reseller);
         $resellerCustomers           = array_filter(array_unique(array_merge(
             array_keys($resellerAssetsByCustomer),
             array_keys($resellerDocumentsByCustomer),
@@ -74,7 +72,6 @@ class ResellersProcessor extends Processor {
         }
 
         // Customers
-        $locations = array_filter(array_keys($resellerAssetsByLocation));
         $customers = [];
         $existing  = $reseller->customersPivots->keyBy(
             $reseller->customers()->getRelatedPivotKeyName(),
@@ -85,12 +82,8 @@ class ResellersProcessor extends Processor {
         ));
 
         foreach ($ids as $id) {
-            $customers[$id]                  = new ResellerCustomer();
-            $customers[$id]->assets_count    = $resellerAssetsByCustomer[$id] ?? 0;
-            $customers[$id]->locations_count = count(array_intersect(
-                $resellerCustomerLocations[$id] ?? [],
-                $locations,
-            ));
+            $customers[$id]               = new ResellerCustomer();
+            $customers[$id]->assets_count = $resellerAssetsByCustomer[$id] ?? 0;
 
             unset($existing[$id]);
         }
@@ -98,9 +91,8 @@ class ResellersProcessor extends Processor {
         foreach ($existing as $id => $customer) {
             /** @var ResellerCustomer $customer */
             if ($customer->kpi_id !== null) {
-                $customers[$id]                  = $customer;
-                $customers[$id]->assets_count    = 0;
-                $customers[$id]->locations_count = 0;
+                $customers[$id]               = $customer;
+                $customers[$id]->assets_count = 0;
             }
         }
 

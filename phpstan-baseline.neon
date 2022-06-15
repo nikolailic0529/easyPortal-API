@@ -13511,21 +13511,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:getResellerCustomerLocations\\(\\) should return array\\<string\\> but returns array\\<array\\<int, string\\>\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:\\$customerLocations \\(array\\<string, array\\<string\\>\\>\\) does not accept array\\<string, array\\<array\\<int, string\\>\\|string\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_intersect expects array, array\\|string given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersProcessor.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData constructor expects array\\<App\\\\Models\\\\Reseller\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Reseller\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/ResellersProcessor.php

@@ -368,9 +368,8 @@ class CustomersTest extends TestCase {
                             ]);
 
                             $customer->resellers()->attach($reseller, [
-                                'locations_count' => 1,
-                                'assets_count'    => 1,
-                                'kpi_id'          => $customerKpi->getKey(),
+                                'assets_count' => 1,
+                                'kpi_id'       => $customerKpi->getKey(),
                             ]);
 
                             CustomerLocation::factory()

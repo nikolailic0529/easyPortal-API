@@ -351,7 +351,7 @@ class AssetsTest extends TestCase {
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
-                                        'locations_count' => 0,
+                                        'locations_count' => 1,
                                         'locations'       => [
                                             [
                                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -408,7 +408,7 @@ class AssetsTest extends TestCase {
                                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
-                                                'locations_count' => 0,
+                                                'locations_count' => 1,
                                                 'locations'       => [
                                                     [
                                                         'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',

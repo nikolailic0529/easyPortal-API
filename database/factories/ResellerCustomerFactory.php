@@ -32,19 +32,18 @@ class ResellerCustomerFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid(),
-            'reseller_id'     => static function (): Reseller {
+            'id'           => $this->faker->uuid(),
+            'reseller_id'  => static function (): Reseller {
                 return Reseller::factory()->create();
             },
-            'customer_id'     => static function (): Customer {
+            'customer_id'  => static function (): Customer {
                 return Customer::factory()->create();
             },
-            'kpi_id'          => null,
-            'assets_count'    => 0,
-            'locations_count' => 0,
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
-            'deleted_at'      => null,
+            'kpi_id'       => null,
+            'assets_count' => 0,
+            'created_at'   => Date::now(),
+            'updated_at'   => Date::now(),
+            'deleted_at'   => null,
         ];
     }
 }

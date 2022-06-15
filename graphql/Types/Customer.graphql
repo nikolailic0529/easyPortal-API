@@ -9,7 +9,7 @@ type Customer {
         order: ContactsSort @sortBy
     ): [Contact!]! @relation
 
-    locations_count: Int! @orgProperty
+    locations_count: Int!
     locations(
         where: CustomerLocationsQuery @searchBy
         order: CustomerLocationsSort @sortBy

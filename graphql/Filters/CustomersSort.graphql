@@ -1,6 +1,6 @@
 input CustomersSort {
     name: String!
-    locations_count: Int! @orgProperty
+    locations_count: Int!
     contacts_count: Int!
     assets_count: Int! @orgProperty
     headquarter: CustomerLocationsSort!

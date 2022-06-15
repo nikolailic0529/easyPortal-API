@@ -81,13 +81,6 @@
         ]
     },
     {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where `customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
-        "bindings": [
-            "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423"
-        ]
-    },
-    {
         "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             3,
@@ -117,18 +110,16 @@
         ]
     },
     {
-        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            1,
             1,
             "2021-08-30 00:04:03",
             "305091d8-9610-5841-9743-85d05494e34c"
         ]
     },
     {
-        "query": "update `reseller_customers` set `assets_count` = ?, `locations_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
+        "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            0,
             0,
             "2021-08-30 00:04:13",
             "567c81f4-bea4-55bd-8406-1c0d3d58da68"
@@ -143,27 +134,21 @@
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `locations_count`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`), `locations_count` = values(`locations_count`)",
+        "query": "insert into `reseller_customers` (`assets_count`, `created_at`, `customer_id`, `id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `assets_count` = values(`assets_count`)",
         "bindings": [
             1,
             "2021-08-30 00:03:53",
             "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
-            0,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:03:53",
             0,
             "2021-08-30 00:03:54",
             "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
-            0,
             "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
             "2021-08-30 00:03:54"
         ]
-    },
-    {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where 0 = 1 and `customer_locations`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
@@ -176,10 +161,6 @@
             "2021-08-30 00:04:23",
             "93dff777-6006-5616-bdb5-a56ec97248bb"
         ]
-    },
-    {
-        "query": "select `customer_id`, `location_id` from `customer_locations` where 0 = 1 and `customer_locations`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "update `resellers` set `customers_count` = ?, `locations_count` = ?, `assets_count` = ?, `contacts_count` = ?, `statuses_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",

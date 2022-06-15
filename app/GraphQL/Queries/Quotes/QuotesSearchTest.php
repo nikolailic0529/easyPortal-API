@@ -313,14 +313,13 @@ class QuotesSearchTest extends TestCase {
                     'name'            => 'name aaa',
                     'assets_count'    => 2,
                     'contacts_count'  => 1,
-                    'locations_count' => 2,
+                    'locations_count' => 1,
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
 
             $customer->resellers()->attach($reseller, [
                 'assets_count'    => 0,
-                'locations_count' => 1,
             ]);
 
             CustomerLocation::factory()->create([

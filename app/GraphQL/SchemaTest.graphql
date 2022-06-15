@@ -4374,7 +4374,6 @@ input SortByClauseCustomersSort {
     Property clause.
     """
     locations_count: SortByDirection
-    @orgProperty
 
     """
     Property clause.
@@ -6307,8 +6306,6 @@ type Customer {
     @relation
 
     locations_count: Int!
-    @orgProperty
-
     name: String!
 
     """

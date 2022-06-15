@@ -129,20 +129,18 @@ class ResellersProcessorTest extends TestCase {
         ]);
 
         ResellerCustomer::factory()->create([
-            'id'              => Str::uuid()->toString(),
-            'reseller_id'     => $resellerA,
-            'customer_id'     => $customerA,
-            'assets_count'    => $count,
-            'locations_count' => $count,
-            'kpi_id'          => $kpiA,
+            'id'           => Str::uuid()->toString(),
+            'reseller_id'  => $resellerA,
+            'customer_id'  => $customerA,
+            'assets_count' => $count,
+            'kpi_id'       => $kpiA,
         ]);
         ResellerCustomer::factory()->create([
-            'id'              => Str::uuid()->toString(),
-            'reseller_id'     => $resellerA,
-            'customer_id'     => $customerE,
-            'assets_count'    => $count,
-            'locations_count' => $count,
-            'kpi_id'          => $kpiB,
+            'id'           => Str::uuid()->toString(),
+            'reseller_id'  => $resellerA,
+            'customer_id'  => $customerE,
+            'assets_count' => $count,
+            'kpi_id'       => $kpiB,
         ]);
 
         Asset::factory()->create([
@@ -249,28 +247,24 @@ class ResellersProcessorTest extends TestCase {
 
         self::assertEquals([
             [
-                'assets_count'    => 1,
-                'locations_count' => 1,
-                'customer_id'     => $customerA->getKey(),
-                'kpi_id'          => $kpiA->getKey(),
+                'assets_count' => 1,
+                'customer_id'  => $customerA->getKey(),
+                'kpi_id'       => $kpiA->getKey(),
             ],
             [
-                'assets_count'    => 0,
-                'locations_count' => 0,
-                'customer_id'     => $customerE->getKey(),
-                'kpi_id'          => $kpiB->getKey(),
+                'assets_count' => 0,
+                'customer_id'  => $customerE->getKey(),
+                'kpi_id'       => $kpiB->getKey(),
             ],
             [
-                'assets_count'    => 0,
-                'locations_count' => 0,
-                'customer_id'     => $customerC->getKey(),
-                'kpi_id'          => null,
+                'assets_count' => 0,
+                'customer_id'  => $customerC->getKey(),
+                'kpi_id'       => null,
             ],
             [
-                'assets_count'    => 1,
-                'locations_count' => 0,
-                'customer_id'     => $customerB->getKey(),
-                'kpi_id'          => null,
+                'assets_count' => 1,
+                'customer_id'  => $customerB->getKey(),
+                'kpi_id'       => null,
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 

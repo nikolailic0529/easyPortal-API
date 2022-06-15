@@ -3,16 +3,12 @@
 namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Asset;
-use App\Models\CustomerLocation;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\Recalculator\Processor\ChunkData;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use stdClass;
-
-use function array_filter;
-use function array_keys;
 
 /**
  * @extends ChunkData<Reseller>
@@ -27,11 +23,6 @@ class ResellersChunkData extends ChunkData {
      * @var array<string, array<string, int>>
      */
     private array $documentsByCustomer;
-
-    /**
-     * @var array<string,array<string>>
-     */
-    private array $customerLocations;
 
     public function getResellerAssetsCount(Reseller $reseller): int {
         return $this->getAssetsCount('reseller_id')[$reseller->getKey()] ?? 0;
@@ -122,34 +113,5 @@ class ResellersChunkData extends ChunkData {
         }
 
         return $this->documentsByCustomer[$reseller->getKey()] ?? [];
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getResellerCustomerLocations(Reseller $reseller): array {
-        if (!isset($this->customerLocations[$reseller->getKey()])) {
-            // Calculate
-            $data      = [];
-            $assets    = $this->getResellerAssetsByCustomer($reseller);
-            $customers = array_filter(array_keys($assets));
-            $result    = CustomerLocation::query()
-                ->select(['customer_id', 'location_id'])
-                ->whereIn('customer_id', $customers)
-                ->toBase()
-                ->get();
-
-            foreach ($result as $row) {
-                /** @var stdClass $row */
-                $customerId          = (string) $row->customer_id;
-                $locationId          = (string) $row->location_id;
-                $data[$customerId][] = $locationId;
-            }
-
-            // Save
-            $this->customerLocations[$reseller->getKey()] = $data;
-        }
-
-        return $this->customerLocations[$reseller->getKey()] ?? [];
     }
 }
