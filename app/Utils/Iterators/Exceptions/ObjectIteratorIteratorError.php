@@ -16,6 +16,10 @@ class ObjectIteratorIteratorError extends IteratorException {
         Throwable $previous = null,
     ) {
         parent::__construct('Failed to convert item.', $previous);
+
+        $this->setContext([
+            'item' => $this->getItem(),
+        ]);
     }
 
     /**
