@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Queue\Concerns\WithInitialization;
  */
 trait WithModelKey {
     /**
-     * @private
+     * @private required for serialization
      */
     protected string $modelKey;
 

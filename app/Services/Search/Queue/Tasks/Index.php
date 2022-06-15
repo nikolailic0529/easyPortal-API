@@ -24,13 +24,13 @@ abstract class Index extends Job implements Initializable {
     use ProcessorJob;
 
     /**
-     * @private
+     * @private required for serialization
      * @var class-string<Model&Searchable>
      */
     protected string $model;
 
     /**
-     * @private
+     * @private required for serialization
      * @var array<string|int>
      */
     protected array $keys;
