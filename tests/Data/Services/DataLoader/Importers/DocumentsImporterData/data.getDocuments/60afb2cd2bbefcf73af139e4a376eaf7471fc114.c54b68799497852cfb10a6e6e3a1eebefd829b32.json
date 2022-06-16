@@ -1,7 +1,7 @@
 {
     "selector": "data.getDocuments",
     "graphql": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
-    "params": {
+    "variables": {
         "from": null,
         "lastId": "0019fa4b-fc0e-44f5-8280-c0e271761b20",
         "limit": 5

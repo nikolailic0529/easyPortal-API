@@ -11,16 +11,16 @@ class Query {
     /**
      * @var array<string,mixed>|null
      */
-    protected ?array $variables = null;
+    protected ?array $lastVariables = null;
 
     /**
-     * @param array<string,mixed> $params
+     * @param array<string,mixed> $variables
      */
     public function __construct(
         protected Client $client,
         protected string $selector,
         protected string $query,
-        protected array $params,
+        protected array $variables,
     ) {
         // empty
     }
@@ -36,15 +36,15 @@ class Query {
     /**
      * @return array<string,mixed>
      */
-    public function getParams(): array {
-        return $this->params;
+    public function getVariables(): array {
+        return $this->variables;
     }
 
     /**
      * @return array<string,mixed>|null
      */
-    public function getVariables(): ?array {
-        return $this->variables;
+    public function getLastVariables(): ?array {
+        return $this->lastVariables;
     }
 
     /**
@@ -53,9 +53,9 @@ class Query {
      * @return array<V>
      */
     public function __invoke(array $variables): array {
-        $this->variables = $variables;
-        $params          = array_merge($this->params, $variables);
-        $result          = $this->client->call($this->selector, $this->query, $params);
+        $this->lastVariables = $variables;
+        $variables           = array_merge($this->variables, $variables);
+        $result              = $this->client->call($this->selector, $this->query, $variables);
 
         return $result;
     }

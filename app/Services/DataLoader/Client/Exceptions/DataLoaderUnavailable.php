@@ -14,18 +14,18 @@ class DataLoaderUnavailable extends ClientException implements
     TranslatedException,
     IteratorFatalError {
     /**
-     * @param array<mixed> $params
+     * @param array<string, mixed> $variables
      */
     public function __construct(
         protected string $query,
-        protected array $params,
+        protected array $variables,
         Throwable $previous = null,
     ) {
         parent::__construct('DataLoader unavailable.', $previous);
 
         $this->setContext([
-            'query'  => $this->query,
-            'params' => $this->params,
+            'query'     => $this->query,
+            'variables' => $this->variables,
         ]);
     }
 

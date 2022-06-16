@@ -1,7 +1,7 @@
 {
     "selector": "data.getDistributors",
     "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getDistributors(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\n    }\n}",
-    "params": {
+    "variables": {
         "from": null,
         "lastId": "f066f65a-6455-4cff-8dfb-0aaaeba544f9",
         "limit": 10

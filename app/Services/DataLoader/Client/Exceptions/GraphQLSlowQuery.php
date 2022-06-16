@@ -7,11 +7,11 @@ use Throwable;
 
 class GraphQLSlowQuery extends ClientException {
     /**
-     * @param array<mixed> $params
+     * @param array<string, mixed> $variables
      */
     public function __construct(
         protected string $query,
-        protected array $params,
+        protected array $variables,
         protected float $duration,
         protected float $threshold,
         Throwable $previous = null,
@@ -21,7 +21,7 @@ class GraphQLSlowQuery extends ClientException {
         $this->setLevel(LogLevel::NOTICE);
         $this->setContext([
             'query'     => $this->query,
-            'params'    => $this->params,
+            'variables' => $this->variables,
             'duration'  => $this->duration,
             'threshold' => $this->threshold,
         ]);

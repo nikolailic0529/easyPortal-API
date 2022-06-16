@@ -1,7 +1,7 @@
 {
     "selector": "data.getCompanyById",
     "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
-    "params": {
+    "variables": {
         "id": "aa010e95-b628-4fd5-9d09-a687cbf63e58"
     },
     "response": {

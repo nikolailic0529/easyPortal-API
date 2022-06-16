@@ -22,10 +22,10 @@ final class FailedToProcessChunkItem extends FailedToProcessObject implements Ge
 
         $this->setLevel(LogLevel::ERROR);
         $this->setContext([
-            'selector' => $this->query->getSelector(),
-            'graphql'  => $this->query->getQuery(),
-            'params'   => array_merge($this->query->getParams(), (array) $this->query->getVariables()),
-            'item'     => $this->item,
+            'selector'  => $this->query->getSelector(),
+            'graphql'   => $this->query->getQuery(),
+            'variables' => array_merge($this->query->getVariables(), (array) $this->query->getLastVariables()),
+            'item'      => $this->item,
         ]);
     }
 

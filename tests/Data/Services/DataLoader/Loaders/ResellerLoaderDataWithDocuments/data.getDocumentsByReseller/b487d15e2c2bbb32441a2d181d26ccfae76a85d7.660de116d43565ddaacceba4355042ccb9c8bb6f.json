@@ -1,7 +1,7 @@
 {
     "selector": "data.getDocumentsByReseller",
     "graphql": "query getDocumentsByReseller($id: String!, $limit: Int, $offset: Int) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, offset: $offset) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
-    "params": {
+    "variables": {
         "id": "0309df71-936c-44ce-9477-b5e9221fc96a",
         "limit": 250,
         "offset": 0

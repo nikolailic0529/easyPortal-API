@@ -1,7 +1,7 @@
 {
     "selector": "data.getDocumentById",
     "graphql": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
-    "params": {
+    "variables": {
         "id": "ef318f78-9909-45b0-a3dc-f829322378e6"
     },
     "response": {
