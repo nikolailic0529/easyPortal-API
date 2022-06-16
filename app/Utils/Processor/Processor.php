@@ -43,8 +43,8 @@ use function min;
  *
  * @internal Please extend one of subclasses instead.
  *
- * @see \App\Utils\Iterators\Contracts\ObjectIterator
- * @see \App\Services\Queue\Concerns\ProcessorJob
+ * @see      \App\Utils\Iterators\Contracts\ObjectIterator
+ * @see      \App\Services\Queue\Concerns\ProcessorJob
  *
  * @template TItem
  * @template TChunkData
@@ -382,6 +382,7 @@ abstract class Processor implements ProcessorContract {
     protected function init(State $state, ObjectIterator $iterator): void {
         $this->saveState($state);
         $this->notifyOnInit($state);
+        $this->dispatchOnInit($state);
     }
 
     /**
@@ -390,6 +391,7 @@ abstract class Processor implements ProcessorContract {
     protected function finish(State $state): void {
         $this->saveState($state);
         $this->notifyOnFinish($state);
+        $this->dispatchOnFinish($state);
         $this->resetState();
     }
 
@@ -458,6 +460,42 @@ abstract class Processor implements ProcessorContract {
      * @param TItem $item
      */
     protected function getOnProcessEvent(mixed $item): ?object {
+        return null;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function dispatchOnInit(State $state): void {
+        $event = $this->getOnInitEvent($state);
+
+        if ($event) {
+            $this->getDispatcher()->dispatch($event);
+        }
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function getOnInitEvent(State $state): ?object {
+        return null;
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function dispatchOnFinish(State $state): void {
+        $event = $this->getOnFinishEvent($state);
+
+        if ($event) {
+            $this->getDispatcher()->dispatch($event);
+        }
+    }
+
+    /**
+     * @param TState $state
+     */
+    protected function getOnFinishEvent(State $state): ?object {
         return null;
     }
     // </editor-fold>
