@@ -790,7 +790,7 @@ class Client {
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request = $this->client->timeout($timeout)->withHeaders($headers);
+        $request = $this->client->connectTimeout($timeout)->timeout($timeout)->withHeaders($headers);
         $data    = $this->callData($selector, $graphql, $variables, $files, $request, [
             'query'     => $graphql,
             'variables' => $variables,
