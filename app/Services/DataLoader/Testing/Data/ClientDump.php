@@ -34,7 +34,7 @@ class ClientDump extends JsonObject {
     public array $response;
 
     /**
-     * @return Generator<object>
+     * @return Generator<JsonObject>
      */
     public function getResponseIterator(bool $save = false): Generator {
         /** @var array<string, class-string<JsonObject>> $selectors */
