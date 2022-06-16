@@ -498,6 +498,7 @@ class Client {
         ];
         $request   = $this->client
             ->baseUrl($baseUrl)
+            ->connectTimeout($timeout)
             ->timeout($timeout)
             ->withHeaders($headers)
             ->asJson();

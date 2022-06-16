@@ -1,0 +1,15 @@
+{
+    "selector": "data.getDocumentsByCustomer",
+    "graphql": "query getDocumentsByCustomer($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByCustomer(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "variables": {
+        "id": "a04716f3-95de-4046-ab13-7a575cf67f85",
+        "from": null,
+        "lastId": "fb5cdd76-83db-44a3-a475-efdbd48c9afd",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getDocumentsByCustomer": []
+        }
+    }
+}

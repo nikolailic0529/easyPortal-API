@@ -458,7 +458,7 @@ interface Constants {
 
     /**
      * Exceptions that will not be sent to Sentry. Some exception like
-     * `RedisException` may create a lot of report and reach the limit very
+     * `RedisException` may create a lot of reports and reach the limit very
      * fast. To avoid this you can ignore them by class name.
      */
     #[Setting('ep.log.sentry.ignored_exceptions')]
@@ -1566,7 +1566,7 @@ interface Constants {
      * `ep:search-fulltext-indexes-rebuild` to recreate FULLTEXT indexes, or
      * you will get unexpected results while filtering.
      *
-     * The commended value is `2`, but you are free for experiments.
+     * The recommended value is `2`, but you are free for experiments.
      */
     #[Setting('ep.search.fulltext.ngram_token_size')]
     #[Group('search')]

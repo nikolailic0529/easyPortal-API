@@ -26,7 +26,7 @@ class DataLoaderRequestObject implements LoggerObject {
 
     public function getId(): ?string {
         return $this->event instanceof RequestStarted
-            ? ($this->event->getParams()['id'] ?? null)
+            ? ($this->event->getVariables()['id'] ?? null)
             : null;
     }
 

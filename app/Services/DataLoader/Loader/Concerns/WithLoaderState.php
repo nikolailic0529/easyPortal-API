@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Loader\Concerns;
 
+use App\Services\DataLoader\Importer\Concerns\WithFrom;
+use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Services\DataLoader\Loader\LoaderState;
 use App\Utils\Processor\State;
 use Illuminate\Support\Facades\Date;
@@ -9,6 +11,9 @@ use Illuminate\Support\Facades\Date;
 use function array_merge;
 
 trait WithLoaderState {
+    use WithObjectId;
+    use WithFrom;
+
     /**
      * @inheritDoc
      */
@@ -23,6 +28,7 @@ trait WithLoaderState {
         return array_merge(parent::defaultState($state), [
             'objectId' => $this->getObjectId(),
             'started'  => Date::now(),
+            'from'     => $this->getFrom(),
         ]);
     }
 }

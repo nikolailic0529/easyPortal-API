@@ -39,13 +39,14 @@ trait DocumentsOperations {
 
                     return $this
                         ->getDocumentsImporter($state)
-                        ->setObjectId($state->objectId);
+                        ->setObjectId($state->objectId)
+                        ->setFrom($state->from);
                 },
             ),
             new CompositeOperation(
                 'Update outdated documents',
                 function (CompanyLoaderState $state): Processor {
-                    if (!$state->withDocuments) {
+                    if ($state->from !== null || !$state->withDocuments) {
                         return $this->getContainer()->make(EmptyProcessor::class);
                     }
 

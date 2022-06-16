@@ -10,6 +10,7 @@ Arguments:
 Options:
       --state[=STATE]        initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]        chunk size
+      --from[=FROM]          start processing from given DateTime/DateInterval
       --warranty-check       run warranty check before update
       --no-warranty-check    do not run warranty check before update (default)
   -a, --assets               Load assets

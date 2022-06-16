@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
+use App\Services\DataLoader\Importer\Concerns\WithFrom;
 use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Services\DataLoader\Importer\Importers\Documents\BaseImporter;
 use App\Utils\Iterators\Contracts\ObjectIterator;
@@ -13,12 +14,13 @@ use function array_merge;
  * @extends BaseImporter<DocumentsImporterState>
  */
 class DocumentsImporter extends BaseImporter {
+    use WithFrom;
     use WithObjectId;
 
     // <editor-fold desc="Importer">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        return $this->getClient()->getDocumentsByCustomer($state->customerId);
+        return $this->getClient()->getDocumentsByCustomer($state->customerId, $state->from);
     }
 
     protected function getTotal(State $state): ?int {

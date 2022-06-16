@@ -16,6 +16,7 @@ class ResellerUpdate extends ObjectUpdate {
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
+            '{--from= : start processing from given DateTime/DateInterval}',
             '{--a|assets : Load assets}',
             '{--A|no-assets : Skip assets (default)}',
             '{--d|documents : Load documents}',
@@ -27,6 +28,7 @@ class ResellerUpdate extends ObjectUpdate {
 
     public function __invoke(Formatter $formatter, ResellerLoader $loader): int {
         $loader = $loader
+            ->setFrom($this->getDateTimeOption('from'))
             ->setWithAssets($this->getBoolOption('assets', false))
             ->setWithAssetsDocuments($this->getBoolOption('assets-documents', true))
             ->setWithDocuments($this->getBoolOption('documents', false));

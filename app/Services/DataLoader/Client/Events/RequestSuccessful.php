@@ -4,15 +4,15 @@ namespace App\Services\DataLoader\Client\Events;
 
 class RequestSuccessful extends RequestEvent {
     /**
-     * @param array<mixed> $params
+     * @param array<string, mixed> $variables
      */
     public function __construct(
         string $selector,
         string $query,
-        array $params,
+        array $variables,
         protected mixed $response,
     ) {
-        parent::__construct($selector, $query, $params);
+        parent::__construct($selector, $query, $variables);
     }
 
     public function getResponse(): mixed {

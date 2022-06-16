@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Utils\JsonObject\JsonObject;
 use Generator;
 use IteratorAggregate;
 use Symfony\Component\Finder\Finder;
@@ -28,7 +29,7 @@ class ClientDumpsIterator implements IteratorAggregate {
     }
 
     /**
-     * @return Generator<object>
+     * @return Generator<JsonObject>
      */
     public function getResponseIterator(bool $save = false): Generator {
         foreach ($this as $file) {

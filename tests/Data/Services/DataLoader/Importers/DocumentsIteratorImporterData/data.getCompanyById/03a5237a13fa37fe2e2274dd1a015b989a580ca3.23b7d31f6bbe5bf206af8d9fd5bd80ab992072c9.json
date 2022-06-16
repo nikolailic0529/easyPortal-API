@@ -1,7 +1,7 @@
 {
     "selector": "data.getCompanyById",
     "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n}\n    }\n}",
-    "params": {
+    "variables": {
         "id": "eb1cb37a-48ab-43da-a01e-220220f8654a"
     },
     "response": {

@@ -8,7 +8,6 @@ use App\Services\DataLoader\Finders\AssetFinder;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
-use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Services\DataLoader\Importer\Finders\AssetLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
@@ -30,7 +29,6 @@ use Illuminate\Contracts\Events\Dispatcher;
  */
 abstract class Loader extends CompositeProcessor implements Isolated {
     use WithLoaderState;
-    use WithObjectId;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,

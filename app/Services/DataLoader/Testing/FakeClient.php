@@ -31,18 +31,17 @@ class FakeClient extends Client {
     }
 
     /**
-     * @param array<mixed>  $params
-     * @param array<string> $files
+     * @inheritDoc
      */
-    protected function callExecute(string $selector, string $graphql, array $params, array $files): mixed {
-        $path = $this->callDumpPath($selector, $graphql, $params);
+    protected function callExecute(string $selector, string $graphql, array $variables, array $files): mixed {
+        $path = $this->callDumpPath($selector, $graphql, $variables);
         $data = $this->getTestData($this->getData());
         $json = $data->json($path)['response'];
 
         return $json;
     }
 
-    protected function callDump(string $selector, string $graphql, mixed $params, mixed $json): void {
+    protected function callDump(string $selector, string $graphql, mixed $variables, mixed $json): void {
         // empty
     }
 }

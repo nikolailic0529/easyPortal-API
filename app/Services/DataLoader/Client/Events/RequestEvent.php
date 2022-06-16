@@ -4,12 +4,12 @@ namespace App\Services\DataLoader\Client\Events;
 
 abstract class RequestEvent {
     /**
-     * @param array<mixed> $params
+     * @param array<string, mixed> $variables
      */
     public function __construct(
         protected string $selector,
         protected string $query,
-        protected array $params,
+        protected array $variables,
     ) {
         // empty
     }
@@ -23,9 +23,9 @@ abstract class RequestEvent {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<string, mixed>
      */
-    public function getParams(): array {
-        return $this->params;
+    public function getVariables(): array {
+        return $this->variables;
     }
 }

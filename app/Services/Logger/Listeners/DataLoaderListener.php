@@ -34,7 +34,7 @@ class DataLoaderListener extends Listener {
 
     protected function requestStarted(RequestStarted $event): void {
         $object    = new DataLoaderRequestObject($event);
-        $context   = $event->getParams();
+        $context   = $event->getVariables();
         $enabled   = $this->config->get('ep.logger.data_loader.queries');
         $countable = [
             "{$this->getCategory()}.total.requests.requests"                => 1,
@@ -93,7 +93,7 @@ class DataLoaderListener extends Listener {
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
         $context   = [
-            'params'    => $event->getParams(),
+            'params'    => $event->getVariables(),
             'response'  => $event->getResponse(),
             'exception' => $event->getException(),
         ];

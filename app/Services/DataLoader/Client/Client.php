@@ -516,21 +516,23 @@ class Client {
      */
     public function getDocumentsByReseller(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
-        int $offset = null,
+        string $offset = null,
     ): ObjectIterator {
         return $this
-            ->getOffsetBasedIterator(
+            ->getLastIdBasedIterator(
                 'getDocumentsByReseller',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$offset: Int) {
-                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, offset: \$offset) {
+                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getDocumentPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getDocumentRetriever(),
             )
@@ -543,21 +545,23 @@ class Client {
      */
     public function getDocumentsByCustomer(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
-        int $offset = null,
+        string $offset = null,
     ): ObjectIterator {
         return $this
-            ->getOffsetBasedIterator(
+            ->getLastIdBasedIterator(
                 'getDocumentsByCustomer',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$offset: Int) {
-                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, offset: \$offset) {
+                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getDocumentPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getDocumentRetriever(),
             )
@@ -684,7 +688,7 @@ class Client {
     /**
      * @template T
      *
-     * @param array<string,mixed>      $params
+     * @param array<string,mixed>      $variables
      * @param Closure(array<mixed>): T $retriever
      *
      * @return QueryIterator<T, array<mixed>>
@@ -692,12 +696,12 @@ class Client {
     public function getOffsetBasedIterator(
         string $selector,
         string $graphql,
-        array $params,
+        array $variables,
         Closure $retriever,
     ): QueryIterator {
         return (new QueryIterator(
             OffsetBasedIterator::class,
-            new Query($this, "data.{$selector}", $graphql, $params),
+            new Query($this, "data.{$selector}", $graphql, $variables),
             $retriever,
         ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
@@ -706,7 +710,7 @@ class Client {
     /**
      * @template T
      *
-     * @param array<string,mixed>      $params
+     * @param array<string,mixed>      $variables
      * @param Closure(array<mixed>): T $retriever
      *
      * @return QueryIterator<T, array<mixed>>
@@ -714,12 +718,12 @@ class Client {
     public function getLastIdBasedIterator(
         string $selector,
         string $graphql,
-        array $params,
+        array $variables,
         Closure $retriever,
     ): QueryIterator {
         return (new QueryIterator(
             LastIdBasedIterator::class,
-            new Query($this, "data.{$selector}", $graphql, $params),
+            new Query($this, "data.{$selector}", $graphql, $variables),
             $retriever,
         ))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
@@ -728,13 +732,13 @@ class Client {
     /**
      * @template T of object
      *
-     * @param array<mixed>             $params
+     * @param array<mixed>             $variables
      * @param Closure(array<mixed>): T $retriever
      *
      * @return T|null
      */
-    public function get(string $selector, string $graphql, array $params, Closure $retriever): ?object {
-        $results = (array) $this->call("data.{$selector}", $graphql, $params);
+    public function get(string $selector, string $graphql, array $variables, Closure $retriever): ?object {
+        $results = (array) $this->call("data.{$selector}", $graphql, $variables);
         $item    = array_is_list($results) ? (reset($results) ?: null) : $results;
 
         if ($item) {
@@ -745,39 +749,39 @@ class Client {
     }
 
     /**
-     * @param array<mixed>  $params
-     * @param array<string> $files
+     * @param array<string, mixed> $variables
+     * @param array<string>        $files
      */
-    public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
-        $json   = $this->callExecute($selector, $graphql, $params, $files);
+    public function call(string $selector, string $graphql, array $variables = [], array $files = []): mixed {
+        $json   = $this->callExecute($selector, $graphql, $variables, $files);
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
         $result = Arr::get($json, $selector);
 
         if ($errors) {
-            $error = new GraphQLRequestFailed($graphql, $params, $errors);
+            $error = new GraphQLRequestFailed($graphql, $variables, $errors);
 
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, $json));
             $this->handler->report($error);
 
             if (!$result) {
                 throw $error;
             }
         } else {
-            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
+            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $variables, $json));
         }
 
         // Dump
-        $this->callDump($selector, $graphql, $params, $json);
+        $this->callDump($selector, $graphql, $variables, $json);
 
         // Return
         return $result;
     }
 
     /**
-     * @param array<mixed>  $params
-     * @param array<string> $files
+     * @param array<string, mixed> $variables
+     * @param array<string>        $files
      */
-    protected function callExecute(string $selector, string $graphql, array $params, array $files): mixed {
+    protected function callExecute(string $selector, string $graphql, array $variables, array $files): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderDisabled();
@@ -790,10 +794,10 @@ class Client {
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request = $this->client->timeout($timeout)->withHeaders($headers);
-        $data    = $this->callData($selector, $graphql, $params, $files, $request, [
+        $request = $this->client->connectTimeout($timeout)->timeout($timeout)->withHeaders($headers);
+        $data    = $this->callData($selector, $graphql, $variables, $files, $request, [
             'query'     => $graphql,
-            'variables' => $params,
+            'variables' => $variables,
         ]);
 
         // Call
@@ -801,20 +805,20 @@ class Client {
         $begin = time();
 
         try {
-            $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
+            $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $variables));
 
             $response = $request->post($url, $data);
             $json     = $response->json();
 
             $response->throw();
         } catch (ConnectionException $exception) {
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, null, $exception));
 
-            throw new DataLoaderUnavailable($exception);
+            throw new DataLoaderUnavailable($graphql, $variables, $exception);
         } catch (Exception $exception) {
-            $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
+            $error = new GraphQLRequestFailed($graphql, $variables, [], $exception);
 
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $variables, null, $exception));
             $this->handler->report($error);
 
             throw $error;
@@ -825,7 +829,7 @@ class Client {
         $time    = time() - $begin;
 
         if ($slowlog > 0 && $time >= $slowlog) {
-            $this->handler->report(new GraphQLSlowQuery($graphql, $params, $time, $slowlog));
+            $this->handler->report(new GraphQLSlowQuery($graphql, $variables, $time, $slowlog));
         }
 
         // Return
@@ -833,28 +837,27 @@ class Client {
     }
 
     /**
-     * @param array<mixed>  $params
-     * @param array<string> $files
-     * @param array<mixed>  $data
+     * @param array<string, mixed> $variables
+     * @param array<string>        $files
+     * @param array<mixed>         $data
      *
      * @return array<mixed>
      */
     protected function callData(
         string $selector,
         string $graphql,
-        array $params,
+        array $variables,
         array $files,
         PendingRequest $request,
         array $data,
     ): array {
         if ($files) {
-            $map       = [];
-            $index     = 0;
-            $variables = $params;
+            $map   = [];
+            $index = 0;
 
             foreach ($files as $variable) {
                 $name = 'file'.$index;
-                $file = Arr::get($params, $variable);
+                $file = Arr::get($variables, $variable);
 
                 if ($file) {
                     $index      = $index + 1;
@@ -891,28 +894,34 @@ class Client {
         return $data;
     }
 
-    protected function callDump(string $selector, string $graphql, mixed $params, mixed $json): void {
+    /**
+     * @param array<string, mixed> $variables
+     */
+    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): void {
         // Enabled?
         if (!$this->config->get('ep.data_loader.dump')) {
             return;
         }
 
         // Dump
-        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $params)}";
+        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $variables)}";
         $dump = new ClientDumpFile(new SplFileInfo($path));
 
         $dump->setDump(new ClientDump([
-            'selector' => $selector,
-            'graphql'  => $graphql,
-            'params'   => $params,
-            'response' => $json,
+            'selector'  => $selector,
+            'graphql'   => $graphql,
+            'variables' => $variables,
+            'response'  => $json,
         ]));
 
         $dump->save();
     }
 
-    protected function callDumpPath(string $selector, string $graphql, mixed $params): string {
-        $dump = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
+    /**
+     * @param array<string, mixed> $variables
+     */
+    protected function callDumpPath(string $selector, string $graphql, array $variables): string {
+        $dump = implode('.', [sha1($graphql), sha1(json_encode($variables)), 'json']);
         $path = "{$selector}/{$dump}";
 
         return $path;

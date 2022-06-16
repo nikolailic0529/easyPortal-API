@@ -6,16 +6,16 @@ use Throwable;
 
 class RequestFailed extends RequestEvent {
     /**
-     * @param array<mixed> $params
+     * @param array<string, mixed> $variables
      */
     public function __construct(
         string $selector,
         string $query,
-        array $params,
+        array $variables,
         protected mixed $response,
         protected Throwable|null $exception = null,
     ) {
-        parent::__construct($selector, $query, $params);
+        parent::__construct($selector, $query, $variables);
     }
 
     public function getResponse(): mixed {
