@@ -810,7 +810,7 @@ class Client {
         } catch (ConnectionException $exception) {
             $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
 
-            throw new DataLoaderUnavailable($exception);
+            throw new DataLoaderUnavailable($graphql, $params, $exception);
         } catch (Exception $exception) {
             $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
 
