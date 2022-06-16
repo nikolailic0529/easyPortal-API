@@ -10,7 +10,7 @@
                 {
                     "id": "9d11bd2e-4746-4668-b5d5-71f704992b46",
                     "name": "Armstrong-Shields",
-                    "updatedAt": "1652317722184",
+                    "updatedAt": "1655342024750",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 8,
+                        "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

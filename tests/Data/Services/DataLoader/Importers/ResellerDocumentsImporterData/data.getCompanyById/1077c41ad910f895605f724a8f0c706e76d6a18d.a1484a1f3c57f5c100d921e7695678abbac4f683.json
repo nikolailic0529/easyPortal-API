@@ -10,7 +10,7 @@
                 {
                     "id": "1391a181-977e-489c-85ca-b2f9b450a765",
                     "name": "Borer Ltd",
-                    "updatedAt": "1652315313587",
+                    "updatedAt": "1655339197767",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 15,
+                        "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

@@ -516,21 +516,23 @@ class Client {
      */
     public function getDocumentsByReseller(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
-        int $offset = null,
+        string $offset = null,
     ): ObjectIterator {
         return $this
-            ->getOffsetBasedIterator(
+            ->getLastIdBasedIterator(
                 'getDocumentsByReseller',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$offset: Int) {
-                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, offset: \$offset) {
+                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getDocumentPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getDocumentRetriever(),
             )
@@ -543,21 +545,23 @@ class Client {
      */
     public function getDocumentsByCustomer(
         string $id,
+        DateTimeInterface $from = null,
         int $limit = null,
-        int $offset = null,
+        string $offset = null,
     ): ObjectIterator {
         return $this
-            ->getOffsetBasedIterator(
+            ->getLastIdBasedIterator(
                 'getDocumentsByCustomer',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$offset: Int) {
-                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, offset: \$offset) {
+                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getDocumentPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'id'   => $id,
+                    'from' => $this->datetime($from),
                 ],
                 $this->getDocumentRetriever(),
             )

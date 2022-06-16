@@ -10,7 +10,7 @@
                 {
                     "id": "1647bd8d-539f-4a6f-a3be-f15820dc40f7",
                     "name": "Bailey Ltd",
-                    "updatedAt": "1652315357179",
+                    "updatedAt": "1655339243152",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 16,
+                        "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

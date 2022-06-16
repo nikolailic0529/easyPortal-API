@@ -480,12 +480,16 @@ type Query {
 
     getDocumentsByCustomer(
         customerId: String!
+        fromTimestamp: String
+        lastId: String
         limit: Int
         offset: Int
         type: String
     ): [Document]!
 
     getDocumentsByReseller(
+        fromTimestamp: String
+        lastId: String
         limit: Int
         offset: Int
         resellerId: String!

@@ -10,7 +10,7 @@
                 {
                     "id": "834b053b-c9bd-4a0f-969a-88d32f1fdd1a",
                     "name": "Koepp, Christiansen and Runolfsdottir",
-                    "updatedAt": "1652317299587",
+                    "updatedAt": "1655341508237",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 9,
+                        "expiredQuotes": 1,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

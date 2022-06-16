@@ -10,7 +10,7 @@
                 {
                     "id": "4e2d5e0c-f38b-4371-a245-9f70acb0f356",
                     "name": "Zboncak-Kihn",
-                    "updatedAt": "1652316300958",
+                    "updatedAt": "1655340362216",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 2,
+                        "expiredQuotes": 0,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

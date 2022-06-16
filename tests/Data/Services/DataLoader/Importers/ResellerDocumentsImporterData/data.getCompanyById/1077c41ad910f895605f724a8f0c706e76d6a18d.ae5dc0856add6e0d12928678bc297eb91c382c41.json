@@ -10,7 +10,7 @@
                 {
                     "id": "201aa98c-891f-422a-94d3-b19c00a9c7da",
                     "name": "Emmerich-Kuphal",
-                    "updatedAt": "1652315521898",
+                    "updatedAt": "1655339431829",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,7 +47,7 @@
                         "activeQuotesTotalAmount": 496.08,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
-                        "expiredQuotes": 2,
+                        "expiredQuotes": 1,
                         "expiredContracts": 0,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,

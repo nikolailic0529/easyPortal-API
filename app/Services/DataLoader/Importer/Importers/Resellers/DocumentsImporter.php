@@ -18,7 +18,7 @@ class DocumentsImporter extends BaseImporter {
     // <editor-fold desc="Importer">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        return $this->getClient()->getDocumentsByReseller($state->resellerId);
+        return $this->getClient()->getDocumentsByReseller($state->resellerId, $state->from);
     }
 
     protected function getTotal(State $state): ?int {
