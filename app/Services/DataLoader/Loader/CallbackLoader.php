@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Loader;
 
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Importer\Concerns\WithObjectId;
 use App\Services\DataLoader\Loader\Concerns\WithLoaderState;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
@@ -19,7 +18,6 @@ use Throwable;
  */
 class CallbackLoader extends Processor {
     use WithLoaderState;
-    use WithObjectId;
 
     /**
      * @var Closure(Dispatcher, Client, string): void

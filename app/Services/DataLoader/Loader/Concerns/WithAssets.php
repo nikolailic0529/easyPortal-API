@@ -61,13 +61,14 @@ trait WithAssets {
                     return $this
                         ->getAssetsImporter($state)
                         ->setObjectId($state->objectId)
+                        ->setFrom($state->from)
                         ->setWithDocuments($state->withAssetsDocuments);
                 },
             ),
             new CompositeOperation(
                 'Update outdated assets',
                 function (CompanyLoaderState $state): Processor {
-                    if (!$state->withAssets) {
+                    if ($state->from !== null || !$state->withAssets) {
                         return $this->getContainer()->make(EmptyProcessor::class);
                     }
 

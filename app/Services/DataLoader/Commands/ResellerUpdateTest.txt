@@ -10,6 +10,7 @@ Arguments:
 Options:
       --state[=STATE]        initial state, allows to continue processing (overwrites other options except `--chunk`)
       --chunk[=CHUNK]        chunk size
+      --from[=FROM]          start processing from given DateTime/DateInterval
   -a, --assets               Load assets
   -A, --no-assets            Skip assets (default)
   -d, --documents            Load documents

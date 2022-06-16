@@ -16,6 +16,7 @@ class CustomerUpdate extends ObjectUpdate {
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
+            '{--from= : start processing from given DateTime/DateInterval}',
             '{--warranty-check : run warranty check before update}',
             '{--no-warranty-check : do not run warranty check before update (default)}',
             '{--a|assets : Load assets}',
@@ -29,6 +30,7 @@ class CustomerUpdate extends ObjectUpdate {
 
     public function __invoke(Formatter $formatter, CustomerLoader $loader): int {
         $loader = $loader
+            ->setFrom($this->getDateTimeOption('from'))
             ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false))
             ->setWithAssets($this->getBoolOption('assets', false))
             ->setWithAssetsDocuments($this->getBoolOption('assets-documents', true))

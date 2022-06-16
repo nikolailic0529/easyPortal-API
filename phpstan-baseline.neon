@@ -8811,7 +8811,12 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\Factory\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\Factory\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Client/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
@@ -12238,6 +12243,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$objects of static method App\\\\Utils\\\\JsonObject\\\\JsonObject\\:\\:make\\(\\) expects array\\<int, array\\<string, mixed\\>\\>\\|null, mixed given\\.$#"
 			count: 2
+			path: app/Services/Keycloak/Client/Client.php
+
+		-
+			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
+			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
