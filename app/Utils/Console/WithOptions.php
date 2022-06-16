@@ -2,6 +2,7 @@
 
 namespace App\Utils\Console;
 
+use App\Rules\Duration;
 use DateTimeInterface;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Validation\Factory;
@@ -11,6 +12,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 use function assert;
 use function filter_var;
 use function is_string;
+use function sprintf;
 
 use const FILTER_VALIDATE_INT;
 
@@ -88,7 +90,29 @@ trait WithOptions {
      */
     protected function getDateTimeOption(string $name, DateTimeInterface $default = null): ?DateTimeInterface {
         $value = $this->getStringOption($name);
-        $value = Date::make($value) ?? $default;
+
+        if ($value !== null) {
+            $date = Date::make($value);
+
+            if ($date === null) {
+                $validator = $this->laravel->make(Factory::class)->make(
+                    [$name => $value],
+                    [$name => ['required', 'string', new Duration()]],
+                );
+
+                if (!$validator->fails()) {
+                    $date = Date::now()->sub($value);
+                }
+            }
+
+            if (!$date) {
+                throw new RuntimeException(sprintf('Option `%s`: Invalid date format', $name));
+            }
+
+            $value = $date;
+        } else {
+            $value = $default;
+        }
 
         return $value;
     }
