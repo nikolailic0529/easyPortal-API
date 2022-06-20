@@ -132,4 +132,169 @@ class DataTest extends TestCase {
 
         self::assertFalse($data->isDirty());
     }
+
+    /**
+     * @covers ::addAll
+     */
+    public function testAddAll(): void {
+        $data = new Data();
+
+        $data
+            ->addAll(Asset::class, [
+                '8524c29d-579b-42ec-943f-b23d940d1e96',
+                'a2ab8ce9-38e2-4814-880a-082795442efe',
+            ])
+            ->addAll(Customer::class, [
+                '603f2af7-e7a1-4ec6-8347-d88756c4f023',
+            ]);
+
+        self::assertEquals(
+            [
+                Reseller::class    => [
+                    // empty
+                ],
+                Customer::class    => [
+                    '603f2af7-e7a1-4ec6-8347-d88756c4f023' => '603f2af7-e7a1-4ec6-8347-d88756c4f023',
+                ],
+                Asset::class       => [
+                    '8524c29d-579b-42ec-943f-b23d940d1e96' => '8524c29d-579b-42ec-943f-b23d940d1e96',
+                    'a2ab8ce9-38e2-4814-880a-082795442efe' => 'a2ab8ce9-38e2-4814-880a-082795442efe',
+                ],
+                Document::class    => [
+                    // empty
+                ],
+                Distributor::class => [
+                    // empty
+                ],
+                Location::class    => [
+                    // empty
+                ],
+            ],
+            $data->getData(),
+        );
+    }
+
+    /**
+     * @covers ::addData
+     */
+    public function testAddData(): void {
+        $a = new Data();
+        $b = new Data();
+        $c = new class() extends Data {
+            /**
+             * @inheritDoc
+             */
+            public function getData(): array {
+                return [
+                    Reseller::class => [
+                        'd467b4d2-db00-433a-98d4-219a33c1c683' => 'd467b4d2-db00-433a-98d4-219a33c1c683',
+                    ],
+                    Model::class    => [
+                        'c8989f40-010a-4da3-be8a-1eda0340d543' => 'c8989f40-010a-4da3-be8a-1eda0340d543',
+                    ],
+                ];
+            }
+        };
+
+        $a->add(Asset::class, 'b20a9fdc-8d32-43e8-8e27-7163f8fccb7b');
+        $a->add(Asset::class, '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721');
+        $a->add(Customer::class, 'f3840603-d07e-46ce-909c-37af899b4d1a');
+
+        $b->add(Customer::class, '093c3e47-2234-4598-9d29-78aaa1430cb2');
+        $b->add(Customer::class, 'f3840603-d07e-46ce-909c-37af899b4d1a');
+        $b->add(Document::class, '60b18ef0-0ab9-4990-8e0b-795afecffba2');
+
+        $a->addData($b)->addData($c);
+
+        self::assertEquals(
+            [
+                Reseller::class    => [
+                    'd467b4d2-db00-433a-98d4-219a33c1c683' => 'd467b4d2-db00-433a-98d4-219a33c1c683',
+                ],
+                Customer::class    => [
+                    'f3840603-d07e-46ce-909c-37af899b4d1a' => 'f3840603-d07e-46ce-909c-37af899b4d1a',
+                    '093c3e47-2234-4598-9d29-78aaa1430cb2' => '093c3e47-2234-4598-9d29-78aaa1430cb2',
+                ],
+                Asset::class       => [
+                    'b20a9fdc-8d32-43e8-8e27-7163f8fccb7b' => 'b20a9fdc-8d32-43e8-8e27-7163f8fccb7b',
+                    '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721' => '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721',
+                ],
+                Document::class    => [
+                    '60b18ef0-0ab9-4990-8e0b-795afecffba2' => '60b18ef0-0ab9-4990-8e0b-795afecffba2',
+                ],
+                Distributor::class => [
+                    // empty
+                ],
+                Location::class    => [
+                    // empty
+                ],
+            ],
+            $a->getData(),
+        );
+    }
+
+    /**
+     * @covers ::deleteAll
+     */
+    public function testDeleteAll(): void {
+        $a = new Data();
+
+        $a->add(Asset::class, 'b20a9fdc-8d32-43e8-8e27-7163f8fccb7b');
+        $a->add(Asset::class, '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721');
+        $a->add(Customer::class, 'f3840603-d07e-46ce-909c-37af899b4d1a');
+
+        self::assertEquals(
+            [
+                Reseller::class    => [
+                    // empty
+                ],
+                Customer::class    => [
+                    'f3840603-d07e-46ce-909c-37af899b4d1a' => 'f3840603-d07e-46ce-909c-37af899b4d1a',
+                ],
+                Asset::class       => [
+                    '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721' => '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721',
+                ],
+                Document::class    => [
+                    // empty
+                ],
+                Distributor::class => [
+                    // empty
+                ],
+                Location::class    => [
+                    // empty
+                ],
+            ],
+            $a
+                ->deleteAll(Asset::class, [
+                    'b20a9fdc-8d32-43e8-8e27-7163f8fccb7b',
+                ])
+                ->getData(),
+        );
+
+        self::assertEquals(
+            [
+                Reseller::class    => [
+                    // empty
+                ],
+                Customer::class    => [
+                    // empty
+                ],
+                Asset::class       => [
+                    '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721' => '3dfc5739-aa7e-42dc-9e3b-7eafe4ea2721',
+                ],
+                Document::class    => [
+                    // empty
+                ],
+                Distributor::class => [
+                    // empty
+                ],
+                Location::class    => [
+                    // empty
+                ],
+            ],
+            $a
+                ->deleteAll(Customer::class)
+                ->getData(),
+        );
+    }
 }

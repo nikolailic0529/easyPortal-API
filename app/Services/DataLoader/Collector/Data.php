@@ -17,6 +17,8 @@ use App\Services\DataLoader\Schema\ViewDocument as SchemaViewDocument;
 use App\Utils\Eloquent\Model;
 use Illuminate\Support\Arr;
 
+use function is_array;
+
 class Data {
     /**
      * We are using a whitelist here to reduce memory usage.
@@ -95,9 +97,47 @@ class Data {
     /**
      * @param class-string<Model> $class
      */
-    public function add(string $class, ?string $id): static {
-        if ($id && isset($this->data[$class])) {
-            $this->data[$class][$id] = $id;
+    public function add(string $class, ?string $key): static {
+        if ($key && isset($this->data[$class])) {
+            $this->data[$class][$key] = $key;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param class-string<Model> $class
+     * @param array<string>       $keys
+     */
+    public function addAll(string $class, array $keys): static {
+        foreach ($keys as $key) {
+            $this->add($class, $key);
+        }
+
+        return $this;
+    }
+
+    public function addData(Data $data): static {
+        foreach ($data->getData() as $class => $keys) {
+            if (isset($this->data[$class])) {
+                $this->data[$class] += $keys;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param class-string<Model> $class
+     * @param array<string>       $keys
+     */
+    public function deleteAll(string $class, array $keys = null): static {
+        if (is_array($keys)) {
+            foreach ($keys as $key) {
+                unset($this->data[$class][$key]);
+            }
+        } else {
+            $this->data[$class] = [];
         }
 
         return $this;
