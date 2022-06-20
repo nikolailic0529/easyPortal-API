@@ -24,13 +24,14 @@ trait WithProduct {
         ?string $eos,
     ): Product {
         // Get/Create
+        $sku     = $this->getNormalizer()->string($sku);
         $created = false;
         $factory = $this->factory(
             function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
                 $created      = !$product->exists;
                 $normalizer   = $this->getNormalizer();
                 $product->oem = $oem;
-                $product->sku = $normalizer->string($sku);
+                $product->sku = $sku;
                 $product->eol = $normalizer->datetime($eol);
                 $product->eos = $normalizer->datetime($eos);
 

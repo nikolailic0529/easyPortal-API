@@ -111,7 +111,8 @@ class CustomerStatusesTest extends TestCase {
                         'object_type' => (new Customer())->getMorphClass(),
                     ]);
                     Status::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                 },
             ],

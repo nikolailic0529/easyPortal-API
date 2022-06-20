@@ -112,7 +112,8 @@ class QuoteStatusesTest extends TestCase {
                         'object_type' => (new Document())->getMorphClass(),
                     ]);
                     Status::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                     Status::factory()->create([
                         'id'          => '1110a787-7a07-49ad-a863-56aa092d8134',

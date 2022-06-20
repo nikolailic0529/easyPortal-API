@@ -103,7 +103,8 @@ class AssetStatusesTest extends TestCase {
                         'object_type' => (new Asset())->getMorphClass(),
                     ]);
                     Status::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                 },
             ],

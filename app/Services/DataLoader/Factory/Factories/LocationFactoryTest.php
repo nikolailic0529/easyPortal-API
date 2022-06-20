@@ -314,7 +314,7 @@ class LocationFactoryTest extends TestCase {
                 // empty
             }
 
-            public function country(string $code, string $name): Country {
+            public function country(string $code, ?string $name): Country {
                 return parent::country($code, $name);
             }
         };
@@ -330,11 +330,45 @@ class LocationFactoryTest extends TestCase {
         // If not - it should be created
         $created = $factory->country(' CD ', ' Country  Name ');
 
-        self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('CD', $created->code);
         self::assertEquals('Country Name', $created->name);
         self::assertCount(2, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // No name -> code should be used
+        $created = $factory->country(' AB ', null);
+
+        self::assertEquals('AB', $created->code);
+        self::assertEquals('AB', $created->name);
+
+        $this->flushQueryLog();
+
+        // No name -> name should be updated
+        $created = $factory->country(' AB ', ' Name ');
+
+        self::assertEquals('AB', $created->code);
+        self::assertEquals('Name', $created->name);
+        self::assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // Unknown Country -> name should be updated
+        $updated = $factory->country($factory->country(' UN ', ' Unknown Country ')->code, ' Name ');
+
+        self::assertEquals('Name', $updated->name);
+        self::assertCount(3, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // Name -> should not be updated
+        $updated = $factory->country($factory->country(' NA ', ' Name ')->code, ' New Name ');
+
+        self::assertEquals('Name', $updated->name);
+        self::assertCount(2, $this->getQueryLog());
+
+        $this->flushQueryLog();
     }
 
     /**

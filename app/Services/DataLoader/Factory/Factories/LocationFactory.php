@@ -32,6 +32,9 @@ use function str_contains;
  * @extends ModelFactory<LocationModel>
  */
 class LocationFactory extends ModelFactory {
+    private const UNKNOWN_COUNTRY_CODE = '??';
+    private const UNKNOWN_COUNTRY_NAME = 'Unknown Country';
+
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
@@ -80,8 +83,8 @@ class LocationFactory extends ModelFactory {
 
         // Country is not yet available so we use Unknown
         $country = $location->countryCode
-            ? $this->country($location->countryCode, $location->country ?: 'Unknown Country')
-            : $this->country('??', 'Unknown Country');
+            ? $this->country($location->countryCode, $location->country)
+            : $this->country(self::UNKNOWN_COUNTRY_CODE, self::UNKNOWN_COUNTRY_NAME);
 
         // City may contains State
         $city  = null;
@@ -127,30 +130,49 @@ class LocationFactory extends ModelFactory {
         return $this->createFromLocation($location);
     }
 
-    protected function country(string $code, string $name): Country {
-        $country = $this->countryResolver->get($code, $this->factory(function () use ($code, $name): Country {
-            $country       = new Country();
-            $normalizer    = $this->getNormalizer();
-            $country->code = mb_strtoupper($normalizer->string($code));
-            $country->name = $normalizer->string($name);
+    protected function country(string $code, ?string $name): Country {
+        // Get/Create
+        $code    = $this->getNormalizer()->string($code);
+        $created = false;
+        $factory = $this->factory(function (Country $country) use (&$created, $code, $name): Country {
+            $created = !$country->exists;
+            $code    = mb_strtoupper($code);
 
-            $country->save();
+            if ($created || $country->name === self::UNKNOWN_COUNTRY_NAME || $country->name === $code) {
+                $normalizer    = $this->getNormalizer();
+                $country->code = $code;
+                $country->name = $normalizer->string($name) ?: $code;
+
+                $country->save();
+            }
 
             return $country;
-        }));
+        });
+        $country = $this->countryResolver->get(
+            $code,
+            static function () use ($factory): Country {
+                return $factory(new Country());
+            },
+        );
 
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($country);
+        }
+
+        // Return
         return $country;
     }
 
     protected function city(Country $country, string $name): City {
+        $name = $this->getNormalizer()->string($name);
         $city = $this->cityResolver->get(
             $country,
             $name,
-            $this->factory(function () use ($country, $name): City {
+            $this->factory(static function () use ($country, $name): City {
                 $city          = new City();
-                $normalizer    = $this->getNormalizer();
-                $city->key     = $normalizer->string($name);
-                $city->name    = $normalizer->string($name);
+                $city->key     = $name;
+                $city->name    = $name;
                 $city->country = $country;
 
                 $city->save();
