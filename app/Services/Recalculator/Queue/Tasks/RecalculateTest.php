@@ -30,6 +30,6 @@ class RecalculateTest extends TestCase {
 
         $job->init($key);
 
-        self::assertEquals($key, $job->getModelKey());
+        self::assertEquals($key, $job->getKey());
     }
 }

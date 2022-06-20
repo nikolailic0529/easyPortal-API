@@ -51,7 +51,7 @@ class DataImportedListenerTest extends TestCase {
 
         foreach ($keys as $key) {
             Queue::assertPushed(static function (CustomerRecalculate $job) use ($key): bool {
-                return $job->getModelKey() === $key;
+                return $job->getKey() === $key;
             });
         }
     }
