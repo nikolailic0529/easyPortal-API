@@ -112,7 +112,8 @@ class ContractStatusesTest extends TestCase {
                         'object_type' => (new Document())->getMorphClass(),
                     ]);
                     Status::factory()->create([
-                        'name' => 'Wrong object_type',
+                        'name'        => 'Wrong object_type',
+                        'object_type' => 'unknown',
                     ]);
                     Status::factory()->create([
                         'id'          => '8e3b1231-1890-402c-bbdf-7086c1256ea8',
