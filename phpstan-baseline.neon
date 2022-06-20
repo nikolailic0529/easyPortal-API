@@ -10341,11 +10341,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Country will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Location will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
@@ -10376,12 +10371,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:434\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:399\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:434\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
