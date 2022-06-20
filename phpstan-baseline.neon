@@ -10371,12 +10371,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:434\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:433\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:434\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:433\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 

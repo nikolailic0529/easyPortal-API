@@ -165,14 +165,14 @@ class LocationFactory extends ModelFactory {
     }
 
     protected function city(Country $country, string $name): City {
+        $name = $this->getNormalizer()->string($name);
         $city = $this->cityResolver->get(
             $country,
             $name,
-            $this->factory(function () use ($country, $name): City {
+            $this->factory(static function () use ($country, $name): City {
                 $city          = new City();
-                $normalizer    = $this->getNormalizer();
-                $city->key     = $normalizer->string($name);
-                $city->name    = $normalizer->string($name);
+                $city->key     = $name;
+                $city->name    = $name;
                 $city->country = $country;
 
                 $city->save();
