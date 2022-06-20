@@ -320,7 +320,7 @@ class SearchableImplTest extends TestCase {
         // Mock
         $this->override(Indexer::class, static function (MockInterface $mock) use ($models): void {
             $mock
-                ->shouldReceive('update')
+                ->shouldReceive('dispatch')
                 ->with($models)
                 ->once();
         });
@@ -374,7 +374,7 @@ class SearchableImplTest extends TestCase {
         // Mock
         $this->override(Indexer::class, static function (MockInterface $mock) use ($models): void {
             $mock
-                ->shouldReceive('update')
+                ->shouldReceive('dispatch')
                 ->with($models)
                 ->once();
         });

@@ -140,7 +140,7 @@ trait SearchableImpl {
      */
     public function queueMakeSearchable(EloquentCollection $models): void {
         if (config('scout.queue')) {
-            app()->make(Indexer::class)->update($models);
+            app()->make(Indexer::class)->dispatch($models);
         } else {
             $this->searchableUsing()->update($models);
         }
@@ -151,7 +151,7 @@ trait SearchableImpl {
      */
     public function queueRemoveFromSearch(EloquentCollection $models): void {
         if (config('scout.queue')) {
-            app()->make(Indexer::class)->update($models);
+            app()->make(Indexer::class)->dispatch($models);
         } else {
             $this->searchableUsing()->delete($models);
         }

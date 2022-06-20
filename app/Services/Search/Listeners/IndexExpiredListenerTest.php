@@ -60,7 +60,7 @@ class IndexExpiredListenerTest extends TestCase {
         $this->override(Indexer::class, static function (MockInterface $mock) use ($data): void {
             foreach ($data->getData() as $model => $keys) {
                 $mock
-                    ->shouldReceive('update')
+                    ->shouldReceive('dispatch')
                     ->with([
                         'model' => $model,
                         'keys'  => $keys,
@@ -88,7 +88,7 @@ class IndexExpiredListenerTest extends TestCase {
 
         $this->override(Indexer::class, static function (MockInterface $mock) use ($model, $keys): void {
             $mock
-                ->shouldReceive('update')
+                ->shouldReceive('dispatch')
                 ->with([
                     'model' => $model,
                     'keys'  => $keys,

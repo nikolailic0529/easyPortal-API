@@ -2,11 +2,8 @@
 
 namespace App\Services\Search\Queue\Tasks;
 
-use App\Services\Search\Eloquent\Searchable;
-use App\Utils\Eloquent\Model;
+use App\Services\Queue\Concerns\WithModelKey;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-
-use function implode;
 
 /**
  * Update Search Index for one Model.
@@ -15,24 +12,19 @@ use function implode;
  * @see \Laravel\Scout\Jobs\RemoveFromSearch
  */
 class ModelIndex extends Index implements ShouldBeUnique {
+    /**
+     * @use WithModelKey<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>
+     */
+    use WithModelKey;
+
     public function displayName(): string {
         return 'ep-search-model-index';
     }
 
-    public function uniqueId(): string {
-        return "{$this->getModel()}@".implode(',', $this->getKeys());
-    }
-
     /**
-     * @param class-string<Model&Searchable> $model
-     *
-     * @return $this
+     * @inheritDoc
      */
-    public function init(string $model, string|int $key): static {
-        $this->setModel($model);
-        $this->setKeys([$key]);
-        $this->initialized();
-
-        return $this;
+    protected function getKeys(): array {
+        return [$this->getKey()];
     }
 }

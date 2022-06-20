@@ -44,7 +44,7 @@ class IndexExpiredListener implements Subscriber {
         }
 
         // Dispatch
-        $this->indexer->update([
+        $this->indexer->dispatch([
             'model' => $model,
             'keys'  => $keys,
         ]);
