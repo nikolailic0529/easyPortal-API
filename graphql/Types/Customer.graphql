@@ -26,6 +26,7 @@ type Customer {
     kpi: Kpi @orgRelation
 
     # Contracts
+    contracts_count: Int! @orgProperty
     contracts (
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy
@@ -35,6 +36,7 @@ type Customer {
     @paginatedRelation
 
     # Quotes
+    quotes_count: Int! @orgProperty
     quotes (
         where: DocumentsQuery @searchBy
         order: DocumentsSort @sortBy

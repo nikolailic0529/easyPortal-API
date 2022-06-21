@@ -4368,6 +4368,12 @@ input SortByClauseCustomersSort {
     """
     Property clause.
     """
+    contracts_count: SortByDirection
+    @orgProperty
+
+    """
+    Property clause.
+    """
     headquarter: SortByClauseCustomerLocationsSort
 
     """
@@ -4379,6 +4385,12 @@ input SortByClauseCustomersSort {
     Property clause.
     """
     name: SortByDirection
+
+    """
+    Property clause.
+    """
+    quotes_count: SortByDirection
+    @orgProperty
 }
 
 """
@@ -6341,6 +6353,9 @@ type Customer {
         relation: "contracts"
     )
 
+    contracts_count: Int!
+    @orgProperty
+
     headquarter: CustomerLocation
     @relation
 
@@ -6471,6 +6486,9 @@ type Customer {
     @aggregated(
         relation: "quotes"
     )
+
+    quotes_count: Int!
+    @orgProperty
 
     statuses: [Status!]!
     @relation

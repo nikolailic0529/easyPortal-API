@@ -55,6 +55,8 @@ class CustomersTest extends TestCase {
                 id
                 name
                 assets_count
+                quotes_count
+                contracts_count
                 contacts_count
                 locations_count
                 locations {
@@ -174,6 +176,8 @@ class CustomersTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 1,
+                                    'quotes_count'    => 1,
+                                    'contracts_count' => 1,
                                     'locations_count' => 1,
                                     'locations'       => [
                                         [
@@ -333,6 +337,8 @@ class CustomersTest extends TestCase {
                                     'name'            => 'name aaa',
                                     'kpi_id'          => $kpi,
                                     'assets_count'    => 0,
+                                    'quotes_count'    => 0,
+                                    'contracts_count' => 0,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                     'changed_at'      => '2021-10-19 10:15:00',
@@ -368,8 +374,10 @@ class CustomersTest extends TestCase {
                             ]);
 
                             $customer->resellers()->attach($reseller, [
-                                'assets_count' => 1,
-                                'kpi_id'       => $customerKpi->getKey(),
+                                'assets_count'    => 1,
+                                'quotes_count'    => 1,
+                                'contracts_count' => 1,
+                                'kpi_id'          => $customerKpi->getKey(),
                             ]);
 
                             CustomerLocation::factory()
