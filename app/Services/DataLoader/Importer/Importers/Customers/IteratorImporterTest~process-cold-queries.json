@@ -203,7 +203,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "06502d97-fa26-42cc-9478-34fbc1910b71",
             "Williamson, Bauch and Balistreri",
@@ -213,7 +213,6 @@
             1,
             "92caf06e-33e3-5c49-8f01-184878ed384d",
             "2022-02-02 00:00:09",
-            0,
             "2022-02-02 00:00:10",
             "2022-02-02 00:00:10"
         ]
@@ -415,7 +414,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "fd865591-18fc-4278-9c35-000e761d49d9",
             "Heaney, Weber and Ritchie",
@@ -425,7 +424,6 @@
             1,
             "14e91f75-7ccc-5200-ad73-8693f5021cb4",
             "2022-02-02 00:00:22",
-            0,
             "2022-02-02 00:00:25",
             "2022-02-02 00:00:25"
         ]
@@ -605,7 +603,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "cc5799fa-e7c3-4a47-b879-e5f731a7ed8f",
             "Moen, Harber and Runolfsdottir",
@@ -615,7 +613,6 @@
             1,
             "1c80dfe6-5298-52d0-826b-4a92aef42051",
             "2022-02-02 00:00:38",
-            0,
             "2022-02-02 00:00:39",
             "2022-02-02 00:00:39"
         ]
@@ -760,7 +757,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
             "Purdy, Quitzon and Keeling",
@@ -770,7 +767,6 @@
             1,
             "d0f274fb-c842-5630-be55-97e8e8ba398a",
             "2022-02-02 00:00:49",
-            0,
             "2022-02-02 00:00:50",
             "2022-02-02 00:00:50"
         ]
@@ -944,7 +940,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ca3fd926-367d-4690-bde9-e895916ab4df",
             "Lebsack Inc",
@@ -954,7 +950,6 @@
             1,
             "df2bd04f-1e65-5f09-89cd-0171904f8330",
             "2022-02-02 00:00:59",
-            0,
             "2022-02-02 00:01:02",
             "2022-02-02 00:01:02"
         ]
@@ -1181,7 +1176,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8",
             "Wehner, Armstrong and Boehm",
@@ -1191,7 +1186,6 @@
             1,
             "18ca4dce-e549-59ee-88fb-8b3a4b4be2fb",
             "2022-02-02 00:01:20",
-            0,
             "2022-02-02 00:01:25",
             "2022-02-02 00:01:25"
         ]
@@ -1392,7 +1386,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "3125937c-24bf-46ad-97c5-0727cb3b76bd",
             "Beatty, Cartwright and Rempel",
@@ -1402,7 +1396,6 @@
             1,
             "cd2fba63-d9e3-5d6d-8c2c-5b40b6d433e5",
             "2022-02-02 00:01:38",
-            0,
             "2022-02-02 00:01:41",
             "2022-02-02 00:01:41"
         ]
@@ -1559,7 +1552,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f67c0662-4715-4807-a5fb-807d75d5c92d",
             "Ortiz, Huels and Gibson",
@@ -1569,7 +1562,6 @@
             1,
             "d7046fba-7616-5d0e-a517-10393c49ebeb",
             "2022-02-02 00:01:52",
-            0,
             "2022-02-02 00:01:53",
             "2022-02-02 00:01:53"
         ]
@@ -1709,7 +1701,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9ed7937c-537c-460f-abc4-d167aab8c28c",
             "Watsica-Bergstrom",
@@ -1719,7 +1711,6 @@
             1,
             "0c1d028c-7eba-58fe-9b04-c206c714dd00",
             "2022-02-02 00:02:02",
-            0,
             "2022-02-02 00:02:03",
             "2022-02-02 00:02:03"
         ]
@@ -1859,7 +1850,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ada5cb92-2351-4b09-9502-7f767805b2f3",
             "Gerlach LLC",
@@ -1869,7 +1860,6 @@
             1,
             "eda8f0d1-bd8d-52c0-8e21-b995ec333a34",
             "2022-02-02 00:02:12",
-            0,
             "2022-02-02 00:02:13",
             "2022-02-02 00:02:13"
         ]

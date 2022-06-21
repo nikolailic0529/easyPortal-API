@@ -16,8 +16,6 @@ use function array_merge;
 use function array_unique;
 use function count;
 
-use const SORT_REGULAR;
-
 /**
  * @extends Processor<Reseller,ResellersChunkData,EloquentState<Reseller>>
  */
@@ -48,6 +46,8 @@ class ResellersProcessor extends Processor {
         $resellerAssetsByCustomer    = $data->getResellerAssetsByCustomer($reseller);
         $resellerAssetsByLocation    = $data->getResellerAssetsByLocation($reseller);
         $resellerCustomersByLocation = $data->getResellerCustomersByLocation($reseller);
+        $resellerQuotesByCustomer    = $data->getResellerQuotesByCustomer($reseller);
+        $resellerContractsByCustomer = $data->getResellerContractsByCustomer($reseller);
         $resellerDocumentsByCustomer = $data->getResellerDocumentsByCustomer($reseller);
         $resellerCustomers           = array_filter(array_unique(array_merge(
             array_keys($resellerAssetsByCustomer),
@@ -76,14 +76,12 @@ class ResellersProcessor extends Processor {
         $existing  = $reseller->customersPivots->keyBy(
             $reseller->customers()->getRelatedPivotKeyName(),
         );
-        $ids       = array_filter(array_unique(
-            array_merge($resellerCustomers, array_keys($resellerAssetsByCustomer)),
-            SORT_REGULAR,
-        ));
 
-        foreach ($ids as $id) {
-            $customers[$id]               = new ResellerCustomer();
-            $customers[$id]->assets_count = $resellerAssetsByCustomer[$id] ?? 0;
+        foreach ($resellerCustomers as $id) {
+            $customers[$id]                  = new ResellerCustomer();
+            $customers[$id]->assets_count    = $resellerAssetsByCustomer[$id] ?? 0;
+            $customers[$id]->quotes_count    = $resellerQuotesByCustomer[$id] ?? 0;
+            $customers[$id]->contracts_count = $resellerContractsByCustomer[$id] ?? 0;
 
             unset($existing[$id]);
         }

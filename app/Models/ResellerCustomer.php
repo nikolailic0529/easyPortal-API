@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string               $customer_id
  * @property string|null          $kpi_id
  * @property int                  $assets_count
+ * @property int                  $quotes_count
+ * @property int                  $contracts_count
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at

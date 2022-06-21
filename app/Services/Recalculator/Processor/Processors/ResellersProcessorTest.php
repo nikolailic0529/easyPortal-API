@@ -10,6 +10,7 @@ use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
+use App\Models\Type;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -39,21 +40,30 @@ class ResellersProcessorTest extends TestCase {
         $this->override(ExceptionHandler::class);
 
         // Prepare
-        $count     = $this->faker->randomNumber(3);
-        $locationA = Location::factory()->create([
+        $count        = $this->faker->randomNumber(3);
+        $type         = Type::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $locationB = Location::factory()->create([
+        $quoteType    = Type::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $locationC = Location::factory()->create([
+        $contractType = Type::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $locationD = Location::factory()->create([
+        $locationA    = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationB    = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationC    = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationD    = Location::factory()->create([
             'id'         => Str::uuid()->toString(),
             'deleted_at' => Date::now(),
         ]);
-        $resellerA = Reseller::factory()
+        $resellerA    = Reseller::factory()
             ->hasCustomers(1, [
                 'id' => Str::uuid()->toString(),
             ])
@@ -73,7 +83,7 @@ class ResellersProcessorTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
-        $resellerB = Reseller::factory()
+        $resellerB    = Reseller::factory()
             ->hasContacts(1, [
                 'id' => Str::uuid()->toString(),
             ])
@@ -85,7 +95,7 @@ class ResellersProcessorTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
-        $resellerC = Reseller::factory()
+        $resellerC    = Reseller::factory()
             ->create([
                 'id'              => Str::uuid()->toString(),
                 'customers_count' => $count,
@@ -94,7 +104,7 @@ class ResellersProcessorTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
-        $customerA = Customer::factory()
+        $customerA    = Customer::factory()
             ->hasLocations(1, [
                 'id'          => Str::uuid()->toString(),
                 'location_id' => $locationA,
@@ -102,7 +112,7 @@ class ResellersProcessorTest extends TestCase {
             ->create([
                 'id' => Str::uuid()->toString(),
             ]);
-        $customerB = Customer::factory()
+        $customerB    = Customer::factory()
             ->hasLocations(1, [
                 'id'          => Str::uuid()->toString(),
                 'location_id' => $locationC,
@@ -110,22 +120,26 @@ class ResellersProcessorTest extends TestCase {
             ->create([
                 'id' => Str::uuid()->toString(),
             ]);
-        $customerC = Customer::factory()->create([
+        $customerC    = Customer::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $customerD = Customer::factory()->create([
+        $customerD    = Customer::factory()->create([
             'id'         => Str::uuid()->toString(),
             'deleted_at' => Date::now(),
         ]);
-        $customerE = Customer::factory()->create([
+        $customerE    = Customer::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $kpiA         = Kpi::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $kpiB         = Kpi::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
 
-        $kpiA = Kpi::factory()->create([
-            'id' => Str::uuid()->toString(),
-        ]);
-        $kpiB = Kpi::factory()->create([
-            'id' => Str::uuid()->toString(),
+        $this->setSettings([
+            'ep.contract_types' => [$contractType->getKey()],
+            'ep.quote_types'    => [$quoteType->getKey()],
         ]);
 
         ResellerCustomer::factory()->create([
@@ -175,18 +189,33 @@ class ResellersProcessorTest extends TestCase {
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
+            'type_id'     => $contractType,
             'reseller_id' => $resellerA,
             'customer_id' => $customerC,
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
+            'type_id'     => $type,
             'reseller_id' => $resellerA,
             'customer_id' => null,
         ]);
         Document::factory()->create([
             'id'          => Str::uuid()->toString(),
+            'type_id'     => $quoteType,
             'reseller_id' => $resellerB,
             'customer_id' => $customerD,
+        ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $quoteType,
+            'reseller_id' => $resellerB,
+            'customer_id' => $customerB,
+        ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $type,
+            'reseller_id' => $resellerB,
+            'customer_id' => $customerB,
         ]);
 
         // Test
@@ -227,8 +256,8 @@ class ResellersProcessorTest extends TestCase {
         $bCustomers = $customers($bReseller);
         $bLocations = $locations($bReseller);
         $cReseller  = $resellerC->refresh();
-        $cCustomers = $customers($bReseller);
-        $cLocations = $locations($bReseller);
+        $cCustomers = $customers($cReseller);
+        $cLocations = $locations($cReseller);
         $attributes = [
             'customer_id',
             'location_id',
@@ -247,24 +276,32 @@ class ResellersProcessorTest extends TestCase {
 
         self::assertEquals([
             [
-                'assets_count' => 1,
-                'customer_id'  => $customerA->getKey(),
-                'kpi_id'       => $kpiA->getKey(),
+                'assets_count'    => 0,
+                'customer_id'     => $customerC->getKey(),
+                'kpi_id'          => null,
+                'quotes_count'    => 0,
+                'contracts_count' => 1,
             ],
             [
-                'assets_count' => 0,
-                'customer_id'  => $customerE->getKey(),
-                'kpi_id'       => $kpiB->getKey(),
+                'assets_count'    => 0,
+                'customer_id'     => $customerE->getKey(),
+                'kpi_id'          => $kpiB->getKey(),
+                'quotes_count'    => 0,
+                'contracts_count' => 0,
             ],
             [
-                'assets_count' => 0,
-                'customer_id'  => $customerC->getKey(),
-                'kpi_id'       => null,
+                'assets_count'    => 1,
+                'customer_id'     => $customerA->getKey(),
+                'kpi_id'          => $kpiA->getKey(),
+                'quotes_count'    => 0,
+                'contracts_count' => 0,
             ],
             [
-                'assets_count' => 1,
-                'customer_id'  => $customerB->getKey(),
-                'kpi_id'       => null,
+                'assets_count'    => 1,
+                'customer_id'     => $customerB->getKey(),
+                'kpi_id'          => null,
+                'quotes_count'    => 0,
+                'contracts_count' => 0,
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 
@@ -278,7 +315,7 @@ class ResellersProcessorTest extends TestCase {
 
         // B
         self::assertEquals([
-            'customers_count' => 0,
+            'customers_count' => 1,
             'locations_count' => 0,
             'assets_count'    => 0,
             'contacts_count'  => 1,
@@ -287,7 +324,13 @@ class ResellersProcessorTest extends TestCase {
         ], $this->getModelCountableProperties($bReseller, $attributes));
 
         self::assertEquals([
-            // empty
+            [
+                'assets_count'    => 0,
+                'customer_id'     => $customerB->getKey(),
+                'kpi_id'          => null,
+                'quotes_count'    => 1,
+                'contracts_count' => 0,
+            ],
         ], $this->getModelCountableProperties($bCustomers, $attributes));
 
         self::assertEquals([

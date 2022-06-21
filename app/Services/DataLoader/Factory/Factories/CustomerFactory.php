@@ -106,10 +106,6 @@ class CustomerFactory extends CompanyFactory {
             $customer->synced_at       = Date::now();
             $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
 
-            if ($created) {
-                $customer->assets_count = 0;
-            }
-
             $customer->save();
 
             return $customer;

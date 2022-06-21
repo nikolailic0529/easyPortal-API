@@ -38,6 +38,8 @@ class CustomersProcessor extends Processor {
         $item->contacts_count  = count($item->contacts);
         $item->statuses_count  = count($item->statuses);
         $item->assets_count    = $data->getCustomerAssetsCount($item);
+        $item->quotes_count    = $data->getCustomerQuotesCount($item);
+        $item->contracts_count = $data->getCustomerContractsCount($item);
 
         foreach ($item->locations as $location) {
             $location->assets_count = $data->getCustomerAssetsCountFor($item, $location);

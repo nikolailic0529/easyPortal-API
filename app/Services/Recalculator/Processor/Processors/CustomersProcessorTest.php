@@ -5,7 +5,9 @@ namespace App\Services\Recalculator\Processor\Processors;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Document;
 use App\Models\Location;
+use App\Models\Type;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -36,18 +38,27 @@ class CustomersProcessorTest extends TestCase {
         $this->override(ExceptionHandler::class);
 
         // Prepare
-        $count     = $this->faker->randomNumber(3);
-        $locationA = Location::factory()->create([
+        $count        = $this->faker->randomNumber(3);
+        $type         = Type::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $locationB = Location::factory()->create([
+        $quoteType    = Type::factory()->create([
             'id' => Str::uuid()->toString(),
         ]);
-        $locationC = Location::factory()->create([
+        $contractType = Type::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationA    = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationB    = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
+        $locationC    = Location::factory()->create([
             'id'         => Str::uuid()->toString(),
             'deleted_at' => Date::now(),
         ]);
-        $customerA = Customer::factory()
+        $customerA    = Customer::factory()
             ->hasLocations(1, [
                 'id'           => Str::uuid()->toString(),
                 'location_id'  => $locationA,
@@ -58,10 +69,15 @@ class CustomersProcessorTest extends TestCase {
             ->create([
                 'id' => Str::uuid()->toString(),
             ]);
-        $customerB = Customer::factory()
+        $customerB    = Customer::factory()
             ->create([
                 'id' => Str::uuid()->toString(),
             ]);
+
+        $this->setSettings([
+            'ep.contract_types' => [$contractType->getKey()],
+            'ep.quote_types'    => [$quoteType->getKey()],
+        ]);
 
         Asset::factory()->create([
             'id'          => Str::uuid()->toString(),
@@ -86,6 +102,31 @@ class CustomersProcessorTest extends TestCase {
             'reseller_id' => null,
             'customer_id' => $customerB,
             'location_id' => $locationC,
+        ]);
+
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $quoteType,
+            'reseller_id' => null,
+            'customer_id' => $customerA,
+        ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $contractType,
+            'reseller_id' => null,
+            'customer_id' => $customerB,
+        ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $contractType,
+            'reseller_id' => null,
+            'customer_id' => $customerB,
+        ]);
+        Document::factory()->create([
+            'id'          => Str::uuid()->toString(),
+            'type_id'     => $type,
+            'reseller_id' => null,
+            'customer_id' => $customerA,
         ]);
 
         // Test
@@ -129,6 +170,8 @@ class CustomersProcessorTest extends TestCase {
             'contacts_count'  => 1,
             'statuses_count'  => 2,
             'assets_count'    => 3,
+            'quotes_count'    => 1,
+            'contracts_count' => 0,
         ], $this->getModelCountableProperties($aCustomer, $attributes));
 
         self::assertEquals([
@@ -144,6 +187,8 @@ class CustomersProcessorTest extends TestCase {
             'contacts_count'  => 0,
             'statuses_count'  => 0,
             'assets_count'    => 1,
+            'quotes_count'    => 0,
+            'contracts_count' => 2,
         ], $this->getModelCountableProperties($bCustomer, $attributes));
 
         self::assertEquals([

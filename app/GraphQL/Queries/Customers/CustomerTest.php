@@ -79,6 +79,8 @@ class CustomerTest extends TestCase {
                         id
                         name
                         assets_count
+                        quotes_count
+                        contracts_count
                         locations_count
                         locations {
                             location_id
@@ -201,6 +203,8 @@ class CustomerTest extends TestCase {
                                 id
                                 name
                                 assets_count
+                                quotes_count
+                                contracts_count
                                 locations_count
                                 locations {
                                     location_id
@@ -289,6 +293,8 @@ class CustomerTest extends TestCase {
                                     id
                                     name
                                     assets_count
+                                    quotes_count
+                                    contracts_count
                                     locations_count
                                     locations {
                                         location_id
@@ -457,6 +463,8 @@ class CustomerTest extends TestCase {
                                 id
                                 name
                                 assets_count
+                                quotes_count
+                                contracts_count
                                 contacts_count
                                 locations_count
                                 locations {
@@ -659,6 +667,8 @@ class CustomerTest extends TestCase {
                                 id
                                 name
                                 assets_count
+                                quotes_count
+                                contracts_count
                                 contacts_count
                                 locations_count
                                 locations {
@@ -940,6 +950,8 @@ class CustomerTest extends TestCase {
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
+                                        'quotes_count'    => 0,
+                                        'contracts_count' => 0,
                                         'locations_count' => 1,
                                         'locations'       => [
                                             [
@@ -1012,6 +1024,8 @@ class CustomerTest extends TestCase {
                                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
+                                                'quotes_count'    => 0,
+                                                'contracts_count' => 0,
                                                 'locations_count' => 1,
                                                 'locations'       => [
                                                     [
@@ -1153,6 +1167,8 @@ class CustomerTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 2,
+                                    'quotes_count'    => 2,
+                                    'contracts_count' => 2,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                     'changed_at'      => '2021-10-19 10:15:00',
@@ -1161,6 +1177,8 @@ class CustomerTest extends TestCase {
 
                             $customer->resellers()->attach($reseller, [
                                 'assets_count'    => 0,
+                                'quotes_count'    => 0,
+                                'contracts_count' => 0,
                             ]);
 
                             CustomerLocation::factory()->create([
@@ -1345,6 +1363,8 @@ class CustomerTest extends TestCase {
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'            => 'name aaa',
                             'assets_count'    => 0,
+                            'quotes_count'    => 0,
+                            'contracts_count' => 0,
                             'locations_count' => 1,
                             'locations'       => [
                                 [
@@ -1499,6 +1519,8 @@ class CustomerTest extends TestCase {
                                     'name'            => 'name aaa',
                                     'kpi_id'          => $kpi,
                                     'assets_count'    => 2,
+                                    'quotes_count'    => 2,
+                                    'contracts_count' => 2,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                     'changed_at'      => '2021-10-19 10:15:00',
@@ -1534,8 +1556,10 @@ class CustomerTest extends TestCase {
                             ]);
 
                             $customer->resellers()->attach($reseller, [
-                                'assets_count' => 0,
-                                'kpi_id'       => $customerKpi->getKey(),
+                                'assets_count'    => 0,
+                                'quotes_count'    => 0,
+                                'contracts_count' => 0,
+                                'kpi_id'          => $customerKpi->getKey(),
                             ]);
 
                             CustomerLocation::factory()
@@ -1574,6 +1598,8 @@ class CustomerTest extends TestCase {
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 0,
+                    'quotes_count'    => 0,
+                    'contracts_count' => 0,
                     'contacts_count'  => 0,
                     'locations_count' => 0,
                 ]);
@@ -1658,6 +1684,8 @@ class CustomerTest extends TestCase {
                                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                             'name'            => 'name aaa',
                                             'assets_count'    => 0,
+                                            'quotes_count'    => 0,
+                                            'contracts_count' => 0,
                                             'locations_count' => 1,
                                             'locations'       => [
                                                 [
@@ -1832,6 +1860,8 @@ class CustomerTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 2,
+                                    'quotes_count'    => 2,
+                                    'contracts_count' => 2,
                                     'contacts_count'  => 1,
                                     'locations_count' => 1,
                                     'changed_at'      => '2021-10-19 10:15:00',
@@ -1839,6 +1869,8 @@ class CustomerTest extends TestCase {
                                 ]);
                             $customer->resellers()->attach($reseller, [
                                 'assets_count'    => 0,
+                                'quotes_count'    => 0,
+                                'contracts_count' => 0,
                             ]);
 
                             CustomerLocation::factory()->create([
@@ -1998,6 +2030,8 @@ class CustomerTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
+                                    'quotes_count'    => 0,
+                                    'contracts_count' => 0,
                                     'contacts_count'  => 0,
                                     'locations_count' => 0,
                                 ]);
@@ -2035,13 +2069,17 @@ class CustomerTest extends TestCase {
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 2,
+                    'quotes_count'    => 2,
+                    'contracts_count' => 2,
                     'contacts_count'  => 0,
                     'locations_count' => 1,
                     'changed_at'      => '2021-10-19 10:15:00',
                     'synced_at'       => '2021-10-19 10:25:00',
                 ]);
             $customer->resellers()->attach($reseller, [
-                'assets_count' => 0,
+                'assets_count'    => 0,
+                'quotes_count'    => 0,
+                'contracts_count' => 0,
             ]);
 
             return $customer;
@@ -2086,6 +2124,8 @@ class CustomerTest extends TestCase {
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 2,
+                    'quotes_count'    => 2,
+                    'contracts_count' => 2,
                     'contacts_count'  => 1,
                     'locations_count' => 1,
                     'changed_at'      => '2021-10-19 10:15:00',
@@ -2093,6 +2133,8 @@ class CustomerTest extends TestCase {
                 ]);
             $customer->resellers()->attach($reseller, [
                 'assets_count'    => 0,
+                'quotes_count'    => 0,
+                'contracts_count' => 0,
             ]);
 
             CustomerLocation::factory()->create([
@@ -2242,6 +2284,8 @@ class CustomerTest extends TestCase {
                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                         'name'            => 'name aaa',
                         'assets_count'    => 0,
+                        'quotes_count'    => 0,
+                        'contracts_count' => 0,
                         'locations_count' => 1,
                         'locations'       => [
                             [
@@ -2437,6 +2481,8 @@ class CustomerTest extends TestCase {
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
+                                    'quotes_count'    => 0,
+                                    'contracts_count' => 0,
                                     'contacts_count'  => 0,
                                     'locations_count' => 0,
                                 ]);
@@ -2542,6 +2588,8 @@ class CustomerTest extends TestCase {
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 0,
+                    'quotes_count'    => 0,
+                    'contracts_count' => 0,
                     'contacts_count'  => 1,
                     'locations_count' => 1,
                 ]);

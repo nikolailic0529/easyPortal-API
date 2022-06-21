@@ -34,6 +34,8 @@ class CustomerFactory extends Factory {
             'name'            => $this->faker->company(),
             'kpi_id'          => null,
             'assets_count'    => 0,
+            'quotes_count'    => 0,
+            'contracts_count' => 0,
             'locations_count' => 0,
             'contacts_count'  => 0,
             'statuses_count'  => 0,

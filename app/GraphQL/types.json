@@ -53,6 +53,12 @@
                 "assets_count": {
                     "type": "integer"
                 },
+                "quotes_count": {
+                    "type": "integer"
+                },
+                "contracts_count": {
+                    "type": "integer"
+                },
                 "locations": {
                     "type": "array",
                     "items": {
@@ -667,7 +673,10 @@
                     ]
                 },
                 "number": {
-                    "type": ["string", "null"]
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "start": {
                     "oneOf": [

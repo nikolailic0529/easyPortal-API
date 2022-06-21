@@ -32,6 +32,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                           $name
  * @property string|null                      $kpi_id
  * @property int                              $assets_count
+ * @property int                              $quotes_count
+ * @property int                              $contracts_count
  * @property int                              $locations_count
  * @property int                              $contacts_count
  * @property int                              $statuses_count
