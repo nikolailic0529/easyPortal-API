@@ -3,4 +3,9 @@ input DocumentsSort {
     start: Date!
     end: Date!
     price: Float
+    number: String
+    oem: OemsSort
+    distributor: DistributorsSort
+    reseller: ResellersSort
+    customer: CustomersSort
 }

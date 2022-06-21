@@ -1,0 +1,4 @@
+input DistributorsSort {
+    id: String!
+    name: String!
+}

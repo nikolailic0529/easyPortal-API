@@ -1,0 +1,5 @@
+input OemsSort {
+    id: ID!
+    key: String!
+    name: String!
+}

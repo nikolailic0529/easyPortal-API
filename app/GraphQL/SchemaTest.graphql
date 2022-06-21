@@ -4382,6 +4382,21 @@ input SortByClauseCustomersSort {
 }
 
 """
+Sort clause for input DistributorsSort (only one property allowed at a time).
+"""
+input SortByClauseDistributorsSort {
+    """
+    Property clause.
+    """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
+    name: SortByDirection
+}
+
+"""
 Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSearchCustomerSort {
@@ -4458,6 +4473,16 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    customer: SortByClauseCustomersSort
+
+    """
+    Property clause.
+    """
+    distributor: SortByClauseDistributorsSort
+
+    """
+    Property clause.
+    """
     end: SortByDirection
 
     """
@@ -4468,7 +4493,22 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    number: SortByDirection
+
+    """
+    Property clause.
+    """
+    oem: SortByClauseOemsSort
+
+    """
+    Property clause.
+    """
     price: SortByDirection
+
+    """
+    Property clause.
+    """
+    reseller: SortByClauseResellersSort
 
     """
     Property clause.
@@ -4692,6 +4732,26 @@ input SortByClauseNotesSort {
 }
 
 """
+Sort clause for input OemsSort (only one property allowed at a time).
+"""
+input SortByClauseOemsSort {
+    """
+    Property clause.
+    """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
+    key: SortByDirection
+
+    """
+    Property clause.
+    """
+    name: SortByDirection
+}
+
+"""
 Sort clause for input OrganizationsSort (only one property allowed at a time).
 """
 input SortByClauseOrganizationsSort {
@@ -4754,6 +4814,21 @@ input SortByClauseResellerLocationsSort {
     Property clause.
     """
     location: SortByClauseLocationsSort
+}
+
+"""
+Sort clause for input ResellersSort (only one property allowed at a time).
+"""
+input SortByClauseResellersSort {
+    """
+    Property clause.
+    """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
+    name: SortByDirection
 }
 
 """
