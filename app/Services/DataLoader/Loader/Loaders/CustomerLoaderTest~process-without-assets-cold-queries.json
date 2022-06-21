@@ -170,7 +170,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "a0df13a5-c42c-4269-ae57-71085acb5319",
             "Hermiston-O'Hara",
@@ -180,7 +180,6 @@
             1,
             "5e500e66-a38e-5b91-8809-bbeeafa3ce40",
             "2022-02-02 00:00:07",
-            0,
             "2022-02-02 00:00:10",
             "2022-02-02 00:00:10"
         ]

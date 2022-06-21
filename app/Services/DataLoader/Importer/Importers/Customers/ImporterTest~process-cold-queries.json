@@ -154,7 +154,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00004b6e-1bf3-4e29-b6ac-7934c85632f9",
             "Funk, Abbott and Carter",
@@ -164,7 +164,6 @@
             1,
             "8c146497-505a-52e8-a780-f972cd904b13",
             "2022-02-02 00:00:06",
-            0,
             "2022-02-02 00:00:07",
             "2022-02-02 00:00:07"
         ]
@@ -396,7 +395,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000514de-cbf8-4955-b027-fc94e44e24a7",
             "Robel-Hoeger",
@@ -406,7 +405,6 @@
             1,
             "d9524d70-f0fc-5970-8218-58e1839f3244",
             "2022-02-02 00:00:18",
-            0,
             "2022-02-02 00:00:23",
             "2022-02-02 00:00:23"
         ]
@@ -607,7 +605,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00086c84-47ba-4796-a753-b6ab59580865",
             "Ritchie-Bergstrom",
@@ -617,7 +615,6 @@
             1,
             "2220512a-d7df-53c0-8bf3-8b2fd2d280ed",
             "2022-02-02 00:00:36",
-            0,
             "2022-02-02 00:00:39",
             "2022-02-02 00:00:39"
         ]
@@ -831,7 +828,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0008751b-2d84-4edf-9075-789a071a84d0",
             "Feest Inc",
@@ -841,7 +838,6 @@
             1,
             "4e540e48-e090-5b95-914d-a4af15e7c8c2",
             "2022-02-02 00:00:52",
-            0,
             "2022-02-02 00:00:55",
             "2022-02-02 00:00:55"
         ]
@@ -1036,7 +1032,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000aea3a-0001-46e5-80fa-fa4315f086e0",
             "Lueilwitz-Robel",
@@ -1046,7 +1042,6 @@
             1,
             "e2a817d1-b279-5765-a1e2-4e0c0cfd276b",
             "2022-02-02 00:01:07",
-            0,
             "2022-02-02 00:01:10",
             "2022-02-02 00:01:10"
         ]
@@ -1231,7 +1226,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000cbefe-925a-43e1-a67d-31fe0b73ab71",
             "Raynor-Bauch",
@@ -1241,7 +1236,6 @@
             1,
             "6c42fda9-35f6-50ae-a9ed-864bb9a30c54",
             "2022-02-02 00:01:20",
-            0,
             "2022-02-02 00:01:23",
             "2022-02-02 00:01:23"
         ]
@@ -1471,7 +1465,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
             "Kozey, Howe and Wyman",
@@ -1481,7 +1475,6 @@
             1,
             "f8e210e5-8cb1-5f7c-b484-94cbf58107dd",
             "2022-02-02 00:01:35",
-            0,
             "2022-02-02 00:01:40",
             "2022-02-02 00:01:40"
         ]
@@ -1701,7 +1694,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001018cb-b53a-484e-8cee-44142633ec19",
             "Mueller, Schumm and Eichmann",
@@ -1711,7 +1704,6 @@
             1,
             "cde1c7f2-57e8-53c3-ab3a-514c6783d235",
             "2022-02-02 00:01:54",
-            0,
             "2022-02-02 00:01:57",
             "2022-02-02 00:01:57"
         ]
@@ -1968,7 +1960,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0012d3f3-144e-43db-b40e-66b4d8604d9e",
             "Stehr LLC",
@@ -1978,7 +1970,6 @@
             1,
             "eae3bcd2-a185-59e7-ae4f-bf5b07184edc",
             "2022-02-02 00:02:13",
-            0,
             "2022-02-02 00:02:16",
             "2022-02-02 00:02:16"
         ]
@@ -2173,7 +2164,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00162413-6913-41cf-b328-f441d958ae75",
             "Jerde Group",
@@ -2183,7 +2174,6 @@
             1,
             "6fd2f114-cc30-55b8-867c-e9a20ade1a05",
             "2022-02-02 00:02:28",
-            0,
             "2022-02-02 00:02:31",
             "2022-02-02 00:02:31"
         ]
@@ -2412,7 +2402,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00168fb1-b86c-42f0-abab-6582ea1a865e",
             "Treutel-Lang",
@@ -2422,7 +2412,6 @@
             1,
             "6edb4148-576d-523d-997f-ad07aa6c7aba",
             "2022-02-02 00:02:43",
-            0,
             "2022-02-02 00:02:46",
             "2022-02-02 00:02:46"
         ]
@@ -2719,7 +2708,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0016b65f-d08d-4a94-9050-58c1c9066fa5",
             "Jerde Inc",
@@ -2729,7 +2718,6 @@
             1,
             "587f7e15-85a5-5cd8-a60f-9feb8ed00e0c",
             "2022-02-02 00:02:58",
-            0,
             "2022-02-02 00:03:07",
             "2022-02-02 00:03:07"
         ]
@@ -3029,7 +3017,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001891b4-fe07-4d88-9a01-816a1c4709cc",
             "Schneider Inc",
@@ -3039,7 +3027,6 @@
             1,
             "c44b9507-c65f-5fe6-8b08-538897ecc6e7",
             "2022-02-02 00:03:23",
-            0,
             "2022-02-02 00:03:30",
             "2022-02-02 00:03:30"
         ]
@@ -3212,7 +3199,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001daf39-8d88-4ea9-b335-f24717852bdd",
             "Kohler LLC",
@@ -3222,7 +3209,6 @@
             1,
             "e0239478-2146-5fa5-91f9-0ebacfbe54cc",
             "2022-02-02 00:03:44",
-            0,
             "2022-02-02 00:03:45",
             "2022-02-02 00:03:45"
         ]
@@ -3420,7 +3406,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "001e8e14-f724-4a25-85b4-df4ed547a822",
             "Goodwin Ltd",
@@ -3430,7 +3416,6 @@
             1,
             "4e967531-94aa-5de9-97a6-0a185d4b1b6c",
             "2022-02-02 00:03:56",
-            0,
             "2022-02-02 00:03:59",
             "2022-02-02 00:03:59"
         ]
@@ -3591,7 +3576,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00212dde-e1bd-4591-a825-4767de009e6c",
             "Pollich, Koelpin and Mayert",
@@ -3601,7 +3586,6 @@
             1,
             "9c9bfa7b-2500-5726-a355-2ef1998e8bfd",
             "2022-02-02 00:04:11",
-            0,
             "2022-02-02 00:04:12",
             "2022-02-02 00:04:12"
         ]
@@ -3799,7 +3783,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002520da-ae14-43ab-a978-8721bdc27d4a",
             "Hyatt, McCullough and Fisher",
@@ -3809,7 +3793,6 @@
             1,
             "caa50d56-c4dd-5ed4-a110-128b09549fb4",
             "2022-02-02 00:04:23",
-            0,
             "2022-02-02 00:04:26",
             "2022-02-02 00:04:26"
         ]
@@ -4028,7 +4011,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
             "Mann-Bailey",
@@ -4038,7 +4021,6 @@
             1,
             "2bd3fcdd-43b5-56bf-b89b-5fc4725c042d",
             "2022-02-02 00:04:36",
-            0,
             "2022-02-02 00:04:41",
             "2022-02-02 00:04:41"
         ]
@@ -4205,7 +4187,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00287225-33bf-471b-8642-c2daa9c413f8",
             "Botsford and Sons",
@@ -4215,7 +4197,6 @@
             1,
             "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
             "2022-02-02 00:04:54",
-            0,
             "2022-02-02 00:04:55",
             "2022-02-02 00:04:55"
         ]
@@ -4415,7 +4396,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002a6618-f02a-49af-8f4f-8bce8876318f",
             "Stracke-Anderson",
@@ -4425,7 +4406,6 @@
             1,
             "e05513a4-bce5-5cc7-b8f8-bd44c4ae8d71",
             "2022-02-02 00:05:05",
-            0,
             "2022-02-02 00:05:10",
             "2022-02-02 00:05:10"
         ]
@@ -4654,7 +4634,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
             "Wisoky-Morar",
@@ -4664,7 +4644,6 @@
             1,
             "6cb6bc8a-1921-5378-b4bc-94fac920d914",
             "2022-02-02 00:05:23",
-            0,
             "2022-02-02 00:05:26",
             "2022-02-02 00:05:26"
         ]
@@ -4859,7 +4838,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002e1544-0996-4bd1-852b-43497fde643a",
             "Leannon, Hayes and Jast",
@@ -4869,7 +4848,6 @@
             1,
             "d2732028-7a8f-5663-bedc-e878b3fe4378",
             "2022-02-02 00:05:38",
-            0,
             "2022-02-02 00:05:41",
             "2022-02-02 00:05:41"
         ]
@@ -5046,7 +5024,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002f8f2e-1cd9-40b9-bc11-60769495f733",
             "Goldner Inc",
@@ -5056,7 +5034,6 @@
             1,
             "5988b91d-0556-59ff-89c9-e95d75e7e115",
             "2022-02-02 00:05:52",
-            0,
             "2022-02-02 00:05:55",
             "2022-02-02 00:05:55"
         ]
@@ -5252,7 +5229,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00304660-44aa-446d-9b52-72ab9858fbe4",
             "Crooks, Berge and Green",
@@ -5262,7 +5239,6 @@
             1,
             "e1e6e527-352c-5448-8566-964400bf40f9",
             "2022-02-02 00:06:07",
-            0,
             "2022-02-02 00:06:10",
             "2022-02-02 00:06:10"
         ]
@@ -5429,7 +5405,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003073af-d3a8-49b2-bed7-678ba80d1890",
             "Veum and Sons",
@@ -5439,7 +5415,6 @@
             1,
             "faad7073-ab7e-559c-9ac9-5a380754842e",
             "2022-02-02 00:06:19",
-            0,
             "2022-02-02 00:06:22",
             "2022-02-02 00:06:22"
         ]
@@ -5634,7 +5609,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0035d86a-3a34-4103-bc08-10f7e7d339a3",
             "Fahey Inc",
@@ -5644,7 +5619,6 @@
             1,
             "3ed59d64-6aeb-5b87-9967-074b8276758f",
             "2022-02-02 00:06:34",
-            0,
             "2022-02-02 00:06:37",
             "2022-02-02 00:06:37"
         ]
@@ -5795,7 +5769,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0036ca6e-b213-4855-b305-9866b75c34dc",
             "Cummings-Russel",
@@ -5805,7 +5779,6 @@
             1,
             "2d4f7c71-da1e-5438-a056-fb9529dcf159",
             "2022-02-02 00:06:47",
-            0,
             "2022-02-02 00:06:48",
             "2022-02-02 00:06:48"
         ]
@@ -6003,7 +5976,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00377726-408c-4090-b2b5-527650642d1f",
             "Oberbrunner-Lockman",
@@ -6013,7 +5986,6 @@
             1,
             "bcd62778-ae51-569f-8ad8-f00a5a3d4377",
             "2022-02-02 00:06:59",
-            0,
             "2022-02-02 00:07:02",
             "2022-02-02 00:07:02"
         ]
@@ -6227,7 +6199,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
             "Kessler Inc",
@@ -6237,7 +6209,6 @@
             1,
             "29ba0b38-310f-5960-b6bf-c98f6c1e72f9",
             "2022-02-02 00:07:15",
-            0,
             "2022-02-02 00:07:18",
             "2022-02-02 00:07:18"
         ]
@@ -6417,7 +6388,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003d5627-b1a7-4b59-b264-876022125810",
             "Schimmel, Fritsch and Green",
@@ -6427,7 +6398,6 @@
             1,
             "cbf48276-184d-5c44-a412-ea4efa131db8",
             "2022-02-02 00:07:31",
-            0,
             "2022-02-02 00:07:32",
             "2022-02-02 00:07:32"
         ]
@@ -6651,7 +6621,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "003df82c-b286-408e-a5e2-70d0341ff922",
             "Legros Inc",
@@ -6661,7 +6631,6 @@
             1,
             "078b8e6e-eb6c-5279-ba04-6ac6e468dc5f",
             "2022-02-02 00:07:43",
-            0,
             "2022-02-02 00:07:46",
             "2022-02-02 00:07:46"
         ]
@@ -6856,7 +6825,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00416109-eeb9-4e45-9b1b-72a0086c7d12",
             "Schultz, Grady and Hintz",
@@ -6866,7 +6835,6 @@
             1,
             "b50ba427-939f-5c88-91fe-7c161b88e278",
             "2022-02-02 00:07:58",
-            0,
             "2022-02-02 00:08:01",
             "2022-02-02 00:08:01"
         ]
@@ -7062,7 +7030,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0041e8c1-c5c0-420c-a912-53cde1921571",
             "Towne, DuBuque and Rowe",
@@ -7072,7 +7040,6 @@
             1,
             "b9981f71-0880-5853-bb4d-998448d28236",
             "2022-02-02 00:08:13",
-            0,
             "2022-02-02 00:08:16",
             "2022-02-02 00:08:16"
         ]
@@ -7247,7 +7214,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
             "Goyette-Torphy",
@@ -7257,7 +7224,6 @@
             1,
             "65161185-4ca7-5bed-954c-a7e5b6f6b999",
             "2022-02-02 00:08:28",
-            0,
             "2022-02-02 00:08:29",
             "2022-02-02 00:08:29"
         ]
@@ -7441,7 +7407,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00465ff6-818c-4a61-bbda-f49e1998fae6",
             "Pfannerstill Group",
@@ -7451,7 +7417,6 @@
             1,
             "ea2585ef-228d-5e1c-ae8c-dee4b264a073",
             "2022-02-02 00:08:40",
-            0,
             "2022-02-02 00:08:43",
             "2022-02-02 00:08:43"
         ]
@@ -7618,7 +7583,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00489f55-ca17-4136-8a1f-ab9472b8e138",
             "Brakus Ltd",
@@ -7628,7 +7593,6 @@
             1,
             "e3a78cd3-36e7-5245-ad09-b7d0e8a4e71e",
             "2022-02-02 00:08:52",
-            0,
             "2022-02-02 00:08:55",
             "2022-02-02 00:08:55"
         ]
@@ -8187,7 +8151,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004abfbe-9f96-4294-8de3-a05955920828",
             "Cormier and Sons",
@@ -8197,7 +8161,6 @@
             1,
             "968ddf3a-0723-5ee0-9637-f751635e7612",
             "2022-02-02 00:09:05",
-            0,
             "2022-02-02 00:09:30",
             "2022-02-02 00:09:30"
         ]
@@ -8458,7 +8421,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004b5961-ec64-47c9-932e-4bf5895c67f9",
             "Kessler-Mosciski",
@@ -8468,7 +8431,6 @@
             1,
             "2bfb7783-5164-5d36-a7e5-beb7593ab953",
             "2022-02-02 00:09:53",
-            0,
             "2022-02-02 00:09:56",
             "2022-02-02 00:09:56"
         ]
@@ -8575,7 +8537,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
             "Dach, Macejkovic and Rowe",
@@ -8585,7 +8547,6 @@
             0,
             "d6eec7e8-7574-53c5-a973-fb387cf997d6",
             "2022-02-02 00:10:04",
-            0,
             "2022-02-02 00:10:05",
             "2022-02-02 00:10:05"
         ]
@@ -8736,7 +8697,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
             "Balistreri Inc",
@@ -8746,7 +8707,6 @@
             1,
             "6c2561fc-878c-5a31-ace0-4ca14a11aeb3",
             "2022-02-02 00:10:13",
-            0,
             "2022-02-02 00:10:16",
             "2022-02-02 00:10:16"
         ]
@@ -9006,7 +8966,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
             "Morissette, Franecki and Rodriguez",
@@ -9016,7 +8976,6 @@
             1,
             "8fcd7645-f824-569b-9e8b-28bb881223a6",
             "2022-02-02 00:10:28",
-            0,
             "2022-02-02 00:10:33",
             "2022-02-02 00:10:33"
         ]
@@ -9202,7 +9161,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005243b5-a132-4e3a-87ac-fd69249edd7d",
             "Becker PLC",
@@ -9212,7 +9171,6 @@
             1,
             "6d7ab07a-8528-5a88-9796-b8bd100f3e91",
             "2022-02-02 00:10:47",
-            0,
             "2022-02-02 00:10:48",
             "2022-02-02 00:10:48"
         ]
@@ -9376,7 +9334,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005494c4-93d2-4db0-9aa4-d10a7e14aae6",
             "Gorczany, Schneider and Goyette",
@@ -9386,7 +9344,6 @@
             1,
             "1aa9fa7d-b8df-5e2f-904f-782bba5468cc",
             "2022-02-02 00:10:59",
-            0,
             "2022-02-02 00:11:00",
             "2022-02-02 00:11:00"
         ]
@@ -9583,7 +9540,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00561888-ff56-4b14-b6bd-03b2abe0ea79",
             "Cassin, Beatty and Durgan",
@@ -9593,7 +9550,6 @@
             1,
             "87ef71d0-ffe5-5b74-bfcc-f402920de15d",
             "2022-02-02 00:11:09",
-            0,
             "2022-02-02 00:11:14",
             "2022-02-02 00:11:14"
         ]
@@ -9794,7 +9750,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00562638-2237-4cdb-b580-2c82a65a94ff",
             "Sipes PLC",
@@ -9804,7 +9760,6 @@
             1,
             "eb43bdd0-6dbd-597f-83d0-00abe4209351",
             "2022-02-02 00:11:27",
-            0,
             "2022-02-02 00:11:30",
             "2022-02-02 00:11:30"
         ]
@@ -10018,7 +9973,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
             "Volkman Inc",
@@ -10028,7 +9983,6 @@
             1,
             "e9b75e14-8485-54de-84ad-a74c3d2b51ff",
             "2022-02-02 00:11:43",
-            0,
             "2022-02-02 00:11:46",
             "2022-02-02 00:11:46"
         ]
@@ -10218,7 +10172,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0059bbe6-5c23-4244-9174-58401ca51e1c",
             "Von, Olson and Prosacco",
@@ -10228,7 +10182,6 @@
             1,
             "59e57a56-f35f-5aa8-97fc-438bc2f61958",
             "2022-02-02 00:11:57",
-            0,
             "2022-02-02 00:12:00",
             "2022-02-02 00:12:00"
         ]
@@ -10457,7 +10410,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005bb000-a71b-406f-a48c-016176bd329a",
             "Funk and Sons",
@@ -10467,7 +10420,6 @@
             1,
             "31ff4c31-f314-5ea0-a20c-8fdc5eb0f35f",
             "2022-02-02 00:12:12",
-            0,
             "2022-02-02 00:12:17",
             "2022-02-02 00:12:17"
         ]
@@ -10650,7 +10602,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005db8ae-ae5b-4320-8c0d-7d75002c515c",
             "VonRueden Inc",
@@ -10660,7 +10612,6 @@
             1,
             "79b0b24d-3c67-5205-a132-35db8823d3c3",
             "2022-02-02 00:12:29",
-            0,
             "2022-02-02 00:12:32",
             "2022-02-02 00:12:32"
         ]
@@ -10859,7 +10810,7 @@
         ]
     },
     {
-        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `assets_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
             "Auer Inc",
@@ -10869,7 +10820,6 @@
             1,
             "b4b765f5-ae9b-5fc9-be51-6c3d1ecd3374",
             "2022-02-02 00:12:46",
-            0,
             "2022-02-02 00:12:47",
             "2022-02-02 00:12:47"
         ]
