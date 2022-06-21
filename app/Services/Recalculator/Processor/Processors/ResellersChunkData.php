@@ -114,4 +114,18 @@ class ResellersChunkData extends ChunkData {
 
         return $this->documentsByCustomer[$reseller->getKey()] ?? [];
     }
+
+    /**
+     * @return array<string, int>
+     */
+    public function getResellerQuotesByCustomer(Reseller $reseller): array {
+        return $this->getQuotesCountFor('reseller_id', 'customer_id', 'customer')[$reseller->getKey()] ?? [];
+    }
+
+    /**
+     * @return array<string, int>
+     */
+    public function getResellerContractsByCustomer(Reseller $reseller): array {
+        return $this->getContractsCountFor('reseller_id', 'customer_id', 'customer')[$reseller->getKey()] ?? [];
+    }
 }

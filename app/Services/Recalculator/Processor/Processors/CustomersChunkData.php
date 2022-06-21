@@ -20,4 +20,12 @@ class CustomersChunkData extends ChunkData {
 
         return $count;
     }
+
+    public function getCustomerQuotesCount(Customer $customer): int {
+        return $this->getQuotesCount('customer_id')[$customer->getKey()] ?? 0;
+    }
+
+    public function getCustomerContractsCount(Customer $customer): int {
+        return $this->getContractsCount('customer_id')[$customer->getKey()] ?? 0;
+    }
 }

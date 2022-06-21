@@ -13401,27 +13401,7 @@ parameters:
 			path: app/Services/Recalculator/Exceptions/RecalculateError.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\:\\:getAssetsCount\\(\\) should return array\\<string, int\\> but returns array\\<int\\|string, int\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\:\\:getAssetsCountFor\\(\\) should return array\\<string, array\\<string, array\\<string, int\\>\\>\\> but returns array\\<string, array\\<string, int\\>\\|int\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$assetsCount \\(array\\<string, array\\<string, int\\>\\>\\) does not accept array\\<string, array\\<int\\|string, int\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$assetsCountFor \\(array\\<string, array\\<string, array\\<string, int\\>\\>\\>\\) does not accept array\\<string, array\\<string, array\\<string, array\\<string, int\\>\\|int\\>\\>\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
@@ -13441,11 +13421,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessorTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData\\:\\:getCustomerAssetsCountFor\\(\\) should return int but returns array\\<string, int\\>\\|int\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/CustomersChunkData.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersChunkData constructor expects array\\<App\\\\Models\\\\Customer\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Customer\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessor.php
@@ -13454,16 +13429,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessorTest\\:\\:getModelCountableProperties\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\> given\\.$#"
 			count: 2
 			path: app/Services/Recalculator/Processor/Processors/CustomersProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationAssetsByCustomer\\(\\) should return array\\<string, int\\> but returns array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationAssetsByReseller\\(\\) should return array\\<string, int\\> but returns array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData\\:\\:getLocationCustomers\\(\\) should return array\\<string, array\\<string\\>\\> but returns array\\<string\\>\\.$#"
@@ -13504,16 +13469,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessorTest\\:\\:getModelCountableProperties\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\LocationReseller\\> given\\.$#"
 			count: 3
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:getResellerAssetsByCustomer\\(\\) should return array\\<string, int\\> but returns array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData\\:\\:getResellerAssetsByLocation\\(\\) should return array\\<string, int\\> but returns array\\<string, array\\<string, int\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/Processors/ResellersChunkData.php
 
 		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersChunkData constructor expects array\\<App\\\\Models\\\\Reseller\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Reseller\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"

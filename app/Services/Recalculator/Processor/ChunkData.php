@@ -3,6 +3,7 @@
 namespace App\Services\Recalculator\Processor;
 
 use App\Models\Asset;
+use App\Models\Document;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\Events\OnModelDeleted;
 use App\Utils\Eloquent\Events\OnModelSaved;
@@ -29,9 +30,29 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
     private array $assetsCount;
 
     /**
-     * @var array<string, array<string, array<string, int>>>
+     * @var array<string, array<string, array<string, array<string, int>>>>
      */
     private array $assetsCountFor;
+
+    /**
+     * @var array<string, array<string, int>>
+     */
+    private array $quotesCount;
+
+    /**
+     * @var array<string, array<string, array<string, array<string, int>>>>
+     */
+    private array $quotesCountFor;
+
+    /**
+     * @var array<string, array<string, int>>
+     */
+    private array $contractsCount;
+
+    /**
+     * @var array<string, array<string, array<string, array<string, int>>>>
+     */
+    private array $contractsCountFor;
 
     /**
      * @param Collection<array-key,TModel>|array<TModel> $items
@@ -68,7 +89,7 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
 
             foreach ($result as $row) {
                 /** @var stdClass $row */
-                $ownerId        = $row->{$owner};
+                $ownerId        = (string) $row->{$owner};
                 $data[$ownerId] = (int) $row->count;
             }
 
@@ -80,7 +101,7 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
     }
 
     /**
-     * @return array<string, array<string, array<string, int>>>
+     * @return array<string, array<string, int>>
      */
     protected function getAssetsCountFor(string $owner, string $group, string $relation): array {
         if (!isset($this->assetsCountFor[$owner][$group])) {
@@ -111,6 +132,134 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
         }
 
         return $this->assetsCountFor[$owner][$group];
+    }
+
+    /**
+     * @return array<string,int>
+     */
+    protected function getQuotesCount(string $owner): array {
+        if (!isset($this->quotesCount[$owner])) {
+            // Calculate
+            $data   = [];
+            $keys   = $this->getKeys();
+            $result = Document::query()
+                ->queryQuotes()
+                ->select([$owner, DB::raw('count(*) as count')])
+                ->whereIn($owner, $keys)
+                ->groupBy($owner)
+                ->toBase()
+                ->get();
+
+            foreach ($result as $row) {
+                /** @var stdClass $row */
+                $ownerId        = (string) $row->{$owner};
+                $data[$ownerId] = (int) $row->count;
+            }
+
+            // Save
+            $this->quotesCount[$owner] = $data;
+        }
+
+        return $this->quotesCount[$owner];
+    }
+
+    /**
+     * @return array<string, array<string, int>>
+     */
+    protected function getQuotesCountFor(string $owner, string $group, string $relation): array {
+        if (!isset($this->quotesCountFor[$owner][$group])) {
+            // Calculate
+            $data   = [];
+            $keys   = $this->getKeys();
+            $result = Document::query()
+                ->queryQuotes()
+                ->select([$owner, $group, DB::raw('count(*) as count')])
+                ->where(static function (Builder $builder) use ($group, $relation): void {
+                    $builder
+                        ->orWhereNull($group)
+                        ->orWhereHasIn($relation);
+                })
+                ->whereIn($owner, $keys)
+                ->groupBy($owner, $group)
+                ->toBase()
+                ->get();
+
+            foreach ($result as $row) {
+                /** @var stdClass $row */
+                $ownerId                  = (string) $row->{$owner};
+                $groupId                  = (string) $row->{$group};
+                $data[$ownerId][$groupId] = (int) $row->count + ($data[$ownerId][$groupId] ?? 0);
+            }
+
+            // Save
+            $this->quotesCountFor[$owner][$group] = $data;
+        }
+
+        return $this->quotesCountFor[$owner][$group];
+    }
+
+    /**
+     * @return array<string,int>
+     */
+    protected function getContractsCount(string $owner): array {
+        if (!isset($this->contractsCount[$owner])) {
+            // Calculate
+            $data   = [];
+            $keys   = $this->getKeys();
+            $result = Document::query()
+                ->queryContracts()
+                ->select([$owner, DB::raw('count(*) as count')])
+                ->whereIn($owner, $keys)
+                ->groupBy($owner)
+                ->toBase()
+                ->get();
+
+            foreach ($result as $row) {
+                /** @var stdClass $row */
+                $ownerId        = (string) $row->{$owner};
+                $data[$ownerId] = (int) $row->count;
+            }
+
+            // Save
+            $this->contractsCount[$owner] = $data;
+        }
+
+        return $this->contractsCount[$owner];
+    }
+
+    /**
+     * @return array<string, array<string, int>>
+     */
+    protected function getContractsCountFor(string $owner, string $group, string $relation): array {
+        if (!isset($this->contractsCountFor[$owner][$group])) {
+            // Calculate
+            $data   = [];
+            $keys   = $this->getKeys();
+            $result = Document::query()
+                ->queryContracts()
+                ->select([$owner, $group, DB::raw('count(*) as count')])
+                ->where(static function (Builder $builder) use ($group, $relation): void {
+                    $builder
+                        ->orWhereNull($group)
+                        ->orWhereHasIn($relation);
+                })
+                ->whereIn($owner, $keys)
+                ->groupBy($owner, $group)
+                ->toBase()
+                ->get();
+
+            foreach ($result as $row) {
+                /** @var stdClass $row */
+                $ownerId                  = (string) $row->{$owner};
+                $groupId                  = (string) $row->{$group};
+                $data[$ownerId][$groupId] = (int) $row->count + ($data[$ownerId][$groupId] ?? 0);
+            }
+
+            // Save
+            $this->contractsCountFor[$owner][$group] = $data;
+        }
+
+        return $this->contractsCountFor[$owner][$group];
     }
 
     public function modelSaved(Model $model): void {

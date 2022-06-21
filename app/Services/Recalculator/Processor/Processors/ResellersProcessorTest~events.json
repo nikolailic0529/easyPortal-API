@@ -2,9 +2,9 @@
     {
         "model": "App\\Models\\Reseller",
         "keys": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7"
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "81d95584-bdc4-5497-9ead-b81582b26bd2",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
         ]
     }
 ]
