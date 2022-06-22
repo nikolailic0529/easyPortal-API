@@ -21,6 +21,9 @@ class TranslationDefaults extends TranslationLoader {
         );
     }
 
+    /**
+     * @inheritDoc
+     */
     protected function loadLocale(string $locale): array {
         return parent::loadLocale($locale) + $this->loadModels($locale);
     }
