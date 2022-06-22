@@ -7,6 +7,8 @@ use App\Services\I18n\Events\TranslationsUpdated;
 use App\Services\I18n\Storages\AppTranslations;
 use Illuminate\Contracts\Events\Dispatcher;
 
+use function ksort;
+
 class Translations {
     public function __construct(
         protected Dispatcher $dispatcher,
@@ -29,6 +31,8 @@ class Translations {
             $translations[$key] = $string;
             $updated[]          = $key;
         }
+
+        ksort($translations);
 
         // Save
         $result = $storage->save($translations);
@@ -59,6 +63,8 @@ class Translations {
                 unset($translations[$key]);
             }
         }
+
+        ksort($translations);
 
         // Save
         $result = $storage->save($translations);

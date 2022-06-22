@@ -34,22 +34,22 @@ class TranslationsTest extends TestCase {
         $locale  = $this->faker->locale();
         $storage = $translations->getStorage($locale);
         $initial = [
-            'a' => 'a',
-            'b' => 'b',
             'c' => 'c',
+            'b' => 'b',
+            'a' => 'a',
         ];
 
         $storage->save($initial);
 
         $updated = [];
         $strings = [
-            'a' => 'aa',
-            'c' => 'cс',
             'd' => 'dd',
+            'c' => 'cс',
+            'a' => 'aa',
         ];
 
         self::assertTrue($translations->update($locale, $strings, $updated));
-        self::assertEquals(['a', 'c', 'd'], $updated);
+        self::assertEquals(['d', 'c', 'a'], $updated);
         self::assertEquals(array_merge($initial, $strings), $storage->load());
 
         Event::assertDispatched(TranslationsUpdated::class);
