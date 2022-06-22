@@ -55,7 +55,7 @@ class TranslationDefaultsTest extends TestCase {
         $service = Mockery::mock(Service::class);
         $service
             ->shouldReceive('getTranslatableModels')
-            ->once()
+            ->twice()
             ->andReturn([
                 $modelA::class,
                 $modelB::class,
@@ -85,16 +85,13 @@ class TranslationDefaultsTest extends TestCase {
             }
         };
 
-        // Default Locale
-        $actual   = $default->loadModels($this->app->getLocale());
+        // Test
         $expected = [
             'a' => 'translated-a',
             'b' => 'translated-b',
         ];
 
-        self::assertEquals($expected, $actual);
-
-        // Another Locale
-        self::assertEquals([], $default->loadModels('another'));
+        self::assertEquals($expected, $default->loadModels($this->app->getLocale()));
+        self::assertEquals($expected, $default->loadModels('another'));
     }
 }

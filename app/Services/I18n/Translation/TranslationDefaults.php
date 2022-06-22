@@ -24,15 +24,12 @@ class TranslationDefaults extends TranslationLoader {
     /**
      * @inheritDoc
      */
-    public function getTranslations(string $locale): array {
-        return parent::getTranslations($locale) + $this->loadModels($locale);
+    protected function loadLocale(string $locale): array {
+        return parent::loadLocale($locale) + $this->loadModels($locale);
     }
 
-    /**
-     * @inheritDoc
-     */
-    protected function loadFallback(): array {
-        return [];
+    protected function getFallbackLocale(): ?string {
+        return null;
     }
 
     /**
@@ -46,11 +43,6 @@ class TranslationDefaults extends TranslationLoader {
      * @return array<string,string>
      */
     protected function loadModels(string $locale): array {
-        // Default locale? (model's properties always in default locale)
-        if ($this->app->getLocale() !== $locale) {
-            return [];
-        }
-
         // Load models
         $models       = $this->service->getTranslatableModels();
         $translations = [];
