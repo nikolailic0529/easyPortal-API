@@ -8,6 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Mockery;
 use Tests\TestCase;
 
+use function explode;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\I18n\Translation\TranslationLoader
@@ -47,6 +49,9 @@ class TranslationLoaderTest extends TestCase {
             ->andReturn([
                 "{$locale}.loadStorage" => 123,
             ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->never();
 
         self::assertEquals(
             [
@@ -60,9 +65,11 @@ class TranslationLoaderTest extends TestCase {
     /**
      * @covers ::load
      */
-    public function testLoadFallbackNotSame(): void {
-        $locale   = 'ru';
-        $fallback = 'en';
+    public function testLoadBaseAndFallback(): void {
+        $locale       = 'de_DE';
+        $localeBase   = explode('_', $locale)[0];
+        $fallback     = 'en_GB';
+        $fallbackBase = explode('_', $fallback)[0];
 
         $this->app->setLocale($locale);
         $this->app->setFallbackLocale($fallback);
@@ -85,6 +92,15 @@ class TranslationLoaderTest extends TestCase {
             ->once()
             ->andReturn([
                 "{$locale}.loadJsonPaths" => 123,
+                'string'                  => "{$locale}.loadJsonPaths",
+            ]);
+        $loader
+            ->shouldReceive('loadJsonPaths')
+            ->with($localeBase)
+            ->once()
+            ->andReturn([
+                "{$localeBase}.loadJsonPaths" => 123,
+                'string'                      => "{$localeBase}.loadJsonPaths",
             ]);
         $loader
             ->shouldReceive('loadJsonPaths')
@@ -92,6 +108,15 @@ class TranslationLoaderTest extends TestCase {
             ->once()
             ->andReturn([
                 "{$fallback}.loadJsonPaths" => 123,
+                'string'                    => "{$fallback}.loadJsonPaths",
+            ]);
+        $loader
+            ->shouldReceive('loadJsonPaths')
+            ->with($fallbackBase)
+            ->once()
+            ->andReturn([
+                "{$fallbackBase}.loadJsonPaths" => 123,
+                'string'                        => "{$fallbackBase}.loadJsonPaths",
             ]);
         $loader
             ->shouldReceive('loadStorage')
@@ -99,6 +124,15 @@ class TranslationLoaderTest extends TestCase {
             ->once()
             ->andReturn([
                 "{$locale}.loadStorage" => 123,
+                'string'                => "{$locale}.loadStorage",
+            ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->with($localeBase)
+            ->once()
+            ->andReturn([
+                "{$localeBase}.loadStorage" => 123,
+                'string'                    => "{$localeBase}.loadStorage",
             ]);
         $loader
             ->shouldReceive('loadStorage')
@@ -106,14 +140,28 @@ class TranslationLoaderTest extends TestCase {
             ->once()
             ->andReturn([
                 "{$fallback}.loadStorage" => 123,
+                'string'                  => "{$fallback}.loadStorage",
+            ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->with($fallbackBase)
+            ->once()
+            ->andReturn([
+                "{$fallbackBase}.loadStorage" => 123,
+                'string'                      => "{$fallback}.loadStorage",
             ]);
 
         self::assertEquals(
             [
-                "{$locale}.loadJsonPaths"   => 123,
-                "{$fallback}.loadJsonPaths" => 123,
-                "{$locale}.loadStorage"     => 123,
-                "{$fallback}.loadStorage"   => 123,
+                'string'                        => "{$locale}.loadStorage",
+                "{$locale}.loadJsonPaths"       => 123,
+                "{$localeBase}.loadJsonPaths"   => 123,
+                "{$fallback}.loadJsonPaths"     => 123,
+                "{$fallbackBase}.loadJsonPaths" => 123,
+                "{$locale}.loadStorage"         => 123,
+                "{$localeBase}.loadStorage"     => 123,
+                "{$fallback}.loadStorage"       => 123,
+                "{$fallbackBase}.loadStorage"   => 123,
             ],
             $loader->load($locale, '*', '*'),
         );
