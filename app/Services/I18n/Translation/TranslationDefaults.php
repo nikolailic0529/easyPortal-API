@@ -43,11 +43,6 @@ class TranslationDefaults extends TranslationLoader {
      * @return array<string,string>
      */
     protected function loadModels(string $locale): array {
-        // Default locale? (model's properties always in default locale)
-        if ($this->app->getLocale() !== $locale) {
-            return [];
-        }
-
         // Load models
         $models       = $this->service->getTranslatableModels();
         $translations = [];
