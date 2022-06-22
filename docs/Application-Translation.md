@@ -2,8 +2,15 @@
 
 ## Default files
 
-All files located in [`lang`](../lang) directory.
+All files located in [`lang`](../lang) directory. 
 
+## Priorities
+
+1. Custom translations from `./storage/app/lang/*.json` (eg `./storage/app/lang/de_DE.json`)
+2. Default translations from `./lang/*.json` (eg `./lang/de_DE.json`)
+3. Custom translations for base locale (eg `./storage/app/lang/de.json`)
+4. Default translations for base locale (eg `./lang/de.json`)
+5. Translations for fallback locale (in the same priorities)
 
 ## Addition strings
 
