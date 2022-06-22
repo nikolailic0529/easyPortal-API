@@ -35,6 +35,8 @@ abstract class AppTranslationsRename extends RawDataMigration {
         $fromStrings = $fromStorage->load();
 
         if (!$fromStrings) {
+            $fromStorage->delete(true);
+
             return;
         }
 
