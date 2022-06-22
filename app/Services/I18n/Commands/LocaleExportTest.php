@@ -10,6 +10,8 @@ use Mockery\MockInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\TestCase;
 
+use function explode;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\I18n\Commands\LocaleExport
@@ -75,46 +77,172 @@ class LocaleExportTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeAnotherLocale(): void {
-        $locale  = 'en_GB';
-        $default = 'de_DE';
+        $locale   = 'en_GB';
+        $default  = 'de_DE';
+        $fallback = 'it_IT';
 
         $this->app->setLocale($default);
+        $this->app->setFallbackLocale($fallback);
 
         $this->override(
             TranslationLoader::class,
-            static function (MockInterface $mock) use ($default, $locale): void {
+            static function (MockInterface $mock) use ($locale, $fallback): void {
+                $mock->shouldAllowMockingProtectedMethods();
+                $mock->makePartial();
                 $mock
-                    ->shouldReceive('getTranslations')
-                    ->with($default)
+                    ->shouldReceive('getFallbackLocale')
+                    ->once()
+                    ->andReturn($fallback);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with(explode('_', $locale)[0])
                     ->once()
                     ->andReturn([
-                        'default_loader' => 'string',
+                        'loader_locale_json_base' => 'string',
                     ]);
                 $mock
-                    ->shouldReceive('getTranslations')
+                    ->shouldReceive('loadStorage')
+                    ->with(explode('_', $locale)[0])
+                    ->once()
+                    ->andReturn([
+                        'loader_locale_storage_base' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
                     ->with($locale)
                     ->once()
                     ->andReturn([
-                        'locale_loader' => 'string',
+                        'loader_locale_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with($locale)
+                    ->once()
+                    ->andReturn([
+                        'loader_locale_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with($fallback)
+                    ->once()
+                    ->andReturn([
+                        'loader_fallback_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with($fallback)
+                    ->once()
+                    ->andReturn([
+                        'loader_fallback_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with(explode('_', $fallback)[0])
+                    ->once()
+                    ->andReturn([
+                        'loader_fallback_base_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with(explode('_', $fallback)[0])
+                    ->once()
+                    ->andReturn([
+                        'loader_fallback_base_storage' => 'string',
                     ]);
             },
         );
         $this->override(
             TranslationDefaults::class,
-            static function (MockInterface $mock) use ($default, $locale): void {
+            static function (MockInterface $mock) use ($locale, $fallback): void {
+                $mock->shouldAllowMockingProtectedMethods();
+                $mock->makePartial();
                 $mock
-                    ->shouldReceive('getTranslations')
-                    ->with($default)
+                    ->shouldReceive('getFallbackLocale')
                     ->once()
-                    ->andReturn([
-                        'default_default' => 'string',
-                    ]);
+                    ->andReturn($fallback);
                 $mock
-                    ->shouldReceive('getTranslations')
+                    ->shouldReceive('loadJsonPaths')
                     ->with($locale)
                     ->once()
                     ->andReturn([
-                        'locale_default' => 'string',
+                        'default_locale_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with($locale)
+                    ->once()
+                    ->andReturn([
+                        'default_locale_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadModels')
+                    ->with($locale)
+                    ->once()
+                    ->andReturn([
+                        'default_locale_models' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with(explode('_', $locale)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_locale_base_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with(explode('_', $locale)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_locale_base_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadModels')
+                    ->with(explode('_', $locale)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_locale_base_models' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with($fallback)
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with($fallback)
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadModels')
+                    ->with($fallback)
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_models' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadJsonPaths')
+                    ->with(explode('_', $fallback)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_base_json' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadStorage')
+                    ->with(explode('_', $fallback)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_base_storage' => 'string',
+                    ]);
+                $mock
+                    ->shouldReceive('loadModels')
+                    ->with(explode('_', $fallback)[0])
+                    ->once()
+                    ->andReturn([
+                        'default_fallback_base_models' => 'string',
                     ]);
             },
         );
@@ -125,10 +253,26 @@ class LocaleExportTest extends TestCase {
         $actual   = $buffer->fetch();
         $expected = <<<'JSON'
         {
-            "default_default": "string",
-            "default_loader": "string",
-            "locale_default": "string",
-            "locale_loader": "string"
+            "default_fallback_base_json": "string",
+            "default_fallback_base_models": "string",
+            "default_fallback_base_storage": "string",
+            "default_fallback_json": "string",
+            "default_fallback_models": "string",
+            "default_fallback_storage": "string",
+            "default_locale_base_json": "string",
+            "default_locale_base_models": "string",
+            "default_locale_base_storage": "string",
+            "default_locale_json": "string",
+            "default_locale_models": "string",
+            "default_locale_storage": "string",
+            "loader_fallback_base_json": "string",
+            "loader_fallback_base_storage": "string",
+            "loader_fallback_json": "string",
+            "loader_fallback_storage": "string",
+            "loader_locale_json": "string",
+            "loader_locale_json_base": "string",
+            "loader_locale_storage": "string",
+            "loader_locale_storage_base": "string"
         }
 
         JSON;

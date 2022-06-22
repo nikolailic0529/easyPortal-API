@@ -47,11 +47,6 @@ class LocaleExport extends Command {
             + $loader->getTranslations($locale)
             + $defaults->getTranslations($locale);
 
-        if ($locale !== $default) {
-            $translations += $loader->getTranslations($default);
-            $translations += $defaults->getTranslations($default);
-        }
-
         ksort($translations);
 
         // Dump
