@@ -1,12 +1,17 @@
 <?php declare(strict_types = 1);
 
-use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
-use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
-use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
+use App\Models\Customer;
+use App\Models\Reseller;
+use App\Services\Recalculator\Migrations\Recalculate;
 
-return new class() extends RawDataMigration {
-    protected function runRawUp(): void {
-        $this->getContainer()->make(ResellersRecalculator::class)->dispatch();
-        $this->getContainer()->make(CustomersRecalculator::class)->dispatch();
+return new class() extends Recalculate {
+    /**
+     * @inheritDoc
+     */
+    protected function getModels(): array {
+        return [
+            Reseller::class,
+            Customer::class,
+        ];
     }
 };
