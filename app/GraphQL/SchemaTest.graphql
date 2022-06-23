@@ -203,6 +203,26 @@ input MeUpdateInput {
     )
 }
 
+input MessageCreateInput {
+    bcc: [Email!]
+    @isRequired
+    @isEmail
+
+    cc: [Email!]
+    @isRequired
+    @isEmail
+
+    files: [Upload!]
+    @isRequired
+    @isFile
+
+    message: HtmlString!
+    @isRequired
+
+    subject: String!
+    @isRequired
+}
+
 input OrgRoleCreateInput {
     name: String!
     @isRequired
@@ -7096,6 +7116,29 @@ implements
     result: Boolean!
 }
 
+type MessageCreatePayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
+type MessageMutations {
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me> User must be authenticated.
+    """
+    create(
+        input: MessageCreateInput!
+    ): MessageCreatePayload!
+    @organization
+    @me
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Message\\Create"
+    )
+}
+
 type Mutation {
     application: ApplicationMutations
     @field(
@@ -7312,6 +7355,18 @@ type Mutation {
     @me
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Me"
+    )
+
+    """
+    @require <organization> Authenticated user must be a member of the current organization.
+
+    @require <me> User must be authenticated.
+    """
+    message: MessageMutations
+    @organization
+    @me
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )
 
     """

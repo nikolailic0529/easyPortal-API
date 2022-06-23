@@ -1,0 +1,22 @@
+extend type MessageMutations {
+    create(
+        input: MessageCreateInput!
+    ): MessageCreatePayload!
+    @organization
+    @me
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Message\\Create"
+    )
+}
+
+input MessageCreateInput {
+    subject: String! @isRequired
+    message: HtmlString! @isRequired
+    cc: [Email!] @isRequired @isEmail
+    bcc: [Email!] @isRequired @isEmail
+    files: [Upload!] @isRequired @isFile
+}
+
+type MessageCreatePayload implements Payload {
+    result: Boolean!
+}

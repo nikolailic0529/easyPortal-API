@@ -2176,6 +2176,11 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateTest.php
 
 		-
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Message/CreateTest.php
+
+		-
 			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
@@ -5624,6 +5629,11 @@ parameters:
 			message: "#^Part \\$this\\-\\>records\\[0\\]\\['message'\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Mail/Error.php
+
+		-
+			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
+			count: 1
+			path: app/Mail/Message.php
 
 		-
 			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
