@@ -61,23 +61,23 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "0593ec50-95af-5996-a8bd-887ed8c832e5",
             "0c377cde-0cf9-5eea-8d4a-3f0bc159695b",
             "0e6c6597-7216-5d5d-b056-e0585b86843a",
             "100433a5-7e4a-5205-8a29-037d12e71770",
             "1bff7a3d-6c61-5cdf-af8d-a1858161864b",
             "1d4db845-6758-57a5-8514-8d2ead89aa4c",
             "1eaf13e8-6cf3-5851-af95-fc1919ae4bf8",
+            "459a9b90-a31f-55c4-b5a7-5de3769f555e",
             "4a0381cc-5f50-549d-9681-a9e61e299cfc",
             "6b3ddcd8-5bf7-5e46-a4bb-e07ec3583555",
             "8b0a0a87-dc1b-51b7-a396-ade9ceb1177a",
             "8c926cf9-3691-56fa-93e2-0f410baf0b5a",
             "8f97eff1-dbfa-5293-8b35-e10c52dd0a43",
             "994a8c4e-1088-5eb2-85cd-5bc6a6310a93",
-            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "b6939d8b-c784-534f-8b45-7bb04de256b4",
             "c4087e0f-8cd0-5692-8e96-d7422e6ef40d",
-            "e80b4c88-8046-50eb-be18-b435fcf59302",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca"
+            "e80b4c88-8046-50eb-be18-b435fcf59302"
         ]
     },
     {
@@ -562,16 +562,16 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "0593ec50-95af-5996-a8bd-887ed8c832e5",
             "27d1acb7-c718-51a9-a7a9-a28cbbc31345",
             "3640fcde-3108-5922-aa73-eb12df9262ee",
             "3a1da488-a425-58e6-b800-fc7859c72016",
+            "459a9b90-a31f-55c4-b5a7-5de3769f555e",
             "48b540c5-a1b8-524f-908f-3b508a4c8dab",
             "6cef59ef-e414-596e-940b-0f4fc53a4c16",
             "804548b6-a2cb-5fa3-97a2-bf3d6afe2263",
-            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "a4e88ad6-4252-5346-9a1c-6f01521b53c8",
             "a9564db2-3557-5f9c-a42c-758624a62803",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
             "f3596ddc-962e-5ddc-ab8b-f243660f6e59"
         ]
     },

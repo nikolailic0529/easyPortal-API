@@ -5,7 +5,6 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Elastic\UnionEngine;
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Engines\Engine;
 

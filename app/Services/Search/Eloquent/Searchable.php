@@ -5,7 +5,6 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
-use Closure;
 
 /**
  * Required to phpstan.
