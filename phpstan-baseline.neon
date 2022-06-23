@@ -13536,26 +13536,6 @@ parameters:
 			path: app/Services/Recalculator/Queue/Jobs/ResellersRecalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\AssetRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Asset, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Asset\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Asset\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsProcessor\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/AssetRecalculate.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\CustomerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Customer, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Customer\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Customer\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\CustomersProcessor\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/CustomerRecalculate.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\LocationRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Location, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Location\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/LocationRecalculate.php
-
-		-
-			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setKeys\\(\\)\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\Recalculate\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
@@ -13571,12 +13551,17 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\ResellerRecalculate\\:\\:makeProcessor\\(\\) should return App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<App\\\\Models\\\\Reseller, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<App\\\\Models\\\\Reseller\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Reseller\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\ResellersProcessor\\.$#"
+			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>,App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
-			path: app/Services/Recalculator/Queue/Tasks/ResellerRecalculate.php
+			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Tasks\\\\Recalculate\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\AssetRecalculate', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\ResellerRecalculate', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\CustomerRecalculate', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Tasks\\\\\\\\LocationRecalculate'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor'\\}\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Service.php
+
+		-
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\Recalculator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\AssetsRecalculator', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\ResellersRecalculator', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\CustomersRecalculator', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\LocationsRecalculator'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 
