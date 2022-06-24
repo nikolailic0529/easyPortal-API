@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "740f7727-ed8b-5022-8129-e1e5811b2f03"
+            "d784ea67-eeab-5220-acad-43a21486cfa7"
         ]
     },
     {
         "query": "select `types`.*, `customer_location_types`.`customer_location_id` as `pivot_customer_location_id`, `customer_location_types`.`type_id` as `pivot_type_id`, `customer_location_types`.`created_at` as `pivot_created_at`, `customer_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `customer_location_types`.`deleted_at` is null and `customer_location_types`.`customer_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8"
+            "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136"
         ]
     },
     {
@@ -33,7 +33,7 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "bce374ad-c509-587b-bc55-d6996979b482"
+            "740f7727-ed8b-5022-8129-e1e5811b2f03"
         ]
     },
     {
@@ -45,8 +45,8 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?, ?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "3974e30b-711f-5aca-a025-6db8456649a0",
-            "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9"
+            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "bce374ad-c509-587b-bc55-d6996979b482"
         ]
     },
     {
@@ -59,8 +59,8 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "0bcdc464-0eee-52c1-a49d-bd346856fbea",
-            "b908ec46-850c-5de2-b931-1cd1de831731"
+            "3974e30b-711f-5aca-a025-6db8456649a0",
+            "68e76df7-b1e2-594e-b631-9e8d6c54d506"
         ]
     },
     {
@@ -158,7 +158,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "740f7727-ed8b-5022-8129-e1e5811b2f03"
+            "d784ea67-eeab-5220-acad-43a21486cfa7"
         ]
     },
     {
@@ -209,7 +209,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "740f7727-ed8b-5022-8129-e1e5811b2f03"
+            "d784ea67-eeab-5220-acad-43a21486cfa7"
         ]
     },
     {

@@ -230,7 +230,7 @@ abstract class Processor implements ProcessorContract {
 
             // Process
             try {
-                $this->process($state, $data, $item);
+                $this->item($state, $data, $item);
                 $this->success($state, $item);
             } catch (Throwable $exception) {
                 $this->failed($state, $item, $exception);
@@ -238,6 +238,15 @@ abstract class Processor implements ProcessorContract {
         }
 
         $this->finish($state);
+    }
+
+    /**
+     * @param TState     $state
+     * @param TChunkData $data
+     * @param TItem      $item
+     */
+    protected function item(State $state, mixed $data, mixed $item): void {
+        $this->process($state, $data, $item);
     }
 
     /**

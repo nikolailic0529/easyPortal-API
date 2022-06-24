@@ -1,23 +1,26 @@
 [
     {
-        "query": "select `resellers`.* from `resellers` where `resellers`.`deleted_at` is null and `id` in (?, ?, ?)",
+        "query": "select `resellers`.* from `resellers` where `resellers`.`deleted_at` is null and `id` in (?, ?, ?, ?)",
         "bindings": [
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "81d95584-bdc4-5497-9ead-b81582b26bd2",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?, ?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
@@ -25,77 +28,86 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?) and `statuses`.`deleted_at` is null",
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`deleted_at` is null and `reseller_statuses`.`reseller_id` in (?, ?, ?, ?) and `statuses`.`deleted_at` is null",
         "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
         ]
     },
     {
-        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?) and `reseller_customers`.`deleted_at` is null",
+        "query": "select `reseller_customers`.* from `reseller_customers` where `reseller_customers`.`reseller_id` in (?, ?, ?, ?) and `reseller_customers`.`deleted_at` is null",
         "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
         ]
     },
     {
-        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
+        "query": "select `reseller_id`, count(*) as count from `assets` where `reseller_id` in (?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `assets` where (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `location_id`, count(*) as count from `assets` where (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
+        "query": "select `reseller_id`, `location_id`, count(DISTINCT `customer_id`) as count from `assets` where `reseller_id` in (?, ?, ?, ?) and (`customer_id` is null or `assets`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and (`location_id` is null or `assets`.`location_id` in (select distinct `locations`.`id` from `locations` where `locations`.`deleted_at` is null)) and `assets`.`deleted_at` is null group by `reseller_id`, `location_id`",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `type_id` in (?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `reseller_id` in (?, ?, ?, ?) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "78282ba7-a73f-59f8-9871-ba703198d433",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
-        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
+        "query": "select `reseller_id`, `customer_id`, count(*) as count from `documents` where `reseller_id` in (?, ?, ?, ?) and (`customer_id` is null or `documents`.`customer_id` in (select distinct `customers`.`id` from `customers` where `customers`.`deleted_at` is null)) and `documents`.`deleted_at` is null group by `reseller_id`, `customer_id`",
         "bindings": [
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423"
         ]
     },
     {
@@ -106,7 +118,7 @@
             5,
             0,
             1,
-            "2021-08-30 00:03:51",
+            "2021-08-30 00:03:55",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
         ]
     },
@@ -115,7 +127,7 @@
         "bindings": [
             2,
             2,
-            "2021-08-30 00:03:59",
+            "2021-08-30 00:04:05",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31"
         ]
     },
@@ -123,7 +135,7 @@
         "query": "update `resellers` set `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             4,
-            "2021-08-30 00:04:09",
+            "2021-08-30 00:04:15",
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
         ]
     },
@@ -131,23 +143,23 @@
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,
-            "2021-08-30 00:04:17",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1"
+            "2021-08-30 00:04:26",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
         ]
     },
     {
         "query": "update `reseller_customers` set `assets_count` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
             0,
-            "2021-08-30 00:04:27",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
+            "2021-08-30 00:04:35",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1"
         ]
     },
     {
         "query": "update `reseller_customers` set `deleted_at` = ?, `reseller_customers`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2021-08-30 00:04:35",
-            "2021-08-30 00:04:35",
+            "2021-08-30 00:04:43",
+            "2021-08-30 00:04:43",
             "93dff777-6006-5616-bdb5-a56ec97248bb"
         ]
     },
@@ -156,20 +168,20 @@
         "bindings": [
             1,
             0,
-            "2021-08-30 00:04:07",
-            "67c78e00-746e-5875-a467-385289e61788",
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            0,
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "2021-08-30 00:04:07",
-            0,
-            1,
-            "2021-08-30 00:04:08",
+            "2021-08-30 00:04:13",
             "5ce84092-2672-567d-9178-fa3fa96560e8",
             "0a7548dd-c241-5418-99ca-296c1b5d9607",
             0,
             "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "2021-08-30 00:04:08"
+            "2021-08-30 00:04:13",
+            0,
+            1,
+            "2021-08-30 00:04:14",
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            0,
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+            "2021-08-30 00:04:14"
         ]
     },
     {
@@ -180,7 +192,7 @@
             0,
             1,
             0,
-            "2021-08-30 00:04:37",
+            "2021-08-30 00:04:45",
             "81d95584-bdc4-5497-9ead-b81582b26bd2"
         ]
     },
@@ -189,12 +201,12 @@
         "bindings": [
             0,
             0,
-            "2021-08-30 00:04:45",
-            "67c78e00-746e-5875-a467-385289e61788",
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "2021-08-30 00:04:55",
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
+            "79b8eb7b-1822-558a-99f1-a75648af059c",
             1,
             "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "2021-08-30 00:04:45"
+            "2021-08-30 00:04:55"
         ]
     },
     {
@@ -205,7 +217,7 @@
             0,
             0,
             0,
-            "2021-08-30 00:04:47",
+            "2021-08-30 00:04:57",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
         ]
     }

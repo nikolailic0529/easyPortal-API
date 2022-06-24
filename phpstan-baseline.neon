@@ -13411,11 +13411,6 @@ parameters:
 			path: app/Services/Recalculator/Processor/ChunkData.php
 
 		-
-			message: "#^Property App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:\\$keys \\(array\\<string\\>\\) does not accept array\\<int\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/Recalculator/Processor/ChunkData.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\AssetsChunkData constructor expects array\\<App\\\\Models\\\\Asset\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Asset\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessor.php
@@ -14231,7 +14226,7 @@ parameters:
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\{model\\: class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<string\\>\\} given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\{model\\: class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\} given\\.$#"
 			count: 1
 			path: app/Services/Search/Listeners/IndexExpiredListener.php
 
@@ -15361,7 +15356,7 @@ parameters:
 			path: app/Utils/Processor/EloquentProcessorTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:process\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$data of method App\\\\Utils\\\\Processor\\\\Processor\\<TItem,TChunkData,TState of App\\\\Utils\\\\Processor\\\\State\\>\\:\\:item\\(\\) expects TChunkData, TChunkData\\|null given\\.$#"
 			count: 1
 			path: app/Utils/Processor/Processor.php
 

@@ -60,6 +60,12 @@ class AssetsProcessorTest extends TestCase {
                 'coverages_count' => 321,
                 'contacts_count'  => 321,
             ]);
+        $assetC = Asset::factory()
+            ->create([
+                'id'              => Str::uuid()->toString(),
+                'coverages_count' => 0,
+                'contacts_count'  => 0,
+            ]);
 
         AssetWarranty::factory()->create([
             // No Document
@@ -114,7 +120,7 @@ class AssetsProcessorTest extends TestCase {
         $events  = Event::fake(ModelsRecalculated::class);
 
         $this->app->make(AssetsProcessor::class)
-            ->setKeys([$assetA->getKey(), $assetB->getKey()])
+            ->setKeys([$assetA->getKey(), $assetB->getKey(), $assetC->getKey()])
             ->start();
 
         self::assertQueryLogEquals('~queries.json', $queries);

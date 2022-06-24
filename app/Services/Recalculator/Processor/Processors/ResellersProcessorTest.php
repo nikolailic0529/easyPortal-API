@@ -104,6 +104,15 @@ class ResellersProcessorTest extends TestCase {
                 'contacts_count'  => $count,
                 'statuses_count'  => $count,
             ]);
+        $resellerD    = Reseller::factory()
+            ->create([
+                'id'              => Str::uuid()->toString(),
+                'customers_count' => 0,
+                'locations_count' => 0,
+                'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'statuses_count'  => 0,
+            ]);
         $customerA    = Customer::factory()
             ->hasLocations(1, [
                 'id'          => Str::uuid()->toString(),
@@ -223,7 +232,7 @@ class ResellersProcessorTest extends TestCase {
         $events  = Event::fake(ModelsRecalculated::class);
 
         $this->app->make(ResellersProcessor::class)
-            ->setKeys([$resellerA->getKey(), $resellerB->getKey(), $resellerC->getKey()])
+            ->setKeys([$resellerA->getKey(), $resellerB->getKey(), $resellerC->getKey(), $resellerD->getKey()])
             ->start();
 
         self::assertQueryLogEquals('~queries.json', $queries);
@@ -276,11 +285,11 @@ class ResellersProcessorTest extends TestCase {
 
         self::assertEquals([
             [
-                'assets_count'    => 0,
-                'customer_id'     => $customerC->getKey(),
+                'assets_count'    => 1,
+                'customer_id'     => $customerB->getKey(),
                 'kpi_id'          => null,
                 'quotes_count'    => 0,
-                'contracts_count' => 1,
+                'contracts_count' => 0,
             ],
             [
                 'assets_count'    => 0,
@@ -297,11 +306,11 @@ class ResellersProcessorTest extends TestCase {
                 'contracts_count' => 0,
             ],
             [
-                'assets_count'    => 1,
-                'customer_id'     => $customerB->getKey(),
+                'assets_count'    => 0,
+                'customer_id'     => $customerC->getKey(),
                 'kpi_id'          => null,
                 'quotes_count'    => 0,
-                'contracts_count' => 0,
+                'contracts_count' => 1,
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 

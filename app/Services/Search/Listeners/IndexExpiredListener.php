@@ -35,7 +35,7 @@ class IndexExpiredListener implements Subscriber {
 
     /**
      * @param class-string<Model> $model
-     * @param array<string>       $keys
+     * @param array<string|int>   $keys
      */
     private function update(string $model, array $keys): void {
         // Searchable?

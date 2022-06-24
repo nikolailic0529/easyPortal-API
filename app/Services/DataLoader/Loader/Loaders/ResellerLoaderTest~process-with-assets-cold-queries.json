@@ -111,7 +111,7 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca"
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
         ]
     },
     {
@@ -254,7 +254,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
             "2021-10-01 00:16:33",
             "d3138db9-8219-3fc0-ab80-4c641bf8b571",
             "130",
@@ -394,7 +394,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "f0fc2834-0b25-511c-95f7-2cf190ba3074",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -420,7 +420,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "f6c5b576-adc5-3b10-b512-8ccc0c6f225a",
-            "740f7727-ed8b-5022-8129-e1e5811b2f03",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",
@@ -546,7 +546,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
             "2021-12-10 09:53:07",
             "9a210907-8bf1-3e9c-8e83-c3eda652060f",
             "130",
@@ -711,7 +711,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
             "2021-10-01 00:16:35",
             "d23ba064-b451-35b2-91bd-1e64b70084c8",
             "130",
@@ -876,7 +876,7 @@
             "58b13994-e8e3-5e83-8379-1222da39f03c",
             "6c7c9474-3b59-4601-af72-1cd0f441b515",
             "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
-            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca",
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
             "2021-10-01 00:16:36",
             "15289d99-6173-36f2-8541-3412124ace5f",
             "130",
@@ -1034,7 +1034,7 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "0593ec50-95af-5996-a8bd-887ed8c832e5",
+            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "eabf4f13-5992-5b75-a46c-5738f0e87a69",
             "211 bechtelar village",
             "56011"
@@ -1044,7 +1044,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "eabf4f13-5992-5b75-a46c-5738f0e87a69",
-            "0593ec50-95af-5996-a8bd-887ed8c832e5",
+            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "56011",
             "",
             "211 Bechtelar Village",
@@ -1437,7 +1437,7 @@
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
             null,
             "4ae114f6-f2f3-3999-b195-3df3197f8273",
-            "740f7727-ed8b-5022-8129-e1e5811b2f03",
+            "f472990b-d3bf-56ac-a434-965e339ad8a4",
             "21f48d0b-e7fa-43dc-8099-33ebe099cbbe",
             "0173bb5b-bb26-4945-a127-9b7c035aeed4",
             "ef78f7ab-0346-5943-bdd3-3066c30c14b5",

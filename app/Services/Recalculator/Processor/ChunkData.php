@@ -13,14 +13,24 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use stdClass;
 
+use function array_keys;
+
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
  */
 class ChunkData implements OnModelSaved, OnModelDeleted {
-    private bool $dirty = false;
+    /**
+     * @var array<string|int, bool>
+     */
+    private array $dirty = [];
 
     /**
-     * @var array<string>
+     * @var TModel|null
+     */
+    private ?Model $model = null;
+
+    /**
+     * @var array<string|int>
      */
     private array $keys;
 
@@ -61,12 +71,33 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
         $this->keys = (new Collection($items))->map(new GetKey())->all();
     }
 
-    public function isDirty(): bool {
-        return $this->dirty;
+    /**
+     * @return TModel|null
+     */
+    public function getModel(): ?Model {
+        return $this->model;
     }
 
     /**
-     * @return array<string>
+     * @param TModel|null $model
+     */
+    public function setModel(mixed $model): void {
+        $this->model = $model;
+    }
+
+    public function isDirty(): bool {
+        return !!$this->dirty;
+    }
+
+    /**
+     * @return array<string|int>
+     */
+    public function getDirtyKeys(): array {
+        return array_keys($this->dirty);
+    }
+
+    /**
+     * @return array<string|int>
      */
     public function getKeys(): array {
         return $this->keys;
@@ -263,10 +294,15 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
     }
 
     public function modelSaved(Model $model): void {
-        $this->dirty = true;
+        $key     = $this->getModel()?->getKey();
+        $isDirty = $this->getModel()?->isDirty();
+
+        if ($key && $isDirty) {
+            $this->dirty[$key] = true;
+        }
     }
 
     public function modelDeleted(Model $model): void {
-        $this->dirty = true;
+        $this->modelSaved($model);
     }
 }

@@ -53,6 +53,9 @@ class LocationsProcessorTest extends TestCase {
             'assets_count'    => $count,
             'customers_count' => $count,
         ]);
+        $locationD = Location::factory()->create([
+            'id' => Str::uuid()->toString(),
+        ]);
         $resellerA = Reseller::factory()
             ->hasLocations(1, [
                 'id'          => Str::uuid()->toString(),
@@ -108,7 +111,7 @@ class LocationsProcessorTest extends TestCase {
         $events  = Event::fake(ModelsRecalculated::class);
 
         $this->app->make(LocationsProcessor::class)
-            ->setKeys([$locationA->getKey(), $locationB->getKey(), $locationC->getKey()])
+            ->setKeys([$locationA->getKey(), $locationB->getKey(), $locationC->getKey(), $locationD->getKey()])
             ->start();
 
         self::assertQueryLogEquals('~queries.json', $queries);
@@ -164,11 +167,11 @@ class LocationsProcessorTest extends TestCase {
         self::assertEquals([
             [
                 'assets_count' => 1,
-                'customer_id'  => $customerA->getKey(),
+                'customer_id'  => $customerB->getKey(),
             ],
             [
                 'assets_count' => 1,
-                'customer_id'  => $customerB->getKey(),
+                'customer_id'  => $customerA->getKey(),
             ],
         ], $this->getModelCountableProperties($aCustomers, $attributes));
 

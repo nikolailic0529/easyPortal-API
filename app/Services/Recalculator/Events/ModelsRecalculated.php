@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ModelsRecalculated {
     /**
      * @param class-string<Model> $model
-     * @param array<string>       $keys
+     * @param array<string|int>   $keys
      */
     public function __construct(
         private string $model,
@@ -24,7 +24,7 @@ class ModelsRecalculated {
     }
 
     /**
-     * @return array<string>
+     * @return array<string|int>
      */
     public function getKeys(): array {
         return $this->keys;

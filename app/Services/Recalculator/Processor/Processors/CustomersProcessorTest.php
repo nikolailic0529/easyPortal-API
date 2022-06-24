@@ -73,6 +73,10 @@ class CustomersProcessorTest extends TestCase {
             ->create([
                 'id' => Str::uuid()->toString(),
             ]);
+        $customerC    = Customer::factory()
+            ->create([
+                'id' => Str::uuid()->toString(),
+            ]);
 
         $this->setSettings([
             'ep.contract_types' => [$contractType->getKey()],
@@ -134,7 +138,7 @@ class CustomersProcessorTest extends TestCase {
         $events  = Event::fake(ModelsRecalculated::class);
 
         $this->app->make(CustomersProcessor::class)
-            ->setKeys([$customerA->getKey(), $customerB->getKey()])
+            ->setKeys([$customerA->getKey(), $customerB->getKey(), $customerC->getKey()])
             ->start();
 
         self::assertQueryLogEquals('~queries.json', $queries);
