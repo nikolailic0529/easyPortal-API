@@ -175,7 +175,7 @@ class BuilderTest extends TestCase {
      * @covers ::count
      */
     public function testCount(): void {
-        $models = $this->makeSearchable(Customer::factory()->count(3)->make());
+        $models = $this->makeSearchable(Customer::factory()->count(3)->create());
 
         self::assertEquals(count($models), Customer::search('*')->count());
     }

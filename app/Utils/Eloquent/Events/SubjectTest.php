@@ -31,7 +31,7 @@ class SubjectTest extends TestCase {
             $observer
                 ->shouldReceive('modelSaved')
                 ->with($model)
-                ->once()
+                ->twice()
                 ->andReturnSelf();
         }
 
@@ -48,8 +48,10 @@ class SubjectTest extends TestCase {
         $subject->subscribe($dispatcher);
         $subject->onModelEvent($observer);
 
-        $dispatcher->dispatch('eloquent.saved: any model', [$model]);
-        $dispatcher->dispatch('eloquent.saved: not model', [new stdClass()]);
+        $dispatcher->dispatch('eloquent.created: any model', [$model]);
+        $dispatcher->dispatch('eloquent.created: not model', [new stdClass()]);
+        $dispatcher->dispatch('eloquent.updated: any model', [$model]);
+        $dispatcher->dispatch('eloquent.updated: not model', [new stdClass()]);
         $dispatcher->dispatch('eloquent.deleted: any model', [$model]);
         $dispatcher->dispatch('eloquent.deleted: not model', [new stdClass()]);
     }
@@ -65,7 +67,7 @@ class SubjectTest extends TestCase {
         $observer
             ->shouldReceive('modelSaved')
             ->with($model)
-            ->once()
+            ->twice()
             ->andReturnSelf();
 
         $dispatcher = new Dispatcher();
@@ -73,8 +75,10 @@ class SubjectTest extends TestCase {
         $subject->subscribe($dispatcher);
         $subject->onModelSaved($observer);
 
-        $dispatcher->dispatch('eloquent.saved: any model', [$model]);
-        $dispatcher->dispatch('eloquent.saved: not model', [new stdClass()]);
+        $dispatcher->dispatch('eloquent.created: any model', [$model]);
+        $dispatcher->dispatch('eloquent.created: not model', [new stdClass()]);
+        $dispatcher->dispatch('eloquent.updated: any model', [$model]);
+        $dispatcher->dispatch('eloquent.updated: not model', [new stdClass()]);
     }
 
     /**

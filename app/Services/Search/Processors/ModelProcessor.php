@@ -45,7 +45,7 @@ class ModelProcessor extends EloquentProcessor {
      */
     use WithModel;
 
-    private bool $rebuild;
+    private bool $rebuild = false;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,

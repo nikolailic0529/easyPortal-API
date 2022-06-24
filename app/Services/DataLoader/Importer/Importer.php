@@ -12,6 +12,7 @@ use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
 use App\Services\DataLoader\Schema\TypeWithId;
+use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
@@ -30,8 +31,9 @@ use function array_merge;
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
 abstract class Importer extends IteratorProcessor implements Isolated {
-    private bool      $update = true;
-    private Collector $collector;
+    private bool                   $update        = true;
+    private ?ImporterCollectedData $collectedData = null;
+    private Collector              $collector;
 
     /**
      * @var ModelFactory<TModel>
@@ -81,6 +83,18 @@ abstract class Importer extends IteratorProcessor implements Isolated {
 
     // <editor-fold desc="Import">
     // =========================================================================
+    protected function init(State $state, ObjectIterator $iterator): void {
+        $this->resetCollectedData();
+
+        parent::init($state, $iterator);
+    }
+
+    protected function finish(State $state): void {
+        parent::finish($state);
+
+        $this->resetCollectedData();
+    }
+
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
             $item
@@ -151,9 +165,31 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      * @inheritDoc
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
-        return $data->isDirty() && !$data->isEmpty()
-            ? new DataImported($data)
-            : null;
+        $threshold = $this->getChunkSize();
+        $collected = $this->getCollectedData()->collect($threshold, $data);
+        $event     = $collected ? new DataImported($collected) : null;
+
+        return $event;
+    }
+
+    protected function getOnFinishEvent(State $state): ?object {
+        $data  = $this->getCollectedData()->getData();
+        $event = $data ? new DataImported($data) : null;
+
+        return $event;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Data">
+    // =========================================================================
+    private function getCollectedData(): ImporterCollectedData {
+        $this->collectedData ??= new ImporterCollectedData();
+
+        return $this->collectedData;
+    }
+
+    private function resetCollectedData(): void {
+        $this->collectedData = null;
     }
     // </editor-fold>
 

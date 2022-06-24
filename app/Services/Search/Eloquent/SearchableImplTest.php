@@ -8,11 +8,11 @@ use App\Models\ServiceLevel;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;
+use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
-use App\Services\Search\Queue\Tasks\Index;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Queue;
+use Laravel\Scout\Engines\Engine;
 use LogicException;
 use Mockery;
 use Mockery\MockInterface;
@@ -217,16 +217,7 @@ class SearchableImplTest extends TestCase {
      */
     public function testMakeAllSearchable(): void {
         $chunk = $this->faker->randomDigitNotNull();
-        $model = new class() extends Model {
-            use SearchableImpl;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-        };
+        $model = new SearchableImplTest_Model();
 
         $this->override(ModelProcessor::class, static function (MockInterface $processor) use ($model, $chunk): void {
             $processor
@@ -313,116 +304,109 @@ class SearchableImplTest extends TestCase {
     /**
      * @covers ::queueMakeSearchable
      */
-    public function testQueueMakeSearchable(): void {
+    public function testQueueMakeSearchableQueueEnabled(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => true,
+        ]);
+
+        // Model
+        $model = new SearchableImplTest_Model();
+
+        $model->setAttribute($model->getKeyName(), $this->faker->randomNumber());
+
+        $models = new Collection([$model]);
+
+        // Mock
+        $this->override(Indexer::class, static function (MockInterface $mock) use ($models): void {
+            $mock
+                ->shouldReceive('dispatch')
+                ->with($models)
+                ->once();
+        });
+
+        // Test
+        $model->queueMakeSearchable($models);
+    }
+
+    /**
+     * @covers ::queueMakeSearchable
+     */
+    public function testQueueMakeSearchableQueueDisabled(): void {
         // Prepare
         $this->setSettings([
             'scout.queue' => false,
         ]);
 
         // Mock
-        $a = Mockery::mock(Model::class);
-        $a
-            ->shouldReceive('shouldBeSearchable')
+        $engine = Mockery::mock(Engine::class);
+        $engine
+            ->shouldReceive('update')
             ->once()
-            ->andReturn(true);
+            ->andReturns();
 
-        $b = Mockery::mock(Model::class);
-        $b
-            ->shouldReceive('shouldBeSearchable')
+        $model = Mockery::mock(SearchableImplTest_Model::class);
+        $model->makePartial();
+        $model
+            ->shouldReceive('searchableUsing')
             ->once()
-            ->andReturn(false);
-
-        // Mockery cannot be used :(
-        //
-        // Method Mockery_0_Illuminate_Database_Eloquent_Model::searchableUsing()
-        // does not exist on this mock object
-        $model = new class() extends Model {
-            use SearchableImpl;
-
-            public Collection $models;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            protected function scoutQueueMakeSearchable(Collection $models): void {
-                $this->models = $models;
-            }
-        };
-
-        $model->queueMakeSearchable(new Collection([$a, $b]));
-
-        self::assertCount(1, $model->models);
-        self::assertSame($a, $model->models->first());
-    }
-
-    /**
-     * @covers ::queueMakeSearchable
-     */
-    public function testQueueMakeSearchableRightJob(): void {
-        // Prepare
-        $this->setSettings([
-            'scout.queue' => true,
-        ]);
-
-        // Mock
-        $model = new class() extends Model {
-            use SearchableImpl;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'a' => new Uuid('a'),
-                ];
-            }
-        };
-
-        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
-
-        // Test
-        Queue::fake();
+            ->andReturn($engine);
 
         $model->queueMakeSearchable(new Collection([$model]));
-
-        Queue::assertPushed(Index::class);
     }
 
     /**
      * @covers ::queueRemoveFromSearch
      */
-    public function testQueueRemoveFromSearchRightJob(): void {
+    public function testQueueRemoveFromSearchQueueEnabled(): void {
         // Prepare
         $this->setSettings([
             'scout.queue' => true,
         ]);
 
+        // Model
+        $model = new SearchableImplTest_Model();
+
+        $model->setAttribute($model->getKeyName(), $this->faker->randomNumber());
+
+        $models = new Collection([$model]);
+
         // Mock
-        $model = new class() extends Model {
-            use SearchableImpl;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'a' => new Uuid('a'),
-                ];
-            }
-        };
-
-        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
+        $this->override(Indexer::class, static function (MockInterface $mock) use ($models): void {
+            $mock
+                ->shouldReceive('dispatch')
+                ->with($models)
+                ->once();
+        });
 
         // Test
-        Queue::fake();
+        $model->queueRemoveFromSearch($models);
+    }
+
+    /**
+     * @covers ::queueRemoveFromSearch
+     */
+    public function testQueueRemoveFromSearchQueueDisable(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => false,
+        ]);
+
+        // Mock
+        $engine = Mockery::mock(Engine::class);
+        $engine
+            ->shouldReceive('delete')
+            ->once()
+            ->andReturns();
+
+        $model = Mockery::mock(SearchableImplTest_Model::class);
+        $model->makePartial();
+        $model
+            ->shouldReceive('searchableUsing')
+            ->once()
+            ->andReturn($engine);
 
         $model->queueRemoveFromSearch(new Collection([$model]));
-
-        Queue::assertPushed(Index::class);
     }
 
     /**
@@ -561,4 +545,24 @@ class SearchableImplTest extends TestCase {
         ];
     }
     // </editor-fold>
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class SearchableImplTest_Model extends Model implements Searchable {
+    use SearchableImpl;
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchProperties(): array {
+        return [
+            'a' => new Uuid('a'),
+        ];
+    }
 }

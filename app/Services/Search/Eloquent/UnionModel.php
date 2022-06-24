@@ -5,7 +5,6 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Elastic\UnionEngine;
-use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Engines\Engine;
 
@@ -25,11 +24,11 @@ class UnionModel extends Model implements Searchable {
         parent::__construct($attributes);
     }
 
-    public static function search(string $query = '', Closure $callback = null): Builder {
+    public static function search(string $query = ''): Builder {
         return app()->make(UnionBuilder::class, [
             'model'      => new static(),
             'query'      => $query,
-            'callback'   => $callback,
+            'callback'   => null,
             'softDelete' => static::usesSoftDelete() && config('scout.soft_delete', false),
         ]);
     }

@@ -7,26 +7,50 @@ use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Queues;
-use App\Services\Recalculator\Queue\Tasks\AssetRecalculate;
-use App\Services\Recalculator\Queue\Tasks\CustomerRecalculate;
-use App\Services\Recalculator\Queue\Tasks\LocationRecalculate;
-use App\Services\Recalculator\Queue\Tasks\Recalculate;
-use App\Services\Recalculator\Queue\Tasks\ResellerRecalculate;
+use App\Services\Recalculator\Processor\ChunkData;
+use App\Services\Recalculator\Processor\Processor;
+use App\Services\Recalculator\Processor\Processors\AssetsProcessor;
+use App\Services\Recalculator\Processor\Processors\CustomersProcessor;
+use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
+use App\Services\Recalculator\Processor\Processors\ResellersProcessor;
+use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator;
+use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
+use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
+use App\Services\Recalculator\Queue\Jobs\Recalculator;
+use App\Services\Recalculator\Queue\Jobs\ResellersRecalculator;
 use App\Services\Service as BaseService;
+use App\Utils\Processor\EloquentState;
 use Illuminate\Database\Eloquent\Model;
 
 use function array_keys;
 
 class Service extends BaseService {
     /**
-     * @var array<class-string<Model>,class-string<Recalculate<Model>>>
+     * @var array<class-string<Model>,class-string<Recalculator<Model>>>
      */
     protected static array $recalculable = [
-        Asset::class    => AssetRecalculate::class,
-        Reseller::class => ResellerRecalculate::class,
-        Customer::class => CustomerRecalculate::class,
-        Location::class => LocationRecalculate::class,
+        Asset::class    => AssetsRecalculator::class,
+        Reseller::class => ResellersRecalculator::class,
+        Customer::class => CustomersRecalculator::class,
+        Location::class => LocationsRecalculator::class,
     ];
+
+    /**
+     * @var array<class-string<Model>, class-string<Processor<Model, ChunkData<Model>, EloquentState<Model>>>>
+     */
+    protected static array $processors = [
+        Asset::class    => AssetsProcessor::class,
+        Reseller::class => ResellersProcessor::class,
+        Customer::class => CustomersProcessor::class,
+        Location::class => LocationsProcessor::class,
+    ];
+
+    /**
+     * @param class-string<Model> $model
+     */
+    public function isRecalculableModel(string $model): bool {
+        return isset(static::$recalculable[$model]);
+    }
 
     /**
      * @return array<class-string<Model>>
@@ -38,10 +62,19 @@ class Service extends BaseService {
     /**
      * @param class-string<Model> $model
      *
-     * @return class-string<Recalculate<Model>>|null
+     * @return class-string<Recalculator<Model>>|null
      */
     public function getRecalculableModelJob(string $model): ?string {
         return static::$recalculable[$model] ?? null;
+    }
+
+    /**
+     * @param class-string<Model> $model
+     *
+     * @return class-string<Processor<Model, ChunkData<Model>, EloquentState<Model>>>|null
+     */
+    public function getRecalculableModelProcessor(string $model): ?string {
+        return static::$processors[$model] ?? null;
     }
 
     public static function getDefaultQueue(): string {

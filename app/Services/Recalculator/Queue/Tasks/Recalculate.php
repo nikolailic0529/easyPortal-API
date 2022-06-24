@@ -6,53 +6,42 @@ use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Job;
 use App\Services\Recalculator\Processor\ChunkData;
 use App\Services\Recalculator\Processor\Processor;
-use App\Utils\Processor\Contracts\Processor as ProcessorContract;
+use App\Services\Recalculator\Service;
 use App\Utils\Processor\EloquentState;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Contracts\Queue\ShouldBeUniqueUntilProcessing;
+use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 
-/**
- * Recalculates properties of given models.
- *
- * @template TModel of \Illuminate\Database\Eloquent\Model
- */
-abstract class Recalculate extends Job implements Initializable, ShouldBeUnique, ShouldBeUniqueUntilProcessing {
+use function assert;
+use function is_a;
+
+abstract class Recalculate extends Job implements Initializable {
     /**
-     * @phpstan-use ProcessorJob<Processor<TModel, ChunkData<TModel>, EloquentState<TModel>>>
+     * @use ProcessorJob<Processor<Model, ChunkData<Model>, EloquentState<Model>>>
      */
-    use ProcessorJob {
-        getProcessor as private createProcessor;
-    }
+    use ProcessorJob;
 
-    protected string $modelKey;
+    /**
+     * @return Processor<Model, ChunkData<Model>, EloquentState<Model>>
+     */
+    protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
+        $service   = $container->make(Service::class);
+        $processor = $service->getRecalculableModelProcessor($this->getModel());
 
-    public function getModelKey(): string {
-        return $this->modelKey;
-    }
+        assert($processor && is_a($processor, Processor::class, true));
 
-    public function uniqueId(): string {
-        return $this->getModelKey();
-    }
-
-    public function init(string $key): static {
-        // Initialize
-        $this->modelKey = $key;
-
-        $this->initialized();
-
-        // Return
-        return $this;
+        return $container->make($processor)
+            ->setKeys($this->getKeys());
     }
 
     /**
-     * @return Processor<TModel, ChunkData<TModel>, EloquentState<TModel>>
+     * @return class-string<Model>
      */
-    protected function getProcessor(Container $container, QueueableConfig $config): ProcessorContract {
-        return $this
-            ->createProcessor($container, $config)
-            ->setKeys([$this->getModelKey()]);
-    }
+    abstract protected function getModel(): string;
+
+    /**
+     * @return array<string|int>
+     */
+    abstract protected function getKeys(): array;
 }

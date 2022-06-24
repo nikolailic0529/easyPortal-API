@@ -2,16 +2,15 @@
 
 namespace App\Services\Recalculator\Listeners;
 
+use App\Models\Asset;
 use App\Models\Customer;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\Recalculator\Queue\Tasks\CustomerRecalculate;
+use App\Services\Recalculator\Recalculator;
+use App\Services\Recalculator\Service;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Queue;
 use Mockery\MockInterface;
 use Tests\TestCase;
-
-use function count;
 
 /**
  * @internal
@@ -37,22 +36,34 @@ class DataImportedListenerTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvoke(): void {
-        $data     = (new Data())
-            ->collect(Customer::factory()->count(2)->make());
-        $keys     = $data->get(Customer::class);
-        $event    = new DataImported($data);
+        $data  = (new Data())
+            ->collect(Asset::factory()->make())
+            ->collect(Customer::factory()->make());
+        $event = new DataImported($data);
+
+        $this->override(Service::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('isRecalculableModel')
+                ->atLeast()
+                ->once()
+                ->andReturns(true);
+        });
+
+        $this->override(Recalculator::class, static function (MockInterface $mock) use ($data): void {
+            foreach ($data->getData() as $model => $keys) {
+                $mock
+                    ->shouldReceive('dispatch')
+                    ->with([
+                        'model' => $model,
+                        'keys'  => $keys,
+                    ])
+                    ->once()
+                    ->andReturns();
+            }
+        });
+
         $listener = $this->app->make(DataImportedListener::class);
 
-        Queue::fake();
-
         $listener($event);
-
-        Queue::assertPushed(CustomerRecalculate::class, count($keys));
-
-        foreach ($keys as $key) {
-            Queue::assertPushed(static function (CustomerRecalculate $job) use ($key): bool {
-                return $job->getModelKey() === $key;
-            });
-        }
     }
 }

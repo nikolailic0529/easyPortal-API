@@ -31,18 +31,18 @@ class Subject implements Subscriber {
     }
 
     public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(
-            'eloquent.saved: *',
-            function (string $name, array $args): void {
-                $model = reset($args);
+        $onSaved = function (string $name, array $args): void {
+            $model = reset($args);
 
-                if ($model instanceof Model) {
-                    foreach ($this->onSave as $observer) {
-                        $observer->modelSaved($model);
-                    }
+            if ($model instanceof Model) {
+                foreach ($this->onSave as $observer) {
+                    $observer->modelSaved($model);
                 }
-            },
-        );
+            }
+        };
+
+        $dispatcher->listen('eloquent.created: *', $onSaved);
+        $dispatcher->listen('eloquent.updated: *', $onSaved);
         $dispatcher->listen(
             'eloquent.deleted: *',
             function (string $name, array $args): void {

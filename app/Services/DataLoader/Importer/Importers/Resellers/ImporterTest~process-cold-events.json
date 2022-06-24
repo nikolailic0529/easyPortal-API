@@ -75,17 +75,7 @@
         },
         "App\\Models\\Customer": [],
         "App\\Models\\Document": [],
-        "App\\Models\\Location": {
-            "9be6f42c-af1b-509c-bedb-aae3dcc3c2a1": "9be6f42c-af1b-509c-bedb-aae3dcc3c2a1",
-            "895bffe0-df60-5ff6-b3e5-bdd8f654ac19": "895bffe0-df60-5ff6-b3e5-bdd8f654ac19",
-            "c2d6e23d-3f30-5a5d-b305-02b13a520fec": "c2d6e23d-3f30-5a5d-b305-02b13a520fec",
-            "2240cff0-e950-5d8f-ab15-f197566168da": "2240cff0-e950-5d8f-ab15-f197566168da",
-            "d1e32e1c-6a23-5948-8b7c-669cf3c2cb4d": "d1e32e1c-6a23-5948-8b7c-669cf3c2cb4d",
-            "07f3c85b-dcfb-525c-bacd-836bb9ed93c7": "07f3c85b-dcfb-525c-bacd-836bb9ed93c7",
-            "5eb1a71a-d5aa-5bd4-9747-e11a25ef9800": "5eb1a71a-d5aa-5bd4-9747-e11a25ef9800",
-            "5d6ae77d-6a66-51c9-94d3-fc5b4b7e2203": "5d6ae77d-6a66-51c9-94d3-fc5b4b7e2203",
-            "d5883e94-3b6b-5f1d-a862-00026265261a": "d5883e94-3b6b-5f1d-a862-00026265261a"
-        },
+        "App\\Models\\Location": [],
         "App\\Models\\Asset": []
     },
     {
@@ -105,6 +95,15 @@
         "App\\Models\\Customer": [],
         "App\\Models\\Document": [],
         "App\\Models\\Location": {
+            "9be6f42c-af1b-509c-bedb-aae3dcc3c2a1": "9be6f42c-af1b-509c-bedb-aae3dcc3c2a1",
+            "895bffe0-df60-5ff6-b3e5-bdd8f654ac19": "895bffe0-df60-5ff6-b3e5-bdd8f654ac19",
+            "c2d6e23d-3f30-5a5d-b305-02b13a520fec": "c2d6e23d-3f30-5a5d-b305-02b13a520fec",
+            "2240cff0-e950-5d8f-ab15-f197566168da": "2240cff0-e950-5d8f-ab15-f197566168da",
+            "d1e32e1c-6a23-5948-8b7c-669cf3c2cb4d": "d1e32e1c-6a23-5948-8b7c-669cf3c2cb4d",
+            "07f3c85b-dcfb-525c-bacd-836bb9ed93c7": "07f3c85b-dcfb-525c-bacd-836bb9ed93c7",
+            "5eb1a71a-d5aa-5bd4-9747-e11a25ef9800": "5eb1a71a-d5aa-5bd4-9747-e11a25ef9800",
+            "5d6ae77d-6a66-51c9-94d3-fc5b4b7e2203": "5d6ae77d-6a66-51c9-94d3-fc5b4b7e2203",
+            "d5883e94-3b6b-5f1d-a862-00026265261a": "d5883e94-3b6b-5f1d-a862-00026265261a",
             "c180676b-be4d-5272-8cbf-f7381c9bbccb": "c180676b-be4d-5272-8cbf-f7381c9bbccb",
             "a4daa32a-fa5c-5d5a-8914-6022e544b9c4": "a4daa32a-fa5c-5d5a-8914-6022e544b9c4",
             "ec4f3da1-b042-5f95-8ea4-839c2a83c12e": "ec4f3da1-b042-5f95-8ea4-839c2a83c12e",

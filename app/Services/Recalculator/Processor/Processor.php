@@ -28,6 +28,16 @@ abstract class Processor extends EloquentProcessor {
         parent::__construct($exceptionHandler, $dispatcher);
     }
 
+    protected function item(State $state, mixed $data, mixed $item): void {
+        $data->setModel($item);
+
+        try {
+            parent::item($state, $data, $item);
+        } finally {
+            $data->setModel(null);
+        }
+    }
+
     protected function report(Throwable $exception, mixed $item = null): void {
         $this->getExceptionHandler()->report(
             $item
@@ -52,7 +62,7 @@ abstract class Processor extends EloquentProcessor {
      */
     protected function getOnChangeEvent(State $state, array $items, mixed $data): ?object {
         return $data->isDirty()
-            ? new ModelsRecalculated($state->model, $data->getKeys())
+            ? new ModelsRecalculated($state->model, $data->getDirtyKeys())
             : null;
     }
 }

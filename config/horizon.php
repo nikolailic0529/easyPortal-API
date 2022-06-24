@@ -250,18 +250,6 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
-            'Queue'        => [
-                'connection'   => 'redis',
-                'queue'        => [
-                    Queues::QUEUE,
-                ],
-                'balance'      => 'auto',
-                'maxProcesses' => 1,
-                'timeout'      => 60,
-                'memory'       => 256,
-                'tries'        => 1,
-                'nice'         => 0,
-            ],
             'Settings'     => [
                 'connection'   => 'redis',
                 'queue'        => [

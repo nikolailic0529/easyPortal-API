@@ -37,11 +37,6 @@ interface Queues {
     public const RECALCULATOR = 'recalculator';
 
     /**
-     * Default queue for Queue.
-     */
-    public const QUEUE = 'queue';
-
-    /**
      * Default queue for Settings.
      */
     public const SETTINGS = 'settings';

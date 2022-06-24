@@ -5,7 +5,6 @@ namespace App\Services\Search\Eloquent;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
-use Closure;
 
 /**
  * Required to phpstan.
@@ -28,7 +27,7 @@ interface Searchable {
     /**
      * @return SearchBuilder<static>
      */
-    public static function search(string $query = '', Closure $callback = null): SearchBuilder;
+    public static function search(string $query = ''): SearchBuilder;
 
     public static function isSearchSyncingEnabled(): bool;
 
