@@ -259,8 +259,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:42",
-            "2022-02-02 00:04:55",
+            "2022-02-02 00:04:22",
+            "2022-02-02 00:04:35",
             "fc8dc36b-267e-44c9-94fb-0ef58b2a1c10"
         ]
     },

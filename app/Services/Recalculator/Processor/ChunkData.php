@@ -294,10 +294,9 @@ class ChunkData implements OnModelSaved, OnModelDeleted {
     }
 
     public function modelSaved(Model $model): void {
-        $key     = $this->getModel()?->getKey();
-        $isDirty = $this->getModel()?->isDirty();
+        $key = $this->getModel()?->getKey();
 
-        if ($key && $isDirty) {
+        if ($key) {
             $this->dirty[$key] = true;
         }
     }
