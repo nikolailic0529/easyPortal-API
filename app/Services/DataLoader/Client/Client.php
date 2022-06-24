@@ -972,9 +972,7 @@ class Client {
             name
             status
             updatedAt
-            companyTypes {
-                type
-            }
+            companyType
             GRAPHQL;
     }
 

@@ -219,7 +219,7 @@ type Company {
     companyContactPersons: [CompanyContactPerson]
     companyKpis: CompanyKpis
     companyResellerKpis: [CompanyKpis]
-    companyTypes: [CompanyType]
+    companyType: String
     documents: [Document]
     id: ID
     keycloakClientScopeName: String

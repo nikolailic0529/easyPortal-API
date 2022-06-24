@@ -30,7 +30,7 @@
                     "longitude": "-126.955059",
                     "countryCode": "MG",
                     "status": "ACTIVE",
-                    "updatedAt": "1645639433898",
+                    "updatedAt": "1655402026843",
                     "assetCoverage": [
                         "ARCHIVED",
                         "CONFLICT"
@@ -101,13 +101,13 @@
                     ],
                     "coverageStatusCheck": {
                         "coverageStatus": "COVERED",
-                        "coverageStatusUpdatedAt": "1645639433898",
+                        "coverageStatusUpdatedAt": "1655402026843",
                         "coverageEntries": [
                             {
                                 "coverageStartDate": "2020-06-01",
-                                "coverageEndDate": "2022-05-31",
+                                "coverageEndDate": "2023-05-31",
                                 "type": "Contract",
-                                "status": "Expiring",
+                                "status": "Active",
                                 "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
                                 "serviceSku": null
                             },
@@ -254,9 +254,9 @@
                     "longitude": "-166.070107",
                     "countryCode": "MN",
                     "status": "ACTIVE",
-                    "updatedAt": "1630740252638",
+                    "updatedAt": "1648771890694",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "70",
                     "assetDocument": [
@@ -1014,10 +1014,11 @@
                     "longitude": "179.01916",
                     "countryCode": "BA",
                     "status": "ACTIVE",
-                    "updatedAt": "1637852895575",
+                    "updatedAt": "1653610673589",
                     "assetCoverage": [
                         "COVERED",
-                        "ON_CONTRACT"
+                        "ON_CONTRACT",
+                        "EXPIRES_IN_60_DAYS"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [

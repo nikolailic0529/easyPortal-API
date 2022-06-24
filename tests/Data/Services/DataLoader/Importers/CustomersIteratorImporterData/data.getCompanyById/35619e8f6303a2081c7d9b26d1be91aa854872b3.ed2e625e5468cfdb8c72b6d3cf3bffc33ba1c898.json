@@ -1,0 +1,145 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "fd865591-18fc-4278-9c35-000e761d49d9"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "fd865591-18fc-4278-9c35-000e761d49d9",
+                    "name": "Heaney, Weber and Ritchie",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655998348517",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Olaf Carter",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16784424907",
+                            "name": "Buster Marks",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Olaf Carter",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "92681-8723",
+                            "address": "73446 Kessler Trafficway Suite 943",
+                            "city": "Tayaton",
+                            "locationType": null,
+                            "country": "Japan",
+                            "latitude": "77.144329",
+                            "longitude": "-89.280019",
+                            "countryCode": "JE"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 92,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 5,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
+                            "totalAssets": 34,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 1,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": null,
+                            "totalAssets": 58,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

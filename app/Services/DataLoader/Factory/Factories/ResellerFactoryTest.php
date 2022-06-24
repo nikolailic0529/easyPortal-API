@@ -32,9 +32,9 @@ class ResellerFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $company = new Company([
-            'id'           => $this->faker->uuid(),
-            'name'         => $this->faker->company(),
-            'companyTypes' => [['type' => 'RESELLER']],
+            'id'          => $this->faker->uuid(),
+            'name'        => $this->faker->company(),
+            'companyType' => 'RESELLER',
         ]);
         $factory = $this->app->make(ResellerFactory::class);
 

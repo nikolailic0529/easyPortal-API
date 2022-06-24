@@ -1,0 +1,65 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "7dcbb5c5-db08-4c80-964f-54602aad82ac"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "7dcbb5c5-db08-4c80-964f-54602aad82ac",
+                    "name": "VonRueden PLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1655966873911",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "locations": [
+                        {
+                            "zip": "49676",
+                            "address": "5120 Spencer Run",
+                            "city": "East Raphaelleberg",
+                            "locationType": "HEADQUARTER",
+                            "country": "Sri Lanka",
+                            "latitude": "-24.320321",
+                            "longitude": "6.569155",
+                            "countryCode": "CI"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 6300,
+                        "activeAssets": 1200,
+                        "activeAssetsPercentage": 19.047619047619047,
+                        "activeCustomers": 66,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 11,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 11,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,93 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "7c02befc-c1c1-4b8f-a7e0-0fce5117fdc5"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "7c02befc-c1c1-4b8f-a7e0-0fce5117fdc5",
+                    "name": "Kertzmann Inc",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1655966840425",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "locations": [
+                        {
+                            "zip": "45317",
+                            "address": "6169 Torp Vista Suite 499",
+                            "city": "South Ayana",
+                            "locationType": "HEADQUARTER",
+                            "country": "Guinea-Bissau",
+                            "latitude": "3.101837",
+                            "longitude": "-33.412877",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": null,
+                        "secondaryColor": null,
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/0000cc?text=nihil",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en",
+                                "text": "Et dolorem debitis voluptate odio."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Laboriosam distinctio officiis voluptas dolor."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en",
+                                "text": "Quas enim laudantium aut praesentium sit quia illum excepturi."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 4678,
+                        "activeAssets": 2277,
+                        "activeAssetsPercentage": 48.6746472851646,
+                        "activeCustomers": 69,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 53,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 2,
+                        "activeQuotes": 6,
+                        "activeQuotesTotalAmount": 1360.1399999999999,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 5,
+                        "expiredQuotes": 6,
+                        "expiredContracts": 53,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,145 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "1a686a22-171b-497d-ba60-4fef8dc66b6c"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "1a686a22-171b-497d-ba60-4fef8dc66b6c",
+                    "name": "Homenick and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996753220",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14844436400",
+                            "name": "Prof. Macie Bartell",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "29617",
+                            "address": "60699 Bashirian Ville",
+                            "city": "Kuhlmanstad",
+                            "locationType": null,
+                            "country": "Myanmar",
+                            "latitude": "36.252307",
+                            "longitude": "-135.892392",
+                            "countryCode": "CW"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 4,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 2,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "a2b63347-13fd-4cb5-ae7d-cfd5535dc3bf",
+                            "totalAssets": 4,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 2,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": "d579e027-5a28-4537-bd72-03c698e14660",
+                            "totalAssets": 0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 2,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

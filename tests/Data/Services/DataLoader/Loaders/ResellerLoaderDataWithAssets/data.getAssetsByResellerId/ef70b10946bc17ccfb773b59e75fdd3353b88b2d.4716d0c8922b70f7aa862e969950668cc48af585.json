@@ -31,10 +31,10 @@
                     "longitude": "-128.859024",
                     "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1633047393794",
+                    "updatedAt": "1653437497340",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "EOSL"
+                        "EOSL",
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -297,10 +297,10 @@
                     "longitude": "-128.859024",
                     "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1633047395545",
+                    "updatedAt": "1653437607367",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "EOSL"
+                        "EOSL",
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -430,10 +430,10 @@
                     "longitude": "-128.859024",
                     "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1633047396232",
+                    "updatedAt": "1647649073081",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "EOSL"
+                        "EOSL",
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [
@@ -563,10 +563,10 @@
                     "longitude": "140.182838",
                     "countryCode": "KN",
                     "status": "ACTIVE",
-                    "updatedAt": "1633047406079",
+                    "updatedAt": "1647649228321",
                     "assetCoverage": [
-                        "EXPOSED",
-                        "EOSL"
+                        "EOSL",
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [

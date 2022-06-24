@@ -1,0 +1,65 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "ebbd79e0-a3a5-4c75-98a8-ff45a996bd2d",
+                    "name": "Schowalter Ltd",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1655969256198",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "locations": [
+                        {
+                            "zip": "24059-5044",
+                            "address": "8493 Joanie Spur Apt. 024",
+                            "city": "East Modestaburgh",
+                            "locationType": "HEADQUARTER",
+                            "country": "Bahrain",
+                            "latitude": "-66.490293",
+                            "longitude": "-87.413635",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 45,
+                        "activeAssets": 11,
+                        "activeAssetsPercentage": 24.444444444444443,
+                        "activeCustomers": 48,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 1,
+                        "activeQuotes": 22,
+                        "activeQuotesTotalAmount": 1543.1999999999998,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 22,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
+                    "name": "Reichel and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1655967251295",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "locations": [
+                        {
+                            "zip": "20140-4986",
+                            "address": "9604 Duncan Trail Apt. 521",
+                            "city": "Predovicburgh",
+                            "locationType": "HEADQUARTER",
+                            "country": "Guinea-Bissau",
+                            "latitude": "-3.960918",
+                            "longitude": "-54.464207",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 591,
+                        "activeAssets": 261,
+                        "activeAssetsPercentage": 44.16243654822335,
+                        "activeCustomers": 23,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 9,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 9,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

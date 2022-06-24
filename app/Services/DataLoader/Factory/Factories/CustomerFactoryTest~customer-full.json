@@ -43,11 +43,7 @@
             "mail": "manger@hpe.com"
         }
     ],
-    "companyTypes": [
-        {
-            "type": "CUSTOMER"
-        }
-    ],
+    "companyType": "CUSTOMER",
     "locations": [
         {
             "country": "Great Britain",

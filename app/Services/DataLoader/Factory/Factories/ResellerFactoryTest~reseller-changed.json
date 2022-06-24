@@ -12,11 +12,7 @@
             "mail": "alice@hpe.com"
         }
     ],
-    "companyTypes": [
-        {
-            "type": "RESELLER"
-        }
-    ],
+    "companyType": "RESELLER",
     "locations": [
         {
             "country": "Great Britain",

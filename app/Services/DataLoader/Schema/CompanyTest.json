@@ -1,6 +1,7 @@
 {
     "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "name": "Weber, Gusikowski and Simonis",
+    "companyType": "CUSTOMER",
     "updatedAt": "1625642660983",
     "keycloakName": "virtualcomputersa_3",
     "keycloakGroupId": "virtualcomputersa_3",
@@ -19,11 +20,6 @@
             "name": "Franz Marks",
             "type": "SYSTEM_MANAGER",
             "mail": "Franz@hpe.com"
-        }
-    ],
-    "companyTypes": [
-        {
-            "type": "CUSTOMER"
         }
     ],
     "locations": [

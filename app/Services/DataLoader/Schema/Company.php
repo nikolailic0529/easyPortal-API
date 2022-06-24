@@ -7,6 +7,7 @@ use App\Utils\JsonObject\JsonObjectArray;
 class Company extends Type implements TypeWithId {
     public string  $id;
     public string  $name;
+    public ?string $companyType;
     public ?string $updatedAt;
     public ?string $keycloakName;
     public ?string $keycloakGroupId;
@@ -16,11 +17,6 @@ class Company extends Type implements TypeWithId {
      */
     #[JsonObjectArray(CompanyContactPerson::class)]
     public array $companyContactPersons;
-    /**
-     * @var array<CompanyType>
-     */
-    #[JsonObjectArray(CompanyType::class)]
-    public array $companyTypes;
     /**
      * @var array<Location>
      */

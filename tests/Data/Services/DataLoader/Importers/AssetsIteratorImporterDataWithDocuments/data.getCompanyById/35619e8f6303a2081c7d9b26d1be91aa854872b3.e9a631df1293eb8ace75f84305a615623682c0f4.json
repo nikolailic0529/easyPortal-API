@@ -1,0 +1,116 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "33a7c56b-be08-4bf1-ae13-0b2b76b64adb"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "33a7c56b-be08-4bf1-ae13-0b2b76b64adb",
+                    "name": "Hayes-Marvin",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996934691",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16786250536",
+                            "name": "Jennings Tromp",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16786250536",
+                            "name": "Jennings Tromp",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16786250536",
+                            "name": "Jennings Tromp",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "44082",
+                            "address": "84227 Bud Grove Suite 124",
+                            "city": "Brionnashire",
+                            "locationType": null,
+                            "country": "Bouvet Island (Bouvetoya)",
+                            "latitude": "60.000459",
+                            "longitude": "-79.199188",
+                            "countryCode": "HK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 200,
+                        "activeAssets": 150,
+                        "activeAssetsPercentage": 75.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
+                            "totalAssets": 200,
+                            "activeAssets": 150,
+                            "activeAssetsPercentage": 75.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 2,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

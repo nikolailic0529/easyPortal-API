@@ -14,11 +14,7 @@
             "mail": "alice@hpe.com"
         }
     ],
-    "companyTypes": [
-        {
-            "type": "CUSTOMER"
-        }
-    ],
+    "companyType": "CUSTOMER",
     "locations": [
         {
             "country": "Great Britain",

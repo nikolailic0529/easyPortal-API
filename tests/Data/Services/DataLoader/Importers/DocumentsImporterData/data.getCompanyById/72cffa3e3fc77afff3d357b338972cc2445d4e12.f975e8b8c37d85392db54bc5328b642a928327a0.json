@@ -1,0 +1,65 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "50a29a89-73d3-4b2e-91e5-f6881a9a2e38"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "50a29a89-73d3-4b2e-91e5-f6881a9a2e38",
+                    "name": "Bashirian-Wilderman",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1655965922005",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "locations": [
+                        {
+                            "zip": "92044",
+                            "address": "4687 Eichmann Summit Suite 390",
+                            "city": "Mossieshire",
+                            "locationType": "HEADQUARTER",
+                            "country": "Ethiopia",
+                            "latitude": "35.107795",
+                            "longitude": "167.194683",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2959,
+                        "activeAssets": 1100,
+                        "activeAssetsPercentage": 37.174721189591075,
+                        "activeCustomers": 106,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 30,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 2,
+                        "activeQuotes": 22,
+                        "activeQuotesTotalAmount": 2331.8,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 10,
+                        "expiredQuotes": 22,
+                        "expiredContracts": 30,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

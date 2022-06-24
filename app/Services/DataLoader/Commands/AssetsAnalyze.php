@@ -255,9 +255,19 @@ class AssetsAnalyze extends Command {
     }
 
     protected function getCompanyType(Company|ViewCompany|null $company): string {
-        return implode(',', array_filter(array_map(static function (CompanyType $type): string {
-            return $type->type;
-        }, $company->companyTypes ?? [])));
+        $type = '';
+
+        if ($company instanceof ViewCompany) {
+            $type = implode(',', array_filter(array_map(static function (CompanyType $type): string {
+                return $type->type;
+            }, $company->companyTypes ?? [])));
+        } elseif ($company instanceof Company) {
+            $type = (string) $company->companyType;
+        } else {
+            // else
+        }
+
+        return $type;
     }
 
     /**

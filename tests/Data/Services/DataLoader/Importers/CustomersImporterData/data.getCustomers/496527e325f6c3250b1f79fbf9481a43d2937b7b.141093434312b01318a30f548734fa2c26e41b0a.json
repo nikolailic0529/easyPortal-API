@@ -1,0 +1,1054 @@
+{
+    "selector": "data.getCustomers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "00287225-33bf-471b-8642-c2daa9c413f8",
+                    "name": "Botsford and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578353",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+9529836486559",
+                            "name": "Gardner Cremin",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+9529836486559",
+                            "name": "Gardner Cremin",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+9529836486559",
+                            "name": "Gardner Cremin",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "01404-0116",
+                            "address": "115 Quigley Garden",
+                            "city": "North Rickyview",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "25.63172",
+                            "longitude": "67.900568",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 69,
+                        "activeAssets": 13,
+                        "activeAssetsPercentage": 18.84057971014493,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 2,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 2,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 2,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": null,
+                            "totalAssets": 69,
+                            "activeAssets": 13,
+                            "activeAssetsPercentage": 18.84057971014493,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 2,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 2,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 2,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "002a6618-f02a-49af-8f4f-8bce8876318f",
+                    "name": "Stracke-Anderson",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578384",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+3962031732169",
+                            "name": "Ahmad Lakin",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+3962031732169",
+                            "name": "Ahmad Lakin",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+3962031732169",
+                            "name": "Ahmad Lakin",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "99089",
+                            "address": "51922 Blair Court Apt. 681",
+                            "city": "Hanechester",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-20.661765",
+                            "longitude": "-21.706905",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 133,
+                        "activeAssets": 8,
+                        "activeAssetsPercentage": 6.015037593984962,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 3,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "c81fb0c0-10f5-4de0-8db2-89e5b7a576d8",
+                            "totalAssets": 123,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 2,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": "4048c553-b5cc-4f67-8d63-5a0cababf07f",
+                            "totalAssets": 10,
+                            "activeAssets": 8,
+                            "activeAssetsPercentage": 80.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 1,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "002d6dba-7009-4098-bebd-26442d169583",
+                    "name": "Cummings-Swaniawski",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578431",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13473887222",
+                            "name": "Lily Kertzmann",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Breanna Zulauf PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "83644-1015",
+                            "address": "4130 Hintz Circles",
+                            "city": "Hanechester",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "83644-1015",
+                            "address": "4130 Hintz Circles",
+                            "city": "Hanechester",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+                    "name": "Wisoky-Morar",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578462",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+1339006182851",
+                            "name": "Reta Blanda",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+1339006182851",
+                            "name": "Reta Blanda",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+1339006182851",
+                            "name": "Reta Blanda",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "39211",
+                            "address": "25354 Colt Avenue Suite 306",
+                            "city": "New Andrew",
+                            "locationType": null,
+                            "country": "Guadeloupe",
+                            "latitude": "-29.04524",
+                            "longitude": "81.537778",
+                            "countryCode": "SN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 3,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "f0515cc5-7a91-47ce-bb40-6d54e202a7ee",
+                            "totalAssets": 3,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 1,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "002e1544-0996-4bd1-852b-43497fde643a",
+                    "name": "Leannon, Hayes and Jast",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578494",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Tommie Reynolds",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tommie Reynolds",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tommie Reynolds",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "78313",
+                            "address": "9028 Julia Glen",
+                            "city": "Haleighfort",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "-45.069119",
+                            "longitude": "-5.111611",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 5,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": null,
+                            "totalAssets": 1,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 1,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": "88e40ada-934b-47d1-b731-c440c1b7cdbb",
+                            "totalAssets": 4,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 1,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "002f8f2e-1cd9-40b9-bc11-60769495f733",
+                    "name": "Goldner Inc",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578525",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+1255474662354",
+                            "name": "Krystina Adams",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Lenna Borer I",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+1255474662354",
+                            "name": "Krystina Adams",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "88899-2942",
+                            "address": "912 Jacobson Roads Suite 055",
+                            "city": "Jacobsberg",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "-38.351",
+                            "longitude": "-83.389405",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 3,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 2,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "e7e872e2-5009-4d3e-b36c-ab0360ce6103",
+                            "totalAssets": 3,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 2,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00304660-44aa-446d-9b52-72ab9858fbe4",
+                    "name": "Crooks, Berge and Green",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578556",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Breanna Zulauf PhD",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "74564-7912",
+                            "address": "383 Rosalyn Loop Suite 754",
+                            "city": "Ilianaborough",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "23.564147",
+                            "longitude": "-38.208258",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "fa450d57-5488-4095-bff8-0a4f5f990cec",
+                            "totalAssets": 2,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        },
+                        {
+                            "resellerId": null,
+                            "totalAssets": 0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 1,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "003073af-d3a8-49b2-bed7-678ba80d1890",
+                    "name": "Veum and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578587",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+3442047778760",
+                            "name": "Gardner Schneider",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+3442047778760",
+                            "name": "Gardner Schneider",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+3442047778760",
+                            "name": "Gardner Schneider",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "68411-6776",
+                            "address": "9932 Wade Mount",
+                            "city": "Port Elsa",
+                            "locationType": null,
+                            "country": "Iceland",
+                            "latitude": "-89.904621",
+                            "longitude": "-135.01317",
+                            "countryCode": "MQ"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 1,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "1a5ecce7-dfbf-462a-a4cc-a59528fb9d73",
+                            "totalAssets": 1,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 1,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0031175f-18ef-4784-9d49-ed8c1a5aab8f",
+                    "name": "Feeney and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578618",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Grady Wilderman III",
+                            "mail": "hegmann.phyllis@krajcik.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19315943057",
+                            "name": "Miss Breanna Zulauf PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "90780",
+                            "address": "685 Chester Drive",
+                            "city": "Mayertfort",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "90780",
+                            "address": "685 Chester Drive",
+                            "city": "Mayertfort",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00328779-1099-4123-94f3-49051e3043cd",
+                    "name": "Jenkins-Spinka",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1655996578650",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19204948450",
+                            "name": "Sim Gutkowski",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16414097375",
+                            "name": "Jacinthe Feeney",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "45383-2060",
+                            "address": "82544 Elijah Plains Suite 030",
+                            "city": "Leonardfurt",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "45383-2060",
+                            "address": "82544 Elijah Plains Suite 030",
+                            "city": "Leonardfurt",
+                            "locationType": null,
+                            "country": null,
+                            "latitude": null,
+                            "longitude": null,
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

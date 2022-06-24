@@ -38,7 +38,7 @@ class IteratorImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 5,
+            Reseller::class      => 6,
             Customer::class      => 0,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -60,7 +60,7 @@ class IteratorImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 5,
+            Reseller::class      => 6,
             Customer::class      => 10,
             Asset::class         => 0,
             AssetWarranty::class => 0,

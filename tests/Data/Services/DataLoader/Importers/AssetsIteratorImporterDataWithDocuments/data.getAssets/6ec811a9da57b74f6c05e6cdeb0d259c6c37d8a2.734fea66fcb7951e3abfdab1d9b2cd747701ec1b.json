@@ -28,9 +28,9 @@
                     "longitude": "-46.931663",
                     "countryCode": "PK",
                     "status": "ACTIVE",
-                    "updatedAt": "1630818179657",
+                    "updatedAt": "1654042686236",
                     "assetCoverage": [
-                        "EXPOSED"
+                        "ARCHIVED"
                     ],
                     "dataQualityScore": "130",
                     "assetDocument": [

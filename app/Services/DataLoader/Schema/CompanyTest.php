@@ -24,8 +24,6 @@ class CompanyTest extends TestCase {
         self::assertEquals(array_keys($json), $properties);
         self::assertCount(2, $actual->companyContactPersons);
         self::assertInstanceOf(CompanyContactPerson::class, reset($actual->companyContactPersons));
-        self::assertCount(1, $actual->companyTypes);
-        self::assertInstanceOf(CompanyType::class, reset($actual->companyTypes));
         self::assertCount(1, $actual->locations);
         self::assertInstanceOf(Location::class, reset($actual->locations));
         self::assertCount(1, $actual->assets);

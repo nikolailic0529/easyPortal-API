@@ -39,8 +39,8 @@ class IteratorImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 2,
-            Reseller::class      => 20,
-            Customer::class      => 11,
+            Reseller::class      => 19,
+            Customer::class      => 10,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -62,11 +62,11 @@ class IteratorImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 2,
-            Reseller::class      => 20,
-            Customer::class      => 11,
-            Asset::class         => 10,
+            Reseller::class      => 19,
+            Customer::class      => 10,
+            Asset::class         => 9,
             AssetWarranty::class => 16,
-            Document::class      => 15,
+            Document::class      => 14,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -115,8 +115,8 @@ class IteratorImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 30,
-            Customer::class      => 10,
+            Reseller::class      => 29,
+            Customer::class      => 9,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -138,9 +138,9 @@ class IteratorImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 30,
-            Customer::class      => 10,
-            Asset::class         => 10,
+            Reseller::class      => 29,
+            Customer::class      => 9,
+            Asset::class         => 9,
             AssetWarranty::class => 2,
             Document::class      => 0,
             DocumentEntry::class => 0,

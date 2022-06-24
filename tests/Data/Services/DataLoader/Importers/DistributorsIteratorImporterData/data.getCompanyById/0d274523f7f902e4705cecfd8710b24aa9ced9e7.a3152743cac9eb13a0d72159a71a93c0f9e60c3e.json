@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
+                    "name": "Harris Ltd",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643192116579",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

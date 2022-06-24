@@ -15,13 +15,14 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
-            "e90e1a1d-2e93-4517-bd5b-2d06818a2386",
-            "cf631192-5051-4bfe-bcf2-f99fb686fc01",
+            "c14a2f95-3830-4628-9013-eb9561d4ea5a",
             "ec4deedf-b1b5-48f7-9733-39888a98dc78",
-            "8d57c955-b4d7-49a6-88fc-19b01f1af242"
+            "cf631192-5051-4bfe-bcf2-f99fb686fc01",
+            "8d57c955-b4d7-49a6-88fc-19b01f1af242",
+            "c3cbc8cd-de04-4460-a6e0-ab61723cb06c"
         ]
     },
     {
@@ -121,7 +122,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "east brennafort"
         ]
     },
@@ -130,7 +131,7 @@
         "bindings": [
             "East Brennafort",
             "East Brennafort",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "a419a027-ab9d-5d76-86e8-8c882adf051c",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -140,7 +141,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a419a027-ab9d-5d76-86e8-8c882adf051c",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "6401 gusikowski spurs",
             "45612-3245"
         ]
@@ -148,7 +149,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "a419a027-ab9d-5d76-86e8-8c882adf051c",
             "45612-3245",
             "",
@@ -207,7 +208,7 @@
         "bindings": [
             "06502d97-fa26-42cc-9478-34fbc1910b71",
             "Williamson, Bauch and Balistreri",
-            "2022-05-06 01:42:47",
+            "2022-06-23 15:03:38",
             1,
             1,
             1,
@@ -298,7 +299,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "tayaton"
         ]
     },
@@ -307,7 +308,7 @@
         "bindings": [
             "Tayaton",
             "Tayaton",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "dc9a2f41-ea8f-5c9f-8329-c1f73ad4fb18",
             "2022-02-02 00:00:19",
             "2022-02-02 00:00:19"
@@ -317,7 +318,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "dc9a2f41-ea8f-5c9f-8329-c1f73ad4fb18",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "73446 kessler trafficway suite 943",
             "92681-8723"
         ]
@@ -325,7 +326,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "dc9a2f41-ea8f-5c9f-8329-c1f73ad4fb18",
             "92681-8723",
             "",
@@ -418,7 +419,7 @@
         "bindings": [
             "fd865591-18fc-4278-9c35-000e761d49d9",
             "Heaney, Weber and Ritchie",
-            "2022-05-05 06:44:15",
+            "2022-06-23 15:32:28",
             1,
             2,
             1,
@@ -521,7 +522,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "north elianeville"
         ]
     },
@@ -530,7 +531,7 @@
         "bindings": [
             "North Elianeville",
             "North Elianeville",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "c4a8ac77-5c21-51bc-b4a0-4cc28055e2b5",
             "2022-02-02 00:00:35",
             "2022-02-02 00:00:35"
@@ -540,7 +541,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "c4a8ac77-5c21-51bc-b4a0-4cc28055e2b5",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "5993 ratke cove",
             "92013-1663"
         ]
@@ -548,7 +549,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "c4a8ac77-5c21-51bc-b4a0-4cc28055e2b5",
             "92013-1663",
             "",
@@ -607,7 +608,7 @@
         "bindings": [
             "cc5799fa-e7c3-4a47-b879-e5f731a7ed8f",
             "Moen, Harber and Runolfsdottir",
-            "2022-05-05 06:40:22",
+            "2022-06-23 15:26:37",
             1,
             1,
             1,
@@ -675,7 +676,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "north ramonabury"
         ]
     },
@@ -684,7 +685,7 @@
         "bindings": [
             "North Ramonabury",
             "North Ramonabury",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "f4540071-014a-5c7f-8ac7-83d794a10e49",
             "2022-02-02 00:00:46",
             "2022-02-02 00:00:46"
@@ -694,7 +695,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "f4540071-014a-5c7f-8ac7-83d794a10e49",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "70586 hessel lodge",
             "85893"
         ]
@@ -702,7 +703,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "f4540071-014a-5c7f-8ac7-83d794a10e49",
             "85893",
             "",
@@ -719,7 +720,7 @@
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            0,
+            5,
             0,
             0.0,
             0,
@@ -757,18 +758,52 @@
         ]
     },
     {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            5,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "18259393-b1eb-5d4e-9e60-9a87f03de791",
+            "2022-02-02 00:00:50",
+            "2022-02-02 00:00:50"
+        ]
+    },
+    {
         "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
             "Purdy, Quitzon and Keeling",
-            "2022-05-05 06:43:44",
+            "2022-06-23 15:31:46",
             1,
             1,
             1,
             "d0f274fb-c842-5630-be55-97e8e8ba398a",
             "2022-02-02 00:00:49",
-            "2022-02-02 00:00:50",
-            "2022-02-02 00:00:50"
+            "2022-02-02 00:00:52",
+            "2022-02-02 00:00:52"
         ]
     },
     {
@@ -776,9 +811,9 @@
         "bindings": [
             "9d276f4e-2eff-5974-9a6a-7f8ccab79968",
             "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
-            "18259393-b1eb-5d4e-9e60-9a87f03de791",
-            "2022-02-02 00:00:51",
-            "2022-02-02 00:00:51"
+            "51bc1176-1e02-5fe0-8ea3-8cea6c44f846",
+            "2022-02-02 00:00:53",
+            "2022-02-02 00:00:53"
         ]
     },
     {
@@ -790,19 +825,19 @@
             "+14582621033",
             null,
             true,
-            "51bc1176-1e02-5fe0-8ea3-8cea6c44f846",
-            "2022-02-02 00:00:52",
-            "2022-02-02 00:00:52"
+            "baaf9fc4-970d-577b-a082-e3d6d4a16931",
+            "2022-02-02 00:00:54",
+            "2022-02-02 00:00:54"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
-            "51bc1176-1e02-5fe0-8ea3-8cea6c44f846",
             "baaf9fc4-970d-577b-a082-e3d6d4a16931",
-            "2022-02-02 00:00:53",
-            "2022-02-02 00:00:53"
+            "51828e47-286a-5e5a-9242-031f9b5ff664",
+            "2022-02-02 00:00:55",
+            "2022-02-02 00:00:55"
         ]
     },
     {
@@ -811,8 +846,19 @@
             "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
             "b86cba40-1b99-5f7d-baae-15671db6e662",
             "65446106-3c0e-5b2f-9c34-6c1de45568b2",
-            "2022-02-02 00:00:54",
-            "2022-02-02 00:00:54"
+            "2022-02-02 00:00:56",
+            "2022-02-02 00:00:56"
+        ]
+    },
+    {
+        "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
+        "bindings": [
+            "2022-02-02 00:00:51",
+            "f6d8ddba-f3bb-4f83-904d-277d43e7e0a0",
+            "319bbc4e-55fe-5d95-b317-2ec078d93d05",
+            "18259393-b1eb-5d4e-9e60-9a87f03de791",
+            "c14a2f95-3830-4628-9013-eb9561d4ea5a",
+            "2022-02-02 00:00:51"
         ]
     },
     {
@@ -824,7 +870,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "schimmelstad"
         ]
     },
@@ -833,17 +879,17 @@
         "bindings": [
             "Schimmelstad",
             "Schimmelstad",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "51828e47-286a-5e5a-9242-031f9b5ff664",
-            "2022-02-02 00:00:56",
-            "2022-02-02 00:00:56"
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409",
+            "2022-02-02 00:00:59",
+            "2022-02-02 00:00:59"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "51828e47-286a-5e5a-9242-031f9b5ff664",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "16541 rosenbaum glen suite 676",
             "57141"
         ]
@@ -851,8 +897,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "51828e47-286a-5e5a-9242-031f9b5ff664",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409",
             "57141",
             "",
             "16541 Rosenbaum Glen Suite 676",
@@ -860,15 +906,27 @@
             null,
             null,
             null,
-            "319bbc4e-55fe-5d95-b317-2ec078d93d05",
-            "2022-02-02 00:00:57",
-            "2022-02-02 00:00:57"
+            "df2bd04f-1e65-5f09-89cd-0171904f8330",
+            "2022-02-02 00:01:00",
+            "2022-02-02 00:01:00"
         ]
     },
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            5,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
             0,
             0.0,
             0,
@@ -877,26 +935,14 @@
             0,
             0,
             0,
-            0.0,
-            0,
-            0,
-            0,
-            1,
-            0.0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
             0,
             0,
             0,
             0.0,
             0.0,
-            "df2bd04f-1e65-5f09-89cd-0171904f8330",
-            "2022-02-02 00:00:58",
-            "2022-02-02 00:00:58"
+            "a352ed31-0ff6-5c16-97cd-a3c5e9e89fa7",
+            "2022-02-02 00:01:01",
+            "2022-02-02 00:01:01"
         ]
     },
     {
@@ -906,52 +952,18 @@
         ]
     },
     {
-        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            5,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            1,
-            0.0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0.0,
-            0.0,
-            "aff4fa00-9e79-57f3-8dce-161a3f19ca39",
-            "2022-02-02 00:01:00",
-            "2022-02-02 00:01:00"
-        ]
-    },
-    {
         "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ca3fd926-367d-4690-bde9-e895916ab4df",
             "Lebsack Inc",
-            "2022-05-05 06:40:11",
+            "2022-06-23 15:26:20",
             1,
             1,
             1,
-            "df2bd04f-1e65-5f09-89cd-0171904f8330",
-            "2022-02-02 00:00:59",
+            "a352ed31-0ff6-5c16-97cd-a3c5e9e89fa7",
             "2022-02-02 00:01:02",
-            "2022-02-02 00:01:02"
+            "2022-02-02 00:01:03",
+            "2022-02-02 00:01:03"
         ]
     },
     {
@@ -959,9 +971,9 @@
         "bindings": [
             "9d276f4e-2eff-5974-9a6a-7f8ccab79968",
             "ca3fd926-367d-4690-bde9-e895916ab4df",
-            "a352ed31-0ff6-5c16-97cd-a3c5e9e89fa7",
-            "2022-02-02 00:01:03",
-            "2022-02-02 00:01:03"
+            "ce4a822f-c888-543d-b719-bd837cf8d775",
+            "2022-02-02 00:01:04",
+            "2022-02-02 00:01:04"
         ]
     },
     {
@@ -973,40 +985,29 @@
             "+15406220718",
             null,
             true,
-            "ce4a822f-c888-543d-b719-bd837cf8d775",
-            "2022-02-02 00:01:04",
-            "2022-02-02 00:01:04"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "aeb75086-198f-5ff5-8100-06bf37105c09",
-            "ce4a822f-c888-543d-b719-bd837cf8d775",
             "4a210dc1-e7d8-5410-a2b3-f2fdfc89e2c3",
             "2022-02-02 00:01:05",
             "2022-02-02 00:01:05"
         ]
     },
     {
-        "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "ca3fd926-367d-4690-bde9-e895916ab4df",
-            "319bbc4e-55fe-5d95-b317-2ec078d93d05",
-            "344693f4-0971-56a2-87a7-66c9fb1fb409",
+            "aeb75086-198f-5ff5-8100-06bf37105c09",
+            "4a210dc1-e7d8-5410-a2b3-f2fdfc89e2c3",
+            "f860df02-465b-514a-b401-cd8e25a3ca40",
             "2022-02-02 00:01:06",
             "2022-02-02 00:01:06"
         ]
     },
     {
-        "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
+        "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "2022-02-02 00:01:01",
             "ca3fd926-367d-4690-bde9-e895916ab4df",
-            "f860df02-465b-514a-b401-cd8e25a3ca40",
+            "df2bd04f-1e65-5f09-89cd-0171904f8330",
             "aff4fa00-9e79-57f3-8dce-161a3f19ca39",
-            "e90e1a1d-2e93-4517-bd5b-2d06818a2386",
-            "2022-02-02 00:01:01"
+            "2022-02-02 00:01:07",
+            "2022-02-02 00:01:07"
         ]
     },
     {
@@ -1020,13 +1021,13 @@
         "bindings": [
             "British Indian Ocean Territory (Chagos Archipelago)",
             "2022-02-02 00:01:09",
-            "5a7eb8be-0240-5a14-a128-86acb6965218"
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1"
         ]
     },
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "rodriguezport"
         ]
     },
@@ -1035,7 +1036,7 @@
         "bindings": [
             "Rodriguezport",
             "Rodriguezport",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "3154a0c8-ce70-58e7-8b61-04ba6e1a712b",
             "2022-02-02 00:01:17",
             "2022-02-02 00:01:17"
@@ -1045,7 +1046,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "3154a0c8-ce70-58e7-8b61-04ba6e1a712b",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "20252 lebsack walks",
             "12554-0217"
         ]
@@ -1053,7 +1054,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "3154a0c8-ce70-58e7-8b61-04ba6e1a712b",
             "12554-0217",
             "",
@@ -1110,40 +1111,6 @@
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            7,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
-            0,
-            0,
-            0.0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0.0,
-            0.0,
-            "8ae7705b-8dd8-57aa-8d0c-bdfbf97927ea",
-            "2022-02-02 00:01:21",
-            "2022-02-02 00:01:21"
-        ]
-    },
-    {
-        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
             2,
             0,
             0.0,
@@ -1170,6 +1137,40 @@
             0,
             0.0,
             0.0,
+            "8ae7705b-8dd8-57aa-8d0c-bdfbf97927ea",
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
+        ]
+    },
+    {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            7,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
             "7282d9be-aac1-51e3-af01-745257b4a698",
             "2022-02-02 00:01:22",
             "2022-02-02 00:01:22"
@@ -1180,7 +1181,7 @@
         "bindings": [
             "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8",
             "Wehner, Armstrong and Boehm",
-            "2022-05-06 04:09:27",
+            "2022-06-23 15:19:10",
             1,
             1,
             1,
@@ -1251,13 +1252,13 @@
             "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8",
             "5d0a787a-dd02-5cfd-95ee-120a1cee55ce",
             "8ae7705b-8dd8-57aa-8d0c-bdfbf97927ea",
-            "cf631192-5051-4bfe-bcf2-f99fb686fc01",
+            "ec4deedf-b1b5-48f7-9733-39888a98dc78",
             "2022-02-02 00:01:23",
             "2022-02-02 00:01:24",
             "8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8",
             "046940ce-e160-59e3-84a0-a091c2d6c693",
             "7282d9be-aac1-51e3-af01-745257b4a698",
-            "ec4deedf-b1b5-48f7-9733-39888a98dc78",
+            "cf631192-5051-4bfe-bcf2-f99fb686fc01",
             "2022-02-02 00:01:24"
         ]
     },
@@ -1270,7 +1271,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "port nyahton"
         ]
     },
@@ -1279,7 +1280,7 @@
         "bindings": [
             "Port Nyahton",
             "Port Nyahton",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "20e5e353-2fb3-5830-b169-511457c2ba13",
             "2022-02-02 00:01:35",
             "2022-02-02 00:01:35"
@@ -1289,7 +1290,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "20e5e353-2fb3-5830-b169-511457c2ba13",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "49298 collins shores",
             "02588-1467"
         ]
@@ -1297,7 +1298,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "20e5e353-2fb3-5830-b169-511457c2ba13",
             "02588-1467",
             "",
@@ -1314,7 +1315,7 @@
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            93,
+            6,
             0,
             0.0,
             0,
@@ -1327,10 +1328,10 @@
             0,
             0,
             0,
-            2,
+            0,
             0.0,
             0,
-            2,
+            0,
             0,
             0,
             0,
@@ -1354,7 +1355,7 @@
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            93,
+            6,
             0,
             0.0,
             0,
@@ -1367,10 +1368,10 @@
             0,
             0,
             0,
-            2,
+            0,
             0.0,
             0,
-            2,
+            0,
             0,
             0,
             0,
@@ -1390,7 +1391,7 @@
         "bindings": [
             "3125937c-24bf-46ad-97c5-0727cb3b76bd",
             "Beatty, Cartwright and Rempel",
-            "2022-05-06 02:30:21",
+            "2022-06-23 15:08:33",
             1,
             2,
             1,
@@ -1488,8 +1489,8 @@
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "51828e47-286a-5e5a-9242-031f9b5ff664",
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "2412 wunsch union",
             "32129-4777"
         ]
@@ -1497,8 +1498,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "5a7eb8be-0240-5a14-a128-86acb6965218",
-            "51828e47-286a-5e5a-9242-031f9b5ff664",
+            "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
+            "344693f4-0971-56a2-87a7-66c9fb1fb409",
             "32129-4777",
             "",
             "2412 Wunsch Union",
@@ -1556,7 +1557,7 @@
         "bindings": [
             "f67c0662-4715-4807-a5fb-807d75d5c92d",
             "Ortiz, Huels and Gibson",
-            "2022-05-05 06:43:41",
+            "2022-06-23 15:31:42",
             1,
             1,
             1,
@@ -1619,7 +1620,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "new vince"
         ]
     },
@@ -1628,7 +1629,7 @@
         "bindings": [
             "New Vince",
             "New Vince",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "ea005251-c809-5b08-81bc-1ed44e30e51e",
             "2022-02-02 00:01:59",
             "2022-02-02 00:01:59"
@@ -1638,7 +1639,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "ea005251-c809-5b08-81bc-1ed44e30e51e",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "133 fisher flats apt. 906",
             "02913-0522"
         ]
@@ -1646,7 +1647,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "ea005251-c809-5b08-81bc-1ed44e30e51e",
             "02913-0522",
             "",
@@ -1705,7 +1706,7 @@
         "bindings": [
             "9ed7937c-537c-460f-abc4-d167aab8c28c",
             "Watsica-Bergstrom",
-            "2022-05-06 04:33:33",
+            "2022-06-23 15:21:27",
             1,
             1,
             1,
@@ -1768,7 +1769,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "port tyrabury"
         ]
     },
@@ -1777,7 +1778,7 @@
         "bindings": [
             "Port Tyrabury",
             "Port Tyrabury",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "9d1d5579-74e3-5b64-b1ec-5ce5bfea21cc",
             "2022-02-02 00:02:09",
             "2022-02-02 00:02:09"
@@ -1787,7 +1788,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "9d1d5579-74e3-5b64-b1ec-5ce5bfea21cc",
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "98985 shields gateway apt. 952",
             "35133-4349"
         ]
@@ -1795,7 +1796,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "5a7eb8be-0240-5a14-a128-86acb6965218",
             "9d1d5579-74e3-5b64-b1ec-5ce5bfea21cc",
             "35133-4349",
             "",
@@ -1812,7 +1813,7 @@
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            0,
+            1,
             0,
             0.0,
             0,
@@ -1850,18 +1851,52 @@
         ]
     },
     {
+        "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            1,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0.0,
+            0.0,
+            "438d1c9e-9a1a-55cd-b400-e0aae2064959",
+            "2022-02-02 00:02:13",
+            "2022-02-02 00:02:13"
+        ]
+    },
+    {
         "query": "insert into `customers` (`id`, `name`, `changed_at`, `statuses_count`, `contacts_count`, `locations_count`, `kpi_id`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "ada5cb92-2351-4b09-9502-7f767805b2f3",
             "Gerlach LLC",
-            "2022-05-06 04:50:21",
+            "2022-06-23 15:23:03",
             1,
             2,
             1,
             "eda8f0d1-bd8d-52c0-8e21-b995ec333a34",
             "2022-02-02 00:02:12",
-            "2022-02-02 00:02:13",
-            "2022-02-02 00:02:13"
+            "2022-02-02 00:02:15",
+            "2022-02-02 00:02:15"
         ]
     },
     {
@@ -1869,9 +1904,9 @@
         "bindings": [
             "9d276f4e-2eff-5974-9a6a-7f8ccab79968",
             "ada5cb92-2351-4b09-9502-7f767805b2f3",
-            "438d1c9e-9a1a-55cd-b400-e0aae2064959",
-            "2022-02-02 00:02:14",
-            "2022-02-02 00:02:14"
+            "2b0f01d5-9ec3-592b-9063-fdfe597bb0c8",
+            "2022-02-02 00:02:16",
+            "2022-02-02 00:02:16"
         ]
     },
     {
@@ -1883,19 +1918,19 @@
             "+15105572911",
             null,
             true,
-            "2b0f01d5-9ec3-592b-9063-fdfe597bb0c8",
-            "2022-02-02 00:02:15",
-            "2022-02-02 00:02:15"
+            "f320875c-cf88-5081-a62d-ef786af01a2c",
+            "2022-02-02 00:02:17",
+            "2022-02-02 00:02:17"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
-            "2b0f01d5-9ec3-592b-9063-fdfe597bb0c8",
             "f320875c-cf88-5081-a62d-ef786af01a2c",
-            "2022-02-02 00:02:16",
-            "2022-02-02 00:02:16"
+            "2e9c5407-93ea-51cd-b238-737f539cab54",
+            "2022-02-02 00:02:18",
+            "2022-02-02 00:02:18"
         ]
     },
     {
@@ -1907,19 +1942,19 @@
             "+13016513600",
             null,
             true,
-            "2e9c5407-93ea-51cd-b238-737f539cab54",
-            "2022-02-02 00:02:17",
-            "2022-02-02 00:02:17"
+            "82e7c271-5f8b-5443-9b9b-e5acb5efe4b0",
+            "2022-02-02 00:02:19",
+            "2022-02-02 00:02:19"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "aeb75086-198f-5ff5-8100-06bf37105c09",
-            "2e9c5407-93ea-51cd-b238-737f539cab54",
             "82e7c271-5f8b-5443-9b9b-e5acb5efe4b0",
-            "2022-02-02 00:02:18",
-            "2022-02-02 00:02:18"
+            "1a12ba57-a03a-5a9f-8e62-3c1f19ca8324",
+            "2022-02-02 00:02:20",
+            "2022-02-02 00:02:20"
         ]
     },
     {
@@ -1928,8 +1963,19 @@
             "ada5cb92-2351-4b09-9502-7f767805b2f3",
             "9f66cdda-084d-5982-aac6-74bd6fc37897",
             "03edb6d3-94f8-5ae9-b6bd-a6a76ffa5218",
-            "2022-02-02 00:02:19",
-            "2022-02-02 00:02:19"
+            "2022-02-02 00:02:21",
+            "2022-02-02 00:02:21"
+        ]
+    },
+    {
+        "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
+        "bindings": [
+            "2022-02-02 00:02:14",
+            "ada5cb92-2351-4b09-9502-7f767805b2f3",
+            "948f70a3-3531-5cdb-b305-175df2e9de15",
+            "438d1c9e-9a1a-55cd-b400-e0aae2064959",
+            "c3cbc8cd-de04-4460-a6e0-ab61723cb06c",
+            "2022-02-02 00:02:14"
         ]
     }
 ]

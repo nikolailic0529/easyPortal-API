@@ -11,7 +11,7 @@ class DistributorsImporterData extends Data {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-import-distributors', [
+            $result  = $this->kernel->call('ep:data-loader-distributors-import', [
                 '--limit' => static::LIMIT,
                 '--chunk' => static::CHUNK,
             ]);

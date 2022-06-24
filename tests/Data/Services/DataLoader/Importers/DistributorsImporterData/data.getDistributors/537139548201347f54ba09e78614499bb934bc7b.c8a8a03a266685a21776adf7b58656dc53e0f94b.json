@@ -1,0 +1,65 @@
+{
+    "selector": "data.getDistributors",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getDistributors(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": null,
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getDistributors": [
+                {
+                    "id": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "name": "Weimann LLC",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1631098284917",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
+                    "name": "Green, Sanford and Bednar",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643192116579",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "74262ef0-5df5-4479-9f7c-de0625970696",
+                    "name": "Cruickshank, Brown and Hodkiewicz",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643192500842",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "eb1cb37a-48ab-43da-a01e-220220f8654a",
+                    "name": "Purdy-Reichert",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643194304194",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "f066f65a-6455-4cff-8dfb-0aaaeba544f9",
+                    "name": "Mosciski Ltd",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643194375636",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

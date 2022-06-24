@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "eb1cb37a-48ab-43da-a01e-220220f8654a"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "eb1cb37a-48ab-43da-a01e-220220f8654a",
+                    "name": "Mante, Gerlach and Fritsch",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1643194304194",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

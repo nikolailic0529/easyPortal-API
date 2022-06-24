@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "143c456a-e894-4710-a1c2-745b9582ca47"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "name": "Wilderman PLC",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1631098284917",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

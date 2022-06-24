@@ -6,52 +6,7 @@
     },
     "response": {
         "data": {
-            "getDocumentById": [
-                {
-                    "id": "0f14c721-e16b-46bf-a41e-47f8973964fe",
-                    "type": "Quote renewal",
-                    "documentNumber": "751ed948-c9ce-391f-ae55-6dda6ab7f71d",
-                    "startDate": "2022-01-01",
-                    "endDate": "2022-12-31",
-                    "currencyCode": "CHF",
-                    "totalNetPrice": "0",
-                    "languageCode": null,
-                    "updatedAt": "1645514666695",
-                    "resellerId": "5088b77e-50d7-4360-96d5-ab84ae9e8558",
-                    "customerId": "64f81a3d-f434-43be-85f2-0ec185b091f8",
-                    "distributorId": "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
-                    "vendorSpecificFields": {
-                        "vendor": "HPE",
-                        "said": null,
-                        "groupId": null,
-                        "groupDescription": null
-                    },
-                    "contactPersons": [
-                        {
-                            "phoneNumber": null,
-                            "name": null,
-                            "mail": null,
-                            "type": "Customer Contact"
-                        },
-                        {
-                            "phoneNumber": "+15083855435",
-                            "name": "Minnie Lindgren",
-                            "mail": "tiara.ritchie@yahoo.com",
-                            "type": "Renewal Contact"
-                        },
-                        {
-                            "phoneNumber": null,
-                            "name": null,
-                            "mail": null,
-                            "type": "EndUser Contact"
-                        }
-                    ],
-                    "documentEntries": [],
-                    "status": [
-                        "ACTIVE"
-                    ]
-                }
-            ]
+            "getDocumentById": null
         }
     }
 }
