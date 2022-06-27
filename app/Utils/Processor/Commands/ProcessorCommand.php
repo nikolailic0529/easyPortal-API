@@ -298,7 +298,7 @@ abstract class ProcessorCommand extends Command {
             'usage-memory',
         );
         $progress->setMessage(
-            $state->total
+            $state->total !== null
                 ? $formatter->integer($state->total)
                 : '?',
             'state-total',
