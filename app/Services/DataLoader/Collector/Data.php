@@ -83,6 +83,11 @@ class Data {
             $this->add(Reseller::class, $object->reseller_id);
             $this->add(Customer::class, $object->customer_id);
             $this->add(Location::class, $object->location_id);
+        } elseif ($object instanceof Document) {
+            $this->add(Document::class, $object->getKey());
+            $this->add(Reseller::class, $object->reseller_id);
+            $this->add(Customer::class, $object->customer_id);
+            $this->add(Distributor::class, $object->distributor_id);
         } elseif ($object instanceof Model) {
             if ($object->hasKey()) {
                 $this->add($object::class, $object->getKey());

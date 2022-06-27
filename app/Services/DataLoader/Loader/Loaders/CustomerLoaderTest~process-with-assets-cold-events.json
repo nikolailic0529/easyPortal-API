@@ -1,6 +1,8 @@
 [
     {
-        "App\\Models\\Distributor": [],
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
+        },
         "App\\Models\\Reseller": {
             "04a4e2bf-e3a3-4e41-be31-95c9f408190c": "04a4e2bf-e3a3-4e41-be31-95c9f408190c",
             "f7b1ed88-0f57-4fd5-a368-9bb5ca337987": "f7b1ed88-0f57-4fd5-a368-9bb5ca337987"
@@ -23,7 +25,9 @@
         }
     },
     {
-        "App\\Models\\Distributor": [],
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
+        },
         "App\\Models\\Reseller": {
             "1d6adc3e-5f41-41f0-8b0e-888d497df18a": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
         },

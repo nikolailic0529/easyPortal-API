@@ -1,6 +1,9 @@
 [
     {
-        "App\\Models\\Distributor": [],
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47",
+            "eb1cb37a-48ab-43da-a01e-220220f8654a": "eb1cb37a-48ab-43da-a01e-220220f8654a"
+        },
         "App\\Models\\Reseller": {
             "14d64fd2-e29e-4852-b187-4b31fc19a0ed": "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
             "3f87404c-041b-4357-83f5-b0068e5f10a5": "3f87404c-041b-4357-83f5-b0068e5f10a5",

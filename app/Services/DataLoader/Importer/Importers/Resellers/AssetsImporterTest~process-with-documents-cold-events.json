@@ -87,7 +87,9 @@
         }
     },
     {
-        "App\\Models\\Distributor": [],
+        "App\\Models\\Distributor": {
+            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
+        },
         "App\\Models\\Reseller": {
             "58e62519-69d2-4881-acd2-3f7989747aa4": "58e62519-69d2-4881-acd2-3f7989747aa4",
             "9bfeb5e0-5dce-4a17-a051-717e96727448": "9bfeb5e0-5dce-4a17-a051-717e96727448"
