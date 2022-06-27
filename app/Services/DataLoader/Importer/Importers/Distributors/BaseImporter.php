@@ -25,13 +25,20 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data = new BaseImporterChunkData($items);
+        $data = $this->makeData($items);
 
         $this->getContainer()
             ->make(DistributorResolver::class)
             ->prefetch($data->get(Distributor::class));
 
         return $data;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function makeData(array $items): mixed {
+        return new BaseImporterChunkData($items);
     }
 
     protected function makeFactory(State $state): ModelFactory {

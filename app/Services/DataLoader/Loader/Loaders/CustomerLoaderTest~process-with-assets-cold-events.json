@@ -12,10 +12,11 @@
         },
         "App\\Models\\Document": {
             "8f199ee1-20e7-40ff-a544-967f8ce4564d": "8f199ee1-20e7-40ff-a544-967f8ce4564d",
-            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19": "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19",
-            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff": "2b2074ab-3cd2-46fb-9e50-666c4dce97ff"
+            "2b2074ab-3cd2-46fb-9e50-666c4dce97ff": "2b2074ab-3cd2-46fb-9e50-666c4dce97ff",
+            "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19": "9cf3d792-7a3c-4a43-b8a7-aebdfbac0a19"
         },
         "App\\Models\\Location": {
+            "01b5da31-53e2-5b3b-999b-cc367e4dd051": "01b5da31-53e2-5b3b-999b-cc367e4dd051",
             "d784ea67-eeab-5220-acad-43a21486cfa7": "d784ea67-eeab-5220-acad-43a21486cfa7"
         },
         "App\\Models\\Asset": {
@@ -24,21 +25,20 @@
         }
     },
     {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
+        "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
             "1d6adc3e-5f41-41f0-8b0e-888d497df18a": "1d6adc3e-5f41-41f0-8b0e-888d497df18a"
         },
         "App\\Models\\Customer": {
-            "47397872-42d6-47b3-b7ef-f9493ace5a9b": "47397872-42d6-47b3-b7ef-f9493ace5a9b",
-            "15c8acb6-b191-46a2-8921-243282eeed54": "15c8acb6-b191-46a2-8921-243282eeed54"
+            "15c8acb6-b191-46a2-8921-243282eeed54": "15c8acb6-b191-46a2-8921-243282eeed54",
+            "47397872-42d6-47b3-b7ef-f9493ace5a9b": "47397872-42d6-47b3-b7ef-f9493ace5a9b"
         },
         "App\\Models\\Document": {
             "3759cf81-e913-4207-a9b2-fe1036473fd7": "3759cf81-e913-4207-a9b2-fe1036473fd7",
             "e70b448e-6fc6-4c10-8aba-1b88cba576ba": "e70b448e-6fc6-4c10-8aba-1b88cba576ba"
         },
         "App\\Models\\Location": {
+            "45ce9849-824c-574c-bad4-95920da639a3": "45ce9849-824c-574c-bad4-95920da639a3",
             "7aa77346-75ca-5f9b-8265-5b851651dbd7": "7aa77346-75ca-5f9b-8265-5b851651dbd7"
         },
         "App\\Models\\Asset": {

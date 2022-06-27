@@ -144,12 +144,11 @@ class Data {
     }
 
     public function collectObjectChange(object $object): static {
-        // We are not interested in the list of changed objects now, so we just
-        // set the flag.
-        $this->dirty = $this->dirty
-            || ($object instanceof Model && $this->isModelChanged($object));
+        if (!$this->dirty) {
+            $this->dirty = $object instanceof Model && $this->isModelChanged($object);
+        }
 
-        return $this;
+        return $this->collect($object);
     }
 
     public function isEmpty(): bool {

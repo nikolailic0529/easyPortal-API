@@ -102,6 +102,7 @@ class ImporterCollectedDataTest extends TestCase {
                 Customer::class    => [
                     '26e34a7c-5f62-4684-aa63-1cb2250e7fec' => '26e34a7c-5f62-4684-aa63-1cb2250e7fec',
                     '0d82c039-7471-4138-8b7e-f5f1fa49b0e4' => '0d82c039-7471-4138-8b7e-f5f1fa49b0e4',
+                    $model->getKey()                       => $model->getKey(),
                 ],
                 Asset::class       => [
                     '606576ec-5cd6-4144-bc25-c8641bbe78ad' => '606576ec-5cd6-4144-bc25-c8641bbe78ad',

@@ -63,7 +63,7 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data      = new ImporterChunkData($items);
+        $data      = $this->makeData($items);
         $container = $this->getContainer();
         $documents = $container->make(DocumentResolver::class);
         $locations = $container->make(LocationResolver::class);
@@ -112,6 +112,13 @@ abstract class BaseImporter extends Importer {
         }
 
         return $data;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function makeData(array $items): mixed {
+        return new ImporterChunkData($items);
     }
 
     protected function makeFactory(State $state): ModelFactory {

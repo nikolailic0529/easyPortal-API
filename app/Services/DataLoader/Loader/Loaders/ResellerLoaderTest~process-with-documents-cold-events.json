@@ -7,9 +7,9 @@
             "0309df71-936c-44ce-9477-b5e9221fc96a": "0309df71-936c-44ce-9477-b5e9221fc96a"
         },
         "App\\Models\\Customer": {
-            "f6fb5789-928e-4faf-863f-164b50c1df5e": "f6fb5789-928e-4faf-863f-164b50c1df5e",
             "5b73014b-8822-47c9-80bf-68c4fd62cfcb": "5b73014b-8822-47c9-80bf-68c4fd62cfcb",
             "8a0a715f-d71c-4312-9059-8b12bb0f091e": "8a0a715f-d71c-4312-9059-8b12bb0f091e",
+            "f6fb5789-928e-4faf-863f-164b50c1df5e": "f6fb5789-928e-4faf-863f-164b50c1df5e",
             "fe91b8ad-1d56-4a31-aa3c-864e89f74382": "fe91b8ad-1d56-4a31-aa3c-864e89f74382"
         },
         "App\\Models\\Document": {
