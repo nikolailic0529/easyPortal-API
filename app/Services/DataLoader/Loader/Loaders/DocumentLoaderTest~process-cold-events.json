@@ -2784,9 +2784,7 @@
         }
     },
     {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
+        "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
             "d3762413-69b4-4993-9713-f823102b98cc": "d3762413-69b4-4993-9713-f823102b98cc"
         },

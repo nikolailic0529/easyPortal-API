@@ -19,9 +19,7 @@
         "App\\Models\\Asset": []
     },
     {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
+        "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
             "1391a181-977e-489c-85ca-b2f9b450a765": "1391a181-977e-489c-85ca-b2f9b450a765"
         },

@@ -1,8 +1,6 @@
 [
     {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
+        "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
             "75026113-e205-40e8-831e-0a2f9dee75bf": "75026113-e205-40e8-831e-0a2f9dee75bf"
         },

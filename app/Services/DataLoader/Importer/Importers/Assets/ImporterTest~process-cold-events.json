@@ -288,9 +288,7 @@
         }
     },
     {
-        "App\\Models\\Distributor": {
-            "143c456a-e894-4710-a1c2-745b9582ca47": "143c456a-e894-4710-a1c2-745b9582ca47"
-        },
+        "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
             "714aa057-1ea0-4666-b3be-4b69af99e997": "714aa057-1ea0-4666-b3be-4b69af99e997",
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe": "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
