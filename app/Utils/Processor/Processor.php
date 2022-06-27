@@ -202,9 +202,7 @@ abstract class Processor implements ProcessorContract {
                 $sync($iterator);
             })
             ->onBeforeChunk(function (array $items) use ($state, &$data): void {
-                $data = $this->prefetch($state, $items);
-
-                $this->chunkLoaded($state, $items, $data);
+                $data = $this->chunkLoaded($state, $items);
             })
             ->onAfterChunk(function (array $items) use ($iterator, $sync, $state, &$data): void {
                 $sync($iterator);
@@ -407,10 +405,11 @@ abstract class Processor implements ProcessorContract {
     /**
      * @param TState       $state
      * @param array<TItem> $items
-     * @param TChunkData   $data
+     *
+     * @return TChunkData
      */
-    protected function chunkLoaded(State $state, array $items, mixed $data): void {
-        // empty
+    protected function chunkLoaded(State $state, array $items): mixed {
+        return $this->prefetch($state, $items);
     }
 
     /**
