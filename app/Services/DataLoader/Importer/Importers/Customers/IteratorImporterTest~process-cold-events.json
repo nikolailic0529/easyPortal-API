@@ -2,12 +2,12 @@
     {
         "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
+            "8d57c955-b4d7-49a6-88fc-19b01f1af242": "8d57c955-b4d7-49a6-88fc-19b01f1af242",
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
             "c14a2f95-3830-4628-9013-eb9561d4ea5a": "c14a2f95-3830-4628-9013-eb9561d4ea5a",
-            "ec4deedf-b1b5-48f7-9733-39888a98dc78": "ec4deedf-b1b5-48f7-9733-39888a98dc78",
+            "c3cbc8cd-de04-4460-a6e0-ab61723cb06c": "c3cbc8cd-de04-4460-a6e0-ab61723cb06c",
             "cf631192-5051-4bfe-bcf2-f99fb686fc01": "cf631192-5051-4bfe-bcf2-f99fb686fc01",
-            "8d57c955-b4d7-49a6-88fc-19b01f1af242": "8d57c955-b4d7-49a6-88fc-19b01f1af242",
-            "c3cbc8cd-de04-4460-a6e0-ab61723cb06c": "c3cbc8cd-de04-4460-a6e0-ab61723cb06c"
+            "ec4deedf-b1b5-48f7-9733-39888a98dc78": "ec4deedf-b1b5-48f7-9733-39888a98dc78"
         },
         "App\\Models\\Customer": {
             "06502d97-fa26-42cc-9478-34fbc1910b71": "06502d97-fa26-42cc-9478-34fbc1910b71",

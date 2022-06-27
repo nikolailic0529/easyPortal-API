@@ -104,6 +104,10 @@ class DataTest extends TestCase {
             ->shouldReceive('isModelChanged')
             ->once()
             ->andReturn(true);
+        $data
+            ->shouldReceive('collect')
+            ->with($model)
+            ->twice();
 
         self::assertFalse($data->isDirty());
 

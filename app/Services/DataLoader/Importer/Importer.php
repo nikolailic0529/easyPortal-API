@@ -132,17 +132,22 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     /**
      * @inheritDoc
      */
-    protected function chunkLoaded(State $state, array $items, mixed $data): void {
+    protected function chunkLoaded(State $state, array $items): mixed {
         // Reset objects
         $this->collector = $this->getContainer()->make(Collector::class);
         $this->resolver  = $this->makeResolver($state);
         $this->factory   = $this->makeFactory($state);
 
         // Configure
+        $data = $this->makeData([]);
+
         $this->collector->subscribe($data);
 
         // Parent
-        parent::chunkLoaded($state, $items, $data);
+        parent::chunkLoaded($state, $items);
+
+        // Return
+        return $data;
     }
 
     /**
@@ -216,6 +221,13 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     // <editor-fold desc="Abstract">
     // =========================================================================
     abstract protected function register(): void;
+
+    /**
+     * @param array<TItem> $items
+     *
+     * @return TChunkData
+     */
+    abstract protected function makeData(array $items): mixed;
 
     /**
      * @param TState $state

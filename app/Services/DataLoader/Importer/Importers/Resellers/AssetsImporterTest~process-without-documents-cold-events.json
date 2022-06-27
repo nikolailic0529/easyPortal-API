@@ -85,6 +85,7 @@
         },
         "App\\Models\\Document": [],
         "App\\Models\\Location": {
+            "229361f9-056d-5218-a3b0-dcbb4c313111": "229361f9-056d-5218-a3b0-dcbb4c313111",
             "5fe37a13-73eb-5901-8211-a80aef9fea78": "5fe37a13-73eb-5901-8211-a80aef9fea78",
             "1565efe1-46c3-5253-a527-97ad72b0c896": "1565efe1-46c3-5253-a527-97ad72b0c896"
         },

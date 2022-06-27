@@ -49,12 +49,12 @@ abstract class Processor extends EloquentProcessor {
     /**
      * @inheritDoc
      */
-    protected function chunkLoaded(State $state, array $items, mixed $data): void {
-        // Configure
+    protected function chunkLoaded(State $state, array $items): mixed {
+        $data = parent::chunkLoaded($state, $items);
+
         $this->subject->onModelEvent($data);
 
-        // Parent
-        parent::chunkLoaded($state, $items, $data);
+        return $data;
     }
 
     /**
