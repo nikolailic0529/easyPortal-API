@@ -36,8 +36,10 @@ use Illuminate\Support\Arr;
 use SplFileInfo;
 
 use function array_is_list;
+use function assert;
 use function explode;
 use function implode;
+use function is_scalar;
 use function json_encode;
 use function reset;
 use function sha1;
@@ -59,7 +61,7 @@ class Client {
     // =========================================================================
     public function getDistributorsCount(DateTimeInterface $from = null): int {
         return $from
-            ? (int) $this->call(
+            ? (int) $this->value(
                 'data.getDistributorCount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query value($from: String) {
@@ -70,7 +72,7 @@ class Client {
                     'from' => $this->datetime($from),
                 ],
             )
-            : (int) $this->call(
+            : (int) $this->value(
                 'data.getCentralAssetDbStatistics.companiesDistributorAmount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
@@ -128,7 +130,7 @@ class Client {
 
     public function getResellersCount(DateTimeInterface $from = null): int {
         return $from
-            ? (int) $this->call(
+            ? (int) $this->value(
                 'data.getResellerCount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query value($from: String) {
@@ -139,7 +141,7 @@ class Client {
                     'from' => $this->datetime($from),
                 ],
             )
-            : (int) $this->call(
+            : (int) $this->value(
                 'data.getCentralAssetDbStatistics.companiesResellerAmount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
@@ -197,7 +199,7 @@ class Client {
 
     public function getCustomersCount(DateTimeInterface $from = null): int {
         return $from
-            ? (int) $this->call(
+            ? (int) $this->value(
                 'data.getCustomerCount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query value($from: String) {
@@ -208,7 +210,7 @@ class Client {
                     'from' => $this->datetime($from),
                 ],
             )
-            : (int) $this->call(
+            : (int) $this->value(
                 'data.getCentralAssetDbStatistics.companiesCustomerAmount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
@@ -277,7 +279,7 @@ class Client {
 
     public function getAssetsCount(DateTimeInterface $from = null): int {
         return $from
-            ? (int) $this->call(
+            ? (int) $this->value(
                 'data.getAssetCount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query value($from: String) {
@@ -288,7 +290,7 @@ class Client {
                     'from' => $this->datetime($from),
                 ],
             )
-            : (int) $this->call(
+            : (int) $this->value(
                 'data.getCentralAssetDbStatistics.assetsAmount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
@@ -350,7 +352,7 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
     ): int {
-        return (int) $this->call(
+        return (int) $this->value(
             'data.getAssetsByCustomerIdCount',
             /** @lang GraphQL */ <<<'GRAPHQL'
             query value($id: String!, $from: String) {
@@ -427,7 +429,7 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
     ): int {
-        return (int) $this->call(
+        return (int) $this->value(
             'data.getAssetsByResellerIdCount',
             /** @lang GraphQL */ <<<'GRAPHQL'
             query value($id: String!, $from: String) {
@@ -557,7 +559,7 @@ class Client {
 
     public function getDocumentsCount(DateTimeInterface $from = null): int {
         return $from
-            ? (int) $this->call(
+            ? (int) $this->value(
                 'data.getDocumentCount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query value($from: String) {
@@ -568,7 +570,7 @@ class Client {
                     'from' => $this->datetime($from),
                 ],
             )
-            : (int) $this->call(
+            : (int) $this->value(
                 'data.getCentralAssetDbStatistics.documentsAmount',
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 query {
@@ -611,7 +613,7 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
     ): int {
-        return (int) $this->call(
+        return (int) $this->value(
             'data.getDocumentsByResellerCount',
             /** @lang GraphQL */ <<<'GRAPHQL'
             query value($id: String!, $from: String) {
@@ -658,7 +660,7 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
     ): int {
-        return (int) $this->call(
+        return (int) $this->value(
             'data.getDocumentsByCustomerCount',
             /** @lang GraphQL */ <<<'GRAPHQL'
             query value($id: String!, $from: String) {
@@ -729,7 +731,7 @@ class Client {
     // <editor-fold desc="Mutations">
     // =========================================================================
     public function updateBrandingData(CompanyBrandingData $input): bool {
-        return (bool) $this->call(
+        return (bool) $this->value(
             'data.updateBrandingData',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateBrandingData($input: CompanyBrandingData!) {
@@ -743,7 +745,7 @@ class Client {
     }
 
     public function updateCompanyLogo(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyLogo',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyLogo($input: UpdateCompanyFile!) {
@@ -756,11 +758,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     public function updateCompanyFavicon(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyFavicon',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyFavicon($input: UpdateCompanyFile!) {
@@ -773,11 +775,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     public function updateCompanyMainImageOnTheRight(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyMainImageOnTheRight',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyFile!) {
@@ -790,11 +792,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     protected function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
-        return (bool) $this->normalizer->boolean($this->call(
+        return (bool) $this->normalizer->boolean($this->value(
             'data.triggerCoverageStatusCheck',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation triggerCoverageStatusCheck($input: TriggerCoverageStatusCheck!) {
@@ -878,6 +880,23 @@ class Client {
         }
 
         return $item;
+    }
+
+    /**
+     * @param array<string, mixed> $variables
+     * @param array<string>        $files
+     */
+    public function value(
+        string $selector,
+        string $graphql,
+        array $variables = [],
+        array $files = [],
+    ): string|float|int|bool|null {
+        $value = $this->call($selector, $graphql, $variables, $files);
+
+        assert(is_scalar($value) || $value === null);
+
+        return $value;
     }
 
     /**
