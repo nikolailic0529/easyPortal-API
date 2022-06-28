@@ -10,6 +10,7 @@ use Closure;
 use Generator;
 use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\Iterator as LaraASPIterator;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\IteratorImpl;
 
 /**
  * @template TModel of \Illuminate\Database\Eloquent\Model
@@ -43,7 +44,9 @@ class EloquentIterator implements ObjectIterator {
     // <editor-fold desc="ObjectIterator">
     // =========================================================================
     public function getCount(): ?int {
-        return null;
+        return $this->iterator instanceof IteratorImpl
+            ? (new EloquentHelper())->getCount($this->iterator)
+            : null;
     }
 
     public function getIterator(): Generator {

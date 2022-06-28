@@ -366,6 +366,13 @@
         ]
     },
     {
+        "query": "select count(*) as aggregate from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null",
+        "bindings": [
+            "0309df71-936c-44ce-9477-b5e9221fc96a",
+            "2022-02-02T00:06:16+00:00"
+        ]
+    },
+    {
         "query": "select `documents`.* from `documents` where `reseller_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "0309df71-936c-44ce-9477-b5e9221fc96a",
