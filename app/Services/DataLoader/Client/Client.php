@@ -57,17 +57,29 @@ class Client {
 
     // <editor-fold desc="Queries">
     // =========================================================================
-    public function getDistributorsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesDistributorAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesDistributorAmount
+    public function getDistributorsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->call(
+                'data.getDistributorCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getDistributorCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->call(
+                'data.getCentralAssetDbStatistics.companiesDistributorAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesDistributorAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -114,17 +126,29 @@ class Client {
         );
     }
 
-    public function getResellersCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesResellerAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesResellerAmount
+    public function getResellersCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->call(
+                'data.getResellerCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getResellerCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->call(
+                'data.getCentralAssetDbStatistics.companiesResellerAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesResellerAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -171,17 +195,29 @@ class Client {
         );
     }
 
-    public function getCustomersCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesCustomerAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesCustomerAmount
+    public function getCustomersCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->call(
+                'data.getCustomerCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getCustomerCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->call(
+                'data.getCentralAssetDbStatistics.companiesCustomerAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesCustomerAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -239,17 +275,29 @@ class Client {
         return $result;
     }
 
-    public function getAssetsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.assetsAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    assetsAmount
+    public function getAssetsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->call(
+                'data.getAssetCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getAssetCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->call(
+                'data.getCentralAssetDbStatistics.assetsAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        assetsAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     public function getAssetById(string $id): ?ViewAsset {
@@ -296,6 +344,24 @@ class Client {
         }
 
         return $result;
+    }
+
+    public function getAssetsByCustomerIdCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->call(
+            'data.getAssetsByCustomerIdCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getAssetsByCustomerIdCount(customerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -355,6 +421,24 @@ class Client {
             )
             ->setLimit($limit)
             ->setOffset($lastId);
+    }
+
+    public function getAssetsByResellerIdCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->call(
+            'data.getAssetsByResellerIdCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getAssetsByResellerIdCount(resellerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -471,17 +555,29 @@ class Client {
             ->setOffset($offset);
     }
 
-    public function getDocumentsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.documentsAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    documentsAmount
+    public function getDocumentsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->call(
+                'data.getDocumentCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getDocumentCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->call(
+                'data.getCentralAssetDbStatistics.documentsAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        documentsAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -511,6 +607,24 @@ class Client {
             ->setOffset($offset);
     }
 
+    public function getDocumentsByResellerCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->call(
+            'data.getDocumentsByResellerCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getDocumentsByResellerCount(resellerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
+    }
+
     /**
      * @return ObjectIterator<Document>
      */
@@ -538,6 +652,24 @@ class Client {
             )
             ->setLimit($limit)
             ->setOffset($offset);
+    }
+
+    public function getDocumentsByCustomerCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->call(
+            'data.getDocumentsByCustomerCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getDocumentsByCustomerCount(customerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -909,7 +1041,7 @@ class Client {
 
         $dump->setDump(new ClientDump([
             'selector'  => $selector,
-            'graphql'   => $graphql,
+            'query'     => $graphql,
             'variables' => $variables,
             'response'  => $json,
         ]));

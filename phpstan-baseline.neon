@@ -8762,7 +8762,7 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
-			count: 6
+			count: 15
 			path: app/Services/DataLoader/Client/Client.php
 
 		-

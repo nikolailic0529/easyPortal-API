@@ -17,6 +17,6 @@ class Importer extends BaseImporter {
     }
 
     protected function getTotal(State $state): ?int {
-        return $state->from ? null : $this->getClient()->getResellersCount();
+        return $this->getClient()->getResellersCount($state->from);
     }
 }

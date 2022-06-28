@@ -393,6 +393,10 @@ type Query {
         offset: Int
     ): [ViewAsset]!
 
+    getAssetCount(
+        fromTimestamp: String
+    ): Int
+
     getAssets(
         args: [KeyValuePair]
         fromTimestamp: String
@@ -409,6 +413,11 @@ type Query {
         offset: Int
     ): [ViewAsset]!
 
+    getAssetsByCustomerIdCount(
+        customerId: String!
+        fromTimestamp: String
+    ): Int
+
     getAssetsByDistributorId(
         distributorId: String!
         fromTimestamp: String
@@ -417,6 +426,11 @@ type Query {
         offset: Int
     ): [ViewAsset]!
 
+    getAssetsByDistributorIdCount(
+        distributorId: String!
+        fromTimestamp: String
+    ): Int
+
     getAssetsByResellerId(
         fromTimestamp: String
         lastId: String
@@ -424,6 +438,11 @@ type Query {
         offset: Int
         resellerId: String!
     ): [ViewAsset]!
+
+    getAssetsByResellerIdCount(
+        fromTimestamp: String
+        resellerId: String!
+    ): Int
 
     getAssetsBySerialNumber(
         serialNumber: String
@@ -451,12 +470,20 @@ type Query {
         id: String
     ): [Company]!
 
+    getCustomerCount(
+        fromTimestamp: String
+    ): Int
+
     getCustomers(
         fromTimestamp: String
         lastId: String
         limit: Int
         offset: Int
     ): [Company]!
+
+    getDistributorCount(
+        fromTimestamp: String
+    ): Int
 
     getDistributors(
         fromTimestamp: String
@@ -468,6 +495,10 @@ type Query {
     getDocumentById(
         id: String!
     ): Document
+
+    getDocumentCount(
+        fromTimestamp: String
+    ): Int
 
     getDocumentTypes: [String]!
 
@@ -487,6 +518,11 @@ type Query {
         type: String
     ): [Document]!
 
+    getDocumentsByCustomerCount(
+        customerId: String!
+        fromTimestamp: String
+    ): Int
+
     getDocumentsByReseller(
         fromTimestamp: String
         lastId: String
@@ -495,6 +531,15 @@ type Query {
         resellerId: String!
         type: String
     ): [Document]!
+
+    getDocumentsByResellerCount(
+        fromTimestamp: String
+        resellerId: String!
+    ): Int
+
+    getResellerCount(
+        fromTimestamp: String
+    ): Int
 
     getResellers(
         fromTimestamp: String
