@@ -45,9 +45,16 @@ class Audit implements Subscriber {
         if (!($model instanceof Model) || !($model instanceof Auditable)) {
             return;
         }
-        $object  = new EloquentObject($model);
-        $action  = $this->getModelAction($object, $event);
+
+        $object = new EloquentObject($model);
+        $action = $this->getModelAction($object, $event);
+
+        if ($action === Action::modelUpdated() && !$this->isModelChanged($model)) {
+            return;
+        }
+
         $context = $this->getModelContext($object, $action);
+
         $this->auditor->create($action, $context, $object->getModel());
     }
 
@@ -125,5 +132,21 @@ class Audit implements Subscriber {
         }
 
         return $context;
+    }
+
+    // todo(audit): Method the same as Data::isModelChanged()
+    protected function isModelChanged(Model $model): bool {
+        // Created or Deleted?
+        if ($model->wasRecentlyCreated || !$model->exists) {
+            return true;
+        }
+
+        // Dirty?
+        $dirty = $model->getDirty();
+
+        unset($dirty[$model->getUpdatedAtColumn()]);
+        unset($dirty['synced_at']);
+
+        return (bool) $dirty;
     }
 }

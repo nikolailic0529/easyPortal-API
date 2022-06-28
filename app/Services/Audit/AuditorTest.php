@@ -13,6 +13,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -75,6 +76,24 @@ class AuditorTest extends TestCase {
 
     /**
      * @covers ::create
+     */
+    public function testUpdatedEmpty(): void {
+        $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
+
+        $model = User::factory()->create();
+
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->never();
+        });
+
+        $model->synced_at = Date::now();
+        $model->save();
+    }
+
+    /**
+     * @covers ::create
      *
      */
     public function testDeleted(): void {
@@ -122,7 +141,7 @@ class AuditorTest extends TestCase {
         Auth::logout();
     }
 
-     /**
+    /**
      * @covers ::create
      *
      */
@@ -133,7 +152,7 @@ class AuditorTest extends TestCase {
                 ->once()
                 ->with(Action::authFailed(), ['guard' => 'web']);
         });
-        Auth::guard('web')->attempt([ 'email' => 'test@example.com', 'password' => '12345']);
+        Auth::guard('web')->attempt(['email' => 'test@example.com', 'password' => '12345']);
     }
 
     /**
@@ -156,7 +175,7 @@ class AuditorTest extends TestCase {
         $dispatcher->dispatch(new QueryExported('csv', 'assets', ['id' => 'Id', 'name' => 'Name']));
     }
 
-         /**
+    /**
      * @covers ::create
      *
      */
@@ -173,6 +192,7 @@ class AuditorTest extends TestCase {
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new PasswordReset($user));
     }
+
     /**
      * @covers ::create
      * @dataProvider dataProviderCreate
