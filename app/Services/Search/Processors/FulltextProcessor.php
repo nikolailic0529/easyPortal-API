@@ -9,12 +9,10 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
-use Countable;
 use Illuminate\Database\Eloquent\Model;
 use stdClass;
 use Throwable;
 
-use function count;
 use function explode;
 use function preg_match;
 use function preg_replace;
@@ -39,12 +37,7 @@ class FulltextProcessor extends Processor {
     // <editor-fold desc="Process">
     // =========================================================================
     protected function getTotal(State $state): ?int {
-        $iterator = $this->getIterator($state);
-        $count    = $iterator instanceof Countable
-            ? count($iterator)
-            : null;
-
-        return $count;
+        return $this->getIterator($state)->getCount();
     }
 
     protected function getIterator(State $state): ObjectIterator {

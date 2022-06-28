@@ -42,6 +42,10 @@ class EloquentIterator implements ObjectIterator {
 
     // <editor-fold desc="ObjectIterator">
     // =========================================================================
+    public function getCount(): ?int {
+        return null;
+    }
+
     public function getIterator(): Generator {
         try {
             $this->init();

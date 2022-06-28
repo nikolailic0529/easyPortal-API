@@ -57,6 +57,10 @@ abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    public function getCount(): ?int {
+        return $this->getInternalIterator()->getCount();
+    }
+
     /**
      * @return ObjectIterator<TValue>
      */

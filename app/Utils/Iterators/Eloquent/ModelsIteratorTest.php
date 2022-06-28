@@ -149,9 +149,9 @@ class ModelsIteratorTest extends TestCase {
     }
 
     /**
-     * @covers ::count
+     * @covers ::getCount
      */
-    public function testCount(): void {
+    public function testGetCount(): void {
         // Prepare
         $models   = array_fill(0, $this->faker->randomDigit(), 'abc');
         $builder  = Type::query();
@@ -160,6 +160,6 @@ class ModelsIteratorTest extends TestCase {
             $models,
         );
 
-        self::assertEquals(count($models), count($iterator));
+        self::assertEquals(count($models), $iterator->getCount());
     }
 }

@@ -49,6 +49,10 @@ class ObjectIteratorsIterator implements ObjectIterator {
         $this->setIndex(0);
     }
 
+    public function getCount(): ?int {
+        return null;
+    }
+
     public function getOffset(): string|null {
         $offset = null;
 

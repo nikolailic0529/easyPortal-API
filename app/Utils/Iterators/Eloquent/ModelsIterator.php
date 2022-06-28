@@ -5,7 +5,6 @@ namespace App\Utils\Iterators\Eloquent;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Iterators\ObjectIteratorIterator;
 use App\Utils\Iterators\ObjectsIterator;
-use Countable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -23,7 +22,7 @@ use function count;
  *
  * @extends ObjectIteratorIterator<TItem, string|int>
  */
-class ModelsIterator extends ObjectIteratorIterator implements Countable {
+class ModelsIterator extends ObjectIteratorIterator {
     /**
      * @param Builder<TItem>         $builder
      * @param array<int, string|int> $keys
@@ -62,7 +61,7 @@ class ModelsIterator extends ObjectIteratorIterator implements Countable {
         return $chunk;
     }
 
-    public function count(): int {
+    public function getCount(): ?int {
         return count($this->keys);
     }
 }

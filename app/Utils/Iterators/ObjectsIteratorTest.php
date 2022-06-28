@@ -6,7 +6,6 @@ use Closure;
 use Mockery;
 use Tests\TestCase;
 
-use function count;
 use function iterator_to_array;
 
 /**
@@ -18,14 +17,14 @@ class ObjectsIteratorTest extends TestCase {
      * @covers ::getIterator
      * @covers ::setOffset
      * @covers ::setLimit
-     * @covers ::count
+     * @covers ::getCount
      */
     public function testGetIterator(): void {
         $iterator = new ObjectsIterator(
             [10, 20, 30, 40, 50, 60, 70, 80, 90, 0],
         );
 
-        self::assertEquals(10, count($iterator));
+        self::assertEquals(10, $iterator->getCount());
         self::assertEquals([10, 20, 30, 40, 50, 60, 70, 80, 90, 0], iterator_to_array($iterator));
         self::assertEquals([30, 40, 50, 60, 70, 80], iterator_to_array(
             $iterator->setOffset(2)->setLimit(6),

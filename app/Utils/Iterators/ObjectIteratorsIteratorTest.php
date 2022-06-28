@@ -275,4 +275,8 @@ class ObjectIteratorsIteratorTest__Iterator implements ObjectIterator {
     public function getIterator(): Generator {
         yield from array_slice($this->data, (int) $this->offset, $this->limit);
     }
+
+    public function getCount(): ?int {
+        return null;
+    }
 }
