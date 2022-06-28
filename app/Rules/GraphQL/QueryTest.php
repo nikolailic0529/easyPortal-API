@@ -25,7 +25,7 @@ class QueryTest extends TestCase {
         $rule   = $this->app->make(Query::class);
         $actual = (clone $rule)->setData($data)->passes('test', $value);
         $passes = !$this->app->make(Factory::class)
-            ->make(['value' => $value], array_merge($data, ['value' => $rule]))
+            ->make(array_merge($data, ['value' => $value]), ['value' => $rule])
             ->fails();
 
         self::assertEquals($expected, $actual);
@@ -187,6 +187,21 @@ class QueryTest extends TestCase {
                 GRAPHQL,
                 [
                     // empty
+                ],
+            ],
+            'invalid variable value'                 => [
+                false,
+                <<<'GRAPHQL'
+                query test($limit: Int!) {
+                    assets (limit: $limit) {
+                        id
+                    }
+                }
+                GRAPHQL,
+                [
+                    'variables' => [
+                        'limit' => 'not a number',
+                    ],
                 ],
             ],
         ];

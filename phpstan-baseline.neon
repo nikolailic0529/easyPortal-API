@@ -8521,6 +8521,16 @@ parameters:
 			path: app/Rules/GraphQL/Query.php
 
 		-
+			message: "#^Parameter \\#2 \\$varDefNodes of static method GraphQL\\\\Executor\\\\Values\\:\\:getVariableValues\\(\\) expects array\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>, GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\> given\\.$#"
+			count: 1
+			path: app/Rules/GraphQL/Query.php
+
+		-
+			message: "#^Property GraphQL\\\\Language\\\\AST\\\\OperationDefinitionNode\\:\\:\\$variableDefinitions \\(GraphQL\\\\Language\\\\AST\\\\NodeList\\<GraphQL\\\\Language\\\\AST\\\\VariableDefinitionNode\\>\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: app/Rules/GraphQL/Query.php
+
+		-
 			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/HashMap.php

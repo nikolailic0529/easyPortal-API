@@ -3,6 +3,7 @@
 namespace App\Rules\GraphQL;
 
 use Exception;
+use GraphQL\Executor\Values;
 use GraphQL\Language\AST\DocumentNode;
 use GraphQL\Language\AST\OperationDefinitionNode;
 use GraphQL\Server\Helper;
@@ -45,32 +46,45 @@ class Query implements Rule, DataAwareRule {
      */
     public function passes($attribute, $value): bool {
         // Prepare
-        $operation = $this->getOperation($value);
-        $node      = $this->getDocumentNode($operation);
+        $operation    = $this->getOperation($value);
+        $documentNode = $this->getDocumentNode($operation);
 
-        if (!$node) {
+        if (!$documentNode) {
             return false;
         }
 
         // Query?
-        $count   = count($node->definitions);
-        $queries = array_filter(
-            iterator_to_array($node->definitions),
+        $count         = count($documentNode->definitions);
+        $queries       = array_filter(
+            iterator_to_array($documentNode->definitions),
             static function (mixed $definition): bool {
                 return $definition instanceof OperationDefinitionNode
                     && $definition->operation === 'query';
             },
         );
+        $operationNode = reset($queries);
 
-        if ($count > 1 || count($queries) !== 1) {
+        if ($count > 1 || count($queries) !== 1 || !($operationNode instanceof OperationDefinitionNode)) {
             return false;
         }
 
-        // Validate
+        // Validate query
         $rules  = $this->getValidationRules();
         $schema = $this->schemaBuilder->schema();
-        $errors = DocumentValidator::validate($schema, $node, $rules);
-        $valid  = count($errors) === 0;
+        $errors = DocumentValidator::validate($schema, $documentNode, $rules);
+
+        if (count($errors) > 0) {
+            return false;
+        }
+
+        // Validate variables
+        $values = Values::getVariableValues(
+            $schema,
+            $operationNode->variableDefinitions ?? [],
+            $operation->variables ?? [],
+        );
+        $errors = reset($values);
+        $valid  = !$errors;
 
         // Return
         return $valid;

@@ -656,7 +656,7 @@ class ExportControllerTest extends TestCase {
                     [
                         'root'      => 'data.assets',
                         'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int!, $offset: Int!) {
+                            query getAssets($limit: Int, $offset: Int) {
                                 assets(limit: $limit, offset: $offset) {
                                     id
                                     product {
@@ -691,7 +691,7 @@ class ExportControllerTest extends TestCase {
                     [
                         'root'      => 'data.assets',
                         'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int!, $offset: Int!) {
+                            query getAssets($limit: Int, $offset: Int) {
                                 assets(limit: $limit, offset: $offset) {
                                     id
                                 }
@@ -719,7 +719,7 @@ class ExportControllerTest extends TestCase {
                     [
                         'root'      => 'data.assets',
                         'query'     => <<<'GRAPHQL'
-                            query getAssets($limit: Int!, $offset: Int!) {
+                            query getAssets($limit: Int, $offset: Int) {
                                 assets(limit: $limit, offset: $offset) {
                                     id
                                 }
