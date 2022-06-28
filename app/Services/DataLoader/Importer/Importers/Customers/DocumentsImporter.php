@@ -24,7 +24,7 @@ class DocumentsImporter extends BaseImporter {
     }
 
     protected function getTotal(State $state): ?int {
-        return null;
+        return $this->getClient()->getDocumentsByCustomerCount($state->customerId, $state->from);
     }
     // </editor-fold>
 

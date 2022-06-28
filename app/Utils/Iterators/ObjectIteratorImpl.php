@@ -47,6 +47,10 @@ abstract class ObjectIteratorImpl implements ObjectIterator {
         // empty
     }
 
+    public function getCount(): ?int {
+        return null;
+    }
+
     /**
      * @return Iterator<TItem>
      */

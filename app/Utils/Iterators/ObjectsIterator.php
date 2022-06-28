@@ -2,7 +2,6 @@
 
 namespace App\Utils\Iterators;
 
-use Countable;
 use Illuminate\Support\Collection;
 
 use function count;
@@ -12,7 +11,7 @@ use function count;
  *
  * @extends OneChunkOffsetBasedObjectIterator<TItem>
  */
-class ObjectsIterator extends OneChunkOffsetBasedObjectIterator implements Countable {
+class ObjectsIterator extends OneChunkOffsetBasedObjectIterator {
     /**
      * @param Collection<array-key, TItem>|array<TItem> $items
      */
@@ -28,10 +27,7 @@ class ObjectsIterator extends OneChunkOffsetBasedObjectIterator implements Count
         );
     }
 
-    // <editor-fold desc="Countable">
-    // =========================================================================
-    public function count(): int {
+    public function getCount(): ?int {
         return count($this->items);
     }
-    // </editor-fold>
 }

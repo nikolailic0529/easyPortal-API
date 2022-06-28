@@ -36,8 +36,10 @@ use Illuminate\Support\Arr;
 use SplFileInfo;
 
 use function array_is_list;
+use function assert;
 use function explode;
 use function implode;
+use function is_scalar;
 use function json_encode;
 use function reset;
 use function sha1;
@@ -57,17 +59,29 @@ class Client {
 
     // <editor-fold desc="Queries">
     // =========================================================================
-    public function getDistributorsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesDistributorAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesDistributorAmount
+    public function getDistributorsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->value(
+                'data.getDistributorCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getDistributorCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->value(
+                'data.getCentralAssetDbStatistics.companiesDistributorAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesDistributorAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -114,17 +128,29 @@ class Client {
         );
     }
 
-    public function getResellersCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesResellerAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesResellerAmount
+    public function getResellersCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->value(
+                'data.getResellerCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getResellerCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->value(
+                'data.getCentralAssetDbStatistics.companiesResellerAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesResellerAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -171,17 +197,29 @@ class Client {
         );
     }
 
-    public function getCustomersCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.companiesCustomerAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    companiesCustomerAmount
+    public function getCustomersCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->value(
+                'data.getCustomerCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getCustomerCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->value(
+                'data.getCentralAssetDbStatistics.companiesCustomerAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        companiesCustomerAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -239,17 +277,29 @@ class Client {
         return $result;
     }
 
-    public function getAssetsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.assetsAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    assetsAmount
+    public function getAssetsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->value(
+                'data.getAssetCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getAssetCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->value(
+                'data.getCentralAssetDbStatistics.assetsAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        assetsAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     public function getAssetById(string $id): ?ViewAsset {
@@ -296,6 +346,24 @@ class Client {
         }
 
         return $result;
+    }
+
+    public function getAssetsByCustomerIdCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->value(
+            'data.getAssetsByCustomerIdCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getAssetsByCustomerIdCount(customerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -355,6 +423,24 @@ class Client {
             )
             ->setLimit($limit)
             ->setOffset($lastId);
+    }
+
+    public function getAssetsByResellerIdCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->value(
+            'data.getAssetsByResellerIdCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getAssetsByResellerIdCount(resellerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -471,17 +557,29 @@ class Client {
             ->setOffset($offset);
     }
 
-    public function getDocumentsCount(): int {
-        return (int) $this->call(
-            'data.getCentralAssetDbStatistics.documentsAmount',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query {
-                getCentralAssetDbStatistics {
-                    documentsAmount
+    public function getDocumentsCount(DateTimeInterface $from = null): int {
+        return $from
+            ? (int) $this->value(
+                'data.getDocumentCount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query value($from: String) {
+                    getDocumentCount(fromTimestamp: $from)
                 }
-            }
-            GRAPHQL,
-        );
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+            )
+            : (int) $this->value(
+                'data.getCentralAssetDbStatistics.documentsAmount',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query {
+                    getCentralAssetDbStatistics {
+                        documentsAmount
+                    }
+                }
+                GRAPHQL,
+            );
     }
 
     /**
@@ -511,6 +609,24 @@ class Client {
             ->setOffset($offset);
     }
 
+    public function getDocumentsByResellerCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->value(
+            'data.getDocumentsByResellerCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getDocumentsByResellerCount(resellerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
+    }
+
     /**
      * @return ObjectIterator<Document>
      */
@@ -538,6 +654,24 @@ class Client {
             )
             ->setLimit($limit)
             ->setOffset($offset);
+    }
+
+    public function getDocumentsByCustomerCount(
+        string $id,
+        DateTimeInterface $from = null,
+    ): int {
+        return (int) $this->value(
+            'data.getDocumentsByCustomerCount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query value($id: String!, $from: String) {
+                getDocumentsByCustomerCount(customerId: $id, fromTimestamp: $from)
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+        );
     }
 
     /**
@@ -597,7 +731,7 @@ class Client {
     // <editor-fold desc="Mutations">
     // =========================================================================
     public function updateBrandingData(CompanyBrandingData $input): bool {
-        return (bool) $this->call(
+        return (bool) $this->value(
             'data.updateBrandingData',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateBrandingData($input: CompanyBrandingData!) {
@@ -611,7 +745,7 @@ class Client {
     }
 
     public function updateCompanyLogo(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyLogo',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyLogo($input: UpdateCompanyFile!) {
@@ -624,11 +758,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     public function updateCompanyFavicon(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyFavicon',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyFavicon($input: UpdateCompanyFile!) {
@@ -641,11 +775,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     public function updateCompanyMainImageOnTheRight(UpdateCompanyFile $input): ?string {
-        return $this->call(
+        return ((string) $this->value(
             'data.updateCompanyMainImageOnTheRight',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyFile!) {
@@ -658,11 +792,11 @@ class Client {
             [
                 'input.file',
             ],
-        );
+        )) ?: null;
     }
 
     protected function triggerCoverageStatusCheck(TriggerCoverageStatusCheck $input): bool {
-        return (bool) $this->normalizer->boolean($this->call(
+        return (bool) $this->normalizer->boolean($this->value(
             'data.triggerCoverageStatusCheck',
             /** @lang GraphQL */ <<<'GRAPHQL'
             mutation triggerCoverageStatusCheck($input: TriggerCoverageStatusCheck!) {
@@ -746,6 +880,23 @@ class Client {
         }
 
         return $item;
+    }
+
+    /**
+     * @param array<string, mixed> $variables
+     * @param array<string>        $files
+     */
+    public function value(
+        string $selector,
+        string $graphql,
+        array $variables = [],
+        array $files = [],
+    ): string|float|int|bool|null {
+        $value = $this->call($selector, $graphql, $variables, $files);
+
+        assert(is_scalar($value) || $value === null);
+
+        return $value;
     }
 
     /**
@@ -909,7 +1060,7 @@ class Client {
 
         $dump->setDump(new ClientDump([
             'selector'  => $selector,
-            'graphql'   => $graphql,
+            'query'     => $graphql,
             'variables' => $variables,
             'response'  => $json,
         ]));

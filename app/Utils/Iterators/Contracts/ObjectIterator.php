@@ -16,6 +16,11 @@ use IteratorAggregate;
  * @extends IteratorAggregate<TItem>
  */
 interface ObjectIterator extends IteratorAggregate, Limitable, Offsetable, Chunkable {
+    /**
+     * @return int<0 ,max>|null
+     */
+    public function getCount(): ?int;
+
     public function getIndex(): int;
 
     public function setIndex(int $index): static;

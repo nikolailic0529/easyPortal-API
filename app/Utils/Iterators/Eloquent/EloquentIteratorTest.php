@@ -169,4 +169,17 @@ class EloquentIteratorTest extends TestCase {
 
         self::assertNotSame($iterator->getInternalIterator(), $clone->getInternalIterator());
     }
+
+    /**
+     * @covers ::getCount
+     */
+    public function testGetCount(): void {
+        $builder  = Type::query();
+        $iterator = new EloquentIterator($builder->getChunkedIterator());
+
+        Type::factory()->count(2)->create();
+
+        self::assertEquals(2, $iterator->getCount());
+        self::assertEquals(1, $iterator->setLimit(1)->getCount());
+    }
 }

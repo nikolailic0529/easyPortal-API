@@ -3973,6 +3973,13 @@
         ]
     },
     {
+        "query": "select count(*) as aggregate from `documents` where `customer_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null",
+        "bindings": [
+            "a04716f3-95de-4046-ab13-7a575cf67f85",
+            "2022-02-02T00:00:01+00:00"
+        ]
+    },
+    {
         "query": "select `documents`.* from `documents` where `customer_id` = ? and `synced_at` < ? and `documents`.`deleted_at` is null order by `documents`.`id` asc limit 250 offset 0",
         "bindings": [
             "a04716f3-95de-4046-ab13-7a575cf67f85",
