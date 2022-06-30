@@ -431,6 +431,7 @@ class UserProvider implements UserProviderContract {
             // Available permissions
             $available   = $this->getAvailablePermissions($organization);
             $permissions = $role->permissions
+                ->toBase()
                 ->map(static function (Permission $permission): string {
                     return $permission->key;
                 })

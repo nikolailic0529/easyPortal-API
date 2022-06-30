@@ -418,6 +418,61 @@ class UserProviderTest extends TestCase {
             $provider->getPermissions($user, $token, $org),
         );
     }
+
+    /**
+     * @see https://github.com/laravel/framework/issues/43015
+     * @see https://github.com/fakharanwar/easyPortal-API/issues/909
+     *
+     * @covers ::getPermissions
+     */
+    public function testGetPermissionsRoleWithoutPermissions(): void {
+        $org         = Organization::factory()->create();
+        $user        = User::factory()->create();
+        $role        = Role::factory()->create();
+        $permissionA = Permission::factory()->create([
+            'key' => 'permission-a',
+        ]);
+
+        OrganizationUser::factory()->create([
+            'organization_id' => $org,
+            'user_id'         => $user,
+            'role_id'         => $role,
+            'enabled'         => true,
+        ]);
+
+        $auth = Mockery::mock(Auth::class);
+        $auth
+            ->shouldReceive('getAvailablePermissions')
+            ->once()
+            ->andReturn([
+                new class($permissionA->key) extends AuthPermission {
+                    // empty
+                },
+            ]);
+        $token    = $this->getToken();
+        $provider = new class($auth) extends UserProvider {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Auth $auth,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
+                return parent::getPermissions($user, $token, $organization);
+            }
+        };
+
+        self::assertEqualsCanonicalizing(
+            [
+                // empty
+            ],
+            $provider->getPermissions($user, $token, $org),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
