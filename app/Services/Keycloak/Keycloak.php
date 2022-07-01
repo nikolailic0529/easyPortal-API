@@ -135,9 +135,10 @@ class Keycloak {
         //
         // `flush()` and `regenerateToken()` required to fix
         // https://github.com/laravel/framework/issues/37393
+        // https://github.com/fakharanwar/easyPortal-API/issues/912
         $this->auth->guard()->logout();
         $this->session->flush();
-        $this->session->regenerateToken();
+        $this->session->regenerate(true);
         $this->forgetToken();
 
         // And the last step - redirect if sign out failed.
