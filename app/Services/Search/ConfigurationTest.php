@@ -6,6 +6,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
@@ -37,13 +38,28 @@ class ConfigurationTest extends TestCase {
                 'meta' => new Text('meta.data'),
             ],
             [
-                'sku'      => new Text('sku'),
-                'oem'      => new Relation('oem', [
+                'sku'        => new Text('sku'),
+                'oem'        => new Relation('oem', [
                     'id' => new Text('id'),
                 ]),
-                'relation' => new Relation('a', [
-                    'nested' => new Relation('b', [
-                        'property' => new Text('c'),
+                'relation'   => new Relation('relation', [
+                    'nested' => new Relation('relation-nested', [
+                        'property' => new Text('relation-nested-property'),
+                    ]),
+                ]),
+                'properties' => new Properties([
+                    'nested'     => new Relation('properties-nested', [
+                        'property'   => new Text('properties-nested-property'),
+                        'properties' => new Properties([
+                            'nested' => new Relation('properties-nested-properties-nested', [
+                                'property' => new Text('properties-nested-properties-nested-property'),
+                            ]),
+                        ]),
+                    ]),
+                    'properties' => new Properties([
+                        'nested' => new Relation('properties-properties-nested', [
+                            'property' => new Text('properties-properties-nested-property'),
+                        ]),
                     ]),
                 ]),
             ],
@@ -57,7 +73,15 @@ class ConfigurationTest extends TestCase {
 
         // Test
         self::assertEquals(
-            ['meta', 'abc', 'oem', 'a.b'],
+            [
+                'meta',
+                'abc',
+                'oem',
+                'relation.relation-nested',
+                'properties-nested',
+                'properties-nested.properties-nested-properties-nested',
+                'properties-properties-nested',
+            ],
             $model->getSearchConfiguration()->getRelations(),
         );
     }
@@ -74,13 +98,18 @@ class ConfigurationTest extends TestCase {
                 'meta' => new Text('meta.data'),
             ],
             [
-                'sku'      => new Text('sku'),
-                'oem'      => new Relation('oem', [
+                'sku'        => new Text('sku'),
+                'oem'        => new Relation('oem', [
                     'id' => new Uuid('id'),
                 ]),
-                'relation' => new Relation('a', [
+                'relation'   => new Relation('a', [
                     'nested' => new Relation('b', [
                         'property' => new Text('c'),
+                    ]),
+                ]),
+                'properties' => new Properties([
+                    'nested' => new Relation('a', [
+                        'property' => new Text('b'),
                     ]),
                 ]),
             ],
@@ -100,13 +129,18 @@ class ConfigurationTest extends TestCase {
                 'meta' => new Text('meta.data'),
             ],
             Configuration::getPropertyName() => [
-                'sku'      => new Text('sku'),
-                'oem'      => new Relation('oem', [
+                'sku'        => new Text('sku'),
+                'oem'        => new Relation('oem', [
                     'id' => new Uuid('id'),
                 ]),
-                'relation' => new Relation('a', [
+                'relation'   => new Relation('a', [
                     'nested' => new Relation('b', [
                         'property' => new Text('c'),
+                    ]),
+                ]),
+                'properties' => new Properties([
+                    'nested' => new Relation('a', [
+                        'property' => new Text('b'),
                     ]),
                 ]),
             ],
@@ -146,9 +180,9 @@ class ConfigurationTest extends TestCase {
      *
      * @covers ::getSearchable
      *
-     * @param array<mixed> $expected
-     * @param array<mixed> $metadata
-     * @param array<mixed> $properties
+     * @param array<mixed>            $expected
+     * @param array<string, Property> $metadata
+     * @param array<string, Property> $properties
      */
     public function testGetSearchable(array $expected, array $metadata, array $properties): void {
         $configuration = new Configuration($this->getModel(), $metadata, $properties);
@@ -160,7 +194,7 @@ class ConfigurationTest extends TestCase {
     /**
      * @covers ::getProperty
      */
-    public function testGetSearchProperty(): void {
+    public function testGetProperty(): void {
         $model         = $this->getModel(
             [
                 'meta' => new Text('meta'),
@@ -168,6 +202,12 @@ class ConfigurationTest extends TestCase {
             [
                 'a' => new Text('a'),
                 'b' => new Relation('b', [
+                    'c' => new Text('c'),
+                    'd' => new Relation('d', [
+                        'e' => new Text('e'),
+                    ]),
+                ]),
+                'c' => new Properties([
                     'c' => new Text('c'),
                     'd' => new Relation('d', [
                         'e' => new Text('e'),
@@ -181,6 +221,9 @@ class ConfigurationTest extends TestCase {
         self::assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
         self::assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('b.c'))?->getName());
         self::assertEquals('e', $configuration->getProperty(Configuration::getPropertyName('b.d.e'))?->getName());
+        self::assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('c.c'))?->getName());
+        self::assertNull($configuration->getProperty(Configuration::getPropertyName('c.d'))?->getName());
+        self::assertEquals('e', $configuration->getProperty(Configuration::getPropertyName('c.d.e'))?->getName());
         self::assertEquals('meta', $configuration->getProperty(Configuration::getMetadataName('meta'))?->getName());
         self::assertNull($configuration->getProperty('meta'));
         self::assertNull($configuration->getProperty('a'));
@@ -254,12 +297,12 @@ class ConfigurationTest extends TestCase {
                     },
                 ],
                 [
-                    'name'  => new class('name') extends Value {
+                    'name'       => new class('name') extends Value {
                         public function getType(): string {
                             return 'text';
                         }
                     },
-                    'child' => new Relation('child', [
+                    'child'      => new Relation('child', [
                         'id'     => new class('id') extends Value {
                             public function getType(): string {
                                 return 'keyword';
@@ -278,6 +321,20 @@ class ConfigurationTest extends TestCase {
 
                                 public function hasKeyword(): bool {
                                     return true;
+                                }
+                            },
+                        ]),
+                    ]),
+                    'properties' => new Properties([
+                        'id'     => new class('id') extends Value {
+                            public function getType(): string {
+                                return 'keyword';
+                            }
+                        },
+                        'nested' => new Relation('nested', [
+                            'name' => new class('name') extends Value {
+                                public function getType(): string {
+                                    return 'text';
                                 }
                             },
                         ]),
@@ -302,10 +359,10 @@ class ConfigurationTest extends TestCase {
                 ],
                 Configuration::getPropertyName() => [
                     'properties' => [
-                        'name'  => [
+                        'name'       => [
                             'type' => 'text',
                         ],
-                        'child' => [
+                        'child'      => [
                             'properties' => [
                                 'id'     => [
                                     'type' => 'keyword',
@@ -322,6 +379,20 @@ class ConfigurationTest extends TestCase {
                                                     'type' => 'keyword',
                                                 ],
                                             ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'properties' => [
+                            'properties' => [
+                                'id'     => [
+                                    'type' => 'keyword',
+                                ],
+                                'nested' => [
+                                    'properties' => [
+                                        'name' => [
+                                            'type' => 'text',
                                         ],
                                     ],
                                 ],
@@ -478,6 +549,9 @@ class ConfigurationTest extends TestCase {
                     Configuration::getPropertyName('a'),
                     Configuration::getPropertyName('b.a'),
                     Configuration::getPropertyName('b.b'),
+                    Configuration::getPropertyName('c.a'),
+                    Configuration::getPropertyName('c.b.a'),
+                    Configuration::getPropertyName('c.b.b'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -487,6 +561,13 @@ class ConfigurationTest extends TestCase {
                     'b' => new Relation('b', [
                         'a' => new Text('a', true),
                         'b' => new Text('a', true),
+                    ]),
+                    'c' => new Properties([
+                        'a' => new Text('a', true),
+                        'b' => new Relation('b', [
+                            'a' => new Text('a', true),
+                            'b' => new Text('a', true),
+                        ]),
                     ]),
                 ],
             ],
@@ -553,6 +634,7 @@ class ConfigurationTest extends TestCase {
                     Configuration::getPropertyName('a'),
                     Configuration::getPropertyName('b.a'),
                     Configuration::getPropertyName('b.c.b'),
+                    Configuration::getPropertyName('c.b.a'),
                 ],
                 [
                     // empty
@@ -565,6 +647,13 @@ class ConfigurationTest extends TestCase {
                         'c' => new Relation('c', [
                             'a' => new Text('a'),
                             'b' => new Text('b', true),
+                        ]),
+                    ]),
+                    'c' => new Properties([
+                        'a' => new Text('a', false),
+                        'b' => new Relation('b', [
+                            'a' => new Text('a', true),
+                            'b' => new Text('a', false),
                         ]),
                     ]),
                 ],

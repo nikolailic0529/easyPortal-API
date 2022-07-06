@@ -1,6 +1,6 @@
 extend type AuthOrganizationMutations {
     signIn: AuthOrganizationSignInPayload
-    @guest
+    @authGuest
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Auth\\Organization\\SignIn"
     )

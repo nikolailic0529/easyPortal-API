@@ -1,8 +1,8 @@
 type Query {
-    value: String! @me @mock
+    value: String! @authMe @mock
 
     valueWithPermissions: Test!
-    @me(
+    @authMe(
         permissions: ["a", "b", "c"]
     )
     @mock
@@ -11,25 +11,25 @@ type Query {
 """
 Description.
 """
-type Test @me {
+type Test @authMe {
     one: String!
 
-    two: String! @me
+    two: String! @authMe
 }
 
-extend type Test @me {
+extend type Test @authMe {
     extension: TestPermissions!
 }
 
 """
 Description with permissions.
 """
-type TestPermissions @me(permissions: ["a", "b", "c"]) {
+type TestPermissions @authMe(permissions: ["a", "b", "c"]) {
     one: String!
 
-    two: String! @me(permissions: ["a", "b"])
+    two: String! @authMe(permissions: ["a", "b"])
 }
 
-extend type TestPermissions @me(permissions: ["a", "b", "c"]) {
+extend type TestPermissions @authMe(permissions: ["a", "b", "c"]) {
     extension: String!
 }

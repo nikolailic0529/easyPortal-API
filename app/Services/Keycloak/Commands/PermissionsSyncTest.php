@@ -11,7 +11,7 @@ use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Group;
 use App\Services\Keycloak\Client\Types\Role;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -99,7 +99,7 @@ class PermissionsSyncTest extends TestCase {
         ];
 
         self::assertEquals($expected, $actual);
-        self::assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByOrganizationScope::class)->count());
+        self::assertEquals(0, RoleModel::query()->withoutGlobalScope(OwnedByScope::class)->count());
     }
 
     /**
@@ -153,7 +153,7 @@ class PermissionsSyncTest extends TestCase {
         self::assertEquals($expected, $actual);
         self::assertFalse(
             RoleModel::query()
-                ->withoutGlobalScope(OwnedByOrganizationScope::class)
+                ->withoutGlobalScope(OwnedByScope::class)
                 ->whereKey($groupId)
                 ->exists(),
         );
@@ -219,7 +219,7 @@ class PermissionsSyncTest extends TestCase {
         $this->artisan(PermissionsSync::class);
 
         $role     = RoleModel::query()
-            ->withoutGlobalScope(OwnedByOrganizationScope::class)
+            ->withoutGlobalScope(OwnedByScope::class)
             ->whereKey($groupId)
             ->first();
         $actual   = $this->getPermissions();

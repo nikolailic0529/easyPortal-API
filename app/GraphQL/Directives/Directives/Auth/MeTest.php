@@ -77,7 +77,7 @@ class MeTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @me @field(resolver: "{$resolver}")
+                    value: String! @authMe @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -127,7 +127,7 @@ class MeTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @me(permissions: {$permissions}) @field(resolver: "{$resolver}")
+                    value: String! @authMe(permissions: {$permissions}) @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -164,7 +164,7 @@ class MeTest extends TestCase {
         /** @lang GraphQL */
             <<<GRAPHQL
             type Query {
-                value: String! @me(permissions: {$permissions}) @field(resolver: "{$resolver}")
+                value: String! @authMe(permissions: {$permissions}) @field(resolver: "{$resolver}")
             }
             GRAPHQL,
         );

@@ -5,12 +5,14 @@ namespace App\Services\Organization\Eloquent;
 use App\Utils\Eloquent\Model;
 
 /**
+ * @see OwnedByReseller
+ *
  * @mixin Model
  */
 trait OwnedByResellerImpl {
-    use OwnedByOrganizationImpl;
+    use OwnedByImpl;
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByResellerColumn(): string {
         return 'reseller_id';
     }
 }

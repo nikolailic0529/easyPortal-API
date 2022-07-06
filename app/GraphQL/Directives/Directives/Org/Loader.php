@@ -4,9 +4,8 @@ namespace App\GraphQL\Directives\Directives\Org;
 
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
-use App\Utils\Eloquent\ModelProperty;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
@@ -81,11 +80,17 @@ class Loader implements ModelsLoader {
         return $model->getAttribute($this->getProperty()) ?? $this->default;
     }
 
+    /**
+     * @param Builder<Model>             $builder
+     * @param Collection<int,Model>|null $parents
+     *
+     * @return Builder<Model>|null
+     */
     public function getQuery(Builder $builder, Collection $parents = null): ?Builder {
         // Has scope?
         /** @var Model&OwnedByOrganization $model */
         $model = $builder->getModel();
-        $scope = OwnedByOrganizationScope::class;
+        $scope = OwnedByScope::class;
 
         if (!$model::hasGlobalScope($scope)) {
             throw new InvalidArgumentException(sprintf(
@@ -95,8 +100,17 @@ class Loader implements ModelsLoader {
             ));
         }
 
+        // Property?
+        $property = OwnedByScope::getProperty($this->organization, $model);
+
+        if ($property === null) {
+            throw new InvalidArgumentException(sprintf(
+                'Property `%s` is not supported.',
+                $this->getProperty(),
+            ));
+        }
+
         // Relation?
-        $property = new ModelProperty($model->getOrganizationColumn());
         $relation = $property->getRelation($builder);
 
         if (!($relation instanceof BelongsToMany)) {

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\UserType;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Tests\TestCase;
 
@@ -29,7 +29,7 @@ class UserTest extends TestCase {
     public function testDelete(): void {
         // Disable unwanted scopes
         GlobalScopes::setDisabled(
-            OwnedByOrganizationScope::class,
+            OwnedByScope::class,
             true,
         );
 

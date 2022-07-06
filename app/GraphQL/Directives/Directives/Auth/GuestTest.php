@@ -50,7 +50,7 @@ class GuestTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @guest @field(resolver: "{$resolver}")
+                    value: String! @authGuest @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )

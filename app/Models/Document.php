@@ -17,7 +17,7 @@ use App\Models\Scopes\DocumentTypeContractScope;
 use App\Models\Scopes\DocumentTypeQueries;
 use App\Models\Scopes\DocumentTypeQuoteType;
 use App\Models\Scopes\DocumentTypeScopeImpl;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
@@ -89,7 +89,7 @@ use function count;
  * @method static Builder|Document newQuery()
  * @method static Builder|Document query()
  */
-class Document extends Model implements OwnedByOrganization, Searchable {
+class Document extends Model implements OwnedByReseller, Searchable {
     use HasFactory;
     use SearchableImpl;
     use OwnedByResellerImpl;

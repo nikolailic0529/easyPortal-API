@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Auth\Organization;
+use App\GraphQL\Directives\Directives\Auth\Org;
 
-class OrganizationDirective extends Organization {
+class AuthOrgDirective extends Org {
     // Lighthouse loads all files from the directives directory...
 }

@@ -20,9 +20,9 @@ class ModelProperty {
     protected ?string $relationName;
 
     /**
-     * @var array<string>|null
+     * @var array<string>
      */
-    protected ?array $path;
+    protected array $path;
 
     /**
      * @var array<string>|null
@@ -49,9 +49,9 @@ class ModelProperty {
     }
 
     /**
-     * @return array<string>|null
+     * @return array<string>
      */
-    public function getPath(): ?array {
+    public function getPath(): array {
         return $this->path;
     }
 
@@ -66,6 +66,11 @@ class ModelProperty {
         return $this->relationPath;
     }
 
+    /**
+     * @param Model|Builder<Model> $model
+     *
+     * @return Relation<Model>
+     */
     public function getRelation(Model|Builder $model): Relation {
         $relation = $this->getRelationName();
 

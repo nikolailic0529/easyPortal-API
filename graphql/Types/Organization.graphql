@@ -37,22 +37,22 @@ type Organization {
         where: UsersQuery @searchBy
         order: UsersSort @sortBy
     ): [User!]!
-    @me(permissions: ["administer", "org-administer"])
+    @authMe(permissions: ["administer", "org-administer"])
     @relation
     @paginatedRelation
 
     keycloak_scope: String
-    @me(permissions: ["administer"])
+    @authMe(permissions: ["administer"])
 
     roles: [Role!]!
-    @me(permissions: ["administer", "org-administer"])
+    @authMe(permissions: ["administer", "org-administer"])
     @relation
 
     audits(
         where: AuditsQuery @searchBy
         order: AuditsSort @sortBy
     ): [Audit!]!
-    @me(permissions: ["administer", "org-administer"])
+    @authMe(permissions: ["administer", "org-administer"])
     @relation
     @paginatedRelation
 }

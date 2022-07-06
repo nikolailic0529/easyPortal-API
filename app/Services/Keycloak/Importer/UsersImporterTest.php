@@ -119,6 +119,7 @@ class UsersImporterTest extends TestCase {
                 ->whereKey($keycloakUser->id)
                 ->first();
         });
+
         self::assertNotNull($user);
         self::assertFalse($user->email_verified);
         self::assertFalse($user->enabled);
@@ -242,6 +243,7 @@ class UsersImporterTest extends TestCase {
                 ->whereKey($keycloakUser->id)
                 ->first();
         });
+
         self::assertNotNull($user);
         self::assertFalse($user->email_verified);
         self::assertTrue($user->enabled);

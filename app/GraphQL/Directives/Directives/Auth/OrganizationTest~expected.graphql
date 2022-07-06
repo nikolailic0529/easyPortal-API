@@ -1,63 +1,76 @@
 type Query {
     """
-    @require <organization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
     """
     root: Test!
-    @organization(
+    @authOrganization(
         root: true
     )
     @mock
 
     """
-    @require <organization> Authenticated user must be a member of the current organization.
+    @require <authOrganization> Authenticated user must be a member of the current organization.
     """
     value: String!
-    @organization
+    @authOrganization
     @mock
 }
 
 """
 Description.
 
-@require <organization> Authenticated user must be a member of the current organization.
+@require <authOrganization> Authenticated user must be a member of the current organization.
 """
 type Test
-@organization
+@authOrganization
 {
     """
-    @require <organization> Authenticated user must be a member of the current organization.
+    @require <authOrganization> Authenticated user must be a member of the current organization.
     """
     extension: String!
-    @organization
+    @authOrganization
 
     """
-    @require <organization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
     """
     extensionRoot: String!
-    @organization(
+    @authOrganization(
         root: true
     )
 
     """
-    @require <organization> Authenticated user must be a member of the current organization.
+    @require <authOrganization> Authenticated user must be a member of the current organization.
     """
     one: String!
-    @organization
+    @authOrganization
 
     """
-    @require <organization(root)> Authenticated user must be a member of the root organization.
+    @require <authOrganization(root)> Authenticated user must be a member of the root organization.
     """
     root: String!
-    @organization(
+    @authOrganization(
         root: true
     )
 
     """
-    @require <organization> Authenticated user must be a member of the current organization.
+    @require <authOrganization> Authenticated user must be a member of the current organization.
     """
     two: String!
-    @organization
+    @authOrganization
 }
+
+"""
+Authenticated user must be a member of the current organization.
+"""
+directive @authOrganization(
+    """
+    Authenticated user must be a member of the root organization.
+    """
+    root: Boolean! = false
+)
+on
+    | FIELD_DEFINITION
+    | OBJECT
 
 """
 Allows you to easily hook up a resolver for an endpoint.
@@ -70,16 +83,3 @@ directive @mock(
 )
 on
     | FIELD_DEFINITION
-
-"""
-Authenticated user must be a member of the current organization.
-"""
-directive @organization(
-    """
-    Authenticated user must be a member of the root organization.
-    """
-    root: Boolean! = false
-)
-on
-    | FIELD_DEFINITION
-    | OBJECT

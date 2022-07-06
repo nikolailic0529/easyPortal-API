@@ -5,7 +5,6 @@ namespace App\GraphQL\Directives\Directives\Auth;
 use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Organization;
 use App\Models\User;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthenticated;
@@ -17,9 +16,12 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Organization
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\OrgRoot
+ *
+ * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type UserFactory from \Tests\WithUser
  */
-class OrganizationTest extends TestCase {
+class OrgRootTest extends TestCase {
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -41,41 +43,14 @@ class OrganizationTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
-     */
-    public function testResolveField(Response $expected, Closure $organizationFactory, Closure $userFactory): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
-        $resolver = addslashes(EmptyResolver::class);
-
-        $this
-            ->useGraphQLSchema(
-            /** @lang GraphQL */
-                <<<GRAPHQL
-                type Query {
-                    value: String! @organization @field(resolver: "{$resolver}")
-                }
-                GRAPHQL,
-            )
-            ->graphQL(
-            /** @lang GraphQL */
-                <<<'GRAPHQL'
-                query {
-                    value
-                }
-                GRAPHQL,
-            )
-            ->assertThat($expected);
-    }
-
-    /**
-     * @covers ::resolveField
      *
-     * @dataProvider dataProviderResolveFieldRootOnly
+     * @param OrganizationFactory $organizationFactory
+     * @param UserFactory         $userFactory
      */
-    public function testResolveFieldRootOnly(
+    public function testResolveField(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory,
+        mixed $organizationFactory,
+        mixed $userFactory,
         bool $isRootOrganization = false,
     ): void {
         $organization = $this->setOrganization($organizationFactory);
@@ -93,7 +68,7 @@ class OrganizationTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @organization(root: true) @field(resolver: "{$resolver}")
+                    value: String! @authOrgRoot @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -112,55 +87,9 @@ class OrganizationTest extends TestCase {
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
-     * @return array<mixed>
+     * @return array<string, array{Response, OrganizationFactory, UserFactory}>
      */
     public function dataProviderResolveField(): array {
-        return [
-            'no organization - no user'                     => [
-                new GraphQLUnauthenticated('value'),
-                static function () {
-                    return null;
-                },
-                static function () {
-                    return null;
-                },
-            ],
-            'organization - no user'                        => [
-                new GraphQLUnauthenticated('value'),
-                static function () {
-                    return Organization::factory()->make();
-                },
-                static function () {
-                    return null;
-                },
-            ],
-            'organization - user'                           => [
-                new GraphQLSuccess('value', null),
-                static function () {
-                    return Organization::factory()->create();
-                },
-                static function (TestCase $test, Organization $organization) {
-                    return User::factory()->create([
-                        'organization_id' => $organization,
-                    ]);
-                },
-            ],
-            'organization - user from another organization' => [
-                new GraphQLUnauthorized('value'),
-                static function () {
-                    return Organization::factory()->create();
-                },
-                static function () {
-                    return User::factory()->create();
-                },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderResolveFieldRootOnly(): array {
         return [
             'no organization - no user'                          => [
                 new GraphQLUnauthenticated('value'),
@@ -197,7 +126,7 @@ class OrganizationTest extends TestCase {
                 static function () {
                     return Organization::factory()->create();
                 },
-                static function (TestCase $test, Organization $organization) {
+                static function (TestCase $test, ?Organization $organization) {
                     return User::factory()->create([
                         'organization_id' => $organization,
                     ]);
@@ -209,7 +138,7 @@ class OrganizationTest extends TestCase {
                 static function () {
                     return Organization::factory()->create();
                 },
-                static function (TestCase $test, Organization $organization) {
+                static function (TestCase $test, ?Organization $organization) {
                     return User::factory()->create([
                         'organization_id' => $organization,
                     ]);

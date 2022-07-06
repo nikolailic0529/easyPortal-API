@@ -13,7 +13,7 @@ abstract class Guest extends AuthDirective implements FieldMiddleware {
             """
             Current visitor must be a guest.
             """
-            directive @guest on FIELD_DEFINITION | OBJECT
+            directive @authGuest on FIELD_DEFINITION | OBJECT
             GRAPHQL;
     }
 

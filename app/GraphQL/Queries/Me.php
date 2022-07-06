@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use DateTimeInterface;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -61,7 +61,7 @@ class Me {
 
         if ($user) {
             $value = GlobalScopes::callWithout(
-                OwnedByOrganizationScope::class,
+                OwnedByScope::class,
                 static function () use ($user): ?DateTimeInterface {
                     return Audit::query()
                         ->where('user_id', '=', $user->getKey())

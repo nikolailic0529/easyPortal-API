@@ -2,8 +2,8 @@ extend type OrgRoleMutations {
     update(
         input: OrgRoleUpdateInput!
     ): OrgRoleUpdatePayload
-    @organization
-    @me(permissions: ["org-administer"])
+    @authOrg
+    @authMe(permissions: ["org-administer"])
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Org\\Role\\Update"
     )

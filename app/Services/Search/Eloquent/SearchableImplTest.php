@@ -10,6 +10,7 @@ use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -123,6 +124,10 @@ class SearchableImplTest extends TestCase {
                         'oem_id'  => new Uuid('oem_id'),
                         'unknown' => new Uuid('unknown'),
                     ]),
+                    'array'   => new Properties([
+                        'id'  => new Uuid('id'),
+                        'sku' => new Text('sku'),
+                    ]),
                 ];
             }
         };
@@ -150,7 +155,7 @@ class SearchableImplTest extends TestCase {
         $model->addGlobalScope($scope);
 
         // Test
-        $actual   = $model->find($group->getKey())?->toSearchableArray();
+        $actual   = $model::query()->findOrFail($group->getKey())->toSearchableArray();
         $expected = [
             Configuration::getMetadataName() => [
                 'sku' => $sku,
@@ -175,6 +180,10 @@ class SearchableImplTest extends TestCase {
                         'unknown' => null,
                     ],
                 ],
+                'array'   => [
+                    'id'  => $group->getKey(),
+                    'sku' => $sku,
+                ],
             ],
         ];
 
@@ -190,7 +199,7 @@ class SearchableImplTest extends TestCase {
         $model->makePartial();
         $model
             ->shouldReceive('loadMissing')
-            ->with(['b', 'c.b'])
+            ->with(['b', 'c.b', 'db'])
             ->once()
             ->andReturnSelf();
         $model
@@ -203,6 +212,12 @@ class SearchableImplTest extends TestCase {
                 ]),
                 'c' => new Relation('c', [
                     'b' => new Relation('b', [
+                        'a' => new Uuid('a'),
+                    ]),
+                ]),
+                'd' => new Properties([
+                    'da' => new Text('da'),
+                    'db' => new Relation('db', [
                         'a' => new Uuid('a'),
                     ]),
                 ]),

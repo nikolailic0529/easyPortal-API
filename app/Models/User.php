@@ -8,7 +8,7 @@ use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\HasOrganization;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
@@ -265,7 +265,7 @@ class User extends Model implements
 
         // Member of organization?
         return GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
+            OwnedByScope::class,
             function () use ($organization): bool {
                 $orgUser = $this->organizations
                     ->first(static function (OrganizationUser $user) use ($organization): bool {

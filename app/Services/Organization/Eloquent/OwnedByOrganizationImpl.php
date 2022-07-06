@@ -4,17 +4,13 @@ namespace App\Services\Organization\Eloquent;
 
 use App\Utils\Eloquent\Model;
 
-use function app;
-
 /**
  * @mixin Model
  */
 trait OwnedByOrganizationImpl {
-    public static function bootOwnedByOrganizationImpl(): void {
-        static::addGlobalScope(app()->make(OwnedByOrganizationScope::class));
-    }
+    use OwnedByImpl;
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByOrganizationColumn(): string {
         return 'organization_id';
     }
 }

@@ -6,6 +6,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Indexer;
 use App\Services\Search\Processors\ModelProcessor;
+use App\Services\Search\Properties\Properties;
 use App\Services\Search\Properties\Property;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Value;
@@ -210,6 +211,14 @@ trait SearchableImpl {
         $values = [];
 
         foreach ($properties as $name => $property) {
+            // Array?
+            if ($property instanceof Properties) {
+                $values[$name] = $this->toSearchableArrayProcess($model, $property->getProperties());
+
+                continue;
+            }
+
+            // Value?
             $value = (new ModelProperty($property->getName()))->getValue($model);
 
             if ($property instanceof Relation) {

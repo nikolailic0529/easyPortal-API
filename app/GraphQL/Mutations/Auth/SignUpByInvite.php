@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Credential;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -103,7 +103,7 @@ class SignUpByInvite {
         // Invitation
         /** @var Invitation|null $invitation */
         $invitation = GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
+            OwnedByScope::class,
             static function () use ($id): ?Invitation {
                 return Invitation::query()->whereKey($id)->first();
             },
@@ -122,7 +122,7 @@ class SignUpByInvite {
         }
 
         $last = GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
+            OwnedByScope::class,
             static function () use ($invitation): ?Invitation {
                 return Invitation::query()
                     ->where('organization_id', '=', $invitation->organization_id)
@@ -142,7 +142,7 @@ class SignUpByInvite {
 
     protected function getOrganizationUser(Invitation $invitation): OrganizationUser {
         $user = GlobalScopes::callWithout(
-            OwnedByOrganizationScope::class,
+            OwnedByScope::class,
             static function () use ($invitation): ?OrganizationUser {
                 return OrganizationUser::query()
                     ->where('organization_id', '=', $invitation->organization_id)

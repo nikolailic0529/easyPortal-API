@@ -2,8 +2,8 @@ extend type Mutation {
     updateApplicationTranslations(
         input: UpdateApplicationTranslationsInput!
     ): UpdateApplicationTranslationsPayload
-    @organization(root: true)
-    @root
+    @authOrgRoot
+    @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations")
 }
 

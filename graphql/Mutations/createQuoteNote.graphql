@@ -2,8 +2,8 @@ extend type Mutation {
     createQuoteNote(
         input: CreateQuoteNoteInput!
     ): CreateQuoteNotePayload
-    @organization
-    @me(permissions: ["quotes-view", "customers-view"])
+    @authOrg
+    @authMe(permissions: ["quotes-view", "customers-view"])
 }
 
 input CreateQuoteNoteInput @validator {

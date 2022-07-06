@@ -4,6 +4,6 @@ namespace App\GraphQL\Directives\Definitions;
 
 use App\GraphQL\Directives\Directives\Auth\Me;
 
-class MeDirective extends Me {
+class AuthMeDirective extends Me {
     // Lighthouse loads all files from the directives directory...
 }

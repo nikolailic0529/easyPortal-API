@@ -17,7 +17,7 @@ abstract class Root extends AuthDirective {
             """
             Authenticated user must be a root.
             """
-            directive @root on FIELD_DEFINITION | OBJECT
+            directive @authRoot on FIELD_DEFINITION | OBJECT
             GRAPHQL;
     }
 

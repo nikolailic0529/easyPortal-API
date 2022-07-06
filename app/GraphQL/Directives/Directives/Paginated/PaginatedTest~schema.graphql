@@ -3,7 +3,7 @@ type Query {
         where: CustomerSearch @searchBy
         order: _ @sortBy
         test: ID
-    ): [Customer!]! @me @paginated
+    ): [Customer!]! @authMe @paginated
 
     data: [Asset!]! @paginated
 

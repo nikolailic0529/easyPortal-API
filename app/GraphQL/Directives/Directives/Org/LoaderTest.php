@@ -6,8 +6,9 @@ use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Closure;
 use Exception;
@@ -146,7 +147,7 @@ class LoaderTest extends TestCase {
                 new InvalidArgumentException(sprintf(
                     'Model `%s` doesn\'t use the `%s` scope.',
                     LoaderTest_ModelWithoutScope::class,
-                    OwnedByOrganizationScope::class,
+                    OwnedByScope::class,
                 )),
                 null,
                 static function (): EloquentBuilder {
@@ -432,7 +433,7 @@ class LoaderTest_ModelWithoutScope extends Model {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var string
+     * @var bool
      */
     public $incrementing = false;
 
@@ -448,7 +449,7 @@ class LoaderTest_ModelWithoutScope extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class LoaderTest_ModelWithScopeNotRelation extends Model {
+class LoaderTest_ModelWithScopeNotRelation extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 }
 
@@ -456,13 +457,16 @@ class LoaderTest_ModelWithScopeNotRelation extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class LoaderTest_ModelWithScopeRelationUnsupported extends Model {
+class LoaderTest_ModelWithScopeRelationUnsupported extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByOrganizationColumn(): string {
         return 'organization.id';
     }
 
+    /**
+     * @return BelongsTo<static>
+     */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);
     }
@@ -472,7 +476,7 @@ class LoaderTest_ModelWithScopeRelationUnsupported extends Model {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class LoaderTest_ModelWithScopeRelationSupported extends Model {
+class LoaderTest_ModelWithScopeRelationSupported extends Model implements OwnedByOrganization {
     use OwnedByOrganizationImpl;
 
     /**
@@ -482,10 +486,13 @@ class LoaderTest_ModelWithScopeRelationSupported extends Model {
      */
     protected $table = 'model_with_relation_supported';
 
-    public function getOrganizationColumn(): string {
+    public static function getOwnedByOrganizationColumn(): string {
         return 'organization.id';
     }
 
+    /**
+     * @return BelongsToMany<LoaderTest_ModelWithoutScope>
+     */
     public function organization(): BelongsToMany {
         return $this->belongsToMany(
             LoaderTest_ModelWithoutScope::class,

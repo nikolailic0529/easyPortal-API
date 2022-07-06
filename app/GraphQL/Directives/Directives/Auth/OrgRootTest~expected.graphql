@@ -1,0 +1,68 @@
+type Query {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+    """
+    value: Test!
+    @authOrgRoot
+    @mock
+}
+
+"""
+Description.
+
+@require <authOrgRoot> Authenticated user must be a member of the current organization, and
+the organization must be a root organization.
+"""
+type Test
+@authOrgRoot
+{
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+    """
+    extension: String!
+    @authOrgRoot
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+    """
+    extensionRoot: String!
+    @authOrgRoot
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+    """
+    one: String!
+    @authOrgRoot
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+    """
+    two: String!
+    @authOrgRoot
+}
+
+"""
+Authenticated user must be a member of the current organization, and
+the organization must be a root organization.
+"""
+directive @authOrgRoot
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+)
+on
+    | FIELD_DEFINITION

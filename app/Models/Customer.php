@@ -10,7 +10,7 @@ use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasQuotes;
 use App\Models\Relations\HasResellers;
 use App\Models\Relations\HasStatuses;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
@@ -56,7 +56,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Customer newQuery()
  * @method static Builder|Customer query()
  */
-class Customer extends Model implements OwnedByOrganization, Searchable {
+class Customer extends Model implements OwnedByReseller, Searchable {
     use OwnedByResellerImpl;
     use SearchableImpl;
     use HasFactory;
@@ -134,8 +134,11 @@ class Customer extends Model implements OwnedByOrganization, Searchable {
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
-    public function getOrganizationColumn(): string {
-        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
+    public static function getOwnedByResellerColumn(): string {
+        $key    = (new static())->resellers()->getModel()->getKeyName();
+        $column = "resellers.{$key}";
+
+        return $column;
     }
     // </editor-fold>
 }

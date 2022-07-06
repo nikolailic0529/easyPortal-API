@@ -151,7 +151,7 @@ type Query {
     )
 
     """
-    @require <me> User must be authenticated.
+    @require <authMe> User must be authenticated.
     """
     query(
         limit: Int!
@@ -187,11 +187,11 @@ type Query {
             ]
         )
     ): [Customer!]!
-    @me
+    @authMe
     @paginated
 
     """
-    @require <me> User must be authenticated.
+    @require <authMe> User must be authenticated.
     """
     queryAggregated(
         where: SearchByConditionCustomerSearch
@@ -207,7 +207,7 @@ type Query {
             ]
         )
     ): CustomersAggregated
-    @me
+    @authMe
     @aggregated(
         model: "App\\Models\\Customer"
     )
@@ -285,18 +285,9 @@ on
     | FIELD_DEFINITION
 
 """
-Cache the resolved value of a field.
-"""
-directive @cached(
-    mode: CachedMode
-)
-on
-    | FIELD_DEFINITION
-
-"""
 User must be authenticated.
 """
-directive @me(
+directive @authMe(
     """
     User must be authenticated and have any of these permissions.
     """
@@ -305,6 +296,15 @@ directive @me(
 repeatable on
     | FIELD_DEFINITION
     | OBJECT
+
+"""
+Cache the resolved value of a field.
+"""
+directive @cached(
+    mode: CachedMode
+)
+on
+    | FIELD_DEFINITION
 
 """
 Adds offset-based pagination for the field.

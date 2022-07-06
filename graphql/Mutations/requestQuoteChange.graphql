@@ -2,8 +2,8 @@ extend type Mutation {
     requestQuoteChange(
         input: RequestQuoteChangeInput!
     ): RequestQuoteChangePayload
-    @organization
-    @me(permissions: ["requests-quote-change"])
+    @authOrg
+    @authMe(permissions: ["requests-quote-change"])
 }
 
 input RequestQuoteChangeInput {

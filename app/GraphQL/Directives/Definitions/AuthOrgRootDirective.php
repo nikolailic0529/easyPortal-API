@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Auth\Guest;
+use App\GraphQL\Directives\Directives\Auth\OrgRoot;
 
-class GuestDirective extends Guest {
+class AuthOrgRootDirective extends OrgRoot {
     // Lighthouse loads all files from the directives directory...
 }
