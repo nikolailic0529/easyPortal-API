@@ -6,8 +6,9 @@ use App\Services\Filesystem\Disks\ClientDisk;
 use App\Services\I18n\Storages\ClientTranslations;
 use App\Services\I18n\Translation\TranslationDefaults;
 use App\Services\I18n\Translation\TranslationLoader;
-use LastDragon_ru\LaraASP\Core\Utils\Cast;
 
+use function is_array;
+use function is_string;
 use function ksort;
 
 class I18n {
@@ -61,7 +62,16 @@ class I18n {
         $translations = [];
 
         foreach ($data as $key => $value) {
-            $translations["{$prefix}{$key}"] = Cast::toString($value);
+            // Versions up to v7.6.0 (inclusive) used key value pairs
+            if (is_array($value)) {
+                $key   = $value['key'] ?? null;
+                $value = $value['value'] ?? null;
+            }
+
+            // Valid?
+            if (is_string($key) && is_string($value)) {
+                $translations["{$prefix}{$key}"] = $value;
+            }
         }
 
         ksort($translations);

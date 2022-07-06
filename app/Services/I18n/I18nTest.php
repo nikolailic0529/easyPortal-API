@@ -106,8 +106,9 @@ class I18nTest extends TestCase {
         $storage = new ClientTranslations($disk, $locale);
 
         $storage->save([
-            'b' => 'b',
-            'a' => 'a',
+            'c' => 'c',
+            ['key' => 'b', 'value' => 'b'],
+            ['key' => 'a', 'value' => 'a'],
         ]);
 
         // No prefix
@@ -116,6 +117,7 @@ class I18nTest extends TestCase {
         $expected     = [
             'a' => 'a',
             'b' => 'b',
+            'c' => 'c',
         ];
 
         self::assertEquals($expected, $translations);
@@ -128,6 +130,7 @@ class I18nTest extends TestCase {
         $expected     = [
             'prefix-a' => 'a',
             'prefix-b' => 'b',
+            'prefix-c' => 'c',
         ];
 
         self::assertEquals($expected, $translations);

@@ -2,26 +2,31 @@
 
 namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Disks\ClientDisk;
-use App\Services\I18n\Storages\ClientTranslations;
+use App\Services\I18n\I18n;
 
 class Translations {
     public function __construct(
-        protected ClientDisk $disk,
+        protected I18n $i18n,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $args
+     * @param array{locale: string} $args
      *
-     * @return array<string,mixed>
+     * @return array<array{key: string, value: string}>
      */
     public function __invoke(mixed $root, array $args): array {
-        return $this->getStorage($args['locale'])->load();
-    }
+        $strings      = $this->i18n->getClientTranslations($args['locale']);
+        $translations = [];
 
-    protected function getStorage(string $locale): ClientTranslations {
-        return new ClientTranslations($this->disk, $locale);
+        foreach ($strings as $key => $string) {
+            $translations[] = [
+                'key'   => $key,
+                'value' => $string,
+            ];
+        }
+
+        return $translations;
     }
 }
