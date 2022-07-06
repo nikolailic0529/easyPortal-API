@@ -2,14 +2,12 @@
 
 namespace App\Services\I18n\Commands;
 
-use App\Services\I18n\Translation\TranslationDefaults;
-use App\Services\I18n\Translation\TranslationLoader;
+use App\Services\I18n\I18n;
 use App\Utils\Console\WithOptions;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Foundation\Application;
 
 use function json_encode;
-use function ksort;
 
 use const JSON_PRESERVE_ZERO_FRACTION;
 use const JSON_PRETTY_PRINT;
@@ -35,19 +33,11 @@ class LocaleExport extends Command {
      */
     protected $description = 'Dump locale translations.';
 
-    public function __invoke(
-        Application $app,
-        TranslationLoader $loader,
-        TranslationDefaults $defaults,
-    ): int {
+    public function __invoke(Application $app, I18n $i18n): int {
         // Get
         $default      = $app->getLocale();
         $locale       = $this->getStringOption('locale', $default);
-        $translations = []
-            + $loader->getTranslations($locale)
-            + $defaults->getTranslations($locale);
-
-        ksort($translations);
+        $translations = $i18n->getTranslations($locale);
 
         // Dump
         $flags = 0
