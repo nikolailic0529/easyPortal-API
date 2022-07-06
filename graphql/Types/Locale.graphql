@@ -1,0 +1,11 @@
+type Locale {
+    name: String!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale@name"
+    )
+
+    translations: [LocaleTranslation!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale@translations"
+    )
+}

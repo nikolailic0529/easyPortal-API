@@ -15,6 +15,8 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 /**
+ * @deprecated Outdated
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Translations
  */

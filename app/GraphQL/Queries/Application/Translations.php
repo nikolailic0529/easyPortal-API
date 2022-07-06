@@ -6,6 +6,9 @@ use App\Services\I18n\Translation\TranslationDefaults;
 use App\Services\I18n\Translation\TranslationLoader;
 use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * @deprecated Outdated, {@see \App\GraphQL\Queries\Administration\Locale}
+ */
 class Translations {
     public function __construct(
         protected Application $app,

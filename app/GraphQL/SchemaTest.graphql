@@ -5360,6 +5360,9 @@ type Application {
             apply: ["App\\Rules\\Locale"]
         )
     ): [ApplicationTranslation!]!
+    @deprecated(
+        reason: "Please use `query { locale }` instead."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -6931,6 +6934,24 @@ type Language {
 
     name: String!
     @translate
+}
+
+type Locale {
+    name: String!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale@name"
+    )
+
+    translations: [LocaleTranslation!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale@translations"
+    )
+}
+
+type LocaleTranslation {
+    default: String
+    key: String!
+    value: String!
 }
 
 type Location {
@@ -9469,6 +9490,24 @@ type Query {
     @authMe
     @all
     @cached
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    locale(
+        name: String!
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
+    ): Locale!
+    @authOrgRoot
+    @authRoot
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
 
     """
     List of all possible location types.
