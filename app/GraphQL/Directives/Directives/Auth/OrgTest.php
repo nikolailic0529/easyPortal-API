@@ -5,7 +5,6 @@ namespace App\GraphQL\Directives\Directives\Auth;
 use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\Organization;
 use App\Models\User;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthenticated;
