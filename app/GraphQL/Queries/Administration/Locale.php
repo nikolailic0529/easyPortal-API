@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\Administration;
 
+use App\GraphQL\Objects\Locale as LocaleObject;
 use App\Services\I18n\I18n;
 
 class Locale {
@@ -14,20 +15,17 @@ class Locale {
     /**
      * @param array{name: string} $args
      */
-    public function __invoke(mixed $root, array $args): string {
-        return $args['name'];
-    }
-
-    public function name(string $root): string {
-        return $root;
+    public function __invoke(mixed $root, array $args): LocaleObject {
+        return new LocaleObject(['name' => $args['name']]);
     }
 
     /**
      * @return array<array{key: string, value: string, default: ?string}>
      */
-    public function translations(string $root): array {
-        $translations = $this->i18n->getTranslations($root);
-        $default      = $this->i18n->getDefaultTranslations($root);
+    public function translations(LocaleObject $root): array {
+        $locale       = $root->name;
+        $translations = $this->i18n->getTranslations($locale);
+        $default      = $this->i18n->getDefaultTranslations($locale);
         $output       = [];
 
         foreach ($translations as $key => $value) {
