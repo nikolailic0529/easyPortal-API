@@ -16,9 +16,11 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use Illuminate\Testing\PendingCommand;
+use Illuminate\Testing\TestResponse;
 use LastDragon_ru\LaraASP\Testing\Concerns\Override;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
@@ -26,6 +28,7 @@ use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTranslations;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use SplFileInfo;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Tests\GraphQL\ASTBuilderPersistent;
 use Tests\Helpers\SequenceDateFactory;
@@ -34,6 +37,8 @@ use Tests\Helpers\SequenceUuidFactory;
 use function array_merge;
 use function array_shift;
 use function file_put_contents;
+use function implode;
+use function is_array;
 use function pathinfo;
 
 use const PATHINFO_EXTENSION;
@@ -216,5 +221,73 @@ abstract class TestCase extends BaseTestCase {
                 $this->app->databasePath('testing'),
             ]),
         ]);
+    }
+
+    /**
+     * @param array<string, mixed>  $variables
+     * @param array<string, string> $headers
+     */
+    protected function graphQL(string $query, array $variables = [], array $headers = []): TestResponse {
+        $response = null;
+        $files    = $this->getGraphQLFiles($variables);
+
+        if ($files) {
+            $index = 0;
+            $map   = [];
+
+            foreach ($files as $path => $file) {
+                $map[$index]   = ["variables.{$path}"];
+                $files[$index] = $file;
+
+                Arr::set($variables, $path, null);
+
+                unset($files[$path]);
+
+                $index++;
+            }
+
+            $response = $this->multipartGraphQL(
+                [
+                    'operationName' => 'test',
+                    'variables'     => $variables,
+                    'query'         => $query,
+                ],
+                $map,
+                $files,
+                $headers,
+            );
+        } else {
+            $response = $this->postGraphQL(
+                [
+                    'query'     => $query,
+                    'variables' => $variables,
+                ],
+                $headers,
+            );
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param array<string, mixed>  $variables
+     * @param array<int, array-key> $path
+     *
+     * @return array<string, SplFileInfo>
+     */
+    private function getGraphQLFiles(array $variables, array $path = []): array {
+        $files = [];
+
+        foreach ($variables as $name => $value) {
+            if ($value instanceof SplFileInfo) {
+                $files[implode('.', [...$path, $name])] = $value;
+            } elseif (is_array($value)) {
+                $files += $this->getGraphQLFiles($value, [...$path, $name]);
+            } else {
+                // empty
+            }
+        }
+
+        return $files;
     }
 }

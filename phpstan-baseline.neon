@@ -15786,6 +15786,11 @@ parameters:
 			path: tests/TestCase.php
 
 		-
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int\\<0, max\\>\\|string, SplFileInfo\\> given\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
 			message: "#^Parameter \\$organization of method Tests\\\\TestCase\\:\\:setOrganization\\(\\) has invalid type Tests\\\\OrganizationFactory\\.$#"
 			count: 1
 			path: tests/TestCase.php
