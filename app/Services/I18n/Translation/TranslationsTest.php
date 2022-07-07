@@ -13,6 +13,8 @@ use Tests\TestCase;
 use function array_merge;
 
 /**
+ * @deprecated Please use {@see \App\Services\I18n\I18n}
+ *
  * @internal
  * @coversDefaultClass \App\Services\I18n\Translation\Translations
  */

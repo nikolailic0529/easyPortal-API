@@ -12,7 +12,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
-use App\Services\I18n\Translation\Translations;
+use App\Services\I18n\I18n;
 use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Cell;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -48,7 +48,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
-        protected Translations $translations,
+        protected I18n $i18n,
     ) {
         // empty
     }
@@ -120,7 +120,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                 }
             }
 
-            $this->translations->update($locale, $translations);
+            $this->i18n->setTranslations($locale, $translations);
         }
     }
 
