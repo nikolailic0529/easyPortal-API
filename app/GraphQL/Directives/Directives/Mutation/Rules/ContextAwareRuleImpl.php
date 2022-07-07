@@ -3,7 +3,6 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Rules;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin ContextAwareRule
@@ -20,13 +19,13 @@ trait ContextAwareRuleImpl {
     }
 
     /**
-     * @template T of \Illuminate\Database\Eloquent\Model
+     * @template T of object
      *
      * @param class-string<T> $class
      *
      * @return T|null
      */
-    protected function getMutationRoot(string $class = null): ?Model {
+    protected function getMutationRoot(string $class = null): ?object {
         $model = null;
 
         if ($this->hasMutationContext()) {

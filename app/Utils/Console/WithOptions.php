@@ -3,11 +3,14 @@
 namespace App\Utils\Console;
 
 use App\Rules\Duration;
+use App\Rules\Spreadsheet;
 use DateTimeInterface;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
+use SplFileInfo;
 use Symfony\Component\Console\Exception\RuntimeException;
+use Symfony\Component\HttpFoundation\File\File;
 
 use function assert;
 use function filter_var;
@@ -42,6 +45,35 @@ trait WithOptions {
     protected function getStringArgument(string $name, string $default = null): ?string {
         $value = $this->hasArgument($name) ? $this->argument($name) : null;
         $value = is_string($value) ? $value : $default;
+
+        return $value;
+    }
+
+    /**
+     * @return ($default is SplFileInfo ? SplFileInfo : SplFileInfo|null)
+     */
+    protected function getFileArgument(string $name, SplFileInfo $default = null): ?SplFileInfo {
+        $value = $this->getStringArgument($name);
+        $value = $value ? new File($value) : null;
+        $value = $value && $value->isFile() && $value->isReadable()
+            ? $value
+            : $default;
+
+        return $value;
+    }
+
+    protected function getSpreadsheetArgument(string $name, SplFileInfo $default = null): SplFileInfo {
+        $value     = $this->getFileArgument($name, $default);
+        $validator = $this->laravel->make(Factory::class)->make(
+            [$name => $value],
+            [$name => ['required', $this->laravel->make(Spreadsheet::class)]],
+        );
+
+        if ($validator->fails()) {
+            throw new RuntimeException($validator->errors()->first());
+        }
+
+        assert($value instanceof SplFileInfo);
 
         return $value;
     }

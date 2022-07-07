@@ -6,6 +6,7 @@ extend type Mutation {
     recoverClientTranslations(
         input: RecoverClientTranslationsInput!
     ): RecoverClientTranslationsPayload
+    @deprecated(reason: "Please use `mutation { locale { reset } }.")
     @authOrgRoot
     @authRoot
 }

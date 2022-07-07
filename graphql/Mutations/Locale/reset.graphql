@@ -1,0 +1,12 @@
+extend type LocaleMutation {
+    reset: LocaleResetPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Reset"
+    )
+}
+
+type LocaleResetPayload implements Payload {
+    result: Boolean!
+}

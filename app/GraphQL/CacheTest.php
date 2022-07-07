@@ -2,7 +2,7 @@
 
 namespace App\GraphQL;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\CurrentLocale;
 use App\Services\Organization\CurrentOrganization;
 use App\Utils\Cache\CacheKey;
 use Closure;
@@ -64,7 +64,7 @@ class CacheTest extends TestCase {
         $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
         $organization = $this->app->make(CurrentOrganization::class);
-        $locale       = $this->app->make(Locale::class);
+        $locale       = $this->app->make(CurrentLocale::class);
         $factory      = $this->app->make(CacheFactory::class);
         $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
             public function getExpired(): ?DateTimeInterface {
@@ -92,7 +92,7 @@ class CacheTest extends TestCase {
         $config       = $this->app->make(ConfigContract::class);
         $service      = $this->app->make(Service::class);
         $organization = $this->app->make(CurrentOrganization::class);
-        $locale       = $this->app->make(Locale::class);
+        $locale       = $this->app->make(CurrentLocale::class);
         $factory      = $this->app->make(CacheFactory::class);
         $cache        = new class($handler, $config, $service, $organization, $locale, $factory) extends Cache {
             public function getExpired(): ?DateTimeInterface {
@@ -136,7 +136,7 @@ class CacheTest extends TestCase {
         $service      = $this->app->make(Service::class);
         $factory      = $this->app->make(CacheFactory::class);
         $organization = Mockery::mock(CurrentOrganization::class);
-        $locale       = Mockery::mock(Locale::class);
+        $locale       = Mockery::mock(CurrentLocale::class);
         $cache        = Mockery::mock(Cache::class, [$handler, $config, $service, $organization, $locale, $factory]);
         $cache->shouldAllowMockingProtectedMethods();
         $cache->makePartial();
@@ -182,7 +182,7 @@ class CacheTest extends TestCase {
         $handler = Mockery::mock(ExceptionHandler::class);
         $config  = $this->app->make(ConfigContract::class);
         $service = $this->app->make(Service::class);
-        $locale  = Mockery::mock(Locale::class);
+        $locale  = Mockery::mock(CurrentLocale::class);
         $org     = Mockery::mock(CurrentOrganization::class);
 
         $store = Mockery::mock(CacheContract::class);
@@ -263,7 +263,7 @@ class CacheTest extends TestCase {
         $service      = $this->app->make(Service::class);
         $config       = $this->app->make(ConfigContract::class);
         $organization = $this->app->make(CurrentOrganization::class);
-        $locale       = $this->app->make(Locale::class);
+        $locale       = $this->app->make(CurrentLocale::class);
         $cache        = new Cache($handler, $config, $service, $organization, $locale, $cacheFactory);
 
         $cache->lock('test', $closure);
@@ -298,7 +298,7 @@ class CacheTest extends TestCase {
         $handler = Mockery::mock(ExceptionHandler::class);
         $config  = $this->app->make(ConfigContract::class);
         $service = $this->app->make(Service::class);
-        $locale  = Mockery::mock(Locale::class);
+        $locale  = Mockery::mock(CurrentLocale::class);
         $org     = Mockery::mock(CurrentOrganization::class);
 
         $store = Mockery::mock(CacheContract::class);
@@ -340,7 +340,7 @@ class CacheTest extends TestCase {
         $cacheKey = (string) new CacheKey([
             'app',
             Service::getServiceName($cache),
-            $this->app->make(Locale::class),
+            $this->app->make(CurrentLocale::class),
             $this->app->make(CurrentOrganization::class),
             $key,
         ]);

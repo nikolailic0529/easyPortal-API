@@ -1,0 +1,12 @@
+extend type Mutation {
+    locale(
+        name: String! @rules(apply: ["App\\Rules\\Locale"])
+    ): LocaleMutation
+    @authOrgRoot
+    @authRoot
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
+}
+
+type LocaleMutation

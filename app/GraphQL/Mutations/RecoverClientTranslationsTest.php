@@ -14,6 +14,8 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 /**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Reset}
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RecoverClientTranslations
  */

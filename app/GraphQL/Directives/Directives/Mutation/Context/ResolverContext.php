@@ -2,10 +2,8 @@
 
 namespace App\GraphQL\Directives\Directives\Mutation\Context;
 
-use Illuminate\Database\Eloquent\Model;
-
 class ResolverContext extends Context {
-    public function __construct(?Context $parent, ?Model $root) {
+    public function __construct(?Context $parent, ?object $root) {
         parent::__construct($parent, $root);
     }
 }

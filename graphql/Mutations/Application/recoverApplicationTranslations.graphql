@@ -6,6 +6,7 @@ extend type Mutation {
     recoverApplicationTranslations(
         input: RecoverApplicationTranslationsInput!
     ): RecoverApplicationTranslationsPayload
+    @deprecated(reason: "Please use `mutation { locale { reset } }.")
     @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationTranslations")

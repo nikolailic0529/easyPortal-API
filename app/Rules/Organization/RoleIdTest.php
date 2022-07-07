@@ -42,8 +42,8 @@ class RoleIdTest extends TestCase {
      *
      * @dataProvider dataProviderPasses
      *
-     * @param Closure(static): Context                    $contextFactory
-     * @param Closure(static, Organization|null): ?string $valueFactory
+     * @param Closure(static): Context              $contextFactory
+     * @param Closure(static, object|null): ?string $valueFactory
      */
     public function testPasses(bool $expected, Closure $contextFactory, Closure $valueFactory): void {
         $context = $contextFactory($this);

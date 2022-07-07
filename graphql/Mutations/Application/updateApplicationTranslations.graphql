@@ -2,6 +2,7 @@ extend type Mutation {
     updateApplicationTranslations(
         input: UpdateApplicationTranslationsInput!
     ): UpdateApplicationTranslationsPayload
+    @deprecated(reason: "Please use `mutation { locale { update } }.")
     @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations")

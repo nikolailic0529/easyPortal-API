@@ -386,11 +386,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/GuestTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getGateArguments\\(\\) should return array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/Me.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getPermissions\\(\\) should return array\\<string\\>\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/Me.php
@@ -417,11 +412,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\MeTest\\:\\:testResolveFieldPermissions\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
-
-		-
-			message: "#^Return type \\(array\\) of method class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:182\\:\\:getGateArguments\\(\\) should be covariant with return type \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getGateArguments\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
@@ -466,21 +456,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:__construct\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
-
-		-
-			message: "#^Property App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\InvalidContext\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/InvalidContext.php
@@ -497,11 +472,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\|Laravel\\\\Scout\\\\Builder\\:\\:limit\\(\\)\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
-
-		-
-			message: "#^Cannot call method getContext\\(\\) on App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\Context\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Mutation.php
 
@@ -1066,7 +1036,7 @@ parameters:
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
 
 		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\Locale\\:\\:set\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:set\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
 
@@ -4134,11 +4104,6 @@ parameters:
 			message: "#^Method class@anonymous/app/GraphQL/Queries/Client/SettingsTest\\.php\\:47\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/SettingsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Queries\\\\Client\\\\Translations\\:\\:getStorage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Client/Translations.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Client\\\\TranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
@@ -8566,11 +8531,6 @@ parameters:
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$ of closure expects App\\\\Models\\\\Organization\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null given\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleIdTest.php
-
-		-
 			message: "#^Using nullsafe method call on non\\-nullable type App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\Context\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleIdTest.php
@@ -12046,6 +12006,16 @@ parameters:
 			path: app/Services/Filesystem/JsonStorageTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:get\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: app/Services/I18n/CurrentLocale.php
+
+		-
+			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentTimezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Services/I18n/CurrentTimezone.php
+
+		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatePropertiesTest__Model\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: app/Services/I18n/Eloquent/TranslatePropertiesTest.php
@@ -12079,16 +12049,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$translations of class App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString constructor expects array\\<string, string\\>, mixed given\\.$#"
 			count: 1
 			path: app/Services/I18n/Eloquent/TranslatedString.php
-
-		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\Locale\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/I18n/Locale.php
-
-		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\Timezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Services/I18n/Timezone.php
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Translation\\\\TranslationDefaults\\:\\:getModels\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
@@ -15822,6 +15782,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
+			count: 1
+			path: tests/TestCase.php
+
+		-
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int\\<0, max\\>\\|string, SplFileInfo\\> given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

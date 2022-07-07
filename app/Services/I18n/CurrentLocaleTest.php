@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Locale
+ * @coversDefaultClass \App\Services\I18n\CurrentLocale
  */
-class LocaleTest extends TestCase {
+class CurrentLocaleTest extends TestCase {
     /**
      * @covers ::set
      */
@@ -22,7 +22,7 @@ class LocaleTest extends TestCase {
         $translator->addLines(['test.welcome' => 'Welcome to our application!'], 'en');
         $translator->addLines(['test.welcome' => 'Bienvenue sur notre application!'], 'fr');
 
-        $locale = $this->app->make(Locale::class);
+        $locale = $this->app->make(CurrentLocale::class);
 
         $locale->set('en');
         self::assertEquals(
@@ -73,7 +73,7 @@ class LocaleTest extends TestCase {
         $this->app->setLocale('en_BB');
 
         // Check
-        self::assertEquals($expected, $this->app->make(Locale::class)->get());
+        self::assertEquals($expected, $this->app->make(CurrentLocale::class)->get());
     }
     // </editor-fold>
 

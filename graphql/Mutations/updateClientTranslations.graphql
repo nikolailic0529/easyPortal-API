@@ -2,6 +2,7 @@ extend type Mutation {
     updateClientTranslations(
         input: UpdateClientTranslationsInput!
     ): UpdateClientTranslationsPayload
+    @deprecated(reason: "Please use `mutation { locale { update } }.")
     @authOrgRoot
     @authRoot
 }

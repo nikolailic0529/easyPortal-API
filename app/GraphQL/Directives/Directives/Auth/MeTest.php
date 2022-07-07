@@ -186,7 +186,7 @@ class MeTest extends TestCase {
             }
 
             /**
-             * @return array<mixed>
+             * @inheritDoc
              */
             public function getGateArguments(mixed $root): array {
                 return parent::getGateArguments($root);

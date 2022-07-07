@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class BuilderContext extends Context {
+    /**
+     * @param EloquentBuilder<Model> $builder
+     */
     public function __construct(
         ?Context $parent,
         ?Model $root,
@@ -14,6 +17,9 @@ class BuilderContext extends Context {
         parent::__construct($parent, $root, $this->builder->getModel()->getMorphClass());
     }
 
+    /**
+     * @return EloquentBuilder<Model>
+     */
     public function getBuilder(): EloquentBuilder {
         return $this->builder;
     }

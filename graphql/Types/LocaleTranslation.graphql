@@ -1,0 +1,5 @@
+type LocaleTranslation {
+    key: String!
+    value: String!
+    default: String
+}

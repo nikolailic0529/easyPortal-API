@@ -9,6 +9,9 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 use function ksort;
 
+/**
+ * @deprecated Please use {@see \App\Services\I18n\I18n}
+ */
 class Translations {
     public function __construct(
         protected Dispatcher $dispatcher,

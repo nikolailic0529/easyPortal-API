@@ -8,7 +8,7 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 
-class Timezone {
+class CurrentTimezone {
     public function __construct(
         protected Repository $config,
         protected Session $session,

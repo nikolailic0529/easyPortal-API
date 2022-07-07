@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Disks\ClientDisk;
-use App\Services\I18n\Storages\ClientTranslations;
+use App\Services\I18n\I18n;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -36,13 +36,11 @@ class TranslationsTest extends TestCase {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($translations) {
-            $disk    = $this->app()->make(ClientDisk::class);
-            $storage = new ClientTranslations($disk, 'en');
-
-            $storage->save($translations);
-
-            $this->app->bind(ClientDisk::class, static function () use ($disk): ClientDisk {
-                return $disk;
+            $this->override(I18n::class, static function (MockInterface $mock) use ($translations): void {
+                $mock
+                    ->shouldReceive('getClientTranslations')
+                    ->with('en')
+                    ->andReturn($translations);
             });
         }
 
@@ -67,20 +65,21 @@ class TranslationsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $input = [
-            ['key' => 'ValueA', 'value' => '123'],
-            ['key' => 'ValueB', 'value' => 'asd'],
-        ];
-
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider(),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('client', Translations::class, [
-                        'translations' => $input,
+                        'translations' => [
+                            ['key' => 'ValueA', 'value' => '123'],
+                            ['key' => 'ValueB', 'value' => 'asd'],
+                        ],
                     ]),
-                    $input,
+                    [
+                        'ValueA' => '123',
+                        'ValueB' => 'asd',
+                    ],
                 ],
             ]),
         ))->getData();

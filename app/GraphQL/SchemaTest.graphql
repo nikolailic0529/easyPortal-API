@@ -130,6 +130,33 @@ input ImportOemsInput {
     )
 }
 
+input LocaleImportInput {
+    """
+    XLSX file with translation strings. The first row can contains headers
+    and will be ignored. The first column is the key, the second - value.
+    """
+    translations: Upload!
+    @isRequired
+    @isSpreadsheet
+}
+
+input LocaleUpdateInput {
+    translations: [LocaleUpdateTranslationInput!]
+}
+
+input LocaleUpdateTranslationInput {
+    """
+    Client translations must use `client.` prefix.
+    """
+    key: String!
+    @isRequired
+
+    """
+    If `null` the key will be reset to default value.
+    """
+    value: String
+}
+
 input MeUpdateInput {
     academic_title: String
     @isNullable
@@ -5360,6 +5387,9 @@ type Application {
             apply: ["App\\Rules\\Locale"]
         )
     ): [ApplicationTranslation!]!
+    @deprecated(
+        reason: "Please use `query { locale }` instead."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -6933,6 +6963,87 @@ type Language {
     @translate
 }
 
+type Locale {
+    name: String!
+
+    translations: [LocaleTranslation!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale@translations"
+    )
+}
+
+type LocaleImportPayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
+type LocaleMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    import(
+        input: LocaleImportInput!
+    ): LocaleImportPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Import"
+    )
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    reset: LocaleResetPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Reset"
+    )
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    update(
+        input: LocaleUpdateInput!
+    ): LocaleUpdatePayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Update"
+    )
+}
+
+type LocaleResetPayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
+type LocaleTranslation {
+    default: String
+    key: String!
+    value: String!
+}
+
+type LocaleUpdatePayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
 type Location {
     city: City!
     @relation
@@ -7235,6 +7346,9 @@ type Mutation {
     deleteApplicationTranslations(
         input: DeleteApplicationTranslationsInput!
     ): DeleteApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7262,6 +7376,9 @@ type Mutation {
     deleteClientTranslations(
         input: DeleteClientTranslationsInput!
     ): DeleteClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
 
@@ -7330,6 +7447,24 @@ type Mutation {
     ): ImportOemsPayload
     @authOrgRoot
     @authRoot
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    locale(
+        name: String!
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
+    ): LocaleMutation
+    @authOrgRoot
+    @authRoot
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -7444,6 +7579,9 @@ type Mutation {
     recoverApplicationTranslations(
         input: RecoverApplicationTranslationsInput!
     ): RecoverApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { reset } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7474,6 +7612,9 @@ type Mutation {
     recoverClientTranslations(
         input: RecoverClientTranslationsInput!
     ): RecoverClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { reset } }."
+    )
     @authOrgRoot
     @authRoot
 
@@ -7676,6 +7817,9 @@ type Mutation {
     updateApplicationTranslations(
         input: UpdateApplicationTranslationsInput!
     ): UpdateApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7703,6 +7847,9 @@ type Mutation {
     updateClientTranslations(
         input: UpdateClientTranslationsInput!
     ): UpdateClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
 
@@ -9469,6 +9616,24 @@ type Query {
     @authMe
     @all
     @cached
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    locale(
+        name: String!
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
+    ): Locale!
+    @authOrgRoot
+    @authRoot
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
 
     """
     List of all possible location types.
@@ -11242,6 +11407,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isServiceLevelId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isSpreadsheet
 on
     | INPUT_FIELD_DEFINITION
 

@@ -31,6 +31,7 @@ type Application {
     translations (
         locale: String! @rules(apply: ["App\\Rules\\Locale"])
     ): [ApplicationTranslation!]!
+    @deprecated(reason: "Please use `query { locale }` instead.")
     @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")

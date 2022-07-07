@@ -47,4 +47,13 @@ extend type Query {
     @authMe(permissions: ["administer"])
     @builder(method: "App\\GraphQL\\Queries\\Administration\\Roles")
     @all
+
+    locale(
+        name: String! @rules(apply: ["App\\Rules\\Locale"])
+    ): Locale!
+    @authOrgRoot
+    @authRoot
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
 }

@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-class Locale {
+class CurrentLocale {
     public function __construct(
         protected Auth $auth,
         protected Session $session,

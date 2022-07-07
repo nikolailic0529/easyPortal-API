@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\CurrentLocale;
 
 class SetApplicationLocale {
     public function __construct(
-        protected Locale $locale,
+        protected CurrentLocale $locale,
     ) {
         // empty
     }

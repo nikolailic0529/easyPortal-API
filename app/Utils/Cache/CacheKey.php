@@ -2,7 +2,7 @@
 
 namespace App\Utils\Cache;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\CurrentLocale;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
 use Illuminate\Console\Command;
@@ -123,7 +123,7 @@ class CacheKey implements Stringable {
                         : $value->getKey(),
                 ]);
             }
-        } elseif ($value instanceof Locale) {
+        } elseif ($value instanceof CurrentLocale) {
             $normalized = $value->get();
         } elseif ($value instanceof BaseDirective) {
             $normalized = "@{$value->name()}";

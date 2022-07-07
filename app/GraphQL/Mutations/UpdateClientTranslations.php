@@ -8,6 +8,9 @@ use Illuminate\Support\Collection;
 
 use function array_values;
 
+/**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
+ */
 class UpdateClientTranslations {
     public function __construct(
         protected ClientDisk $disk,
