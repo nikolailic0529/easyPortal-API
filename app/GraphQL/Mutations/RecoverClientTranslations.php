@@ -5,6 +5,9 @@ namespace App\GraphQL\Mutations;
 use App\Services\Filesystem\Disks\ClientDisk;
 use App\Services\I18n\Storages\ClientTranslations;
 
+/**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Reset}
+ */
 class RecoverClientTranslations {
     public function __construct(
         protected ClientDisk $disk,

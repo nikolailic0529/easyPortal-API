@@ -17,6 +17,8 @@ use Tests\TestCase;
 use function is_array;
 
 /**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\DeleteClientTranslations
  */

@@ -9,6 +9,9 @@ use Illuminate\Support\Collection;
 use function array_fill_keys;
 use function array_intersect_key;
 
+/**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
+ */
 class UpdateApplicationTranslations {
     public function __construct(
         protected Translations $translations,

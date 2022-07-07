@@ -2,6 +2,7 @@ extend type Mutation {
     deleteApplicationTranslations(
         input: DeleteApplicationTranslationsInput!
     ): DeleteApplicationTranslationsPayload
+    @deprecated(reason: "Please use `mutation { locale { update } }.")
     @authOrgRoot
     @authRoot
     @field(resolver: "App\\GraphQL\\Mutations\\Application\\DeleteApplicationTranslations")

@@ -7346,6 +7346,9 @@ type Mutation {
     deleteApplicationTranslations(
         input: DeleteApplicationTranslationsInput!
     ): DeleteApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7373,6 +7376,9 @@ type Mutation {
     deleteClientTranslations(
         input: DeleteClientTranslationsInput!
     ): DeleteClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
 
@@ -7573,6 +7579,9 @@ type Mutation {
     recoverApplicationTranslations(
         input: RecoverApplicationTranslationsInput!
     ): RecoverApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { reset } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7603,6 +7612,9 @@ type Mutation {
     recoverClientTranslations(
         input: RecoverClientTranslationsInput!
     ): RecoverClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { reset } }."
+    )
     @authOrgRoot
     @authRoot
 
@@ -7805,6 +7817,9 @@ type Mutation {
     updateApplicationTranslations(
         input: UpdateApplicationTranslationsInput!
     ): UpdateApplicationTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
     @field(
@@ -7832,6 +7847,9 @@ type Mutation {
     updateClientTranslations(
         input: UpdateClientTranslationsInput!
     ): UpdateClientTranslationsPayload
+    @deprecated(
+        reason: "Please use `mutation { locale { update } }."
+    )
     @authOrgRoot
     @authRoot
 

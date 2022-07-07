@@ -8,6 +8,9 @@ use Illuminate\Support\Collection;
 
 use function array_unique;
 
+/**
+ * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Update}
+ */
 class DeleteClientTranslations {
     public function __construct(
         protected ClientDisk $disk,
