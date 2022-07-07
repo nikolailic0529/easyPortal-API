@@ -10796,12 +10796,12 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Importer/Importers/OemsImporter\\.php\\:93\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/DataLoader/Importer/Importers/OemsImporter\\.php\\:92\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Importer/Importers/OemsImporter\\.php\\:93\\:\\:getTranslatedPropertyKey\\(\\) should return string but returns string\\|false\\.$#"
+			message: "#^Method class@anonymous/app/Services/DataLoader/Importer/Importers/OemsImporter\\.php\\:92\\:\\:getTranslatedPropertyKey\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
 
