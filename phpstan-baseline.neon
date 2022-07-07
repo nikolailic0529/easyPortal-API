@@ -386,11 +386,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/GuestTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getGateArguments\\(\\) should return array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/Me.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getPermissions\\(\\) should return array\\<string\\>\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/Me.php
@@ -417,11 +412,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\MeTest\\:\\:testResolveFieldPermissions\\(\\) has parameter \\$userFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
-
-		-
-			message: "#^Return type \\(array\\) of method class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:182\\:\\:getGateArguments\\(\\) should be covariant with return type \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\Me\\:\\:getGateArguments\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
@@ -464,21 +454,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$content of class Tests\\\\GraphQL\\\\GraphQLSuccess constructor expects array\\|JsonSerializable\\|SplFileInfo\\|stdClass\\|string\\|Tests\\\\GraphQL\\\\JsonFragment\\|null, string\\|false given\\.$#"
 			count: 4
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:__construct\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:getBuilder\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
-
-		-
-			message: "#^Property App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Context\\\\BuilderContext\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Context/BuilderContext.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\InvalidContext\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -4134,11 +4109,6 @@ parameters:
 			message: "#^Method class@anonymous/app/GraphQL/Queries/Client/SettingsTest\\.php\\:47\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/SettingsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Queries\\\\Client\\\\Translations\\:\\:getStorage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Client/Translations.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Client\\\\TranslationsTest\\:\\:testInvoke\\(\\) has parameter \\$organizationFactory with no signature specified for Closure\\.$#"
@@ -8562,11 +8532,6 @@ parameters:
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleIdTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$ of closure expects App\\\\Models\\\\Organization\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null given\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleIdTest.php
 

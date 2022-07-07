@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class Context {
     public function __construct(
         private ?Context $parent,
-        private ?Model $root,
+        private ?object $root,
         private ?string $model = null,
     ) {
         // empty
@@ -17,12 +17,12 @@ abstract class Context {
         return $this->parent;
     }
 
-    public function getRoot(): ?Model {
+    public function getRoot(): ?object {
         return $this->root;
     }
 
     public function getModel(): ?string {
-        return $this->model ?? $this->root?->getMorphClass();
+        return $this->model ?? ($this->root instanceof Model ? $this->root->getMorphClass() : null);
     }
 
     public function getContext(): ?Context {

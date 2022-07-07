@@ -17,6 +17,7 @@ use function array_map;
 use function implode;
 use function is_array;
 use function is_null;
+use function is_object;
 use function json_encode;
 use function sort;
 use function sprintf;
@@ -120,14 +121,14 @@ abstract class Me extends AuthDirective {
     }
 
     /**
-     * @return array<Model|class-string<Model>>
+     * @return array<string|object>
      */
     protected function getGateArguments(mixed $root): array {
         $model = null;
 
         if ($root instanceof Context) {
             $model = $root->getRoot() ?? $root->getModel();
-        } elseif ($root instanceof Model) {
+        } elseif (is_object($root)) {
             $model = $root;
         } else {
             // empty
