@@ -28,6 +28,7 @@ use function array_filter;
 use function assert;
 use function count;
 use function implode;
+use function is_object;
 use function sprintf;
 
 abstract class Mutation extends BaseDirective implements FieldResolver, FieldManipulator {
@@ -175,14 +176,14 @@ abstract class Mutation extends BaseDirective implements FieldResolver, FieldMan
         GraphQLContext $graphQLContext,
         ResolveInfo $resolveInfo,
     ): Context {
-        $root     = $rootContext->getContext()?->getRoot();
+        $root     = $rootContext?->getContext()?->getRoot();
         $context  = null;
         $resolver = $this->getResolver(static::ARGUMENT_RESOLVER);
 
         if ($resolver) {
             $object = $resolver($root, $args, $graphQLContext, $resolveInfo);
 
-            if ($object instanceof Model) {
+            if (is_object($object)) {
                 $context = new ResolverContext($rootContext, $object);
             } elseif ($object === null) {
                 $context = new EmptyContext($rootContext);
