@@ -130,6 +130,23 @@ input ImportOemsInput {
     )
 }
 
+input LocaleUpdateInput {
+    translations: [LocaleUpdateTranslationInput!]
+}
+
+input LocaleUpdateTranslationInput {
+    """
+    Client translations must use `client.` prefix.
+    """
+    key: String!
+    @isRequired
+
+    """
+    If `null` the key will be reset to default value.
+    """
+    value: String
+}
+
 input MeUpdateInput {
     academic_title: String
     @isNullable
@@ -6945,10 +6962,34 @@ type Locale {
     )
 }
 
+type LocaleMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    update(
+        input: LocaleUpdateInput!
+    ): LocaleUpdatePayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Update"
+    )
+}
+
 type LocaleTranslation {
     default: String
     key: String!
     value: String!
+}
+
+type LocaleUpdatePayload
+implements
+    & Payload
+{
+    result: Boolean!
 }
 
 type Location {
@@ -7348,6 +7389,24 @@ type Mutation {
     ): ImportOemsPayload
     @authOrgRoot
     @authRoot
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    locale(
+        name: String!
+        @rules(
+            apply: ["App\\Rules\\Locale"]
+        )
+    ): LocaleMutation
+    @authOrgRoot
+    @authRoot
+    @mutation(
+        resolver: "App\\GraphQL\\Queries\\Administration\\Locale"
+    )
 
     """
     @require <authOrg> Authenticated user must be a member of the current organization.

@@ -1,0 +1,26 @@
+extend type LocaleMutation {
+    update(
+        input: LocaleUpdateInput!
+    ): LocaleUpdatePayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Update"
+    )
+}
+
+input LocaleUpdateInput {
+    translations: [LocaleUpdateTranslationInput!]
+}
+
+input LocaleUpdateTranslationInput {
+    "Client translations must use `client.` prefix."
+    key: String! @isRequired
+
+    "If `null` the key will be reset to default value."
+    value: String
+}
+
+type LocaleUpdatePayload implements Payload {
+    result: Boolean!
+}
