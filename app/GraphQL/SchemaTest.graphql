@@ -130,6 +130,16 @@ input ImportOemsInput {
     )
 }
 
+input LocaleImportInput {
+    """
+    XLSX file with translation strings. The first row can contains headers
+    and will be ignored. The first column is the key, the second - value.
+    """
+    translations: Upload!
+    @isRequired
+    @isSpreadsheet
+}
+
 input LocaleUpdateInput {
     translations: [LocaleUpdateTranslationInput!]
 }
@@ -6962,7 +6972,29 @@ type Locale {
     )
 }
 
+type LocaleImportPayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
 type LocaleMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
+    import(
+        input: LocaleImportInput!
+    ): LocaleImportPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Import"
+    )
+
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.
@@ -11357,6 +11389,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isServiceLevelId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isSpreadsheet
 on
     | INPUT_FIELD_DEFINITION
 

@@ -1,0 +1,24 @@
+extend type LocaleMutation {
+    import(
+        input: LocaleImportInput!
+    ): LocaleImportPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Import"
+    )
+}
+
+input LocaleImportInput {
+    """
+    XLSX file with translation strings. The first row can contains headers
+    and will be ignored. The first column is the key, the second - value.
+    """
+    translations: Upload!
+    @isRequired
+    @isSpreadsheet
+}
+
+type LocaleImportPayload implements Payload {
+    result: Boolean!
+}
