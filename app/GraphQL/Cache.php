@@ -2,7 +2,7 @@
 
 namespace App\GraphQL;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\CurrentLocale;
 use App\Services\Organization\CurrentOrganization;
 use Carbon\CarbonInterval;
 use Closure;
@@ -36,7 +36,7 @@ class Cache {
         protected ConfigContract $config,
         protected Service $service,
         protected CurrentOrganization $organization,
-        protected Locale $locale,
+        protected CurrentLocale $locale,
         CacheFactory $cache,
     ) {
         if ($this->config->get('ep.cache.graphql.enabled') ?? true) {

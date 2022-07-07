@@ -3,7 +3,6 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Rules;
 
 use App\GraphQL\Directives\Directives\Mutation\Context\Context;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin ContextAwareRule

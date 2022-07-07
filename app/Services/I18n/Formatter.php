@@ -14,8 +14,8 @@ class Formatter extends LaraASPFormatter {
         Application $application,
         Repository $config,
         PackageTranslator $translator,
-        protected Locale $locale,
-        protected Timezone $timezone,
+        protected CurrentLocale $locale,
+        protected CurrentTimezone $timezone,
     ) {
         parent::__construct($application, $config, $translator);
     }

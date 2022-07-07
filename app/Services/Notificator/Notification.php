@@ -3,9 +3,9 @@
 namespace App\Services\Notificator;
 
 use App\Models\User;
+use App\Services\I18n\CurrentLocale;
+use App\Services\I18n\CurrentTimezone;
 use App\Services\I18n\Formatter;
-use App\Services\I18n\Locale;
-use App\Services\I18n\Timezone;
 use App\Services\Service;
 use Closure;
 use Illuminate\Container\Container;
@@ -174,13 +174,13 @@ abstract class Notification extends IlluminateNotification {
     protected function getPreferredLocale(User $notifiable): ?string {
         return $this->getLocale()
             ?? $notifiable->preferredLocale()
-            ?? $this->getContainer()->make(Locale::class)->get();
+            ?? $this->getContainer()->make(CurrentLocale::class)->get();
     }
 
     protected function getPreferredTimezone(User $notifiable): ?string {
         return $this->getTimezone()
             ?? $notifiable->preferredTimezone()
-            ?? $this->getContainer()->make(Timezone::class)->get();
+            ?? $this->getContainer()->make(CurrentTimezone::class)->get();
     }
 
     protected function getContainer(): ContainerContract {

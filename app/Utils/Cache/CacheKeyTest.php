@@ -3,7 +3,7 @@
 namespace App\Utils\Cache;
 
 use App\Models\Organization;
-use App\Services\I18n\Locale;
+use App\Services\I18n\CurrentLocale;
 use App\Services\Organization\OrganizationProvider;
 use App\Services\Queue\Contracts\NamedJob;
 use ArrayIterator;
@@ -149,10 +149,10 @@ class CacheKeyTest extends TestCase {
                     new CacheKeyTest_CacheKeyable(),
                 ],
             ],
-            Locale::class                                 => [
+            CurrentLocale::class                          => [
                 'en_GB',
                 [
-                    new CacheKeyTest_Locale('en_GB'),
+                    new CacheKeyTest_CurrentLocale('en_GB'),
                 ],
             ],
             OrganizationProvider::class.' (non root)'     => [
@@ -274,7 +274,7 @@ class CacheKeyTest extends TestCase {
                 ]),
                 [
                     new CacheKeyTest_CacheKeyable(),
-                    new CacheKeyTest_Locale('en_GB'),
+                    new CacheKeyTest_CurrentLocale('en_GB'),
                     new CacheKeyTest_OrganizationProvider('a9206d65-74c7-4367-bf8a-44c99bc7396d', true),
                     ['b' => '123', 'a' => 456],
                 ],
@@ -421,7 +421,7 @@ class CacheKeyTest_OrganizationProvider extends OrganizationProvider {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class CacheKeyTest_Locale extends Locale {
+class CacheKeyTest_CurrentLocale extends CurrentLocale {
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected string $locale,

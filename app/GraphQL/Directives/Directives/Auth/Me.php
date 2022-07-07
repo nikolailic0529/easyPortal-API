@@ -7,7 +7,6 @@ use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 use LengthException;
 

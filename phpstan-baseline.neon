@@ -1041,7 +1041,7 @@ parameters:
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
 
 		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\Locale\\:\\:set\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:set\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/SetApplicationLocale.php
 
@@ -12011,6 +12011,16 @@ parameters:
 			path: app/Services/Filesystem/JsonStorageTest.php
 
 		-
+			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentLocale\\:\\:get\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: app/Services/I18n/CurrentLocale.php
+
+		-
+			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentTimezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Services/I18n/CurrentTimezone.php
+
+		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatePropertiesTest__Model\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: app/Services/I18n/Eloquent/TranslatePropertiesTest.php
@@ -12044,16 +12054,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$translations of class App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString constructor expects array\\<string, string\\>, mixed given\\.$#"
 			count: 1
 			path: app/Services/I18n/Eloquent/TranslatedString.php
-
-		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\Locale\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/I18n/Locale.php
-
-		-
-			message: "#^Method App\\\\Services\\\\I18n\\\\Timezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Services/I18n/Timezone.php
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\Translation\\\\TranslationDefaults\\:\\:getModels\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Services\\\\I18n\\\\Contracts\\\\Translatable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"

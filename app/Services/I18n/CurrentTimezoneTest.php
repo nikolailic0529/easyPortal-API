@@ -10,14 +10,14 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\I18n\Timezone
+ * @coversDefaultClass \App\Services\I18n\CurrentTimezone
  */
-class TimezoneTest extends TestCase {
+class CurrentTimezoneTest extends TestCase {
     /**
      * @covers ::set
      */
     public function testSet(): void {
-        $timezone = $this->app->make(Timezone::class);
+        $timezone = $this->app->make(CurrentTimezone::class);
         $expected = 'Test/A';
         $default  = 'Test/F';
 
@@ -65,7 +65,7 @@ class TimezoneTest extends TestCase {
         ]);
 
         // Check
-        self::assertEquals($expected, $this->app->make(Timezone::class)->get());
+        self::assertEquals($expected, $this->app->make(CurrentTimezone::class)->get());
     }
     // </editor-fold>
 
