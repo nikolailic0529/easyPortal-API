@@ -333,4 +333,48 @@ class I18nTest extends TestCase {
 
         Event::assertDispatched(TranslationsUpdated::class);
     }
+
+    /**
+     * @covers ::resetTranslations
+     */
+    public function testResetTranslations(): void {
+        Event::fake(TranslationsUpdated::class);
+
+        $locale     = $this->faker->locale();
+        $appStorage = Mockery::mock(AppTranslations::class);
+        $appStorage
+            ->shouldReceive('delete')
+            ->with(true)
+            ->once()
+            ->andReturn(true);
+
+        $clientStorage = Mockery::mock(ClientTranslations::class);
+        $clientStorage
+            ->shouldReceive('delete')
+            ->with(true)
+            ->once()
+            ->andReturn(true);
+
+        $i18n = Mockery::mock(I18n::class, [
+            $this->app->make(Dispatcher::class),
+            Mockery::mock(TranslationLoader::class),
+            Mockery::mock(TranslationDefaults::class),
+            Mockery::mock(AppDisk::class),
+            Mockery::mock(ClientDisk::class),
+        ]);
+        $i18n->shouldAllowMockingProtectedMethods();
+        $i18n->makePartial();
+        $i18n
+            ->shouldReceive('getAppStorage')
+            ->once()
+            ->andReturn($appStorage);
+        $i18n
+            ->shouldReceive('getClientStorage')
+            ->once()
+            ->andReturn($clientStorage);
+
+        self::assertTrue($i18n->resetTranslations($locale));
+
+        Event::assertDispatched(TranslationsUpdated::class);
+    }
 }

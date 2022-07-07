@@ -6969,6 +6969,19 @@ type LocaleMutation {
 
     @require <authRoot> Authenticated user must be a root.
     """
+    reset: LocaleResetPayload
+    @authOrgRoot
+    @authRoot
+    @mutationMutate(
+        resolver: "App\\GraphQL\\Mutations\\Locale\\Reset"
+    )
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authRoot> Authenticated user must be a root.
+    """
     update(
         input: LocaleUpdateInput!
     ): LocaleUpdatePayload
@@ -6977,6 +6990,13 @@ type LocaleMutation {
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Locale\\Update"
     )
+}
+
+type LocaleResetPayload
+implements
+    & Payload
+{
+    result: Boolean!
 }
 
 type LocaleTranslation {

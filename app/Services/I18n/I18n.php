@@ -143,6 +143,15 @@ class I18n {
         return $storage->save($translations);
     }
 
+    public function resetTranslations(string $locale): bool {
+        $this->getAppStorage($locale)->delete(true);
+        $this->getClientStorage($locale)->delete(true);
+
+        $this->dispatcher->dispatch(new TranslationsUpdated());
+
+        return true;
+    }
+
     protected function getAppStorage(string $locale): AppTranslations {
         return new AppTranslations($this->appDisk, $locale);
     }
