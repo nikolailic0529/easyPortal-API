@@ -4456,6 +4456,51 @@ input SortByClauseDistributorsSort {
 }
 
 """
+Sort clause for input DocumentEntriesSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentEntriesSort {
+    """
+    Property clause.
+    """
+    discount: SortByDirection
+
+    """
+    Property clause.
+    """
+    end: SortByDirection
+
+    """
+    Property clause.
+    """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
+    product: SortByClauseProductsSort
+
+    """
+    Property clause.
+    """
+    product_id: SortByDirection
+
+    """
+    Property clause.
+    """
+    renewal: SortByDirection
+
+    """
+    Property clause.
+    """
+    serial_number: SortByDirection
+
+    """
+    Property clause.
+    """
+    start: SortByDirection
+}
+
+"""
 Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSearchCustomerSort {
@@ -6691,6 +6736,9 @@ type Document {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        order: [SortByClauseDocumentEntriesSort!]
+        @sortBy
 
         where: SearchByConditionDocumentEntriesQuery
         @searchBy(

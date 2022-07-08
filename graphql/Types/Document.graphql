@@ -31,6 +31,7 @@ type Document {
 
     entries(
         where: DocumentEntriesQuery @searchBy
+        order: DocumentEntriesSort @sortBy
     ): [DocumentEntry!]!
     @relation
     @paginatedRelation
