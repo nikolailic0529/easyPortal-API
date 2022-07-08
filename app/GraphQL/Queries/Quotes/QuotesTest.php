@@ -173,6 +173,9 @@ class QuotesTest extends TestCase {
                             code
                         }
                         entries_count
+                        entriesAggregated {
+                            count
+                        }
                         entries {
                             id
                             document_id
@@ -427,48 +430,48 @@ class QuotesTest extends TestCase {
             ]);
 
             $customer->resellers()->attach($reseller, [
-                'assets_count'    => 0,
+                'assets_count' => 0,
             ]);
         };
         $objects = [
             [
-                'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                'is_contract'    => false,
-                'is_quote'       => true,
-                'number'         => '1323',
-                'price'          => 100,
-                'start'          => '2021-01-01',
-                'end'            => '2024-01-01',
-                'oem'            => [
+                'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                'type_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'reseller_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                'currency_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                'language_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                'distributor_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                'is_contract'       => false,
+                'is_quote'          => true,
+                'number'            => '1323',
+                'price'             => 100,
+                'start'             => '2021-01-01',
+                'end'               => '2024-01-01',
+                'oem'               => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     'key'  => 'key',
                     'name' => 'oem1',
                 ],
-                'oem_said'       => '1234-5678-9012',
-                'oemGroup'       => [
+                'oem_said'          => '1234-5678-9012',
+                'oemGroup'          => [
                     'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
                     'key'  => 'key',
                     'name' => 'name',
                 ],
-                'type'           => [
+                'type'              => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     'name' => 'name aaa',
                 ],
-                'statuses'       => [
+                'statuses'          => [
                     [
                         'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
                         'name' => 'status a',
                     ],
                 ],
-                'statuses_count' => 1,
-                'customer'       => [
+                'statuses_count'    => 1,
+                'customer'          => [
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 0,
@@ -499,7 +502,7 @@ class QuotesTest extends TestCase {
                     'changed_at'      => '2021-10-19T10:15:00+00:00',
                     'synced_at'       => '2021-10-19T10:25:00+00:00',
                 ],
-                'reseller'       => [
+                'reseller'          => [
                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                     'name'            => 'reseller1',
                     'customers_count' => 0,
@@ -521,13 +524,16 @@ class QuotesTest extends TestCase {
                         ],
                     ],
                 ],
-                'currency'       => [
+                'currency'          => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                     'name' => 'Currency1',
                     'code' => 'CUR',
                 ],
-                'entries_count'  => 2,
-                'entries'        => [
+                'entries_count'     => 2,
+                'entriesAggregated' => [
+                    'count' => 1,
+                ],
+                'entries'           => [
                     [
                         'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                         'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
@@ -574,26 +580,26 @@ class QuotesTest extends TestCase {
                         'end'              => '2024-01-01',
                     ],
                 ],
-                'language'       => [
+                'language'          => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                     'name' => 'Lang1',
                     'code' => 'en',
                 ],
-                'contacts_count' => 3,
-                'contacts'       => [
+                'contacts_count'    => 3,
+                'contacts'          => [
                     [
                         'name'        => 'contact2',
                         'email'       => 'contact2@test.com',
                         'phone_valid' => false,
                     ],
                 ],
-                'distributor'    => [
+                'distributor'       => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                     'name' => 'distributor1',
                 ],
-                'assets_count'   => 1,
-                'changed_at'     => '2021-10-19T10:15:00+00:00',
-                'synced_at'      => '2021-10-19T10:25:00+00:00',
+                'assets_count'      => 1,
+                'changed_at'        => '2021-10-19T10:15:00+00:00',
+                'synced_at'         => '2021-10-19T10:25:00+00:00',
             ],
         ];
 
@@ -777,7 +783,7 @@ class QuotesTest extends TestCase {
                                 ->for($type)
                                 ->for($reseller)
                                 ->hasStatuses(1, [
-                                    'id'   => '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
+                                    'id' => '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
                                 ])
                                 ->create([
                                     'price'       => 100,
@@ -813,7 +819,7 @@ class QuotesTest extends TestCase {
                                 ->for($type)
                                 ->for($reseller)
                                 ->hasStatuses(1, [
-                                    'id'   => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                                    'id' => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
                                 ])
                                 ->create([
                                     'customer_id' => null,
@@ -854,7 +860,7 @@ class QuotesTest extends TestCase {
                                 ->for($type)
                                 ->for($reseller)
                                 ->hasStatuses(1, [
-                                    'id'   => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
+                                    'id' => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
                                 ])
                                 ->create([
                                     'customer_id' => null,

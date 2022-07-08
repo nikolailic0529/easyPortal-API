@@ -28,9 +28,13 @@ type Document {
     statuses_count: Int!
     is_contract: Boolean!
     is_quote: Boolean!
+
     entries(
         where: DocumentEntriesQuery @searchBy
-    ): [DocumentEntry!]! @relation
+    ): [DocumentEntry!]!
+    @relation
+    @paginatedRelation
+
     entries_count: Int!
     language_id: ID
     language: Language @relation
