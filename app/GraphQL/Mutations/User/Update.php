@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
-use App\Services\Keycloak\Map;
+use App\Services\Keycloak\Utils\Map;
 use Illuminate\Http\UploadedFile;
 
 class Update {

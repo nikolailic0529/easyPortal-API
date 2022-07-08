@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\User;
-use App\Services\Keycloak\UserProvider;
+use App\Services\Keycloak\Auth\UserProvider;
 use App\Services\Passwords\PasswordBroker;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory;

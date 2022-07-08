@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Keycloak\Exceptions\FailedToImportUserConflictType;
-use App\Services\Keycloak\Map;
+use App\Services\Keycloak\Utils\Map;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Processor\State;
 use Illuminate\Support\Collection;

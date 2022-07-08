@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Keycloak;
+namespace App\Services\Keycloak\Auth;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
@@ -31,7 +31,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Keycloak\UserProvider
+ * @coversDefaultClass \App\Services\Keycloak\Auth\UserProvider
  */
 class UserProviderTest extends TestCase {
     // <editor-fold desc="Tests">

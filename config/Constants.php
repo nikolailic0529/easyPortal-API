@@ -703,6 +703,13 @@ interface Constants {
     // <editor-fold desc="EP_KEYCLOAK">
     // =========================================================================
     /**
+     * Enabled?
+     */
+    #[Setting('ep.keycloak.enabled')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_ENABLED = true;
+
+    /**
      * Server URL.
      */
     #[Setting('ep.keycloak.url')]

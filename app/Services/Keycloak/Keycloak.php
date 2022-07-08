@@ -4,6 +4,7 @@ namespace App\Services\Keycloak;
 
 use App\Models\Organization;
 use App\Services\Auth\Exceptions\AuthException;
+use App\Services\Keycloak\Auth\UserProvider;
 use App\Services\Keycloak\Exceptions\Auth\AuthorizationFailed;
 use App\Services\Keycloak\Exceptions\Auth\InvalidCredentials;
 use App\Services\Keycloak\Exceptions\Auth\InvalidIdentity;

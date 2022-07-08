@@ -475,9 +475,10 @@ class Client {
     }
 
     protected function isEnabled(): bool {
-        return $this->config->get('ep.keycloak.url')
-            && $this->config->get('ep.keycloak.client_id')
-            && $this->config->get('ep.keycloak.client_secret');
+        return $this->config->get('ep.keycloak.enabled')
+           && $this->config->get('ep.keycloak.url')
+           && $this->config->get('ep.keycloak.client_id')
+           && $this->config->get('ep.keycloak.client_secret');
     }
 
     /**

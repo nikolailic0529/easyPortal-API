@@ -8,7 +8,7 @@ use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\TranslationText;
 use App\Services\I18n\Eloquent\TranslatedString;
-use App\Services\Keycloak\Map;
+use App\Services\Keycloak\Utils\Map;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 

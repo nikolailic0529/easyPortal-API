@@ -9,7 +9,7 @@ use App\Services\DataLoader\Schema\InputTranslationText;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\I18n\Eloquent\TranslatedString;
-use App\Services\Keycloak\Map;
+use App\Services\Keycloak\Utils\Map;
 use Illuminate\Http\UploadedFile;
 
 use function array_values;
