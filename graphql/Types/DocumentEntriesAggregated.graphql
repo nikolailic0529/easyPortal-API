@@ -1,0 +1,9 @@
+type DocumentEntriesAggregated {
+    serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups")
+    @cached
+
+    serviceLevels: [DocumentEntriesAggregatedServiceLevel!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceLevels")
+    @cached
+}

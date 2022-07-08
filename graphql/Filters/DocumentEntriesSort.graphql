@@ -1,0 +1,10 @@
+input DocumentEntriesSort {
+    id: ID!
+    discount: Float
+    renewal: Float
+    serial_number: String
+    start: Date
+    end: Date
+    product_id: ID
+    product: ProductsSort
+}

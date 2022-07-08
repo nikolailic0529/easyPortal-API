@@ -4456,6 +4456,51 @@ input SortByClauseDistributorsSort {
 }
 
 """
+Sort clause for input DocumentEntriesSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentEntriesSort {
+    """
+    Property clause.
+    """
+    discount: SortByDirection
+
+    """
+    Property clause.
+    """
+    end: SortByDirection
+
+    """
+    Property clause.
+    """
+    id: SortByDirection
+
+    """
+    Property clause.
+    """
+    product: SortByClauseProductsSort
+
+    """
+    Property clause.
+    """
+    product_id: SortByDirection
+
+    """
+    Property clause.
+    """
+    renewal: SortByDirection
+
+    """
+    Property clause.
+    """
+    serial_number: SortByDirection
+
+    """
+    Property clause.
+    """
+    start: SortByDirection
+}
+
+"""
 Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
 """
 input SortByClauseDocumentsSearchCustomerSort {
@@ -6677,6 +6722,24 @@ type Document {
     end: Date
 
     entries(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDocumentEntriesSort!]
+        @sortBy
+
         where: SearchByConditionDocumentEntriesQuery
         @searchBy(
             operators: [
@@ -6703,6 +6766,37 @@ type Document {
         )
     ): [DocumentEntry!]!
     @relation
+    @paginatedRelation
+
+    entriesAggregated(
+        where: SearchByConditionDocumentEntriesQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+            ]
+        )
+    ): DocumentEntriesAggregated
+    @aggregated(
+        relation: "entries"
+    )
 
     entries_count: Int!
     id: ID!
@@ -6822,6 +6916,41 @@ type Document {
     @relation
 
     type_id: ID
+}
+
+"""
+Aggregated data for type DocumentEntry.
+"""
+type DocumentEntriesAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups"
+    )
+    @cached
+
+    serviceLevels: [DocumentEntriesAggregatedServiceLevel!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceLevels"
+    )
+    @cached
+}
+
+type DocumentEntriesAggregatedServiceGroup {
+    count: Int!
+    serviceGroup: ServiceGroup
+    service_group_id: ID
+}
+
+type DocumentEntriesAggregatedServiceLevel {
+    count: Int!
+    serviceLevel: ServiceLevel
+    service_level_id: ID
 }
 
 type DocumentEntry {
