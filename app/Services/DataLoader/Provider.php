@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Commands\AssetsAnalyze;
-use App\Services\DataLoader\Commands\AssetsCount;
 use App\Services\DataLoader\Commands\AssetsImport;
 use App\Services\DataLoader\Commands\AssetUpdate;
 use App\Services\DataLoader\Commands\CustomersImport;
@@ -46,7 +45,6 @@ class Provider extends ServiceProvider {
             CustomerUpdate::class,
             DocumentUpdate::class,
             AssetUpdate::class,
-            AssetsCount::class,
             AssetsAnalyze::class,
         );
         $this->bootSchedule(
