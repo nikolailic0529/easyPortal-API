@@ -6927,6 +6927,18 @@ type DocumentEntriesAggregated {
     @cached(
         mode: Threshold
     )
+
+    serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups"
+    )
+    @cached
+}
+
+type DocumentEntriesAggregatedServiceGroup {
+    count: Int!
+    serviceGroup: ServiceGroup
+    service_group_id: ID
 }
 
 type DocumentEntry {

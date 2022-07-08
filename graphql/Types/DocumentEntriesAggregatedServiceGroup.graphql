@@ -1,0 +1,5 @@
+type DocumentEntriesAggregatedServiceGroup {
+    count: Int!
+    service_group_id: ID
+    serviceGroup: ServiceGroup
+}
