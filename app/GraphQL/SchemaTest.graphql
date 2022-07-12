@@ -7579,6 +7579,9 @@ type Mutation {
     importOems(
         input: ImportOemsInput!
     ): ImportOemsPayload
+    @deprecated(
+        reason: "Please use `mutation { oem { hpe { import } } }`."
+    )
     @authOrgRoot
     @authRoot
 

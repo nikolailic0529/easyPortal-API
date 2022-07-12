@@ -6,6 +6,9 @@ use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Exceptions\LaravelExcelException;
 
+/**
+ * @deprecated replaced by {@see \App\GraphQL\Mutations\Oem\Hpe\Import}
+ */
 class ImportOems {
     public function __construct(
         protected OemsImporter $importer,

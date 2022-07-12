@@ -7,6 +7,9 @@ use Throwable;
 
 use function __;
 
+/**
+ * @deprecated replaced by {@see \App\GraphQL\Mutations\Oem\Hpe\Import}
+ */
 class ImportOemsImportFailed extends GraphQLException {
     public function __construct(Throwable $previous = null) {
         parent::__construct('Failed to import OEMs.', $previous);
