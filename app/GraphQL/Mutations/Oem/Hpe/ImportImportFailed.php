@@ -1,21 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Oem\Hpe;
 
 use App\GraphQL\GraphQLException;
 use Throwable;
 
 use function __;
 
-/**
- * @deprecated replaced by {@see \App\GraphQL\Mutations\Oem\Hpe\Import}
- */
-class ImportOemsImportFailed extends GraphQLException {
+class ImportImportFailed extends GraphQLException {
     public function __construct(Throwable $previous = null) {
         parent::__construct('Failed to import OEMs.', $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.importOems.import_failed');
+        return __('graphql.mutations.oem.hpe.import.import_failed');
     }
 }

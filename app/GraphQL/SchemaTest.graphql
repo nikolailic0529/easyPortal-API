@@ -250,6 +250,11 @@ input MessageCreateInput {
     @isRequired
 }
 
+input OemHpeImportInput {
+    file: Upload!
+    @isSpreadsheet
+}
+
 input OrgRoleCreateInput {
     name: String!
     @isRequired
@@ -7574,6 +7579,9 @@ type Mutation {
     importOems(
         input: ImportOemsInput!
     ): ImportOemsPayload
+    @deprecated(
+        reason: "Please use `mutation { oem { hpe { import } } }`."
+    )
     @authOrgRoot
     @authRoot
 
@@ -7615,6 +7623,21 @@ type Mutation {
     message: MessageMutations
     @authOrg
     @authMe
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    oem: OemMutation
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
     @mutation(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )
@@ -8096,6 +8119,49 @@ type OemGroup {
     id: ID!
     key: String!
     name: String!
+}
+
+type OemHpeImportPayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
+type OemHpeMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    import(
+        input: OemHpeImportInput!
+    ): OemHpeImportPayload
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Oem\\Hpe\\Import"
+    )
+}
+
+type OemMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    hpe: OemHpeMutation
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
 }
 
 type OrgMutations {

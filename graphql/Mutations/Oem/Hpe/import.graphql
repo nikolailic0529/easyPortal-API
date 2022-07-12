@@ -1,0 +1,19 @@
+extend type OemHpeMutation {
+    import(
+        input: OemHpeImportInput!
+    ): OemHpeImportPayload
+    @authOrgRoot
+    @authMe(permissions: ["administer"])
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Oem\\Hpe\\Import"
+    )
+}
+
+input OemHpeImportInput {
+    file: Upload!
+    @isSpreadsheet
+}
+
+type OemHpeImportPayload implements Payload {
+    result: Boolean!
+}

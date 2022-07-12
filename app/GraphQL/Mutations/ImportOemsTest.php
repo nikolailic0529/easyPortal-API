@@ -18,6 +18,8 @@ use Tests\TestCase;
 use function __;
 
 /**
+ * @deprecated replaced by {@see \App\GraphQL\Mutations\Oem\Hpe\Import}
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\ImportOems
  */

@@ -2091,6 +2091,11 @@ parameters:
 			path: app/GraphQL/Mutations/Message/CreateTest.php
 
 		-
+			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Oem\\\\Hpe\\\\ImportImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Oem/Hpe/ImportImportFailed.php
+
+		-
 			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
