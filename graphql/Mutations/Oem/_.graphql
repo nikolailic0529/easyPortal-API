@@ -1,0 +1,10 @@
+extend type Mutation {
+    oem: OemMutation
+    @authOrgRoot
+    @authMe(permissions: ["administer"])
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
+}
+
+type OemMutation

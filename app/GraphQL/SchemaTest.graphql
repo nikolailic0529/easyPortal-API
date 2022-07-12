@@ -250,6 +250,11 @@ input MessageCreateInput {
     @isRequired
 }
 
+input OemHpeImportInput {
+    file: Upload!
+    @isSpreadsheet
+}
+
 input OrgRoleCreateInput {
     name: String!
     @isRequired
@@ -7620,6 +7625,21 @@ type Mutation {
     )
 
     """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    oem: OemMutation
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
+
+    """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
@@ -8096,6 +8116,49 @@ type OemGroup {
     id: ID!
     key: String!
     name: String!
+}
+
+type OemHpeImportPayload
+implements
+    & Payload
+{
+    result: Boolean!
+}
+
+type OemHpeMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    import(
+        input: OemHpeImportInput!
+    ): OemHpeImportPayload
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Oem\\Hpe\\Import"
+    )
+}
+
+type OemMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    hpe: OemHpeMutation
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutation(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
 }
 
 type OrgMutations {
