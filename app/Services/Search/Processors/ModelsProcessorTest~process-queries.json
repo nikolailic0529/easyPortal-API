@@ -14,9 +14,8 @@
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`id` in (select distinct `customer_location_types`.`customer_location_id` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where `types`.`id` = ? and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null) and `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`id` in (select distinct `customer_location_types`.`customer_location_id` from `types` inner join `customer_location_types` on `types`.`id` = `customer_location_types`.`type_id` where 0 = 1 and `customer_location_types`.`deleted_at` is null and `types`.`deleted_at` is null) and `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "",
             "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
         ]
     },

@@ -41,7 +41,7 @@ trait HasLocations {
 
     #[CascadeDelete(false)]
     public function headquarter(): HasOne {
-        $type = app()->make(Repository::class)->get('ep.headquarter_type');
+        $type = (array) app()->make(Repository::class)->get('ep.headquarter_type');
 
         return $this
             ->hasOne(
@@ -49,7 +49,7 @@ trait HasLocations {
                 $this->getLocationsForeignKey(),
             )
             ->whereHasIn('types', static function ($query) use ($type) {
-                return $query->whereKey($type);
+                return $query->whereIn($query->getModel()->getQualifiedKeyName(), $type);
             });
     }
 

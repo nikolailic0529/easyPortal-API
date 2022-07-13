@@ -2,7 +2,8 @@
 
 namespace App\Services\Settings\Types;
 
-use App\Models\Location;
+use App\Models\CustomerLocation;
+use App\Models\ResellerLocation;
 use App\Models\Type as TypeModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
@@ -10,7 +11,10 @@ use Illuminate\Validation\Rule;
 class LocationType extends Type {
     public function getValues(): Collection|array|null {
         return TypeModel::query()
-            ->where('object_type', '=', (new Location())->getMorphClass())
+            ->whereIn('object_type', [
+                (new ResellerLocation())->getMorphClass(),
+                (new CustomerLocation())->getMorphClass(),
+            ])
             ->orderByKey()
             ->get();
     }

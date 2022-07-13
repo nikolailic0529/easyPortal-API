@@ -343,7 +343,7 @@ interface Constants {
     #[Setting('ep.headquarter_type')]
     #[Group('ep')]
     #[Type(LocationType::class)]
-    public const EP_HEADQUARTER_TYPE = '';
+    public const EP_HEADQUARTER_TYPE = [];
 
     /**
      * Root organization ID.

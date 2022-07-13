@@ -1451,7 +1451,9 @@ class CustomerTest extends TestCase {
                             'synced_at'       => '2021-10-19T10:25:00+00:00',
                         ]),
                         [
-                            'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'ep.headquarter_type' => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
                         ],
                         static function (TestCase $test, Organization $organization): Customer {
                             /** @var Reseller $reseller */
