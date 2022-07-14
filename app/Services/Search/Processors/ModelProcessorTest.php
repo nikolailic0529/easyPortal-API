@@ -477,7 +477,10 @@ class ModelProcessorTest extends TestCase {
              */
             protected $table = 'test_models';
 
-            /** @noinspection PhpMissingParentConstructorInspection */
+            /**
+             * @inheritDoc
+             * @noinspection PhpMissingParentConstructorInspection
+             */
             public function __construct(array $attributes = []) {
                 // empty
             }
@@ -685,8 +688,11 @@ class ModelProcessorTest extends TestCase {
              */
             protected $table = 'test_models';
 
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            /**
+             * @inheritDoc
+             * @noinspection PhpMissingParentConstructorInspection
+             */
+            public function __construct(array $attributes = []) {
                 // empty
             }
 

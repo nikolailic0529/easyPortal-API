@@ -12137,7 +12137,7 @@ parameters:
 
 		-
 			message: "#^Constructor of an anonymous class has an unused parameter \\$attributes\\.$#"
-			count: 1
+			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
@@ -12191,12 +12191,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:676\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:676\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Services/Search/Processors/ModelProcessorTest.php
+
+		-
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -12256,7 +12261,7 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:676\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -12271,7 +12276,7 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:676\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
