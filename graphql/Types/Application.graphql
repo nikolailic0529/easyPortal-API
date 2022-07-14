@@ -28,14 +28,6 @@ type Application {
     @authRoot
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
 
-    translations (
-        locale: String! @rules(apply: ["App\\Rules\\Locale"])
-    ): [ApplicationTranslation!]!
-    @deprecated(reason: "Please use `query { locale }` instead.")
-    @authOrgRoot
-    @authRoot
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
-
     logs(
         where: ApplicationLogsQuery @searchBy
         order: ApplicationLogsSort @sortBy

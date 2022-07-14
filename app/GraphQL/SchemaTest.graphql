@@ -84,26 +84,8 @@ input CreateQuoteNoteInput
     quote_id: String!
 }
 
-input DeleteApplicationTranslationsInput {
-    keys: [String!]!
-
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
-}
-
 input DeleteClientSettingsInput {
     names: [String!]!
-}
-
-input DeleteClientTranslationsInput {
-    keys: [String!]!
-
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
 }
 
 input DeleteContractNoteInput {
@@ -601,20 +583,6 @@ input QuoteRequestCreateInput {
     )
     @isNullable
     @isQuoteTypeId
-}
-
-input RecoverApplicationTranslationsInput {
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
-}
-
-input RecoverClientTranslationsInput {
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
 }
 
 input RequestAssetChangeInput {
@@ -5014,11 +4982,6 @@ input TranslatedStringInput {
     text: String!
 }
 
-input TranslationInput {
-    key: String!
-    value: String!
-}
-
 input UpdateApplicationSettingsInput
 @validator(
     class: "App\\GraphQL\\Validators\\UpdateApplicationSettingsInputValidator"
@@ -5028,27 +4991,9 @@ input UpdateApplicationSettingsInput
     value: String!
 }
 
-input UpdateApplicationTranslationsInput {
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
-
-    translations: [TranslationInput!]!
-}
-
 input UpdateClientSettingsInput {
     name: String!
     value: String!
-}
-
-input UpdateClientTranslationsInput {
-    locale: String!
-    @rules(
-        apply: ["App\\Rules\\Locale"]
-    )
-
-    translations: [TranslationInput!]!
 }
 
 input UpdateContractNoteFile {
@@ -5437,27 +5382,6 @@ type Application {
         resolver: "App\\GraphQL\\Queries\\Application\\Settings"
     )
 
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    translations(
-        locale: String!
-        @rules(
-            apply: ["App\\Rules\\Locale"]
-        )
-    ): [ApplicationTranslation!]!
-    @deprecated(
-        reason: "Please use `query { locale }` instead."
-    )
-    @authOrgRoot
-    @authRoot
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Application\\Translations"
-    )
-
     version: String!
 }
 
@@ -5695,12 +5619,6 @@ type ApplicationSettingGroup {
     Settings related to this group.
     """
     settings: [String!]!
-}
-
-type ApplicationTranslation {
-    default: String
-    key: String!
-    value: String!
 }
 
 type Asset {
@@ -6683,15 +6601,7 @@ type CustomersAggregated {
     )
 }
 
-type DeleteApplicationTranslationsPayload {
-    deleted: [String!]!
-}
-
 type DeleteClientSettingsPayload {
-    deleted: [String!]!
-}
-
-type DeleteClientTranslationsPayload {
     deleted: [String!]!
 }
 
@@ -7529,42 +7439,9 @@ type Mutation {
 
     @require <authRoot> Authenticated user must be a root.
     """
-    deleteApplicationTranslations(
-        input: DeleteApplicationTranslationsInput!
-    ): DeleteApplicationTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { update } }."
-    )
-    @authOrgRoot
-    @authRoot
-    @field(
-        resolver: "App\\GraphQL\\Mutations\\Application\\DeleteApplicationTranslations"
-    )
-
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
     deleteClientSettings(
         input: DeleteClientSettingsInput!
     ): DeleteClientSettingsPayload
-    @authOrgRoot
-    @authRoot
-
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    deleteClientTranslations(
-        input: DeleteClientTranslationsInput!
-    ): DeleteClientTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { update } }."
-    )
     @authOrgRoot
     @authRoot
 
@@ -7770,27 +7647,6 @@ type Mutation {
     )
 
     """
-    Force delete all translations for a given locale, may be useful to restore the
-    corrupted file.
-
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    recoverApplicationTranslations(
-        input: RecoverApplicationTranslationsInput!
-    ): RecoverApplicationTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { reset } }."
-    )
-    @authOrgRoot
-    @authRoot
-    @field(
-        resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationTranslations"
-    )
-
-    """
     Force delete all custom settings, may be useful to restore the corrupted file.
 
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
@@ -7799,24 +7655,6 @@ type Mutation {
     @require <authRoot> Authenticated user must be a root.
     """
     recoverClientSettings: RecoverClientSettingsPayload
-    @authOrgRoot
-    @authRoot
-
-    """
-    Force delete all client translations for a given locale, may be useful to
-    restore the corrupted file.
-
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    recoverClientTranslations(
-        input: RecoverClientTranslationsInput!
-    ): RecoverClientTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { reset } }."
-    )
     @authOrgRoot
     @authRoot
 
@@ -8019,42 +7857,9 @@ type Mutation {
 
     @require <authRoot> Authenticated user must be a root.
     """
-    updateApplicationTranslations(
-        input: UpdateApplicationTranslationsInput!
-    ): UpdateApplicationTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { update } }."
-    )
-    @authOrgRoot
-    @authRoot
-    @field(
-        resolver: "App\\GraphQL\\Mutations\\Application\\UpdateApplicationTranslations"
-    )
-
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
     updateClientSettings(
         input: [UpdateClientSettingsInput!]!
     ): UpdateClientSettingsPayload
-    @authOrgRoot
-    @authRoot
-
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    updateClientTranslations(
-        input: UpdateClientTranslationsInput!
-    ): UpdateClientTranslationsPayload
-    @deprecated(
-        reason: "Please use `mutation { locale { update } }."
-    )
     @authOrgRoot
     @authRoot
 
@@ -10953,15 +10758,7 @@ type QuoteSyncPayload {
     result: Boolean!
 }
 
-type RecoverApplicationTranslationsPayload {
-    result: Boolean!
-}
-
 type RecoverClientSettingsPayload {
-    result: Boolean!
-}
-
-type RecoverClientTranslationsPayload {
     result: Boolean!
 }
 
@@ -11154,16 +10951,8 @@ type UpdateApplicationSettingsPayload {
     updated: [ApplicationSetting!]!
 }
 
-type UpdateApplicationTranslationsPayload {
-    updated: [ApplicationTranslation!]!
-}
-
 type UpdateClientSettingsPayload {
     updated: [ClientSetting!]!
-}
-
-type UpdateClientTranslationsPayload {
-    updated: [ClientTranslation!]!
 }
 
 type UpdateContractNotePayload {

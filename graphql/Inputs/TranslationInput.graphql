@@ -1,4 +1,0 @@
-input TranslationInput {
-    key: String!
-    value: String!
-}

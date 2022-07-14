@@ -801,36 +801,6 @@ parameters:
 			path: app/GraphQL/Listeners/CacheExpiredListenerTest.php
 
 		-
-			message: "#^Cannot access offset 'keys' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslations.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\Translation\\\\Translations\\:\\:delete\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#2 \\$keys of method App\\\\Services\\\\I18n\\\\Translation\\\\Translations\\:\\:delete\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslations.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response will always evaluate to true\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslationsTest.php
-
-		-
-			message: "#^Cannot call method load\\(\\) on App\\\\Services\\\\I18n\\\\Storages\\\\AppTranslations\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/DeleteApplicationTranslationsTest.php
-
-		-
 			message: "#^Cannot access offset 'immediately' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
@@ -849,16 +819,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\Queue\\\\ServiceResolver\\:\\:get\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/DispatchApplicationService.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/RecoverApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\Translation\\\\Translations\\:\\:reset\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/RecoverApplicationTranslations.php
 
 		-
 			message: "#^Cannot access offset 'name' on mixed\\.$#"
@@ -934,46 +894,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Application\\\\UpdateApplicationSettingsTest\\:\\:testInvoke\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Application/UpdateApplicationSettingsTest.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Cannot access offset 'key' on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Cannot access offset 'translations' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Cannot access offset 'value' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Queries\\\\Application\\\\Translations\\:\\:getTranslations\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\Services\\\\I18n\\\\Translation\\\\Translations\\:\\:update\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
-
-		-
-			message: "#^Parameter \\#2 \\$strings of method App\\\\Services\\\\I18n\\\\Translation\\\\Translations\\:\\:update\\(\\) expects array\\<string, string\\>, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Application/UpdateApplicationTranslations.php
 
 		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
@@ -1389,41 +1309,6 @@ parameters:
 			message: "#^Cannot call method load\\(\\) on App\\\\Services\\\\Settings\\\\Storages\\\\ClientSettings\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/DeleteClientSettingsTest.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslations.php
-
-		-
-			message: "#^Cannot access offset 'keys' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslations.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(array\\)\\: string given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Mutations\\\\DeleteClientTranslations\\:\\:getStorage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslations.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response will always evaluate to true\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslationsTest.php
-
-		-
-			message: "#^Cannot call method load\\(\\) on App\\\\Services\\\\I18n\\\\Storages\\\\ClientTranslations\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/DeleteClientTranslationsTest.php
 
 		-
 			message: "#^Cannot access offset 'id' on mixed\\.$#"
@@ -2066,16 +1951,6 @@ parameters:
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RecoverClientTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Mutations\\\\RecoverClientTranslations\\:\\:getStorage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RecoverClientTranslations.php
-
-		-
 			message: "#^Cannot access offset 'asset_id' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestAssetChange.php
@@ -2484,41 +2359,6 @@ parameters:
 			message: "#^Cannot call method load\\(\\) on App\\\\Services\\\\Settings\\\\Storages\\\\ClientSettings\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateClientSettingsTest.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Cannot access offset 'key' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Cannot access offset 'locale' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Cannot access offset 'translations' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:put\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
-
-		-
-			message: "#^Parameter \\#1 \\$locale of method App\\\\GraphQL\\\\Mutations\\\\UpdateClientTranslations\\:\\:getStorage\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateClientTranslations.php
 
 		-
 			message: "#^Cannot access offset 'files' on mixed\\.$#"
