@@ -15,15 +15,22 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Org
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrgTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -33,30 +40,32 @@ class OrgTest extends TestCase {
      * @covers       \App\GraphQL\Queries\Organization::root
      * @covers       \App\GraphQL\Queries\Organization::branding
      *
-     * @param array<mixed> $settings
-     *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         bool $isRootOrganization = false,
         Closure $organizationCallback = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $org = $this->setOrganization($orgFactory);
 
         if ($isRootOrganization) {
-            $this->setRootOrganization($organization);
+            $this->setRootOrganization($org);
         }
 
-        $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $this->setUser($userFactory, $org);
+        $this->setSettings($settingsFactory);
 
-        if ($organization && $organizationCallback) {
-            $organizationCallback($this, $organization);
+        if ($org && $organizationCallback) {
+            $organizationCallback($this, $org);
         }
 
         // Test
@@ -182,11 +191,11 @@ class OrgTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'any'        => new CompositeDataProvider(
-                new AnyOrganizationDataProvider(),
-                new AnyUserDataProvider(),
+                new UnknownOrgDataProvider(),
+                new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('org', null),
+                        new GraphQLSuccess('org'),
                     ],
                 ]),
             ),
@@ -234,10 +243,10 @@ class OrgTest extends TestCase {
                         },
                     ],
                 ]),
-                new AnyUserDataProvider(),
+                new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'ok'   => [
-                        new GraphQLSuccess('org', Org::class, [
+                        new GraphQLSuccess('org', [
                             'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name'            => 'org1',
                             'root'            => false,
@@ -434,7 +443,7 @@ class OrgTest extends TestCase {
                         },
                     ],
                     'root' => [
-                        new GraphQLSuccess('org', Org::class, new JsonFragment('root', true)),
+                        new GraphQLSuccess('org', new JsonFragment('root', true)),
                         [],
                         true,
                     ],

@@ -3,34 +3,40 @@
 namespace App\GraphQL\Queries\Application;
 
 use App\Services\Maintenance\Storage;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Maintenance
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class MaintenanceTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $data
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param array<mixed>        $data
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $data = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($data) {
             $this->app->make(Storage::class)->save($data);
@@ -61,11 +67,11 @@ class MaintenanceTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new AnyUserDataProvider(),
+            new UnknownOrgDataProvider(),
+            new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'maintenance' => [
                             'enabled' => true,
                             'message' => 'abc',

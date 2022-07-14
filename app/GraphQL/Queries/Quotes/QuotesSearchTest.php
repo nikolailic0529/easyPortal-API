@@ -27,14 +27,17 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithSearch;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function count;
 use function json_encode;
@@ -42,6 +45,10 @@ use function json_encode;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuotesSearch
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class QuotesSearchTest extends TestCase {
     use WithSearch;
@@ -53,25 +60,27 @@ class QuotesSearchTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $quotesFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($settings) {
-            $this->setSettings($settings);
+        if ($settingsFactory) {
+            $this->setSettings($settingsFactory);
         }
 
         if ($quotesFactory) {
-            $this->makeSearchable($quotesFactory($this, $organization, $user));
+            $this->makeSearchable($quotesFactory($this, $org, $user));
         }
 
         // Not empty?
@@ -600,14 +609,14 @@ class QuotesSearchTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('quotesSearch'),
-                new OrganizationUserDataProvider('quotesSearch', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('quotesSearch'),
+                new OrgUserDataProvider('quotesSearch', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('quotesSearch', null),
+                        new GraphQLPaginated('quotesSearch'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => [
@@ -627,50 +636,14 @@ class QuotesSearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('quotesSearch'),
-                new OrganizationUserDataProvider('quotesSearch', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('quotesSearch', null),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('quotesSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('quotesSearch', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quotesSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('quotesSearch', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [
-                        new GraphQLPaginated('quotesSearch', self::class, $objects, [
+                        new GraphQLPaginated('quotesSearch', $objects, [
                             'count' => count($objects),
                         ]),
                         [
@@ -684,7 +657,7 @@ class QuotesSearchTest extends TestCase {
                         $factory,
                     ],
                     'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotesSearch', self::class, $objects, [
+                        new GraphQLPaginated('quotesSearch', $objects, [
                             'count' => count($objects),
                         ]),
                         [
@@ -700,7 +673,6 @@ class QuotesSearchTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
                             [
                                 'count' => 1,
@@ -728,7 +700,7 @@ class QuotesSearchTest extends TestCase {
                         },
                     ],
                     'quote_types not match'                     => [
-                        new GraphQLPaginated('quotesSearch', self::class, [], [
+                        new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
@@ -746,7 +718,7 @@ class QuotesSearchTest extends TestCase {
                         },
                     ],
                     'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotesSearch', self::class, [], [
+                        new GraphQLPaginated('quotesSearch', [], [
                             'count' => 0,
                         ]),
                         [
@@ -765,7 +737,6 @@ class QuotesSearchTest extends TestCase {
                     'hiding price'                              => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -805,7 +776,6 @@ class QuotesSearchTest extends TestCase {
                     'entries: hiding list_price'                => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -850,7 +820,6 @@ class QuotesSearchTest extends TestCase {
                     'entries: hiding net_price'                 => [
                         new GraphQLPaginated(
                             'quotesSearch',
-                            self::class,
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
                                 'count' => 1,

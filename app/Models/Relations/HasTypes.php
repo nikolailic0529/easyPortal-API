@@ -16,6 +16,9 @@ use Illuminate\Support\Collection;
 trait HasTypes {
     use SyncBelongsToMany;
 
+    /**
+     * @return BelongsToMany<Type>
+     */
     #[CascadeDelete(true)]
     public function types(): BelongsToMany {
         $pivot = $this->getTypesPivot();

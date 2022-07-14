@@ -12,17 +12,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeEmail
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateMeEmailTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,21 +35,24 @@ class UpdateMeEmailTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
         string $email = '',
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         }
 
         if ($clientFactory) {
@@ -91,11 +99,11 @@ class UpdateMeEmailTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateMeEmail'),
-            new UserDataProvider('updateMeEmail'),
+            new AuthOrgDataProvider('updateMeEmail'),
+            new AuthMeDataProvider('updateMeEmail'),
             new ArrayDataProvider([
                 'keycloak'             => [
-                    new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
+                    new GraphQLSuccess('updateMeEmail', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
@@ -112,7 +120,7 @@ class UpdateMeEmailTest extends TestCase {
                     },
                 ],
                 'local'                => [
-                    new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
+                    new GraphQLSuccess('updateMeEmail', [
                         'result' => true,
                     ]),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {

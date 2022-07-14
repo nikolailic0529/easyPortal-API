@@ -17,10 +17,13 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Date;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithSettings;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Cache
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CacheTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -112,12 +115,12 @@ class CacheTest extends TestCase {
      *
      * @dataProvider dataProviderIsCacheExpired
      *
-     * @param array<string,mixed> $settings
+     * @param SettingsFactory $settingsFactory
      */
     public function testIsExpired(
         bool $expected,
         string $now,
-        array $settings,
+        mixed $settingsFactory,
         float $random,
         string $created,
         string $expired,
@@ -127,7 +130,7 @@ class CacheTest extends TestCase {
         $expired = Date::make($expired);
         $marker  = Date::make($marker);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         Date::setTestNow($now);
 

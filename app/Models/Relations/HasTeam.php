@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasTeam {
+    /**
+     * @return BelongsTo<Team, self>
+     */
     #[CascadeDelete(false)]
     public function team(): BelongsTo {
         return $this->belongsTo(Team::class);

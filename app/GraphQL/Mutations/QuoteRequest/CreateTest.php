@@ -20,17 +20,23 @@ use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\QuoteRequest\Create
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -39,15 +45,16 @@ class CreateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $input
-     *
-     * @param array<string,mixed> $settings
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $orgFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
@@ -55,7 +62,7 @@ class CreateTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         Mail::fake();
 
@@ -272,15 +279,14 @@ class CreateTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('quoteRequest'),
-            new OrganizationUserDataProvider('quoteRequest', [
+            new AuthOrgDataProvider('quoteRequest'),
+            new OrgUserDataProvider('quoteRequest', [
                 'requests-quote-add',
             ]),
             new ArrayDataProvider([
                 'ok'                                        => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -389,7 +395,6 @@ class CreateTest extends TestCase {
                 'ok (custom)'                               => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -453,7 +458,6 @@ class CreateTest extends TestCase {
                 'ok-customer_id null customer_custom'       => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -546,7 +550,6 @@ class CreateTest extends TestCase {
                 'ok-customer_custom empty customer_id'      => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -628,7 +631,6 @@ class CreateTest extends TestCase {
                 'ok-customer_custom null customer_id'       => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [
@@ -711,7 +713,6 @@ class CreateTest extends TestCase {
                 'ok: assets null'                           => [
                     new GraphQLSuccess(
                         'quoteRequest',
-                        new JsonFragmentSchema('create', Create::class),
                         new JsonFragment('create', [
                             'result'       => true,
                             'quoteRequest' => [

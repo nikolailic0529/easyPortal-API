@@ -7,28 +7,35 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class OrganizationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($prepare) {
             $prepare($this);
@@ -59,13 +66,13 @@ class OrganizationsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('organizations'),
-            new OrganizationUserDataProvider('organizations', [
+            new AuthOrgRootDataProvider('organizations'),
+            new OrgUserDataProvider('organizations', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLPaginated('organizations', self::class),
+                    new GraphQLPaginated('organizations'),
                     static function (): void {
                         Organization::factory()->create([
                             'keycloak_scope' => 'test',

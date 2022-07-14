@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin Model
  */
 trait HasAssets {
+    /**
+     * @return HasMany<Asset>
+     */
     #[CascadeDelete(false)]
     public function assets(): HasMany {
         return $this->hasMany(Asset::class);

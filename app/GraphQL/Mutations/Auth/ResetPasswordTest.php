@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\ResetPassword
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ResetPasswordTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -29,17 +34,20 @@ class ResetPasswordTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
         Closure $inputFactory = null,
     ): void {
         // Prepare
         $this->setRootOrganization(Organization::factory()->create());
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         $success = null;
         $input   = [
@@ -89,11 +97,11 @@ class ResetPasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new GuestDataProvider('resetPassword'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('resetPassword'),
             new ArrayDataProvider([
                 'no user'                              => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (): bool {
@@ -108,7 +116,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'invalid token'                        => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (): bool {
@@ -132,7 +140,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'user exists and token valid'          => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => true,
                     ]),
                     static function (TestCase $test): bool {
@@ -156,7 +164,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'keycloak user exists and token valid' => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                    new GraphQLSuccess('resetPassword', [
                         'result' => false,
                     ]),
                     static function (TestCase $test): bool {

@@ -10,29 +10,36 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Logs
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class LogsTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $logFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($logFactory) {
             $logFactory($this);
@@ -71,13 +78,12 @@ class LogsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('application'),
-            new RootUserDataProvider('application'),
+            new AuthOrgRootDataProvider('application'),
+            new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
                         'application',
-                        new JsonFragmentPaginatedSchema('logs', self::class),
                         [
                             'logs'           => [
                                 [

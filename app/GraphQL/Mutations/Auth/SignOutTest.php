@@ -8,16 +8,20 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignOut
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SignOutTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -25,11 +29,14 @@ class SignOutTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $orgFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $keyCloakFactory = null,
     ): void {
         // Prepare
@@ -66,13 +73,12 @@ class SignOutTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new AnyUserDataProvider(),
+            new UnknownOrgDataProvider(),
+            new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('signOut', self::class),
                         new JsonFragment('signOut', [
                             'result' => true,
                             'url'    => 'http://example.com/',

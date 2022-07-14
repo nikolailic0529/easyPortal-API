@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @mixin Model
  */
 trait HasAssetsThroughLocations {
+    /**
+     * @return HasManyThrough<Asset>
+     */
     #[CascadeDelete(false)]
     public function assets(): HasManyThrough {
         return $this->hasManyThrough(Asset::class, Location::class);

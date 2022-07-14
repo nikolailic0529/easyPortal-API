@@ -13,18 +13,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Asset\Sync
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SyncTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -34,25 +38,27 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory                           $orgFactory
+     * @param UserFactory                                   $userFactory
      * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $this->faker->uuid();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user);
-        } elseif ($organization) {
+            $id = $prepare($this, $org, $user);
+        } elseif ($org) {
             Asset::factory()->create([
                 'id'          => $id,
                 'reseller_id' => Reseller::factory()->create([
-                    'id' => $organization->getKey(),
+                    'id' => $org->getKey(),
                 ]),
             ]);
         } else {
@@ -85,15 +91,14 @@ class SyncTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('asset'),
-            new OrganizationUserDataProvider('asset', [
+            new AuthOrgDataProvider('asset'),
+            new OrgUserDataProvider('asset', [
                 'assets-sync',
             ]),
             new ArrayDataProvider([
                 'ok'            => [
                     new GraphQLSuccess(
                         'asset',
-                        new JsonFragmentSchema('sync', self::class),
                         new JsonFragment('sync', [
                             'result' => true,
                         ]),

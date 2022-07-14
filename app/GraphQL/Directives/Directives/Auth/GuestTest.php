@@ -4,18 +4,20 @@ namespace App\GraphQL\Directives\Directives\Auth;
 
 use App\GraphQL\Resolvers\EmptyResolver;
 use App\Models\User;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithUser;
 
 use function addslashes;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Guest
+ *
+ * @phpstan-import-type UserFactory from WithUser
  */
 class GuestTest extends TestCase {
     use WithGraphQLSchema;
@@ -39,8 +41,10 @@ class GuestTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param UserFactory $userFactory
      */
-    public function testResolveField(Response $expected, Closure $userFactory): void {
+    public function testResolveField(Response $expected, mixed $userFactory): void {
         $this->setUser($userFactory);
 
         $resolver = addslashes(EmptyResolver::class);
@@ -74,7 +78,7 @@ class GuestTest extends TestCase {
     public function dataProviderResolveField(): array {
         return [
             'guest' => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return null;
                 },

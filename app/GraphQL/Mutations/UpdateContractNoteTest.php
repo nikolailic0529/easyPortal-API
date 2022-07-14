@@ -15,12 +15,15 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 use function array_key_exists;
@@ -28,6 +31,10 @@ use function array_key_exists;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\UpdateContractNote
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class UpdateContractNoteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -36,37 +43,39 @@ class UpdateContractNoteTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = [],
         string $filename = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         } else {
             // Lighthouse performs validation BEFORE permission check :(
             //
             // https://github.com/nuwave/lighthouse/issues/1780
             //
             // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
+            if (!$org) {
+                $org = $this->setOrganization(Organization::factory()->create());
             }
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     'ep.document_statuses_hidden' => [],
                     'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
@@ -77,13 +86,13 @@ class UpdateContractNoteTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
             $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid(),
+                'id' => $org ? $org->getKey() : $this->faker->uuid(),
             ]);
 
             Document::factory()
                 ->hasNotes(1, [
                     'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                    'organization_id' => $organization->getKey(),
+                    'organization_id' => $org->getKey(),
                 ])
                 ->create([
                     'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -204,13 +213,13 @@ class UpdateContractNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('updateContractNote'),
-                new OrganizationUserDataProvider('updateContractNote', [
+                new AuthOrgDataProvider('updateContractNote'),
+                new OrgUserDataProvider('updateContractNote', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok-files'            => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -227,7 +236,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'ok-Ids'              => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
@@ -274,7 +283,7 @@ class UpdateContractNoteTest extends TestCase {
                         'keep.csv',
                     ],
                     'ok-empty files'      => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -285,7 +294,7 @@ class UpdateContractNoteTest extends TestCase {
                         ],
                     ],
                     'optional note'       => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -300,7 +309,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'optional pinned'     => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         $prepare,
                         [
@@ -316,7 +325,7 @@ class UpdateContractNoteTest extends TestCase {
                         'new.csv',
                     ],
                     'optional files'      => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        new GraphQLSuccess('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
@@ -447,74 +456,6 @@ class UpdateContractNoteTest extends TestCase {
                         ],
                     ],
                     'unauthorized'        => [
-                        new GraphQLUnauthorized('updateContractNote'),
-                        $settings,
-                        static function (TestCase $test, ?Organization $organization, User $user): void {
-                            $type     = Type::factory()->create([
-                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-                            $document = Document::factory()
-                                ->create([
-                                    'type_id'     => $type->getKey(),
-                                    'reseller_id' => $reseller->getKey(),
-                                ]);
-                            $user2    = User::factory()->create();
-                            $note     = Note::factory()
-                                ->for($user2)
-                                ->hasFiles(1, [
-                                    'name' => 'deleted',
-                                ])
-                                ->create([
-                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                    'document_id' => $document->getKey(),
-                                ]);
-                            File::factory()->create([
-                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                'name'        => 'keep.csv',
-                                'object_id'   => $note->getKey(),
-                                'object_type' => $note->getMorphClass(),
-                            ]);
-                        },
-                        [
-                            'note'  => 'new note',
-                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files' => [
-                                [
-                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                    'content' => null,
-                                ],
-                            ],
-                        ],
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('updateContractNote'),
-                new OrganizationUserDataProvider('updateContractNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok'           => [
-                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
-                        $settings,
-                        $prepare,
-                        [
-                            'note'   => 'new note',
-                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'pinned' => true,
-                            'files'  => [
-                                [
-                                    'id'      => null,
-                                    'content' => UploadedFile::fake()->create('new.csv', 200),
-                                ],
-                            ],
-                        ],
-                        'new.csv',
-                    ],
-                    'unauthorized' => [
                         new GraphQLUnauthorized('updateContractNote'),
                         $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {

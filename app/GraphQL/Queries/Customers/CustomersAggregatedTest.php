@@ -11,15 +11,20 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Customers\CustomersAggregated
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class CustomersAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -29,27 +34,29 @@ class CustomersAggregatedTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $params
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param array<mixed>        $params
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($factory) {
-            $factory($this, $organization, $user);
+            $factory($this, $org, $user);
         }
 
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionCustomersQuery) {
                     customersAggregated(where: $where) {
@@ -112,13 +119,13 @@ class CustomersAggregatedTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customersAggregated'),
-                new OrganizationUserDataProvider('customersAggregated', [
+                new OrgRootDataProvider('customersAggregated'),
+                new OrgUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregated', self::class, [
+                        new GraphQLSuccess('customersAggregated', [
                             'count'  => 2,
                             'assets' => 3,
                         ]),
@@ -128,13 +135,13 @@ class CustomersAggregatedTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customersAggregated'),
-                new OrganizationUserDataProvider('customersAggregated', [
+                new AuthOrgDataProvider('customersAggregated'),
+                new OrgUserDataProvider('customersAggregated', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customersAggregated', self::class, [
+                        new GraphQLSuccess('customersAggregated', [
                             'count'  => 1,
                             'assets' => 1,
                         ]),

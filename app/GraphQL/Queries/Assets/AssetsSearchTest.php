@@ -18,22 +18,28 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
-use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithSearch;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @coversNothing
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class AssetsSearchTest extends TestCase {
     use WithSearch;
@@ -43,20 +49,22 @@ class AssetsSearchTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param array<string, mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $factory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         if ($factory) {
             $this->makeSearchable($factory($this, $organization, $user));
@@ -261,14 +269,14 @@ class AssetsSearchTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('assetsSearch'),
-                new OrganizationUserDataProvider('assetsSearch', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('assetsSearch'),
+                new OrgUserDataProvider('assetsSearch', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('assetsSearch', null),
+                        new GraphQLPaginated('assetsSearch'),
                         [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
@@ -276,39 +284,15 @@ class AssetsSearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsSearch'),
-                new OrganizationUserDataProvider('assetsSearch', [
-                    'customers-view',
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('assetsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider('assetsSearch', [
+                    'assets-view',
                 ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('assetsSearch', null),
-                        [],
-                        static function (TestCase $test, Organization $organization): Asset {
-                            return Asset::factory()->create();
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider(
-                    'assetsSearch',
-                    [
-                        'assets-view',
-                    ],
-                    static function (User $user): void {
-                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                        $user->given_name  = 'first';
-                        $user->family_name = 'last';
-                    },
-                ),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(
                             'assetsSearch',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

@@ -2,18 +2,23 @@
 
 namespace Tests;
 
-use Closure;
 use Illuminate\Contracts\Config\Repository;
+
+use function is_callable;
 
 /**
  * @mixin TestCase
+ *
+ * @phpstan-type Settings         array<string,mixed>
+ * @phpstan-type SettingsCallback callable(static): Settings
+ * @phpstan-type SettingsFactory  SettingsCallback|Settings|null
  */
 trait WithSettings {
     /**
-     * @param Closure(static):array<string,mixed>|array<string,mixed>|null $settings
+     * @param SettingsFactory $settings
      */
-    public function setSettings(Closure|array|null $settings): void {
-        if ($settings instanceof Closure) {
+    public function setSettings(callable|array|null $settings): void {
+        if (is_callable($settings)) {
             $settings = $settings($this);
         }
 

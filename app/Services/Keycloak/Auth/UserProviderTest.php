@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Models\RolePermission;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
@@ -25,6 +24,7 @@ use Lcobucci\JWT\UnencryptedToken;
 use Mockery;
 use stdClass;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 use function is_null;
 use function sprintf;
@@ -32,6 +32,8 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\Services\Keycloak\Auth\UserProvider
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class UserProviderTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -199,6 +201,11 @@ class UserProviderTest extends TestCase {
             ->with($user, $token, $org)
             ->once()
             ->andReturn($organization);
+        $provider
+            ->shouldReceive('getPermissions')
+            ->with($user, $token, $organization)
+            ->once()
+            ->andReturn([]);
 
         // Test
         $actual = $provider->getProperties($user, $token, $org);
@@ -263,10 +270,10 @@ class UserProviderTest extends TestCase {
      *
      * @dataProvider dataProviderGetOrganization
      *
-     * @param Closure(static, string, Organization, User): array<mixed>  $claimsFactory
-     * @param Closure(static, Organization): ?Organization               $organizationFactory
+     * @param Closure(static, string, Organization, User): array<mixed> $claimsFactory
+     * @param Closure(static, Organization): ?Organization              $orgFactory
      */
-    public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $organizationFactory): void {
+    public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $orgFactory): void {
         $org      = Organization::factory()->create([
             'keycloak_scope' => $this->faker->word(),
         ]);
@@ -289,7 +296,7 @@ class UserProviderTest extends TestCase {
             }
         };
 
-        $organization = $organizationFactory($this, $org);
+        $organization = $orgFactory($this, $org);
         $actual       = $provider->getOrganization($user, $token, $organization);
 
         if ($expected) {
@@ -330,9 +337,11 @@ class UserProviderTest extends TestCase {
         $org      = Organization::factory()->make();
         $user     = User::factory()->create();
         $token    = $this->getToken();
-        $provider = new class() extends UserProvider {
+        $provider = new class($this->app->make(Auth::class)) extends UserProvider {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Auth $auth,
+            ) {
                 // empty
             }
 
@@ -386,15 +395,11 @@ class UserProviderTest extends TestCase {
 
         $auth = Mockery::mock(Auth::class);
         $auth
-            ->shouldReceive('getAvailablePermissions')
+            ->shouldReceive('getOrganizationUserPermissions')
             ->once()
             ->andReturn([
-                new class($permissionA->key) extends AuthPermission {
-                    // empty
-                },
-                new class($permissionB->key) extends AuthPermission {
-                    // empty
-                },
+                $permissionA->key,
+                $permissionB->key,
             ]);
         $token    = $this->getToken();
         $provider = new class($auth) extends UserProvider {
@@ -415,61 +420,6 @@ class UserProviderTest extends TestCase {
 
         self::assertEqualsCanonicalizing(
             [$permissionA->key, $permissionB->key],
-            $provider->getPermissions($user, $token, $org),
-        );
-    }
-
-    /**
-     * @see https://github.com/laravel/framework/issues/43015
-     * @see https://github.com/fakharanwar/easyPortal-API/issues/909
-     *
-     * @covers ::getPermissions
-     */
-    public function testGetPermissionsRoleWithoutPermissions(): void {
-        $org         = Organization::factory()->create();
-        $user        = User::factory()->create();
-        $role        = Role::factory()->create();
-        $permissionA = Permission::factory()->create([
-            'key' => 'permission-a',
-        ]);
-
-        OrganizationUser::factory()->create([
-            'organization_id' => $org,
-            'user_id'         => $user,
-            'role_id'         => $role,
-            'enabled'         => true,
-        ]);
-
-        $auth = Mockery::mock(Auth::class);
-        $auth
-            ->shouldReceive('getAvailablePermissions')
-            ->once()
-            ->andReturn([
-                new class($permissionA->key) extends AuthPermission {
-                    // empty
-                },
-            ]);
-        $token    = $this->getToken();
-        $provider = new class($auth) extends UserProvider {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Auth $auth,
-            ) {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
-                return parent::getPermissions($user, $token, $organization);
-            }
-        };
-
-        self::assertEqualsCanonicalizing(
-            [
-                // empty
-            ],
             $provider->getPermissions($user, $token, $org),
         );
     }

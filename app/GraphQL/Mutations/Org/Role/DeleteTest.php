@@ -13,18 +13,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Delete
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -32,21 +36,24 @@ class DeleteTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $roleFactory = null,
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $role         = Role::factory()->make();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $role = Role::factory()->make();
 
         if ($roleFactory) {
-            $role = $roleFactory($this, $organization, $user);
+            $role = $roleFactory($this, $org, $user);
         }
 
         if ($clientFactory) {
@@ -79,8 +86,8 @@ class DeleteTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
@@ -96,7 +103,6 @@ class DeleteTest extends TestCase {
                 'role without users'             => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.delete', self::class),
                         new JsonFragment('role.delete', [
                             'result' => true,
                         ]),

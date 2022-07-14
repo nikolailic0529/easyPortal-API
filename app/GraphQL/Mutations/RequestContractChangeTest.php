@@ -7,24 +7,30 @@ use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RequestContractChange
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class RequestContractChangeTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -33,37 +39,40 @@ class RequestContractChangeTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         Mail::fake();
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         } else {
             // Lighthouse performs validation BEFORE permission check :(
             //
             // https://github.com/nuwave/lighthouse/issues/1780
             //
             // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
+            if (!$org) {
+                $org = $this->setOrganization(Organization::factory()->create());
             }
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     'ep.document_statuses_hidden' => [],
                     'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
@@ -74,7 +83,7 @@ class RequestContractChangeTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
             $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $org->getKey(),
             ]);
 
             Document::factory()->create([
@@ -113,11 +122,6 @@ class RequestContractChangeTest extends TestCase {
                     cc
                     bcc
                     user_id
-                    user {
-                        id
-                        given_name
-                        family_name
-                    }
                     files {
                         name
                     }
@@ -163,21 +167,17 @@ class RequestContractChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestContractChange'),
-            new OrganizationUserDataProvider(
+            new AuthOrgDataProvider('requestContractChange'),
+            new OrgUserDataProvider(
                 'requestContractChange',
                 [
                     'requests-contract-change',
                 ],
-                static function (User $user): void {
-                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                    $user->given_name  = 'first';
-                    $user->family_name = 'last';
-                },
+                'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
                 'ok'               => [
-                    new GraphQLSuccess('requestContractChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestContractChange', [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -186,11 +186,6 @@ class RequestContractChangeTest extends TestCase {
                             'to'      => ['test@example.com'],
                             'cc'      => ['cc@example.com'],
                             'bcc'     => ['bcc@example.com'],
-                            'user'    => [
-                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                'given_name'  => 'first',
-                                'family_name' => 'last',
-                            ],
                             'files'   => [
                                 [
                                     'name' => 'documents.csv',

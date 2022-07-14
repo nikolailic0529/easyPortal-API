@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasServiceGroup {
+    /**
+     * @return BelongsTo<ServiceGroup, self>
+     */
     #[CascadeDelete(false)]
     public function serviceGroup(): BelongsTo {
         return $this->belongsTo(ServiceGroup::class);

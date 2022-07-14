@@ -10,12 +10,15 @@ use Tests\GraphQL\Schemas\AnySchema;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithoutGlobalScopes;
+use Tests\WithSettings;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Paginated\Paginated
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class PaginatedTest extends TestCase {
     use WithoutGlobalScopes;
@@ -31,10 +34,10 @@ class PaginatedTest extends TestCase {
      *
      * @dataProvider dataProviderManipulateArgDefinition
      *
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory $settingsFactory
      */
-    public function testManipulateArgDefinition(string $expected, array $settings): void {
-        $this->setSettings($settings);
+    public function testManipulateArgDefinition(string $expected, mixed $settingsFactory): void {
+        $this->setSettings($settingsFactory);
 
         self::assertGraphQLSchemaEquals(
             $this->getGraphQLSchemaExpected($expected, '~schema.graphql'),

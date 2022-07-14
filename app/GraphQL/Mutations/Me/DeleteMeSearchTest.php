@@ -8,14 +8,19 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Me\DeleteMeSearch
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteMeSearchTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -23,16 +28,19 @@ class DeleteMeSearchTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $dataFactory = null,
         bool $exists = null,
     ): void {
         // Prepare
-        $user = $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $user = $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($user) {
             $user->save();
@@ -65,11 +73,11 @@ class DeleteMeSearchTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('deleteMeSearch'),
-            new UserDataProvider('deleteMeSearch'),
+            new AuthOrgDataProvider('deleteMeSearch'),
+            new AuthMeDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                    new GraphQLSuccess('deleteMeSearch', [
                         'deleted' => true,
                     ]),
                     static function (TestCase $test, User $user): UserSearch {
@@ -80,7 +88,7 @@ class DeleteMeSearchTest extends TestCase {
                     false,
                 ],
                 'Different User' => [
-                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                    new GraphQLSuccess('deleteMeSearch', [
                         'deleted' => false,
                     ]),
                     static function (TestCase $test, User $user): UserSearch {

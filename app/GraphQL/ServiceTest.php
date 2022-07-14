@@ -2,9 +2,7 @@
 
 namespace App\GraphQL;
 
-use App\Models\Enums\UserType;
 use App\Models\User;
-use Closure;
 use GraphQL\Type\Introspection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
@@ -13,24 +11,36 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\Providers\Users\RootUserProvider;
+use Tests\Providers\Users\UserProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function array_map;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Service
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ServiceTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderIntrospection
+     *
+     * @param SettingsFactory $settingsFactory
+     * @param UserFactory     $userFactory
      */
     public function testIntrospection(
         Response $expected,
-        Closure $settingsFactory,
-        Closure $userFactory,
+        mixed $settingsFactory,
+        mixed $userFactory,
     ): void {
         $this->setSettings($settingsFactory);
         $this->setUser($userFactory);
@@ -42,11 +52,14 @@ class ServiceTest extends TestCase {
 
     /**
      * @dataProvider dataProviderPlayground
+     *
+     * @param SettingsFactory $settingsFactory
+     * @param UserFactory     $userFactory
      */
     public function testPlayground(
         Response $expected,
-        Closure $settingsFactory,
-        Closure $userFactory,
+        mixed $settingsFactory,
+        mixed $userFactory,
     ): void {
         $this->setSettings($settingsFactory);
         $this->setUser($userFactory);
@@ -67,7 +80,7 @@ class ServiceTest extends TestCase {
         $data = array_map(
             static function (array $case): array {
                 $case[0] = $case[0] instanceof Ok
-                    ? new GraphQLSuccess('__schema', null)
+                    ? new GraphQLSuccess('__schema')
                     : new GraphQLError('__schema');
 
                 return $case;
@@ -97,14 +110,8 @@ class ServiceTest extends TestCase {
         $guest    = static function (): ?User {
             return null;
         };
-        $user     = static function (): ?User {
-            return User::factory()->create();
-        };
-        $root     = static function (): ?User {
-            return User::factory()->create([
-                'type' => UserType::local(),
-            ]);
-        };
+        $user     = new UserProvider();
+        $root     = new RootUserProvider();
 
         return (new MergeDataProvider([
             'debug on'  => new ArrayDataProvider([

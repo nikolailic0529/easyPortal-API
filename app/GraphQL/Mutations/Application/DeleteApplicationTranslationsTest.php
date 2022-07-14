@@ -4,14 +4,15 @@ namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\I18n\Storages\AppTranslations;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function is_array;
 
@@ -20,6 +21,9 @@ use function is_array;
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\DeleteApplicationTranslations
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,19 +34,21 @@ class DeleteApplicationTranslationsTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param Response|array{response:Response,content:array<mixed>} $expected
+     * @param OrganizationFactory                                    $orgFactory
+     * @param UserFactory                                            $userFactory
      * @param array<mixed>                                           $content
      * @param array<string>                                          $keys
      */
     public function testInvoke(
         Response|array $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         string $locale = null,
         array $content = [],
         array $keys = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Mock
         $storage = null;
@@ -88,14 +94,13 @@ class DeleteApplicationTranslationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('deleteApplicationTranslations'),
-            new RootUserDataProvider('deleteApplicationTranslations'),
+            new AuthOrgRootDataProvider('deleteApplicationTranslations'),
+            new AuthRootDataProvider('deleteApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [
                     [
                         'response' => new GraphQLSuccess(
                             'deleteApplicationTranslations',
-                            DeleteApplicationTranslations::class,
                             [
                                 'deleted' => ['a', 'b'],
                             ],

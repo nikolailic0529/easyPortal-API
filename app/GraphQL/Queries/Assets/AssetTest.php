@@ -28,15 +28,22 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversNothing
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class AssetTest extends TestCase {
     use WithQueryLog;
@@ -46,25 +53,27 @@ class AssetTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param array<string,mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $assetsFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $assetId = 'wrong';
 
         if ($assetsFactory) {
-            $assetId = $assetsFactory($this, $organization, $user)->getKey();
+            $assetId = $assetsFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -315,11 +324,6 @@ class AssetTest extends TestCase {
                             cc
                             bcc
                             user_id
-                            user {
-                                id
-                                given_name
-                                family_name
-                            }
                             files {
                                 name
                             }
@@ -340,14 +344,14 @@ class AssetTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('asset'),
-                new OrganizationUserDataProvider('asset', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('asset', null),
+                        new GraphQLSuccess('asset'),
                         [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
@@ -355,37 +359,18 @@ class AssetTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('asset'),
-                new OrganizationUserDataProvider('asset', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('asset', null),
-                        [],
-                        static function (TestCase $test, Organization $organization): Asset {
-                            return Asset::factory()->create();
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider(
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider(
                     'asset',
                     [
                         'assets-view',
                     ],
-                    static function (User $user): void {
-                        $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                        $user->given_name  = 'first';
-                        $user->family_name = 'last';
-                    },
+                    'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                 ),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('asset', self::class, [
+                        new GraphQLSuccess('asset', [
                             'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'product_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -679,11 +664,6 @@ class AssetTest extends TestCase {
                                 'to'      => ['test@example.com'],
                                 'cc'      => ['cc@example.com'],
                                 'bcc'     => ['bcc@example.com'],
-                                'user'    => [
-                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                    'given_name'  => 'first',
-                                    'family_name' => 'last',
-                                ],
                                 'files'   => [
                                     [
                                         'name' => 'documents.csv',

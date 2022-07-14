@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin Model
  */
 trait HasDocuments {
+    /**
+     * @return HasMany<Document>
+     */
     #[CascadeDelete(false)]
     public function documents(): HasMany {
         return $this->hasMany(Document::class);

@@ -7,7 +7,7 @@ type Map {
 
     assets: [MapPoint!]!
     @authOrg
-    @authMe(permissions: ["customers-view", "assets-view"])
+    @authMe(permissions: ["assets-view"])
     @field(resolver: "App\\GraphQL\\Queries\\Map\\Assets")
     @cached(mode: Threshold)
 }

@@ -9,14 +9,15 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
-use Tests\DataProviders\Http\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\Http\Organizations\UnknownOrgDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 /**
  * @internal
  * @coversDefaultClass \App\Http\Controllers\IndexController
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class IndexControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -77,7 +78,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'Accept text/html'                      => [
                     new Response(
@@ -111,7 +112,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndexApplication(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
+            new UnknownOrgDataProvider(),
             new ArrayDataProvider([
                 'Accept text/html'                      => [
                     new OkResponse(self::class),

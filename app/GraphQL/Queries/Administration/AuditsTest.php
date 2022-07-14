@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Administration;
 
-use App\GraphQL\Types\Audit as TypesAudit;
 use App\Models\Audits\Audit;
 use App\Models\Organization;
 use App\Models\User;
@@ -10,28 +9,35 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class AuditsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($prepare) {
             $prepare($this);
@@ -66,13 +72,13 @@ class AuditsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('audits'),
-            new OrganizationUserDataProvider('audits', [
+            new AuthOrgRootDataProvider('audits'),
+            new OrgUserDataProvider('audits', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLPaginated('audits', TypesAudit::class),
+                    new GraphQLPaginated('audits'),
                     static function (): void {
                         $user         = User::factory()->create();
                         $organization = Organization::factory()->create();

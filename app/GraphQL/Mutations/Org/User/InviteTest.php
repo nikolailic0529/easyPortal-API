@@ -20,19 +20,23 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Organization\User\Invite
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class InviteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,11 +44,14 @@ class InviteTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $orgFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $clientFactory = null,
         Closure $dataFactory = null,
         Closure $prepare = null,
@@ -165,15 +172,14 @@ class InviteTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('org'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'no user / ok'                       => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -221,7 +227,6 @@ class InviteTest extends TestCase {
                 'no user / keycloak user not exists' => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -274,7 +279,6 @@ class InviteTest extends TestCase {
                 'user / not a member'                => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -304,7 +308,6 @@ class InviteTest extends TestCase {
                 'user / a member'                    => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => false,
                         ]),
@@ -330,7 +333,6 @@ class InviteTest extends TestCase {
                 'resend'                             => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => true,
                         ]),
@@ -366,7 +368,6 @@ class InviteTest extends TestCase {
                 'local user'                         => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('user.invite', self::class),
                         new JsonFragment('user.invite', [
                             'result' => false,
                         ]),

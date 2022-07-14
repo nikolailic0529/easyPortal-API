@@ -8,22 +8,26 @@ use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
-use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Queue;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\StopApplicationService
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class StopApplicationServiceTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -33,16 +37,18 @@ class StopApplicationServiceTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<mixed> $input
+     * @param array<mixed>        $input
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $input = ['name' => 'service'],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Mock
         $this->override(Settings::class, function (): Settings {
@@ -87,8 +93,8 @@ class StopApplicationServiceTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('stopApplicationService'),
-            new RootUserDataProvider('stopApplicationService'),
+            new AuthOrgRootDataProvider('stopApplicationService'),
+            new AuthRootDataProvider('stopApplicationService'),
             new ArrayDataProvider([
                 'no service' => [
                     new GraphQLError('stopApplicationService', new ServiceNotFound('unknown-service')),
@@ -97,7 +103,7 @@ class StopApplicationServiceTest extends TestCase {
                     ],
                 ],
                 'ok'         => [
-                    new GraphQLSuccess('stopApplicationService', StopApplicationService::class, [
+                    new GraphQLSuccess('stopApplicationService', [
                         'result' => true,
                     ]),
                     [

@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
-use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -28,40 +27,47 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversNothing
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class QuoteTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $quoteFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $quoteId = 'wrong';
 
         if ($quoteFactory) {
-            $quote   = $quoteFactory($this, $organization, $user);
+            $quote   = $quoteFactory($this, $org, $user);
             $quoteId = $quote->id;
 
             $this->setSettings([
@@ -243,21 +249,24 @@ class QuoteTest extends TestCase {
 
     /**
      * @dataProvider dataProviderQueryNotes
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQueryNotes(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $quoteFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $quoteId = 'wrong';
 
         if ($quoteFactory) {
-            $quote   = $quoteFactory($this, $organization, $user);
+            $quote   = $quoteFactory($this, $org, $user);
             $quoteId = $quote->id;
 
             $this->setSettings([
@@ -307,58 +316,29 @@ class QuoteTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', null),
+                        new GraphQLSuccess('quote'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('quote', null),
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
 
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('quote', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                         => [
-                        new GraphQLSuccess('quote', self::class, [
+                        new GraphQLSuccess('quote', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -686,7 +666,7 @@ class QuoteTest extends TestCase {
                         },
                     ],
                     'hiding price'               => [
-                        new GraphQLSuccess('quote', self::class, new JsonFragment('price', json_encode(null))),
+                        new GraphQLSuccess('quote', new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -710,7 +690,6 @@ class QuoteTest extends TestCase {
                     'entries: hiding list_price' => [
                         new GraphQLSuccess(
                             'quote',
-                            self::class,
                             new JsonFragment('entries.0.list_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -742,7 +721,6 @@ class QuoteTest extends TestCase {
                     'entries: hiding net_price'  => [
                         new GraphQLSuccess(
                             'quote',
-                            self::class,
                             new JsonFragment('entries.0.net_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -783,58 +761,28 @@ class QuoteTest extends TestCase {
         $url = 'https://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', null),
+                        new GraphQLSuccess('quote'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('quote'),
-                new OrganizationUserDataProvider('quote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('quote', null),
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('quote', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('quote', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
+                        new GraphQLSuccess('quote', [
                             'notes'           => [
                                 [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',

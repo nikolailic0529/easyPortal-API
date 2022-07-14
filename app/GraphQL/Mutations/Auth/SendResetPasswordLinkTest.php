@@ -11,14 +11,19 @@ use Illuminate\Support\Facades\Notification;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\SendResetPasswordLink
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SendResetPasswordLinkTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -26,17 +31,20 @@ class SendResetPasswordLinkTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
         string $email = null,
     ): void {
         // Prepare
         $this->setRootOrganization(Organization::factory()->create());
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         $user = null;
 
@@ -79,11 +87,11 @@ class SendResetPasswordLinkTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new GuestDataProvider('sendResetPasswordLink'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('sendResetPasswordLink'),
             new ArrayDataProvider([
                 'no user'              => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => false,
                     ]),
                     static function (): void {
@@ -92,7 +100,7 @@ class SendResetPasswordLinkTest extends TestCase {
                     'test@example.com',
                 ],
                 'user exists'          => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => true,
                     ]),
                     static function (): User {
@@ -104,7 +112,7 @@ class SendResetPasswordLinkTest extends TestCase {
                     'test@example.com',
                 ],
                 'keycloak user exists' => [
-                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                    new GraphQLSuccess('sendResetPasswordLink', [
                         'result' => false,
                     ]),
                     static function (): ?User {

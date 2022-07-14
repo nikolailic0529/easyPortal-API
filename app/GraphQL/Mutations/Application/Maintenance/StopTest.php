@@ -3,21 +3,24 @@
 namespace App\GraphQL\Mutations\Application\Maintenance;
 
 use App\Services\Maintenance\Maintenance;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\Maintenance\Stop
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class StopTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -26,13 +29,16 @@ class StopTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
     ): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($expected instanceof GraphQLSuccess) {
             $this->override(Maintenance::class, static function (MockInterface $mock): void {
@@ -74,13 +80,12 @@ class StopTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('application'),
-            new RootUserDataProvider('application'),
+            new AuthOrgRootDataProvider('application'),
+            new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
                         'application',
-                        new JsonFragmentSchema('maintenance.stop', self::class),
                         new JsonFragment('maintenance.stop', [
                             'result' => true,
                         ]),

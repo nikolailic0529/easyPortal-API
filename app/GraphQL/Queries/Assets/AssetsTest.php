@@ -24,15 +24,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversNothing
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class AssetsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,20 +47,22 @@ class AssetsTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param array<string,mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
@@ -264,14 +273,14 @@ class AssetsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('assets'),
-                new OrganizationUserDataProvider('assets', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('assets'),
+                new OrgUserDataProvider('assets', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('assets', null),
+                        new GraphQLPaginated('assets'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -279,31 +288,15 @@ class AssetsTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assets'),
-                new OrganizationUserDataProvider('assets', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('assets', null),
-                        [],
-                        static function (TestCase $test, Organization $organization): Customer {
-                            return Customer::factory()->create();
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('assets', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider('assets', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('assets', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider('assets', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(
                             'assets',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

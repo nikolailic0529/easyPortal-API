@@ -11,12 +11,14 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use League\Geotools\Coordinate\Coordinate;
 use League\Geotools\Geohash\Geohash;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function array_merge;
 
@@ -24,8 +26,8 @@ use function array_merge;
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Map\Assets
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class AssetsTest extends TestCase {
     use WithQueryLog;
@@ -110,13 +112,13 @@ class AssetsTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('map'),
-                new OrganizationUserDataProvider('map', [
+                new OrgRootDataProvider('map'),
+                new OrgUserDataProvider('map', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'              => [
-                        new GraphQLSuccess('map', null, new JsonFragment('assets', [
+                        new GraphQLSuccess('map', new JsonFragment('assets', [
                             [
                                 'latitude'        => 1.05,
                                 'longitude'       => 1.05,
@@ -178,7 +180,7 @@ class AssetsTest extends TestCase {
                         $params,
                     ],
                     'filter_city'     => [
-                        new GraphQLSuccess('map', null, new JsonFragment('assets', [
+                        new GraphQLSuccess('map', new JsonFragment('assets', [
                             [
                                 'latitude'        => 1,
                                 'longitude'       => 1,
@@ -213,7 +215,7 @@ class AssetsTest extends TestCase {
                         ],
                     ],
                     'filter_country'  => [
-                        new GraphQLSuccess('map', null, new JsonFragment('assets', [
+                        new GraphQLSuccess('map', new JsonFragment('assets', [
                             [
                                 'latitude'        => 1.1,
                                 'longitude'       => 1.1,
@@ -248,7 +250,7 @@ class AssetsTest extends TestCase {
                         ],
                     ],
                     'filter_customer' => [
-                        new GraphQLSuccess('map', null, new JsonFragment('assets', [
+                        new GraphQLSuccess('map', new JsonFragment('assets', [
                             [
                                 'latitude'        => 1.25,
                                 'longitude'       => 1.25,
@@ -298,13 +300,13 @@ class AssetsTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('map'),
-                new OrganizationUserDataProvider('map', [
+                new AuthOrgDataProvider('map'),
+                new OrgUserDataProvider('map', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('map', null, new JsonFragment('assets', [
+                        new GraphQLSuccess('map', new JsonFragment('assets', [
                             [
                                 'latitude'        => 1,
                                 'longitude'       => 1,

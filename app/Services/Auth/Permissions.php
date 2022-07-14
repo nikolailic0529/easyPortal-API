@@ -51,7 +51,7 @@ class Permissions {
      */
     public function get(): array {
         if (!isset($this->permissions)) {
-            $this->permissions = static::default();
+            $this->set(static::default());
         }
 
         return $this->permissions;
@@ -70,7 +70,7 @@ class Permissions {
      * @param array<Permission> $permissions
      */
     public function add(array $permissions): static {
-        $this->permissions = array_merge($this->get(), $permissions);
+        $this->set(array_merge($this->get(), $permissions));
 
         return $this;
     }

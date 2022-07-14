@@ -10,10 +10,13 @@ use Mockery;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
+use Tests\WithSettings;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Documents\Price
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class PriceTest extends TestCase {
     use WithoutGlobalScopes;
@@ -25,11 +28,11 @@ class PriceTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string, mixed>                      $settings
+     * @param SettingsFactory                           $settingsFactory
      * @param Closure(static): (Document|DocumentEntry) $factory
      */
-    public function testInvoke(?string $expected, array $settings, Closure $factory, string $field): void {
-        $this->setSettings($settings);
+    public function testInvoke(?string $expected, mixed $settingsFactory, Closure $factory, string $field): void {
+        $this->setSettings($settingsFactory);
 
         $info            = Mockery::mock(ResolveInfo::class);
         $info->fieldName = $field;

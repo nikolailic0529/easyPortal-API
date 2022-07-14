@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\Services\Auth\Auth;
 use Closure;
 use GraphQL\Language\AST\DirectiveDefinitionNode;
 use GraphQL\Language\AST\FieldDefinitionNode;
@@ -35,7 +36,9 @@ abstract class AuthDirective extends BaseDirective implements
     FieldManipulator,
     TypeManipulator,
     TypeExtensionManipulator {
-    public function __construct() {
+    public function __construct(
+        protected Auth $auth,
+    ) {
         // empty
     }
 
@@ -51,7 +54,7 @@ abstract class AuthDirective extends BaseDirective implements
         ) use (
             $previous,
         ): mixed {
-            if (!$this->allowed($root, $context)) {
+            if (!$this->allowed($root)) {
                 throw $this->getAuthenticationException();
             }
 
@@ -61,8 +64,8 @@ abstract class AuthDirective extends BaseDirective implements
         return $next($fieldValue->setResolver($resolver));
     }
 
-    protected function allowed(mixed $root, GraphQLContext $context): bool {
-        $user = $context->user();
+    protected function allowed(mixed $root): bool {
+        $user = $this->auth->getUser();
 
         if (!$this->isAuthenticated($user)) {
             throw $this->getAuthenticationException();

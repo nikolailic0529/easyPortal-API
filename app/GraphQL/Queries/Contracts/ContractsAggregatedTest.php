@@ -12,15 +12,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsAggregated
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ContractsAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,27 +37,29 @@ class ContractsAggregatedTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory         $orgFactory
+     * @param UserFactory                 $userFactory
+     * @param SettingsFactory             $settingsFactory
      * @param array{where?: array<mixed>} $params
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $factory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($settings) {
-            $this->setSettings($settings);
+        if ($settingsFactory) {
+            $this->setSettings($settingsFactory);
         }
 
         if ($factory) {
-            $factory($this, $organization, $user);
+            $factory($this, $org, $user);
         }
 
         // Test
@@ -208,14 +217,14 @@ class ContractsAggregatedTest extends TestCase {
         };
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contractsAggregated'),
-                new OrganizationUserDataProvider('contractsAggregated', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contractsAggregated'),
+                new OrgUserDataProvider('contractsAggregated', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 5,
                             'prices' => [
                                 [
@@ -262,52 +271,14 @@ class ContractsAggregatedTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregated'),
-                new OrganizationUserDataProvider('contractsAggregated', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
-                            'count'  => 2,
-                            'prices' => [
-                                [
-                                    'count'       => 2,
-                                    'amount'      => 10,
-                                    'currency_id' => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                    'currency'    => [
-                                        'id'   => 'fd6be569-3b51-4c8c-a132-3b57b1b8624a',
-                                        'name' => 'A',
-                                        'code' => 'A',
-                                    ],
-                                ],
-                            ],
-                        ]),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                $noPriceStatus,
-                            ],
-                            'ep.document_statuses_hidden'   => [
-                                $hiddenStatus,
-                            ],
-                            'ep.contract_types'             => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        $factory,
-                        $params,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contractsAggregated', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contractsAggregated', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contractsAggregated', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'               => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 2,
                             'prices' => [
                                 [
@@ -337,7 +308,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'no types'         => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
                         ]),
@@ -353,7 +324,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'type not match'   => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 0,
                             'prices' => [],
                         ]),
@@ -369,7 +340,7 @@ class ContractsAggregatedTest extends TestCase {
                         $params,
                     ],
                     'no hidden prices' => [
-                        new GraphQLSuccess('contractsAggregated', self::class, [
+                        new GraphQLSuccess('contractsAggregated', [
                             'count'  => 2,
                             'prices' => [
                                 [

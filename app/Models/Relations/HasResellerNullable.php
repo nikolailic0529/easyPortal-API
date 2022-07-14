@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasResellerNullable {
+    /**
+     * @return BelongsTo<Reseller, self>
+     */
     #[CascadeDelete(false)]
     public function reseller(): BelongsTo {
         return $this->belongsTo(Reseller::class);

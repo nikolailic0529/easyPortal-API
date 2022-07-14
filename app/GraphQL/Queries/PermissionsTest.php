@@ -4,36 +4,46 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Organization;
 use App\Models\Permission;
+use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Permission as AuthPermission;
 use App\Services\Auth\Permissions;
-use App\Services\Auth\Permissions\Markers\IsRoot;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ * @coversDefaultClass \App\GraphQL\Queries\Permissions
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class PermissionsTest extends TestCase {
     /**
+     * @covers ::__invoke
      * @dataProvider dataProviderInvoke
-     * @coversNothing
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         Closure $permissionsFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($organizationFactory);
+        $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
         $this->setTranslations($translationsFactory);
@@ -64,15 +74,15 @@ class PermissionsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $a      = new class('permission-a') extends AuthPermission implements IsRoot {
+        $a            = new class('permission-a') extends AuthPermission implements IsRoot {
             // empty,
         };
-        $b      = new class('permission-b') extends AuthPermission {
+        $b            = new class('permission-b') extends AuthPermission {
             // empty,
         };
-        $root   = new ArrayDataProvider([
+        $root         = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('permissions', self::class, [
+                new GraphQLSuccess('permissions', [
                     [
                         'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
                         'name'        => 'permission-b',
@@ -115,9 +125,9 @@ class PermissionsTest extends TestCase {
                 },
             ],
         ]);
-        $normal = new ArrayDataProvider([
+        $normal       = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('permissions', self::class, [
+                new GraphQLSuccess('permissions', [
                     [
                         'id'          => '42c1ad7c-d371-47cc-8809-59a491f18406',
                         'name'        => 'permission-b',
@@ -144,6 +154,15 @@ class PermissionsTest extends TestCase {
                 },
             ],
         ]);
+        $unauthorized = new ArrayDataProvider([
+            'ok' => [
+                new GraphQLUnauthorized('permissions'),
+                null,
+                static function () use ($a): array {
+                    return [$a];
+                },
+            ],
+        ]);
 
         return (new MergeDataProvider([
             'root organization'   => new CompositeDataProvider(
@@ -159,13 +178,13 @@ class PermissionsTest extends TestCase {
                 ]),
                 new MergeDataProvider([
                     'administer'     => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'administer',
                         ]),
                         $root,
                     ),
                     'org-administer' => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'org-administer',
                         ]),
                         $root,
@@ -185,13 +204,13 @@ class PermissionsTest extends TestCase {
                 ]),
                 new MergeDataProvider([
                     'administer'     => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'administer',
                         ]),
-                        $normal,
+                        $unauthorized,
                     ),
                     'org-administer' => new CompositeDataProvider(
-                        new OrganizationUserDataProvider('permissions', [
+                        new OrgUserDataProvider('permissions', [
                             'org-administer',
                         ]),
                         $normal,

@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Tag;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method Tag create($attributes = [], ?Model $parent = null)

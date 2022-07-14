@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasProduct {
+    /**
+     * @return BelongsTo<Product, self>
+     */
     #[CascadeDelete(false)]
     public function product(): BelongsTo {
         return $this->belongsTo(Product::class);

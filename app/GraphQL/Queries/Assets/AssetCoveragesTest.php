@@ -8,13 +8,18 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class AssetCoveragesTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -22,15 +27,18 @@ class AssetCoveragesTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
+
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $coverageFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($coverageFactory) {
             $coverageFactory($this);
@@ -56,7 +64,7 @@ class AssetCoveragesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('assetCoverages', self::class, [
+                new GraphQLSuccess('assetCoverages', [
                     [
                         'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                         'name' => 'coverage1',
@@ -72,16 +80,9 @@ class AssetCoveragesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetCoverages'),
-                new OrganizationUserDataProvider('assetCoverages', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'assets-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('assetCoverages'),
-                new OrganizationUserDataProvider('assetCoverages', [
+            'assets-view' => new CompositeDataProvider(
+                new AuthOrgDataProvider('assetCoverages'),
+                new OrgUserDataProvider('assetCoverages', [
                     'assets-view',
                 ]),
                 $provider,

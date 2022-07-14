@@ -15,13 +15,14 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 use function __;
@@ -29,6 +30,9 @@ use function __;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Update
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -37,18 +41,20 @@ class UpdateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $data
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $roleFactory = null,
         Closure $clientFactory = null,
         array $data = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings([
@@ -161,15 +167,14 @@ class UpdateTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('org'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'                                 => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.update', self::class),
                         new JsonFragment('role.update', [
                             'result' => true,
                             'role'   => [
@@ -260,7 +265,6 @@ class UpdateTest extends TestCase {
                 'Role exists (another organization)' => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.update', self::class),
                         new JsonFragment('role.update.result', true),
                     ),
                     static function (TestCase $test, Organization $organization): Role {

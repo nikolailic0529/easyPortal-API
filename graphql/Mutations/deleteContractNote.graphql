@@ -3,7 +3,7 @@ extend type Mutation {
         input: DeleteContractNoteInput!
     ): DeleteContractNotePayload
     @authOrg
-    @authMe(permissions: ["contracts-view", "customers-view", "org-administer"])
+    @authMe(permissions: ["contracts-view", "org-administer"])
 }
 
 input DeleteContractNoteInput {

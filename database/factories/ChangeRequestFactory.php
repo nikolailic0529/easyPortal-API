@@ -5,10 +5,10 @@ namespace Database\Factories;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 use function array_keys;
 

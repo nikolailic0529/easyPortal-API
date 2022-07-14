@@ -11,21 +11,23 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Asset\SetNickname
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
- * @phpstan-import-type UserFactory from \Tests\WithUser
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SetNicknameTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -98,8 +100,8 @@ class SetNicknameTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('asset'),
-            new OrganizationUserDataProvider('asset', [
+            new AuthOrgDataProvider('asset'),
+            new OrgUserDataProvider('asset', [
                 'assets-view',
                 'assets-edit-nickname',
             ]),
@@ -107,7 +109,6 @@ class SetNicknameTest extends TestCase {
                 'ok'                       => [
                     new GraphQLSuccess(
                         'asset',
-                        null,
                         new JsonFragment('setNickname', [
                             'result' => true,
                             'asset'  => [
@@ -132,7 +133,6 @@ class SetNicknameTest extends TestCase {
                 'reset nickname'           => [
                     new GraphQLSuccess(
                         'asset',
-                        null,
                         new JsonFragment('setNickname', [
                             'result' => true,
                             'asset'  => [

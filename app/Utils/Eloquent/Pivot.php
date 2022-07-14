@@ -2,9 +2,10 @@
 
 namespace App\Utils\Eloquent;
 
+use App\Utils\Eloquent\Contracts\Constructor;
 use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
 
-abstract class Pivot extends LaraASPPivot {
+abstract class Pivot extends LaraASPPivot implements Constructor {
     use ModelTraits;
 
     protected const CASTS = [

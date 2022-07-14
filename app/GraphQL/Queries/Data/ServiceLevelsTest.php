@@ -9,30 +9,38 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversNothing
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ServiceLevelsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         Closure $factory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
         $this->setTranslations($translationsFactory);
 
         if ($factory) {
@@ -62,11 +70,11 @@ class ServiceLevelsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('serviceLevels'),
-            new UserDataProvider('serviceLevels'),
+            new AuthOrgDataProvider('serviceLevels'),
+            new AuthMeDataProvider('serviceLevels'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('serviceLevels', self::class, [
+                    new GraphQLSuccess('serviceLevels', [
                         [
                             'id'               => '152d295f-e888-44a2-bdf3-7dc986c4524c',
                             'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

@@ -14,33 +14,41 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Administration\Users
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UsersTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         }
 
         // Test
@@ -120,15 +128,14 @@ class UsersTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'keycloak' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-                new OrganizationUserDataProvider('users', [
+                new AuthOrgRootDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+                new OrgUserDataProvider('users', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(
                             'users',
-                            self::class,
                             [
                                 [
                                     'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
@@ -262,13 +269,13 @@ class UsersTest extends TestCase {
                 ]),
             ),
             'root'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-                new OrganizationUserDataProvider('users', [
+                new AuthOrgRootDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+                new OrgUserDataProvider('users', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('users', self::class, [
+                        new GraphQLPaginated('users', [
                             [
                                 'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                 'given_name'          => 'keycloak',

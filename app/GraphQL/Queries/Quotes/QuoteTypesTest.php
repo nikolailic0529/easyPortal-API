@@ -10,14 +10,21 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuoteTypes
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class QuoteTypesTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -27,19 +34,21 @@ class QuoteTypesTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $localeFactory = null,
         Closure $typesFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-        $this->setSettings($settings);
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
+        $this->setSettings($settingsFactory);
 
         if ($typesFactory) {
             $typesFactory($this);
@@ -121,7 +130,7 @@ class QuoteTypesTest extends TestCase {
         ];
         $provider    = new ArrayDataProvider([
             'quote_types match'                  => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
+                new GraphQLSuccess('quoteTypes', $objects),
                 [
                     'ep.document_statuses_hidden' => [],
                     'ep.quote_types'              => [
@@ -134,7 +143,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'no quote_types + contract_types'    => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
+                new GraphQLSuccess('quoteTypes', $objects),
                 [
                     'ep.contract_types' => [
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
@@ -144,7 +153,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'quote_types not match'              => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                new GraphQLSuccess('quoteTypes', [
                     // empty
                 ]),
                 [
@@ -157,7 +166,7 @@ class QuoteTypesTest extends TestCase {
                 $factory,
             ],
             'no quote_types + no contract_types' => [
-                new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                new GraphQLSuccess('quoteTypes', [
                     // empty
                 ]),
                 [
@@ -171,16 +180,9 @@ class QuoteTypesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('quoteTypes'),
-                new OrganizationUserDataProvider('quoteTypes', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('quoteTypes'),
-                new OrganizationUserDataProvider('quoteTypes', [
+            'quotes-view' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quoteTypes'),
+                new OrgUserDataProvider('quoteTypes', [
                     'quotes-view',
                 ]),
                 $provider,

@@ -17,13 +17,18 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
 
 use function addslashes;
 use function json_encode;
 
+use const JSON_THROW_ON_ERROR;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Cached\Cached
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class CachedTest extends TestCase {
     use WithGraphQLSchema;
@@ -34,14 +39,16 @@ class CachedTest extends TestCase {
      * @covers ::handleField
      *
      * @dataProvider dataProviderHandleField
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testResolveField(
         Response $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         string $schema,
         string $graphql,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
         $this->setSettings([
             'ep.cache.graphql.enabled'   => true,
             'ep.cache.graphql.threshold' => null,
@@ -76,7 +83,7 @@ class CachedTest extends TestCase {
             'ep.cache.graphql.enabled' => false,
         ]);
 
-        $expected = new GraphQLSuccess('root', null, json_encode('value'));
+        $expected = new GraphQLSuccess('root', json_encode('value'));
         $resolver = Mockery::spy(static function (): string {
             return 'value';
         });
@@ -90,7 +97,7 @@ class CachedTest extends TestCase {
         $this->mockResolver($resolver);
 
         $this->useGraphQLSchema(
-            /** @lang GraphQL */
+        /** @lang GraphQL */
             <<<'GRAPHQL'
             type Query {
                 root: String @cached @mock
@@ -158,14 +165,16 @@ class CachedTest extends TestCase {
      * @covers ::getResolveMode
      *
      * @dataProvider dataProviderGetResolveMode
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testGetResolveMode(
         Response $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         string $schema,
         string $graphql,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         $directive = new class() extends Cached implements FieldResolver {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -587,7 +596,7 @@ class CachedTest extends TestCase {
 
         return [
             'root (without args)'    => [
-                new GraphQLSuccess('root', null, json_encode('value')),
+                new GraphQLSuccess('root', json_encode('value', JSON_THROW_ON_ERROR)),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -601,7 +610,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'aggregated (with root)' => [
-                new GraphQLSuccess('models', null, [
+                new GraphQLSuccess('models', [
                     [
                         'aggregated' => [
                             'count' => 'value',
@@ -657,7 +666,7 @@ class CachedTest extends TestCase {
 
         return [
             'root (without args)'       => [
-                new GraphQLSuccess('root', null, json_encode((string) new CacheKey([
+                new GraphQLSuccess('root', json_encode((string) new CacheKey([
                     '',
                     'root',
                     '',
@@ -676,7 +685,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'root (with args)'          => [
-                new GraphQLSuccess('root', null, json_encode((string) new CacheKey([
+                new GraphQLSuccess('root', json_encode((string) new CacheKey([
                     '',
                     'root',
                     [
@@ -702,7 +711,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'models'                    => [
-                new GraphQLSuccess('models', null, [
+                new GraphQLSuccess('models', [
                     [
                         'value' => (string) new CacheKey([
                             $cacheKey,
@@ -736,7 +745,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'aggregated (without root)' => [
-                new GraphQLSuccess('aggregated', null, [
+                new GraphQLSuccess('aggregated', [
                     'count' => (string) new CacheKey([
                         '',
                         'aggregated',
@@ -774,7 +783,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'aggregated (with root)'    => [
-                new GraphQLSuccess('models', null, [
+                new GraphQLSuccess('models', [
                     [
                         'aggregated' => [
                             'count' => (string) new CacheKey([
@@ -837,7 +846,7 @@ class CachedTest extends TestCase {
 
         return [
             'default (root)'                 => [
-                new GraphQLSuccess('root', null, CachedMode::normal()),
+                new GraphQLSuccess('root', CachedMode::normal()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -851,7 +860,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             'default (nested)'               => [
-                new GraphQLSuccess('root', null, [
+                new GraphQLSuccess('root', [
                     'id' => CachedMode::normal(),
                 ]),
                 $organization,
@@ -873,7 +882,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             (string) CachedMode::normal()    => [
-                new GraphQLSuccess('root', null, CachedMode::normal()),
+                new GraphQLSuccess('root', CachedMode::normal()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {
@@ -887,7 +896,7 @@ class CachedTest extends TestCase {
                 GRAPHQL,
             ],
             (string) CachedMode::threshold() => [
-                new GraphQLSuccess('root', null, CachedMode::threshold()),
+                new GraphQLSuccess('root', CachedMode::threshold()),
                 $organization,
                 /** @lang GraphQL */ <<<'GRAPHQL'
                 type Query {

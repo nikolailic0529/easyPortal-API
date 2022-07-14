@@ -2,18 +2,22 @@
 
 namespace App\GraphQL\Mutations\Me;
 
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Me\CreateMeSearch
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class CreateMeSearchTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -22,12 +26,15 @@ class CreateMeSearchTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $data
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $data = [
             'name'       => '',
             'key'        => '',
@@ -35,7 +42,7 @@ class CreateMeSearchTest extends TestCase {
         ],
     ): void {
         // Prepare
-        $user = $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $user = $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($user) {
             $user->save();
@@ -76,11 +83,11 @@ class CreateMeSearchTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('createMeSearch'),
-            new UserDataProvider('createMeSearch'),
+            new AuthOrgDataProvider('createMeSearch'),
+            new AuthMeDataProvider('createMeSearch'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('createMeSearch', CreateMeSearch::class),
+                    new GraphQLSuccess('createMeSearch'),
                     [
                         'conditions' => 'conditionsObject',
                         'key'        => 'key1',

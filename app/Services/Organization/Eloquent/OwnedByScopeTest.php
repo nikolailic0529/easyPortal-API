@@ -11,11 +11,14 @@ use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\Organization\Eloquent\OwnedByScope
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class OwnedByScopeTest extends TestCase {
     use WithoutGlobalScopes;
@@ -28,15 +31,15 @@ class OwnedByScopeTest extends TestCase {
      * @dataProvider dataProviderHandle
      *
      * @param array{query: string, bindings: array<mixed>} $expected
-     * @param Closure(static): Organization                $organizationFactory
+     * @param OrganizationFactory                          $orgFactory
      * @param Closure(static): Model                       $modelFactory
      */
     public function testHandle(
         array $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         Closure $modelFactory,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         $model   = $modelFactory($this);
         $scope   = $this->app->make(OwnedByScopeTest_Scope::class);
@@ -53,15 +56,15 @@ class OwnedByScopeTest extends TestCase {
      * @dataProvider dataProviderHandleForSearch
      *
      * @param array{query: string, bindings: array<mixed>} $expected
-     * @param Closure(static): Organization                $organizationFactory
+     * @param OrganizationFactory                          $orgFactory
      * @param Closure(static): Model                       $modelFactory
      */
     public function testHandleForSearch(
         array $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         Closure $modelFactory,
     ): void {
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         $model   = $modelFactory($this);
         $scope   = $this->app->make(OwnedByScopeTest_Scope::class);

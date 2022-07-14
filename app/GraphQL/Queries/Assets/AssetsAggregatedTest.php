@@ -12,15 +12,20 @@ use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetsAggregated
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class AssetsAggregatedTest extends TestCase {
     use WithQueryLog;
@@ -31,22 +36,24 @@ class AssetsAggregatedTest extends TestCase {
      * @covers ::types
      *
      * @dataProvider dataProviderQuery
-     *
-     * @param array<mixed> $params
+
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param array<mixed>        $params
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($factory) {
-            $factory($this, $organization, $user);
+            $factory($this, $org, $user);
         }
 
         // Test
@@ -148,14 +155,14 @@ class AssetsAggregatedTest extends TestCase {
         };
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('assetsAggregated'),
-                new OrganizationUserDataProvider('assetsAggregated', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('assetsAggregated'),
+                new OrgUserDataProvider('assetsAggregated', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
+                        new GraphQLSuccess('assetsAggregated', [
                             'count'     => 3,
                             'types'     => [
                                 [
@@ -190,56 +197,14 @@ class AssetsAggregatedTest extends TestCase {
                     ],
                 ]),
             ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregated'),
-                new OrganizationUserDataProvider('assetsAggregated', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('assetsAggregated'),
+                new OrgUserDataProvider('assetsAggregated', [
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
-                            'count'     => 3,
-                            'types'     => [
-                                [
-                                    'count'   => 1,
-                                    'type_id' => null,
-                                    'type'    => null,
-                                ],
-                                [
-                                    'count'   => 2,
-                                    'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'type'    => [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'name1',
-                                        'key'  => 'key1',
-                                    ],
-                                ],
-                            ],
-                            'coverages' => [
-                                [
-                                    'count'       => 1,
-                                    'coverage_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'coverage'    => [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                        'name' => 'name2',
-                                        'key'  => 'key2',
-                                    ],
-                                ],
-                            ],
-                        ]),
-                        $factory,
-                        $params,
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetsAggregated'),
-                new OrganizationUserDataProvider('assetsAggregated', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('assetsAggregated', AssetsAggregated::class, [
+                        new GraphQLSuccess('assetsAggregated', [
                             'count'     => 3,
                             'types'     => [
                                 [

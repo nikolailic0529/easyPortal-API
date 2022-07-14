@@ -11,15 +11,20 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\DeleteQuoteNote
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteQuoteNoteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -27,22 +32,25 @@ class DeleteQuoteNoteTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $dataFactory = null,
         bool $exists = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $note = null;
 
         if ($dataFactory) {
-            $note = $dataFactory($this, $organization, $user);
+            $note = $dataFactory($this, $org, $user);
         }
 
         $this
@@ -74,51 +82,13 @@ class DeleteQuoteNoteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
-                new OrganizationUserDataProvider('deleteQuoteNote', [
+                new AuthOrgDataProvider('deleteQuoteNote'),
+                new OrgUserDataProvider('deleteQuoteNote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
-                            'deleted' => true,
-                        ]),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-                            if ($user) {
-                                $user->save();
-                                $data['user_id'] = $user->getKey();
-                            }
-
-                            return Note::factory()->for($user)->hasFiles(1)->create($data);
-                        },
-                        false,
-                    ],
-                    'Different User' => [
-                        new GraphQLUnauthorized('deleteQuoteNote'),
-                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
-                            $data = [];
-                            if ($organization) {
-                                $data['organization_id'] = $organization->getKey();
-                            }
-
-                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
-                        },
-                        true,
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
-                new OrganizationUserDataProvider('deleteQuoteNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok'             => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteQuoteNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
@@ -150,13 +120,13 @@ class DeleteQuoteNoteTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new OrganizationDataProvider('deleteQuoteNote'),
-                new OrganizationUserDataProvider('deleteQuoteNote', [
+                new AuthOrgDataProvider('deleteQuoteNote'),
+                new OrgUserDataProvider('deleteQuoteNote', [
                     'org-administer',
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteQuoteNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
@@ -174,7 +144,7 @@ class DeleteQuoteNoteTest extends TestCase {
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
+                        new GraphQLSuccess('deleteQuoteNote', [
                             'deleted' => true,
                         ]),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {

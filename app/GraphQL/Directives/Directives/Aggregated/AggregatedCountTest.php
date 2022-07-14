@@ -65,7 +65,7 @@ class AggregatedCountTest extends TestCase {
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
+            ->assertThat(new GraphQLSuccess('data', [
                 'count' => $expected,
             ]));
     }
@@ -102,7 +102,7 @@ class AggregatedCountTest extends TestCase {
                 }
                 GRAPHQL,
             )
-            ->assertThat(new GraphQLSuccess('data', null, [
+            ->assertThat(new GraphQLSuccess('data', [
                 'value' => 1,
             ]));
     }

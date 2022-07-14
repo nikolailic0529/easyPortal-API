@@ -5,9 +5,9 @@ namespace Database\Factories;
 use App\Models\Customer;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method ResellerCustomer create($attributes = [], ?Model $parent = null)

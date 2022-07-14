@@ -18,33 +18,41 @@ use JsonSerializable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UserTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $this->faker->uuid();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user)->getKey();
+            $id = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -144,13 +152,13 @@ class UserTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('user', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-            new OrganizationUserDataProvider('user', [
+            new AuthOrgRootDataProvider('user', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+            new OrgUserDataProvider('user', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'keycloak users'                => [
-                    new GraphQLSuccess('user', self::class, [
+                    new GraphQLSuccess('user', [
                         'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                         'given_name'          => 'keycloak',
                         'family_name'         => 'user',
@@ -271,7 +279,7 @@ class UserTest extends TestCase {
                     },
                 ],
                 'keycloak user cannot see root' => [
-                    new GraphQLSuccess('user', null, new class() implements JsonSerializable {
+                    new GraphQLSuccess('user', new class() implements JsonSerializable {
                         public function jsonSerialize(): mixed {
                             return null;
                         }
@@ -338,7 +346,7 @@ class UserTest extends TestCase {
                     },
                 ],
                 'root cannot see root'          => [
-                    new GraphQLSuccess('user', self::class, [
+                    new GraphQLSuccess('user', [
                         'id'                  => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                         'given_name'          => 'keycloak',
                         'family_name'         => 'user',

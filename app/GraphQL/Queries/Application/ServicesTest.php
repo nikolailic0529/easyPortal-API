@@ -26,14 +26,19 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Settings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ServicesTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -42,17 +47,20 @@ class ServicesTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
         Closure $queueStateFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
         $this->setTranslations($translationsFactory);
 
         if ($store) {
@@ -154,11 +162,11 @@ class ServicesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('application'),
-            new RootUserDataProvider('application'),
+            new AuthOrgRootDataProvider('application'),
+            new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class => [
-                    new GraphQLSuccess('application', self::class),
+                    new GraphQLSuccess('application'),
                     null,
                     null,
                     static function (): array {
@@ -166,7 +174,7 @@ class ServicesTest extends TestCase {
                     },
                 ],
                 'translated'     => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'services' => [
                             [
                                 'name'         => 'service-a',

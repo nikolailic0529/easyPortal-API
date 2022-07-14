@@ -7,9 +7,11 @@ type Query {
     # ============================================================================
     "Authenticated user or `null` otherwise."
     me: Me
+    @field(resolver: "App\\GraphQL\\Queries\\Me")
 
     "Current organization."
     org: Organization
+    @field(resolver: "App\\GraphQL\\Queries\\Org")
 
     "Application information."
     application: Application!

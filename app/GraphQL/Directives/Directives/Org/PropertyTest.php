@@ -30,6 +30,7 @@ use Tests\DataProviders\Builders\QueryBuilderDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
 
 use function is_string;
 use function sprintf;
@@ -37,6 +38,8 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Property
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class PropertyTest extends TestCase {
     use WithGraphQLSchema;
@@ -49,11 +52,12 @@ class PropertyTest extends TestCase {
      * @dataProvider dataProviderHandleBuilder
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>} $expected
+     * @param OrganizationFactory                                                            $orgFactory
      */
     public function testHandleBuilder(
         Exception|string|array $expected,
         Closure $builderFactory,
-        Closure $organizationFactory = null,
+        mixed $orgFactory = null,
         bool $organizationIsRoot = false,
     ): void {
         if ($expected instanceof Exception) {
@@ -65,10 +69,10 @@ class PropertyTest extends TestCase {
         }
 
         if ($organizationIsRoot) {
-            $this->setOrganization($organizationFactory);
-            $this->setRootOrganization($organizationFactory);
+            $this->setOrganization($orgFactory);
+            $this->setRootOrganization($orgFactory);
         } else {
-            $this->setOrganization($organizationFactory);
+            $this->setOrganization($orgFactory);
         }
 
         $directive      = $this->app->make(OrgPropertyDirective::class)
@@ -86,19 +90,21 @@ class PropertyTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param OrganizationFactory $orgFactory
      */
     public function testResolveField(
         Constraint $expected,
-        Closure $organizationFactory,
+        mixed $orgFactory,
         Closure $factory,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
+        $org = $this->setOrganization($orgFactory);
 
-        $factory($this, $organization);
+        $factory($this, $org);
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 type Query {
                     customers: [Customer!]! @all
@@ -111,7 +117,7 @@ class PropertyTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     customers {
@@ -332,7 +338,7 @@ class PropertyTest extends TestCase {
 
         return [
             'root organization' => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'           => $customerId,
                         'assets_count' => $rootValue,
@@ -344,7 +350,7 @@ class PropertyTest extends TestCase {
                 $factory,
             ],
             'organization'      => [
-                new GraphQLSuccess('customers', null, [
+                new GraphQLSuccess('customers', [
                     [
                         'id'           => $customerId,
                         'assets_count' => $orgValue,
@@ -396,7 +402,7 @@ class PropertyTest_ModelWithScopeRelationUnsupported extends Model implements Ow
     }
 
     /**
-     * @return BelongsTo<static>
+     * @return BelongsTo<self, self>
      */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);

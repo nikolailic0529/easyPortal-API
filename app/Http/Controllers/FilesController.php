@@ -36,9 +36,9 @@ class FilesController extends Controller {
 
             if ($document) {
                 if ($document->is_contract) {
-                    $allowed = $this->gate->any(['contracts-view', 'customers-view'], [$object]);
+                    $allowed = $this->gate->any(['contracts-view'], [$object]);
                 } elseif ($document->is_quote) {
-                    $allowed = $this->gate->any(['quotes-view', 'customers-view'], [$object]);
+                    $allowed = $this->gate->any(['quotes-view'], [$object]);
                 } else {
                     // empty
                 }

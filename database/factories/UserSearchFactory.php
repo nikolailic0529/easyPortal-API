@@ -4,8 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\UserSearch;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method UserSearch create($attributes = [], ?Model $parent = null)

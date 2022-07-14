@@ -26,11 +26,14 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
 use Psr\Http\Message\ResponseInterface;
-use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\ResponseTypes\CsvContentType;
 use Tests\ResponseTypes\XlsxContentType;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 use Throwable;
 
 use function count;
@@ -43,6 +46,10 @@ use function trim;
 /**
  * @internal
  * @coversDefaultClass \App\Http\Controllers\Export\ExportController
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ExportControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -152,24 +159,26 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory      $settingsFactory
      */
     public function testCvs(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [],
-        array $settings = null,
+        mixed $settingsFactory = null,
     ): void {
         // Prepare
-        [$organization, $user, $data, $count] = $this->prepare(
-            $organizationFactory,
+        [$org, $user, $data, $count] = $this->prepare(
+            $orgFactory,
             $userFactory,
             $factory,
             $data,
-            $settings,
+            $settingsFactory,
         );
 
         // Fake
@@ -182,7 +191,7 @@ class ExportControllerTest extends TestCase {
             ));
         }
 
-        if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
+        if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
             ));
@@ -224,24 +233,26 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory      $settingsFactory
      */
     public function testXlsx(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [],
-        array $settings = null,
+        mixed $settingsFactory = null,
     ): void {
         // Prepare
-        [$organization, $user, $data, $count] = $this->prepare(
-            $organizationFactory,
+        [$org, $user, $data, $count] = $this->prepare(
+            $orgFactory,
             $userFactory,
             $factory,
             $data,
-            $settings,
+            $settingsFactory,
         );
 
         // Fake
@@ -254,7 +265,7 @@ class ExportControllerTest extends TestCase {
             ));
         }
 
-        if ($expected instanceof Forbidden && $user?->organization_id === $organization?->getKey()) {
+        if ($expected instanceof Forbidden && $user?->organization_id === $org?->getKey()) {
             self::expectExceptionObject(new StreamedResponseException(
                 new AuthorizationException('Unauthorized.'),
             ));
@@ -306,19 +317,21 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory      $settingsFactory
      */
     public function testPdf(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [],
-        array $settings = null,
+        mixed $settingsFactory = null,
     ): void {
         // Prepare
-        [, , $data] = $this->prepare($organizationFactory, $userFactory, $factory, $data, $settings);
+        [, , $data] = $this->prepare($orgFactory, $userFactory, $factory, $data, $settingsFactory);
 
         // Fake
         Event::fake(QueryExported::class);
@@ -343,26 +356,28 @@ class ExportControllerTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $data
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory      $settingsFactory
      *
      * @return array{?Organization,?User,array<string,mixed>,?int}
      */
     protected function prepare(
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [],
-        array $settings = null,
+        mixed $settingsFactory = null,
     ): array {
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $count        = null;
+        $org   = $this->setOrganization($orgFactory);
+        $user  = $this->setUser($userFactory, $org);
+        $count = null;
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         if ($factory) {
-            $count = $factory($this, $organization, $user);
+            $count = $factory($this, $org, $user);
         }
 
         if (!$data) {
@@ -372,7 +387,7 @@ class ExportControllerTest extends TestCase {
             ];
         }
 
-        return [$organization, $user, $data, $count];
+        return [$org, $user, $data, $count];
     }
 
     //</editor-fold>
@@ -587,8 +602,8 @@ class ExportControllerTest extends TestCase {
      */
     public function dataProviderExport(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider(),
-            new OrganizationUserDataProvider([
+            new AuthOrgDataProvider(),
+            new OrgUserDataProvider([
                 'customers-view',
             ]),
             new ArrayDataProvider([

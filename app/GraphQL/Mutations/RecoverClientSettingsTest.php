@@ -3,19 +3,23 @@
 namespace App\GraphQL\Mutations;
 
 use App\Services\Settings\Storages\ClientSettings;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RecoverClientSettings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class RecoverClientSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -24,14 +28,17 @@ class RecoverClientSettingsTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Mock
         if ($expected instanceof GraphQLSuccess) {
@@ -66,11 +73,11 @@ class RecoverClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('recoverClientSettings'),
-            new RootUserDataProvider('recoverClientSettings'),
+            new AuthOrgRootDataProvider('recoverClientSettings'),
+            new AuthRootDataProvider('recoverClientSettings'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverClientSettings', RecoverClientSettings::class, [
+                    new GraphQLSuccess('recoverClientSettings', [
                         'result' => true,
                     ]),
                 ],

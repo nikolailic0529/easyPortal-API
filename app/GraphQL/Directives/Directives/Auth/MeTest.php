@@ -22,6 +22,8 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function addslashes;
 use function implode;
@@ -31,6 +33,9 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Me
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class MeTest extends TestCase {
     use WithGraphQLSchema;
@@ -66,8 +71,10 @@ class MeTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param UserFactory $userFactory
      */
-    public function testResolveField(Response $expected, Closure $userFactory): void {
+    public function testResolveField(Response $expected, mixed $userFactory): void {
         $this->setUser($userFactory);
 
         $resolver = addslashes(EmptyResolver::class);
@@ -97,15 +104,17 @@ class MeTest extends TestCase {
      *
      * @dataProvider dataProviderResolveFieldPermissions
      *
-     * @param array<string> $permissions
+     * @param array<string>       $permissions
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testResolveFieldPermissions(
         Response $expected,
         array $permissions,
-        Closure $organizationFactory,
-        Closure $userFactory,
+        mixed $orgFactory,
+        mixed $userFactory,
     ): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         $this->app->make(Permissions::class)->set([
             new class('a') extends Permission {
@@ -211,7 +220,7 @@ class MeTest extends TestCase {
                 },
             ],
             'user'  => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 static function () {
                     return User::factory()->make();
                 },
@@ -245,7 +254,7 @@ class MeTest extends TestCase {
                 },
             ],
             'org user with permission' => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 ['a', 'b', 'c'],
                 static function (): Organization {
                     return Organization::factory()->create();
@@ -279,7 +288,7 @@ class MeTest extends TestCase {
                 },
             ],
             'root without permission'  => [
-                new GraphQLSuccess('value', null),
+                new GraphQLSuccess('value'),
                 ['a', 'b', 'c'],
                 static function () {
                     return null;

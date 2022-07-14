@@ -9,8 +9,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
@@ -101,11 +101,11 @@ class ImportTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('locale'),
-            new RootUserDataProvider('locale'),
+            new AuthOrgRootDataProvider('locale'),
+            new AuthRootDataProvider('locale'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('locale', null, new JsonFragment('import.result', true)),
+                    new GraphQLSuccess('locale', new JsonFragment('import.result', true)),
                     'en_GB',
                     [
                         'translations' => UploadedFile::fake()->createWithContent(

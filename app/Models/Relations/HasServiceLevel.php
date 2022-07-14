@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasServiceLevel {
+    /**
+     * @return BelongsTo<ServiceLevel, self>
+     */
     #[CascadeDelete(false)]
     public function serviceLevel(): BelongsTo {
         return $this->belongsTo(ServiceLevel::class);

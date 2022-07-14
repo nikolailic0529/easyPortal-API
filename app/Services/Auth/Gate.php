@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Organization;
 use App\Services\Auth\Contracts\HasPermissions;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -78,7 +79,7 @@ class Gate {
         }
 
         // Permission?
-        if ($this->isPermission($ability) && !$this->hasPermission($user, $ability)) {
+        if ($this->isPermission($ability) && !$this->hasPermission($org, $user, $ability)) {
             return false;
         }
 
@@ -97,10 +98,19 @@ class Gate {
         return $this->permissions[$permission];
     }
 
-    protected function hasPermission(Authenticatable|null $user, string $permission): bool {
-        $permissions = $user instanceof HasPermissions ? $user->getPermissions() : [];
-        $has         = $permissions && in_array($permission, $permissions, true);
+    protected function hasPermission(?Organization $org, ?Authenticatable $user, string $permission): bool {
+        // Permissions?
+        if (!($user instanceof HasPermissions)) {
+            return false;
+        }
 
-        return $has;
+        // Check
+        $permissions   = $user->getPermissions();
+        $permissions   = $this->getAuth()->getActualPermissions($org, $permissions);
+        $hasPermission = $permissions
+            && in_array($permission, $permissions, true);
+
+        // Return
+        return $hasPermission;
     }
 }

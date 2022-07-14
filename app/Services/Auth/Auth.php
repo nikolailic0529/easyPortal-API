@@ -5,11 +5,17 @@ namespace App\Services\Auth;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth\Contracts\Enableable;
+use App\Services\Auth\Contracts\Permissions\Composite;
+use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Contracts\Rootable;
-use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Support\Collection;
+
+use function array_intersect;
+use function array_pop;
+use function array_values;
 
 class Auth {
     public function __construct(
@@ -50,7 +56,7 @@ class Auth {
     }
 
     /**
-     * @return array<Permission>
+     * @return array<string>
      */
     public function getAvailablePermissions(Organization $organization): array {
         $isRoot      = $this->rootOrganization->is($organization);
@@ -61,9 +67,71 @@ class Auth {
                 continue;
             }
 
-            $permissions[] = $permission;
+            $permissions[] = $permission->getName();
         }
 
         return $permissions;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getOrganizationUserPermissions(Organization $organization, User $user): array {
+        $permissions = $user->getOrganizationPermissions($organization);
+        $permissions = $this->getActualPermissions($organization, $permissions);
+
+        return $permissions;
+    }
+
+    /**
+     * @param array<string> $permissions
+     *
+     * @return array<string>
+     */
+    public function getActualPermissions(?Organization $organization, array $permissions): array {
+        $permissions = $this->expand($permissions);
+
+        if ($organization) {
+            $valid       = $this->getAvailablePermissions($organization);
+            $permissions = array_intersect($permissions, $valid);
+        }
+
+        return array_values($permissions);
+    }
+
+    /**
+     * @param array<string> $permissions
+     *
+     * @return array<string>
+     */
+    private function expand(array $permissions): array {
+        $stack    = (new Collection($this->getPermissions()))
+            ->keyBy(static function (Permission $permission): string {
+                return $permission->getName();
+            })
+            ->only($permissions)
+            ->all();
+        $expanded = [];
+
+        while ($stack) {
+            // Added?
+            $permission = array_pop($stack);
+
+            if (isset($expanded[$permission->getName()])) {
+                continue;
+            }
+
+            // Add
+            $expanded[$permission->getName()] = $permission->getName();
+
+            // Composite?
+            if ($permission instanceof Composite) {
+                foreach ($permission->getPermissions() as $inherited) {
+                    $stack[] = $inherited;
+                }
+            }
+        }
+
+        return array_values($expanded);
     }
 }

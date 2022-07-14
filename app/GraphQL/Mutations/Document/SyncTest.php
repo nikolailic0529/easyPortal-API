@@ -17,18 +17,24 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Document\Sync
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class SyncTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -38,23 +44,26 @@ class SyncTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string,mixed>                           $settings
+     *
+     * @param OrganizationFactory                           $orgFactory
+     * @param UserFactory                                   $userFactory
+     * @param SettingsFactory                               $settingsFactory
      * @param Closure(static, ?Organization, ?User): string $prepare
      */
     public function testInvoke(
         Response $expected,
         string $query,
         string $queryType,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
         $id           = $this->faker->uuid();
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         if ($prepare) {
             $id = $prepare($this, $organization, $user);
@@ -64,7 +73,7 @@ class SyncTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     "ep.{$query}_types" => [$type->getKey()],
                 ]);
@@ -155,13 +164,14 @@ class SyncTest extends TestCase {
                         'ContractSyncInput',
                     ],
                 ]),
-                new RootOrganizationDataProvider('contract'),
-                new RootUserDataProvider('contract'),
+                new AuthOrgDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
+                    'contracts-sync',
+                ]),
                 new ArrayDataProvider([
                     'ok'           => [
                         new GraphQLSuccess(
                             'contract',
-                            new JsonFragmentSchema('sync', self::class),
                             new JsonFragment('sync', [
                                 'result' => true,
                                 'assets' => true,
@@ -214,13 +224,14 @@ class SyncTest extends TestCase {
                         'QuoteSyncInput',
                     ],
                 ]),
-                new RootOrganizationDataProvider('quote'),
-                new RootUserDataProvider('quote'),
+                new AuthOrgDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
+                    'quotes-sync',
+                ]),
                 new ArrayDataProvider([
                     'ok'           => [
                         new GraphQLSuccess(
                             'quote',
-                            new JsonFragmentSchema('sync', self::class),
                             new JsonFragment('sync', [
                                 'result' => true,
                                 'assets' => true,

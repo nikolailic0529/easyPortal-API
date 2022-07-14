@@ -26,19 +26,26 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\Contracts
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ContractsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -48,25 +55,27 @@ class ContractsTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $contractsFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($settings) {
-            $this->setSettings($settings);
+        if ($settingsFactory) {
+            $this->setSettings($settingsFactory);
         }
 
         if ($contractsFactory) {
-            $contractsFactory($this, $organization, $user);
+            $contractsFactory($this, $org, $user);
         }
 
         // Not empty?
@@ -255,14 +264,14 @@ class ContractsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contracts'),
-                new OrganizationUserDataProvider('contracts', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contracts'),
+                new OrgUserDataProvider('contracts', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('contracts', null),
+                        new GraphQLPaginated('contracts'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [
@@ -282,52 +291,15 @@ class ContractsTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contracts'),
-                new OrganizationUserDataProvider('contracts', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLPaginated('contracts', null),
-                        [
-                            'ep.document_statuses_hidden' => [],
-                            'ep.contract_types'           => [
-                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contracts', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contracts', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contracts', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contracts', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                       => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             [
                                 [
                                     'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -682,7 +654,7 @@ class ContractsTest extends TestCase {
                         },
                     ],
                     'no types'                 => [
-                        new GraphQLPaginated('contracts', self::class, [
+                        new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
@@ -700,7 +672,7 @@ class ContractsTest extends TestCase {
                         },
                     ],
                     'type not match'           => [
-                        new GraphQLPaginated('contracts', self::class, [
+                        new GraphQLPaginated('contracts', [
                             // empty
                         ]),
                         [
@@ -720,7 +692,6 @@ class ContractsTest extends TestCase {
                     'hiding price'             => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -757,7 +728,6 @@ class ContractsTest extends TestCase {
                     'entry: hiding list_price' => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
                                 'count' => 1,
@@ -798,7 +768,6 @@ class ContractsTest extends TestCase {
                     'entry: hiding net_price'  => [
                         new GraphQLPaginated(
                             'contracts',
-                            self::class,
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
                                 'count' => 1,

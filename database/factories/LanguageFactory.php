@@ -3,9 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Language;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method Language create($attributes = [], ?Model $parent = null)

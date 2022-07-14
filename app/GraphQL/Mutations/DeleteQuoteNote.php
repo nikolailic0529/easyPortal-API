@@ -19,7 +19,7 @@ class DeleteQuoteNote {
         return [
             'deleted' => $this->deleteContractNote->deleteNote(
                 $args['input']['id'],
-                ['org-administer', 'quotes-view', 'customers-view'],
+                ['org-administer', 'quotes-view'],
             ),
         ];
     }

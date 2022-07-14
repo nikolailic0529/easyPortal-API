@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Queries\Administration;
 
-use App\GraphQL\Queries\Org;
-use App\GraphQL\Types\Audit;
 use App\Models\Currency;
 use App\Models\Kpi;
 use App\Models\Location;
@@ -19,18 +17,24 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Organization
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,24 +44,26 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this, $organization, $user)->getKey();
+            $organizationId = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -181,20 +187,23 @@ class OrganizationTest extends TestCase {
      * @covers ::users
      *
      * @dataProvider dataProviderUsers
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testUsers(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $organization?->getKey();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $org?->getKey();
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user)->getKey();
+            $id = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -228,19 +237,23 @@ class OrganizationTest extends TestCase {
      * @covers ::roles
      *
      * @dataProvider dataProviderRoles
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testRoles(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $this->setUser($userFactory, $organization);
+        $org = $this->setOrganization($orgFactory);
+
+        $this->setUser($userFactory, $org);
 
         if ($prepare) {
-            $prepare($this, $organization);
+            $prepare($this, $org);
         }
 
         // Test
@@ -264,7 +277,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $organization?->getKey() ?: $this->faker->uuid(),
+                    'id' => $org?->getKey() ?: $this->faker->uuid(),
                 ],
             )
             ->assertThat($expected);
@@ -274,20 +287,23 @@ class OrganizationTest extends TestCase {
      * @covers       \App\GraphQL\Queries\Administration\AuditContext::__invoke
      *
      * @dataProvider dataProviderAudits
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testAudits(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this, $organization, $user)->getKey();
+            $organizationId = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -321,13 +337,13 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('organization'),
-            new OrganizationUserDataProvider('organization', [
+            new AuthOrgRootDataProvider('organization'),
+            new OrgUserDataProvider('organization', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('organization', Org::class, [
+                    new GraphQLSuccess('organization', [
                         'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                         'name'            => 'org1',
                         'root'            => false,
@@ -572,13 +588,13 @@ class OrganizationTest extends TestCase {
     public function dataProviderUsers(): array {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                        new GraphQLSuccess('organization', [
                             'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
@@ -617,13 +633,13 @@ class OrganizationTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('users', self::class), [
+                        new GraphQLSuccess('organization', [
                             'users'           => [
                                 [
                                     'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
@@ -670,13 +686,13 @@ class OrganizationTest extends TestCase {
     public function dataProviderRoles(): array {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                        new GraphQLSuccess('organization', new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                 'name'        => 'role1',
@@ -711,13 +727,13 @@ class OrganizationTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                        new GraphQLSuccess('organization', new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                 'name'        => 'role1',
@@ -759,13 +775,13 @@ class OrganizationTest extends TestCase {
     public function dataProviderAudits(): array {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
+                        new GraphQLSuccess('organization', [
                             'audits'           => [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
@@ -829,13 +845,13 @@ class OrganizationTest extends TestCase {
                 ]),
             ),
             'org-administer' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('organization'),
-                new OrganizationUserDataProvider('organization', [
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
+                        new GraphQLSuccess('organization', [
                             'audits'           => [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',

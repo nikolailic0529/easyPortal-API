@@ -17,7 +17,47 @@
         "maintenance": {
             "oneOf": [
                 {
-                    "$ref": "../../GraphQL/Types/ApplicationMaintenance.json"
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "enabled",
+                        "message",
+                        "start",
+                        "end"
+                    ],
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "message": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        },
+                        "start": {
+                            "oneOf": [
+                                {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        },
+                        "end": {
+                            "oneOf": [
+                                {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        }
+                    }
                 },
                 {
                     "type": "null"

@@ -5,18 +5,18 @@ namespace App\Rules\Org;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 /**
  * @internal
  * @coversDefaultClass \App\Rules\Org\PermissionId
  *
- * @phpstan-import-type OrganizationFactory from \Tests\WithOrganization
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class PermissionIdTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -43,7 +43,7 @@ class PermissionIdTest extends TestCase {
      * @dataProvider dataProviderPasses
      *
      * @param OrganizationFactory                     $orgFactory
-     * @param array<AuthPermission>                   $permissions
+     * @param array<string>                           $permissions
      * @param Closure(static, ?Organization): ?string $valueFactory
      */
     public function testPasses(
@@ -82,12 +82,8 @@ class PermissionIdTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderPasses(): array {
-        $a = new class('permission-a') extends AuthPermission {
-            // empty,
-        };
-        $b = new class('permission-b') extends AuthPermission {
-            // empty,
-        };
+        $a = 'permission-a';
+        $b = 'permission-b';
 
         return [
             'no organization' => [
@@ -97,7 +93,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($b): string {
                     return Permission::factory()
                         ->create([
-                            'key' => $b->getName(),
+                            'key' => $b,
                         ])
                         ->getKey();
                 },
@@ -111,7 +107,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($a): string {
                     return Permission::factory()
                         ->create([
-                            'key' => $a->getName(),
+                            'key' => $a,
                         ])
                         ->getKey();
                 },
@@ -145,7 +141,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($b): string {
                     return Permission::factory()
                         ->create([
-                            'key'        => $b->getName(),
+                            'key'        => $b,
                             'deleted_at' => Date::now(),
                         ])
                         ->getKey();

@@ -12,6 +12,7 @@ class SchemaWrapper extends JsonSchemaWrapper {
 
     /**
      * @param class-string<GraphQLResponse> $response
+     * @param class-string|null             $schema
      */
     public function __construct(string $response, string $root, string $schema = null) {
         parent::__construct(

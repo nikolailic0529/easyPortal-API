@@ -24,14 +24,19 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use stdClass;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Settings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SettingsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,16 +45,19 @@ class SettingsTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
         $this->setTranslations($translationsFactory);
 
         if ($store) {
@@ -59,7 +67,11 @@ class SettingsTest extends TestCase {
                 $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
-                /** @noinspection PhpMissingParentConstructorInspection */
+                /**
+                 * @noinspection PhpMissingParentConstructorInspection
+                 *
+                 * @param class-string $store
+                 */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
@@ -131,14 +143,14 @@ class SettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('application'),
-            new RootUserDataProvider('application'),
+            new AuthOrgRootDataProvider('application'),
+            new AuthRootDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class        => [
-                    new GraphQLSuccess('application', self::class),
+                    new GraphQLSuccess('application'),
                 ],
                 'internal not returned' => [
-                    new GraphQLSuccess('application', self::class, [
+                    new GraphQLSuccess('application', [
                         'settings' => [
                             [
                                 'name'        => 'SETTING_FLOAT',

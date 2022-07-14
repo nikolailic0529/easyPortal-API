@@ -34,6 +34,7 @@ use LogicException;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithSearch;
+use Tests\WithSettings;
 
 use function ceil;
 use function count;
@@ -41,6 +42,8 @@ use function count;
 /**
  * @internal
  * @coversDefaultClass \App\Services\Search\Processors\ModelProcessor
+ *
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ModelProcessorTest extends TestCase {
     use WithSearch;
@@ -54,19 +57,19 @@ class ModelProcessorTest extends TestCase {
      * @dataProvider dataProviderModels
      *
      * @param Closure(static): Collection<Model&Searchable> $expected
-     * @param array<string, mixed>                          $settings
+     * @param SettingsFactory                               $settingsFactory
      * @param class-string<Model&Searchable>                $model
      * @param array<string|int>|null                        $keys
      */
     public function testUpdate(
         Closure $expected,
-        array $settings,
+        mixed $settingsFactory,
         string $model,
         array $keys = null,
         bool $rebuild = false,
     ): void {
         // Settings
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
         $this->setSettings([
             'scout.queue' => true, // Should be used in any case.
         ]);
@@ -328,17 +331,17 @@ class ModelProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderProcess
      *
-     * @param array<string, mixed> $settings
+     * @param SettingsFactory $settingsFactory
      */
     public function testProcess(
         bool $expected,
-        array $settings,
+        mixed $settingsFactory,
         bool $modelSearchable,
         bool $modelSoftDeletes,
         ?bool $modelTrashed,
     ): void {
         // Settings
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         // Mock
         $as    = $this->faker->word();
@@ -474,8 +477,11 @@ class ModelProcessorTest extends TestCase {
              */
             protected $table = 'test_models';
 
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            /**
+             * @inheritDoc
+             * @noinspection PhpMissingParentConstructorInspection
+             */
+            public function __construct(array $attributes = []) {
                 // empty
             }
 
@@ -682,8 +688,11 @@ class ModelProcessorTest extends TestCase {
              */
             protected $table = 'test_models';
 
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            /**
+             * @inheritDoc
+             * @noinspection PhpMissingParentConstructorInspection
+             */
+            public function __construct(array $attributes = []) {
                 // empty
             }
 

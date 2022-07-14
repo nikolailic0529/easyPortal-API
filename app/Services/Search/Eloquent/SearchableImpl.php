@@ -56,6 +56,11 @@ trait SearchableImpl {
     /**
      * @return array<string,Property>
      */
+    abstract public static function getSearchProperties(): array;
+
+    /**
+     * @return array<string,Property>
+     */
     public static function getSearchMetadata(): array {
         return [];
     }

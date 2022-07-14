@@ -20,6 +20,9 @@ use function count;
 trait HasStatuses {
     use SyncBelongsToMany;
 
+    /**
+     * @return BelongsToMany<Status>
+     */
     #[CascadeDelete(true)]
     public function statuses(): BelongsToMany {
         $pivot = $this->getStatusesPivot();

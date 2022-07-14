@@ -8,20 +8,24 @@ use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings as SettingsService;
 use App\Services\Settings\Storage;
 use App\Services\Settings\Storages\ClientSettings;
-use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Client\Settings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SettingsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,17 +34,19 @@ class SettingsTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         object $store = null,
         array $settings = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Service
         if ($store) {
@@ -51,7 +57,11 @@ class SettingsTest extends TestCase {
                 $this->app->make(Environment::class),
                 $store::class,
             ) extends SettingsService {
-                /** @noinspection PhpMissingParentConstructorInspection */
+                /**
+                 * @noinspection PhpMissingParentConstructorInspection
+                 *
+                 * @param class-string $store
+                 */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
@@ -105,11 +115,11 @@ class SettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new AnyUserDataProvider(),
+            new UnknownOrgDataProvider(),
+            new UnknownUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('client', Settings::class, [
+                    new GraphQLSuccess('client', [
                         'settings' => [
                             [
                                 'name'  => 'ValueA',

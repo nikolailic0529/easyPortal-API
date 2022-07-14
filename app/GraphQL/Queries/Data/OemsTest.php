@@ -7,13 +7,18 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class OemsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -21,15 +26,18 @@ class OemsTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $oemsFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         if ($oemsFactory) {
             $oemsFactory($this);
@@ -58,11 +66,11 @@ class OemsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('oems'),
-            new UserDataProvider('oems'),
+            new AuthOrgDataProvider('oems'),
+            new AuthMeDataProvider('oems'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('oems', self::class, [
+                    new GraphQLSuccess('oems', [
                         [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'key'  => 'abr',

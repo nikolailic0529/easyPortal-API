@@ -2,6 +2,7 @@
 
 namespace App\Services\Organization\Eloquent;
 
+use App\Models\Organization;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
@@ -44,7 +45,7 @@ class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
         }
 
         // Hide data related to another organization
-        $property     = $this->getProperty($this->organization, $model);
+        $property     = $this::getProperty($this->organization, $model);
         $organization = $this->organization->getKey();
 
         if ($property === null) {
@@ -122,7 +123,7 @@ class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    public static function getProperty(CurrentOrganization $organization, Model $model): ?ModelProperty {
+    public static function getProperty(CurrentOrganization|Organization $organization, Model $model): ?ModelProperty {
         $property = null;
 
         if ($model instanceof OwnedByOrganization) {

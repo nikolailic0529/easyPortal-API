@@ -13,17 +13,24 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateContractNote
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CreateContractNoteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -32,21 +39,23 @@ class CreateContractNoteTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         if ($prepare) {
             $prepare($this, $organization, $user);
@@ -61,7 +70,7 @@ class CreateContractNoteTest extends TestCase {
                 $organization = $this->setOrganization(Organization::factory()->make());
             }
 
-            if (!$settings) {
+            if (!$settingsFactory) {
                 $this->setSettings([
                     'ep.document_statuses_hidden' => [],
                     'ep.contract_types'           => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
@@ -184,13 +193,13 @@ class CreateContractNoteTest extends TestCase {
 
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('createContractNote'),
-                new OrganizationUserDataProvider('createContractNote', [
+                new AuthOrgDataProvider('createContractNote'),
+                new OrgUserDataProvider('createContractNote', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                  => [
-                        new GraphQLSuccess('createContractNote', CreateContractNote::class),
+                        new GraphQLSuccess('createContractNote'),
                         $settings,
                         $prepare,
                         $input,
@@ -270,20 +279,6 @@ class CreateContractNoteTest extends TestCase {
                             'contract_id' => '',
                             'files'       => [UploadedFile::fake()->create('document.csv', 150)],
                         ],
-                    ],
-                ]),
-            ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('createContractNote'),
-                new OrganizationUserDataProvider('createContractNote', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('createContractNote', CreateContractNote::class),
-                        $settings,
-                        $prepare,
-                        $input,
                     ],
                 ]),
             ),

@@ -48,6 +48,10 @@ class ModelProperty {
         return $this->name;
     }
 
+    public function getFullName(): string {
+        return implode('.', $this->getPath());
+    }
+
     /**
      * @return array<string>
      */

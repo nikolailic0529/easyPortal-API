@@ -16,15 +16,16 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\GraphQL\GraphQLValidationError;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 use function array_combine;
@@ -34,6 +35,9 @@ use function array_map;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\User\Organization\Update
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class UpdateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -41,19 +45,22 @@ class UpdateTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $clientFactory = null,
         Closure $inputUserFactory = null,
         Closure $inputOrganizationFactory = null,
         Closure $inputFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -62,13 +69,13 @@ class UpdateTest extends TestCase {
         // Input
         $input = [
             'userId'         => $inputUserFactory
-                ? $inputUserFactory($this, $organization, $user)->getKey()
+                ? $inputUserFactory($this, $org, $user)->getKey()
                 : $this->faker->uuid(),
             'organizationId' => $inputOrganizationFactory
-                ? $inputOrganizationFactory($this, $organization, $user)->getKey()
+                ? $inputOrganizationFactory($this, $org, $user)->getKey()
                 : $this->faker->uuid(),
             'input'          => $inputFactory
-                ? $inputFactory($this, $organization, $user)
+                ? $inputFactory($this, $org, $user)
                 : [],
         ];
 
@@ -126,15 +133,14 @@ class UpdateTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('user'),
-            new OrganizationUserDataProvider('user', [
+            new AuthOrgRootDataProvider('user'),
+            new OrgUserDataProvider('user', [
                 'administer',
             ]),
             new ArrayDataProvider([
                 'All possible properties'                   => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update', [
                             'result'       => true,
                             'organization' => [
@@ -213,7 +219,6 @@ class UpdateTest extends TestCase {
                 'Empty properties'                          => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update', [
                             'result'       => true,
                             'organization' => [
@@ -257,7 +262,6 @@ class UpdateTest extends TestCase {
                 'No unnecessary `removeUserFromGroup` call' => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update.result', true),
                     ),
                     static function (MockInterface $mock): void {
@@ -418,7 +422,6 @@ class UpdateTest extends TestCase {
                 'Root can be updated by root'               => [
                     new GraphQLSuccess(
                         'user',
-                        new JsonFragmentSchema('organization.update', self::class),
                         new JsonFragment('organization.update.result', true),
                     ),
                     static function (MockInterface $mock): void {

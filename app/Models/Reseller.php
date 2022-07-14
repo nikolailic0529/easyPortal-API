@@ -9,6 +9,8 @@ use App\Models\Relations\HasDocuments;
 use App\Models\Relations\HasKpi;
 use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
+use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -47,7 +49,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Reseller newQuery()
  * @method static Builder|Reseller query()
  */
-class Reseller extends Model {
+class Reseller extends Model implements OwnedByReseller {
+    use OwnedByResellerImpl;
     use HasFactory;
     use HasAssets;
     use HasStatuses;
@@ -98,4 +101,11 @@ class Reseller extends Model {
     protected function getLocationsModel(): Model {
         return new ResellerLocation();
     }
+
+    // <editor-fold desc="OwnedByOrganization">
+    // =========================================================================
+    public static function getOwnedByResellerColumn(): string {
+        return (new static())->getKeyName();
+    }
+    // </editor-fold>
 }

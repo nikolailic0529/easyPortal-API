@@ -25,7 +25,7 @@ abstract class GraphQLResponse extends Response {
         $this->root   = $root;
         $constraints  = $this->getSchemaConstraints();
 
-        if ($schema instanceof JsonFragmentSchema) {
+        if ($this->schema instanceof JsonFragmentSchema) {
             $constraints[] = new JsonFragmentMatchesSchema(
                 $this->schema->getPath(),
                 $this->schema->getJsonSchema(),
@@ -43,6 +43,13 @@ abstract class GraphQLResponse extends Response {
         );
     }
 
+    /**
+     * @template T of JsonFragmentSchema|string|null
+     *
+     * @param T $schema
+     *
+     * @return T
+     */
     protected function getJsonFragmentSchema(
         string $prefix,
         JsonFragmentSchema|string|null $schema,
@@ -71,7 +78,7 @@ abstract class GraphQLResponse extends Response {
     }
 
     /**
-     * @return array<Constraint>
+     * @return array<Constraint|null>
      */
     abstract protected function getResponseConstraints(): array;
 }

@@ -11,6 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasLanguage {
+    /**
+     * @return BelongsTo<Language, self>
+     */
     #[CascadeDelete(false)]
     public function language(): BelongsTo {
         return $this->belongsTo(Language::class);

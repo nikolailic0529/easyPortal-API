@@ -28,7 +28,7 @@ class UpdateContractNote {
         return [
             'updated' => $this->updateNote(
                 $args['input']['id'],
-                ['contracts-view', 'customers-view'],
+                ['contracts-view'],
                 $args['input']['note'] ?? null,
                 $args['input']['pinned'] ?? null,
                 $args['input']['files'] ?? null,

@@ -242,16 +242,19 @@ class CacheTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     protected function item(): Model {
-        return new class($this->faker->uuid(), $this->faker->uuid()) extends Model {
-            public function __construct(string $key, string $property) {
-                parent::__construct();
-
-                $this->setAttribute($this->getKeyName(), $key);
-                $this->setAttribute('property', $property);
-            }
+        $model = new class() extends Model {
+            // empty
         };
+
+        $model->setAttribute($model->getKeyName(), $this->faker->uuid());
+        $model->setAttribute('property', $this->faker->uuid());
+
+        return $model;
     }
 
+    /**
+     * @return Collection<int, Model>
+     */
     protected function items(): Collection {
         return new Collection([
             $this->item(),
@@ -259,6 +262,11 @@ class CacheTest extends TestCase {
         ]);
     }
 
+    /**
+     * @param Collection<int, Model> $items
+     *
+     * @return Cache<Model>
+     */
     protected function cache(Collection $items): Cache {
         $normalizer = $this->app->make(Normalizer::class);
         $cache      = new Cache([

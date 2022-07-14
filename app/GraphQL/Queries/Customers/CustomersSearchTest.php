@@ -12,16 +12,21 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
+use Tests\WithOrganization;
 use Tests\WithSearch;
+use Tests\WithUser;
 
 /**
  * @coversNothing
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class CustomersSearchTest extends TestCase {
     use WithSearch;
@@ -30,19 +35,22 @@ class CustomersSearchTest extends TestCase {
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         if ($factory) {
-            $this->makeSearchable($factory($this, $organization, $user));
+            $this->makeSearchable($factory($this, $org, $user));
         }
 
         // Test
@@ -95,13 +103,13 @@ class CustomersSearchTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customersSearch'),
-                new OrganizationUserDataProvider('customersSearch', [
+                new OrgRootDataProvider('customersSearch'),
+                new OrgUserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('customersSearch', null),
+                        new GraphQLPaginated('customersSearch'),
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -109,15 +117,14 @@ class CustomersSearchTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customersSearch'),
-                new OrganizationUserDataProvider('customersSearch', [
+                new AuthOrgDataProvider('customersSearch'),
+                new OrgUserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated(
                             'customersSearch',
-                            self::class,
                             [
                                 [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',

@@ -15,12 +15,13 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithOrganization;
+use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
@@ -29,6 +30,7 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class ContractEntriesAggregatedTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -40,14 +42,14 @@ class ContractEntriesAggregatedTest extends TestCase {
      *
      * @param OrganizationFactory                                  $orgFactory
      * @param UserFactory                                          $userFactory
-     * @param array<mixed>                                         $settings
+     * @param SettingsFactory                                      $settings
      * @param Closure(static, ?Organization, ?User): Document|null $factory
      */
     public function testServiceGroups(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        array $settings = [],
+        mixed $settings = null,
         Closure $factory = null,
     ): void {
         // Prepare
@@ -232,40 +234,27 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
-                        $settings,
-                        $factory,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
@@ -358,40 +347,27 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
-                        $settings,
-                        $factory,
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null, $expected),
+                        new GraphQLSuccess('contract', $expected),
                         $settings,
                         $factory,
                     ],

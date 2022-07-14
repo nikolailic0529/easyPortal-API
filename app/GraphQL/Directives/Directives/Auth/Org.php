@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Auth;
 
+use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -9,9 +10,10 @@ use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
 abstract class Org extends AuthDirective implements FieldMiddleware {
     public function __construct(
+        Auth $auth,
         protected CurrentOrganization $organization,
     ) {
-        parent::__construct();
+        parent::__construct($auth);
     }
 
     public static function definition(): string {

@@ -6,7 +6,6 @@ use App\GraphQL\Directives\Directives\Mutation\Context\ResolverContext;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Permission as AuthPermission;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;
@@ -42,7 +41,7 @@ class PermissionIdTest extends TestCase {
      * @dataProvider dataProviderPasses
      *
      * @param Closure(static): ?Organization|null     $orgFactory
-     * @param array<AuthPermission>                   $permissions
+     * @param array<string>                           $permissions
      * @param Closure(static, ?Organization): ?string $valueFactory
      */
     public function testPasses(
@@ -81,12 +80,8 @@ class PermissionIdTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderPasses(): array {
-        $a = new class('permission-a') extends AuthPermission {
-            // empty,
-        };
-        $b = new class('permission-b') extends AuthPermission {
-            // empty,
-        };
+        $a = 'permission-a';
+        $b = 'permission-b';
 
         return [
             'no organization' => [
@@ -96,7 +91,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($b): string {
                     return Permission::factory()
                         ->create([
-                            'key' => $b->getName(),
+                            'key' => $b,
                         ])
                         ->getKey();
                 },
@@ -110,7 +105,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($a): string {
                     return Permission::factory()
                         ->create([
-                            'key' => $a->getName(),
+                            'key' => $a,
                         ])
                         ->getKey();
                 },
@@ -134,7 +129,7 @@ class PermissionIdTest extends TestCase {
                 static function () use ($b): string {
                     return Permission::factory()
                         ->create([
-                            'key'        => $b->getName(),
+                            'key'        => $b,
                             'deleted_at' => Date::now(),
                         ])
                         ->getKey();

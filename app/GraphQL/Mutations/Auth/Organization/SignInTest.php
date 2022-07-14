@@ -10,18 +10,22 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthGuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 use Throwable;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\Organization\SignIn
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class SignInTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -29,11 +33,14 @@ class SignInTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $orgFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $organizationFactory = null,
     ): void {
         // Prepare
@@ -93,8 +100,8 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider(),
-            new GuestDataProvider('auth'),
+            new UnknownOrgDataProvider(),
+            new AuthGuestDataProvider('auth'),
             new ArrayDataProvider([
                 'organization not exists' => [
                     new GraphQLError('auth', static function (): Throwable {
@@ -109,7 +116,6 @@ class SignInTest extends TestCase {
                 'redirect to login'       => [
                     new GraphQLSuccess(
                         'auth',
-                        new JsonFragmentSchema('organization.signIn', self::class),
                         new JsonFragment('organization.signIn', [
                             'result' => true,
                             'url'    => 'http://example.com/',

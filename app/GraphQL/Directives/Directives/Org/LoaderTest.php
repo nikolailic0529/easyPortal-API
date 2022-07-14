@@ -10,6 +10,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\Exceptions\UnknownOrganization;
+use App\Utils\Eloquent\Contracts\Constructor;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -21,6 +22,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use Tests\TestCase;
+use Tests\WithOrganization;
 
 use function is_string;
 use function sprintf;
@@ -28,6 +30,8 @@ use function sprintf;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Directives\Directives\Org\Loader
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
  */
 class LoaderTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -93,13 +97,14 @@ class LoaderTest extends TestCase {
      * @dataProvider dataProviderHandleBuilder
      *
      * @param Exception|class-string<Exception>|array{query: string, bindings: array<mixed>}|null $expectedQuery
+     * @param OrganizationFactory                                                                 $orgFactory
      * @param array<string>|null                                                                  $parents
      */
     public function testGetQuery(
         Exception|string|array|null $expectedQuery,
         array|null $expectedBuilder,
         Closure $builderFactory,
-        Closure $organizationFactory = null,
+        mixed $orgFactory = null,
         array $parents = null,
     ): void {
         if ($expectedQuery instanceof Exception) {
@@ -110,7 +115,7 @@ class LoaderTest extends TestCase {
             self::expectException($expectedQuery);
         }
 
-        $this->setOrganization($organizationFactory);
+        $this->setOrganization($orgFactory);
 
         if ($parents) {
             $parents = (new Collection($parents))->map(static function (string $key): Model {
@@ -188,6 +193,16 @@ class LoaderTest extends TestCase {
                     return $test->setRootOrganization(Organization::factory()->make([
                         'id' => '1cc137a2-61e5-4069-a407-f0e1f32dc634',
                     ]));
+                },
+            ],
+            'self key reference'             => [
+                null,
+                null,
+                static function (): EloquentBuilder {
+                    return LoaderTest_ModelWithSelfKeyReference::query();
+                },
+                static function (): Organization {
+                    return Organization::factory()->make();
                 },
             ],
             'without select without parents' => [
@@ -465,7 +480,7 @@ class LoaderTest_ModelWithScopeRelationUnsupported extends Model implements Owne
     }
 
     /**
-     * @return BelongsTo<static>
+     * @return BelongsTo<self, self>
      */
     public function organization(): BelongsTo {
         return $this->belongsTo($this::class);
@@ -502,5 +517,24 @@ class LoaderTest_ModelWithScopeRelationSupported extends Model implements OwnedB
             'parentKey',
             'relatedKey',
         );
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class LoaderTest_ModelWithSelfKeyReference extends Model implements OwnedByOrganization, Constructor {
+    use OwnedByOrganizationImpl;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $table = 'model_with_self_key_reference';
+
+    public static function getOwnedByOrganizationColumn(): string {
+        return (new static())->getKeyName();
     }
 }

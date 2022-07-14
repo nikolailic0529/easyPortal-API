@@ -3,20 +3,24 @@
 namespace App\GraphQL\Mutations;
 
 use App\Services\Settings\Storages\ClientSettings;
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function is_array;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\DeleteClientSettings
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class DeleteClientSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -27,18 +31,20 @@ class DeleteClientSettingsTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param Response|array{response:Response,content:array<mixed>} $expected
+     * @param OrganizationFactory                                    $orgFactory
+     * @param UserFactory                                            $userFactory
      * @param array<mixed>                                           $content
      * @param array<string>                                          $names
      */
     public function testInvoke(
         Response|array $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         array $content = [],
         array $names = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Mock
         $storage = null;
@@ -86,14 +92,13 @@ class DeleteClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('deleteClientSettings'),
-            new RootUserDataProvider('deleteClientSettings'),
+            new AuthOrgRootDataProvider('deleteClientSettings'),
+            new AuthRootDataProvider('deleteClientSettings'),
             new ArrayDataProvider([
                 'ok' => [
                     [
                         'response' => new GraphQLSuccess(
                             'deleteClientSettings',
-                            DeleteClientSettings::class,
                             [
                                 'deleted' => ['a', 'b'],
                             ],

@@ -9,14 +9,21 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuoteStatuses
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class QuoteStatusesTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -25,19 +32,21 @@ class QuoteStatusesTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param array<string, mixed>|null $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $translationsFactory = null,
         Closure $statusesFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-        $this->setSettings($settings);
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
+        $this->setSettings($settingsFactory);
         $this->setTranslations($translationsFactory);
 
         if ($statusesFactory) {
@@ -64,7 +73,7 @@ class QuoteStatusesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('quoteStatuses', QuoteStatuses::class, [
+                new GraphQLSuccess('quoteStatuses', [
                     [
                         'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                         'name' => 'Translated (locale)',
@@ -126,16 +135,9 @@ class QuoteStatusesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('quoteStatuses'),
-                new OrganizationUserDataProvider('quoteStatuses', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'quotes-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('quoteStatuses'),
-                new OrganizationUserDataProvider('quoteStatuses', [
+            'quotes-view' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quoteStatuses'),
+                new OrgUserDataProvider('quoteStatuses', [
                     'quotes-view',
                 ]),
                 $provider,

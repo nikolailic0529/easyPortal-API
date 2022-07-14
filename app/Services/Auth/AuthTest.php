@@ -5,8 +5,9 @@ namespace App\Services\Auth;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Auth\Contracts\Permissions\Composite;
+use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Contracts\Rootable;
-use App\Services\Auth\Permissions\Markers\IsRoot;
 use App\Services\Organization\RootOrganization;
 use Closure;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -115,6 +116,98 @@ class AuthTest extends TestCase {
 
         self::assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::getOrganizationUserPermissions
+     */
+    public function testGetOrganizationUserPermissions(): void {
+        $permissions = ['a', 'b'];
+        $org         = Mockery::mock(Organization::class);
+        $user        = Mockery::mock(User::class);
+        $user
+            ->shouldReceive('getOrganizationPermissions')
+            ->with($org)
+            ->once()
+            ->andReturn($permissions);
+        $auth = Mockery::mock(Auth::class);
+        $auth->makePartial();
+        $auth
+            ->shouldReceive('getActualPermissions')
+            ->with($org, $permissions)
+            ->once()
+            ->andReturn($permissions);
+
+        $auth->getOrganizationUserPermissions($org, $user);
+    }
+
+    /**
+     * @covers ::getActualPermissions
+     */
+    public function testGetActualPermissions(): void {
+        $a    = new class('a') extends Permission {
+            // empty
+        };
+        $b    = new class('b') extends Permission implements Composite {
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(): array {
+                return [
+                    new class('b') extends Permission {
+                        // empty
+                    },
+                    new class('e') extends Permission {
+                        // empty
+                    },
+                    new class('f') extends Permission {
+                        // empty
+                    },
+                ];
+            }
+        };
+        $c    = new class('c') extends Permission {
+            // empty
+        };
+        $d    = new class('d') extends Permission {
+            // empty
+        };
+        $e    = new class('e') extends Permission {
+            // empty
+        };
+        $f    = new class('f') extends Permission {
+            // empty
+        };
+        $org  = Organization::factory()->make();
+        $auth = Mockery::mock(Auth::class);
+        $auth->makePartial();
+        $auth
+            ->shouldReceive('getPermissions')
+            ->once()
+            ->andReturn([
+                $a, $b, $c, $d, $e, $f,
+            ]);
+        $auth
+            ->shouldReceive('getAvailablePermissions')
+            ->with($org)
+            ->once()
+            ->andReturn([
+                $a->getName(),
+                $b->getName(),
+                $e->getName(),
+            ]);
+
+        self::assertEqualsCanonicalizing(
+            [
+                $a->getName(),
+                $b->getName(),
+                $e->getName(),
+            ],
+            $auth->getActualPermissions($org, [
+                $a->getName(),
+                $b->getName(),
+            ]),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -174,12 +267,12 @@ class AuthTest extends TestCase {
 
         return [
             'organization'      => [
-                [$b],
+                [$b->getName()],
                 [$a, $b],
                 false,
             ],
             'root organization' => [
-                [$a, $b],
+                [$a->getName(), $b->getName()],
                 [$a, $b],
                 true,
             ],

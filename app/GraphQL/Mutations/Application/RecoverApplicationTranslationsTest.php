@@ -2,20 +2,24 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthRootDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @deprecated Please {@see \App\GraphQL\Mutations\Locale\Reset}
  *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Application\RecoverApplicationTranslations
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class RecoverApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -24,14 +28,17 @@ class RecoverApplicationTranslationsTest extends TestCase {
      * @covers ::__invoke
      *
      * @dataProvider dataProviderInvoke
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
         // Test
         $this
@@ -52,11 +59,11 @@ class RecoverApplicationTranslationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('recoverApplicationTranslations'),
-            new RootUserDataProvider('recoverApplicationTranslations'),
+            new AuthOrgRootDataProvider('recoverApplicationTranslations'),
+            new AuthRootDataProvider('recoverApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverApplicationTranslations', RecoverApplicationTranslations::class, [
+                    new GraphQLSuccess('recoverApplicationTranslations', [
                         'result' => true,
                     ]),
                 ],

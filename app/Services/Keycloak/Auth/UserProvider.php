@@ -5,10 +5,8 @@ namespace App\Services\Keycloak\Auth;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
-use App\Models\Permission;
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Concerns\AvailablePermissions;
 use App\Services\Keycloak\Exceptions\Auth\AnotherUserExists;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData;
@@ -30,8 +28,6 @@ use function array_keys;
 use function sprintf;
 
 class UserProvider implements UserProviderContract {
-    use AvailablePermissions;
-
     public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
     public const    CREDENTIAL_ORGANIZATION     = 'organization';
     public const    CREDENTIAL_PASSWORD         = 'password';
@@ -412,38 +408,9 @@ class UserProvider implements UserProviderContract {
      */
     protected function getPermissions(User $user, UnencryptedToken $token, ?Organization $organization): array {
         return GlobalScopes::callWithoutAll(function () use ($user, $organization): array {
-            // Organization is required
-            if (!$organization) {
-                return [];
-            }
-
-            // Member of Organization?
-            /** @var OrganizationUser|null $member */
-            $member = $user->organizations
-                ->first(static function (OrganizationUser $user) use ($organization): bool {
-                    return $user->organization_id === $organization->getKey()
-                        && $user->enabled;
-                });
-            $role   = $member?->role;
-
-            if (!$role) {
-                return [];
-            }
-
-            // Available permissions
-            $available   = $this->getAvailablePermissions($organization);
-            $permissions = $role->permissions
-                ->toBase()
-                ->map(static function (Permission $permission): string {
-                    return $permission->key;
-                })
-                ->intersect($available)
-                ->unique()
-                ->values()
-                ->all();
-
-            // Return
-            return $permissions;
+            return $organization
+                ? $this->getAuth()->getOrganizationUserPermissions($organization, $user)
+                : [];
         });
     }
 

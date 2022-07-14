@@ -14,19 +14,23 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\Role\Create
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -35,12 +39,14 @@ class CreateTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      * @param array<string,mixed> $data
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $factory = null,
         array $data = [
             'name'        => 'wrong',
@@ -49,15 +55,15 @@ class CreateTest extends TestCase {
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $this->setOrganization($organization));
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $this->setOrganization($org));
 
         $this->setSettings([
             'ep.keycloak.client_id' => 'client_id',
         ]);
 
         if ($factory) {
-            $factory($this, $organization, $user);
+            $factory($this, $org, $user);
         }
 
         if ($clientFactory) {
@@ -136,15 +142,14 @@ class CreateTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new OrganizationUserDataProvider('org', [
+            new AuthOrgDataProvider('org', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
+            new OrgUserDataProvider('org', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'                  => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.create', self::class),
                         new JsonFragment('role.create', [
                             'result' => true,
                             'role'   => [
@@ -173,7 +178,6 @@ class CreateTest extends TestCase {
                 'empty permissions'   => [
                     new GraphQLSuccess(
                         'org',
-                        new JsonFragmentSchema('role.create', self::class),
                         new JsonFragment('role.create', [
                             'result' => true,
                             'role'   => [

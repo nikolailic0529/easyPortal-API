@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin Model
  */
 trait HasCustomerNullable {
+    /**
+     * @return BelongsTo<Customer, self>
+     */
     #[CascadeDelete(false)]
     public function customer(): BelongsTo {
         return $this

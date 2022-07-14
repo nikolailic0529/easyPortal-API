@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\RequestAssetChange;
 use App\Mail\RequestChange;
 use App\Models\Organization;
 use App\Models\User;
@@ -12,17 +11,24 @@ use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\RequestOrgChange
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class RequestOrgChangeTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -31,27 +37,29 @@ class RequestOrgChangeTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        $this->setSettings($settingsFactory);
 
         Mail::fake();
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         }
 
         $input = $input ?: [
@@ -82,11 +90,6 @@ class RequestOrgChangeTest extends TestCase {
                     cc
                     bcc
                     user_id
-                    user {
-                        id
-                        given_name
-                        family_name
-                    }
                     files {
                         name
                     }
@@ -121,21 +124,17 @@ class RequestOrgChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestOrgChange'),
-            new OrganizationUserDataProvider(
+            new AuthOrgDataProvider('requestOrgChange'),
+            new OrgUserDataProvider(
                 'requestOrgChange',
                 [
                     'org-administer',
                 ],
-                static function (User $user): void {
-                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                    $user->given_name  = 'first';
-                    $user->family_name = 'last';
-                },
+                'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestOrgChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestOrgChange', [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -144,11 +143,6 @@ class RequestOrgChangeTest extends TestCase {
                             'to'      => ['test@example.com'],
                             'cc'      => ['cc@example.com'],
                             'bcc'     => ['bcc@example.com'],
-                            'user'    => [
-                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                'given_name'  => 'first',
-                                'family_name' => 'last',
-                            ],
                             'files'   => [
                                 [
                                     'name' => 'documents.csv',

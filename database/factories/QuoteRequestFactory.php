@@ -8,9 +8,9 @@ use App\Models\Organization;
 use App\Models\QuoteRequest;
 use App\Models\Type;
 use App\Models\User;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method QuoteRequest create($attributes = [], ?Model $parent = null)

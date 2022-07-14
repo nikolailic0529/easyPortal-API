@@ -4,9 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Oem;
 use App\Models\Product;
+use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
  * @method Product create($attributes = [], ?Model $parent = null)

@@ -2,11 +2,6 @@
 
 namespace App\GraphQL\Queries\Customers;
 
-use App\GraphQL\Queries\Assets\AssetsAggregated;
-use App\GraphQL\Queries\Assets\AssetTest;
-use App\GraphQL\Queries\Contracts\ContractsAggregatedTest;
-use App\GraphQL\Queries\Contracts\ContractsTest;
-use App\GraphQL\Queries\Quotes\QuotesTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -33,16 +28,21 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
-use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 /**
  * @internal
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class CustomerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -50,25 +50,27 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->id;
+            $customerId = $customerFactory($this, $org, $user)->id;
         }
 
         // Test
@@ -164,25 +166,27 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryAssets
      *
-     * @param array<string, mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQueryAssets(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -394,24 +398,26 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContracts
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      */
     public function testQueryContracts(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Not empty?
@@ -598,24 +604,26 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryQuotes
      *
-     * @param array<mixed> $settings
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param array<mixed>        $settingsFactory
      */
     public function testQueryQuotes(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Not empty?
@@ -803,22 +811,24 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryAssetAggregate
      *
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
      * @param array<string, mixed> $params
      */
     public function testQueryAssetAggregated(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $customerFactory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -858,26 +868,28 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContractsAggregate
      *
-     * @param array<string,mixed>  $settings
+     * @param OrganizationFactory  $orgFactory
+     * @param UserFactory          $userFactory
+     * @param array<string,mixed>  $settingsFactory
      * @param array<string, mixed> $params
      */
     public function testQueryContractsAggregated(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = [],
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $customerFactory = null,
         array $params = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settings);
+        $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->getKey();
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -913,13 +925,13 @@ class CustomerTest extends TestCase {
     public function dataProviderQueryAssets(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new OrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -928,13 +940,13 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'          => [
-                        new GraphQLSuccess('customer', new JsonFragmentPaginatedSchema('assets', AssetTest::class), [
+                        new GraphQLSuccess('customer', [
                             'assets'           => [
                                 [
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -1319,7 +1331,7 @@ class CustomerTest extends TestCase {
                         },
                     ],
                     'not allowed' => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             $customer = Customer::factory()->create();
@@ -1338,13 +1350,13 @@ class CustomerTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new OrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
@@ -1353,13 +1365,13 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', self::class, [
+                        new GraphQLSuccess('customer', [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'            => 'name aaa',
                             'assets_count'    => 0,
@@ -1621,13 +1633,13 @@ class CustomerTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new OrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             Document::factory()->create();
@@ -1638,15 +1650,14 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             [
                                 'contracts'           => [
                                     [
@@ -1987,7 +1998,6 @@ class CustomerTest extends TestCase {
                     'no types'       => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -2001,7 +2011,6 @@ class CustomerTest extends TestCase {
                     'type not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -2013,7 +2022,7 @@ class CustomerTest extends TestCase {
                         $customerContractFactory,
                     ],
                     'not allowed'    => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -2427,13 +2436,13 @@ class CustomerTest extends TestCase {
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer', [
+                new OrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('customer', null),
+                        new GraphQLSuccess('customer'),
                         [],
                         static function (TestCase $test, Organization $organization): Customer {
                             Document::factory()->create();
@@ -2444,15 +2453,14 @@ class CustomerTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('customer', [
+                new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                                        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -2464,7 +2472,7 @@ class CustomerTest extends TestCase {
                         $customerQuoteFactory,
                     ],
                     'not allowed'                               => [
-                        new GraphQLSuccess('customer', null, null),
+                        new GraphQLSuccess('customer'),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -2495,7 +2503,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -2509,7 +2516,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2523,7 +2529,6 @@ class CustomerTest extends TestCase {
                     'quote_types not match'                     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2537,7 +2542,6 @@ class CustomerTest extends TestCase {
                     'no quote_types + no contract_types'        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -2658,15 +2662,14 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-            new OrganizationUserDataProvider('customer', [
+            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('assetsAggregated', AssetsAggregated::class),
                         [
                             'assetsAggregated' => [
                                 'count'     => 3,
@@ -2836,15 +2839,14 @@ class CustomerTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-            new OrganizationUserDataProvider('customer', [
+            new AuthOrgDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new OrgUserDataProvider('customer', [
                 'customers-view',
             ]),
             new ArrayDataProvider([
                 'ok'               => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
                             'contractsAggregated' => [
                                 'count'  => 4,
@@ -2888,7 +2890,6 @@ class CustomerTest extends TestCase {
                 'no hidden prices' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('contractsAggregated', ContractsAggregatedTest::class),
                         [
                             'contractsAggregated' => [
                                 'count'  => 4,

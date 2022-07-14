@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
-use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -28,40 +27,47 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
-use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 use function json_encode;
 
 /**
  * @internal
  * @coversNothing
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class ContractTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQuery(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $contractFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $contractId = 'wrong';
 
         if ($contractFactory) {
-            $contract   = $contractFactory($this, $organization, $user);
+            $contract   = $contractFactory($this, $org, $user);
             $contractId = $contract->id;
 
             $this->setSettings([
@@ -243,21 +249,24 @@ class ContractTest extends TestCase {
 
     /**
      * @dataProvider dataProviderQueryNotes
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testQueryNotes(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $contractFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $contractId = 'wrong';
 
         if ($contractFactory) {
-            $contract   = $contractFactory($this, $organization, $user);
+            $contract   = $contractFactory($this, $org, $user);
             $contractId = $contract->id;
 
             $this->setSettings([
@@ -306,58 +315,28 @@ class ContractTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null),
+                        new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null),
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contract', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                         => [
-                        new GraphQLSuccess('contract', self::class, [
+                        new GraphQLSuccess('contract', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -686,7 +665,7 @@ class ContractTest extends TestCase {
                         },
                     ],
                     'hiding price'               => [
-                        new GraphQLSuccess('contract', self::class, new JsonFragment('price', json_encode(null))),
+                        new GraphQLSuccess('contract', new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -710,7 +689,6 @@ class ContractTest extends TestCase {
                     'entries: hiding list_price' => [
                         new GraphQLSuccess(
                             'contract',
-                            self::class,
                             new JsonFragment('entries.0.list_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -742,7 +720,6 @@ class ContractTest extends TestCase {
                     'entries: hiding net_price'  => [
                         new GraphQLSuccess(
                             'contract',
-                            self::class,
                             new JsonFragment('entries.0.net_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
@@ -783,58 +760,28 @@ class ContractTest extends TestCase {
         $url = 'https://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
-                new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('contract'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', null),
+                        new GraphQLSuccess('contract'),
                         static function (TestCase $test, Organization $organization): Document {
                             return Document::factory()->create();
                         },
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('contract', null),
-                        static function (TestCase $test, Organization $organization): Document {
-                            $type     = Type::factory()->create([
-                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $customer = Customer::factory()->create();
-
-                            $customer->resellers()->attach($reseller);
-
-                            $document = Document::factory()->create([
-                                'type_id'     => $type,
-                                'reseller_id' => $reseller,
-                                'customer_id' => $customer,
-                            ]);
-
-                            return $document;
-                        },
-                    ],
-                ]),
-            ),
-            'organization'   => new CompositeDataProvider(
-                new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new OrganizationUserDataProvider('contract', [
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new OrgUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
+                        new GraphQLSuccess('contract', [
                             'notes'           => [
                                 [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',

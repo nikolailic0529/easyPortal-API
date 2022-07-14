@@ -6,24 +6,30 @@ use App\Mail\RequestChange;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithSettings;
+use Tests\WithUser;
 
 use function __;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RequestCustomerChange
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type SettingsFactory from WithSettings
  */
 class RequestCustomerChangeTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -32,22 +38,24 @@ class RequestCustomerChangeTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     * @param SettingsFactory     $settingsFactory
      * @param array<string,mixed> $input
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
-        array $settings = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
+        $organization = $this->setOrganization($orgFactory);
         $user         = $this->setUser($userFactory, $organization);
-        $this->setSettings($settings);
+
+        $this->setSettings($settingsFactory);
 
         Mail::fake();
 
@@ -100,11 +108,6 @@ class RequestCustomerChangeTest extends TestCase {
                     cc
                     bcc
                     user_id
-                    user {
-                        id
-                        given_name
-                        family_name
-                    }
                     files {
                         name
                     }
@@ -145,21 +148,17 @@ class RequestCustomerChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestCustomerChange'),
-            new OrganizationUserDataProvider(
+            new AuthOrgDataProvider('requestCustomerChange'),
+            new OrgUserDataProvider(
                 'requestCustomerChange',
                 [
                     'requests-customer-change',
                 ],
-                static function (User $user): void {
-                    $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                    $user->given_name  = 'first';
-                    $user->family_name = 'last';
-                },
+                'fd421bad-069f-491c-ad5f-5841aa9a9dee',
             ),
             new ArrayDataProvider([
                 'ok'               => [
-                    new GraphQLSuccess('requestCustomerChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestCustomerChange', [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -168,11 +167,6 @@ class RequestCustomerChangeTest extends TestCase {
                             'to'      => ['test@example.com'],
                             'cc'      => ['cc@example.com'],
                             'bcc'     => ['bcc@example.com'],
-                            'user'    => [
-                                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                                'given_name'  => 'first',
-                                'family_name' => 'last',
-                            ],
                             'files'   => [
                                 [
                                     'name' => 'documents.csv',

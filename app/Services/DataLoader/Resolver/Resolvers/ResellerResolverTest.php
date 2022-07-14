@@ -7,12 +7,14 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithoutGlobalScopes;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Resolver\Resolvers\ResellerResolver
  */
 class ResellerResolverTest extends TestCase {
+    use WithoutGlobalScopes;
     use WithQueryLog;
 
     /**

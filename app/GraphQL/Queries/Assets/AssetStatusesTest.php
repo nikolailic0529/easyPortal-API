@@ -9,14 +9,19 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Tests\WithOrganization;
+use Tests\WithUser;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Assets\AssetStatuses
+ *
+ * @phpstan-import-type OrganizationFactory from WithOrganization
+ * @phpstan-import-type UserFactory from WithUser
  */
 class AssetStatusesTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -24,16 +29,19 @@ class AssetStatusesTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
      */
     public function testInvoke(
         Response $expected,
-        Closure $organizationFactory,
-        Closure $userFactory = null,
+        mixed $orgFactory,
+        mixed $userFactory = null,
         Closure $translationsFactory = null,
         Closure $statusesFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
         $this->setTranslations($translationsFactory);
 
         if ($statusesFactory) {
@@ -60,7 +68,7 @@ class AssetStatusesTest extends TestCase {
     public function dataProviderInvoke(): array {
         $provider = new ArrayDataProvider([
             'ok' => [
-                new GraphQLSuccess('assetStatuses', AssetStatuses::class, [
+                new GraphQLSuccess('assetStatuses', [
                     [
                         'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                         'name' => 'Translated (locale)',
@@ -111,16 +119,9 @@ class AssetStatusesTest extends TestCase {
         ]);
 
         return (new MergeDataProvider([
-            'customers-view' => new CompositeDataProvider(
-                new OrganizationDataProvider('assetStatuses'),
-                new OrganizationUserDataProvider('assetStatuses', [
-                    'customers-view',
-                ]),
-                $provider,
-            ),
-            'assets-view'    => new CompositeDataProvider(
-                new OrganizationDataProvider('assetStatuses'),
-                new OrganizationUserDataProvider('assetStatuses', [
+            'assets-view' => new CompositeDataProvider(
+                new AuthOrgDataProvider('assetStatuses'),
+                new OrgUserDataProvider('assetStatuses', [
                     'assets-view',
                 ]),
                 $provider,

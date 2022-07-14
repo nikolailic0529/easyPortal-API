@@ -89,23 +89,17 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         $serviceLevel = $this->getServiceLevel($oem, $serviceGroup, $parsed);
 
         // Save translations (temporary implementation)
-        $helper = new class($serviceLevel) extends ServiceLevel {
-            public function __construct(
-                protected ServiceLevel $model,
-            ) {
-                parent::__construct();
-            }
-
+        $helper = new class() extends ServiceLevel {
             /**
-             * @inheritDoc
+             * @return array<string>
              */
-            public function getTranslatableProperties(): array {
-                return $this->model->getTranslatableProperties();
+            public function getModelTranslatableProperties(ServiceLevel $model): array {
+                return $model->getTranslatableProperties();
             }
 
-            public function getTranslatedPropertyKey(string $property): string {
-                $keys = $this->model->getTranslatedPropertyKeys($property);
-                $key  = reset($keys);
+            public function getModelTranslatedPropertyKey(ServiceLevel $model, string $property): ?string {
+                $keys = $model->getTranslatedPropertyKeys($property);
+                $key  = reset($keys) ?: null;
 
                 return $key;
             }
@@ -114,9 +108,13 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
             $translations = [];
 
-            foreach ($helper->getTranslatableProperties() as $property) {
+            foreach ($helper->getModelTranslatableProperties($serviceLevel) as $property) {
                 if (isset($properties[$property]) && $properties[$property]) {
-                    $translations[$helper->getTranslatedPropertyKey($property)] = $properties[$property];
+                    $translation = $helper->getModelTranslatedPropertyKey($serviceLevel, $property);
+
+                    if ($translation) {
+                        $translations[$translation] = $properties[$property];
+                    }
                 }
             }
 

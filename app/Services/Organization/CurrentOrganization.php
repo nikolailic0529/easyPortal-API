@@ -4,6 +4,8 @@ namespace App\Services\Organization;
 
 use App\Models\Organization;
 use App\Services\Auth\Auth;
+use App\Services\Organization\Eloquent\OwnedByScope;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 
 class CurrentOrganization extends OrganizationProvider {
     public function __construct(
@@ -17,12 +19,35 @@ class CurrentOrganization extends OrganizationProvider {
         return $this->root->is($this->get());
     }
 
-    protected function getCurrent(): ?Organization {
-        $user         = $this->auth->getUser();
-        $organization = $user instanceof HasOrganization
-            ? $user->getOrganization()
-            : null;
+    public function set(Organization $organization): bool {
+        return GlobalScopes::callWithout(OwnedByScope::class, function () use ($organization): bool {
+            $result = false;
+            $user   = $this->auth->getUser();
 
-        return $organization;
+            if ($user) {
+                $isMember = $user->getOrganizations()
+                    ->contains(static function (Organization $org) use ($organization): bool {
+                        return $org->is($organization);
+                    });
+
+                if ($isMember) {
+                    $result = $user->setOrganization($organization);
+
+                    if ($result) {
+                        $permissions = $this->auth->getOrganizationUserPermissions($organization, $user);
+                        $result      = $user->setPermissions($permissions);
+                    } else {
+                        $user->setOrganization(null);
+                        $user->setPermissions([]);
+                    }
+                }
+            }
+
+            return $result;
+        });
+    }
+
+    protected function getCurrent(): ?Organization {
+        return $this->auth->getUser()?->getOrganization();
     }
 }

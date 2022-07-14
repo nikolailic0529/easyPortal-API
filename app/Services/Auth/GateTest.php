@@ -2,11 +2,14 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Organization;
 use App\Services\Auth\Contracts\Enableable;
 use App\Services\Auth\Contracts\HasPermissions;
+use App\Services\Auth\Contracts\Permissions\Composite;
 use App\Services\Auth\Contracts\Rootable;
 use App\Services\Auth\Permissions\AssetsView;
 use App\Services\Auth\Permissions\CustomersView;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Mockery;
@@ -26,30 +29,51 @@ class GateTest extends TestCase {
      *
      * @dataProvider dataProviderHasPermission
      *
-     * @param array<string> $permissions
+     * @param array<Permission>|null $permissions
+     * @param array<string>|null     $orgPermissions
+     * @param array<string>|null     $userPermissions
      */
-    public function testHasPermission(bool $expected, array|null $permissions, string $permission): void {
+    public function testHasPermission(
+        bool $expected,
+        array|null $permissions,
+        array|null $orgPermissions,
+        array|null $userPermissions,
+        string $permission,
+    ): void {
+        $org  = null;
         $user = null;
-        $auth = new class() extends Gate {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public function hasPermission(?Authenticatable $user, string $permission): bool {
-                return parent::hasPermission($user, $permission);
+        $auth = Mockery::mock(Auth::class)->makePartial();
+        $gate = new class($auth, Mockery::mock(CurrentOrganization::class)) extends Gate {
+            public function hasPermission(?Organization $org, ?Authenticatable $user, string $permission): bool {
+                return parent::hasPermission($org, $user, $permission);
             }
         };
 
-        if (!is_null($permissions)) {
-            $user = Mockery::mock(Authenticatable::class, HasPermissions::class);
-            $user
+        if ($permissions !== null) {
+            $auth
                 ->shouldReceive('getPermissions')
                 ->once()
                 ->andReturn($permissions);
         }
 
-        self::assertEquals($expected, $auth->hasPermission($user, $permission));
+        if ($orgPermissions !== null) {
+            $org = Mockery::mock(Organization::class);
+            $auth
+                ->shouldReceive('getAvailablePermissions')
+                ->with($org)
+                ->once()
+                ->andReturn($orgPermissions);
+        }
+
+        if ($userPermissions !== null) {
+            $user = Mockery::mock(Authenticatable::class, HasPermissions::class);
+            $user
+                ->shouldReceive('getPermissions')
+                ->once()
+                ->andReturn($userPermissions);
+        }
+
+        self::assertEquals($expected, $gate->hasPermission($org, $user, $permission));
     }
 
     /**
@@ -109,26 +133,74 @@ class GateTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderHasPermission(): array {
+        $a = new class('a') extends Permission {
+            // empty,
+        };
+        $b = new class('b') extends Permission {
+            // empty,
+        };
+        $c = new class('c') extends Permission implements Composite {
+            /**
+             * @inheritDoc
+             */
+            public function getPermissions(): array {
+                return [
+                    new class('a') extends Permission {
+                        // empty,
+                    },
+                ];
+            }
+        };
+
         return [
-            'guest and no permissions'     => [
+            'guest and no permissions'                                 => [
                 false,
+                null,
+                null,
                 null,
                 '',
             ],
-            'user with valid permission'   => [
+            'user with valid permission'                               => [
                 true,
+                [$a, $b],
+                null,
                 ['a', 'b'],
                 'a',
             ],
-            'user with invalid permission' => [
+            'user with invalid permission'                             => [
                 false,
+                [$a, $b],
+                null,
                 ['a', 'b'],
                 'c',
             ],
-            'user with empty permission'   => [
+            'user with empty permission'                               => [
                 false,
+                [$a, $b],
+                null,
                 [],
                 '',
+            ],
+            'user with valid permission + not related to organization' => [
+                false,
+                [$a, $b],
+                ['b'],
+                ['a', 'b'],
+                'a',
+            ],
+            'user with valid permission + related to organization'     => [
+                true,
+                [$a, $b],
+                ['a'],
+                ['a', 'b'],
+                'a',
+            ],
+            'user with valid permission + expand'                      => [
+                true,
+                [$a, $b, $c],
+                ['a', 'b', 'c'],
+                ['c'],
+                'a',
             ],
         ];
     }
