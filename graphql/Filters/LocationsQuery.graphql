@@ -10,6 +10,6 @@ input LocationsQuery {
     city_id: ID!
     country: CountriesQuery
     country_id: ID!
-    assets: CustomersQuery
+    assets: AssetsQuery
     customers: CustomersQuery
 }

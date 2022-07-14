@@ -2643,7 +2643,7 @@ input SearchByConditionLocationsQuery {
     """
     Property condition.
     """
-    assets: SearchByComplexRelationCustomersQuery
+    assets: SearchByComplexRelationAssetsQuery
 
     """
     Property condition.
