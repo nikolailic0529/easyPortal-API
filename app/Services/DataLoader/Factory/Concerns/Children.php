@@ -7,6 +7,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
+use function array_shift;
+use function count;
+
 trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
@@ -51,10 +54,13 @@ trait Children {
             if ($existingKey !== false) {
                 // `forceFill` is used for relations because we need to call
                 // mutators to update property value.
-                $child = $existing
-                    ->pull($existingKey)
+                /** @var M $item because we found the key */
+                $item = $existing->pull($existingKey);
+                $item
                     ->forceFill($child->getAttributes())
                     ->forceFill($child->getRelations());
+
+                $child = $item;
             } else {
                 $created->push($child);
             }
@@ -69,15 +75,16 @@ trait Children {
                 : $existing;
 
             if (!$reusable->isEmpty()) {
-                $created = $created->sort(new KeysComparator());
+                $created  = $created->sort(new KeysComparator())->all();
+                $reusable = $reusable->all();
 
-                while (!$created->isEmpty() && !$reusable->isEmpty()) {
-                    $child         = $created->shift();
+                while (count($created) > 0 && count($reusable) > 0) {
+                    $child         = array_shift($created);
                     $child->exists = true;
 
                     $child->setAttribute(
                         $child->getKeyName(),
-                        $reusable->shift()->getKey(),
+                        array_shift($reusable)->getKey(),
                     );
                 }
             }

@@ -96,6 +96,8 @@ class Query implements Rule, DataAwareRule {
 
     /**
      * @param array<mixed> $data
+     *
+     * @return $this
      */
     public function setData(mixed $data): static {
         $this->data = $data;

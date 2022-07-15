@@ -33,12 +33,18 @@ class CascadeProcessor {
         $helper    = new ModelHelper($model);
         $methods   = (new ReflectionClass($model))->getMethods(ReflectionMethod::IS_PUBLIC);
         $relations = [];
+        $ignored   = [
+            'hasManyDeepFromRelationsWithConstraints' => true,
+            'hasOneDeepFromRelationsWithConstraints'  => true,
+            'hasManyDeepFromReverse'                  => true,
+            'hasOneDeepFromReverse'                   => true,
+        ];
 
         foreach ($methods as $method) {
             // Relation?
             $name = $method->getName();
 
-            if (!$helper->isRelation($name)) {
+            if (isset($ignored[$name]) || !$helper->isRelation($name)) {
                 continue;
             }
 

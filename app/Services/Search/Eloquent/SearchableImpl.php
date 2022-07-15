@@ -251,11 +251,9 @@ trait SearchableImpl {
     }
 
     /**
-     * @template T
+     * @param array<string, mixed> $properties
      *
-     * @param array<string, T> $properties
-     *
-     * @return array<string, T|null>
+     * @return array<string, mixed>
      */
     protected function toSearchableArrayCleanup(array $properties): array {
         foreach ($properties as $property => $value) {
