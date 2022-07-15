@@ -12,6 +12,8 @@ use function str_starts_with;
 trait HideGeneratedAttributes {
     /**
      * @inheritDoc
+     *
+     * @return $this
      */
     public function setRawAttributes(array $attributes, $sync = false): static {
         return parent::setRawAttributes(static::removeGeneratedAttributes($attributes), $sync);

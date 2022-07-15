@@ -206,7 +206,7 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
-			message: "#^Parameter \\#1 \\$years of class Carbon\\\\CarbonInterval constructor expects int\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$years of class Carbon\\\\CarbonInterval constructor expects Closure\\|DateInterval\\|int\\|string\\|null, mixed given\\.$#"
 			count: 2
 			path: app/GraphQL/Cache.php
 
@@ -1176,7 +1176,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateContractNoteTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateContractNoteTest.php
 
@@ -1271,7 +1271,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
@@ -1381,7 +1381,7 @@ parameters:
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
@@ -1536,7 +1536,7 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/CreateTest.php
 
@@ -1621,7 +1621,7 @@ parameters:
 			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
 
@@ -1821,11 +1821,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/UpdateTest.php
 
 		-
-			message: "#^Right side of && is always false\\.$#"
-			count: 7
-			path: app/GraphQL/Mutations/Org/UpdateTest.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/User/InviteTest.php
@@ -1946,7 +1941,7 @@ parameters:
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
@@ -2056,7 +2051,7 @@ parameters:
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
 
@@ -2146,7 +2141,7 @@ parameters:
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
 
@@ -2236,7 +2231,7 @@ parameters:
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
 
@@ -2326,7 +2321,7 @@ parameters:
 			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
@@ -2481,12 +2476,7 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<mixed\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
-
-		-
-			message: "#^Right side of && is always false\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<mixed\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
@@ -2581,12 +2571,7 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<mixed\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
-
-		-
-			message: "#^Right side of && is always false\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<mixed\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
@@ -3971,11 +3956,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:warranties\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -4526,11 +4506,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -4863,11 +4838,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
 			count: 3
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
 			path: app/Models/Document.php
 
 		-
@@ -5424,6 +5394,11 @@ parameters:
 			message: "#^Method App\\\\Models\\\\QuoteRequestDuration\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
 			path: app/Models/QuoteRequestDuration.php
+
+		-
+			message: "#^Trait App\\\\Models\\\\Relations\\\\HasType is used zero times and is not analysed\\.$#"
+			count: 1
+			path: app/Models/Relations/HasType.php
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
@@ -6466,11 +6441,6 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:get\\(\\) should return T of object\\|null but returns array\\|T of object\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getIntrospection\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
@@ -6754,36 +6724,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$exists on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Cannot call method forceFill\\(\\) on M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Cannot call method setAttribute\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
@@ -7111,7 +7051,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\DependentModelFactory\\:\\:find\\(\\) should return TModel of App\\\\Utils\\\\Eloquent\\\\Model\\|null but returns mixed\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\DependentModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/DependentModelFactory.php
 
@@ -7156,11 +7096,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Cannot access property \\$exists on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Cannot access property \\$reseller on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
@@ -7196,28 +7131,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Cannot call method isSameDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot call method setAttribute\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
@@ -7257,11 +7172,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -7606,7 +7516,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$kpi_id on TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\|null\\.$#"
+			message: "#^Cannot access property \\$kpi_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
@@ -7701,7 +7611,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$reseller_id on TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\|null\\.$#"
+			message: "#^Cannot access property \\$reseller_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
@@ -7781,31 +7691,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Cannot access property \\$exists on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Cannot call method forceFill\\(\\) on M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Cannot call method setAttribute\\(\\) on Illuminate\\\\Support\\\\Collection\\<int, M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|M of App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
@@ -7827,11 +7712,6 @@ parameters:
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -8371,7 +8251,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\:\\:find\\(\\) should return TModel of App\\\\Utils\\\\Eloquent\\\\Model\\|null but returns mixed\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\ModelFactory\\:\\:find\\(\\) should return \\(TModel of App\\\\Utils\\\\Eloquent\\\\Model\\)\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/ModelFactory.php
 
@@ -11331,11 +11211,6 @@ parameters:
 			path: app/Services/Search/Builders/UnionBuilder.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:437\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/ConfigurationTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/ConfigurationTest\\.php\\:481\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/ConfigurationTest.php
@@ -11401,17 +11276,7 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:277\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
@@ -11426,27 +11291,12 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:37\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
@@ -11606,17 +11456,7 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\SearchableImplTest_Model\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:104\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:104\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -11631,27 +11471,12 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:267\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:299\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:299\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:436\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -11666,11 +11491,6 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:43\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\:\\:getSearchMetadata\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
@@ -11681,17 +11501,7 @@ parameters:
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:467\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:506\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -11702,11 +11512,6 @@ parameters:
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:61\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/SearchableImplTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Eloquent/SearchableImplTest\\.php\\:61\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -11826,11 +11631,6 @@ parameters:
 			path: app/Services/Search/Eloquent/UnionModel.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Eloquent\\\\UnionModel\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Eloquent/UnionModel.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/UnionModel.php
@@ -11857,11 +11657,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/GraphQL/ModelConverterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\GraphQL\\\\ModelConverterTest_Model\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/GraphQL/ModelConverterTest.php
 
@@ -11921,27 +11716,12 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\:\\:getModel\\(\\) should return class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Database\\\\Eloquent\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<\\(int\\|string\\), TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|iterable\\<\\(int\\|string\\), TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null, array\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessor.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of class App\\\\Utils\\\\Eloquent\\\\ModelHelper constructor expects class\\-string\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Utils\\\\Eloquent\\\\Model\\>\\|TModel of App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessor.php
-
-		-
-			message: "#^Property App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,TState of App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:\\$model \\(class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) does not accept class\\-string\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
 
@@ -12026,22 +11806,12 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:468\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
 			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:toSearchableArrayCleanup\\(\\) should return array\\<string, T\\|null\\> but returns array\\<string, array\\<string, mixed\\>\\|T\\|null\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -13081,6 +12851,11 @@ parameters:
 			path: app/Utils/Validation/Validator.php
 
 		-
+			message: "#^Parameter \\#1 \\$basePath of class Illuminate\\\\Foundation\\\\Application constructor expects string\\|null, mixed given\\.$#"
+			count: 1
+			path: bootstrap/app.php
+
+		-
 			message: "#^Parameter \\#1 \\$title of static method Illuminate\\\\Support\\\\Str\\:\\:slug\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: config/cache.php
@@ -13531,7 +13306,7 @@ parameters:
 			path: tests/TestCase.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<int\\|string, array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int\\<0, max\\>\\|string, SplFileInfo\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int\\<0, max\\>\\|string, SplFileInfo\\> given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

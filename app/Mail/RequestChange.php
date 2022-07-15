@@ -7,7 +7,6 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\File;
 use App\Models\Organization;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
@@ -71,8 +70,7 @@ class RequestChange extends Mailable {
             ]);
 
         foreach ($this->request->files as $file) {
-            /** @var File $file */
-            $this->attachFromStorageDisk($file->disk, $file->path, $file->name);
+            $this->attach($file);
         }
     }
 }

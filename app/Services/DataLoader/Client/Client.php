@@ -877,6 +877,8 @@ class Client {
 
         if ($item) {
             $item = $retriever($item);
+        } else {
+            $item = null;
         }
 
         return $item;

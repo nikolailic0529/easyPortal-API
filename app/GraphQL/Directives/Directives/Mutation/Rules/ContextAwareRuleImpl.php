@@ -37,7 +37,7 @@ trait ContextAwareRuleImpl {
             } while ($context && $class !== null && !($model instanceof $class));
         }
 
-        return $model;
+        return $model; // @phpstan-ignore-line
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Mail;
 
 use App\Mail\Concerns\DefaultRecipients;
-use App\Models\File;
 use App\Models\QuoteRequest as ModelsQuoteRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
@@ -42,8 +41,7 @@ class QuoteRequest extends Mailable {
             ]);
 
         foreach ($this->request->files as $file) {
-            /** @var File $file */
-            $this->attachFromStorageDisk($file->disk, $file->path, $file->name);
+            $this->attach($file);
         }
     }
 }
