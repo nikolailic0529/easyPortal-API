@@ -69,7 +69,7 @@ class CreateTest extends TestCase {
 
         $query      = /** @lang GraphQL */
             <<<'GRAPHQL'
-            mutation test($input: MessageCreateInput!) {
+            mutation test($input: MessageInput!) {
                 message {
                     create(input: $input) {
                         result

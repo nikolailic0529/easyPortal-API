@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Message;
 
-use App\GraphQL\Objects\Message;
+use App\GraphQL\Objects\MessageInput;
 use App\Mail\Message as MessageMail;
 use App\Services\Auth\Auth;
 use Illuminate\Contracts\Mail\Mailer;
@@ -23,7 +23,7 @@ class Create {
      */
     public function __invoke(mixed $root, array $args): bool {
         $user         = $this->auth->getUser();
-        $message      = new Message($args['input']);
+        $message      = new MessageInput($args['input']);
         $message->cc  = array_unique(array_filter((array) $message->cc)) ?: null;
         $message->bcc = array_unique(array_filter((array) $message->bcc)) ?: null;
         $mail         = new MessageMail($user, $message);
