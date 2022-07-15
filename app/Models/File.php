@@ -5,9 +5,11 @@ namespace App\Models;
 use App\Utils\Eloquent\PolymorphicModel;
 use Carbon\CarbonImmutable;
 use Database\Factories\FileFactory;
+use Illuminate\Contracts\Mail\Attachable;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Mail\Attachment;
 
 use function app;
 
@@ -33,7 +35,7 @@ use function app;
  * @method static Builder|File newQuery()
  * @method static Builder|File query()
  */
-class File extends PolymorphicModel {
+class File extends PolymorphicModel implements Attachable {
     use HasFactory;
 
     /**
@@ -45,5 +47,11 @@ class File extends PolymorphicModel {
 
     public function getUrlAttribute(): string {
         return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey()]);
+    }
+
+    public function toMailAttachment(): Attachment {
+        return Attachment::fromStorageDisk($this->disk, $this->path)
+            ->withMime($this->type)
+            ->as($this->name);
     }
 }
