@@ -8,7 +8,6 @@ use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\User;
 use Closure;
-use Database\Factories\CustomerFactory;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
