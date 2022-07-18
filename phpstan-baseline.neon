@@ -5861,7 +5861,7 @@ parameters:
 			path: app/Rules/FloatNumber.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
+			message: "#^Parameter \\#2 \\$errors of method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: app/Rules/GraphQL/Query.php
 

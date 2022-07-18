@@ -2,7 +2,9 @@
 
 namespace App\Rules\GraphQL;
 
+use Closure;
 use Exception;
+use GraphQL\Error\ClientAware;
 use GraphQL\Executor\Values;
 use GraphQL\Language\AST\DocumentNode;
 use GraphQL\Language\AST\OperationDefinitionNode;
@@ -11,13 +13,14 @@ use GraphQL\Server\OperationParams;
 use GraphQL\Validator\DocumentValidator;
 use GraphQL\Validator\Rules\ValidationRule;
 use Illuminate\Contracts\Validation\DataAwareRule;
-use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\InvokableRule;
 use Illuminate\Support\Arr;
+use Illuminate\Translation\PotentiallyTranslatedString;
+use InvalidArgumentException;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Schema\SchemaBuilder;
 use Nuwave\Lighthouse\Support\Contracts\ProvidesValidationRules;
 
-use function __;
 use function array_filter;
 use function assert;
 use function count;
@@ -26,7 +29,7 @@ use function is_string;
 use function iterator_to_array;
 use function reset;
 
-class Query implements Rule, DataAwareRule {
+class Query implements InvokableRule, DataAwareRule {
     /**
      * @var array<mixed>
      */
@@ -42,15 +45,17 @@ class Query implements Rule, DataAwareRule {
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function passes($attribute, $value): bool {
+    public function __invoke($attribute, $value, $fail): void {
         // Prepare
-        $operation    = $this->getOperation($value);
-        $documentNode = $this->getDocumentNode($operation);
+        try {
+            $operation    = $this->getOperation($value);
+            $documentNode = $this->getDocumentNode($operation);
+        } catch (Exception $exception) {
+            $this->fail($fail, [$exception]);
 
-        if (!$documentNode) {
-            return false;
+            return;
         }
 
         // Query?
@@ -65,7 +70,9 @@ class Query implements Rule, DataAwareRule {
         $operationNode = reset($queries);
 
         if ($count > 1 || count($queries) !== 1 || !($operationNode instanceof OperationDefinitionNode)) {
-            return false;
+            $this->fail($fail);
+
+            return;
         }
 
         // Validate query
@@ -73,8 +80,10 @@ class Query implements Rule, DataAwareRule {
         $schema = $this->schemaBuilder->schema();
         $errors = DocumentValidator::validate($schema, $documentNode, $rules);
 
-        if (count($errors) > 0) {
-            return false;
+        if ($errors) {
+            $this->fail($fail, $errors);
+
+            return;
         }
 
         // Validate variables
@@ -84,14 +93,10 @@ class Query implements Rule, DataAwareRule {
             $operation->variables ?? [],
         );
         $errors = reset($values);
-        $valid  = !$errors;
 
-        // Return
-        return $valid;
-    }
-
-    public function message(): string {
-        return __('validation.graphql_query');
+        if ($errors) {
+            $this->fail($fail, $errors);
+        }
     }
 
     /**
@@ -103,6 +108,20 @@ class Query implements Rule, DataAwareRule {
         $this->data = $data;
 
         return $this;
+    }
+
+    /**
+     * @param Closure(string): PotentiallyTranslatedString $fail
+     * @param array<mixed>                                 $errors
+     */
+    protected function fail(Closure $fail, array $errors = []): void {
+        $error = reset($errors);
+
+        if ($error instanceof Exception && $error instanceof ClientAware && $error->isClientSafe()) {
+            $fail($error->getMessage());
+        } else {
+            $fail('validation.graphql_query')->translate();
+        }
     }
 
     /**
@@ -125,48 +144,36 @@ class Query implements Rule, DataAwareRule {
         return $operation;
     }
 
-    protected function getOperation(mixed $value): ?OperationParams {
+    protected function getOperation(mixed $value): OperationParams {
         $operation = null;
 
-        try {
-            if (is_array($value)) {
-                $operation = $this->createOperation($value);
-            } elseif (is_string($value)) {
-                $operation = $this->createOperation([
-                    'query'         => $value,
-                    'variables'     => $this->data['variables'] ?? null,
-                    'operationName' => $this->data['operationName'] ?? null,
-                ]);
-            } else {
-                // empty
-            }
+        if (is_array($value)) {
+            $operation = $this->createOperation($value);
+        } elseif (is_string($value)) {
+            $operation = $this->createOperation([
+                'query'         => $value,
+                'variables'     => $this->data['variables'] ?? null,
+                'operationName' => $this->data['operationName'] ?? null,
+            ]);
+        } else {
+            // empty
+        }
 
-            if ($operation) {
-                $errors = $this->helper->validateOperationParams($operation);
+        if ($operation) {
+            $errors = $this->helper->validateOperationParams($operation);
 
-                if ($errors) {
-                    $operation = null;
-                }
+            if ($errors) {
+                throw reset($errors);
             }
-        } catch (Exception) {
-            $operation = null;
+        } else {
+            throw new InvalidArgumentException('The `$value` is not a valid operation.');
         }
 
         return $operation;
     }
 
-    protected function getDocumentNode(?OperationParams $operation): ?DocumentNode {
-        $node = null;
-
-        try {
-            if ($operation) {
-                $node = $this->graphQL->parse($operation->query);
-            }
-        } catch (Exception) {
-            $node = null;
-        }
-
-        return $node;
+    protected function getDocumentNode(OperationParams $operation): DocumentNode {
+        return $this->graphQL->parse($operation->query);
     }
 
     /**

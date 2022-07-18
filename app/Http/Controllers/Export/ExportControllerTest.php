@@ -631,7 +631,7 @@ class ExportControllerTest extends TestCase {
                 ],
                 'invalid query'           => [
                     new ValidationErrorResponse([
-                        'query' => ['GraphQL Query is invalid.'],
+                        'query' => ['Cannot query field "sfsdfsdsf" on type "Query".'],
                     ]),
                     null,
                     [

@@ -2,7 +2,9 @@
 
 namespace App\Rules\GraphQL;
 
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Contracts\Validation\Factory;
+use Illuminate\Translation\PotentiallyTranslatedString;
 use Tests\TestCase;
 
 use function array_merge;
@@ -23,12 +25,22 @@ class QueryTest extends TestCase {
      */
     public function testPasses(bool $expected, mixed $value, array $data = []): void {
         $rule   = $this->app->make(Query::class);
-        $actual = (clone $rule)->setData($data)->passes('test', $value);
+        $actual = null;
+
+        ((clone $rule)->setData($data))(
+            'test',
+            $value,
+            function (string $message) use (&$actual): PotentiallyTranslatedString {
+                $actual = new PotentiallyTranslatedString($message, $this->app->make(Translator::class));
+
+                return $actual;
+            },
+        );
         $passes = !$this->app->make(Factory::class)
             ->make(array_merge($data, ['value' => $value]), ['value' => $rule])
             ->fails();
 
-        self::assertEquals($expected, $actual);
+        self::assertEquals($expected, !$actual);
         self::assertEquals($expected, $passes);
     }
 
@@ -45,10 +57,17 @@ class QueryTest extends TestCase {
         });
 
         $rule     = $this->app->make(Query::class);
-        $actual   = $rule->message();
+        $actual   = null;
         $expected = 'message validation.graphql_query';
 
-        self::assertEquals($expected, $actual);
+        $rule('attribute', null, function (string $message) use (&$actual): PotentiallyTranslatedString {
+            $actual = new PotentiallyTranslatedString($message, $this->app->make(Translator::class));
+
+            return $actual;
+        });
+
+        self::assertNotNull($actual);
+        self::assertEquals($expected, (string) $actual);
     }
     // </editor-fold>
 
@@ -202,6 +221,18 @@ class QueryTest extends TestCase {
                     'variables' => [
                         'limit' => 'not a number',
                     ],
+                ],
+            ],
+            'invalid graphql'                        => [
+                false,
+                [
+                    'query' => <<<'GRAPHQL'
+                        not a graphql
+                    GRAPHQL
+                    ,
+                ],
+                [
+                    // empty
                 ],
             ],
         ];
