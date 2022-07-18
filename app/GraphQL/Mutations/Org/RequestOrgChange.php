@@ -2,34 +2,32 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\RequestAssetChange;
+use App\GraphQL\Mutations\Message\Create;
+use App\GraphQL\Objects\MessageInput;
 use App\Services\Organization\CurrentOrganization;
+use Illuminate\Support\Arr;
 
 class RequestOrgChange {
     public function __construct(
-        protected RequestAssetChange $requestAssetChange,
         protected CurrentOrganization $organization,
+        protected Create $mutation,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $args
+     * @param array{input: array<string, mixed>} $args
      *
      * @return  array<string, mixed>
      */
     public function __invoke(mixed $root, array $args): array {
-        $organization = $this->organization->get();
-        $request      = $this->requestAssetChange->createRequest(
-            $organization,
-            $args['input']['subject'],
-            $args['input']['message'],
-            $args['input']['from'],
-            $args['input']['files'] ?? [],
-            $args['input']['cc'] ?? null,
-            $args['input']['bcc'] ?? null,
-        );
+        $org     = $this->organization->get();
+        $input   = Arr::except($args['input'], ['from']);
+        $message = new MessageInput($input);
+        $request = $this->mutation->createRequest($org, $message);
 
-        return ['created' => $request];
+        return [
+            'created' => $request,
+        ];
     }
 }

@@ -117,7 +117,9 @@ class RequestOrgChangeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
-            // empty
+            if ($user) {
+                $user->email = 'user@example.com';
+            }
         };
         $settings = [
             'ep.email_address' => 'test@example.com',

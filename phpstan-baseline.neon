@@ -1536,6 +1536,26 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateTest.php
 
 		-
+			message: "#^Cannot access property \\$email on App\\\\Models\\\\User\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Message/Create.php
+
+		-
+			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$files \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\>\\) does not accept array\\<App\\\\Models\\\\File\\>\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Message/Create.php
+
+		-
+			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, mixed\\>\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Message/Create.php
+
+		-
+			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
+			count: 1
+			path: app/GraphQL/Mutations/Message/Create.php
+
+		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/CreateTest.php
@@ -1549,66 +1569,6 @@ parameters:
 			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
-
-		-
-			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Cannot access offset 'cc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Cannot access offset 'files' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Cannot access offset 'from' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Cannot access offset 'subject' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#4 \\$from of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#5 \\$files of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#6 \\$cc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
-
-		-
-			message: "#^Parameter \\#7 \\$bcc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChange.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\RequestOrgChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
@@ -1946,101 +1906,6 @@ parameters:
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
-			message: "#^Cannot access offset 'asset_id' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'cc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'files' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'from' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot access offset 'subject' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects App\\\\Models\\\\Asset\\|App\\\\Models\\\\Customer\\|App\\\\Models\\\\Document\\|App\\\\Models\\\\Organization, App\\\\Models\\\\Asset\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$uploads of method App\\\\Services\\\\Filesystem\\\\Disks\\\\ModelDisk\\:\\:storeToFiles\\(\\) expects array\\<Illuminate\\\\Http\\\\UploadedFile\\>, array\\<string\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#4 \\$from of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#5 \\$files of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#6 \\$cc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Parameter \\#7 \\$bcc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$files \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\>\\) does not accept array\\<App\\\\Models\\\\File\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, mixed\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChange.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
@@ -2056,78 +1921,8 @@ parameters:
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
 
 		-
-			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'cc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'contract_id' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'files' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'from' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Cannot access offset 'subject' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects App\\\\Models\\\\Asset\\|App\\\\Models\\\\Customer\\|App\\\\Models\\\\Document\\|App\\\\Models\\\\Organization, App\\\\Models\\\\Document\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#4 \\$from of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#5 \\$files of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#6 \\$cc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
-			message: "#^Parameter \\#7 \\$bcc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChange.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
 
 		-
@@ -2144,76 +1939,6 @@ parameters:
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
-			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'cc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'customer_id' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'files' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'from' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Cannot access offset 'subject' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects App\\\\Models\\\\Asset\\|App\\\\Models\\\\Customer\\|App\\\\Models\\\\Document\\|App\\\\Models\\\\Organization, App\\\\Models\\\\Customer\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#4 \\$from of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#5 \\$files of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#6 \\$cc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
-
-		-
-			message: "#^Parameter \\#7 \\$bcc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChange.php
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
@@ -2236,78 +1961,8 @@ parameters:
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
 
 		-
-			message: "#^Cannot access offset 'bcc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'cc' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'files' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'from' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'message' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'quote_id' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Cannot access offset 'subject' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects App\\\\Models\\\\Asset\\|App\\\\Models\\\\Customer\\|App\\\\Models\\\\Document\\|App\\\\Models\\\\Organization, App\\\\Models\\\\Document\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#2 \\$subject of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#3 \\$message of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#4 \\$from of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#5 \\$files of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#6 \\$cc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
-			message: "#^Parameter \\#7 \\$bcc of method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChange\\:\\:createRequest\\(\\) expects array\\<string\\>\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChange.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
+			count: 1
 			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
 		-

@@ -6,6 +6,7 @@ use App\Mail\RequestChange;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
@@ -52,27 +53,27 @@ class RequestAssetChangeTest extends TestCase {
         array $input = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($orgFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $this->setSettings($settingsFactory);
 
         Mail::fake();
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         } else {
             // Lighthouse performs validation BEFORE permission check :(
             //
             // https://github.com/nuwave/lighthouse/issues/1780
             //
             // Following code required to "fix" it
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->create());
+            if (!$org) {
+                $org = $this->setOrganization(Organization::factory()->create());
             }
 
             $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $org,
             ]);
 
             Asset::factory()->create([
@@ -138,9 +139,13 @@ class RequestAssetChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization): void {
+        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
+            if ($user) {
+                $user->email = 'user@example.com';
+            }
+
             $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $organization,
             ]);
 
             Asset::factory()->create([
