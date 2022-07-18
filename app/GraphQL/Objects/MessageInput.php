@@ -6,7 +6,7 @@ use App\Utils\JsonObject\JsonObject;
 use App\Utils\JsonObject\JsonObjectArray;
 use Illuminate\Http\UploadedFile;
 
-class Message extends JsonObject {
+class MessageInput extends JsonObject {
     public string $subject;
     public string $message;
 

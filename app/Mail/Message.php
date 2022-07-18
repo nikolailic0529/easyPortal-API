@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\GraphQL\Objects\Message as MessageObject;
+use App\GraphQL\Objects\MessageInput as MessageObject;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;

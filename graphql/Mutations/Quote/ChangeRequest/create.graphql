@@ -1,0 +1,15 @@
+extend type QuoteChangeRequestMutations {
+    create(
+        input: MessageInput!
+    ): QuoteChangeRequestCreatePayload!
+    @authOrg
+    @authMe(permissions: ["requests-quote-change"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
+type QuoteChangeRequestCreatePayload implements Payload {
+    result: Boolean!
+    changeRequest: ChangeRequest!
+}

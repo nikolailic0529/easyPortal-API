@@ -2,6 +2,7 @@ extend type Mutation {
     requestAssetChange(
         input: RequestAssetChangeInput!
     ): RequestAssetChangePayload
+    @deprecated(reason: "Please use `mutation { asset { changeRequest { create } } }` instead.")
     @authOrg
     @authMe(permissions: ["requests-asset-change"])
 }

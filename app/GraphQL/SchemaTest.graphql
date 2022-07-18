@@ -219,14 +219,16 @@ input MeUpdateInput {
     )
 }
 
-input MessageCreateInput {
+input MessageInput {
     bcc: [Email!]
     @isRequired
     @isEmail
+    @isDistinct
 
     cc: [Email!]
     @isRequired
     @isEmail
+    @isDistinct
 
     files: [Upload!]
     @isRequired
@@ -5719,7 +5721,45 @@ type Asset {
     warranty_end: Date
 }
 
+type AssetChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type AssetChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): AssetChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-asset-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Asset\\ChangeRequest\\Create"
+    )
+}
+
 type AssetMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: AssetChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -6128,7 +6168,45 @@ type Contact {
     @relation
 }
 
+type ContractChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type ContractChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-contract-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): ContractChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-contract-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
 type ContractMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: ContractChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -6548,6 +6626,32 @@ type Customer {
     synced_at: DateTime!
 }
 
+type CustomerChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type CustomerChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-customer-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): CustomerChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-customer-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Customer\\ChangeRequest\\Create"
+    )
+}
+
 type CustomerLocation {
     id: ID!
 
@@ -6561,6 +6665,18 @@ type CustomerLocation {
 }
 
 type CustomerMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: CustomerChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -7325,7 +7441,7 @@ type MessageMutations {
     @require <authMe> User must be authenticated.
     """
     create(
-        input: MessageCreateInput!
+        input: MessageInput!
     ): MessageCreatePayload!
     @authOrg
     @authMe
@@ -7666,6 +7782,9 @@ type Mutation {
     requestAssetChange(
         input: RequestAssetChangeInput!
     ): RequestAssetChangePayload
+    @deprecated(
+        reason: "Please use `mutation { asset { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-asset-change"]
@@ -7679,6 +7798,9 @@ type Mutation {
     requestContractChange(
         input: RequestContractChangeInput!
     ): RequestContractChangePayload
+    @deprecated(
+        reason: "Please use `mutation { contract { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-contract-change"]
@@ -7692,6 +7814,9 @@ type Mutation {
     requestCustomerChange(
         input: RequestCustomerChangeInput!
     ): RequestCustomerChangePayload
+    @deprecated(
+        reason: "Please use `mutation { customer { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-customer-change"]
@@ -7705,6 +7830,9 @@ type Mutation {
     requestOrgChange(
         input: RequestOrgChangeInput!
     ): RequestOrgChangePayload
+    @deprecated(
+        reason: "Please use `mutation { org { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["org-administer"]
@@ -7721,6 +7849,9 @@ type Mutation {
     requestQuoteChange(
         input: RequestQuoteChangeInput!
     ): RequestQuoteChangePayload
+    @deprecated(
+        reason: "Please use `mutation { quote { changeRequest { create } } }` instead."
+    )
     @authOrg
     @authMe(
         permissions: ["requests-quote-change"]
@@ -8022,7 +8153,45 @@ type OemMutation {
     )
 }
 
+type OrgChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type OrgChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): OrgChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["org-administer"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Org\\ChangeRequest\\Create"
+    )
+}
+
 type OrgMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: OrgChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -10631,7 +10800,45 @@ type Query {
     )
 }
 
+type QuoteChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type QuoteChangeRequestMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["requests-quote-change"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): QuoteChangeRequestCreatePayload!
+    @authOrg
+    @authMe(
+        permissions: ["requests-quote-change"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
 type QuoteMutations {
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    changeRequest: QuoteChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -11398,6 +11605,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isCustomerId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isDistinct
 on
     | INPUT_FIELD_DEFINITION
 

@@ -1,0 +1,15 @@
+extend type CustomerChangeRequestMutations {
+    create(
+        input: MessageInput!
+    ): CustomerChangeRequestCreatePayload!
+    @authOrg
+    @authMe(permissions: ["requests-customer-change"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Customer\\ChangeRequest\\Create"
+    )
+}
+
+type CustomerChangeRequestCreatePayload implements Payload {
+    result: Boolean!
+    changeRequest: ChangeRequest!
+}

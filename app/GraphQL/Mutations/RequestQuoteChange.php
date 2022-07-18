@@ -2,32 +2,34 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Mutations\Message\Create;
+use App\GraphQL\Objects\MessageInput;
 use App\Models\Document;
+use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Document\ChangeRequest\Create}
+ */
 class RequestQuoteChange {
     public function __construct(
-        protected RequestAssetChange $requestAssetChange,
+        protected Create $mutation,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $args
+     * @param array{input: array<string, mixed>} $args
      *
      * @return  array<string, mixed>
      */
     public function __invoke(mixed $root, array $args): array {
-        $quote   = Document::whereKey($args['input']['quote_id'])->first();
-        $request = $this->requestAssetChange->createRequest(
-            $quote,
-            $args['input']['subject'],
-            $args['input']['message'],
-            $args['input']['from'],
-            $args['input']['files'] ?? [],
-            $args['input']['cc'] ?? null,
-            $args['input']['bcc'] ?? null,
-        );
+        $quote   = Document::query()->whereKey($args['input']['quote_id'])->firstOrFail();
+        $input   = Arr::except($args['input'], ['from', 'quote_id']);
+        $message = new MessageInput($input);
+        $request = $this->mutation->createRequest($quote, $message);
 
-        return ['created' => $request];
+        return [
+            'created' => $request,
+        ];
     }
 }

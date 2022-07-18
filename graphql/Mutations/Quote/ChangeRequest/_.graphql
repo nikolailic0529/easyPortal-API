@@ -1,0 +1,10 @@
+extend type QuoteMutations {
+    changeRequest: QuoteChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+}
+
+type QuoteChangeRequestMutations

@@ -1,0 +1,15 @@
+extend type ContractChangeRequestMutations {
+    create(
+        input: MessageInput!
+    ): ContractChangeRequestCreatePayload!
+    @authOrg
+    @authMe(permissions: ["requests-contract-change"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Document\\ChangeRequest\\Create"
+    )
+}
+
+type ContractChangeRequestCreatePayload implements Payload {
+    result: Boolean!
+    changeRequest: ChangeRequest!
+}

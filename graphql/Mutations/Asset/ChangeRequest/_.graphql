@@ -1,0 +1,10 @@
+extend type AssetMutations {
+    changeRequest: AssetChangeRequestMutations
+    @authOrg
+    @authMe
+    @mutation(
+        relation: "changeRequests"
+    )
+}
+
+type AssetChangeRequestMutations

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Org\ChangeRequest;
 
 use App\Mail\RequestChange;
 use App\Models\Organization;
@@ -13,42 +13,38 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
-use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLValidationError;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
-use function __;
-
 /**
- * @deprecated not needed anymore
- *
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\RequestOrgChange
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\ChangeRequest\Create
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
  */
-class RequestOrgChangeTest extends TestCase {
+class CreateTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
-     * @param array<string,mixed> $input
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param array<string,mixed>                         $settings
+     * @param Closure(static, ?Organization, ?User): void $prepare
+     * @param array<string,mixed>                         $input
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        mixed $settingsFactory = null,
+        array $settings = null,
         Closure $prepare = null,
         array $input = null,
     ): void {
@@ -56,7 +52,7 @@ class RequestOrgChangeTest extends TestCase {
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
 
-        $this->setSettings($settingsFactory);
+        $this->setSettings($settings);
 
         Mail::fake();
 
@@ -64,47 +60,43 @@ class RequestOrgChangeTest extends TestCase {
             $prepare($this, $org, $user);
         }
 
-        $input = $input ?: [
-                'from'    => 'user@example.com',
-                'subject' => 'subject',
-                'message' => 'message',
-            ];
-        $map   = [];
-        $file  = [];
+        $input ??= [
+            'subject' => 'subject',
+            'message' => 'change request',
+        ];
 
-        if (isset($input['files'])) {
-            foreach ((array) $input['files'] as $index => $item) {
-                $file[$index] = $item;
-                $map[$index]  = ["variables.input.files.{$index}"];
-            }
-
-            $input['files'] = null;
-        }
-
-        $query      = /** @lang GraphQL */ 'mutation RequestOrgChange($input: RequestOrgChangeInput!)
-        {
-            requestOrgChange(input:$input) {
-                created {
-                    subject
-                    message
-                    from
-                    to
-                    cc
-                    bcc
-                    user_id
-                    files {
-                        name
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($input: MessageInput!) {
+                    org {
+                        changeRequest {
+                            create(input: $input) {
+                                result
+                                changeRequest {
+                                    subject
+                                    message
+                                    from
+                                    to
+                                    cc
+                                    bcc
+                                    user_id
+                                    files {
+                                        name
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-            }
-        }';
-        $operations = [
-            'operationName' => 'RequestOrgChange',
-            'query'         => $query,
-            'variables'     => ['input' => $input],
-        ];
-        // Test
-        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+                GRAPHQL,
+                [
+                    'input' => $input,
+                ],
+            )
+            ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(RequestChange::class);
@@ -118,7 +110,7 @@ class RequestOrgChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): void {
             if ($user) {
                 $user->email = 'user@example.com';
             }
@@ -128,9 +120,9 @@ class RequestOrgChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('requestOrgChange'),
+            new AuthOrgDataProvider('org', 'fd421bad-069f-491c-ad5f-5841aa9a9dff'),
             new OrgUserDataProvider(
-                'requestOrgChange',
+                'org',
                 [
                     'org-administer',
                 ],
@@ -138,28 +130,31 @@ class RequestOrgChangeTest extends TestCase {
             ),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestOrgChange', [
-                        'created' => [
-                            'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                            'subject' => 'subject',
-                            'message' => 'change request',
-                            'from'    => 'user@example.com',
-                            'to'      => ['test@example.com'],
-                            'cc'      => ['cc@example.com'],
-                            'bcc'     => ['bcc@example.com'],
-                            'files'   => [
-                                [
-                                    'name' => 'documents.csv',
+                    new GraphQLSuccess(
+                        'org',
+                        new JsonFragment('changeRequest.create', [
+                            'result'        => true,
+                            'changeRequest' => [
+                                'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
+                                'subject' => 'subject',
+                                'message' => 'change request',
+                                'from'    => 'user@example.com',
+                                'to'      => ['test@example.com'],
+                                'cc'      => ['cc@example.com'],
+                                'bcc'     => ['bcc@example.com'],
+                                'files'   => [
+                                    [
+                                        'name' => 'documents.csv',
+                                    ],
                                 ],
                             ],
-                        ],
-                    ]),
+                        ]),
+                    ),
                     $settings,
                     $prepare,
                     [
                         'subject' => 'subject',
                         'message' => 'change request',
-                        'from'    => 'user@example.com',
                         'cc'      => ['cc@example.com'],
                         'bcc'     => ['bcc@example.com'],
                         'files'   => [
@@ -168,57 +163,45 @@ class RequestOrgChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid subject' => [
-                    new GraphQLError('requestOrgChange', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     $settings,
                     $prepare,
                     [
                         'subject' => '',
                         'message' => 'change request',
-                        'from'    => 'user@example.com',
                         'cc'      => ['cc@example.com'],
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
                 'Invalid message' => [
-                    new GraphQLError('requestOrgChange', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     $settings,
                     $prepare,
                     [
                         'subject' => 'subject',
                         'message' => '',
-                        'from'    => 'user@example.com',
                         'cc'      => ['cc@example.com'],
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
                 'Invalid cc'      => [
-                    new GraphQLError('requestOrgChange', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     $settings,
                     $prepare,
                     [
                         'subject' => 'subject',
                         'message' => 'message',
-                        'from'    => 'user@example.com',
                         'cc'      => ['wrong'],
                         'bcc'     => ['bcc@example.com'],
                     ],
                 ],
                 'Invalid bcc'     => [
-                    new GraphQLError('requestOrgChange', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                    new GraphQLValidationError('org'),
                     $settings,
                     $prepare,
                     [
                         'subject' => 'subject',
                         'message' => 'message',
-                        'from'    => 'user@example.com',
                         'cc'      => ['cc@example.com'],
                         'bcc'     => ['wrong'],
                     ],

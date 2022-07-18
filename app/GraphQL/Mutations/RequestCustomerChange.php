@@ -2,32 +2,34 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Mutations\Message\Create;
+use App\GraphQL\Objects\MessageInput;
 use App\Models\Customer;
+use Illuminate\Support\Arr;
 
+/**
+ * @deprecated {@see \App\GraphQL\Mutations\Customer\ChangeRequest\Create}
+ */
 class RequestCustomerChange {
     public function __construct(
-        protected RequestAssetChange $requestAssetChange,
+        protected Create $mutation,
     ) {
         // empty
     }
 
     /**
-     * @param array<string, mixed> $args
+     * @param array{input: array<string, mixed>} $args
      *
      * @return  array<string, mixed>
      */
     public function __invoke(mixed $root, array $args): array {
-        $customer = Customer::whereKey($args['input']['customer_id'])->first();
-        $request  = $this->requestAssetChange->createRequest(
-            $customer,
-            $args['input']['subject'],
-            $args['input']['message'],
-            $args['input']['from'],
-            $args['input']['files'] ?? [],
-            $args['input']['cc'] ?? null,
-            $args['input']['bcc'] ?? null,
-        );
+        $customer = Customer::query()->whereKey($args['input']['customer_id'])->firstOrFail();
+        $input    = Arr::except($args['input'], ['from', 'customer_id']);
+        $message  = new MessageInput($input);
+        $request  = $this->mutation->createRequest($customer, $message);
 
-        return ['created' => $request];
+        return [
+            'created' => $request,
+        ];
     }
 }

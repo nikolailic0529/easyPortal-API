@@ -1,0 +1,15 @@
+extend type AssetChangeRequestMutations {
+    create(
+        input: MessageInput!
+    ): AssetChangeRequestCreatePayload!
+    @authOrg
+    @authMe(permissions: ["requests-asset-change"])
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Asset\\ChangeRequest\\Create"
+    )
+}
+
+type AssetChangeRequestCreatePayload implements Payload {
+    result: Boolean!
+    changeRequest: ChangeRequest!
+}

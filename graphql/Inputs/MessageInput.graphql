@@ -1,0 +1,7 @@
+input MessageInput {
+    subject: String! @isRequired
+    message: HtmlString! @isRequired
+    cc: [Email!] @isRequired @isEmail @isDistinct
+    bcc: [Email!] @isRequired @isEmail @isDistinct
+    files: [Upload!] @isRequired @isFile
+}

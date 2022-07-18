@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
@@ -25,6 +26,8 @@ use Tests\WithUser;
 use function __;
 
 /**
+ * @deprecated not needed anymore
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\RequestQuoteChange
  *
@@ -147,9 +150,13 @@ class RequestQuoteChangeTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization): void {
+        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
+            if ($user) {
+                $user->email = 'user@example.com';
+            }
+
             $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $organization,
             ]);
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',

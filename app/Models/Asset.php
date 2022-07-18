@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasOemNullable;
@@ -92,6 +93,7 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     use HasStatus;
     use HasContacts;
     use HasTags;
+    use HasChangeRequests;
 
     protected const CASTS = [
         'changed_at'          => 'datetime',
