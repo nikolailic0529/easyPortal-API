@@ -223,10 +223,12 @@ input MessageInput {
     bcc: [Email!]
     @isRequired
     @isEmail
+    @isDistinct
 
     cc: [Email!]
     @isRequired
     @isEmail
+    @isDistinct
 
     files: [Upload!]
     @isRequired
@@ -11603,6 +11605,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @isCustomerId
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @isDistinct
 on
     | INPUT_FIELD_DEFINITION
 
