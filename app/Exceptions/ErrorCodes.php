@@ -30,7 +30,6 @@ use App\Services\Filesystem\Exceptions\StorageFileCorrupted as FilesystemStorage
 use App\Services\Filesystem\Exceptions\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\Exceptions\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
 use App\Services\Keycloak\Client\Exceptions\InvalidSettingClientUuid as KeycloakInvalidSettingClientUuid;
-use App\Services\Keycloak\Client\Exceptions\KeycloakDisabled as KeycloakKeycloakDisabled;
 use App\Services\Keycloak\Client\Exceptions\KeycloakUnavailable as KeycloakKeycloakUnavailable;
 use App\Services\Keycloak\Client\Exceptions\RealmGroupUnknown as KeycloakRealmGroupUnknown;
 use App\Services\Keycloak\Client\Exceptions\RealmRoleAlreadyExists as KeycloakRealmRoleAlreadyExistsAlias;
@@ -46,6 +45,7 @@ use App\Services\Keycloak\Exceptions\Auth\StateMismatch as KeycloakStateMismatch
 use App\Services\Keycloak\Exceptions\Auth\UnknownScope as KeycloakUnknownScope;
 use App\Services\Keycloak\Exceptions\Auth\UserDisabled as KeycloakUserDisabled;
 use App\Services\Keycloak\Exceptions\Auth\UserInsufficientData as KeycloakUserInsufficientData;
+use App\Services\Keycloak\Exceptions\KeycloakDisabled as KeycloakKeycloakDisabled;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\FailedToLoadSettings as SettingsFailedToLoadSettings;

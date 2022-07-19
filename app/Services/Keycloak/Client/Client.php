@@ -6,7 +6,6 @@ use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\Keycloak\Client\Exceptions\InvalidSettingClientUuid;
-use App\Services\Keycloak\Client\Exceptions\KeycloakDisabled;
 use App\Services\Keycloak\Client\Exceptions\KeycloakUnavailable;
 use App\Services\Keycloak\Client\Exceptions\RealmGroupUnknown;
 use App\Services\Keycloak\Client\Exceptions\RealmRoleAlreadyExists;
@@ -18,6 +17,7 @@ use App\Services\Keycloak\Client\Types\Credential as KeycloakCredential;
 use App\Services\Keycloak\Client\Types\Group as KeycloakGroup;
 use App\Services\Keycloak\Client\Types\Role as KeycloakRole;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
+use App\Services\Keycloak\Exceptions\KeycloakDisabled;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use Exception;
@@ -468,7 +468,7 @@ class Client {
     // <editor-fold desc="API">
     // =========================================================================
     public function getBaseUrl(): string {
-        $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
+        $keycloak = rtrim((string) $this->config->get('ep.keycloak.url'), '/');
         $realm    = $this->config->get('ep.keycloak.realm');
 
         return "{$keycloak}/auth/admin/realms/{$realm}";

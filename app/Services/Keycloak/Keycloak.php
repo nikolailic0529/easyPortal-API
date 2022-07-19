@@ -10,6 +10,7 @@ use App\Services\Keycloak\Exceptions\Auth\InvalidCredentials;
 use App\Services\Keycloak\Exceptions\Auth\InvalidIdentity;
 use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
 use App\Services\Keycloak\Exceptions\Auth\UnknownScope;
+use App\Services\Keycloak\Exceptions\KeycloakDisabled;
 use App\Services\Keycloak\OAuth2\Provider;
 use App\Services\Organization\CurrentOrganization;
 use Config\Constants;
@@ -118,17 +119,22 @@ class Keycloak {
     }
 
     public function signOut(): ?string {
+        // Enabled?
+        $provider = null;
+
+        try {
+            $provider = $this->getProvider();
+        } catch (KeycloakDisabled) {
+            // empty
+        }
+
         // First we try to sign out without redirect
         $token      = null;
-        $provider   = $this->getProvider();
         $successful = false;
 
         try {
-            $token = $this->getToken();
-
-            if ($token) {
-                $successful = $provider->signOut($token);
-            }
+            $token      = $this->getToken();
+            $successful = $provider && $token && $provider->signOut($token);
         } catch (Exception $exception) {
             $this->handler->report($exception);
         }
@@ -146,7 +152,7 @@ class Keycloak {
         // And the last step - redirect if sign out failed.
         $url = null;
 
-        if ($token && !$successful && $this->organization->defined()) {
+        if ($provider && $token && !$successful && $this->organization->defined()) {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getSignOutUri($this->organization->get()),
             ]);
@@ -174,7 +180,19 @@ class Keycloak {
 
     // <editor-fold desc="Functions">
     // =========================================================================
+    protected function isEnabled(): bool {
+        return $this->config->get('ep.keycloak.enabled')
+            && $this->config->get('ep.keycloak.url')
+            && $this->config->get('ep.keycloak.realm')
+            && $this->config->get('ep.keycloak.client_id')
+            && $this->config->get('ep.keycloak.client_secret');
+    }
+
     public function getProvider(): Provider {
+        if (!$this->isEnabled()) {
+            throw new KeycloakDisabled();
+        }
+
         if (!isset($this->provider)) {
             $this->provider = new Provider([
                 'url'          => $this->config->get('ep.keycloak.url'),
@@ -211,7 +229,7 @@ class Keycloak {
         return $this->url->to($uri);
     }
 
-    protected function getToken(): ?AccessTokenInterface {
+    protected function getToken(): ?AccessToken {
         // TODO [Keycloak] If token expired should we refresh it?
         $token = $this->session->has(self::TOKEN)
             ? new AccessToken($this->session->get(self::TOKEN))
