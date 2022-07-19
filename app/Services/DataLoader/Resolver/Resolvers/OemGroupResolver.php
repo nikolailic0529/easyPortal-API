@@ -14,6 +14,11 @@ use Illuminate\Database\Eloquent\Model;
  * @extends Resolver<OemGroup>
  */
 class OemGroupResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): OemGroup|null $factory
+     *
+     * @return ($factory is null ? OemGroup|null : OemGroup)
+     */
     public function get(Oem $model, string $key, string $name, Closure $factory = null): ?OemGroup {
         return $this->resolve($this->getUniqueKey($model, $key, $name), $factory);
     }

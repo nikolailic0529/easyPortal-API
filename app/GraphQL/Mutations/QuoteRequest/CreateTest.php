@@ -88,121 +88,109 @@ class CreateTest extends TestCase {
             ];
         }
 
-        $map  = [];
-        $file = [];
-
-        if (isset($input['files'])) {
-            foreach ((array) $input['files'] as $index => $item) {
-                $file[$index] = $item;
-                $map[$index]  = ["variables.input.files.{$index}"];
-            }
-
-            $input['files'] = null;
-        }
-
-        $query      = /** @lang GraphQL */
-            <<<'GRAPHQL'
-            mutation test($input: QuoteRequestCreateInput!) {
-                quoteRequest {
-                    create(input: $input) {
-                        result
-                        quoteRequest {
-                            customer_id
-                            customer_custom
-                            oem_id
-                            oem_custom
-                            type_id
-                            type_custom
-                            message
-                            oem {
-                                id
-                                key
-                                name
-                            }
-                            customer {
-                                id
-                                name
-                                assets_count
-                                locations_count
-                                locations {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                }
-                                contacts_count
-                                contacts {
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($input: QuoteRequestCreateInput!) {
+                    quoteRequest {
+                        create(input: $input) {
+                            result
+                            quoteRequest {
+                                customer_id
+                                customer_custom
+                                oem_id
+                                oem_custom
+                                type_id
+                                type_custom
+                                message
+                                oem {
                                     id
+                                    key
+                                    name
+                                }
+                                customer {
+                                    id
+                                    name
+                                    assets_count
+                                    locations_count
+                                    locations {
+                                        location_id
+                                        location {
+                                            id
+                                            state
+                                            postcode
+                                            line_one
+                                            line_two
+                                            latitude
+                                            longitude
+                                        }
+                                    }
+                                    contacts_count
+                                    contacts {
+                                        id
+                                        name
+                                        email
+                                        phone_number
+                                        phone_valid
+                                    }
+                                    changed_at
+                                    synced_at
+                                }
+                                contact {
                                     name
                                     email
                                     phone_number
                                     phone_valid
                                 }
-                                changed_at
-                                synced_at
-                            }
-                            contact {
-                                name
-                                email
-                                phone_number
-                                phone_valid
-                            }
-                            type {
-                                id
-                                name
-                            }
-                            files {
-                                name
-                            }
-                            assets {
-                                asset_id
-                                service_level_custom
-                                service_level_id
-                                serviceLevel {
+                                type {
                                     id
                                     name
-                                    description
-                                    sku
-                                    oem_id
-                                    service_group_id
                                 }
-                                duration_id
-                                duration {
-                                    id
+                                files {
                                     name
-                                    key
                                 }
-                            }
-                            documents {
-                                document_id
-                                document {
-                                    id
+                                assets {
+                                    asset_id
+                                    service_level_custom
+                                    service_level_id
+                                    serviceLevel {
+                                        id
+                                        name
+                                        description
+                                        sku
+                                        oem_id
+                                        service_group_id
+                                    }
+                                    duration_id
+                                    duration {
+                                        id
+                                        name
+                                        key
+                                    }
                                 }
-                                duration_id
-                                duration {
-                                    id
-                                    name
-                                    key
+                                documents {
+                                    document_id
+                                    document {
+                                        id
+                                    }
+                                    duration_id
+                                    duration {
+                                        id
+                                        name
+                                        key
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-        GRAPHQL;
-        $operations = [
-            'operationName' => 'test',
-            'query'         => $query,
-            'variables'     => ['input' => $input],
-        ];
-
-        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+                GRAPHQL,
+                [
+                    'input' => $input,
+                ],
+            )
+            ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(QuoteRequest::class);

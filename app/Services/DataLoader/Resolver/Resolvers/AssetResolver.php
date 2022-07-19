@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
  * @extends Resolver<Asset>
  */
 class AssetResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Asset|null $factory
+     *
+     * @return ($factory is null ? Asset|null : Asset)
+     */
     public function get(string|int $id, Closure $factory = null): ?Asset {
         return $this->resolve($id, $factory);
     }

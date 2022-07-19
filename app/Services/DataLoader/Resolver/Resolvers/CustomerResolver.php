@@ -11,6 +11,11 @@ use Illuminate\Database\Eloquent\Builder;
  * @extends Resolver<Customer>
  */
 class CustomerResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Customer|null $factory
+     *
+     * @return ($factory is null ? Customer|null : Customer)
+     */
     public function get(string|int $id, Closure $factory = null): ?Customer {
         return $this->resolve($id, $factory);
     }

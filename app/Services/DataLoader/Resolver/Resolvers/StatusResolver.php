@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Status>
  */
 class StatusResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Status|null $factory
+     *
+     * @return ($factory is null ? Status|null : Status)
+     */
     public function get(Model $model, string $key, Closure $factory = null): ?Status {
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }

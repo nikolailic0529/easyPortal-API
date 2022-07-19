@@ -13,6 +13,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Document>
  */
 class DocumentResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Document|null $factory
+     *
+     * @return ($factory is null ? Document|null : Document)
+     */
     public function get(string|int $id, Closure $factory = null): ?Document {
         return $this->resolve($id, $factory);
     }

@@ -64,7 +64,7 @@ class LocationResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('postcode a', $actual->postcode);
         self::assertEquals('state a', $actual->state);
@@ -109,7 +109,7 @@ class LocationResolverTest extends TestCase {
         $foundA = $provider->get($countryA, $cityA, 'postcode c', 'line_one c  line_two c', '', $factory);
         $foundB = $provider->get($countryA, $cityA, 'postcode c', 'line_one c', 'line_two c', $factory);
 
-        self::assertNotNull($foundA);
+        self::assertNotEmpty($foundA);
         self::assertEquals($foundA, $foundB);
         self::assertFalse($foundA->wasRecentlyCreated);
         self::assertCount(1, $this->getQueryLog());
@@ -138,7 +138,7 @@ class LocationResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('Postcode', $created->postcode);
         self::assertEquals('New', $created->state);
         self::assertEquals('line_One a', $created->line_one);

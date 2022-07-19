@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Notifications\OrganizationUserInvitation;
 use App\Services\Auth\Auth;
 use App\Services\Keycloak\Client\Client;
+use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -122,7 +123,9 @@ class Invite {
         $invitation->team         = $team;
         $invitation->email        = $user->email;
         $invitation->used_at      = null;
-        $invitation->expired_at   = Date::now()->add($this->config->get('ep.invite_expire'));
+        $invitation->expired_at   = Date::now()->add(
+            $this->config->get('ep.invite_expire') ?? Constants::EP_INVITE_EXPIRE,
+        );
 
         $invitation->save();
 
@@ -130,9 +133,12 @@ class Invite {
         $token = $this->encrypter->encrypt([
             'invitation' => $invitation->getKey(),
         ]);
-        $url   = $this->url->to(strtr($this->config->get('ep.client.invite_uri'), [
-            '{token}' => $token,
-        ]));
+        $url   = $this->url->to(strtr(
+            $this->config->get('ep.client.invite_uri') ?? Constants::EP_CLIENT_INVITE_URI,
+            [
+                '{token}' => $token,
+            ],
+        ));
 
         $user->notify(new OrganizationUserInvitation($invitation, $url));
 

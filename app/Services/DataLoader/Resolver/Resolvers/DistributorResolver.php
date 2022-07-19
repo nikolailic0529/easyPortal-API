@@ -13,6 +13,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Distributor>
  */
 class DistributorResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Distributor|null $factory
+     *
+     * @return ($factory is null ? Distributor|null : Distributor)
+     */
     public function get(string|int $id, Closure $factory = null): ?Distributor {
         return $this->resolve($id, $factory);
     }

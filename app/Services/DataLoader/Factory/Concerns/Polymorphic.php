@@ -6,11 +6,11 @@ use App\Models\Type;
 use App\Services\DataLoader\Schema\Type as SchemaType;
 use App\Utils\Eloquent\Model;
 use Closure;
+use Illuminate\Database\Eloquent\Collection;
 use SplObjectStorage;
 
 use function array_merge;
 use function array_unique;
-use function iterator_to_array;
 
 use const SORT_REGULAR;
 
@@ -26,9 +26,9 @@ trait Polymorphic {
      * @param Closure(SchemaType): SchemaType $getType
      * @param Closure(T, SchemaType): ?R      $factory
      *
-     * @return array<R>
+     * @return Collection<array-key, R>
      */
-    private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): array {
+    private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): Collection {
         // First, we should convert type into the internal model and determine its types.
         /** @var SplObjectStorage<R, array<Type>> $models */
         $models = new SplObjectStorage();
@@ -66,6 +66,9 @@ trait Polymorphic {
         }
 
         // Return
-        return iterator_to_array($models);
+        /** @var Collection<array-key, R> $items */
+        $items = new Collection($models);
+
+        return $items;
     }
 }

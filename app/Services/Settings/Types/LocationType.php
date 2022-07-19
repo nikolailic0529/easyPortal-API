@@ -8,7 +8,7 @@ use App\Models\Type as TypeModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
-class LocationType extends Type {
+class LocationType extends StringType {
     public function getValues(): Collection|array|null {
         return TypeModel::query()
             ->whereIn('object_type', [

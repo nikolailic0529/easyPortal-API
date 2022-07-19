@@ -4,7 +4,7 @@ namespace App\Services\Settings\Types;
 
 use App\Rules\Duration as DurationRule;
 
-class Duration extends Type {
+class Duration extends StringType {
     /**
      * @inheritDoc
      */

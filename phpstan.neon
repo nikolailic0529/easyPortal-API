@@ -33,6 +33,8 @@ includes:
 
     # App
     - .phpstan/Extensions/Container/extension.neon
+    - .phpstan/Extensions/Settings/extension.neon
+    - .phpstan/Extensions/I18n/extension.neon
 
     # Baseline
     - phpstan-baseline-well-known.neon

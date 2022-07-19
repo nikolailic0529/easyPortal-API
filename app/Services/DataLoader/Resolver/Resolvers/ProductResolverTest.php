@@ -47,7 +47,7 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('a', $actual->sku);
         self::assertEquals($a->name, $actual->name);
@@ -68,7 +68,7 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Product should be found in DB
-        self::assertNotNull($provider->get($oemA, 'c', $factory));
+        self::assertNotEmpty($provider->get($oemA, 'c', $factory));
         self::assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -84,7 +84,7 @@ class ProductResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->sku);
         self::assertEquals($oemB->getKey(), $created->oem_id);
         self::assertCount(2, $this->getQueryLog());

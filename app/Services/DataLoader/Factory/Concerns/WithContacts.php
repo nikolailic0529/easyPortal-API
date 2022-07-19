@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Services\DataLoader\Factory\Factories\ContactFactory;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Utils\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 
 trait WithContacts {
     use Polymorphic;
@@ -15,9 +16,9 @@ trait WithContacts {
     /**
      * @param array<CompanyContactPerson> $persons
      *
-     * @return array<Contact>
+     * @return Collection<array-key, Contact>
      */
-    protected function objectContacts(Model $owner, array $persons): array {
+    protected function objectContacts(Model $owner, array $persons): Collection {
         return $this->polymorphic(
             $owner,
             $persons,

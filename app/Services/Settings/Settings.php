@@ -117,8 +117,9 @@ class Settings {
         $jobs     = [];
 
         foreach ($settings as $setting) {
-            if ($setting->isJob()) {
-                $job        = $setting->getJob();
+            $job = $setting->getJob();
+
+            if ($job) {
                 $jobs[$job] = $job;
             }
         }
@@ -134,8 +135,9 @@ class Settings {
         $services = [];
 
         foreach ($settings as $setting) {
-            if ($setting->isService()) {
-                $service            = $setting->getService();
+            $service = $setting->getService();
+
+            if ($service) {
                 $services[$service] = $service;
             }
         }
@@ -202,7 +204,7 @@ class Settings {
     /**
      * @return array<Setting>
      */
-    protected function getSettings(): array {
+    public function getSettings(): array {
         if (!$this->settings) {
             $store          = $this->getStore();
             $constants      = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);

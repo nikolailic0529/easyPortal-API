@@ -76,8 +76,6 @@ class UpdateTest extends TestCase {
         }
 
         // Input
-        $map   = [];
-        $files = [];
         $input = [
             'id'    => $inputUserFactory
                 ? $inputUserFactory($this, $org, $user)->getKey()
@@ -87,18 +85,12 @@ class UpdateTest extends TestCase {
                 : [],
         ];
 
-        if (isset($input['input']['photo'])) {
-            $map['0']                = ['variables.input.photo'];
-            $files['0']              = $input['input']['photo'];
-            $input['input']['photo'] = null;
-        }
-
-        $operations = [
-            'operationName' => 'updateUser',
-            'variables'     => $input,
-            'query'         => /** @lang GraphQL */
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation updateUser($id: ID!, $input: OrgUserUpdateInput!) {
+                mutation test($id: ID!, $input: OrgUserUpdateInput!) {
                     org {
                         user(id: $id) {
                             update(input: $input) {
@@ -111,13 +103,9 @@ class UpdateTest extends TestCase {
                         }
                     }
                 }
-                GRAPHQL
-            ,
-        ];
-
-        // Test
-        $this
-            ->multipartGraphQL($operations, $map, $files)
+                GRAPHQL,
+                $input,
+            )
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {

@@ -6,6 +6,7 @@ use App\Models\Note;
 use App\Models\User;
 use App\Policies\NotePolicy;
 use App\Policies\UserPolicy;
+use Config\Constants;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Contracts\Config\Repository;
@@ -38,10 +39,13 @@ class AuthServiceProvider extends ServiceProvider {
         $generator = $this->app->make(UrlGenerator::class);
 
         ResetPassword::createUrlUsing(static function (User $user, string $token) use ($config, $generator) {
-            return $generator->to(strtr($config->get('ep.client.password_reset_uri'), [
-                '{email}' => $user->getEmailForPasswordReset(),
-                '{token}' => $token,
-            ]));
+            return $generator->to(strtr(
+                $config->get('ep.client.password_reset_uri') ?? Constants::EP_CLIENT_PASSWORD_RESET_URI,
+                [
+                    '{email}' => $user->getEmailForPasswordReset(),
+                    '{token}' => $token,
+                ],
+            ));
         });
     }
 }

@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Type>
  */
 class TypeResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Type|null $factory
+     *
+     * @return ($factory is null ? Type|null : Type)
+     */
     public function get(Model $model, string $key, Closure $factory = null): ?Type {
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }

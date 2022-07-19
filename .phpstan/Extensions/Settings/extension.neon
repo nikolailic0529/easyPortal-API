@@ -1,0 +1,8 @@
+# The extension provides proper return types for:
+#
+# * Illuminate\Contracts\Config\Repository::get
+services:
+    -
+        class: App\PhpStan\Extensions\Settings\Extension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension

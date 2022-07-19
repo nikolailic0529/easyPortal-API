@@ -35,7 +35,7 @@ class LanguageResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertEquals('a', $actual->code);
 
         // Second call should return same instance
@@ -45,10 +45,10 @@ class LanguageResolverTest extends TestCase {
         self::assertCount(0, $this->getQueryLog());
 
         // All value should be loaded, so get() should not perform any queries
-        self::assertNotNull($provider->get('b', $factory));
+        self::assertNotEmpty($provider->get('b', $factory));
         self::assertCount(0, $this->getQueryLog());
 
-        self::assertNotNull($provider->get('c', $factory));
+        self::assertNotEmpty($provider->get('c', $factory));
         self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
@@ -62,7 +62,7 @@ class LanguageResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('UN', $created->code);
         self::assertEquals('unknown name', $created->name);
         self::assertCount(1, $this->getQueryLog());

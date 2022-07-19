@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Language>
  */
 class LanguageResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Language|null $factory
+     *
+     * @return ($factory is null ? Language|null : Language)
+     */
     public function get(string $code, Closure $factory = null): ?Language {
         return $this->resolve($this->getUniqueKey($code), $factory);
     }

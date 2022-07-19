@@ -16,7 +16,6 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;
 
-use function reset;
 use function tap;
 
 /**
@@ -71,7 +70,7 @@ class WithContactsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        self::assertEquals([], $factory->objectContacts($owner, []));
+        self::assertTrue($factory->objectContacts($owner, [])->isEmpty());
 
         // Repeated objects should be missed
         $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
@@ -91,8 +90,9 @@ class WithContactsTest extends TestCase {
             $person->mail        = $ca->mail;
         });
         $actual = $factory->objectContacts($owner, [$ca, $cb]);
-        $first  = reset($actual);
+        $first  = $actual->first();
 
+        self::assertNotNull($first);
         self::assertCount(1, $actual);
         self::assertCount(2, $first->types);
         self::assertEquals($cb->phoneNumber, $first->phone_number);

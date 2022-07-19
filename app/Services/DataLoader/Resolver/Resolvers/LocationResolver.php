@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\DB;
  * @extends Resolver<Location>
  */
 class LocationResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Location|null $factory
+     *
+     * @return ($factory is null ? Location|null : Location)
+     */
     public function get(
         Country $country,
         City $city,

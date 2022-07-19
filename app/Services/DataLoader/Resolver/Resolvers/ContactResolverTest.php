@@ -51,7 +51,7 @@ class ContactResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('a', $actual->name);
         self::assertEquals('a', $actual->phone_number);
@@ -87,7 +87,7 @@ class ContactResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->name);
         self::assertEquals('unKnOwn', $created->phone_number);
         self::assertEquals('unKnOwn', $created->email);

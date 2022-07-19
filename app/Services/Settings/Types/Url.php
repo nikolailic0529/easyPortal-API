@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Types;
 
-class Url extends Type {
+class Url extends StringType {
     /**
      * @inheritDoc
      */

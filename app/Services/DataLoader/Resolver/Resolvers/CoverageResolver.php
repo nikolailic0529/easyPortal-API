@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Coverage>
  */
 class CoverageResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Coverage|null $factory
+     *
+     * @return ($factory is null ? Coverage|null : Coverage)
+     */
     public function get(string $key, Closure $factory = null): ?Coverage {
         return $this->resolve($this->getUniqueKey($key), $factory);
     }

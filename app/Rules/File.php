@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Validation\Factory;
 
@@ -30,13 +31,15 @@ class File extends CompositeRule {
     }
 
     protected function getMaxSize(): int {
-        return $this->config->get('ep.file.max_size');
+        return $this->config->get('ep.file.max_size')
+            ?? Constants::EP_FILE_MAX_SIZE;
     }
 
     /**
      * @return array<string>
      */
     protected function getMimeTypes(): array {
-        return $this->config->get('ep.file.formats');
+        return $this->config->get('ep.file.formats')
+            ?? Constants::EP_FILE_FORMATS;
     }
 }

@@ -17,6 +17,7 @@ use App\Services\DataLoader\Schema\ViewCompany;
 use App\Utils\Console\WithOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;
+use Config\Constants;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 
@@ -72,8 +73,9 @@ class AssetsAnalyze extends Command {
         }
 
         // Continue?
-        $chunk  = $this->getIntOption('chunk') ?: $config->get('ep.data_loader.chunk');
         $lastId = null;
+        $chunk  = $this->getIntOption('chunk')
+            ?: ($config->get('ep.data_loader.chunk') ?? Constants::EP_DATA_LOADER_CHUNK);
 
         if ($this->getBoolOption('continue')) {
             $lastId = AnalyzeAsset::query()->orderByDesc('created_at')->first()?->getKey();

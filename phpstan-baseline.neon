@@ -16,11 +16,6 @@ parameters:
 			path: app/Exceptions/ApplicationException.php
 
 		-
-			message: "#^Method App\\\\Exceptions\\\\Exceptions\\\\FailedToSendMail\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Exceptions/Exceptions/FailedToSendMail.php
-
-		-
 			message: "#^Cannot access offset 'debug' on mixed\\.$#"
 			count: 1
 			path: app/Exceptions/GraphQL/ErrorFormatter.php
@@ -196,21 +191,6 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Illuminate\\\\Contracts\\\\Cache\\\\Factory\\:\\:store\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Cache.php
-
-		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Cache.php
-
-		-
-			message: "#^Parameter \\#1 \\$years of class Carbon\\\\CarbonInterval constructor expects Closure\\|DateInterval\\|int\\|string\\|null, mixed given\\.$#"
-			count: 2
-			path: app/GraphQL/Cache.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'DateTimeInterface' and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/GraphQL/CacheTest.php
@@ -271,11 +251,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:testResolveField\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
@@ -322,11 +297,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
@@ -394,16 +364,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$content of class Tests\\\\GraphQL\\\\GraphQLSuccess constructor expects array\\|JsonSerializable\\|SplFileInfo\\|stdClass\\|string\\|Tests\\\\GraphQL\\\\JsonFragment\\|null, string\\|false given\\.$#"
 			count: 3
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\InvalidContext\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/InvalidContext.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/ObjectNotFound.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound\\:\\:getObjectName\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -634,21 +594,6 @@ parameters:
 			message: "#^Unable to resolve the template type TBuilder in call to method Nuwave\\\\Lighthouse\\\\Execution\\\\Arguments\\\\ArgumentSet\\:\\:enhanceBuilder\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/LimitRule.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\LimitRule\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/LimitRule.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/Manipulator.php
 
 		-
 			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:220\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
@@ -951,11 +896,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/ResetPassword.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\ResetPasswordSamePasswordException\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/ResetPasswordSamePasswordException.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\ResetPasswordTest\\:\\:testInvoke\\(\\) has parameter \\$inputFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/ResetPasswordTest.php
@@ -1011,36 +951,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationExpired\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationExpired.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationNotFound.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationOrganizationNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOrganizationNotFound.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationOutdated\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOutdated.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUsed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUsed.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUserNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUserNotFound.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
@@ -1094,11 +1004,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTokenInvalid given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTokenInvalid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTokenInvalid.php
 
 		-
 			message: "#^Cannot access offset 'contract_id' on mixed\\.$#"
@@ -1168,11 +1073,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\CreateContractNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/CreateContractNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/CreateContractNoteTest.php
 
 		-
@@ -1258,11 +1158,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\CreateQuoteNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
 		-
@@ -1371,22 +1266,12 @@ parameters:
 			path: app/GraphQL/Mutations/ImportOems.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsImportFailed.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsTest\\:\\:testInvoke\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$constraint of method Illuminate\\\\Testing\\\\TestResponse\\:\\:assertThat\\(\\) expects PHPUnit\\\\Framework\\\\Constraint\\\\Constraint, array\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
@@ -1486,11 +1371,6 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateMeEmailTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/Me/UpdateMeEmailTest.php
-
-		-
 			message: "#^Cannot access offset 'current_password' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
@@ -1504,11 +1384,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$password of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:resetPassword\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateMePasswordInvalidCurrentPassword\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateMePasswordInvalidCurrentPassword.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateMePasswordTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
@@ -1551,7 +1426,7 @@ parameters:
 			path: app/GraphQL/Mutations/Message/Create.php
 
 		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, mixed\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php
 
@@ -1561,16 +1436,6 @@ parameters:
 			path: app/GraphQL/Mutations/Message/Create.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Message/CreateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Oem\\\\Hpe\\\\ImportImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Oem/Hpe/ImportImportFailed.php
-
-		-
 			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
@@ -1578,11 +1443,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\RequestOrgChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
 
 		-
@@ -1606,11 +1466,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/ResetOrgUserPassword.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\ResetOrgUserPasswordInvalidUser\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/ResetOrgUserPasswordInvalidUser.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\ResetOrgUserPasswordTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/ResetOrgUserPasswordTest.php
@@ -1629,16 +1484,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\DeleteImpossibleAssignedToUsers\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/DeleteImpossibleAssignedToUsers.php
 
 		-
 			message: "#^Cannot access property \\$role on App\\\\Models\\\\OrganizationUser\\|null\\.$#"
@@ -1711,11 +1556,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\:\\:dataProviderInvoke\\(\\) should return array\\<string, array\\{LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response, App\\\\Models\\\\Organization\\|\\(callable\\(static\\(App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\)\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(static\\(App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\), App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, Closure\\(static\\(App\\\\GraphQL\\\\Mutations\\\\Org\\\\SetTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: array\\{organization_id\\: string\\|null\\}\\}\\> but returns array\\<array\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/SetTest.php
@@ -1774,11 +1614,6 @@ parameters:
 			message: "#^Property App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyBrandingData\\:\\:\\$secondaryColor \\(string\\|null\\) does not accept mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Update.php
-
-		-
-			message: "#^Cannot access property \\$reseller on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/UpdateTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$dataFactory with no signature specified for Closure\\.$#"
@@ -1841,24 +1676,9 @@ parameters:
 			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Invitation\\:\\:\\$sender \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Organization\\\\User\\\\InviteImpossibleKeycloakUserDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/InviteImpossibleKeycloakUserDisabled.php
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
@@ -1906,18 +1726,8 @@ parameters:
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
 
 		-
@@ -1936,11 +1746,6 @@ parameters:
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
-			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
@@ -1956,11 +1761,6 @@ parameters:
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
-			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
-
-		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
@@ -1973,11 +1773,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestQuoteChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
 			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
 		-
@@ -2126,11 +1921,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
-			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
@@ -2218,11 +2008,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\UpdateQuoteNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
@@ -2546,11 +2331,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
@@ -2666,11 +2446,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:testQuery\\(\\) has parameter \\$contractsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
@@ -2777,11 +2552,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
 
@@ -3036,11 +2806,6 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:testQuery\\(\\) has parameter \\$quotesFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
@@ -3097,11 +2862,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
 
@@ -3186,11 +2946,6 @@ parameters:
 			path: app/GraphQL/Scalars/HtmlString.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of function dirname expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/SchemaTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(array\\)\\: non\\-empty\\-array given\\.$#"
 			count: 1
 			path: app/GraphQL/ServiceTest.php
@@ -3257,16 +3012,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$limit of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setLimit\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
@@ -3356,16 +3101,6 @@ parameters:
 			path: app/Http/Controllers/Export/ExportRequest.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\GraphQLQueryInvalid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/GraphQLQueryInvalid.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\HeadersUnknownFunction\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/HeadersUnknownFunction.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/Http/Controllers/FilesController.php
@@ -3386,11 +3121,6 @@ parameters:
 			path: app/Http/Controllers/FilesControllerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of method Illuminate\\\\Contracts\\\\Routing\\\\UrlGenerator\\:\\:to\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Horizon/HomeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function ltrim expects string, string\\|false\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Horizon/HomeController.php
@@ -3404,11 +3134,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Controllers\\\\IndexController\\:\\:index\\(\\) should return array\\<string, string\\>\\|Illuminate\\\\View\\\\View but returns array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\View\\\\View\\.$#"
 			count: 1
 			path: app/Http/Controllers/IndexController.php
-
-		-
-			message: "#^Parameter \\#1 \\$path of method Illuminate\\\\Contracts\\\\Routing\\\\UrlGenerator\\:\\:to\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Telescope/HomeController.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function ltrim expects string, string\\|false\\|null given\\.$#"
@@ -3491,17 +3216,12 @@ parameters:
 			path: app/Mail/Error.php
 
 		-
-			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Mail/Message.php
 
 		-
-			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Mail/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#3 \\.\\.\\.\\$recipients of method App\\\\Mail\\\\QuoteRequest\\:\\:getDefaultRecipients\\(\\) expects array\\<string\\>\\|string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Mail/QuoteRequest.php
 
@@ -5466,16 +5186,6 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentStatusScope\\:\\:getStatusesIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentStatusScope.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentTypeContractScope.php
-
-		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
@@ -5484,11 +5194,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentTypeQuoteType.php
 
 		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
@@ -5756,11 +5461,6 @@ parameters:
 			path: app/Providers/AuthServiceProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
-			count: 1
-			path: app/Providers/AuthServiceProvider.php
-
-		-
 			message: "#^PHPDoc type array\\<class\\-string, array\\<int, class\\-string\\>\\> of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen\\.$#"
 			count: 1
 			path: app/Providers/EventServiceProvider.php
@@ -5776,79 +5476,9 @@ parameters:
 			path: app/Providers/RouteServiceProvider.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\AssetId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/AssetId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Boolean\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Boolean.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Color\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Color.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\ContractId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/ContractId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CronExpression\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CronExpression.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CurrencyId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CurrencyId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CustomerId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CustomerId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\DateTime\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\DocumentId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/DocumentId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Duration\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Duration.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\File\\:\\:getMaxSize\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/File.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\File\\:\\:getMimeTypes\\(\\) should return array\\<string\\> but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/File.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\FileId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/FileId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\FloatNumber\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/FloatNumber.php
 
 		-
 			message: "#^Parameter \\#2 \\$errors of method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
@@ -5866,72 +5496,12 @@ parameters:
 			path: app/Rules/GraphQL/Query.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/HashMap.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Image\\:\\:getMaxSize\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/Image.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Image\\:\\:getMimeTypes\\(\\) should return array\\<string\\> but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/Image.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Locale\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Locale.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\MapLevel\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/MapLevel.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\NoteId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/NoteId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\OemId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/OemId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Org/PermissionId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Org/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\Id\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Organization/Id.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Organization/PermissionId.php
-
-		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"
 			count: 1
 			path: app/Rules/Organization/PermissionId.php
 
 		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
@@ -5961,39 +5531,9 @@ parameters:
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\QuoteId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteRequestDurationId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\QuoteTypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteTypeId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\ServiceLevelId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/ServiceLevelId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\TeamId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/TeamId.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\UniqueUserEmail\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/UniqueUserEmail.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/UserNotMe.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept string\\|null\\.$#"
@@ -6096,11 +5636,6 @@ parameters:
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getIntrospection\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
@@ -6116,27 +5651,12 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\<T,array\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\Factory\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function sha1 expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$url of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:post\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$url of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:post\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
@@ -6156,29 +5676,9 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Part \\$this\\-\\>config\\-\\>get\\('ep\\.data_loader\\.dump'\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Parameter \\#1 \\$introspectionQuery of static method GraphQL\\\\Utils\\\\BuildClientSchema\\:\\:build\\(\\) expects array\\<string, array\\>, array given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/ClientTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\DataLoaderDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/DataLoaderDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\DataLoaderUnavailable\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/DataLoaderUnavailable.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\GraphQLRequestFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/GraphQLRequestFailed.php
 
 		-
 			message: "#^Cannot call method times\\(\\) on mixed\\.$#"
@@ -6201,17 +5701,17 @@ parameters:
 			path: app/Services/DataLoader/Client/QueryIterator.php
 
 		-
-			message: "#^Parameter \\#1 \\$url of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$url of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^Parameter \\#2 \\$clientId of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$clientId of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^Parameter \\#3 \\$clientSecret of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#3 \\$clientSecret of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
@@ -6237,11 +5737,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$lastId of method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Parameter \\#3 \\$chunk of method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
@@ -6321,18 +5816,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:companyLocations\\(\\) should return array\\<TLocation of App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\> but returns array\\<App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:companyLocations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), TLocation of App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 3
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
@@ -6431,36 +5916,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Cannot access property \\$email on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$name on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$phone_number on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$types on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
@@ -6471,7 +5926,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6481,7 +5936,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6491,17 +5946,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Coverage will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithCoverageTest\\.php\\:29\\:\\:coverage\\(\\) should return App\\\\Models\\\\Coverage but returns App\\\\Models\\\\Coverage\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
 
@@ -6551,47 +6001,22 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Cannot access property \\$location on App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|false\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Cannot access property \\$types on App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6601,32 +6026,32 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6636,18 +6061,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithOemGroupTest\\.php\\:31\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
-
-		-
 			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithProductTest\\.php\\:32\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
 
 		-
@@ -6681,17 +6096,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithStatusTest\\.php\\:34\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Tag will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTagTest\\.php\\:30\\:\\:tag\\(\\) should return App\\\\Models\\\\Tag but returns App\\\\Models\\\\Tag\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
 
@@ -6702,11 +6107,6 @@ parameters:
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTypeTest\\.php\\:34\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
 
@@ -6796,38 +6196,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetAsset\\(\\) should return App\\\\Models\\\\Asset but returns App\\\\Models\\\\Asset\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetDocumentsWarrantiesExtended\\(\\) should return array\\<App\\\\Models\\\\AssetWarranty\\> but returns array\\<int, App\\\\Models\\\\AssetWarranty\\|null\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:coverage\\(\\) should return App\\\\Models\\\\Coverage but returns App\\\\Models\\\\Coverage\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:tag\\(\\) should return App\\\\Models\\\\Tag but returns App\\\\Models\\\\Tag\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
@@ -6857,11 +6227,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#4 \\$factory of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -6986,11 +6351,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ContactFactory\\:\\:contact\\(\\) should return App\\\\Models\\\\Contact but returns App\\\\Models\\\\Contact\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactory.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
@@ -7011,16 +6371,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\>\\) does not accept array\\<App\\\\Models\\\\CustomerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
@@ -7031,273 +6381,13 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnContract on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnWarranty on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsPercentage on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContractTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeExposedAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotesTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_exposed on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_contract on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_warranty on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_percent on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_total on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$awaitingQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$kpi_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$newActiveContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$orderedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_accepted on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_awaiting on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_ordered on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_received on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_rejected on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_requested on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$receivedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$rejectedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$requestedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$reseller_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmountChange on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount_change on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$totalAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
@@ -7351,26 +6441,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
@@ -7403,11 +6473,6 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$factory of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
@@ -7521,21 +6586,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:city\\(\\) should return App\\\\Models\\\\City but returns App\\\\Models\\\\City\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:country\\(\\) should return App\\\\Models\\\\Country but returns App\\\\Models\\\\Country\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:location\\(\\) should return App\\\\Models\\\\Location but returns App\\\\Models\\\\Location\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
 			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
@@ -7601,279 +6651,9 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\>\\) does not accept array\\<App\\\\Models\\\\ResellerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnContract on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnWarranty on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsPercentage on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContractTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeExposedAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotesTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_exposed on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_contract on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_warranty on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_percent on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_total on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$awaitingQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$orderedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_accepted on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_awaiting on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_ordered on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_received on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_rejected on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_requested on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$receivedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$rejectedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$requestedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmountChange on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount_change on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$totalAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -8491,11 +7271,6 @@ parameters:
 			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
@@ -8551,22 +7326,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolverTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\City and App\\\\Models\\\\City will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CityResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
@@ -8581,22 +7346,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Country and App\\\\Models\\\\Country will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CountryResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
 
@@ -8611,11 +7366,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CoverageResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolver.php
@@ -8626,32 +7376,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Language and App\\\\Models\\\\Language will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LanguageResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
@@ -8666,22 +7396,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\OemGroup and App\\\\Models\\\\OemGroup will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemGroupResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
@@ -8704,16 +7424,6 @@ parameters:
 			message: "#^Instanceof between App\\\\Models\\\\Product and App\\\\Models\\\\Product will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ProductResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolver.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -8746,22 +7456,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\StatusResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Tag and App\\\\Models\\\\Tag will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TagResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
 
@@ -8782,11 +7482,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Type and App\\\\Models\\\\Type will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TypeResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolver.php
 
@@ -9291,21 +7986,6 @@ parameters:
 			path: app/Services/Filesystem/Disks/ModelDiskTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileCorrupted\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileCorrupted.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileDeleteFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileDeleteFailed.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileSaveFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileSaveFailed.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Filesystem/JsonStorage.php
@@ -9327,7 +8007,7 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentTimezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/I18n/CurrentTimezone.php
 
 		-
@@ -9521,11 +8201,6 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:createUser\\(\\) should return App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User but returns App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
@@ -9576,27 +8251,12 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function rtrim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, string\\|null given\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
 			message: "#^Parameter \\#2 \\$array of function array_map expects array, mixed given\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Part \\$realm \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -9631,89 +8291,14 @@ parameters:
 			path: app/Services/Keycloak/Client/ClientTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\InvalidSettingClientUuid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/InvalidSettingClientUuid.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\KeycloakDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/KeycloakDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\KeycloakUnavailable\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/KeycloakUnavailable.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmGroupUnknown\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmGroupUnknown.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmRoleAlreadyExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmRoleAlreadyExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmUserAlreadyExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmUserAlreadyExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmUserNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmUserNotFound.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RequestFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
-
-		-
 			message: "#^Using nullsafe method call on non\\-nullable type Illuminate\\\\Http\\\\Client\\\\RequestException\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
 
 		-
-			message: "#^Parameter \\#1 \\$id of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\OrgAdminGroupNotFound constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getGroup\\(\\) expects App\\\\Models\\\\Organization\\|App\\\\Models\\\\Role\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\AnotherUserExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/AnotherUserExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\AuthorizationFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/AuthorizationFailed.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UnknownScope\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UnknownScope.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserInsufficientData\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserInsufficientData.php
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
@@ -9816,11 +8401,6 @@ parameters:
 			path: app/Services/Keycloak/Keycloak.php
 
 		-
-			message: "#^Parameter \\#1 \\$uri of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:getRedirectUri\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Keycloak.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\OAuth2\\\\Provider\\:\\:checkResponse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Keycloak/OAuth2/Provider.php
@@ -9836,22 +8416,7 @@ parameters:
 			path: app/Services/Keycloak/OAuth2/ResourceOwner.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$timezone of class DateTimeZone constructor expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Utils/Jwt.php
 
@@ -10036,11 +8601,6 @@ parameters:
 			path: app/Services/Logger/Logger.php
 
 		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Logger/Logger.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Casts\\\\Statistics\\:\\:__get\\(\\) should return float\\|int\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Casts/Statistics.php
@@ -10121,11 +8681,6 @@ parameters:
 			path: app/Services/Logger/Models/Model.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Maintenance\\\\ApplicationInfo\\:\\:getCachedVersionPath\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Maintenance/ApplicationInfo.php
-
-		-
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, Carbon\\\\CarbonInterval\\|null given\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/Start.php
@@ -10186,32 +8741,7 @@ parameters:
 			path: app/Services/Maintenance/Notifications/Scheduled.php
 
 		-
-			message: "#^Parameter \\#1 \\$text of method Illuminate\\\\Notifications\\\\Action\\:\\:__construct\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Actions/GoToApplication.php
-
-		-
-			message: "#^Parameter \\#2 \\$url of method Illuminate\\\\Notifications\\\\Action\\:\\:__construct\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Actions/GoToApplication.php
-
-		-
 			message: "#^Anonymous function should return string\\|null but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Parameter \\#1 \\$greeting of method Illuminate\\\\Notifications\\\\Messages\\\\SimpleMessage\\:\\:greeting\\(\\) expects string, array\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Parameter \\#1 \\$salutation of method Illuminate\\\\Notifications\\\\Messages\\\\SimpleMessage\\:\\:salutation\\(\\) expects string, array\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Notificator/Notification.php
 
@@ -10259,11 +8789,6 @@ parameters:
 			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScopeTest_Scope extends generic class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope but does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/Organization/Eloquent/OwnedByScopeTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\Exceptions\\\\UnknownOrganization\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Exceptions/UnknownOrganization.php
 
 		-
 			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
@@ -10334,11 +8859,6 @@ parameters:
 			message: "#^Cannot call method toArray\\(\\) on App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString\\|null\\.$#"
 			count: 2
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\RootOrganization\\:\\:getRootKey\\(\\) should return string\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Organization/RootOrganization.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Passwords\\\\PasswordBroker\\:\\:getUser\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
@@ -10471,11 +8991,6 @@ parameters:
 			path: app/Services/Queue/CronJob.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Exceptions\\\\ServiceNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Queue/Exceptions/ServiceNotFound.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, \\$this\\(App\\\\Services\\\\Queue\\\\Job\\) given\\.$#"
 			count: 1
 			path: app/Services/Queue/Job.php
@@ -10499,11 +9014,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$job of method App\\\\Services\\\\Queue\\\\Pinger\\:\\:prolong\\(\\) expects App\\\\Services\\\\Queue\\\\CronJob\\|App\\\\Services\\\\Queue\\\\Job, Mockery\\\\MockInterface given\\.$#"
 			count: 2
 			path: app/Services/Queue/PingerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expression of method Illuminate\\\\Console\\\\Scheduling\\\\Event\\:\\:cron\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Queue/Provider.php
 
 		-
 			message: "#^Cannot access offset 'pushedAt' on mixed\\.$#"
@@ -10561,22 +9071,12 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:subSeconds\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
 			message: "#^Parameter \\#2 \\$id of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
 		-
 			message: "#^Parameter \\#2 \\$id of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Part \\$connection \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
@@ -10592,11 +9092,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:399\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
-			count: 1
-			path: app/Services/Queue/QueueTest.php
-
-		-
-			message: "#^Part \\$connection \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
@@ -10827,11 +9322,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -11371,11 +9861,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
@@ -11432,11 +9917,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\> and Illuminate\\\\Support\\\\Collection will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -11601,11 +10081,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelsProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_filter expects array, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Provider.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Queue\\\\Jobs\\\\Indexer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Jobs/Indexer.php
@@ -11681,17 +10156,7 @@ parameters:
 			path: app/Services/Service.php
 
 		-
-			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Service.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Service.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Illuminate\\\\Contracts\\\\Cache\\\\Factory\\:\\:store\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Service.php
 
@@ -11709,16 +10174,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Settings\\\\Environment\\\\EnvironmentRepository\\:\\:get\\(\\) should return string\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Settings/Environment/EnvironmentRepository.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Exceptions\\\\FailedToLoadSettings\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Exceptions/FailedToLoadSettings.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Exceptions\\\\FailedToSaveSettings\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Exceptions/FailedToSaveSettings.php
 
 		-
 			message: "#^Instanceof between Attribute\\|null and App\\\\Services\\\\Settings\\\\Attributes\\\\Group will always evaluate to false\\.$#"
@@ -11801,16 +10256,6 @@ parameters:
 			path: app/Services/Settings/Settings.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Settings\\:\\:getJobs\\(\\) should return array\\<class\\-string\\<App\\\\Services\\\\Queue\\\\Job\\>\\> but returns array\\<int, class\\-string\\<App\\\\Services\\\\Queue\\\\Job\\>\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Settings\\:\\:getServices\\(\\) should return array\\<class\\-string\\<App\\\\Services\\\\Queue\\\\CronJob\\>\\> but returns array\\<int, class\\-string\\<App\\\\Services\\\\Queue\\\\CronJob\\>\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Settings.php
@@ -11826,7 +10271,7 @@ parameters:
 			path: app/Services/Settings/SettingsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:242\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:235\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/SettingsTest.php
 
@@ -11846,21 +10291,6 @@ parameters:
 			path: app/Services/Settings/Types/BooleanType.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\CronExpression\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\CronExpression\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/CronExpression.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DateTime\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\DateTime\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DateTime.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DocumentStatus.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentStatus.php
@@ -11874,16 +10304,6 @@ parameters:
 			message: "#^Cannot call method map\\(\\) on array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentType.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DocumentType.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\Duration\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\Duration\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/Duration.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\FloatType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\FloatNumber\\>\\.$#"
@@ -11901,11 +10321,6 @@ parameters:
 			path: app/Services/Settings/Types/LocationType.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\LocationType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/LocationType.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\LogLevel\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/LogLevel.php
@@ -11914,11 +10329,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/LogLevel.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\Organization\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\Organization\\\\Id\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/Organization.php
 
 		-
 			message: "#^Return type \\(array\\) of method App\\\\Services\\\\Settings\\\\Types\\\\StringType\\:\\:getValidationRules\\(\\) should be covariant with return type \\(array\\<Illuminate\\\\Validation\\\\Rule\\|string\\>\\) of method App\\\\Services\\\\Settings\\\\Types\\\\Type\\:\\:getValidationRules\\(\\)$#"
@@ -11931,11 +10341,6 @@ parameters:
 			path: app/Services/Settings/Types/Type.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Validation\\\\SettingValue\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Validation/SettingValue.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Validation/SettingValue.php
@@ -11944,11 +10349,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Settings\\\\Validation\\\\SettingValueTest_Type\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Validation/SettingValueTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Tokens\\\\Exceptions\\\\InvalidCredentials\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Tokens/Exceptions/InvalidCredentials.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -12801,21 +11201,6 @@ parameters:
 			path: tests/GraphQL/GraphQLPaginated.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLUnauthenticated.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLUnauthorized.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLValidationError.php
-
-		-
 			message: "#^Method Tests\\\\GraphQL\\\\JsonFragment\\:\\:__construct\\(\\) has parameter \\$json with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: tests/GraphQL/JsonFragment.php
@@ -12942,11 +11327,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: mixed, Closure\\(array\\)\\: mixed given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 

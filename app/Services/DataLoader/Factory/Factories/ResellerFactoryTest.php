@@ -116,6 +116,8 @@ class ResellerFactoryTest extends TestCase {
             $this->getModelContacts($reseller),
         );
 
+        self::assertNotNull($company->companyKpis);
+        self::assertNotNull($reseller->kpi);
         self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
             $reseller->kpi->assets_total,
