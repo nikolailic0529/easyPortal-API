@@ -12,6 +12,7 @@ use App\Services\Filesystem\Disk;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Factory;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use LogicException;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,10 +105,11 @@ class ModelDisk extends Disk {
     /**
      * @param array<UploadedFile> $uploads
      *
-     * @return array<File>
+     * @return Collection<int, File>
      */
-    public function storeToFiles(array $uploads): array {
-        $files = [];
+    public function storeToFiles(array $uploads): Collection {
+        /** @var Collection<int, File> $files */
+        $files = new Collection();
 
         foreach ($uploads as $upload) {
             $files[] = $this->storeToFile($upload);
