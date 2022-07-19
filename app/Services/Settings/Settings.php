@@ -202,7 +202,7 @@ class Settings {
     /**
      * @return array<Setting>
      */
-    protected function getSettings(): array {
+    public function getSettings(): array {
         if (!$this->settings) {
             $store          = $this->getStore();
             $constants      = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);

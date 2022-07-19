@@ -89,13 +89,6 @@ class SettingsTest extends TestCase {
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
-            /**
-             * @inheritdoc
-             */
-            public function getSettings(): array {
-                return parent::getSettings();
-            }
-
             protected function getStore(): string {
                 return (new class() {
                     #[SettingAttribute('a')]
