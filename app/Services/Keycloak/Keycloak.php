@@ -12,6 +12,7 @@ use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
 use App\Services\Keycloak\Exceptions\Auth\UnknownScope;
 use App\Services\Keycloak\OAuth2\Provider;
 use App\Services\Organization\CurrentOrganization;
+use Config\Constants;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -229,14 +230,14 @@ class Keycloak {
 
     protected function getSignInUri(?Organization $organization): string {
         return $this->getRedirectUri(
-            $this->config->get('ep.client.signin_uri'),
+            $this->config->get('ep.client.signin_uri') ?? Constants::EP_CLIENT_SIGNIN_URI,
             $organization,
         );
     }
 
     protected function getSignOutUri(?Organization $organization): string {
         return $this->getRedirectUri(
-            $this->config->get('ep.client.signout_uri'),
+            $this->config->get('ep.client.signout_uri') ?? Constants::EP_CLIENT_SIGNOUT_URI,
             $organization,
         );
     }

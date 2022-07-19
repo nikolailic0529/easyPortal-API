@@ -117,8 +117,9 @@ class Settings {
         $jobs     = [];
 
         foreach ($settings as $setting) {
-            if ($setting->isJob()) {
-                $job        = $setting->getJob();
+            $job = $setting->getJob();
+
+            if ($job) {
                 $jobs[$job] = $job;
             }
         }
@@ -134,8 +135,9 @@ class Settings {
         $services = [];
 
         foreach ($settings as $setting) {
-            if ($setting->isService()) {
-                $service            = $setting->getService();
+            $service = $setting->getService();
+
+            if ($service) {
                 $services[$service] = $service;
             }
         }

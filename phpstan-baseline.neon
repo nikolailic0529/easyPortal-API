@@ -196,21 +196,6 @@ parameters:
 			path: app/GraphQL/Cache.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method Illuminate\\\\Contracts\\\\Cache\\\\Factory\\:\\:store\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Cache.php
-
-		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Cache.php
-
-		-
-			message: "#^Parameter \\#1 \\$years of class Carbon\\\\CarbonInterval constructor expects Closure\\|DateInterval\\|int\\|string\\|null, mixed given\\.$#"
-			count: 2
-			path: app/GraphQL/Cache.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'DateTimeInterface' and null will always evaluate to false\\.$#"
 			count: 1
 			path: app/GraphQL/CacheTest.php
@@ -271,11 +256,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:testResolveField\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
@@ -322,11 +302,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
@@ -636,19 +611,9 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/LimitRule.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\LimitRule\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/LimitRule.php
-
-		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/Manipulator.php
 
 		-
 			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:220\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
@@ -1551,7 +1516,7 @@ parameters:
 			path: app/GraphQL/Mutations/Message/Create.php
 
 		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, mixed\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$to \\(array\\<string\\>\\) does not accept array\\<int, string\\|null\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php
 
@@ -1839,16 +1804,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/User/UpdateTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
-
-		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/Invite.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Invitation\\:\\:\\$sender \\(App\\\\Models\\\\User\\) does not accept App\\\\Models\\\\User\\|null\\.$#"
@@ -2546,11 +2501,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
@@ -2666,11 +2616,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:testQuery\\(\\) has parameter \\$contractsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
@@ -2777,11 +2722,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
 
@@ -3036,11 +2976,6 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:testQuery\\(\\) has parameter \\$quotesFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
@@ -3097,11 +3032,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
 
@@ -3186,11 +3116,6 @@ parameters:
 			path: app/GraphQL/Scalars/HtmlString.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of function dirname expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/SchemaTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(array\\)\\: non\\-empty\\-array given\\.$#"
 			count: 1
 			path: app/GraphQL/ServiceTest.php
@@ -3257,16 +3182,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
-			message: "#^Parameter \\#1 \\$limit of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorImpl\\<mixed,array\\<string, int\\>\\>\\:\\:setLimit\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
 
@@ -3386,11 +3301,6 @@ parameters:
 			path: app/Http/Controllers/FilesControllerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of method Illuminate\\\\Contracts\\\\Routing\\\\UrlGenerator\\:\\:to\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Horizon/HomeController.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function ltrim expects string, string\\|false\\|null given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Horizon/HomeController.php
@@ -3404,11 +3314,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Controllers\\\\IndexController\\:\\:index\\(\\) should return array\\<string, string\\>\\|Illuminate\\\\View\\\\View but returns array\\<string, mixed\\>\\|Illuminate\\\\Contracts\\\\View\\\\View\\.$#"
 			count: 1
 			path: app/Http/Controllers/IndexController.php
-
-		-
-			message: "#^Parameter \\#1 \\$path of method Illuminate\\\\Contracts\\\\Routing\\\\UrlGenerator\\:\\:to\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Telescope/HomeController.php
 
 		-
 			message: "#^Parameter \\#1 \\$string of function ltrim expects string, string\\|false\\|null given\\.$#"
@@ -3491,17 +3396,12 @@ parameters:
 			path: app/Mail/Error.php
 
 		-
-			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Mail/Message.php
 
 		-
-			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Mail/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#3 \\.\\.\\.\\$recipients of method App\\\\Mail\\\\QuoteRequest\\:\\:getDefaultRecipients\\(\\) expects array\\<string\\>\\|string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$address of method Illuminate\\\\Mail\\\\Mailable\\:\\:to\\(\\) expects array\\|object\\|string, string\\|null given\\.$#"
 			count: 1
 			path: app/Mail/QuoteRequest.php
 
@@ -5466,16 +5366,6 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentStatusScope\\:\\:getStatusesIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentStatusScope.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentTypeContractScope.php
-
-		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
@@ -5484,11 +5374,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:getTypeIds\\(\\) should return array\\<string\\> but returns array\\.$#"
-			count: 1
-			path: app/Models/Scopes/DocumentTypeQuoteType.php
 
 		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
@@ -5756,11 +5641,6 @@ parameters:
 			path: app/Providers/AuthServiceProvider.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtr expects string, mixed given\\.$#"
-			count: 1
-			path: app/Providers/AuthServiceProvider.php
-
-		-
 			message: "#^PHPDoc type array\\<class\\-string, array\\<int, class\\-string\\>\\> of property App\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Support\\\\Providers\\\\EventServiceProvider\\:\\:\\$listen\\.$#"
 			count: 1
 			path: app/Providers/EventServiceProvider.php
@@ -5831,16 +5711,6 @@ parameters:
 			path: app/Rules/Duration.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\File\\:\\:getMaxSize\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/File.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\File\\:\\:getMimeTypes\\(\\) should return array\\<string\\> but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/File.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\FileId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/FileId.php
@@ -5869,16 +5739,6 @@ parameters:
 			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/HashMap.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Image\\:\\:getMaxSize\\(\\) should return int but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/Image.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Image\\:\\:getMimeTypes\\(\\) should return array\\<string\\> but returns mixed\\.$#"
-			count: 1
-			path: app/Rules/Image.php
 
 		-
 			message: "#^Method App\\\\Rules\\\\Locale\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
@@ -6096,11 +5956,6 @@ parameters:
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Client\\:\\:getIntrospection\\(\\) should return array but returns mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
@@ -6116,27 +5971,12 @@ parameters:
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\ObjectIteratorIterator\\<T,array\\>\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\Factory\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
 			message: "#^Parameter \\#1 \\$string of function sha1 expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$url of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:post\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$url of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:post\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
@@ -6152,11 +5992,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$errors of class App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\GraphQLRequestFailed constructor expects array, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Client.php
-
-		-
-			message: "#^Part \\$this\\-\\>config\\-\\>get\\('ep\\.data_loader\\.dump'\\) \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Client.php
 
@@ -6201,17 +6036,17 @@ parameters:
 			path: app/Services/DataLoader/Client/QueryIterator.php
 
 		-
-			message: "#^Parameter \\#1 \\$url of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$url of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^Parameter \\#2 \\$clientId of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$clientId of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
 		-
-			message: "#^Parameter \\#3 \\$clientSecret of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, mixed given\\.$#"
+			message: "#^Parameter \\#3 \\$clientSecret of method App\\\\Services\\\\Tokens\\\\OAuth2Token\\:\\:getGenericProvider\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/Token.php
 
@@ -6237,11 +6072,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$lastId of method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Parameter \\#3 \\$chunk of method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) expects int, mixed given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
@@ -8491,11 +8321,6 @@ parameters:
 			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
-
-		-
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/StringNormalizer.php
@@ -9327,7 +9152,7 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\I18n\\\\CurrentTimezone\\:\\:get\\(\\) should return string but returns mixed\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/I18n/CurrentTimezone.php
 
 		-
@@ -9521,11 +9346,6 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:createUser\\(\\) should return App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User but returns App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
@@ -9576,27 +9396,12 @@ parameters:
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:connectTimeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$seconds of method Illuminate\\\\Http\\\\Client\\\\PendingRequest\\:\\:timeout\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function rtrim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, string\\|null given\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
 
 		-
 			message: "#^Parameter \\#2 \\$array of function array_map expects array, mixed given\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Part \\$realm \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 2
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -9674,16 +9479,6 @@ parameters:
 			message: "#^Using nullsafe method call on non\\-nullable type Illuminate\\\\Http\\\\Client\\\\RequestException\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\OrgAdminGroupNotFound constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getGroup\\(\\) expects App\\\\Models\\\\Organization\\|App\\\\Models\\\\Role\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Commands/PermissionsSync.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
@@ -9816,11 +9611,6 @@ parameters:
 			path: app/Services/Keycloak/Keycloak.php
 
 		-
-			message: "#^Parameter \\#1 \\$uri of method App\\\\Services\\\\Keycloak\\\\Keycloak\\:\\:getRedirectUri\\(\\) expects string, mixed given\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Keycloak.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\OAuth2\\\\Provider\\:\\:checkResponse\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Keycloak/OAuth2/Provider.php
@@ -9836,22 +9626,7 @@ parameters:
 			path: app/Services/Keycloak/OAuth2/ResourceOwner.php
 
 		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 2
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Utils/Jwt.php
-
-		-
-			message: "#^Parameter \\#1 \\$timezone of class DateTimeZone constructor expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$contents of static method Lcobucci\\\\JWT\\\\Signer\\\\Key\\\\InMemory\\:\\:plainText\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Utils/Jwt.php
 
@@ -10036,11 +9811,6 @@ parameters:
 			path: app/Services/Logger/Logger.php
 
 		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Logger/Logger.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Casts\\\\Statistics\\:\\:__get\\(\\) should return float\\|int\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Logger/Models/Casts/Statistics.php
@@ -10121,11 +9891,6 @@ parameters:
 			path: app/Services/Logger/Models/Model.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Maintenance\\\\ApplicationInfo\\:\\:getCachedVersionPath\\(\\) should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Maintenance/ApplicationInfo.php
-
-		-
 			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:add\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, Carbon\\\\CarbonInterval\\|null given\\.$#"
 			count: 1
 			path: app/Services/Maintenance/Commands/Start.php
@@ -10186,22 +9951,7 @@ parameters:
 			path: app/Services/Maintenance/Notifications/Scheduled.php
 
 		-
-			message: "#^Parameter \\#1 \\$text of method Illuminate\\\\Notifications\\\\Action\\:\\:__construct\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Actions/GoToApplication.php
-
-		-
-			message: "#^Parameter \\#2 \\$url of method Illuminate\\\\Notifications\\\\Action\\:\\:__construct\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Actions/GoToApplication.php
-
-		-
 			message: "#^Anonymous function should return string\\|null but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/Notificator/Notification.php
 
@@ -10334,11 +10084,6 @@ parameters:
 			message: "#^Cannot call method toArray\\(\\) on App\\\\Services\\\\I18n\\\\Eloquent\\\\TranslatedString\\|null\\.$#"
 			count: 2
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\RootOrganization\\:\\:getRootKey\\(\\) should return string\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Services/Organization/RootOrganization.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Passwords\\\\PasswordBroker\\:\\:getUser\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
@@ -10501,11 +10246,6 @@ parameters:
 			path: app/Services/Queue/PingerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$expression of method Illuminate\\\\Console\\\\Scheduling\\\\Event\\:\\:cron\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Queue/Provider.php
-
-		-
 			message: "#^Cannot access offset 'pushedAt' on mixed\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
@@ -10561,22 +10301,12 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:subSeconds\\(\\) expects int, mixed given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
 			message: "#^Parameter \\#2 \\$id of class App\\\\Services\\\\Queue\\\\JobState constructor expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
 		-
 			message: "#^Parameter \\#2 \\$id of method App\\\\Services\\\\Queue\\\\Queue\\:\\:isStopped\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Queue/Queue.php
-
-		-
-			message: "#^Part \\$connection \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
 
@@ -10592,11 +10322,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:399\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
-			count: 1
-			path: app/Services/Queue/QueueTest.php
-
-		-
-			message: "#^Part \\$connection \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
@@ -10827,11 +10552,6 @@ parameters:
 
 		-
 			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -11371,11 +11091,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessor.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\:\\:restoreState\\(\\) should return TState of App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<TItem of App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
@@ -11432,11 +11147,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Support\\\\Collection&iterable\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&App\\\\Utils\\\\Eloquent\\\\Model\\> and Illuminate\\\\Support\\\\Collection will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:getSearchIndexPrefix\\(\\) should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -11601,11 +11311,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelsProcessor.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_filter expects array, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Provider.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Queue\\\\Jobs\\\\Indexer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Search/Queue/Jobs/Indexer.php
@@ -11681,17 +11386,7 @@ parameters:
 			path: app/Services/Service.php
 
 		-
-			message: "#^Parameter \\#1 \\$duration of class DateInterval constructor expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Service.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Service.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method Illuminate\\\\Contracts\\\\Cache\\\\Factory\\:\\:store\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Service.php
 
@@ -11801,16 +11496,6 @@ parameters:
 			path: app/Services/Settings/Settings.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Settings\\:\\:getJobs\\(\\) should return array\\<class\\-string\\<App\\\\Services\\\\Queue\\\\Job\\>\\> but returns array\\<int, class\\-string\\<App\\\\Services\\\\Queue\\\\Job\\>\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Settings\\:\\:getServices\\(\\) should return array\\<class\\-string\\<App\\\\Services\\\\Queue\\\\CronJob\\>\\> but returns array\\<int, class\\-string\\<App\\\\Services\\\\Queue\\\\CronJob\\>\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Settings.php
@@ -11826,7 +11511,7 @@ parameters:
 			path: app/Services/Settings/SettingsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:242\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$value of method class@anonymous/app/Services/Settings/SettingsTest\\.php\\:235\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/SettingsTest.php
 
@@ -11846,21 +11531,6 @@ parameters:
 			path: app/Services/Settings/Types/BooleanType.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\CronExpression\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\CronExpression\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/CronExpression.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DateTime\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\DateTime\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DateTime.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DocumentStatus.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentStatus.php
@@ -11874,16 +11544,6 @@ parameters:
 			message: "#^Cannot call method map\\(\\) on array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentType.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/DocumentType.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\Duration\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\Duration\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/Duration.php
 
 		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\FloatType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\FloatNumber\\>\\.$#"
@@ -11901,11 +11561,6 @@ parameters:
 			path: app/Services/Settings/Types/LocationType.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\LocationType\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/LocationType.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\LogLevel\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/LogLevel.php
@@ -11914,11 +11569,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$values of static method Illuminate\\\\Validation\\\\Rule\\:\\:in\\(\\) expects array\\|Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\|string, array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null given\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/LogLevel.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\Organization\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, App\\\\Rules\\\\Organization\\\\Id\\>\\.$#"
-			count: 1
-			path: app/Services/Settings/Types/Organization.php
 
 		-
 			message: "#^Return type \\(array\\) of method App\\\\Services\\\\Settings\\\\Types\\\\StringType\\:\\:getValidationRules\\(\\) should be covariant with return type \\(array\\<Illuminate\\\\Validation\\\\Rule\\|string\\>\\) of method App\\\\Services\\\\Settings\\\\Types\\\\Type\\:\\:getValidationRules\\(\\)$#"
@@ -12942,11 +12592,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: mixed, Closure\\(array\\)\\: mixed given\\.$#"
-			count: 1
-			path: tests/TestCase.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of static method Illuminate\\\\Support\\\\Facades\\\\Storage\\:\\:fake\\(\\) expects array, mixed given\\.$#"
 			count: 1
 			path: tests/TestCase.php
 
