@@ -7,7 +7,7 @@ use App\Models\Type as TypeModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
-class DocumentType extends Type {
+class DocumentType extends StringType {
     public function getValues(): Collection|array|null {
         return TypeModel::query()
             ->where('object_type', '=', (new Document())->getMorphClass())

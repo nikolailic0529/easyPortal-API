@@ -4,7 +4,7 @@ namespace App\Services\Settings\Types;
 
 use App\Rules\DateTime as DateTimeRule;
 
-class DateTime extends Type {
+class DateTime extends StringType {
     /**
      * @inheritDoc
      */

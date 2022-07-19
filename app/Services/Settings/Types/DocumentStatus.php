@@ -8,7 +8,7 @@ use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
-class DocumentStatus extends Type {
+class DocumentStatus extends StringType {
     /**
      * @return Collection<int, Status>
      */
