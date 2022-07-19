@@ -50,7 +50,7 @@ class TypeResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertEquals('a', $actual->key);
 
         // Second call should return same instance
@@ -59,10 +59,10 @@ class TypeResolverTest extends TestCase {
         self::assertSame($actual, $provider->get($model, 'A', $factory));
 
         // All value should be loaded, so get() should not perform any queries
-        self::assertNotNull($provider->get($model, 'b', $factory));
+        self::assertNotEmpty($provider->get($model, 'b', $factory));
         self::assertCount(0, $this->getQueryLog());
 
-        self::assertNotNull($provider->get($model, 'c', $factory));
+        self::assertNotEmpty($provider->get($model, 'c', $factory));
         self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
@@ -77,7 +77,7 @@ class TypeResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->key);
         self::assertEquals('unKnown', $created->name);
         self::assertCount(1, $this->getQueryLog());

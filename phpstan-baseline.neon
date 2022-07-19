@@ -6151,18 +6151,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:companyLocations\\(\\) should return array\\<TLocation of App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\> but returns array\\<App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:companyLocations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), TLocation of App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 3
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
@@ -6261,42 +6251,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Cannot access property \\$email on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$name on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$phone_number on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Cannot access property \\$types on App\\\\Models\\\\Contact\\|false\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6306,7 +6266,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6316,7 +6276,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6327,11 +6287,6 @@ parameters:
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Coverage will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithCoverageTest\\.php\\:29\\:\\:coverage\\(\\) should return App\\\\Models\\\\Coverage but returns App\\\\Models\\\\Coverage\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithCoverageTest.php
 
@@ -6381,42 +6336,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Cannot access property \\$location on App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|false\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Cannot access property \\$types on App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|false\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6431,12 +6361,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6446,12 +6376,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:142\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:190\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6466,18 +6396,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithOemGroupTest\\.php\\:31\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithOemGroupTest.php
-
-		-
 			message: "#^Cannot call method getTimestamp\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithProductTest\\.php\\:32\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithProductTest.php
 
 		-
@@ -6511,17 +6431,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithStatusTest\\.php\\:34\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Tag will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTagTest\\.php\\:30\\:\\:tag\\(\\) should return App\\\\Models\\\\Tag but returns App\\\\Models\\\\Tag\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
 
@@ -6532,11 +6442,6 @@ parameters:
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTypeTest\\.php\\:34\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
 
@@ -6626,38 +6531,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetAsset\\(\\) should return App\\\\Models\\\\Asset but returns App\\\\Models\\\\Asset\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetDocumentsWarrantiesExtended\\(\\) should return array\\<App\\\\Models\\\\AssetWarranty\\> but returns array\\<int, App\\\\Models\\\\AssetWarranty\\|null\\>\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:coverage\\(\\) should return App\\\\Models\\\\Coverage but returns App\\\\Models\\\\Coverage\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:tag\\(\\) should return App\\\\Models\\\\Tag but returns App\\\\Models\\\\Tag\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
@@ -6687,11 +6562,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#4 \\$factory of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -6816,11 +6686,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ContactFactory\\:\\:contact\\(\\) should return App\\\\Models\\\\Contact but returns App\\\\Models\\\\Contact\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ContactFactory.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Contact will always evaluate to true\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/ContactFactoryTest.php
@@ -6841,16 +6706,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\CustomerLocation\\>\\) does not accept array\\<App\\\\Models\\\\CustomerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
@@ -6861,273 +6716,13 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnContract on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnWarranty on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsPercentage on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContractTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeExposedAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotesTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_exposed on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_contract on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_warranty on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_percent on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_total on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$awaitingQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$kpi_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$newActiveContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$orderedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_accepted on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_awaiting on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_ordered on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_received on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_rejected on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_requested on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$receivedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$rejectedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$requestedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$reseller_id on \\(TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\|null\\.$#"
 			count: 2
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmountChange on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount_change on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$totalAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
@@ -7181,26 +6776,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:oemGroup\\(\\) should return App\\\\Models\\\\OemGroup but returns App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:product\\(\\) should return App\\\\Models\\\\Product but returns App\\\\Models\\\\Product\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:status\\(\\) should return App\\\\Models\\\\Status but returns App\\\\Models\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:type\\(\\) should return App\\\\Models\\\\Type but returns App\\\\Models\\\\Type\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
@@ -7233,11 +6808,6 @@ parameters:
 		-
 			message: "#^Parameter \\#4 \\$factory of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
@@ -7351,21 +6921,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:city\\(\\) should return App\\\\Models\\\\City but returns App\\\\Models\\\\City\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:country\\(\\) should return App\\\\Models\\\\Country but returns App\\\\Models\\\\Country\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactory\\:\\:location\\(\\) should return App\\\\Models\\\\Location but returns App\\\\Models\\\\Location\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
-
-		-
 			message: "#^Parameter \\#1 \\$haystack of function str_contains expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
@@ -7431,279 +6986,9 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$contacts \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Contact\\>\\) does not accept array\\<App\\\\Models\\\\Contact\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$locations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\>\\) does not accept array\\<App\\\\Models\\\\ResellerLocation\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Cannot access property \\$acceptedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnContract on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsOnWarranty on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeAssetsPercentage on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContractTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeExposedAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$activeQuotesTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_exposed on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_contract on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_on_warranty on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_active_percent on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$assets_total on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$awaitingQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$contracts_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$customers_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiredQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$expiringQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveContracts on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveCustomers on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$newActiveQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$orderedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_accepted on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_active_new on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_awaiting on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expired on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_expiring on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_ordered on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_received on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_rejected on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$quotes_requested on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$receivedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$rejectedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$requestedQuotes on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmount on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$serviceRevenueTotalAmountChange on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$service_revenue_total_amount_change on App\\\\Models\\\\Kpi\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$totalAssets on App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyKpis\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -8376,22 +7661,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolverTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AssetResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AssetResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\City and App\\\\Models\\\\City will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CityResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CityResolver.php
 
@@ -8406,22 +7681,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ContactResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Country and App\\\\Models\\\\Country will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CountryResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CountryResolver.php
 
@@ -8436,11 +7701,6 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CoverageResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CoverageResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolver.php
@@ -8451,32 +7711,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/CurrencyResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\CustomerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/CustomerResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DistributorResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DistributorResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/DocumentResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Language and App\\\\Models\\\\Language will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LanguageResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
@@ -8491,22 +7731,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/LocationResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\OemGroup and App\\\\Models\\\\OemGroup will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\OemGroupResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/OemGroupResolver.php
 
@@ -8529,16 +7759,6 @@ parameters:
 			message: "#^Instanceof between App\\\\Models\\\\Product and App\\\\Models\\\\Product will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ProductResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ProductResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ResellerResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/ResellerResolver.php
 
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
@@ -8571,22 +7791,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\StatusResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/StatusResolver.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Tag and App\\\\Models\\\\Tag will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TagResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
 
@@ -8607,11 +7817,6 @@ parameters:
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\Type and App\\\\Models\\\\Type will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolver.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TypeResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/TypeResolver.php
 

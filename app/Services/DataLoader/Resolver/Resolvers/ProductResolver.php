@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Product>
  */
 class ProductResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Product|null $factory
+     *
+     * @return ($factory is null ? Product|null : Product)
+     */
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }

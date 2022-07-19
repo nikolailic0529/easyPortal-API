@@ -16,6 +16,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<City>
  */
 class CityResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): City|null $factory
+     *
+     * @return ($factory is null ? City|null : City)
+     */
     public function get(Country $country, string $key, Closure $factory = null): ?City {
         return $this->resolve($this->getUniqueKey($country, $key), $factory);
     }

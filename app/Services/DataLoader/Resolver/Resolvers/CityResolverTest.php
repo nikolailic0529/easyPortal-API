@@ -47,7 +47,7 @@ class CityResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('a', $actual->key);
         self::assertEquals($countryA, $actual->country);
@@ -65,10 +65,10 @@ class CityResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // All value should be loaded, so get() should not perform any queries
-        self::assertNotNull($provider->get($countryA, 'b', $factory));
+        self::assertNotEmpty($provider->get($countryA, 'b', $factory));
         self::assertCount(0, $this->getQueryLog());
 
-        self::assertNotNull($provider->get($countryA, 'c', $factory));
+        self::assertNotEmpty($provider->get($countryA, 'c', $factory));
         self::assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
@@ -82,7 +82,7 @@ class CityResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->key);
         self::assertCount(1, $this->getQueryLog());
 

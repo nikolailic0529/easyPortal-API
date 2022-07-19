@@ -15,6 +15,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Tag>
  */
 class TagResolver extends Resolver implements SingletonPersistent {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Tag|null $factory
+     *
+     * @return ($factory is null ? Tag|null : Tag)
+     */
     public function get(string $name, Closure $factory = null): ?Tag {
         return $this->resolve($this->getUniqueKey($name), $factory);
     }

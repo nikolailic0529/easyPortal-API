@@ -14,6 +14,11 @@ use Illuminate\Support\Collection;
  * @extends Resolver<Contact>
  */
 class ContactResolver extends Resolver {
+    /**
+     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Contact|null $factory
+     *
+     * @return ($factory is null ? Contact|null : Contact)
+     */
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
         return $this->resolve(
             $this->getUniqueKey($model, $name, $phone, $mail),

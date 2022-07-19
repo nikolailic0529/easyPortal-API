@@ -11,6 +11,7 @@ use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factory\Factories\LocationFactory;
 use App\Services\DataLoader\Schema\Location;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 /**
@@ -28,9 +29,9 @@ trait WithLocations {
      * @param C               $company
      * @param array<Location> $locations
      *
-     * @return array<L>
+     * @return Collection<array-key, L>
      */
-    protected function companyLocations(Reseller|Customer $company, array $locations): array {
+    protected function companyLocations(Reseller|Customer $company, array $locations): Collection {
         $companyLocations = $company->locations
             ->keyBy(static function (ResellerLocation|CustomerLocation $location): string {
                 return $location->location_id;

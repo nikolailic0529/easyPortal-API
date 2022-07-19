@@ -353,7 +353,7 @@ class DocumentFactory extends ModelFactory {
         }
 
         // Entries & Warranties
-        if ($model && !$this->isSearchMode() && isset($document->documentEntries)) {
+        if (!$this->isSearchMode() && isset($document->documentEntries)) {
             try {
                 // Prefetch
                 $this->getAssetResolver()->prefetch(

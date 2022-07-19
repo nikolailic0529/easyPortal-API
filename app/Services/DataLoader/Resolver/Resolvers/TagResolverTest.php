@@ -38,7 +38,7 @@ class TagResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('a', $actual->name);
 
@@ -64,7 +64,7 @@ class TagResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->name);
         self::assertCount(1, $this->getQueryLog());
 

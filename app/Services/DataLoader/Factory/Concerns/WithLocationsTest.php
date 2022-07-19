@@ -80,7 +80,7 @@ class WithLocationsTest extends TestCase {
         };
 
         // Empty call should return empty array
-        self::assertEquals([], $factory->companyLocations($company, []));
+        self::assertTrue($factory->companyLocations($company, [])->isEmpty());
 
         // Repeated objects should be missed
         $ca = tap(new Location(), function (Location $location): void {
@@ -108,8 +108,9 @@ class WithLocationsTest extends TestCase {
             $location->locationType = $this->faker->word();
         });
         $actual = $factory->companyLocations($company, [$ca, $cb]);
-        $first  = reset($actual);
+        $first  = $actual->first();
 
+        self::assertNotNull($first);
         self::assertCount(1, $actual);
         self::assertCount(2, $first->types);
         self::assertEquals($cb->zip, $first->location->postcode);
@@ -121,8 +122,9 @@ class WithLocationsTest extends TestCase {
             $location->locationType = null;
         });
         $actual = $factory->companyLocations($company, [$cc]);
-        $first  = reset($actual);
+        $first  = $actual->first();
 
+        self::assertNotNull($first);
         self::assertCount(1, $actual);
         self::assertCount(0, $first->types);
     }

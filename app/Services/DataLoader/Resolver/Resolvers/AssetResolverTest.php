@@ -36,7 +36,7 @@ class AssetResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertEquals($a->getKey(), $actual->getKey());
 
         // Second call should return same instance
@@ -67,7 +67,7 @@ class AssetResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals($uuid, $created->getKey());
         self::assertCount(1, $this->getQueryLog());
 

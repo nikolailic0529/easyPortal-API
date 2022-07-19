@@ -123,6 +123,8 @@ class CustomerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($customer),
         );
+        self::assertNotNull($customer->kpi);
+        self::assertNotNull($company->companyKpis);
         self::assertEquals(
             (int) $normalizer->unsigned($normalizer->int($company->companyKpis->totalAssets)),
             $customer->kpi->assets_total,

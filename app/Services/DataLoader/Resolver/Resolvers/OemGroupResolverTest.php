@@ -49,7 +49,7 @@ class OemGroupResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Basic
-        self::assertNotNull($actual);
+        self::assertNotEmpty($actual);
         self::assertEquals('a', $actual->key);
         self::assertCount(0, $this->getQueryLog());
 
@@ -62,8 +62,8 @@ class OemGroupResolverTest extends TestCase {
         self::assertCount(0, $this->getQueryLog());
 
         // Product should be found in DB
-        self::assertNotNull($provider->get($model, 'b', 'b', $factory));
-        self::assertNotNull($provider->get($model, 'b', 'b', $factory));
+        self::assertNotEmpty($provider->get($model, 'b', 'b', $factory));
+        self::assertNotEmpty($provider->get($model, 'b', 'b', $factory));
         self::assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -80,7 +80,7 @@ class OemGroupResolverTest extends TestCase {
 
         $spy->shouldHaveBeenCalled();
 
-        self::assertNotNull($created);
+        self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->key);
         self::assertEquals('unKnown', $created->name);
         self::assertCount(1, $this->getQueryLog());
