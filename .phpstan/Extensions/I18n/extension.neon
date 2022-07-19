@@ -1,0 +1,9 @@
+# The extension provides proper return types for:
+#
+# * trans()
+# * __()
+services:
+    -
+        class: App\PhpStan\Extensions\I18n\Extension
+        tags:
+            - phpstan.broker.dynamicFunctionReturnTypeExtension

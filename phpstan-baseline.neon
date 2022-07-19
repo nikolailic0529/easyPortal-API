@@ -16,11 +16,6 @@ parameters:
 			path: app/Exceptions/ApplicationException.php
 
 		-
-			message: "#^Method App\\\\Exceptions\\\\Exceptions\\\\FailedToSendMail\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Exceptions/Exceptions/FailedToSendMail.php
-
-		-
 			message: "#^Cannot access offset 'debug' on mixed\\.$#"
 			count: 1
 			path: app/Exceptions/GraphQL/ErrorFormatter.php
@@ -371,16 +366,6 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Cached/CachedTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\InvalidContext\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/InvalidContext.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/ObjectNotFound.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound\\:\\:getObjectName\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Mutation/Exceptions/ObjectNotFound.php
@@ -609,11 +594,6 @@ parameters:
 			message: "#^Unable to resolve the template type TBuilder in call to method Nuwave\\\\Lighthouse\\\\Execution\\\\Arguments\\\\ArgumentSet\\:\\:enhanceBuilder\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\LimitRule\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/LimitRule.php
 
 		-
 			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:220\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
@@ -916,11 +896,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/ResetPassword.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\ResetPasswordSamePasswordException\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/ResetPasswordSamePasswordException.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\ResetPasswordTest\\:\\:testInvoke\\(\\) has parameter \\$inputFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/ResetPasswordTest.php
@@ -976,36 +951,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationExpired\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationExpired.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationNotFound.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationOrganizationNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOrganizationNotFound.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationOutdated\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationOutdated.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUsed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUsed.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUserNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteInvitationUserNotFound.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
@@ -1059,11 +1004,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTokenInvalid given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTokenInvalid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTokenInvalid.php
 
 		-
 			message: "#^Cannot access offset 'contract_id' on mixed\\.$#"
@@ -1133,11 +1073,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\CreateContractNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/CreateContractNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/CreateContractNoteTest.php
 
 		-
@@ -1223,11 +1158,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\CreateQuoteNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
 		-
@@ -1336,22 +1266,12 @@ parameters:
 			path: app/GraphQL/Mutations/ImportOems.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsImportFailed.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsTest\\:\\:testInvoke\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$constraint of method Illuminate\\\\Testing\\\\TestResponse\\:\\:assertThat\\(\\) expects PHPUnit\\\\Framework\\\\Constraint\\\\Constraint, array\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/ImportOemsTest.php
 
@@ -1451,11 +1371,6 @@ parameters:
 			path: app/GraphQL/Mutations/Me/UpdateMeEmailTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/Me/UpdateMeEmailTest.php
-
-		-
 			message: "#^Cannot access offset 'current_password' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
@@ -1469,11 +1384,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$password of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:resetPassword\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/UpdateMePassword.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateMePasswordInvalidCurrentPassword\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Me/UpdateMePasswordInvalidCurrentPassword.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Me\\\\UpdateMePasswordTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
@@ -1531,11 +1441,6 @@ parameters:
 			path: app/GraphQL/Mutations/Message/CreateTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Oem\\\\Hpe\\\\ImportImportFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Oem/Hpe/ImportImportFailed.php
-
-		-
 			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
@@ -1543,11 +1448,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\RequestOrgChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
 
 		-
@@ -1571,11 +1471,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/ResetOrgUserPassword.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\ResetOrgUserPasswordInvalidUser\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/ResetOrgUserPasswordInvalidUser.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\ResetOrgUserPasswordTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/ResetOrgUserPasswordTest.php
@@ -1594,16 +1489,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 3
-			path: app/GraphQL/Mutations/Org/Role/CreateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\Role\\\\DeleteImpossibleAssignedToUsers\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/Role/DeleteImpossibleAssignedToUsers.php
 
 		-
 			message: "#^Cannot access property \\$role on App\\\\Models\\\\OrganizationUser\\|null\\.$#"
@@ -1673,11 +1558,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Directives\\\\Directives\\\\Mutation\\\\Exceptions\\\\ObjectNotFound given\\.$#"
 			count: 2
-			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 3
 			path: app/GraphQL/Mutations/Org/Role/UpdateTest.php
 
 		-
@@ -1811,11 +1691,6 @@ parameters:
 			path: app/GraphQL/Mutations/Organization/User/Invite.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Organization\\\\User\\\\InviteImpossibleKeycloakUserDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Organization/User/InviteImpossibleKeycloakUserDisabled.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Organization/User/InviteTest.php
@@ -1871,11 +1746,6 @@ parameters:
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
-			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
-
-		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
@@ -1888,11 +1758,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestContractChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
 			path: app/GraphQL/Mutations/RequestContractChangeTest.php
 
 		-
@@ -1911,11 +1776,6 @@ parameters:
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
-			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
-
-		-
 			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
@@ -1928,11 +1788,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestQuoteChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 5
 			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
 		-
@@ -2081,11 +1936,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
-			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
-
-		-
 			message: "#^Parameter \\#2 \\$haystack of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
@@ -2173,11 +2023,6 @@ parameters:
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\UpdateQuoteNoteTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
-			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 4
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
@@ -3269,16 +3114,6 @@ parameters:
 			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportRequest\\:\\:validated\\(\\) should return array\\{root\\: string, query\\: string, operationName\\?\\: string, variables\\?\\: array\\{limit\\?\\: int\\|null, offset\\?\\: int\\|null\\}\\|null, headers\\?\\: array\\<string, string\\>\\} but returns mixed\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportRequest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\GraphQLQueryInvalid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/GraphQLQueryInvalid.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\HeadersUnknownFunction\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/HeadersUnknownFunction.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -5656,69 +5491,9 @@ parameters:
 			path: app/Providers/RouteServiceProvider.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\AssetId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/AssetId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Boolean\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Boolean.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Color\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Color.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\ContractId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/ContractId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CronExpression\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CronExpression.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CurrencyId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CurrencyId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\CustomerId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/CustomerId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\DateTime\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/DateTime.php
-
-		-
 			message: "#^Parameter \\#1 \\$value of method Carbon\\\\CarbonImmutable\\:\\:setTimezone\\(\\) expects DateTimeZone\\|string, mixed given\\.$#"
 			count: 1
 			path: app/Rules/DateTime.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\DocumentId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/DocumentId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Duration\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Duration.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\FileId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/FileId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\FloatNumber\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/FloatNumber.php
 
 		-
 			message: "#^Parameter \\#2 \\$errors of method App\\\\Rules\\\\GraphQL\\\\Query\\:\\:fail\\(\\) expects array, mixed given\\.$#"
@@ -5736,62 +5511,12 @@ parameters:
 			path: app/Rules/GraphQL/Query.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\HashMap\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/HashMap.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Locale\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Locale.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\MapLevel\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/MapLevel.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\NoteId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/NoteId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\OemId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/OemId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Org/PermissionId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Org\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Org/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\Id\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Organization/Id.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/Organization/PermissionId.php
-
-		-
 			message: "#^Unable to resolve the template type T in call to method App\\\\Rules\\\\Organization\\\\PermissionId\\:\\:getMutationRoot\\(\\)$#"
 			count: 1
 			path: app/Rules/Organization/PermissionId.php
 
 		-
 			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Role\\>\\.$#"
-			count: 1
-			path: app/Rules/Organization/RoleId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\Organization\\\\RoleId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/Organization/RoleId.php
 
@@ -5821,39 +5546,9 @@ parameters:
 			path: app/Rules/Organization/RoleIdTest.php
 
 		-
-			message: "#^Method App\\\\Rules\\\\QuoteId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\QuoteRequestDurationId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteRequestDurationId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\QuoteTypeId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/QuoteTypeId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\ServiceLevelId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/ServiceLevelId.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\TeamId\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/TeamId.php
-
-		-
 			message: "#^Method App\\\\Rules\\\\UniqueUserEmail\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
 			count: 1
 			path: app/Rules/UniqueUserEmail.php
-
-		-
-			message: "#^Method App\\\\Rules\\\\UserNotMe\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Rules/UserNotMe.php
 
 		-
 			message: "#^Property App\\\\Models\\\\Audits\\\\Audit\\:\\:\\$object_id \\(string\\) does not accept string\\|null\\.$#"
@@ -5999,21 +5694,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$introspectionQuery of static method GraphQL\\\\Utils\\\\BuildClientSchema\\:\\:build\\(\\) expects array\\<string, array\\>, array given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Client/ClientTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\DataLoaderDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/DataLoaderDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\DataLoaderUnavailable\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/DataLoaderUnavailable.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Client\\\\Exceptions\\\\GraphQLRequestFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Client/Exceptions/GraphQLRequestFailed.php
 
 		-
 			message: "#^Cannot call method times\\(\\) on mixed\\.$#"
@@ -8321,21 +8001,6 @@ parameters:
 			path: app/Services/Filesystem/Disks/ModelDiskTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileCorrupted\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileCorrupted.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileDeleteFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileDeleteFailed.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Filesystem\\\\Exceptions\\\\StorageFileSaveFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Filesystem/Exceptions/StorageFileSaveFailed.php
-
-		-
 			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/Filesystem/JsonStorage.php
@@ -8641,46 +8306,6 @@ parameters:
 			path: app/Services/Keycloak/Client/ClientTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\InvalidSettingClientUuid\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/InvalidSettingClientUuid.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\KeycloakDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/KeycloakDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\KeycloakUnavailable\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/KeycloakUnavailable.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmGroupUnknown\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmGroupUnknown.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmRoleAlreadyExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmRoleAlreadyExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmUserAlreadyExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmUserAlreadyExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RealmUserNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RealmUserNotFound.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Exceptions\\\\RequestFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
-
-		-
 			message: "#^Using nullsafe method call on non\\-nullable type Illuminate\\\\Http\\\\Client\\\\RequestException\\. Use \\-\\> instead\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Exceptions/RequestFailed.php
@@ -8689,31 +8314,6 @@ parameters:
 			message: "#^Property App\\\\Models\\\\Role\\:\\:\\$permissions \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Permission\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Commands/PermissionsSync.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\AnotherUserExists\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/AnotherUserExists.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\AuthorizationFailed\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/AuthorizationFailed.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UnknownScope\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UnknownScope.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserDisabled\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserDisabled.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Exceptions\\\\Auth\\\\UserInsufficientData\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Exceptions/Auth/UserInsufficientData.php
 
 		-
 			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
@@ -9161,16 +8761,6 @@ parameters:
 			path: app/Services/Notificator/Notification.php
 
 		-
-			message: "#^Parameter \\#1 \\$greeting of method Illuminate\\\\Notifications\\\\Messages\\\\SimpleMessage\\:\\:greeting\\(\\) expects string, array\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
-			message: "#^Parameter \\#1 \\$salutation of method Illuminate\\\\Notifications\\\\Messages\\\\SimpleMessage\\:\\:salutation\\(\\) expects string, array\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Notificator/Notification.php
-
-		-
 			message: "#^Parameter \\#1 \\$subject of method Illuminate\\\\Notifications\\\\Messages\\\\SimpleMessage\\:\\:subject\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: app/Services/Notificator/Notification.php
@@ -9214,11 +8804,6 @@ parameters:
 			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScopeTest_Scope extends generic class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByScope but does not specify its types\\: TModel$#"
 			count: 1
 			path: app/Services/Organization/Eloquent/OwnedByScopeTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Organization\\\\Exceptions\\\\UnknownOrganization\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Exceptions/UnknownOrganization.php
 
 		-
 			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
@@ -9419,11 +9004,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, \\$this\\(App\\\\Services\\\\Queue\\\\CronJob\\) given\\.$#"
 			count: 1
 			path: app/Services/Queue/CronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Queue\\\\Exceptions\\\\ServiceNotFound\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Queue/Exceptions/ServiceNotFound.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:call\\(\\) expects \\(callable\\(\\)\\: mixed\\)\\|string, \\$this\\(App\\\\Services\\\\Queue\\\\Job\\) given\\.$#"
@@ -10611,16 +10191,6 @@ parameters:
 			path: app/Services/Settings/Environment/EnvironmentRepository.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Exceptions\\\\FailedToLoadSettings\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Exceptions/FailedToLoadSettings.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Exceptions\\\\FailedToSaveSettings\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Exceptions/FailedToSaveSettings.php
-
-		-
 			message: "#^Instanceof between Attribute\\|null and App\\\\Services\\\\Settings\\\\Attributes\\\\Group will always evaluate to false\\.$#"
 			count: 1
 			path: app/Services/Settings/Setting.php
@@ -10786,11 +10356,6 @@ parameters:
 			path: app/Services/Settings/Types/Type.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Validation\\\\SettingValue\\:\\:message\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Settings/Validation/SettingValue.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Validation/SettingValue.php
@@ -10799,11 +10364,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\Settings\\\\Validation\\\\SettingValueTest_Type\\:\\:getValidationRules\\(\\) should return array\\<Illuminate\\\\Validation\\\\Rule\\|string\\> but returns array\\<int, Illuminate\\\\Validation\\\\Rules\\\\In\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Validation/SettingValueTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Tokens\\\\Exceptions\\\\InvalidCredentials\\:\\:getErrorMessage\\(\\) should return string but returns array\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/Tokens/Exceptions/InvalidCredentials.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -11654,21 +11214,6 @@ parameters:
 			message: "#^Method Tests\\\\GraphQL\\\\GraphQLPaginated\\:\\:getResponseConstraints\\(\\) should return array\\<PHPUnit\\\\Framework\\\\Constraint\\\\Constraint\\> but returns array\\<int, LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Json\\\\JsonMatchesFragment\\|null\\>\\.$#"
 			count: 1
 			path: tests/GraphQL/GraphQLPaginated.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLUnauthenticated.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLUnauthorized.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of method Tests\\\\GraphQL\\\\GraphQLError\\:\\:__construct\\(\\) expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: array\\{array\\|string\\|null\\} given\\.$#"
-			count: 1
-			path: tests/GraphQL/GraphQLValidationError.php
 
 		-
 			message: "#^Method Tests\\\\GraphQL\\\\JsonFragment\\:\\:__construct\\(\\) has parameter \\$json with no value type specified in iterable type array\\.$#"
