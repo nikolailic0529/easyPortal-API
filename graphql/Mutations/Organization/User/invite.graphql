@@ -1,4 +1,4 @@
-extend type OrganizationUserMutations {
+extend type OrganizationUserMutation {
     """
     Adds user into Organization and send invite to join.
 

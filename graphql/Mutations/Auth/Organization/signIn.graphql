@@ -1,4 +1,4 @@
-extend type AuthOrganizationMutations {
+extend type AuthOrganizationMutation {
     signIn: AuthOrganizationSignInPayload
     @authGuest
     @mutationMutate(

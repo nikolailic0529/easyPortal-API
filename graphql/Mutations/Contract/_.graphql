@@ -1,5 +1,5 @@
 extend type Mutation {
-    contract(id: ID @eq): ContractMutations
+    contract(id: ID @eq): ContractMutation
     @authOrg
     @authMe
     @builder(
@@ -10,4 +10,4 @@ extend type Mutation {
     )
 }
 
-type ContractMutations
+type ContractMutation

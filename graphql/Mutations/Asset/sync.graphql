@@ -1,4 +1,4 @@
-extend type AssetMutations {
+extend type AssetMutation {
     sync: AssetSyncPayload
     @authOrg
     @authMe(permissions: ["assets-sync"])

@@ -1,4 +1,4 @@
-extend type QuoteChangeRequestMutations {
+extend type QuoteChangeRequestMutation {
     create(
         input: MessageInput!
     ): QuoteChangeRequestCreatePayload!

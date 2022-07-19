@@ -1,5 +1,5 @@
-extend type OrganizationMutations {
-    user(id: ID @eq): OrganizationUserMutations
+extend type OrganizationMutation {
+    user(id: ID @eq): OrganizationUserMutation
     @authOrgRoot
     @authMe(permissions: ["administer"])
     @mutation(
@@ -7,4 +7,4 @@ extend type OrganizationMutations {
     )
 }
 
-type OrganizationUserMutations
+type OrganizationUserMutation

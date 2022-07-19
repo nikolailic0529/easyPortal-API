@@ -1,4 +1,4 @@
-extend type ApplicationMaintenanceMutations {
+extend type ApplicationMaintenanceMutation {
     stop: ApplicationMaintenanceStopPayload
     @authOrgRoot
     @authRoot

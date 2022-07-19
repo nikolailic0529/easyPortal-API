@@ -1,5 +1,5 @@
 extend type Mutation {
-    me: MeMutations
+    me: MeMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type Mutation {
     )
 }
 
-type MeMutations
+type MeMutation

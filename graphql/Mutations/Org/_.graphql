@@ -1,9 +1,9 @@
 extend type Mutation {
-    org: OrgMutations
+    org: OrgMutation
     @authMe
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Org"
     )
 }
 
-type OrgMutations
+type OrgMutation

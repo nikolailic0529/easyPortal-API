@@ -1226,11 +1226,6 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteNote.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Note\\:\\:\\$files \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\>\\) does not accept array\\<App\\\\Models\\\\File\\>\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteNote.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Note\\:\\:\\$user \\(App\\\\Models\\\\User\\) does not accept Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteNote.php
@@ -1552,11 +1547,6 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$email on App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Message/Create.php
-
-		-
-			message: "#^Property App\\\\Models\\\\ChangeRequest\\:\\:\\$files \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\File\\>\\) does not accept array\\<App\\\\Models\\\\File\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Message/Create.php
 

@@ -1,4 +1,4 @@
-extend type CustomerChangeRequestMutations {
+extend type CustomerChangeRequestMutation {
     create(
         input: MessageInput!
     ): CustomerChangeRequestCreatePayload!

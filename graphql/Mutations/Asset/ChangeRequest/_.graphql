@@ -1,5 +1,5 @@
-extend type AssetMutations {
-    changeRequest: AssetChangeRequestMutations
+extend type AssetMutation {
+    changeRequest: AssetChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type AssetMutations {
     )
 }
 
-type AssetChangeRequestMutations
+type AssetChangeRequestMutation

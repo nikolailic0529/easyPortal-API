@@ -1,4 +1,4 @@
-extend type QuoteMutations {
+extend type QuoteMutation {
     sync: QuoteSyncPayload
     @authOrg
     @authMe(permissions: ["quotes-sync"])

@@ -1,5 +1,5 @@
 extend type Mutation {
-    message: MessageMutations
+    message: MessageMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type Mutation {
     )
 }
 
-type MessageMutations
+type MessageMutation

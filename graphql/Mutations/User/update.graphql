@@ -1,4 +1,4 @@
-extend type UserMutations {
+extend type UserMutation {
     update(
         input: UserUpdateInput!
     ): UserUpdatePayload

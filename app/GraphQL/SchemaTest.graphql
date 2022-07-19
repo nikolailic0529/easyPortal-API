@@ -5477,7 +5477,7 @@ type ApplicationMaintenance {
     start: DateTime
 }
 
-type ApplicationMaintenanceMutations {
+type ApplicationMaintenanceMutation {
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.
@@ -5515,8 +5515,8 @@ type ApplicationMaintenanceStopPayload {
     result: Boolean!
 }
 
-type ApplicationMutations {
-    maintenance: ApplicationMaintenanceMutations
+type ApplicationMutation {
+    maintenance: ApplicationMaintenanceMutation
     @field(
         resolver: "App\\GraphQL\\Resolvers\\EmptyResolver"
     )
@@ -5729,7 +5729,7 @@ implements
     result: Boolean!
 }
 
-type AssetChangeRequestMutations {
+type AssetChangeRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -5747,17 +5747,68 @@ type AssetChangeRequestMutations {
     )
 }
 
-type AssetMutations {
+type AssetMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
-    changeRequest: AssetChangeRequestMutations
+    changeRequest: AssetChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
         relation: "changeRequests"
+    )
+
+    """
+    Organization Sign In.
+
+    Application use standard OAuth 2.0 Authorization Code Grant.
+
+    1. Call `signIn` mutation
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    signIn {
+                        url
+                    }
+                }
+            }
+        }
+        ```
+    2. Redirect the User to `url`
+    3. After successful Sign In the User will come back and Client should call
+    `authorize` mutation with `code` and `state` to finish the authorization:
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    authorize(input: {code: "...", state: "..."}) {
+                        result
+                        me {
+                            enabled
+                        }
+                    }
+                }
+            }
+        }
+        ```
+    4. Check result:
+    - `result = false` -> something wrong, please try to repeat step (1)
+    - `me.enabled = false` -> user disabled or doesn't have access to the
+    Organization. In this case, the Client should allow the User to
+    Sign Out (so the User may repeat auth process if it want).
+
+    @require <authGuest> Current visitor must be a guest.
+    """
+    organization(
+        id: ID
+        @eq
+    ): AuthOrganizationMutation
+    @authGuest
+    @mutation(
+        model: "App\\Models\\Organization"
     )
 
     """
@@ -5779,6 +5830,48 @@ type AssetMutations {
     )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"
+    )
+
+    """
+    @require <authGuest> Current visitor must be a guest.
+    """
+    signIn(
+        input: AuthSignInInput
+    ): AuthSignInPayload
+    @throttle(
+        name: "auth"
+    )
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
+    )
+
+    signOut: AuthSignOutPayload
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
+    )
+
+    """
+    Completes Sign Up.
+
+    1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+    User to the `url` if `true`.
+    2. If `false` you should provide addition details (`input`) to complete Sign Up
+    process.
+
+    See also:
+    * `mutation { organization(id) { user { invite } }`
+    * `mutation { org { user { invite } }`
+
+    @require <authGuest> Current visitor must be a guest.
+    """
+    signUpByInvite(
+        input: AuthSignUpByInviteInput
+        token: String!
+    ): AuthSignUpByInvitePayload
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
     )
 
     """
@@ -5913,101 +6006,6 @@ type AuditsAggregated {
     )
 }
 
-type AuthMutations {
-    """
-    Organization Sign In.
-
-    Application use standard OAuth 2.0 Authorization Code Grant.
-
-    1. Call `signIn` mutation
-        ```graphql
-        mutation {
-            auth {
-                organization(id) {
-                    signIn {
-                        url
-                    }
-                }
-            }
-        }
-        ```
-    2. Redirect the User to `url`
-    3. After successful Sign In the User will come back and Client should call
-    `authorize` mutation with `code` and `state` to finish the authorization:
-        ```graphql
-        mutation {
-            auth {
-                organization(id) {
-                    authorize(input: {code: "...", state: "..."}) {
-                        result
-                        me {
-                            enabled
-                        }
-                    }
-                }
-            }
-        }
-        ```
-    4. Check result:
-    - `result = false` -> something wrong, please try to repeat step (1)
-    - `me.enabled = false` -> user disabled or doesn't have access to the
-    Organization. In this case, the Client should allow the User to
-    Sign Out (so the User may repeat auth process if it want).
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    organization(
-        id: ID
-        @eq
-    ): AuthOrganizationMutations
-    @authGuest
-    @mutation(
-        model: "App\\Models\\Organization"
-    )
-
-    """
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signIn(
-        input: AuthSignInInput
-    ): AuthSignInPayload
-    @throttle(
-        name: "auth"
-    )
-    @authGuest
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
-    )
-
-    signOut: AuthSignOutPayload
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
-    )
-
-    """
-    Completes Sign Up.
-
-    1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
-    User to the `url` if `true`.
-    2. If `false` you should provide addition details (`input`) to complete Sign Up
-    process.
-
-    See also:
-    * `mutation { organization(id) { user { invite } }`
-    * `mutation { org { user { invite } }`
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signUpByInvite(
-        input: AuthSignUpByInviteInput
-        token: String!
-    ): AuthSignUpByInvitePayload
-    @authGuest
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
-    )
-}
-
 type AuthOrganizationAuthorizePayload
 implements
     & Payload
@@ -6016,7 +6014,7 @@ implements
     result: Boolean!
 }
 
-type AuthOrganizationMutations {
+type AuthOrganizationMutation {
     """
     @require <authGuest> Current visitor must be a guest.
     """
@@ -6176,7 +6174,7 @@ implements
     result: Boolean!
 }
 
-type ContractChangeRequestMutations {
+type ContractChangeRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -6194,13 +6192,13 @@ type ContractChangeRequestMutations {
     )
 }
 
-type ContractMutations {
+type ContractMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
-    changeRequest: ContractChangeRequestMutations
+    changeRequest: ContractChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -6634,7 +6632,7 @@ implements
     result: Boolean!
 }
 
-type CustomerChangeRequestMutations {
+type CustomerChangeRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -6664,13 +6662,13 @@ type CustomerLocation {
     @relation
 }
 
-type CustomerMutations {
+type CustomerMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
-    changeRequest: CustomerChangeRequestMutations
+    changeRequest: CustomerChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -7395,7 +7393,7 @@ type Me {
     title: String
 }
 
-type MeMutations {
+type MeMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -7434,7 +7432,7 @@ implements
     result: Boolean!
 }
 
-type MessageMutations {
+type MessageMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -7451,7 +7449,7 @@ type MessageMutations {
 }
 
 type Mutation {
-    application: ApplicationMutations
+    application: ApplicationMutation
     @field(
         resolver: "App\\GraphQL\\Resolvers\\EmptyResolver"
     )
@@ -7464,14 +7462,14 @@ type Mutation {
     asset(
         id: ID
         @eq
-    ): AssetMutations
+    ): AssetMutation
     @authOrg
     @authMe
     @mutation(
         model: "App\\Models\\Asset"
     )
 
-    auth: AuthMutations
+    auth: AssetMutation
     @mutation(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )
@@ -7484,7 +7482,7 @@ type Mutation {
     contract(
         id: ID
         @eq
-    ): ContractMutations
+    ): ContractMutation
     @authOrg
     @authMe
     @builder(
@@ -7542,7 +7540,7 @@ type Mutation {
     customer(
         id: ID
         @eq
-    ): CustomerMutations
+    ): CustomerMutation
     @authOrg
     @authMe
     @mutation(
@@ -7656,7 +7654,7 @@ type Mutation {
 
     @require <authMe> User must be authenticated.
     """
-    me: MeMutations
+    me: MeMutation
     @authOrg
     @authMe
     @mutation(
@@ -7668,7 +7666,7 @@ type Mutation {
 
     @require <authMe> User must be authenticated.
     """
-    message: MessageMutations
+    message: MessageMutation
     @authOrg
     @authMe
     @mutation(
@@ -7693,7 +7691,7 @@ type Mutation {
     """
     @require <authMe> User must be authenticated.
     """
-    org: OrgMutations
+    org: OrgMutation
     @authMe
     @mutation(
         resolver: "App\\GraphQL\\Queries\\Org"
@@ -7708,7 +7706,7 @@ type Mutation {
     organization(
         id: ID
         @eq
-    ): OrganizationMutations
+    ): OrganizationMutation
     @authOrgRoot
     @authMe(
         permissions: ["administer"]
@@ -7725,7 +7723,7 @@ type Mutation {
     quote(
         id: ID
         @eq
-    ): QuoteMutations
+    ): QuoteMutation
     @authOrg
     @authMe
     @builder(
@@ -7740,7 +7738,7 @@ type Mutation {
 
     @require <authMe> User must be authenticated.
     """
-    quoteRequest: QuoteRequestMutations
+    quoteRequest: QuoteRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -8060,7 +8058,7 @@ type Mutation {
     user(
         id: ID
         @eq
-    ): UserMutations
+    ): UserMutation
     @authOrgRoot
     @authMe(
         permissions: ["administer"]
@@ -8161,7 +8159,7 @@ implements
     result: Boolean!
 }
 
-type OrgChangeRequestMutations {
+type OrgChangeRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -8179,13 +8177,13 @@ type OrgChangeRequestMutations {
     )
 }
 
-type OrgMutations {
+type OrgMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
-    changeRequest: OrgChangeRequestMutations
+    changeRequest: OrgChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -8200,7 +8198,7 @@ type OrgMutations {
     role(
         id: ID
         @eq
-    ): OrgRoleMutations
+    ): OrgRoleMutation
     @authOrg
     @authMe(
         permissions: ["org-administer"]
@@ -8244,7 +8242,7 @@ type OrgMutations {
     user(
         id: ID
         @eq
-    ): OrgUserMutations
+    ): OrgUserMutation
     @authOrg
     @authMe(
         permissions: ["org-administer"]
@@ -8269,7 +8267,7 @@ implements
     result: Boolean!
 }
 
-type OrgRoleMutations {
+type OrgRoleMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -8357,7 +8355,7 @@ implements
     result: Boolean!
 }
 
-type OrgUserMutations {
+type OrgUserMutation {
     """
     Adds user into Organization and send invite to join.
 
@@ -8712,7 +8710,7 @@ type OrganizationBranding {
     welcome_underline: [TranslatedString!]
 }
 
-type OrganizationMutations {
+type OrganizationMutation {
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.
@@ -8722,7 +8720,7 @@ type OrganizationMutations {
     user(
         id: ID
         @eq
-    ): OrganizationUserMutations
+    ): OrganizationUserMutation
     @authOrgRoot
     @authMe(
         permissions: ["administer"]
@@ -8739,7 +8737,7 @@ implements
     result: Boolean!
 }
 
-type OrganizationUserMutations {
+type OrganizationUserMutation {
     """
     Adds user into Organization and send invite to join.
 
@@ -10808,7 +10806,7 @@ implements
     result: Boolean!
 }
 
-type QuoteChangeRequestMutations {
+type QuoteChangeRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -10826,13 +10824,13 @@ type QuoteChangeRequestMutations {
     )
 }
 
-type QuoteMutations {
+type QuoteMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe> User must be authenticated.
     """
-    changeRequest: QuoteChangeRequestMutations
+    changeRequest: QuoteChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -10942,7 +10940,7 @@ type QuoteRequestDuration {
     @translate
 }
 
-type QuoteRequestMutations {
+type QuoteRequestMutation {
     """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
@@ -11252,7 +11250,7 @@ type User {
     title: String
 }
 
-type UserMutations {
+type UserMutation {
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.
@@ -11264,7 +11262,7 @@ type UserMutations {
         @eq(
             key: "organization_id"
         )
-    ): UserOrganizationMutations
+    ): UserOrganizationMutation
     @authOrgRoot
     @authMe(
         permissions: ["administer"]
@@ -11305,7 +11303,7 @@ type UserOrganization {
     team: Team
 }
 
-type UserOrganizationMutations {
+type UserOrganizationMutation {
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.

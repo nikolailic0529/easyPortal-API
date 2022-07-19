@@ -1,4 +1,4 @@
-extend type OrgChangeRequestMutations {
+extend type OrgChangeRequestMutation {
     create(
         input: MessageInput!
     ): OrgChangeRequestCreatePayload!

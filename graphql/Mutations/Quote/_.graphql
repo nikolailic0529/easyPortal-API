@@ -1,5 +1,5 @@
 extend type Mutation {
-    quote(id: ID @eq): QuoteMutations
+    quote(id: ID @eq): QuoteMutation
     @authOrg
     @authMe
     @builder(
@@ -10,4 +10,4 @@ extend type Mutation {
     )
 }
 
-type QuoteMutations
+type QuoteMutation

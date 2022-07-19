@@ -1,4 +1,4 @@
-extend type AssetMutations {
+extend type AssetMutation {
     setNickname(
         input: AssetSetNicknameInput!
     ): AssetSetNicknamePayload

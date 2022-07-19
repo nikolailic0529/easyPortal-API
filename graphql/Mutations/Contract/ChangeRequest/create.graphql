@@ -1,4 +1,4 @@
-extend type ContractChangeRequestMutations {
+extend type ContractChangeRequestMutation {
     create(
         input: MessageInput!
     ): ContractChangeRequestCreatePayload!
