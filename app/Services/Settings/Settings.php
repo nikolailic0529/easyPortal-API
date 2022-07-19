@@ -244,7 +244,7 @@ class Settings {
         }
 
         // Save
-        return $this->storage->save($stored->all());
+        return $this->storage->save($stored->sortKeys()->all());
     }
 
     public function parseValue(Setting $setting, ?string $value): mixed {
