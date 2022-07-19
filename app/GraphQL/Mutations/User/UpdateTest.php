@@ -83,18 +83,12 @@ class UpdateTest extends TestCase {
                 : [],
         ];
 
-        if (isset($input['input']['photo'])) {
-            $map['0']                = ['variables.input.photo'];
-            $files['0']              = $input['input']['photo'];
-            $input['input']['photo'] = null;
-        }
-
-        $operations = [
-            'operationName' => 'updateUser',
-            'variables'     => $input,
-            'query'         => /** @lang GraphQL */
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation updateUser($id: ID!, $input: UserUpdateInput!) {
+                mutation test($id: ID!, $input: UserUpdateInput!) {
                     user(id: $id) {
                         update(input: $input) {
                             result
@@ -105,13 +99,9 @@ class UpdateTest extends TestCase {
                         }
                     }
                 }
-                GRAPHQL
-            ,
-        ];
-
-        // Test
-        $this
-            ->multipartGraphQL($operations, $map, $files)
+                GRAPHQL,
+                $input,
+            )
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {

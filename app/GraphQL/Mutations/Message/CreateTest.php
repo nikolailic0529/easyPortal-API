@@ -51,42 +51,29 @@ class CreateTest extends TestCase {
 
         Mail::fake();
 
-        $map     = [];
-        $file    = [];
         $input ??= [
             'subject' => 'subject',
             'message' => 'change request',
         ];
 
-        if (isset($input['files'])) {
-            foreach ((array) $input['files'] as $index => $item) {
-                $file[$index] = $item;
-                $map[$index]  = ["variables.input.files.{$index}"];
-            }
-
-            $input['files'] = null;
-        }
-
-        $query      = /** @lang GraphQL */
-            <<<'GRAPHQL'
-            mutation test($input: MessageInput!) {
-                message {
-                    create(input: $input) {
-                        result
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($input: MessageInput!) {
+                    message {
+                        create(input: $input) {
+                            result
+                        }
                     }
                 }
-            }
-        GRAPHQL;
-        $operations = [
-            'operationName' => 'test',
-            'query'         => $query,
-            'variables'     => [
-                'input' => $input,
-            ],
-        ];
-
-        // Test
-        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+                GRAPHQL,
+                [
+                    'input' => $input,
+                ],
+            )
+            ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(Message::class);

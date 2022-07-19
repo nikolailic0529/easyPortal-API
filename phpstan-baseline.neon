@@ -1436,11 +1436,6 @@ parameters:
 			path: app/GraphQL/Mutations/Message/Create.php
 
 		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Message/CreateTest.php
-
-		-
 			message: "#^Class Tests\\\\GraphQL\\\\GraphQLSuccess constructor invoked with 3 parameters, 1\\-2 required\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
@@ -1621,11 +1616,6 @@ parameters:
 			path: app/GraphQL/Mutations/Org/Update.php
 
 		-
-			message: "#^Cannot access property \\$reseller on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/UpdateTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$dataFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Org/UpdateTest.php
@@ -1732,11 +1722,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
 
@@ -5936,32 +5921,32 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: string given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:118\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:117\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:40\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithContactsTest\\.php\\:39\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\Contact\\|null, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model, App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson\\)\\: App\\\\Models\\\\Contact\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -6021,17 +6006,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
+			message: "#^Parameter \\#2 \\$type of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:type\\(\\) expects string, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -6041,32 +6026,32 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$getType of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Services\\\\DataLoader\\\\Schema\\\\Type, Closure\\(App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:144\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:143\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:192\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:191\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:46\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
+			message: "#^Parameter \\#4 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithLocationsTest\\.php\\:45\\:\\:polymorphic\\(\\) expects Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Type\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null, Closure\\(App\\\\Models\\\\Customer\\|App\\\\Models\\\\Reseller, App\\\\Services\\\\DataLoader\\\\Schema\\\\Location\\)\\: App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\ResellerLocation\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 

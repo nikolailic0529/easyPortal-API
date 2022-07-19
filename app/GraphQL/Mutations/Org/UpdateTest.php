@@ -56,11 +56,8 @@ class UpdateTest extends TestCase {
         $this->setUser($userFactory, $org);
         $this->setSettings($settingsFactory);
 
-        $input = [];
-        $data  = [];
-        $map   = [];
-        $file  = [];
-
+        $data         = [];
+        $input        = [];
         $hasLogo      = false;
         $hasFavicon   = false;
         $hasWelcome   = false;
@@ -71,160 +68,12 @@ class UpdateTest extends TestCase {
             $input = $data;
 
             if (array_key_exists('branding', $input)) {
-                if (isset($input['branding']['logo_url'])) {
-                    $map['0']                      = ['variables.input.branding.logo_url'];
-                    $file['0']                     = $input['branding']['logo_url'];
-                    $input['branding']['logo_url'] = null;
-                    $hasLogo                       = true;
-                }
-
-                if (isset($input['branding']['favicon_url'])) {
-                    $map['1']                         = ['variables.input.branding.favicon_url'];
-                    $file['1']                        = $input['branding']['favicon_url'];
-                    $input['branding']['favicon_url'] = null;
-                    $hasFavicon                       = true;
-                }
-
-                if (isset($input['branding']['welcome_image_url'])) {
-                    $map['2']                               = ['variables.input.branding.welcome_image_url'];
-                    $file['2']                              = $input['branding']['welcome_image_url'];
-                    $input['branding']['welcome_image_url'] = null;
-                    $hasWelcome                             = true;
-                }
-
-                if (isset($input['branding']['dashboard_image_url'])) {
-                    $map['2']                                 = ['variables.input.branding.dashboard_image_url'];
-                    $file['2']                                = $input['branding']['dashboard_image_url'];
-                    $input['branding']['dashboard_image_url'] = null;
-                    $hasDashboard                             = true;
-                }
+                $hasLogo      = isset($input['branding']['logo_url']);
+                $hasFavicon   = isset($input['branding']['favicon_url']);
+                $hasWelcome   = isset($input['branding']['welcome_image_url']);
+                $hasDashboard = isset($input['branding']['dashboard_image_url']);
             }
         }
-
-
-        $query = /** @lang GraphQL */
-            <<<'GRAPHQL'
-            mutation mutate($input: OrgUpdateInput!) {
-                org {
-                    update(input: $input){
-                        result
-                        org {
-                            id
-                            name
-                            email
-                            root
-                            locale
-                            website_url
-                            analytics_code
-                            timezone
-                            currency_id
-                            currency {
-                                id
-                                name
-                                code
-                            }
-                            locations {
-                                location_id
-                                location {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
-                                }
-                                types {
-                                    id
-                                    name
-                                }
-                            }
-                            branding {
-                                dark_theme
-                                main_color
-                                secondary_color
-                                logo_url
-                                favicon_url
-                                default_main_color
-                                default_secondary_color
-                                default_logo_url
-                                default_favicon_url
-                                welcome_image_url
-                                dashboard_image_url
-                                welcome_heading {
-                                    locale
-                                    text
-                                }
-                                welcome_underline {
-                                    locale
-                                    text
-                                }
-                            }
-                            statuses {
-                                id
-                                key
-                                name
-                            }
-                            contacts {
-                                name
-                                email
-                                phone_valid
-                            }
-                            headquarter {
-                                location_id
-                                location {
-                                    id
-                                    state
-                                    postcode
-                                    line_one
-                                    line_two
-                                    latitude
-                                    longitude
-                                }
-                                types {
-                                    id
-                                    name
-                                }
-                            }
-                            kpi {
-                                assets_total
-                                assets_active
-                                assets_active_percent
-                                assets_active_on_contract
-                                assets_active_on_warranty
-                                assets_active_exposed
-                                customers_active
-                                customers_active_new
-                                contracts_active
-                                contracts_active_amount
-                                contracts_active_new
-                                contracts_expiring
-                                contracts_expired
-                                quotes_active
-                                quotes_active_amount
-                                quotes_active_new
-                                quotes_expiring
-                                quotes_expired
-                                quotes_ordered
-                                quotes_accepted
-                                quotes_requested
-                                quotes_received
-                                quotes_rejected
-                                quotes_awaiting
-                                service_revenue_total_amount
-                                service_revenue_total_amount_change
-                            }
-                        }
-                    }
-                }
-            }
-            GRAPHQL;
-
-        $operations = [
-            'operationName' => 'mutate',
-            'query'         => $query,
-            'variables'     => ['input' => $input],
-        ];
 
         // Mocks
         $client = Mockery::mock(Client::class);
@@ -234,7 +83,7 @@ class UpdateTest extends TestCase {
         });
 
         if ($expected instanceof GraphQLSuccess) {
-            if ($org->reseller) {
+            if ($org && $org->reseller) {
                 $client
                     ->shouldReceive('updateBrandingData')
                     ->once()
@@ -269,7 +118,130 @@ class UpdateTest extends TestCase {
         }
 
         // Test
-        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation test($input: OrgUpdateInput!) {
+                    org {
+                        update(input: $input){
+                            result
+                            org {
+                                id
+                                name
+                                email
+                                root
+                                locale
+                                website_url
+                                analytics_code
+                                timezone
+                                currency_id
+                                currency {
+                                    id
+                                    name
+                                    code
+                                }
+                                locations {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
+                                }
+                                branding {
+                                    dark_theme
+                                    main_color
+                                    secondary_color
+                                    logo_url
+                                    favicon_url
+                                    default_main_color
+                                    default_secondary_color
+                                    default_logo_url
+                                    default_favicon_url
+                                    welcome_image_url
+                                    dashboard_image_url
+                                    welcome_heading {
+                                        locale
+                                        text
+                                    }
+                                    welcome_underline {
+                                        locale
+                                        text
+                                    }
+                                }
+                                statuses {
+                                    id
+                                    key
+                                    name
+                                }
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                headquarter {
+                                    location_id
+                                    location {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    types {
+                                        id
+                                        name
+                                    }
+                                }
+                                kpi {
+                                    assets_total
+                                    assets_active
+                                    assets_active_percent
+                                    assets_active_on_contract
+                                    assets_active_on_warranty
+                                    assets_active_exposed
+                                    customers_active
+                                    customers_active_new
+                                    contracts_active
+                                    contracts_active_amount
+                                    contracts_active_new
+                                    contracts_expiring
+                                    contracts_expired
+                                    quotes_active
+                                    quotes_active_amount
+                                    quotes_active_new
+                                    quotes_expiring
+                                    quotes_expired
+                                    quotes_ordered
+                                    quotes_accepted
+                                    quotes_requested
+                                    quotes_received
+                                    quotes_rejected
+                                    quotes_awaiting
+                                    service_revenue_total_amount
+                                    service_revenue_total_amount_change
+                                }
+                            }
+                        }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'input' => $input,
+                ],
+            )
+            ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             self::assertNotNull($org);
