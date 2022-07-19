@@ -3,6 +3,9 @@
 namespace App\Services\Maintenance\Jobs;
 
 use Illuminate\Contracts\Console\Kernel;
+use Laravel\Telescope\Contracts\EntriesRepository;
+use Laravel\Telescope\EntryResult;
+use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -31,6 +34,15 @@ class TelescopeCleanerTest extends TestCase {
                     '--hours' => 123,
                 ])
                 ->once();
+        });
+
+        $this->override(EntriesRepository::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('find')
+                ->once()
+                ->andReturn(
+                    Mockery::mock(EntryResult::class),
+                );
         });
 
         $this->setQueueableConfig(TelescopeCleaner::class, [
