@@ -1,5 +1,5 @@
 extend type Mutation {
-    asset(id: ID @eq): AssetMutations
+    asset(id: ID @eq): AssetMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type Mutation {
     )
 }
 
-type AssetMutations
+type AssetMutation

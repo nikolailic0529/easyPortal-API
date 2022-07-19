@@ -1,4 +1,4 @@
-extend type OrgRoleMutations {
+extend type OrgRoleMutation {
     update(
         input: OrgRoleUpdateInput!
     ): OrgRoleUpdatePayload

@@ -1,4 +1,4 @@
-extend type AssetChangeRequestMutations {
+extend type AssetChangeRequestMutation {
     create(
         input: MessageInput!
     ): AssetChangeRequestCreatePayload!

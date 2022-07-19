@@ -1,4 +1,4 @@
-extend type OrgRoleMutations {
+extend type OrgRoleMutation {
     delete: OrgRoleDeletePayload
     @authOrg
     @authMe(permissions: ["org-administer"])

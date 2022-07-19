@@ -1,4 +1,4 @@
-extend type ApplicationMaintenanceMutations {
+extend type ApplicationMaintenanceMutation {
     schedule(
         input: ApplicationMaintenanceScheduleInput!
     ): ApplicationMaintenanceSchedulePayload

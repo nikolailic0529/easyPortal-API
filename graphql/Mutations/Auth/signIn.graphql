@@ -1,4 +1,4 @@
-extend type AuthMutations {
+extend type AssetMutation {
     signIn(
         input: AuthSignInInput
     ): AuthSignInPayload

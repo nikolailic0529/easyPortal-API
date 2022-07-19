@@ -1,4 +1,4 @@
-extend type AuthMutations {
+extend type AssetMutation {
     signOut: AuthSignOutPayload
     @mutationCall(
         resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"

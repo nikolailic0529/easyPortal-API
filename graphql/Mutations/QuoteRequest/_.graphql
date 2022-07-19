@@ -1,5 +1,5 @@
 extend type Mutation {
-    quoteRequest: QuoteRequestMutations
+    quoteRequest: QuoteRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type Mutation {
     )
 }
 
-type QuoteRequestMutations
+type QuoteRequestMutation

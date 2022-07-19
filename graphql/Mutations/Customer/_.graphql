@@ -1,5 +1,5 @@
 extend type Mutation {
-    customer(id: ID @eq): CustomerMutations
+    customer(id: ID @eq): CustomerMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type Mutation {
     )
 }
 
-type CustomerMutations
+type CustomerMutation

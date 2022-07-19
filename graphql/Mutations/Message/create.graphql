@@ -1,4 +1,4 @@
-extend type MessageMutations {
+extend type MessageMutation {
     create(
         input: MessageInput!
     ): MessageCreatePayload!

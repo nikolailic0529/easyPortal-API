@@ -1,4 +1,4 @@
-extend type AuthMutations {
+extend type AssetMutation {
     """
     Organization Sign In.
 
@@ -39,11 +39,11 @@ extend type AuthMutations {
     Organization. In this case, the Client should allow the User to
     Sign Out (so the User may repeat auth process if it want).
     """
-    organization(id: ID @eq): AuthOrganizationMutations
+    organization(id: ID @eq): AuthOrganizationMutation
     @authGuest
     @mutation(
         model: "App\\Models\\Organization"
     )
 }
 
-type AuthOrganizationMutations
+type AuthOrganizationMutation

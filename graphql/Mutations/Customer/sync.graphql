@@ -1,4 +1,4 @@
-extend type CustomerMutations {
+extend type CustomerMutation {
     sync: CustomerSyncPayload
     @authOrg
     @authMe(permissions: ["customers-sync"])

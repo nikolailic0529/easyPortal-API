@@ -1,4 +1,4 @@
-extend type MeMutations {
+extend type MeMutation {
     update(
         input: MeUpdateInput!
     ): MeUpdatePayload

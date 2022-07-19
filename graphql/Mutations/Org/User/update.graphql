@@ -1,4 +1,4 @@
-extend type OrgUserMutations {
+extend type OrgUserMutation {
     update(
         input: OrgUserUpdateInput!
     ): OrgUserUpdatePayload

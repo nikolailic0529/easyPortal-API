@@ -1,4 +1,4 @@
-extend type ContractMutations {
+extend type ContractMutation {
     sync: ContractSyncPayload
     @authOrg
     @authMe(permissions: ["contracts-sync"])

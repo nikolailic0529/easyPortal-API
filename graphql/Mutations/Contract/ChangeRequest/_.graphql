@@ -1,5 +1,5 @@
-extend type ContractMutations {
-    changeRequest: ContractChangeRequestMutations
+extend type ContractMutation {
+    changeRequest: ContractChangeRequestMutation
     @authOrg
     @authMe
     @mutation(
@@ -7,4 +7,4 @@ extend type ContractMutations {
     )
 }
 
-type ContractChangeRequestMutations
+type ContractChangeRequestMutation
