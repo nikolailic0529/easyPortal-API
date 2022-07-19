@@ -16,7 +16,6 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
 use Tests\TestCase;
 
-use function reset;
 use function tap;
 
 /**

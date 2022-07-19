@@ -21,7 +21,6 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
 
-use function reset;
 use function tap;
 
 /**

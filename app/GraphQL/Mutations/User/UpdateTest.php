@@ -72,8 +72,6 @@ class UpdateTest extends TestCase {
         }
 
         // Input
-        $map   = [];
-        $files = [];
         $input = [
             'id'    => $inputUserFactory
                 ? $inputUserFactory($this, $org, $user)->getKey()
