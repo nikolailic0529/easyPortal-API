@@ -6081,6 +6081,11 @@ type AuthSignUpByInvitePayload
 implements
     & Payload
 {
+    """
+    Organization who send the Invite.
+    """
+    org: Organization!
+
     result: Boolean!
 
     """

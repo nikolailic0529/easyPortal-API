@@ -86,6 +86,9 @@ class SignUpByInviteTest extends TestCase {
                         signUpByInvite(token: $token, input: $input) {
                             result
                             url
+                            org {
+                                id
+                            }
                         }
                     }
                 }
@@ -116,6 +119,9 @@ class SignUpByInviteTest extends TestCase {
                         new JsonFragment('signUpByInvite', [
                             'result' => true,
                             'url'    => 'https://example.com/',
+                            'org'    => [
+                                'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                            ],
                         ]),
                     ),
                     static function (MockInterface $mock): void {
@@ -137,7 +143,9 @@ class SignUpByInviteTest extends TestCase {
                             ->andReturn('https://example.com/');
                     },
                     static function (self $test): array {
-                        $organization = Organization::factory()->create();
+                        $organization = Organization::factory()->create([
+                            'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                        ]);
                         $user         = User::factory()->create([
                             'id'             => '75f9834e-ae5d-4e15-be98-ca121e7a5404',
                             'email_verified' => false,
@@ -174,6 +182,9 @@ class SignUpByInviteTest extends TestCase {
                         new JsonFragment('signUpByInvite', [
                             'result' => true,
                             'url'    => 'https://example.com/',
+                            'org'    => [
+                                'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                            ],
                         ]),
                     ),
                     null,
@@ -184,7 +195,9 @@ class SignUpByInviteTest extends TestCase {
                             ->andReturn('https://example.com/');
                     },
                     static function (self $test): array {
-                        $organization = Organization::factory()->create();
+                        $organization = Organization::factory()->create([
+                            'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                        ]);
                         $user         = User::factory()->create([
                             'id'             => '75f9834e-ae5d-4e15-be98-ca121e7a5404',
                             'email_verified' => true,
@@ -217,12 +230,17 @@ class SignUpByInviteTest extends TestCase {
                         new JsonFragment('signUpByInvite', [
                             'result' => false,
                             'url'    => null,
+                            'org'    => [
+                                'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                            ],
                         ]),
                     ),
                     null,
                     null,
                     static function (self $test): array {
-                        $organization = Organization::factory()->create();
+                        $organization = Organization::factory()->create([
+                            'id' => 'e0478e7c-53c4-4cbb-927d-636028d1f907',
+                        ]);
                         $user         = User::factory()->create([
                             'id'             => '75f9834e-ae5d-4e15-be98-ca121e7a5404',
                             'email_verified' => false,

@@ -941,11 +941,6 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
-			message: "#^Offset 'input' on array\\{token\\: string, input\\: array\\<string, mixed\\>\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
-
-		-
 			message: "#^Parameter \\#1 \\$id of class App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationNotFound constructor expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php

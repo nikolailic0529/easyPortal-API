@@ -26,7 +26,7 @@ class SignUpByInvite {
     }
 
     /**
-     * @param array{token:string,input:array<string,mixed>} $args
+     * @param array{token:string,input?:array<string,mixed>} $args
      *
      * @return array{result: bool, url: ?string}
      */
@@ -80,6 +80,7 @@ class SignUpByInvite {
     protected function getResult(Organization $organization, bool $result): array {
         return [
             'result' => $result,
+            'org'    => $organization,
             'url'    => $result
                 ? $this->signIn->getUrl($organization)
                 : null,
