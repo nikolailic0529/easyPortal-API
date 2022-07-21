@@ -58,8 +58,8 @@ class Auth {
     /**
      * @return array<string>
      */
-    public function getAvailablePermissions(Organization $organization): array {
-        $isRoot      = $this->rootOrganization->is($organization);
+    public function getAvailablePermissions(?Organization $organization): array {
+        $isRoot      = $organization && $this->rootOrganization->is($organization);
         $permissions = [];
 
         foreach ($this->getPermissions() as $permission) {
@@ -89,14 +89,12 @@ class Auth {
      * @return array<string>
      */
     public function getActualPermissions(?Organization $organization, array $permissions): array {
+        $valid       = $this->getAvailablePermissions($organization);
         $permissions = $this->expand($permissions);
+        $permissions = array_intersect($permissions, $valid);
+        $permissions = array_values($permissions);
 
-        if ($organization) {
-            $valid       = $this->getAvailablePermissions($organization);
-            $permissions = array_intersect($permissions, $valid);
-        }
-
-        return array_values($permissions);
+        return $permissions;
     }
 
     /**

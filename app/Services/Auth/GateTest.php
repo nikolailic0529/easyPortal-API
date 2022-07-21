@@ -52,7 +52,7 @@ class GateTest extends TestCase {
         if ($permissions !== null) {
             $auth
                 ->shouldReceive('getPermissions')
-                ->once()
+                ->times($orgPermissions ? 1 : 2)
                 ->andReturn($permissions);
         }
 

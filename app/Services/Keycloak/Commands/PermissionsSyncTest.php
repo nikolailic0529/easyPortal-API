@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Date;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
+use function array_keys;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\Keycloak\Commands\PermissionsSync
@@ -203,7 +205,7 @@ class PermissionsSyncTest extends TestCase {
                 ->andReturn($group);
             $mock
                 ->shouldReceive('updateGroupRoles')
-                ->with($group, [$roleA])
+                ->with($group, [$roleA, $roleB])
                 ->once()
                 ->andReturn(true);
         });
@@ -232,13 +234,12 @@ class PermissionsSyncTest extends TestCase {
         self::assertNotNull($role);
         self::assertEquals($groupName, $role->name);
         self::assertNull($role->organization_id);
-        self::assertEquals(
-            ['permission-a'],
+        self::assertEqualsCanonicalizing(
+            array_keys($expected),
             $role->permissions
                 ->map(static function (PermissionModel $permission): string {
                     return $permission->key;
                 })
-                ->sort()
                 ->all(),
         );
     }

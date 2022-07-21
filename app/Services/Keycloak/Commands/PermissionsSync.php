@@ -5,7 +5,6 @@ namespace App\Services\Keycloak\Commands;
 use App\Models\Permission as PermissionModel;
 use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
-use App\Services\Auth\Contracts\Permissions\IsRoot;
 use App\Services\Auth\Permission;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\Role;
@@ -115,15 +114,10 @@ class PermissionsSync extends Command {
             $orgAdminGroup = $this->client->getGroup($this->config->get('ep.keycloak.org_admin_group'));
 
             if ($orgAdminGroup) {
-                $orgAdminPermissions = $permissions
-                    ->filter(static function (Permission $permission): bool {
-                        return !($permission instanceof IsRoot);
-                    });
-
                 // Update Permissions
                 $this->client->updateGroupRoles(
                     $orgAdminGroup,
-                    $actualRoles->intersectByKeys($orgAdminPermissions)->values()->all(),
+                    $actualRoles->intersectByKeys($permissions)->values()->all(),
                 );
 
                 // Create/Update Role Model
@@ -131,7 +125,7 @@ class PermissionsSync extends Command {
                     ?? new RoleModel();
                 $role->id           = $orgAdminGroup->id;
                 $role->name         = $orgAdminGroup->name;
-                $role->permissions  = $usedModels->intersectByKeys($orgAdminPermissions);
+                $role->permissions  = $usedModels->intersectByKeys($permissions);
                 $role->organization = null;
                 $role->save();
             } else {
