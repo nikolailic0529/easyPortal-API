@@ -32,8 +32,9 @@ class OemsImporterTest extends TestCase {
      */
     public function testProcess(): void {
         // Helpers
-        $storage = new AppTranslations($this->app->make(AppDisk::class), 'fr_FR');
-        $toArray = static function (Collection $models): array {
+        $defaultLocaleStorage = new AppTranslations($this->app->make(AppDisk::class), $this->app->getLocale());
+        $customLocaleStorage  = new AppTranslations($this->app->make(AppDisk::class), 'fr_FR');
+        $toArray              = static function (Collection $models): array {
             $convert = static function (Model $model) use (&$convert): array {
                 $attributes = Arr::except($model->getAttributes(), [
                     'id',
@@ -58,7 +59,7 @@ class OemsImporterTest extends TestCase {
         self::assertEquals(0, Oem::query()->count());
         self::assertEquals(0, ServiceGroup::query()->count());
         self::assertEquals(0, ServiceLevel::query()->count());
-        self::assertEmpty($storage->load());
+        self::assertEmpty($customLocaleStorage->load());
 
         // Existing objects should be updated
         $oem   = Oem::factory()->create([
@@ -81,7 +82,13 @@ class OemsImporterTest extends TestCase {
         ]);
 
         // Add Transactions
-        $storage->save([
+        $defaultLocaleStorage->save([
+            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
+            'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA Name',
+            'models.ServiceLevel.ABC/GA/LA.description' => 'Level LA Description',
+        ]);
+        $customLocaleStorage->save([
             'models.ServiceLevel.unknown.name'          => 'Unknown Name',
             'models.ServiceLevel.unknown.description'   => 'Unknown Description',
             'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA Name',
@@ -196,22 +203,42 @@ class OemsImporterTest extends TestCase {
             $toArray($levels),
         );
 
-        // Translations
-        $translations = $storage->load();
+        // Default Locale Translations
+        self::assertEquals(
+            [
+                'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+                'models.ServiceLevel.unknown.description'   => 'Unknown Description',
+                'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA',
+                'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description\nline of text",
+                'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB',
+                'models.ServiceLevel.ABC/GB/LB.description' => "Level LB Description\nline of text",
+                'models.ServiceLevel.ABC/GC/LC.name'        => 'Level LC',
+                'models.ServiceLevel.ABC/GC/LD.name'        => 'Level LD',
+                'models.ServiceLevel.ABC/GC/LD.description' => "Level LD Description\nline of text",
+                'models.ServiceLevel.CBA/GA/LA.name'        => 'Level LA',
+                'models.ServiceLevel.CBA/GA/LA.description' => "Level LA Description\nline of text",
+                'models.ServiceLevel.ABC/GC/LC.description' => "Level LC Description\nline of text",
+            ],
+            $defaultLocaleStorage->load(),
+        );
 
-        self::assertEquals([
-            'models.ServiceLevel.unknown.name'          => 'Unknown Name',
-            'models.ServiceLevel.unknown.description'   => 'Unknown Description',
-            'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',
-            'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description French\nline of text",
-            'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB French',
-            'models.ServiceLevel.ABC/GB/LB.description' => "Level LB Description French\nline of text",
-            'models.ServiceLevel.ABC/GC/LC.name'        => 'Level LC French',
-            'models.ServiceLevel.ABC/GC/LD.name'        => 'Level LD French',
-            'models.ServiceLevel.ABC/GC/LD.description' => "Level LD Description French\nline of text",
-            'models.ServiceLevel.CBA/GA/LA.name'        => 'Level LA French',
-            'models.ServiceLevel.CBA/GA/LA.description' => "Level LA Description French\nline of text",
-        ], $translations);
+        // Custom Locale Translations
+        self::assertEquals(
+            [
+                'models.ServiceLevel.unknown.name'          => 'Unknown Name',
+                'models.ServiceLevel.unknown.description'   => 'Unknown Description',
+                'models.ServiceLevel.ABC/GA/LA.name'        => 'Level LA French',
+                'models.ServiceLevel.ABC/GA/LA.description' => "Level LA Description French\nline of text",
+                'models.ServiceLevel.ABC/GB/LB.name'        => 'Level LB French',
+                'models.ServiceLevel.ABC/GB/LB.description' => "Level LB Description French\nline of text",
+                'models.ServiceLevel.ABC/GC/LC.name'        => 'Level LC French',
+                'models.ServiceLevel.ABC/GC/LD.name'        => 'Level LD French',
+                'models.ServiceLevel.ABC/GC/LD.description' => "Level LD Description French\nline of text",
+                'models.ServiceLevel.CBA/GA/LA.name'        => 'Level LA French',
+                'models.ServiceLevel.CBA/GA/LA.description' => "Level LA Description French\nline of text",
+            ],
+            $customLocaleStorage->load(),
+        );
     }
 
     /**

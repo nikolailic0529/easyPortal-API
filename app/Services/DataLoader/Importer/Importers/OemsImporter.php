@@ -13,6 +13,7 @@ use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\I18n\I18n;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Cell;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -32,6 +33,7 @@ use function end;
 use function explode;
 use function implode;
 use function is_array;
+use function is_scalar;
 use function mb_strtolower;
 use function reset;
 
@@ -44,6 +46,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     protected array $header = [];
 
     public function __construct(
+        protected Application $app,
         protected Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
@@ -89,7 +92,9 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         $serviceLevel = $this->getServiceLevel($oem, $serviceGroup, $parsed);
 
         // Save translations (temporary implementation)
-        $helper = new class() extends ServiceLevel {
+        $locales = [];
+        $default = $this->app->getLocale();
+        $helper  = new class() extends ServiceLevel {
             /**
              * @return array<string>
              */
@@ -105,19 +110,26 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             }
         };
 
-        foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
-            $translations = [];
+        foreach ($helper->getModelTranslatableProperties($serviceLevel) as $property) {
+            $translation = $helper->getModelTranslatedPropertyKey($serviceLevel, $property);
 
-            foreach ($helper->getModelTranslatableProperties($serviceLevel) as $property) {
-                if (isset($properties[$property]) && $properties[$property]) {
-                    $translation = $helper->getModelTranslatedPropertyKey($serviceLevel, $property);
-
-                    if ($translation) {
-                        $translations[$translation] = $properties[$property];
-                    }
-                }
+            if (!$translation) {
+                continue;
             }
 
+            $attribute                       = $serviceLevel->getAttribute($property);
+            $locales[$default][$translation] = is_scalar($attribute) && $attribute
+                ? (string) $attribute
+                : null;
+
+            foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
+                if (isset($properties[$property]) && $properties[$property]) {
+                    $locales[$locale][$translation] = $properties[$property];
+                }
+            }
+        }
+
+        foreach ($locales as $locale => $translations) {
             $this->i18n->setTranslations($locale, $translations);
         }
     }
