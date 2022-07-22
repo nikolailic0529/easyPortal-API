@@ -10,7 +10,7 @@ type Query {
     @field(resolver: "App\\GraphQL\\Queries\\Me")
 
     "Current organization."
-    org: Organization
+    org: Org
     @field(resolver: "App\\GraphQL\\Queries\\Org")
 
     "Application information."

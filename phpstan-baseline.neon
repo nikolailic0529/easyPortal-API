@@ -2716,8 +2716,13 @@ parameters:
 			path: app/GraphQL/Queries/MeTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\OrgTest\\:\\:testInvoke\\(\\) has parameter \\$organizationCallback with no signature specified for Closure\\.$#"
-			count: 1
+			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
+			count: 2
+			path: app/GraphQL/Queries/OrgTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$org of method App\\\\GraphQL\\\\Queries\\\\Org\\:\\:headquarter\\(\\) expects App\\\\Models\\\\Organization, App\\\\Models\\\\Organization\\|null given\\.$#"
+			count: 2
 			path: app/GraphQL/Queries/OrgTest.php
 
 		-

@@ -31,7 +31,7 @@ type AuthSignUpByInvitePayload implements Payload{
     result: Boolean!
 
     "Organization who send the Invite."
-    org: Organization!
+    org: Org!
 
     "The link where the User should be redirected to Sign In."
     url: Url

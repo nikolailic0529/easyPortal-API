@@ -5766,7 +5766,7 @@ implements
         resolver: "App\\GraphQL\\Queries\\Me"
     )
 
-    org: Organization
+    org: Org
     @field(
         resolver: "App\\GraphQL\\Queries\\Org"
     )
@@ -5793,7 +5793,7 @@ implements
     """
     Organization who send the Invite.
     """
-    org: Organization!
+    org: Org!
 
     result: Boolean!
 
@@ -7054,7 +7054,7 @@ type Me {
     mobile_phone: PhoneNumber
     office_phone: PhoneNumber
 
-    orgs: [Organization!]!
+    orgs: [Org!]!
     @field(
         resolver: "App\\GraphQL\\Queries\\Me@orgs"
     )
@@ -7868,6 +7868,50 @@ type OemMutation {
     )
 }
 
+type Org {
+    analytics_code: String
+
+    branding: OrganizationBranding!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org@branding"
+    )
+
+    currency: Currency
+    @relation
+
+    currency_id: ID
+    email: Email
+
+    headquarter: CompanyLocation
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org@headquarter"
+    )
+
+    id: ID!
+
+    kpi: Kpi
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org@kpi"
+    )
+
+    locale: String
+    name: String!
+
+    """
+    @require <authMe(["org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    organization: Organization!
+    @authMe(
+        permissions: ["org-administer"]
+    )
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Org@organization"
+    )
+
+    timezone: String
+    website_url: Url
+}
+
 type OrgChangeRequestCreatePayload
 implements
     & Payload
@@ -8049,7 +8093,7 @@ implements
         resolver: "App\\GraphQL\\Queries\\Me"
     )
 
-    org: Organization
+    org: Org
     @field(
         resolver: "App\\GraphQL\\Queries\\Org"
     )
@@ -8061,7 +8105,7 @@ type OrgUpdatePayload
 implements
     & Payload
 {
-    org: Organization!
+    org: Org!
     result: Boolean!
 }
 
@@ -9696,7 +9740,7 @@ type Query {
     """
     Current organization.
     """
-    org: Organization
+    org: Org
     @field(
         resolver: "App\\GraphQL\\Queries\\Org"
     )

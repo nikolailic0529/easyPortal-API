@@ -18,7 +18,7 @@ type Me {
 
     permissions: [String!]
 
-    orgs: [Organization!]!
+    orgs: [Org!]!
     @field(resolver: "App\\GraphQL\\Queries\\Me@orgs")
 
     team: Team

@@ -130,7 +130,6 @@ class UpdateTest extends TestCase {
                                 id
                                 name
                                 email
-                                root
                                 locale
                                 website_url
                                 analytics_code
