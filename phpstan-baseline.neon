@@ -1416,16 +1416,6 @@ parameters:
 			path: app/GraphQL/Mutations/Oem/Hpe/ImportTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\Org\\\\RequestOrgChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Org/RequestOrgChangeTest.php
-
-		-
 			message: "#^Cannot access offset 'id' on mixed\\.$#"
 			count: 2
 			path: app/GraphQL/Mutations/Org/ResetOrgUserPassword.php
@@ -1699,61 +1689,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestAssetChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestAssetChangeTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestContractChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestContractChangeTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
-			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestCustomerChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestCustomerChangeTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\RequestQuoteChangeTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/RequestQuoteChangeTest.php
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
