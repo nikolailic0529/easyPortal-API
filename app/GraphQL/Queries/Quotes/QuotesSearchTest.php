@@ -179,6 +179,14 @@ class QuotesSearchTest extends TestCase {
                                     name
                                 }
                             }
+                            contacts_count
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            changed_at
+                            synced_at
                         }
                         currency {
                             id
@@ -305,6 +313,9 @@ class QuotesSearchTest extends TestCase {
                 'customers_count' => 0,
                 'locations_count' => 1,
                 'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'changed_at'      => '2021-10-19 10:15:00',
+                'synced_at'       => '2021-10-19 10:25:00',
             ]);
 
             ResellerLocation::factory()->create([
@@ -532,6 +543,10 @@ class QuotesSearchTest extends TestCase {
                             'types'       => [],
                         ],
                     ],
+                    'contacts_count'  => 0,
+                    'contacts'        => [],
+                    'changed_at'      => '2021-10-19T10:15:00+00:00',
+                    'synced_at'       => '2021-10-19T10:25:00+00:00',
                 ],
                 'currency'          => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',

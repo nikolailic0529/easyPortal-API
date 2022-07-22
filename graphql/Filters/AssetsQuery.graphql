@@ -11,7 +11,7 @@ input AssetsQuery {
     nickname: String
     warranty_end: Date
     location: LocationsQuery
-    customer: CustomersQuery
+    customer: CompaniesQuery
     product: ProductsQuery
     warranties: AssetWarrantiesQuery
     tags: TagsQuery

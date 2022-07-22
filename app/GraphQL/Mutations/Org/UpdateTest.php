@@ -83,7 +83,7 @@ class UpdateTest extends TestCase {
         });
 
         if ($expected instanceof GraphQLSuccess) {
-            if ($org && $org->reseller) {
+            if ($org && $org->company) {
                 $client
                     ->shouldReceive('updateBrandingData')
                     ->once()
@@ -130,7 +130,6 @@ class UpdateTest extends TestCase {
                                 id
                                 name
                                 email
-                                root
                                 locale
                                 website_url
                                 analytics_code
@@ -140,22 +139,6 @@ class UpdateTest extends TestCase {
                                     id
                                     name
                                     code
-                                }
-                                locations {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
                                 }
                                 branding {
                                     dark_theme
@@ -177,60 +160,6 @@ class UpdateTest extends TestCase {
                                         locale
                                         text
                                     }
-                                }
-                                statuses {
-                                    id
-                                    key
-                                    name
-                                }
-                                contacts {
-                                    name
-                                    email
-                                    phone_valid
-                                }
-                                headquarter {
-                                    location_id
-                                    location {
-                                        id
-                                        state
-                                        postcode
-                                        line_one
-                                        line_two
-                                        latitude
-                                        longitude
-                                    }
-                                    types {
-                                        id
-                                        name
-                                    }
-                                }
-                                kpi {
-                                    assets_total
-                                    assets_active
-                                    assets_active_percent
-                                    assets_active_on_contract
-                                    assets_active_on_warranty
-                                    assets_active_exposed
-                                    customers_active
-                                    customers_active_new
-                                    contracts_active
-                                    contracts_active_amount
-                                    contracts_active_new
-                                    contracts_expiring
-                                    contracts_expired
-                                    quotes_active
-                                    quotes_active_amount
-                                    quotes_active_new
-                                    quotes_expiring
-                                    quotes_expired
-                                    quotes_ordered
-                                    quotes_accepted
-                                    quotes_requested
-                                    quotes_received
-                                    quotes_rejected
-                                    quotes_awaiting
-                                    service_revenue_total_amount
-                                    service_revenue_total_amount_change
                                 }
                             }
                         }
@@ -254,7 +183,7 @@ class UpdateTest extends TestCase {
             self::assertEquals($data['email'], $org->email);
             self::assertEquals($data['analytics_code'], $org->analytics_code);
 
-            if ($org->reseller) {
+            if ($org->company) {
                 $hasLogo && self::assertEquals('https://example.com/logo.png', $org->branding_logo_url);
                 $hasFavicon && self::assertEquals(
                     'https://example.com/favicon.png',

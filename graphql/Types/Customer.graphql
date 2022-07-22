@@ -1,29 +1,31 @@
-type Customer {
+type Customer implements Company {
+    # Company
+    # ==========================================================================
     id: ID!
     name: String!
+    changed_at: DateTime
+    synced_at: DateTime!
     statuses: [Status!]! @relation
+    kpi: Kpi @orgRelation
 
+    # https://github.com/LastDragon-ru/lara-asp/issues/15
+    # ==========================================================================
+    # Contacts
     contacts_count: Int!
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
     ): [Contact!]! @relation
 
+    # Locations
     locations_count: Int!
     locations(
-        where: CustomerLocationsQuery @searchBy
-        order: CustomerLocationsSort @sortBy
-    ): [CustomerLocation!]!
+        where: CompanyLocationsQuery @searchBy
+        order: CompanyLocationsSort @sortBy
+    ): [CompanyLocation!]!
     @relation
 
-    headquarter: CustomerLocation @relation
-
-    changed_at: DateTime
-    synced_at: DateTime!
-
-    assets_count: Int! @orgProperty
-
-    kpi: Kpi @orgRelation
+    headquarter: CompanyLocation @relation
 
     # Contracts
     contracts_count: Int! @orgProperty
@@ -46,6 +48,7 @@ type Customer {
     @paginatedRelation
 
     # Assets
+    assets_count: Int! @orgProperty
     assets(
         where: AssetsQuery @searchBy
         order: AssetsSort @sortBy
@@ -53,4 +56,8 @@ type Customer {
     @authMe(permissions: ["assets-view"])
     @relation
     @paginatedRelation
+
+    # Properties
+    # ==========================================================================
+    # empty
 }

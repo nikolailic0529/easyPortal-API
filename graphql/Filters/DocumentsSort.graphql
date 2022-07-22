@@ -6,6 +6,6 @@ input DocumentsSort {
     number: String
     oem: OemsSort
     distributor: DistributorsSort
-    reseller: ResellersSort
-    customer: CustomersSort
+    reseller: CompaniesSort
+    customer: CompaniesSort
 }

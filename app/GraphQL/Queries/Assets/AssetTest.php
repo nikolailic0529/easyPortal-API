@@ -226,6 +226,14 @@ class AssetTest extends TestCase {
                                         name
                                     }
                                 }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                changed_at
+                                synced_at
                             }
                             type_id
                             type {
@@ -479,6 +487,10 @@ class AssetTest extends TestCase {
                                                 'types'       => [],
                                             ],
                                         ],
+                                        'contacts_count'  => 0,
+                                        'contacts'        => [],
+                                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
                                     'type_id'       => null,
                                     'type'          => null,
@@ -561,6 +573,10 @@ class AssetTest extends TestCase {
                                                 'types'       => [],
                                             ],
                                         ],
+                                        'contacts_count'  => 0,
+                                        'contacts'        => [],
+                                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
                                     'type_id'       => '2511521b-8cd3-4bff-b27d-758627f796ef',
                                     'type'          => [
@@ -716,6 +732,9 @@ class AssetTest extends TestCase {
                                 'customers_count' => 0,
                                 'locations_count' => 1,
                                 'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
                             ]);
 
                             $location->resellers()->attach($reseller);

@@ -20,7 +20,7 @@ type AuthSignInPayload implements Payload {
     me: Me
     @field(resolver: "App\\GraphQL\\Queries\\Me")
 
-    org: Organization
+    org: Org
     @field(resolver: "App\\GraphQL\\Queries\\Org")
 }
 

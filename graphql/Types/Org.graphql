@@ -1,0 +1,24 @@
+type Org {
+    id: ID!
+    name: String!
+    email: Email
+    locale: String
+    timezone: String
+    website_url: Url
+    currency_id: ID
+    currency: Currency @relation
+    analytics_code: String
+
+    branding: OrganizationBranding!
+    @field(resolver: "App\\GraphQL\\Queries\\Org@branding")
+
+    kpi: Kpi
+    @field(resolver: "App\\GraphQL\\Queries\\Org@kpi")
+
+    headquarter: CompanyLocation
+    @field(resolver: "App\\GraphQL\\Queries\\Org@headquarter")
+
+    organization: Organization!
+    @authMe(permissions: ["org-administer"])
+    @field(resolver: "App\\GraphQL\\Queries\\Org@organization")
+}

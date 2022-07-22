@@ -2716,13 +2716,13 @@ parameters:
 			path: app/GraphQL/Queries/MeTest.php
 
 		-
-			message: "#^Anonymous function never returns null so it can be removed from the return type\\.$#"
-			count: 1
+			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
+			count: 2
 			path: app/GraphQL/Queries/OrgTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\OrgTest\\:\\:testInvoke\\(\\) has parameter \\$organizationCallback with no signature specified for Closure\\.$#"
-			count: 1
+			message: "#^Parameter \\#1 \\$org of method App\\\\GraphQL\\\\Queries\\\\Org\\:\\:headquarter\\(\\) expects App\\\\Models\\\\Organization, App\\\\Models\\\\Organization\\|null given\\.$#"
+			count: 2
 			path: app/GraphQL/Queries/OrgTest.php
 
 		-
@@ -4566,32 +4566,7 @@ parameters:
 			path: app/Models/Oem.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne\\:\\:whereHasIn\\(\\)\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Organization\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Organization\\:\\:audits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:contacts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:kpi\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOneThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:locations\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Organization.php
 
@@ -4601,27 +4576,7 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:reseller\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Organization\\:\\:roles\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:statuses\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
 			count: 1
 			path: app/Models/Organization.php
 
@@ -4637,26 +4592,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Organization\\:\\:syncHasMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\ResellerLocation\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\ResellerLocation\\> given\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Parameter \\#2 \\$type of method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getMorphs\\(\\) expects string, null given\\.$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Parameter \\#3 \\$id of method Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:getMorphs\\(\\) expects string, null given\\.$#"
 			count: 1
 			path: app/Models/Organization.php
 

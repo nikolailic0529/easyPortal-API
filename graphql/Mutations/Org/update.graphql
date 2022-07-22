@@ -33,5 +33,5 @@ input OrgUpdateBrandingInput {
 
 type OrgUpdatePayload implements Payload {
     result: Boolean!
-    org: Organization!
+    org: Org!
 }

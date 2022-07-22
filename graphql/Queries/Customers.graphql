@@ -10,8 +10,8 @@ extend type Query {
 
     "List of Customers."
     customers (
-        where: CustomersQuery @searchBy
-        order: CustomersSort @sortBy
+        where: CompaniesQuery @searchBy
+        order: CompaniesSort @sortBy
     ): [Customer!]!
     @authOrg
     @authMe(permissions: ["customers-view"])

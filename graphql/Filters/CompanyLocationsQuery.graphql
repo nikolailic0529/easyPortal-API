@@ -1,4 +1,4 @@
-input CustomerLocationsQuery {
+input CompanyLocationsQuery {
     id: ID!
     location_id: ID!
     location: LocationsQuery!

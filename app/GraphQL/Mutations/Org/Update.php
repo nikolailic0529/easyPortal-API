@@ -35,7 +35,7 @@ class Update {
         $this->updateProperties($org, $input, $args['input']);
 
         // Update Cosmos
-        if ($input->count() > 1 && $org->reseller) {
+        if ($input->count() > 1 && $org->company) {
             $this->client->updateBrandingData($input);
         }
 
@@ -90,7 +90,7 @@ class Update {
                     $branding->secondaryColor               = $value;
                     break;
                 case 'logo_url':
-                    if ($organization->reseller) {
+                    if ($organization->company) {
                         $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyFile([
                             'companyId' => $organization->getKey(),
                             'file'      => $value,
@@ -100,7 +100,7 @@ class Update {
                     }
                     break;
                 case 'favicon_url':
-                    if ($organization->reseller) {
+                    if ($organization->company) {
                         $organization->branding_favicon_url = $this->client->updateCompanyFavicon(
                             new UpdateCompanyFile([
                                 'companyId' => $organization->getKey(),
@@ -120,7 +120,7 @@ class Update {
                     $branding->underlineText                  = $this->getTranslationText($value);
                     break;
                 case 'welcome_image_url':
-                    if ($organization->reseller) {
+                    if ($organization->company) {
                         $organization->branding_welcome_image_url = $this->client->updateCompanyMainImageOnTheRight(
                             new UpdateCompanyFile([
                                 'companyId' => $organization->getKey(),

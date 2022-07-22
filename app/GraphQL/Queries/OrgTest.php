@@ -5,10 +5,10 @@ namespace App\GraphQL\Queries;
 use App\Models\Currency;
 use App\Models\Kpi;
 use App\Models\Location;
-use App\Models\Organization as ModelsOrganization;
+use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
-use App\Services\I18n\Eloquent\TranslatedString;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -16,13 +16,16 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\DataProviders\GraphQL\Organizations\UnknownOrgDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UnknownUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\JsonFragment;
+use Tests\Providers\Organizations\OrganizationProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
+
+use function array_merge;
 
 /**
  * @internal
@@ -37,149 +40,157 @@ class OrgTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers       \App\GraphQL\Queries\Organization::root
-     * @covers       \App\GraphQL\Queries\Organization::branding
+     * @covers ::branding
      *
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param SettingsFactory                             $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void $orgCallback
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
         mixed $settingsFactory = null,
-        bool $isRootOrganization = false,
-        Closure $organizationCallback = null,
+        Closure $orgCallback = null,
     ): void {
         // Prepare
-        $org = $this->setOrganization($orgFactory);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
-        if ($isRootOrganization) {
-            $this->setRootOrganization($org);
-        }
-
-        $this->setUser($userFactory, $org);
         $this->setSettings($settingsFactory);
 
-        if ($org && $organizationCallback) {
-            $organizationCallback($this, $org);
+        if ($orgCallback) {
+            $orgCallback($this, $org, $user);
         }
 
         // Test
-        $this->graphQL(/** @lang GraphQL */ '{
-            org {
-                id
-                name
-                root
-                locale
-                website_url
-                email
-                analytics_code
-                currency_id
-                timezone
-                currency {
-                    id
-                    name
-                    code
-                }
-                locations_count
-                locations {
-                    location_id
-                    location {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
-                    }
-                    types {
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                {
+                    org {
                         id
                         name
-                    }
-                }
-                branding {
-                    dark_theme
-                    main_color
-                    secondary_color
-                    logo_url
-                    favicon_url
-                    default_main_color
-                    default_secondary_color
-                    default_logo_url
-                    default_favicon_url
-                    welcome_image_url
-                    welcome_heading {
                         locale
-                        text
-                    }
-                    welcome_underline {
-                        locale
-                        text
-                    }
-                    dashboard_image_url
-                }
-                statuses {
-                    id
-                    key
-                    name
-                }
-                contacts_count
-                contacts {
-                    name
-                    email
-                    phone_valid
-                }
-                headquarter {
-                    location_id
-                    location {
-                        id
-                        state
-                        postcode
-                        line_one
-                        line_two
-                        latitude
-                        longitude
-                    }
-                    types {
-                        id
-                        name
+                        website_url
+                        email
+                        analytics_code
+                        currency_id
+                        timezone
+                        currency {
+                            id
+                            name
+                            code
+                        }
+                        branding {
+                            logo_url
+                        }
+                        kpi {
+                            assets_total
+                        }
+                        headquarter {
+                            location_id
+                        }
                     }
                 }
-                kpi {
-                    assets_total
-                    assets_active
-                    assets_active_percent
-                    assets_active_on_contract
-                    assets_active_on_warranty
-                    assets_active_exposed
-                    customers_active
-                    customers_active_new
-                    contracts_active
-                    contracts_active_amount
-                    contracts_active_new
-                    contracts_expiring
-                    contracts_expired
-                    quotes_active
-                    quotes_active_amount
-                    quotes_active_new
-                    quotes_expiring
-                    quotes_expired
-                    quotes_ordered
-                    quotes_accepted
-                    quotes_requested
-                    quotes_received
-                    quotes_rejected
-                    quotes_awaiting
-                    service_revenue_total_amount
-                    service_revenue_total_amount_change
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::headquarter
+     */
+    public function testHeadquarter(): void {
+        // Prepare
+        $org         = $this->setOrganization(Organization::factory()->make());
+        $type        = $this->faker->uuid();
+        $reseller    = Reseller::factory()->create([
+            'id' => $org->getKey(),
+        ]);
+        $headquarter = ResellerLocation::factory()
+            ->hasTypes(1, [
+                'id'   => $type,
+                'name' => 'headquarter',
+            ])
+            ->create([
+                'reseller_id' => $reseller,
+            ]);
+
+        // Test
+        $this->setSettings([
+            'ep.headquarter_type' => $type,
+        ]);
+
+        $actual = $this->app->make(Org::class)->headquarter($org);
+
+        self::assertEquals($headquarter, $actual);
+    }
+
+    /**
+     * @covers ::headquarter
+     */
+    public function testHeadquarterNoType(): void {
+        // Prepare
+        $org      = $this->setOrganization(Organization::factory()->make());
+        $reseller = Reseller::factory()->create([
+            'id' => $org->getKey(),
+        ]);
+
+        ResellerLocation::factory()->create([
+            'reseller_id' => $reseller,
+        ]);
+        ResellerLocation::factory()->create([
+            'reseller_id' => $reseller,
+        ]);
+
+        // Test
+        $this->setSettings([
+            'ep.headquarter_type' => null,
+        ]);
+
+        $actual   = $this->app->make(Org::class)->headquarter($org);
+        $expected = $reseller->locations->first();
+
+        self::assertNotNull($expected);
+        self::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::organization
+     *
+     * @dataProvider dataProviderOrganization
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     */
+    public function testOrganization(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+    ): void {
+        // Prepare
+        $this->setUser($userFactory, $this->setOrganization($orgFactory));
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                {
+                    org {
+                        organization {
+                            id
+                        }
+                    }
                 }
-            }
-        }')->assertThat($expected);
+                GRAPHQL,
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -189,6 +200,27 @@ class OrgTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
+        $expected = [
+            'id'             => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+            'name'           => 'org1',
+            'locale'         => 'en',
+            'website_url'    => 'https://www.example.com',
+            'email'          => 'test@example.com',
+            'analytics_code' => 'analytics_code',
+            'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+            'timezone'       => 'Europe/London',
+            'currency'       => [
+                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                'name' => 'currency1',
+                'code' => 'CUR',
+            ],
+            'branding'       => [
+                'logo_url' => 'https://www.example.com/logo.png',
+            ],
+            'kpi'            => null,
+            'headquarter'    => null,
+        ];
+
         return (new MergeDataProvider([
             'any'        => new CompositeDataProvider(
                 new UnknownOrgDataProvider(),
@@ -203,232 +235,62 @@ class OrgTest extends TestCase {
                 new ArrayDataProvider([
                     'org' => [
                         new UnknownValue(),
-                        static function (TestCase $test): ?ModelsOrganization {
-                            $currency     = Currency::factory()->create([
+                        static function (): Organization {
+                            $currency = Currency::factory()->create([
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ]);
-                            $organization = ModelsOrganization::factory()
+                            $org      = Organization::factory()
                                 ->for($currency)
                                 ->create([
-                                    'id'                               => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                    'name'                             => 'org1',
-                                    'locale'                           => 'en',
-                                    'website_url'                      => 'https://www.example.com',
-                                    'email'                            => 'test@example.com',
-                                    'analytics_code'                   => 'analytics_code',
-                                    'branding_dark_theme'              => true,
-                                    'branding_main_color'              => '#00000F',
-                                    'branding_secondary_color'         => '#0000F0',
-                                    'branding_logo_url'                => 'https://www.example.com/logo.png',
-                                    'branding_favicon_url'             => 'https://www.example.com/favicon.png',
-                                    'branding_default_main_color'      => '#000F00',
-                                    'branding_default_secondary_color' => '#00F000',
-                                    'branding_default_logo_url'        => 'https://www.example.com/logo-default.png',
-                                    'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
-                                    'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
-                                    'branding_dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                                    'branding_welcome_heading'         => new TranslatedString([
-                                        'en_GB' => 'heading',
-                                    ]),
-                                    'branding_welcome_underline'       => new TranslatedString([
-                                        'en_GB' => 'underline',
-                                    ]),
-                                    'timezone'                         => 'Europe/London',
-                                    'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
+                                    'id'                => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                    'name'              => 'org1',
+                                    'locale'            => 'en',
+                                    'website_url'       => 'https://www.example.com',
+                                    'email'             => 'test@example.com',
+                                    'analytics_code'    => 'analytics_code',
+                                    'branding_logo_url' => 'https://www.example.com/logo.png',
+                                    'timezone'          => 'Europe/London',
                                 ]);
 
-                            return $organization;
+                            return $org;
                         },
                     ],
                 ]),
                 new UnknownUserDataProvider(),
                 new ArrayDataProvider([
-                    'ok'   => [
-                        new GraphQLSuccess('org', [
-                            'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name'            => 'org1',
-                            'root'            => false,
-                            'locale'          => 'en',
-                            'website_url'     => 'https://www.example.com',
-                            'email'           => 'test@example.com',
-                            'analytics_code'  => 'analytics_code',
-                            'currency_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            'timezone'        => 'Europe/London',
-                            'currency'        => [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                                'name' => 'currency1',
-                                'code' => 'CUR',
+                    'unknown'  => [
+                        new GraphQLSuccess('org', $expected),
+                        null,
+                        null,
+                    ],
+                    'reseller' => [
+                        new GraphQLSuccess('org', array_merge($expected, [
+                            'kpi'         => [
+                                'assets_total' => 1,
                             ],
-                            'locations_count' => 1,
-                            'locations'       => [
-                                [
-                                    'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'location'    => [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => 47.91634204,
-                                        'longitude' => -2.26318359,
-                                    ],
-                                    'types'       => [
-                                        [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                            'name' => 'headquarter',
-                                        ],
-                                    ],
-                                ],
+                            'headquarter' => [
+                                'location_id' => '1afffd34-de59-48e0-9689-57be151af10c',
                             ],
-                            'contacts_count'  => 1,
-                            'contacts'        => [
-                                [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ],
-                            ],
-                            'headquarter'     => [
-                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'location'    => [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => 47.91634204,
-                                    'longitude' => -2.26318359,
-                                ],
-                                'types'       => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'headquarter',
-                                    ],
-                                ],
-                            ],
-                            'branding'        => [
-                                'dark_theme'              => true,
-                                'main_color'              => '#00000F',
-                                'secondary_color'         => '#0000F0',
-                                'logo_url'                => 'https://www.example.com/logo.png',
-                                'favicon_url'             => 'https://www.example.com/favicon.png',
-                                'default_main_color'      => '#000F00',
-                                'default_secondary_color' => '#00F000',
-                                'default_logo_url'        => 'https://www.example.com/logo-default.png',
-                                'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
-                                'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
-                                'dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                                'welcome_heading'         => [
-                                    [
-                                        'locale' => 'en_GB',
-                                        'text'   => 'heading',
-                                    ],
-                                ],
-                                'welcome_underline'       => [
-                                    [
-                                        'locale' => 'en_GB',
-                                        'text'   => 'underline',
-                                    ],
-                                ],
-                            ],
-                            'statuses'        => [
-                                [
-                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                    'key'  => 'active',
-                                    'name' => 'active',
-                                ],
-                            ],
-                            'kpi'             => [
-                                'assets_total'                        => 1,
-                                'assets_active'                       => 2,
-                                'assets_active_percent'               => 3.0,
-                                'assets_active_on_contract'           => 4,
-                                'assets_active_on_warranty'           => 5,
-                                'assets_active_exposed'               => 6,
-                                'customers_active'                    => 7,
-                                'customers_active_new'                => 8,
-                                'contracts_active'                    => 9,
-                                'contracts_active_amount'             => 10.0,
-                                'contracts_active_new'                => 11,
-                                'contracts_expiring'                  => 12,
-                                'contracts_expired'                   => 13,
-                                'quotes_active'                       => 14,
-                                'quotes_active_amount'                => 15.0,
-                                'quotes_active_new'                   => 16,
-                                'quotes_expiring'                     => 17,
-                                'quotes_expired'                      => 18,
-                                'quotes_ordered'                      => 19,
-                                'quotes_accepted'                     => 20,
-                                'quotes_requested'                    => 21,
-                                'quotes_received'                     => 22,
-                                'quotes_rejected'                     => 23,
-                                'quotes_awaiting'                     => 24,
-                                'service_revenue_total_amount'        => 25.0,
-                                'service_revenue_total_amount_change' => 26.0,
-                            ],
-                        ]),
+                        ])),
                         [
                             'ep.headquarter_type' => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
-                        false,
-                        static function (TestCase $test, ModelsOrganization $organization): void {
+                        static function (TestCase $test, Organization $org): void {
                             $kpi      = Kpi::factory()->create([
-                                'assets_total'                        => 1,
-                                'assets_active'                       => 2,
-                                'assets_active_percent'               => 3.0,
-                                'assets_active_on_contract'           => 4,
-                                'assets_active_on_warranty'           => 5,
-                                'assets_active_exposed'               => 6,
-                                'customers_active'                    => 7,
-                                'customers_active_new'                => 8,
-                                'contracts_active'                    => 9,
-                                'contracts_active_amount'             => 10.0,
-                                'contracts_active_new'                => 11,
-                                'contracts_expiring'                  => 12,
-                                'contracts_expired'                   => 13,
-                                'quotes_active'                       => 14,
-                                'quotes_active_amount'                => 15.0,
-                                'quotes_active_new'                   => 16,
-                                'quotes_expiring'                     => 17,
-                                'quotes_expired'                      => 18,
-                                'quotes_ordered'                      => 19,
-                                'quotes_accepted'                     => 20,
-                                'quotes_requested'                    => 21,
-                                'quotes_received'                     => 22,
-                                'quotes_rejected'                     => 23,
-                                'quotes_awaiting'                     => 24,
-                                'service_revenue_total_amount'        => 25.0,
-                                'service_revenue_total_amount_change' => 26.0,
+                                'assets_total' => 1,
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'     => $org->getKey(),
+                                'kpi_id' => $kpi,
                             ]);
                             $location = Location::factory()->create([
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => '47.91634204',
-                                'longitude' => '-2.26318359',
+                                'id' => '1afffd34-de59-48e0-9689-57be151af10c',
                             ]);
-                            $reseller = Reseller::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->hasStatuses(1, [
-                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                    'name'        => 'active',
-                                    'key'         => 'active',
-                                    'object_type' => (new Reseller())->getMorphClass(),
-                                ])
-                                ->create([
-                                    'id'     => $organization->getKey(),
-                                    'kpi_id' => $kpi,
-                                ]);
+
                             ResellerLocation::factory()
                                 ->hasTypes(1, [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -438,18 +300,37 @@ class OrgTest extends TestCase {
                                     'reseller_id' => $reseller,
                                     'location_id' => $location,
                                 ]);
-
-                            $location->resellers()->attach($reseller);
                         },
-                    ],
-                    'root' => [
-                        new GraphQLSuccess('org', new JsonFragment('root', true)),
-                        [],
-                        true,
                     ],
                 ]),
             ),
         ]))->getData();
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function dataProviderOrganization(): array {
+        return (new CompositeDataProvider(
+            new ArrayDataProvider([
+                'org' => [
+                    new UnknownValue(),
+                    new OrganizationProvider('e0244b6d-35b0-4e15-9e38-6478a1e98eb1'),
+                ],
+            ]),
+            new OrgUserDataProvider('org', [
+                'org-administer',
+            ]),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess('org', [
+                        'organization' => [
+                            'id' => 'e0244b6d-35b0-4e15-9e38-6478a1e98eb1',
+                        ],
+                    ]),
+                ],
+            ]),
+        ))->getData();
     }
     // </editor-fold>
 }

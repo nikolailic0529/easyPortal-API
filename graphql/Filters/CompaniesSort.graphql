@@ -1,9 +1,9 @@
-input CustomersSort {
+input CompaniesSort {
     name: String!
     locations_count: Int!
     contacts_count: Int!
     assets_count: Int! @orgProperty
     quotes_count: Int! @orgProperty
     contracts_count: Int! @orgProperty
-    headquarter: CustomerLocationsSort!
+    headquarter: CompanyLocationsSort!
 }

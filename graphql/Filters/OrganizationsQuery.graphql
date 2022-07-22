@@ -3,8 +3,5 @@ input OrganizationsQuery {
     name: String!
     website_url: Url
     email: Email
-    statuses: StatusesQuery
-    contacts: ContactsQuery
-    locations: ResellerLocationsQuery
-    headquarter: ResellerLocationsQuery
+    company: CompaniesQuery
 }

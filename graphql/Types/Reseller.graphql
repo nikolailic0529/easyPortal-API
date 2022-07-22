@@ -1,14 +1,61 @@
-type Reseller {
+type Reseller implements Company {
+    # Company
+    # ==========================================================================
     id: ID!
     name: String!
-    assets_count: Int!
-    customers_count: Int!
-    headquarter: ResellerLocation @relation
+    changed_at: DateTime
+    synced_at: DateTime!
+    statuses: [Status!]! @relation
+    kpi: Kpi @orgRelation
+
+    # https://github.com/LastDragon-ru/lara-asp/issues/15
+    # ==========================================================================
+    # Contacts
+    contacts_count: Int!
+    contacts (
+        where: ContactsQuery @searchBy
+        order: ContactsSort @sortBy
+    ): [Contact!]! @relation
+
+    # Locations
+    headquarter: CompanyLocation @relation
 
     locations_count: Int!
     locations(
-        where: ResellerLocationsQuery @searchBy
-        order: ResellerLocationsSort @sortBy
-    ): [ResellerLocation!]!
+        where: CompanyLocationsQuery @searchBy
+        order: CompanyLocationsSort @sortBy
+    ): [CompanyLocation!]!
     @relation
+
+    # Contracts
+    contracts (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @authMe(permissions: ["contracts-view"])
+    @relation
+    @paginatedRelation
+
+    # Quotes
+    quotes (
+        where: DocumentsQuery @searchBy
+        order: DocumentsSort @sortBy
+    ): [Document!]!
+    @authMe(permissions: ["quotes-view"])
+    @relation
+    @paginatedRelation
+
+    # Assets
+    assets_count: Int! @orgProperty
+    assets(
+        where: AssetsQuery @searchBy
+        order: AssetsSort @sortBy
+    ): [Asset!]!
+    @authMe(permissions: ["assets-view"])
+    @relation
+    @paginatedRelation
+
+    # Properties
+    # ==========================================================================
+    customers_count: Int!
 }

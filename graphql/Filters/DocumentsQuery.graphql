@@ -8,9 +8,9 @@ input DocumentsQuery {
     currency_id: ID
     language_id: ID
     customer_id: ID
-    customer: CustomersQuery
+    customer: CompaniesQuery
     reseller_id: ID
-    reseller: ResellersQuery
+    reseller: CompaniesQuery
     distributor_id: ID
     distributor: DistributorsQuery
     entries: DocumentEntriesQuery

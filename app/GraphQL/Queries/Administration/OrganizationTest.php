@@ -4,10 +4,8 @@ namespace App\GraphQL\Queries\Administration;
 
 use App\Models\Currency;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\ResellerLocation;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
@@ -23,7 +21,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
 use function json_encode;
@@ -34,7 +31,6 @@ use function json_encode;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
  */
 class OrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -46,20 +42,16 @@ class OrganizationTest extends TestCase {
      *
      * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
      */
     public function testQuery(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
-
-        $this->setSettings($settingsFactory);
 
         $organizationId = 'wrong';
         if ($prepare) {
@@ -68,7 +60,9 @@ class OrganizationTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
                 query organization($id: ID!){
                     organization(id: $id) {
                         id
@@ -84,23 +78,6 @@ class OrganizationTest extends TestCase {
                             id
                             name
                             code
-                        }
-                        locations_count
-                        locations {
-                            location_id
-                            location {
-                                id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
-                            }
-                            types {
-                                id
-                                name
-                            }
                         }
                         branding {
                             dark_theme
@@ -123,64 +100,52 @@ class OrganizationTest extends TestCase {
                             }
                             dashboard_image_url
                         }
-                        statuses {
+                        company {
                             id
-                            key
                             name
-                        }
-                        contacts_count
-                        contacts {
-                            name
-                            email
-                            phone_valid
-                        }
-                        headquarter {
-                            location_id
-                            location {
+                            statuses {
                                 id
-                                state
-                                postcode
-                                line_one
-                                line_two
-                                latitude
-                                longitude
-                            }
-                            types {
-                                id
+                                key
                                 name
                             }
-                        }
-                        kpi {
-                            assets_total
-                            assets_active
-                            assets_active_percent
-                            assets_active_on_contract
-                            assets_active_on_warranty
-                            assets_active_exposed
-                            customers_active
-                            customers_active_new
-                            contracts_active
-                            contracts_active_amount
-                            contracts_active_new
-                            contracts_expiring
-                            contracts_expired
-                            quotes_active
-                            quotes_active_amount
-                            quotes_active_new
-                            quotes_expiring
-                            quotes_expired
-                            quotes_ordered
-                            quotes_accepted
-                            quotes_requested
-                            quotes_received
-                            quotes_rejected
-                            quotes_awaiting
-                            service_revenue_total_amount
-                            service_revenue_total_amount_change
+                            kpi {
+                                assets_total
+                                assets_active
+                                assets_active_percent
+                                assets_active_on_contract
+                                assets_active_on_warranty
+                                assets_active_exposed
+                                customers_active
+                                customers_active_new
+                                contracts_active
+                                contracts_active_amount
+                                contracts_active_new
+                                contracts_expiring
+                                contracts_expired
+                                quotes_active
+                                quotes_active_amount
+                                quotes_active_new
+                                quotes_expiring
+                                quotes_expired
+                                quotes_ordered
+                                quotes_accepted
+                                quotes_requested
+                                quotes_received
+                                quotes_rejected
+                                quotes_awaiting
+                                service_revenue_total_amount
+                                service_revenue_total_amount_change
+                            }
+                            changed_at
+                            synced_at
                         }
                     }
                 }
-            ', ['id' => $organizationId])->assertThat($expected);
+                GRAPHQL,
+                [
+                    'id' => $organizationId,
+                ],
+            )->assertThat($expected);
     }
 
     /**
@@ -308,7 +273,9 @@ class OrganizationTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
                 query organization($id: ID!){
                     organization(id: $id) {
                         audits {
@@ -326,7 +293,12 @@ class OrganizationTest extends TestCase {
                         }
                     }
                 }
-            ', ['id' => $organizationId])->assertThat($expected);
+                GRAPHQL,
+                [
+                    'id' => $organizationId,
+                ],
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -336,184 +308,176 @@ class OrganizationTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
+        $expected = [
+            'id'             => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+            'name'           => 'org',
+            'root'           => false,
+            'locale'         => 'en',
+            'website_url'    => 'https://www.example.com',
+            'email'          => 'test@example.com',
+            'analytics_code' => 'analytics_code',
+            'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+            'timezone'       => 'Europe/London',
+            'currency'       => [
+                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                'name' => 'currency1',
+                'code' => 'CUR',
+            ],
+            'branding'       => [
+                'dark_theme'              => true,
+                'main_color'              => '#00000F',
+                'secondary_color'         => '#0000F0',
+                'logo_url'                => 'https://www.example.com/logo.png',
+                'favicon_url'             => 'https://www.example.com/favicon.png',
+                'default_main_color'      => '#000F00',
+                'default_secondary_color' => '#00F000',
+                'default_logo_url'        => 'https://www.example.com/logo-default.png',
+                'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
+                'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                'dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
+                'welcome_heading'         => [
+                    [
+                        'locale' => 'en_GB',
+                        'text'   => 'heading',
+                    ],
+                ],
+                'welcome_underline'       => [
+                    [
+                        'locale' => 'en_GB',
+                        'text'   => 'underline',
+                    ],
+                ],
+            ],
+            'company'        => [
+                'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                'name'       => 'org',
+                'statuses'   => [
+                    [
+                        'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                        'key'  => 'active',
+                        'name' => 'active',
+                    ],
+                ],
+                'kpi'        => [
+                    'assets_total'                        => 1,
+                    'assets_active'                       => 2,
+                    'assets_active_percent'               => 3.0,
+                    'assets_active_on_contract'           => 4,
+                    'assets_active_on_warranty'           => 5,
+                    'assets_active_exposed'               => 6,
+                    'customers_active'                    => 7,
+                    'customers_active_new'                => 8,
+                    'contracts_active'                    => 9,
+                    'contracts_active_amount'             => 10.0,
+                    'contracts_active_new'                => 11,
+                    'contracts_expiring'                  => 12,
+                    'contracts_expired'                   => 13,
+                    'quotes_active'                       => 14,
+                    'quotes_active_amount'                => 15.0,
+                    'quotes_active_new'                   => 16,
+                    'quotes_expiring'                     => 17,
+                    'quotes_expired'                      => 18,
+                    'quotes_ordered'                      => 19,
+                    'quotes_accepted'                     => 20,
+                    'quotes_requested'                    => 21,
+                    'quotes_received'                     => 22,
+                    'quotes_rejected'                     => 23,
+                    'quotes_awaiting'                     => 24,
+                    'service_revenue_total_amount'        => 25.0,
+                    'service_revenue_total_amount_change' => 26.0,
+                ],
+                'changed_at' => '2021-10-19T10:15:00+00:00',
+                'synced_at'  => '2021-10-19T10:25:00+00:00',
+            ],
+        ];
+
+        /**
+         * @param Closure(Kpi): Reseller $companyFactory
+         */
+        $factory = static function (Closure $companyFactory): Closure {
+            return static function () use ($companyFactory): Organization {
+                $kpi      = Kpi::factory()->create([
+                    'assets_total'                        => 1,
+                    'assets_active'                       => 2,
+                    'assets_active_percent'               => 3.0,
+                    'assets_active_on_contract'           => 4,
+                    'assets_active_on_warranty'           => 5,
+                    'assets_active_exposed'               => 6,
+                    'customers_active'                    => 7,
+                    'customers_active_new'                => 8,
+                    'contracts_active'                    => 9,
+                    'contracts_active_amount'             => 10.0,
+                    'contracts_active_new'                => 11,
+                    'contracts_expiring'                  => 12,
+                    'contracts_expired'                   => 13,
+                    'quotes_active'                       => 14,
+                    'quotes_active_amount'                => 15.0,
+                    'quotes_active_new'                   => 16,
+                    'quotes_expiring'                     => 17,
+                    'quotes_expired'                      => 18,
+                    'quotes_ordered'                      => 19,
+                    'quotes_accepted'                     => 20,
+                    'quotes_requested'                    => 21,
+                    'quotes_received'                     => 22,
+                    'quotes_rejected'                     => 23,
+                    'quotes_awaiting'                     => 24,
+                    'service_revenue_total_amount'        => 25.0,
+                    'service_revenue_total_amount_change' => 26.0,
+                ]);
+                $currency = Currency::factory()->create([
+                    'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                    'name' => 'currency1',
+                    'code' => 'CUR',
+                ]);
+                $company  = $companyFactory($kpi);
+
+                $organization = Organization::factory()
+                    ->for($currency)
+                    ->hasRoles(1, [
+                        'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
+                        'name' => 'role1',
+                    ])
+                    ->create([
+                        'id'                               => $company,
+                        'name'                             => $company->name,
+                        'locale'                           => 'en',
+                        'website_url'                      => 'https://www.example.com',
+                        'email'                            => 'test@example.com',
+                        'analytics_code'                   => 'analytics_code',
+                        'branding_dark_theme'              => true,
+                        'branding_main_color'              => '#00000F',
+                        'branding_secondary_color'         => '#0000F0',
+                        'branding_logo_url'                => 'https://www.example.com/logo.png',
+                        'branding_favicon_url'             => 'https://www.example.com/favicon.png',
+                        'branding_default_main_color'      => '#000F00',
+                        'branding_default_secondary_color' => '#00F000',
+                        'branding_default_logo_url'        => 'https://www.example.com/logo-default.png',
+                        'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
+                        'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                        'branding_dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
+                        'branding_welcome_heading'         => new TranslatedString([
+                            'en_GB' => 'heading',
+                        ]),
+                        'branding_welcome_underline'       => new TranslatedString([
+                            'en_GB' => 'underline',
+                        ]),
+                        'timezone'                         => 'Europe/London',
+                        'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
+                    ]);
+
+                return $organization;
+            };
+        };
+
         return (new CompositeDataProvider(
             new AuthOrgRootDataProvider('organization'),
             new OrgUserDataProvider('organization', [
                 'administer',
             ]),
             new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('organization', [
-                        'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                        'name'            => 'org1',
-                        'root'            => false,
-                        'locale'          => 'en',
-                        'website_url'     => 'https://www.example.com',
-                        'email'           => 'test@example.com',
-                        'analytics_code'  => 'analytics_code',
-                        'currency_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                        'timezone'        => 'Europe/London',
-                        'currency'        => [
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            'name' => 'currency1',
-                            'code' => 'CUR',
-                        ],
-                        'locations_count' => 1,
-                        'locations'       => [
-                            [
-                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'location'    => [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => 47.91634204,
-                                    'longitude' => -2.26318359,
-                                ],
-                                'types'       => [
-                                    [
-                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'name' => 'headquarter',
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'contacts_count'  => 1,
-                        'contacts'        => [
-                            [
-                                'name'        => 'contact1',
-                                'email'       => 'contact1@test.com',
-                                'phone_valid' => false,
-                            ],
-                        ],
-                        'headquarter'     => [
-                            'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'location'    => [
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => 47.91634204,
-                                'longitude' => -2.26318359,
-                            ],
-                            'types'       => [
-                                [
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'name' => 'headquarter',
-                                ],
-                            ],
-                        ],
-                        'branding'        => [
-                            'dark_theme'              => true,
-                            'main_color'              => '#00000F',
-                            'secondary_color'         => '#0000F0',
-                            'logo_url'                => 'https://www.example.com/logo.png',
-                            'favicon_url'             => 'https://www.example.com/favicon.png',
-                            'default_main_color'      => '#000F00',
-                            'default_secondary_color' => '#00F000',
-                            'default_logo_url'        => 'https://www.example.com/logo-default.png',
-                            'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
-                            'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
-                            'dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                            'welcome_heading'         => [
-                                [
-                                    'locale' => 'en_GB',
-                                    'text'   => 'heading',
-                                ],
-                            ],
-                            'welcome_underline'       => [
-                                [
-                                    'locale' => 'en_GB',
-                                    'text'   => 'underline',
-                                ],
-                            ],
-                        ],
-                        'statuses'        => [
-                            [
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                'key'  => 'active',
-                                'name' => 'active',
-                            ],
-                        ],
-                        'kpi'             => [
-                            'assets_total'                        => 1,
-                            'assets_active'                       => 2,
-                            'assets_active_percent'               => 3.0,
-                            'assets_active_on_contract'           => 4,
-                            'assets_active_on_warranty'           => 5,
-                            'assets_active_exposed'               => 6,
-                            'customers_active'                    => 7,
-                            'customers_active_new'                => 8,
-                            'contracts_active'                    => 9,
-                            'contracts_active_amount'             => 10.0,
-                            'contracts_active_new'                => 11,
-                            'contracts_expiring'                  => 12,
-                            'contracts_expired'                   => 13,
-                            'quotes_active'                       => 14,
-                            'quotes_active_amount'                => 15.0,
-                            'quotes_active_new'                   => 16,
-                            'quotes_expiring'                     => 17,
-                            'quotes_expired'                      => 18,
-                            'quotes_ordered'                      => 19,
-                            'quotes_accepted'                     => 20,
-                            'quotes_requested'                    => 21,
-                            'quotes_received'                     => 22,
-                            'quotes_rejected'                     => 23,
-                            'quotes_awaiting'                     => 24,
-                            'service_revenue_total_amount'        => 25.0,
-                            'service_revenue_total_amount_change' => 26.0,
-                        ],
-                    ]),
-                    [
-                        'ep.headquarter_type' => [
-                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                        ],
-                    ],
-                    static function (TestCase $test, ?Organization $organization, ?User $user): Organization {
-                        $kpi      = Kpi::factory()->create([
-                            'assets_total'                        => 1,
-                            'assets_active'                       => 2,
-                            'assets_active_percent'               => 3.0,
-                            'assets_active_on_contract'           => 4,
-                            'assets_active_on_warranty'           => 5,
-                            'assets_active_exposed'               => 6,
-                            'customers_active'                    => 7,
-                            'customers_active_new'                => 8,
-                            'contracts_active'                    => 9,
-                            'contracts_active_amount'             => 10.0,
-                            'contracts_active_new'                => 11,
-                            'contracts_expiring'                  => 12,
-                            'contracts_expired'                   => 13,
-                            'quotes_active'                       => 14,
-                            'quotes_active_amount'                => 15.0,
-                            'quotes_active_new'                   => 16,
-                            'quotes_expiring'                     => 17,
-                            'quotes_expired'                      => 18,
-                            'quotes_ordered'                      => 19,
-                            'quotes_accepted'                     => 20,
-                            'quotes_requested'                    => 21,
-                            'quotes_received'                     => 22,
-                            'quotes_rejected'                     => 23,
-                            'quotes_awaiting'                     => 24,
-                            'service_revenue_total_amount'        => 25.0,
-                            'service_revenue_total_amount_change' => 26.0,
-                        ]);
-                        $currency = Currency::factory()->create([
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            'name' => 'currency1',
-                            'code' => 'CUR',
-                        ]);
-                        $location = Location::factory()->create([
-                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'state'     => 'state1',
-                            'postcode'  => '19911',
-                            'line_one'  => 'line_one_data',
-                            'line_two'  => 'line_two_data',
-                            'latitude'  => '47.91634204',
-                            'longitude' => '-2.26318359',
-                        ]);
+                'reseller' => [
+                    new GraphQLSuccess('organization', $expected),
+                    $factory(static function (Kpi $kpi): Reseller {
                         $reseller = Reseller::factory()
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
@@ -527,56 +491,17 @@ class OrganizationTest extends TestCase {
                                 'object_type' => (new Reseller())->getMorphClass(),
                             ])
                             ->create([
-                                'id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'kpi_id' => $kpi,
+                                'id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'name'            => 'org',
+                                'kpi_id'          => $kpi,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
+                                'contacts_count'  => 1,
+                                'locations_count' => 1,
                             ]);
 
-                        ResellerLocation::factory()
-                            ->hasTypes(1, [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'headquarter',
-                            ])
-                            ->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $location,
-                            ]);
-
-                        $organization = Organization::factory()
-                            ->for($currency)
-                            ->hasRoles(1, [
-                                'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
-                                'name' => 'role1',
-                            ])
-                            ->create([
-                                'id'                               => $reseller->getKey(),
-                                'name'                             => 'org1',
-                                'locale'                           => 'en',
-                                'website_url'                      => 'https://www.example.com',
-                                'email'                            => 'test@example.com',
-                                'analytics_code'                   => 'analytics_code',
-                                'branding_dark_theme'              => true,
-                                'branding_main_color'              => '#00000F',
-                                'branding_secondary_color'         => '#0000F0',
-                                'branding_logo_url'                => 'https://www.example.com/logo.png',
-                                'branding_favicon_url'             => 'https://www.example.com/favicon.png',
-                                'branding_default_main_color'      => '#000F00',
-                                'branding_default_secondary_color' => '#00F000',
-                                'branding_default_logo_url'        => 'https://www.example.com/logo-default.png',
-                                'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
-                                'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
-                                'branding_dashboard_image_url'     => 'https://www.example.com/dashboard-image.png',
-                                'branding_welcome_heading'         => new TranslatedString([
-                                    'en_GB' => 'heading',
-                                ]),
-                                'branding_welcome_underline'       => new TranslatedString([
-                                    'en_GB' => 'underline',
-                                ]),
-                                'timezone'                         => 'Europe/London',
-                                'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
-                            ]);
-
-                        return $organization;
-                    },
+                        return $reseller;
+                    }),
                 ],
             ]),
         ))->getData();
