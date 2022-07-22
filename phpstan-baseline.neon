@@ -1256,26 +1256,6 @@ parameters:
 			path: app/GraphQL/Mutations/Document/SyncTest.php
 
 		-
-			message: "#^Cannot access offset 'file' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOems.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\ImportOemsTest\\:\\:testInvoke\\(\\) has parameter \\$expected with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$constraint of method Illuminate\\\\Testing\\\\TestResponse\\:\\:assertThat\\(\\) expects PHPUnit\\\\Framework\\\\Constraint\\\\Constraint, array\\|LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\Response\\\\Response given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$files of method Tests\\\\TestCase\\:\\:multipartGraphQL\\(\\) expects array\\<array\\|Illuminate\\\\Http\\\\Testing\\\\File\\>, array\\<int, Illuminate\\\\Http\\\\UploadedFile\\> given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/ImportOemsTest.php
-
-		-
 			message: "#^Cannot access offset 'conditions' on mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Me/CreateMeSearch.php

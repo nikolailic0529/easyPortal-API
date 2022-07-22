@@ -168,7 +168,6 @@
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
     "graphql.mutations.org.role.delete.impossible_assigned_to_users": "Impossible to delete the role because it is assigned to the user(s).",
     "graphql.mutations.organization.user.invite.impossible_keycloak_user_disabled": "Impossible to invite the user because it is disabled.",
-    "graphql.mutations.importOems.import_failed": "Import failed.",
     "graphql.mutations.oem.hpe.import.import_failed": "Import failed.",
     "graphql.directives.@mutation.object_not_found": ":object not found",
     "graphql.directives.@mutation.invalid_context": "Mutation cannot be called due to invalid context.",

@@ -112,13 +112,6 @@ input DispatchApplicationServiceInput {
     name: String!
 }
 
-input ImportOemsInput {
-    file: Upload!
-    @rules(
-        apply: ["App\\Rules\\Spreadsheet"]
-    )
-}
-
 input LocaleImportInput {
     """
     XLSX file with translation strings. The first row can contains headers
@@ -6822,10 +6815,6 @@ type File {
     url: Url!
 }
 
-type ImportOemsPayload {
-    result: Boolean!
-}
-
 type Invitation {
     email: Email!
     expired_at: DateTime!
@@ -7332,21 +7321,6 @@ type Mutation {
     @field(
         resolver: "App\\GraphQL\\Mutations\\Application\\DispatchApplicationService"
     )
-
-    """
-    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
-    the organization must be a root organization.
-
-    @require <authRoot> Authenticated user must be a root.
-    """
-    importOems(
-        input: ImportOemsInput!
-    ): ImportOemsPayload
-    @deprecated(
-        reason: "Please use `mutation { oem { hpe { import } } }`."
-    )
-    @authOrgRoot
-    @authRoot
 
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
