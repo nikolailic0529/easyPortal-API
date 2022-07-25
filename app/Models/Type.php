@@ -22,19 +22,20 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 /**
  * Type.
  *
- * @property string                         $id
- * @property string                         $object_type
- * @property string                         $key
- * @property string                         $name
- * @property CarbonImmutable                $created_at
- * @property CarbonImmutable                $updated_at
- * @property CarbonImmutable|null           $deleted_at
- * @property-read Collection<int, Asset>    $assets
- * @property-read Collection<int, Contact>  $contacts
- * @property Collection<int, Document>      $contracts
- * @property-read Collection<int, Customer> $customers
- * @property-read Collection<int, Location> $locations
- * @property-read Collection<int, Document> $quotes
+ * @property string                                 $id
+ * @property string                                 $object_type
+ * @property string                                 $key
+ * @property string                                 $name
+ * @property CarbonImmutable                        $created_at
+ * @property CarbonImmutable                        $updated_at
+ * @property CarbonImmutable|null                   $deleted_at
+ * @property-read Collection<int, Asset>            $assets
+ * @property-read Collection<int, Contact>          $contacts
+ * @property-read Collection<int, Document>         $contracts
+ * @property-read Collection<int, Customer>         $customers
+ * @property-read Collection<int, CustomerLocation> $customerLocations
+ * @property-read Collection<int, Location>         $locations
+ * @property-read Collection<int, Document>         $quotes
  * @method static TypeFactory factory(...$parameters)
  * @method static Builder|Type newModelQuery()
  * @method static Builder|Type newQuery()
@@ -91,7 +92,24 @@ class Type extends PolymorphicModel implements Translatable {
         );
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return BelongsToMany<CustomerLocation>
+     */
+    #[CascadeDelete(false)]
+    public function customerLocations(): BelongsToMany {
+        $pivot = new CustomerLocationType();
+
+        return $this
+            ->belongsToMany(CustomerLocation::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @return BelongsToMany<Contact>
+     */
+    #[CascadeDelete(false)]
     public function contacts(): BelongsToMany {
         $pivot = new ContactType();
 
