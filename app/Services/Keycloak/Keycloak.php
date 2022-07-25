@@ -128,15 +128,26 @@ class Keycloak {
             // empty
         }
 
+        // Token?
+        $token = null;
+
+        try {
+            $accessToken = $this->getToken();
+            $token       = $accessToken && (!$accessToken->getExpires() || !$accessToken->hasExpired())
+                ? $accessToken
+                : null;
+        } catch (Exception) {
+            $this->forgetToken();
+        }
+
         // First we try to sign out without redirect
-        $token      = null;
         $successful = false;
 
         try {
-            $token      = $this->getToken();
             $successful = $provider && $token && $provider->signOut($token);
         } catch (Exception $exception) {
             $this->handler->report($exception);
+            $this->forgetToken();
         }
 
         // Next we destroy the active session
