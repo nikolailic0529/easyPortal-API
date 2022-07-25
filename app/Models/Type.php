@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
  * Type.
@@ -69,27 +68,6 @@ class Type extends PolymorphicModel implements Translatable {
      */
     protected function getTranslatableProperties(): array {
         return ['name'];
-    }
-
-    #[CascadeDelete(false)]
-    public function locations(): HasManyDeep {
-        return $this->hasManyDeep(
-            Location::class,
-            [
-                CustomerLocationType::class,
-                CustomerLocation::class,
-            ],
-            [
-                null,
-                null,
-                'id',
-            ],
-            [
-                null,
-                null,
-                'location_id',
-            ],
-        );
     }
 
     /**
