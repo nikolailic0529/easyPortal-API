@@ -17,24 +17,24 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 /**
  * Type.
  *
- * @property string                         $id
- * @property string                         $object_type
- * @property string                         $key
- * @property string                         $name
- * @property CarbonImmutable                $created_at
- * @property CarbonImmutable                $updated_at
- * @property CarbonImmutable|null           $deleted_at
- * @property-read Collection<int, Asset>    $assets
- * @property-read Collection<int, Contact>  $contacts
- * @property Collection<int, Document>      $contracts
- * @property-read Collection<int, Customer> $customers
- * @property-read Collection<int, Location> $locations
- * @property-read Collection<int, Document> $quotes
+ * @property string                                 $id
+ * @property string                                 $object_type
+ * @property string                                 $key
+ * @property string                                 $name
+ * @property CarbonImmutable                        $created_at
+ * @property CarbonImmutable                        $updated_at
+ * @property CarbonImmutable|null                   $deleted_at
+ * @property-read Collection<int, Asset>            $assets
+ * @property-read Collection<int, Contact>          $contacts
+ * @property-read Collection<int, Document>         $contracts
+ * @property-read Collection<int, Customer>         $customers
+ * @property-read Collection<int, CustomerLocation> $customerLocations
+ * @property-read Collection<int, Location>         $locations
+ * @property-read Collection<int, Document>         $quotes
  * @method static TypeFactory factory(...$parameters)
  * @method static Builder|Type newModelQuery()
  * @method static Builder|Type newQuery()
@@ -70,28 +70,24 @@ class Type extends PolymorphicModel implements Translatable {
         return ['name'];
     }
 
+    /**
+     * @return BelongsToMany<CustomerLocation>
+     */
     #[CascadeDelete(false)]
-    public function locations(): HasManyDeep {
-        return $this->hasManyDeep(
-            Location::class,
-            [
-                CustomerLocationType::class,
-                CustomerLocation::class,
-            ],
-            [
-                null,
-                null,
-                'id',
-            ],
-            [
-                null,
-                null,
-                'location_id',
-            ],
-        );
+    public function customerLocations(): BelongsToMany {
+        $pivot = new CustomerLocationType();
+
+        return $this
+            ->belongsToMany(CustomerLocation::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return BelongsToMany<Contact>
+     */
+    #[CascadeDelete(false)]
     public function contacts(): BelongsToMany {
         $pivot = new ContactType();
 

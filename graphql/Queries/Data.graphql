@@ -38,15 +38,6 @@ extend type Query {
     @all
     @cached
 
-    "List of all possible location types."
-    locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
-    @authOrg
-    @authMe
-    @all(
-        builder: "App\\GraphQL\\Queries\\Data\\LocationTypes"
-    )
-    @cached
-
     "List of all possible contact types."
     contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
     @authOrg

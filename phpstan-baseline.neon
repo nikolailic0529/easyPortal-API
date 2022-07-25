@@ -2551,21 +2551,6 @@ parameters:
 			path: app/GraphQL/Queries/Data/LanguagesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\LocationTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/LocationTypes.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\LocationTypesTest\\:\\:testInvoke\\(\\) has parameter \\$localeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/LocationTypesTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\LocationTypesTest\\:\\:testInvoke\\(\\) has parameter \\$typeFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/LocationTypesTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\OemsTest\\:\\:testQuery\\(\\) has parameter \\$oemsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/OemsTest.php
@@ -5126,11 +5111,6 @@ parameters:
 			path: app/Models/Tag.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:contacts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Type\\:\\:customers\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Type.php
@@ -5148,11 +5128,6 @@ parameters:
 		-
 			message: "#^Method App\\\\Models\\\\Type\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:locations\\(\\) return type with generic class Staudenmeir\\\\EloquentHasManyDeep\\\\HasManyDeep does not specify its types\\: TRelatedModel$#"
-			count: 1
 			path: app/Models/Type.php
 
 		-
