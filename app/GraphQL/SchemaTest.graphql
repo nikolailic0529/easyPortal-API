@@ -5399,6 +5399,7 @@ type AssetMutation {
     See also:
     * `mutation { organization(id) { user { invite } }`
     * `mutation { org { user { invite } }`
+    * `query { auth { invitation } }`
 
     @require <authGuest> Current visitor must be a guest.
     """
@@ -5540,6 +5541,53 @@ type AuditsAggregated {
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+}
+
+type Auth {
+    """
+    @require <authGuest> Current visitor must be a guest.
+    """
+    invitation(
+        token: String!
+    ): AuthInvitation
+    @authGuest
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Auth\\Invitation"
+    )
+}
+
+type AuthInvitation {
+    """
+    Indicates that the Invitation is expired and cannot be used.
+    """
+    expired: Boolean!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isExpired"
+    )
+
+    """
+    Organization who sent the Invitation.
+    """
+    org: Org
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@org"
+    )
+
+    """
+    Indicates that the new Invitation was sent so this one cannot be used anymore.
+    """
+    outdated: Boolean!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isOutdated"
+    )
+
+    """
+    Indicates that the Invitation already used.
+    """
+    used: Boolean!
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isUsed"
     )
 }
 
@@ -8609,6 +8657,14 @@ type Query {
     )
     @aggregated(
         model: "App\\Models\\Audits\\Audit"
+    )
+
+    """
+    Auth data (invitations, etc).
+    """
+    auth: Auth
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\EmptyResolver"
     )
 
     """

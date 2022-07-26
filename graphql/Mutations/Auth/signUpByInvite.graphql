@@ -10,6 +10,7 @@ extend type AssetMutation {
     See also:
     * `mutation { organization(id) { user { invite } }`
     * `mutation { org { user { invite } }`
+    * `query { auth { invitation } }`
     """
     signUpByInvite(
         token: String!

@@ -157,7 +157,6 @@
     "errors.storage.file_save_failed": "Impossible to save storage file :file (disc: :disc).",
     "errors.failed_to_send_mail": "Mail service temporary unavailable.",
     "graphql.mutations.resetPassword.same_password": "Cannot use old password.",
-    "graphql.mutations.signUpByInvite.token_invalid": "Invalid invitation information.",
     "graphql.mutations.signUpByInvite.invitation_used": "Invitation already used.",
     "graphql.mutations.signUpByInvite.invitation_expired": "Invitation is expired.",
     "graphql.mutations.signUpByInvite.invitation_not_found": "Invitation not found.",

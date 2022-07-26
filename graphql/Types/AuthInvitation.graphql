@@ -1,0 +1,17 @@
+type AuthInvitation {
+    "Organization who sent the Invitation."
+    org: Org
+    @field(resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@org")
+
+    "Indicates that the Invitation already used."
+    used: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isUsed")
+
+    "Indicates that the Invitation is expired and cannot be used."
+    expired: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isExpired")
+
+    "Indicates that the new Invitation was sent so this one cannot be used anymore."
+    outdated: Boolean!
+    @field(resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isOutdated")
+}

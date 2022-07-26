@@ -21,6 +21,10 @@ type Query {
     client: Client
     @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
 
+    "Auth data (invitations, etc)."
+    auth: Auth
+    @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
     # Search
     # ============================================================================
     search(

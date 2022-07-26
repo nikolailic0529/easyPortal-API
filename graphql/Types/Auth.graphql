@@ -1,0 +1,7 @@
+type Auth {
+    invitation(
+        token: String!
+    ): AuthInvitation
+    @authGuest
+    @field(resolver: "App\\GraphQL\\Queries\\Auth\\Invitation")
+}

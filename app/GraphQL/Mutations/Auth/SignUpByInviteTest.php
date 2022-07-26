@@ -267,22 +267,6 @@ class SignUpByInviteTest extends TestCase {
                         // empty
                     },
                 ],
-                SignUpByInviteTokenInvalid::class                                         => [
-                    new GraphQLError('auth', static function (): Throwable {
-                        return new SignUpByInviteTokenInvalid('');
-                    }),
-                    null,
-                    null,
-                    static function (self $test): array {
-                        return [
-                            'token' => $test->faker->word(),
-                            'input' => null,
-                        ];
-                    },
-                    static function (): void {
-                        // empty
-                    },
-                ],
                 SignUpByInviteInvitationNotFound::class                                   => [
                     new GraphQLError('auth', static function (): Throwable {
                         return new SignUpByInviteInvitationNotFound('');

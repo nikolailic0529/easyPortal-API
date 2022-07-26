@@ -926,22 +926,12 @@ parameters:
 			path: app/GraphQL/Mutations/Auth/SignOutTest.php
 
 		-
-			message: "#^Cannot access offset 'invitation' on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
-
-		-
 			message: "#^Instanceof between App\\\\Models\\\\Organization and App\\\\Models\\\\Organization will always evaluate to true\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
 		-
 			message: "#^Instanceof between App\\\\Models\\\\User and App\\\\Models\\\\User will always evaluate to true\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
-
-		-
-			message: "#^Parameter \\#1 \\$id of class App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationNotFound constructor expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInvite.php
 
@@ -993,11 +983,6 @@ parameters:
 		-
 			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteInvitationUserNotFound given\\.$#"
 			count: 2
-			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$errors of class Tests\\\\GraphQL\\\\GraphQLError constructor expects array\\<string\\>\\|\\(Closure\\(\\)\\: array\\<string\\>\\)\\|Throwable\\|null, Closure\\(\\)\\: App\\\\GraphQL\\\\Mutations\\\\Auth\\\\SignUpByInviteTokenInvalid given\\.$#"
-			count: 1
 			path: app/GraphQL/Mutations/Auth/SignUpByInviteTest.php
 
 		-

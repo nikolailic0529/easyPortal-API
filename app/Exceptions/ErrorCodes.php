@@ -13,7 +13,6 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOrganizationNotFound
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOutdated as GraphQLSignUpByInviteInvitationOutdated;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUsed as GraphQLSignUpByInviteInvitationUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUserNotFound as GraphQLSignUpByInviteInvitationUserNotFound;
-use App\GraphQL\Mutations\Auth\SignUpByInviteTokenInvalid as GraphQLSignUpByInviteTokenInvalid;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Oem\Hpe\ImportImportFailed as GraphQLOemHpeImportImportFailed;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
@@ -66,7 +65,6 @@ class ErrorCodes {
 
         // GraphQL
         GraphQLResetPasswordSamePasswordException::class           => 'GraphQL001',
-        GraphQLSignUpByInviteTokenInvalid::class                   => 'GraphQL002',
         GraphQLSignUpByInviteInvitationUsed::class                 => 'GraphQL003',
         GraphQLUpdateMePasswordInvalidCurrentPassword::class       => 'GraphQL004',
         GraphQLResetOrgUserPasswordInvalidUser::class              => 'GraphQL005',

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\GraphQL\Mutations\Auth\Organization\SignIn;
+use App\GraphQL\Queries\Auth\Invitation as Query;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
@@ -12,14 +13,12 @@ use App\Services\Keycloak\Client\Types\Credential;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
-use Illuminate\Contracts\Encryption\DecryptException;
-use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
 
 class SignUpByInvite {
     public function __construct(
         protected Client $client,
-        protected Encrypter $encrypter,
+        protected Query $query,
         protected SignIn $signIn,
     ) {
         // empty
@@ -88,52 +87,22 @@ class SignUpByInvite {
     }
 
     protected function getInvitation(string $token): Invitation {
-        // Id
-        $id = null;
-
-        try {
-            $id = $this->encrypter->decrypt($token)['invitation'] ?? null;
-        } catch (DecryptException $exception) {
-            throw new SignUpByInviteTokenInvalid($token, $exception);
-        }
-
-        if (!$id) {
-            throw new SignUpByInviteTokenInvalid($token);
-        }
-
         // Invitation
-        /** @var Invitation|null $invitation */
-        $invitation = GlobalScopes::callWithout(
-            OwnedByScope::class,
-            static function () use ($id): ?Invitation {
-                return Invitation::query()->whereKey($id)->first();
-            },
-        );
+        $invitation = $this->query->getInvitation($token);
 
         if (!$invitation) {
-            throw new SignUpByInviteInvitationNotFound($id);
+            throw new SignUpByInviteInvitationNotFound($token);
         }
 
-        if ($invitation->used_at) {
+        if ($this->query->isUsed($invitation)) {
             throw new SignUpByInviteInvitationUsed($invitation);
         }
 
-        if ($invitation->expired_at->isPast()) {
+        if ($this->query->isExpired($invitation)) {
             throw new SignUpByInviteInvitationExpired($invitation);
         }
 
-        $last = GlobalScopes::callWithout(
-            OwnedByScope::class,
-            static function () use ($invitation): ?Invitation {
-                return Invitation::query()
-                    ->where('organization_id', '=', $invitation->organization_id)
-                    ->where('user_id', '=', $invitation->user_id)
-                    ->orderByDesc('created_at')
-                    ->first();
-            },
-        );
-
-        if (!$invitation->is($last)) {
+        if ($this->query->isOutdated($invitation)) {
             throw new SignUpByInviteInvitationOutdated($invitation);
         }
 
