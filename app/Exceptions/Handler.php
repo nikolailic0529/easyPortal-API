@@ -7,6 +7,7 @@ use App\Exceptions\Contracts\ExternalException;
 use App\Exceptions\Contracts\GenericException;
 use App\Exceptions\Contracts\TranslatedException;
 use App\Exceptions\Exceptions\FailedToSendMail;
+use App\Services\Keycloak\Exceptions\Auth\InvalidCredentials;
 use App\Services\Service;
 use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;
@@ -54,7 +55,9 @@ class Handler extends ExceptionHandler {
      *
      * @var array<int, class-string<Throwable>>
      */
-    protected $dontReport = [];
+    protected $dontReport = [
+        InvalidCredentials::class,
+    ];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
