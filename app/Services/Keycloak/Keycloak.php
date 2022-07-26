@@ -21,6 +21,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
@@ -128,23 +129,17 @@ class Keycloak {
             // empty
         }
 
-        // Token?
-        $token = null;
-
-        try {
-            $accessToken = $this->getToken();
-            $token       = $accessToken && (!$accessToken->getExpires() || !$accessToken->hasExpired())
-                ? $accessToken
-                : null;
-        } catch (Exception) {
-            $this->forgetToken();
-        }
-
         // First we try to sign out without redirect
+        $token      = null;
         $successful = false;
 
         try {
-            $successful = $provider && $token && $provider->signOut($token);
+            $token      = $this->getToken();
+            $successful = $token && $provider?->signOut($token);
+        } catch (IdentityProviderException) {
+            // Token can be expired or keycloak session is ended or etc. We are
+            // not interested about the reason -> error can be ignored.
+            $this->forgetToken();
         } catch (Exception $exception) {
             $this->handler->report($exception);
             $this->forgetToken();
