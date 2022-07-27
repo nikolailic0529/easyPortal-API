@@ -30,25 +30,25 @@
         </exclude>
     </coverage>
     <php>
-        <server name="APP_URL" value="https://example.com"/>
-        <server name="APP_ENV" value="testing"/>
-        <server name="BCRYPT_ROUNDS" value="4"/>
-        <server name="CACHE_DRIVER" value="array"/>
-        <server name="DB_DATABASE" value="testing"/>
-        <server name="MAIL_MAILER" value="array"/>
-        <server name="QUEUE_CONNECTION" value="sync"/>
-        <server name="SESSION_DRIVER" value="array"/>
-        <server name="TELESCOPE_ENABLED" value="false"/>
-        <server name="SCOUT_DRIVER" value="null"/>
-        <server name="EP_LOGGER_ENABLED" value="false"/>
-        <server name="LIGHTHOUSE_CACHE_ENABLE" value="false"/>
-        <server name="EP_LOG_EMAIL_ENABLED" value="false"/>
-        <server name="EP_LOG_SENTRY_ENABLED" value="false"/>
-        <server name="EP_CACHE_SERVICE_STORE" value="null"/>
-        <server name="EP_CACHE_GRAPHQL_STORE" value="null"/>
-        <server name="EP_DATA_LOADER_ENABLED" value="false"/>
-        <server name="EP_KEYCLOAK_ENABLED" value="false"/>
-        <server name="EP_DOCUMENT_STATUSES_HIDDEN" value="f1fa29b8-0c94-4ddc-b69c-6f87ae684989"/>
-        <server name="EP_DOCUMENT_STATUSES_NO_PRICE" value="d1265751-0595-4e2e-a257-2537b5177f78"/>
+        <env name="APP_URL" value="https://example.com"/>
+        <env name="APP_ENV" value="testing"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_DATABASE" value="testing"/>
+        <env name="MAIL_MAILER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="TELESCOPE_ENABLED" value="false"/>
+        <env name="SCOUT_DRIVER" value="null"/>
+        <env name="EP_LOGGER_ENABLED" value="false"/>
+        <env name="LIGHTHOUSE_CACHE_ENABLE" value="false"/>
+        <env name="EP_LOG_EMAIL_ENABLED" value="false"/>
+        <env name="EP_LOG_SENTRY_ENABLED" value="false"/>
+        <env name="EP_CACHE_SERVICE_STORE" value="null"/>
+        <env name="EP_CACHE_GRAPHQL_STORE" value="null"/>
+        <env name="EP_DATA_LOADER_ENABLED" value="false"/>
+        <env name="EP_KEYCLOAK_ENABLED" value="false"/>
+        <env name="EP_DOCUMENT_STATUSES_HIDDEN" value="f1fa29b8-0c94-4ddc-b69c-6f87ae684989"/>
+        <env name="EP_DOCUMENT_STATUSES_NO_PRICE" value="d1265751-0595-4e2e-a257-2537b5177f78"/>
     </php>
 </phpunit>
