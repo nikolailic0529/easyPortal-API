@@ -4,9 +4,13 @@ namespace App\Services\Settings\Types;
 
 use App\Rules\Boolean;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_BOOLEAN;
+
 class BooleanType extends Type {
     protected function fromNotNullString(string $value): bool {
-        return $value === 'true' || $value === '(true)';
+        return filter_var($value, FILTER_VALIDATE_BOOLEAN);
     }
 
     protected function toNotNullString(mixed $value): string {

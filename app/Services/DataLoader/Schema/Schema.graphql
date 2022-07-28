@@ -158,7 +158,7 @@ type Asset {
     status: String
     updatedAt: String
     vendor: String
-    vendorSpecificField: [VendorSpecificField]
+    vendorSpecificField: [AssetVendorSpecificField]
     zip: String
 }
 
@@ -174,6 +174,7 @@ type AssetDocument {
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
+    msrp: String
     netPrice: String
     productLineDescription: String
     reseller: Company
@@ -183,6 +184,10 @@ type AssetDocument {
     supportPackage: String
     supportPackageDescription: String
     warrantyEndDate: String
+}
+
+type AssetVendorSpecificField {
+    customFields: [CustomField]
 }
 
 type BrandingData {
@@ -294,6 +299,12 @@ type CoverageStatusCheck {
     coverageStatusUpdatedAt: String
 }
 
+type CustomField {
+    Id: String
+    Name: String
+    Value: String
+}
+
 type Document {
     contactPersons: [CompanyContactPerson]
     currencyCode: String
@@ -314,6 +325,7 @@ type Document {
     status: [String]
     totalNetPrice: String
     type: String
+    typeId: Int
     updatedAt: String
     vendorSpecificFields: DocumentVendorSpecificField
 }
@@ -338,10 +350,13 @@ type DocumentEntry {
 }
 
 type DocumentVendorSpecificField {
+    ampId: String
     groupDescription: String
     groupId: String
     said: String
+    sar: String
     status: String
+    statusId: Int
     totalNetPrice: String
     vendor: String
 }
@@ -571,6 +586,7 @@ type ViewAsset {
     address2: String
     assetCoverage: [String]
     assetDocument: [ViewAssetDocument]
+    assetExpireDate: String
     assetTag: String
     assetType: String
     city: String
@@ -597,13 +613,15 @@ type ViewAsset {
     status: String
     updatedAt: String
     vendor: String
-    vendorSpecificField: [VendorSpecificField]
+    vendorSpecificField: [AssetVendorSpecificField]
     zip: String
 }
 
 type ViewAssetDocument {
     currencyCode: String
     customer: ViewCompany
+    customerInvoiceDate: String
+    customerPurchaseOrderDate: String
     discount: String
     distributor: ViewCompany
     document: ViewDocument
@@ -613,9 +631,12 @@ type ViewAssetDocument {
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
+    msrp: String
     netPrice: String
     productLineDescription: String
+    quantity: Int
     reseller: ViewCompany
+    sellCurrencyCode: String
     skuDescription: String
     skuNumber: String
     startDate: String
@@ -648,6 +669,7 @@ type ViewDocument {
     resellerId: String
     sourceDocument: [SourceDocument]
     startDate: String
+    subsidiarySpecificFields: DocumentVendorSpecificField
     totalNetPrice: String
     type: String
     updatedAt: String
