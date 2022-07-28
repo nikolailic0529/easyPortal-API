@@ -215,8 +215,9 @@ abstract class TestCase extends BaseTestCase {
         $migrator = $this->app->make('migrator');
 
         return array_merge($this->databaseMigrateFreshUsing(), [
-            '--realpath' => true,
-            '--path'     => array_merge($migrator->paths(), [
+            '--schema-path' => $this->app->databasePath('testing/schema.sql'),
+            '--realpath'    => true,
+            '--path'        => array_merge($migrator->paths(), [
                 $this->app->databasePath('migrations'),
                 $this->app->databasePath('testing'),
             ]),
