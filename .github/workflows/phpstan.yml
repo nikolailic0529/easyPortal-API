@@ -1,21 +1,23 @@
 name: PHP Stan
 
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      php-version:
+        required: true
+        type: string
+      php-extensions:
+        description: "The JSON with required php extensions."
+        required: true
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  settings:
-    uses: ./.github/workflows/settings.yml
-
-  phpstan:
-    name: "Analyze"
+  analyse:
+    name: analyse
     runs-on: ubuntu-latest
-    needs:
-      - settings
 
     services:
       # Redis is required because Larastan boots Laravel app while analyse. So
@@ -41,11 +43,12 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ needs.settings.outputs.php-latest }}
-          extensions: ${{ needs.settings.outputs.extensions }}
+          php-version: ${{ inputs.php-version }}
+          extensions: ${{ join(fromJSON(inputs.php-extensions)) }}
+          coverage: none
       - name: Setup App
         run: |
-          cp .env.github .env
+          cp .github/default.env .env
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Execute

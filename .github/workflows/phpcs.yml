@@ -1,21 +1,22 @@
 name: PHP Code Sniffer
 
 on:
-  push:
-    branches:
-      - dev
-  pull_request:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      php-version:
+        required: true
+        type: string
+      php-extensions:
+        description: "The JSON with required php extensions."
+        required: true
+        type: string
+
+permissions:
+  contents: read
 
 jobs:
-  settings:
-    uses: ./.github/workflows/settings.yml
-
-  phpcs:
-    name: "Check"
+  check:
     runs-on: ubuntu-latest
-    needs:
-      - settings
     steps:
       - name: Disable core.autocrlf
         run: git config --global core.autocrlf false
@@ -24,12 +25,13 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ needs.settings.outputs.php-latest }}
-          extensions: ${{ needs.settings.outputs.extensions }}
+          php-version: ${{ inputs.php-version }}
+          extensions: ${{ join(fromJSON(inputs.php-extensions)) }}
+          coverage: none
           tools: cs2pr
       - name: Setup App
         run: |
-          cp .env.github .env
+          cp .github/default.env .env
       - name: Install dependencies
         uses: ramsey/composer-install@v2
       - name: Execute
