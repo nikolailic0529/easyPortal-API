@@ -84,7 +84,7 @@ class ContractsSearchTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test

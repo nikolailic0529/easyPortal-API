@@ -15,7 +15,7 @@ class StringNormalizer implements ValueNormalizer {
     public function normalize(mixed $value): ?string {
         if (!is_null($value)) {
             $value = (string) $value;
-            $value = preg_replace('/[\s\x00]+/ui', ' ', $value) ?: '';
+            $value = (string) preg_replace('/[\s\x00]+/ui', ' ', $value);
             $value = trim($value);
         }
 

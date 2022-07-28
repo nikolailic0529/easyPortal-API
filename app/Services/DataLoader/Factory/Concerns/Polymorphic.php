@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Type;
-use App\Services\DataLoader\Schema\Type as SchemaType;
 use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
@@ -18,19 +17,20 @@ trait Polymorphic {
     use WithType;
 
     /**
-     * @template T of \App\Utils\Eloquent\Model
-     * @template R of \App\Models\Contact|\App\Models\Location|\App\Models\CustomerLocation|\App\Models\ResellerLocation
+     * @template O of \App\Utils\Eloquent\Model
+     * @template T of \App\Services\DataLoader\Schema\Type
+     * @template M of \App\Models\Contact|\App\Models\Location|\App\Models\CustomerLocation|\App\Models\ResellerLocation
      *
-     * @param T                               $owner
-     * @param array<SchemaType>               $objects
-     * @param Closure(SchemaType): SchemaType $getType
-     * @param Closure(T, SchemaType): ?R      $factory
+     * @param O                   $owner
+     * @param array<T>            $objects
+     * @param Closure(T): ?string $getType
+     * @param Closure(O, T): ?M   $factory
      *
-     * @return Collection<array-key, R>
+     * @return Collection<array-key, M>
      */
     private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): Collection {
         // First, we should convert type into the internal model and determine its types.
-        /** @var SplObjectStorage<R, array<Type>> $models */
+        /** @var SplObjectStorage<M, array<Type>> $models */
         $models = new SplObjectStorage();
 
         foreach ($objects as $object) {
@@ -43,8 +43,9 @@ trait Polymorphic {
 
             // Type defined?
             $type = $getType($object);
+            $type = $this->getNormalizer()->string($type);
 
-            if (!$type) {
+            if ($type === null || $type === '') {
                 $models[$model] = [];
 
                 continue;
@@ -66,7 +67,7 @@ trait Polymorphic {
         }
 
         // Return
-        /** @var Collection<array-key, R> $items */
+        /** @var Collection<array-key, M> $items */
         $items = new Collection($models);
 
         return $items;

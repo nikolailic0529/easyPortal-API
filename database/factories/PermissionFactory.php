@@ -27,7 +27,7 @@ class PermissionFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid(),
-            'key'        => $this->faker->word(),
+            'key'        => $this->faker->uuid(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

@@ -73,13 +73,9 @@ class HtmlStringTest extends TestCase {
                 <p class="ql-align-right">text <em>em</em></p>
                 <p class="ql-align-justify">text <u>u</u></p>
                 <p class="ql-indent-1">text <s>s</s></p>
-                <br>
-                <ul>
-                    <li class="ql-indent-2">one</li>
+                <br><ul><li class="ql-indent-2">one</li>
                     <li>two</li>
-                </ul>
-                <ol>
-                    <li class="ql-align-right">one</li>
+                </ul><ol><li class="ql-align-right">one</li>
                     <li>two</li>
                 </ol>
                 HTML,
@@ -88,13 +84,9 @@ class HtmlStringTest extends TestCase {
                 <p class="ql-align-right">text <em>em</em></p>
                 <p class="ql-align-justify">text <u>u</u></p>
                 <p class="ql-indent-1">text <s>s</s></p>
-                <br>
-                <ul>
-                    <li class="ql-indent-2">one</li>
+                <br><ul><li class="ql-indent-2">one</li>
                     <li>two</li>
-                </ul>
-                <ol>
-                    <li class="ql-align-right">one</li>
+                </ul><ol><li class="ql-align-right">one</li>
                     <li>two</li>
                 </ol>
                 HTML,

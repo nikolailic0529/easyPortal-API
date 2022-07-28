@@ -13,7 +13,10 @@ class StringNormalizerTest extends TestCase {
      * @covers ::normalize
      */
     public function testNormalize(): void {
-        self::assertEquals('Fsfsd dsfd dSfd', (new StringNormalizer())->normalize(" Fsfsd   dsfd  \x00  dSfd\x00  "));
-        self::assertNull((new StringNormalizer())->normalize(null));
+        $normalizer = new StringNormalizer();
+
+        self::assertEquals('Fsfsd dsfd dSfd', $normalizer->normalize(" Fsfsd   dsfd  \x00  dSfd\x00  "));
+        self::assertEquals('0', $normalizer->normalize('0'));
+        self::assertNull($normalizer->normalize(null));
     }
 }

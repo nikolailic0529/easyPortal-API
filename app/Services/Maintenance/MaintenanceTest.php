@@ -392,7 +392,7 @@ class MaintenanceTest extends TestCase {
                 [
                     CronableConfig::Enabled => true,
                     CronableConfig::Cron    => ltrim((new DateTime())->add(
-                        new DateInterval('PT23H58M'),
+                        new DateInterval('PT1H'),
                     )->format('i G j n w'), '0'),
                 ],
             ],

@@ -24,6 +24,6 @@ class ServiceTest extends TestCase {
             ->keys()
             ->all();
 
-        self::assertEquals($expected, $actual);
+        self::assertEqualsCanonicalizing($expected, $actual);
     }
 }

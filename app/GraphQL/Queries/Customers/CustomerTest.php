@@ -430,7 +430,7 @@ class CustomerTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test
@@ -644,7 +644,7 @@ class CustomerTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test
@@ -2560,6 +2560,9 @@ class CustomerTest extends TestCase {
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [
                                 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
+                            ],
+                            'ep.quote_types'              => [
+                                // empty
                             ],
                         ],
                         $customerQuoteFactory,
