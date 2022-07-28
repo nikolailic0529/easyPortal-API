@@ -81,7 +81,7 @@ class QuotesTest extends TestCase {
 
         // Not empty?
         if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->count());
+            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test
@@ -682,6 +682,9 @@ class QuotesTest extends TestCase {
                             'ep.contract_types'           => [
                                 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
                             ],
+                            'ep.quote_types'              => [
+                                // empty
+                            ],
                         ],
                         $factory,
                     ],
@@ -694,6 +697,9 @@ class QuotesTest extends TestCase {
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
+                            'ep.quote_types'              => [
+                                // empty
                             ],
                         ],
                         static function (TestCase $test, Organization $organization): void {

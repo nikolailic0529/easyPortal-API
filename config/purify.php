@@ -152,8 +152,7 @@ return [
         |
         */
 
-        'AutoFormat.RemoveEmpty'   => false,
-
+        'AutoFormat.RemoveEmpty'   => true,
     ],
 
 ];

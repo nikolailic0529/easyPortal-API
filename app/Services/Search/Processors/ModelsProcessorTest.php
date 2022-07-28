@@ -22,6 +22,9 @@ class ModelsProcessorTest extends TestCase {
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
         $this->overrideUuidFactory('0b63533a-713b-4a6b-b49c-849612feb478');
+        $this->setSettings([
+            'ep.headquarter_type' => null,
+        ]);
 
         // Generate
         Customer::factory()->create([

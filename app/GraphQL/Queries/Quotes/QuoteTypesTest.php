@@ -148,6 +148,9 @@ class QuoteTypesTest extends TestCase {
                     'ep.contract_types' => [
                         'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                     ],
+                    'ep.quote_types'    => [
+                        // empty
+                    ],
                 ],
                 $translation,
                 $factory,
