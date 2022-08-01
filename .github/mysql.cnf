@@ -1,0 +1,8 @@
+# MySQL config, please see ../README.md
+
+[mysqld]
+
+character_set_server=utf8mb4
+collation_server=utf8mb4_0900_as_ci
+innodb_ft_enable_stopword=0
+ngram_token_size=2

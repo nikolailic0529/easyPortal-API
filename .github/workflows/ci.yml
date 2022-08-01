@@ -29,3 +29,11 @@ jobs:
     with:
       php-version: ${{ needs.settings.outputs.php-latest }}
       php-extensions: ${{ needs.settings.outputs.php-extensions }}
+
+  phpunit:
+    uses: ./.github/workflows/phpunit.yml
+    needs:
+      - settings
+    with:
+      php-versions: ${{ needs.settings.outputs.php-versions }}
+      php-extensions: ${{ needs.settings.outputs.php-extensions }}

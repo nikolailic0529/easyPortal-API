@@ -1,0 +1,102 @@
+name: PHP Unit
+
+on:
+  workflow_call:
+    inputs:
+      php-versions:
+        description: "The JSON with required PHP versions."
+        required: true
+        type: string
+      php-extensions:
+        description: "The JSON with required PHP extensions."
+        required: true
+        type: string
+      dependencies:
+        description: "The JSON with required dependencies versions."
+        required: false
+        type: string
+        default: '["locked"]'
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    name: PHP ${{ matrix.php }} (${{ matrix.dependencies }})
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ${{ fromJson(inputs.php-versions) }}
+        dependencies: ${{ fromJson(inputs.dependencies) }}
+
+    services:
+      mysql:
+        image: mysql:8
+        ports:
+           - 3306:3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: testing
+        options: >-
+          --name=mysql
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      redis:
+        image: redis
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd="redis-cli ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+      elastic:
+        image: elasticsearch:7.17.5
+        ports:
+          - 9200:9200
+        env:
+          discovery.type: single-node
+          ES_JAVA_OPTS: -Xms128m -Xmx256m
+        options: >-
+          --health-cmd="curl http://localhost:9200/_cluster/health"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Disable core.autocrlf
+        run: git config --global core.autocrlf false
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: ${{ join(fromJSON(inputs.php-extensions)) }}
+          ini-values: opcache.enable_cli=1
+          coverage: none
+      - name: Setup Mysql
+        run: |
+          docker cp "${{ github.workspace }}/.github/mysql.cnf" mysql:/etc/my.cnf.d/github.cnf
+          docker restart mysql
+      - name: Setup App
+        run: |
+          cp .github/default.env .env
+      - name: Install dependencies
+        uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
+      - name: Setup problem matchers
+        run: |
+          echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+          echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+      - name: Execute
+        env:
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+        run: |
+          php artisan test --parallel --recreate-databases --drop-databases
