@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth', 'organization']], static function (Router
 
     $router->post('/download/pdf', [ExportController::class, 'pdf']);
 
-    $router->get('/files/{id}', FilesController::class)->name('files');
+    $router->get('/files/{file}', FilesController::class)->name('file');
 });
 
 // This route required to be able to translate 404 page (without it the error

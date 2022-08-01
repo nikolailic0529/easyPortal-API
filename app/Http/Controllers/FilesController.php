@@ -9,7 +9,6 @@ use App\Services\Filesystem\ModelDiskFactory;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 class FilesController extends Controller {
     public function __construct(
@@ -19,14 +18,7 @@ class FilesController extends Controller {
         // empty
     }
 
-    public function __invoke(string $id): Response {
-        // Exists?
-        $file = File::whereKey($id)->first();
-
-        if (!$file) {
-            throw new NotFoundResourceException();
-        }
-
+    public function __invoke(File $file): Response {
         // Check permissions
         $object  = $file->object;
         $allowed = false;
