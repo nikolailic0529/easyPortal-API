@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use PHPUnit\Framework\Constraint\IsEqual;
 use SplFileInfo;
 use Symfony\Component\HttpFoundation\HeaderUtils;
-use Tests\ResponseTypes\XlsxContentType;
+use Tests\Constraints\ContentTypes\XlsxContentType;
 
 class XlsxAttachment extends Response {
     public function __construct(string $name, SplFileInfo|string $content = null) {
