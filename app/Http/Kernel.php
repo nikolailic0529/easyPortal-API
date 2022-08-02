@@ -2,20 +2,19 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\Auth\Guest;
+use App\Http\Middleware\Auth\Me;
+use App\Http\Middleware\Auth\Org;
+use App\Http\Middleware\Auth\OrgRoot;
+use App\Http\Middleware\Auth\Root;
 use App\Http\Middleware\EncryptCookies;
-use App\Http\Middleware\Guest;
-use App\Http\Middleware\Organization;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
 use Fruitcake\Cors\HandleCors;
-use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
-use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
-use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
@@ -83,15 +82,14 @@ class Kernel extends HttpKernel {
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
-        'auth'             => Authenticate::class,
-        'auth.basic'       => AuthenticateWithBasicAuth::class,
-        'cache.headers'    => SetCacheHeaders::class,
-        'can'              => Authorize::class,
-        'guest'            => Guest::class,
-        'password.confirm' => RequirePassword::class,
-        'signed'           => ValidateSignature::class,
-        'throttle'         => ThrottleRequests::class,
-        'verified'         => EnsureEmailIsVerified::class,
-        'organization'     => Organization::class,
+        'cache.headers' => SetCacheHeaders::class,
+        'can'           => Authorize::class,
+        'signed'        => ValidateSignature::class,
+        'throttle'      => ThrottleRequests::class,
+        'authMe'        => Me::class,
+        'authRoot'      => Root::class,
+        'authGuest'     => Guest::class,
+        'authOrg'       => Org::class,
+        'authOrgRoot'   => OrgRoot::class,
     ];
 }

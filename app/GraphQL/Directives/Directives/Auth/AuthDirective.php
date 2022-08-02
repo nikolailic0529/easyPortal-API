@@ -54,7 +54,7 @@ abstract class AuthDirective extends BaseDirective implements
         ) use (
             $previous,
         ): mixed {
-            if (!$this->allowed($root)) {
+            if (!$this->isAllowed($root)) {
                 throw $this->getAuthenticationException();
             }
 
@@ -64,7 +64,7 @@ abstract class AuthDirective extends BaseDirective implements
         return $next($fieldValue->setResolver($resolver));
     }
 
-    protected function allowed(mixed $root): bool {
+    public function isAllowed(mixed $root): bool {
         $user = $this->auth->getUser();
 
         if (!$this->isAuthenticated($user)) {
