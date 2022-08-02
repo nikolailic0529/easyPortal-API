@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\Constraints\Attachments\XlsxAttachment;
-use Tests\DataProviders\Http\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\Http\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -66,9 +66,9 @@ class OemsControllerTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider(),
+            new AuthOrgRootDataProvider(),
             new OrgUserDataProvider([
-                'org-administer',
+                'administer',
             ]),
             new ArrayDataProvider([
                 'ok'          => [

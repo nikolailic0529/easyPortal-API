@@ -31,10 +31,12 @@ Route::group(['middleware' => ['authOrg', 'authMe']], static function (Router $r
     $router->post('/download/pdf', [ExportController::class, 'pdf']);
 
     $router->get('/files/{file}', FilesController::class)->name('file');
+});
 
+Route::group(['middleware' => ['authOrgRoot', 'authMe']], static function (Router $router): void {
     $router
         ->get('/oems/{oem}', OemsController::class)
-        ->middleware(['can:org-administer,oem'])
+        ->middleware(['can:administer,oem'])
         ->name('oem');
 });
 
