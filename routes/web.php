@@ -14,6 +14,7 @@
 use App\Http\Controllers\Export\ExportController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\OemsController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
@@ -29,7 +30,12 @@ Route::group(['middleware' => ['auth', 'organization']], static function (Router
 
     $router->post('/download/pdf', [ExportController::class, 'pdf']);
 
-    $router->get('/files/{id}', FilesController::class)->name('files');
+    $router->get('/files/{file}', FilesController::class)->name('file');
+
+    $router
+        ->get('/oems/{oem}', OemsController::class)
+        ->middleware(['can:org-administer,oem'])
+        ->name('oem');
 });
 
 // This route required to be able to translate 404 page (without it the error

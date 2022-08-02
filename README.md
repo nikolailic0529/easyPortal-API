@@ -42,6 +42,10 @@ Legend:
 * [Data Loader](./docs/DataLoader.md)
 * [Keycloak Settings](docs/Keycloak/README.md)
 
+### API
+
+* [REST](./docs/Api-REST.md)
+
 ### Development
 
 * [Coding Standards](./docs/Coding-Standards.md)

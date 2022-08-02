@@ -40,9 +40,10 @@ class FilesControllerTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                $orgFactory
+     * @param UserFactory                                        $userFactory
+     * @param SettingsFactory                                    $settingsFactory
+     * @param Closure(static, ?Organization, ?User): string|null $prepare
      */
     public function testInvoke(
         Response $expected,
@@ -67,7 +68,7 @@ class FilesControllerTest extends TestCase {
         }
 
         $url = $this->app->make(UrlGenerator::class);
-        $this->getJson($url->route('files', ['id' => $id]))->assertThat($expected);
+        $this->getJson($url->route('file', ['file' => $id]))->assertThat($expected);
     }
     // </editor-fold>
 
