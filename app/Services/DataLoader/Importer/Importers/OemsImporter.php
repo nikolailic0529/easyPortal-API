@@ -57,6 +57,18 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
     }
 
     /**
+     * @return array<string, ?string>
+     */
+    public function getLanguages(): array {
+        return [
+            'english' => null,
+            'french'  => 'fr_FR',
+            'german'  => 'de_DE',
+            'italian' => 'it_IT',
+        ];
+    }
+
+    /**
      * @return array<class-string,callable>
      */
     public function registerEvents(): array {
@@ -144,12 +156,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             'C' => 'serviceGroup.name',
             'D' => 'serviceLevel.sku',
         ];
-        $languages  = [
-            'english' => null,
-            'french'  => 'fr_FR',
-            'german'  => 'de_DE',
-            'italian' => 'it_IT',
-        ];
+        $languages  = $this->getLanguages();
         $properties = [
             'serviceLevel.name',
             'serviceLevel.description',

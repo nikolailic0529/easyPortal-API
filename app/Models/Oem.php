@@ -6,24 +6,27 @@ use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasDocuments;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\OemFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Oem.
  *
- * @property string                         $id
- * @property string                         $key
- * @property string                         $name
- * @property CarbonImmutable                $created_at
- * @property CarbonImmutable                $updated_at
- * @property CarbonImmutable|null           $deleted_at
- * @property-read Collection<int, Asset>    $assets
- * @property-read Collection<int, Document> $documents
+ * @property string                             $id
+ * @property string                             $key
+ * @property string                             $name
+ * @property CarbonImmutable                    $created_at
+ * @property CarbonImmutable                    $updated_at
+ * @property CarbonImmutable|null               $deleted_at
+ * @property-read Collection<int, Asset>        $assets
+ * @property-read Collection<int, Document>     $documents
+ * @property-read Collection<int, ServiceGroup> $groups
  * @method static OemFactory factory(...$parameters)
  * @method static Builder|Oem newModelQuery()
  * @method static Builder|Oem newQuery()
@@ -42,6 +45,16 @@ class Oem extends Model implements Translatable {
      */
     protected $table = 'oems';
 
+    /**
+     * @return HasMany<ServiceGroup>
+     */
+    #[CascadeDelete(true)]
+    public function groups(): HasMany {
+        return $this->hasMany(ServiceGroup::class);
+    }
+
+    // <editor-fold desc="Translatable">
+    // =========================================================================
     public function getTranslatableKey(): ?string {
         return $this->key;
     }
@@ -52,4 +65,5 @@ class Oem extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name'];
     }
+    // </editor-fold>
 }
