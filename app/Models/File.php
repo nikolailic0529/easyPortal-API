@@ -46,7 +46,7 @@ class File extends PolymorphicModel implements Attachable {
     protected $table = 'files';
 
     public function getUrlAttribute(): string {
-        return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey()]);
+        return app()->make(UrlGenerator::class)->route('file', ['file' => $this->getKey()]);
     }
 
     public function toMailAttachment(): Attachment {
