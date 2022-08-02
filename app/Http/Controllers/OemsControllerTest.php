@@ -74,7 +74,10 @@ class OemsControllerTest extends TestCase {
                 'ok'          => [
                     new XlsxAttachment('Test OEM.xlsx', $this->getTestData()->file('.csv')),
                     static function (): Oem {
-                        $oem    = Oem::factory()->create(['name' => 'Test OEM']);
+                        $oem    = Oem::factory()->create([
+                            'key'  => 'TestOEM',
+                            'name' => 'Test OEM',
+                        ]);
                         $groupA = ServiceGroup::factory()->create([
                             'sku'    => 'A',
                             'name'   => 'Group A',

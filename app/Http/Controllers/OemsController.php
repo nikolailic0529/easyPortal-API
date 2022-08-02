@@ -134,7 +134,7 @@ class OemsController extends Controller {
             CellVerticalAlignment::TOP,
         );
         $row       = Row::fromValues([
-            $oem->name,
+            $oem->key,
             $group->sku,
             $group->name,
             $level->sku,
