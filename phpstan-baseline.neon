@@ -336,6 +336,11 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/Me.php
 
 		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Auth/Me.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Auth\\\\MeTest\\:\\:testGetGateArguments\\(\\) has parameter \\$root with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
@@ -3034,16 +3039,6 @@ parameters:
 			message: "#^PHPDoc type array\\<int, string\\> of property App\\\\Http\\\\Middleware\\\\EncryptCookies\\:\\:\\$except is not the same as PHPDoc type array of overridden property Illuminate\\\\Cookie\\\\Middleware\\\\EncryptCookies\\:\\:\\$except\\.$#"
 			count: 1
 			path: app/Http/Middleware/EncryptCookies.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Guest\\:\\:handle\\(\\) has parameter \\$next with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Middleware/Guest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Middleware\\\\Organization\\:\\:handle\\(\\) has parameter \\$next with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Middleware/Organization.php
 
 		-
 			message: "#^PHPDoc type array\\<int, string\\> of property App\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except is not the same as PHPDoc type array of overridden property Illuminate\\\\Foundation\\\\Http\\\\Middleware\\\\PreventRequestsDuringMaintenance\\:\\:\\$except\\.$#"

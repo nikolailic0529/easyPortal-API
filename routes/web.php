@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 Route::get('/', [IndexController::class, 'index']);
 Route::middleware(AcceptJson::class)->get('/application', [IndexController::class, 'index']);
 
-Route::group(['middleware' => ['auth', 'organization']], static function (Router $router): void {
+Route::group(['middleware' => ['authOrg', 'authMe']], static function (Router $router): void {
     $router->post('/download/csv', [ExportController::class, 'csv']);
 
     $router->post('/download/xlsx', [ExportController::class, 'xlsx']);

@@ -95,7 +95,9 @@ abstract class Me extends AuthDirective {
      * @return array<string>|null
      */
     protected function getPermissions(): ?array {
-        $permissions = $this->directiveArgValue('permissions');
+        $permissions = $this->directiveNode
+            ? $this->directiveArgValue('permissions')
+            : null;
 
         if (is_array($permissions) && !$permissions) {
             throw new LengthException('Permissions cannot be empty.');
