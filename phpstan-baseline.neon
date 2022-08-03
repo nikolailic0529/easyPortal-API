@@ -7561,17 +7561,7 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/ClientDumpFile.php
 
 		-
-			message: "#^Cannot access offset class\\-string on Illuminate\\\\Contracts\\\\Foundation\\\\Application\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data\\:\\:dumpClientResponses\\(\\) has parameter \\$closure with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 

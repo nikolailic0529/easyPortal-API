@@ -18,8 +18,6 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Testing\Data\ClientDump;
-use App\Services\DataLoader\Testing\Data\ClientDumpFile;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use DateTimeInterface;
@@ -907,6 +905,7 @@ class Client {
      */
     public function call(string $selector, string $graphql, array $variables = [], array $files = []): mixed {
         $json   = $this->callExecute($selector, $graphql, $variables, $files);
+        $json   = $this->callDump($selector, $graphql, $variables, $json);
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
         $result = Arr::get($json, $selector);
 
@@ -922,9 +921,6 @@ class Client {
         } else {
             $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $variables, $json));
         }
-
-        // Dump
-        $this->callDump($selector, $graphql, $variables, $json);
 
         // Return
         return $result;
@@ -1050,24 +1046,8 @@ class Client {
     /**
      * @param array<string, mixed> $variables
      */
-    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): void {
-        // Enabled?
-        if (!$this->config->get('ep.data_loader.dump')) {
-            return;
-        }
-
-        // Dump
-        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $variables)}";
-        $dump = new ClientDumpFile(new SplFileInfo($path));
-
-        $dump->setDump(new ClientDump([
-            'selector'  => $selector,
-            'query'     => $graphql,
-            'variables' => $variables,
-            'response'  => $json,
-        ]));
-
-        $dump->save();
+    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): mixed {
+        return $json;
     }
 
     /**
