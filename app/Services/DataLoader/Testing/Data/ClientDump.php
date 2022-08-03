@@ -21,7 +21,7 @@ use function sprintf;
 
 class ClientDump extends JsonObject {
     public string $selector;
-    public string $graphql;
+    public string $query;
 
     /**
      * @var array<string, mixed>
