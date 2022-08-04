@@ -2,10 +2,13 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Services\DataLoader\Client\Client as ClientAlias;
+use App\Services\DataLoader\Client\Client as BaseClient;
+use App\Services\DataLoader\Testing\Concerns\WithData;
 use SplFileInfo;
 
-class Client extends ClientAlias {
+class Client extends BaseClient {
+    use WithData;
+
     private ?string            $path    = null;
     private ?ClientDataCleaner $cleaner = null;
 

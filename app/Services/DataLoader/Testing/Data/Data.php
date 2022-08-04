@@ -30,7 +30,9 @@ use const JSON_UNESCAPED_UNICODE;
 abstract class Data {
     use WithTestData;
 
-    public const MAP = 'map.json';
+    public const MAP   = 'map.json';
+    public const LIMIT = 25;
+    public const CHUNK = 5;
 
     public function __construct(
         protected Kernel $kernel,
@@ -189,7 +191,10 @@ abstract class Data {
         }
 
         $this->app->bind(Client::class, function () use ($path, $cleaner): Client {
-            return $this->app->make(DataClient::class)->setPath($path)->setCleaner($cleaner);
+            return $this->app->make(DataClient::class)
+                ->setCleaner($cleaner)
+                ->setData(static::class)
+                ->setPath($path);
         });
 
         try {
