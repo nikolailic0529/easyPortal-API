@@ -1303,6 +1303,7 @@ class Client {
 
                 skuNumber
                 supportPackage
+                supportPackageDescription
                 warrantyEndDate
                 estimatedValueRenewal
 

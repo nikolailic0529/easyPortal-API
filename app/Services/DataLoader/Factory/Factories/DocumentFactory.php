@@ -482,10 +482,11 @@ class DocumentFactory extends ModelFactory {
 
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {
         $sku   = $documentEntry->supportPackage ?? null;
+        $name  = $documentEntry->supportPackageDescription ?? null;
         $group = null;
 
         if ($sku && $model->oem) {
-            $group = $this->serviceGroup($model->oem, $sku);
+            $group = $this->serviceGroup($model->oem, $sku, $name);
         }
 
         return $group;

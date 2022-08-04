@@ -1,0 +1,140 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "618e3369-365f-4738-b134-a4333a7842cb"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "618e3369-365f-4738-b134-a4333a7842cb",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                    "serialNumber": null,
+                    "productDescription": "HPE StoreEver MSL6480 CVTL E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "TC444AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "52784-2952",
+                    "city": "Mohammedstad",
+                    "address": "6336 Marques Valleys",
+                    "address2": null,
+                    "country": "Suriname",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA156AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "efc18ae9-06fe-3fea-b916-bb923d278520",
+                            "document": {
+                                "id": "8cbf5548-0573-48b1-8b5e-3218a3740ccc",
+                                "type": "Contract",
+                                "documentNumber": "efc18ae9-06fe-3fea-b916-bb923d278520",
+                                "startDate": "2020-05-01",
+                                "endDate": "2021-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3763.56",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16305356782",
+                                        "name": "Kayleigh Wisozk II",
+                                        "mail": "lgleichner@yahoo.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19707369945",
+                                        "name": "Mr. Ahmed Fadel",
+                                        "mail": "jsanford@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13465774731",
+                                        "name": "Quinn Towne Jr.",
+                                        "mail": "kody80@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16305356782",
+                                        "name": "Kayleigh Wisozk II",
+                                        "mail": "lgleichner@yahoo.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15858833140",
+                                        "name": "Tatum Powlowski",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19416569906",
+                                        "name": "Nelson Price",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16305356782",
+                            "name": "Kayleigh Wisozk II",
+                            "mail": "lgleichner@yahoo.com",
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+19707369945",
+                            "name": "Mr. Ahmed Fadel",
+                            "mail": "jsanford@yahoo.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13465774731",
+                            "name": "Quinn Towne Jr.",
+                            "mail": "kody80@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

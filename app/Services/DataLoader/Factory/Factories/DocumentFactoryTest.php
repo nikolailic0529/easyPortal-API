@@ -642,7 +642,8 @@ class DocumentFactoryTest extends TestCase {
         $group = ServiceGroup::factory()->make();
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $entry = new DocumentEntry([
-            'supportPackage' => $this->faker->word(),
+            'supportPackage'            => $this->faker->word(),
+            'supportPackageDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -653,6 +654,7 @@ class DocumentFactoryTest extends TestCase {
             ->with(
                 $oem,
                 $entry->supportPackage,
+                $entry->supportPackageDescription,
             )
             ->once()
             ->andReturn($group);

@@ -1,0 +1,1204 @@
+{
+    "selector": "data.getAssetsByResellerId",
+    "query": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
+        "from": null,
+        "lastId": null,
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssetsByResellerId": [
+                {
+                    "id": "00302c3d-c45a-47f1-a1cb-3168e215bad3",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                    "serialNumber": "7a7932e2-326b-3bae-ad61-ff51d576697f",
+                    "productDescription": "HP 3PAR 8000 1.8TB SAS 10K SFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "K2P94A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80331",
+                    "city": "Port Xzavierview",
+                    "address": "33320 Corwin Islands",
+                    "address2": null,
+                    "country": "Samoa",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1593907200000",
+                            "documentNumber": "e321ecf3-8a06-330c-9a94-3e390e26d689",
+                            "document": {
+                                "id": "43746056-9afd-4dee-b930-050ee886a3b3",
+                                "type": "Contract",
+                                "documentNumber": "e321ecf3-8a06-330c-9a94-3e390e26d689",
+                                "startDate": "2021-06-14",
+                                "endDate": "2022-06-13",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "19650.47999999999",
+                                "languageCode": null,
+                                "updatedAt": "1655165179693",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2ce2cb9e-23a1-38d1-b228-ef65c95b5952",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Patrick Sauer",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Patrick Sauer",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "50.28",
+                            "discount": null,
+                            "listPrice": "50.28",
+                            "estimatedValueRenewal": "50.28",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "93da84d9-a8ee-483a-b604-9289d41fd601"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Patrick Sauer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "0035c89e-0670-41c5-ab94-cca7b94570e3",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "serialNumber": "f5db9be0-e359-306d-b46d-8cf2eb7e4900",
+                    "productDescription": "HPE 3PAR 8000 8TB+SW 7.2K LFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P9B44B",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "90560",
+                    "city": "Port Inesbury",
+                    "address": "16967 Shane Well",
+                    "address2": null,
+                    "country": "Samoa",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1630972800000",
+                            "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                            "document": {
+                                "id": "440d2c19-5b83-4afa-a758-b7809fb22cd3",
+                                "type": "Contract",
+                                "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                                "startDate": "2021-08-17",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5979.129999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233030298",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "9d88c43b-e4e2-3ba1-9ed1-1074ffd58a92",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784692927",
+                                        "name": "Valentina Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "37.3",
+                            "discount": null,
+                            "listPrice": "37.3",
+                            "estimatedValueRenewal": "37.3",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": "1630972800000",
+                            "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                            "document": {
+                                "id": "440d2c19-5b83-4afa-a758-b7809fb22cd3",
+                                "type": "Contract",
+                                "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                                "startDate": "2021-08-17",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5979.129999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233030298",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "9d88c43b-e4e2-3ba1-9ed1-1074ffd58a92",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784692927",
+                                        "name": "Valentina Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "37.3",
+                            "discount": null,
+                            "listPrice": "37.3",
+                            "estimatedValueRenewal": "37.3",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA156AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1630972800000",
+                            "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                            "document": {
+                                "id": "440d2c19-5b83-4afa-a758-b7809fb22cd3",
+                                "type": "Contract",
+                                "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                                "startDate": "2021-08-17",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5979.129999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233030298",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "9d88c43b-e4e2-3ba1-9ed1-1074ffd58a92",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784692927",
+                                        "name": "Valentina Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "14.84",
+                            "discount": null,
+                            "listPrice": "14.84",
+                            "estimatedValueRenewal": "14.84",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA156AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Software Updates Service",
+                            "warrantyEndDate": "1630972800000",
+                            "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                            "document": {
+                                "id": "440d2c19-5b83-4afa-a758-b7809fb22cd3",
+                                "type": "Contract",
+                                "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                                "startDate": "2021-08-17",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5979.129999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233030298",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "9d88c43b-e4e2-3ba1-9ed1-1074ffd58a92",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784692927",
+                                        "name": "Valentina Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "14.84",
+                            "discount": null,
+                            "listPrice": "14.84",
+                            "estimatedValueRenewal": "14.84",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA158AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1630972800000",
+                            "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                            "document": {
+                                "id": "440d2c19-5b83-4afa-a758-b7809fb22cd3",
+                                "type": "Contract",
+                                "documentNumber": "e137b9f1-09b1-35b7-90b1-90b2db54a64e",
+                                "startDate": "2021-08-17",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5979.129999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233030298",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "9d88c43b-e4e2-3ba1-9ed1-1074ffd58a92",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15626261593",
+                                        "name": "Rhea DuBuque",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784692927",
+                                        "name": "Valentina Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "19.7",
+                            "discount": null,
+                            "listPrice": "19.7",
+                            "estimatedValueRenewal": "19.7",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15626261593",
+                            "name": "Rhea DuBuque",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "003e4007-8ee6-4682-85af-5997e0ee3b73",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": "f495dec1-435a-3a18-b6a0-9bd53b1fc239",
+                    "productDescription": "HPE BL460c G9 E5v4 10/20Gb FLB CTO Blade",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "813198-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "60031-1134",
+                    "city": "Bergeberg",
+                    "address": "25543 Favian Ferry",
+                    "address2": null,
+                    "country": "Samoa",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1580083200000",
+                            "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                            "document": {
+                                "id": "c7975b3f-8eb3-4868-ae6a-7b4cddef1324",
+                                "type": "Contract",
+                                "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4891.920000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18484189382",
+                                        "name": "Rigoberto Casper",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "22.8",
+                            "discount": null,
+                            "listPrice": "22.8",
+                            "estimatedValueRenewal": "22.8",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Collaborative Remote Support",
+                            "warrantyEndDate": "1580083200000",
+                            "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                            "document": {
+                                "id": "c7975b3f-8eb3-4868-ae6a-7b4cddef1324",
+                                "type": "Contract",
+                                "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4891.920000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18484189382",
+                                        "name": "Rigoberto Casper",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "22.8",
+                            "discount": null,
+                            "listPrice": "22.8",
+                            "estimatedValueRenewal": "22.8",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1580083200000",
+                            "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                            "document": {
+                                "id": "c7975b3f-8eb3-4868-ae6a-7b4cddef1324",
+                                "type": "Contract",
+                                "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4891.920000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18484189382",
+                                        "name": "Rigoberto Casper",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "421.92",
+                            "discount": null,
+                            "listPrice": "421.92",
+                            "estimatedValueRenewal": "421.92",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": "1580083200000",
+                            "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                            "document": {
+                                "id": "c7975b3f-8eb3-4868-ae6a-7b4cddef1324",
+                                "type": "Contract",
+                                "documentNumber": "6576924b-838c-3ae4-a93d-e964d2322b85",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4891.920000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18484189382",
+                                        "name": "Rigoberto Casper",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "421.92",
+                            "discount": null,
+                            "listPrice": "421.92",
+                            "estimatedValueRenewal": "421.92",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19362704049",
+                            "name": "Mr. Derick Yost",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "006e9b03-efe4-4c47-90ca-040dc6b104b4",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "serialNumber": null,
+                    "productDescription": "HPE 3PAR 7200 Virtual Copy Drv E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "BC754AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80331",
+                    "city": "Port Xzavierview",
+                    "address": "6052 Hartmann Mission",
+                    "address2": null,
+                    "country": "Samoa",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA158AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "3c157bea-1ed3-3166-b5d6-30295dedbee3",
+                            "document": {
+                                "id": "38240a1d-a656-437e-8e1f-42228f89ec09",
+                                "type": "Contract",
+                                "documentNumber": "3c157bea-1ed3-3166-b5d6-30295dedbee3",
+                                "startDate": "2021-05-01",
+                                "endDate": "2022-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1306.6799999999998",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16784291717",
+                                        "name": "Jesus Toy",
+                                        "mail": "valerie79@gmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15597761469",
+                            "name": "Mr. General Champlin II",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "00940ec9-168d-441d-9d3f-90548e007442",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": null,
+                    "productDescription": "HP 6X 2650W Plat Ht Plg FIO Pwr Sply Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "733460-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "60031-1134",
+                    "city": "Bergeberg",
+                    "address": "25543 Favian Ferry",
+                    "address2": null,
+                    "country": "Samoa",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "bfca8124-2b1a-3090-97d1-45d9fd4c3872",
+                            "document": {
+                                "id": "0455f5c4-aa11-494e-a793-f64acf6b01a9",
+                                "type": "Contract",
+                                "documentNumber": "bfca8124-2b1a-3090-97d1-45d9fd4c3872",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "7743.120000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19362704049",
+                                        "name": "Mr. Derick Yost",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19362704049",
+                            "name": "Mr. Derick Yost",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

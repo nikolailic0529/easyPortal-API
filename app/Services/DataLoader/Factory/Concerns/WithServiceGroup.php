@@ -16,7 +16,7 @@ trait WithServiceGroup {
 
     abstract protected function getServiceGroupResolver(): ServiceGroupResolver;
 
-    protected function serviceGroup(Oem $oem, string $sku): ?ServiceGroup {
+    protected function serviceGroup(Oem $oem, string $sku, string $name = null): ?ServiceGroup {
         // Null?
         $sku = $this->getNormalizer()->string($sku) ?: null;
 
@@ -25,18 +25,41 @@ trait WithServiceGroup {
         }
 
         // Find/Create
-        return $this->getServiceGroupResolver()->get($oem, $sku, $this->factory(
-            static function () use ($oem, $sku): ServiceGroup {
-                $group       = new ServiceGroup();
-                $group->key  = "{$oem->getTranslatableKey()}/{$sku}";
-                $group->oem  = $oem;
-                $group->sku  = $sku;
-                $group->name = $sku;
+        $created = false;
+        $factory = $this->factory(
+            function (ServiceGroup $group) use (&$created, $oem, $sku, $name): ServiceGroup {
+                $created    = !$group->exists;
+                $normalizer = $this->getNormalizer();
+
+                if ($created) {
+                    $group->key = "{$oem->getTranslatableKey()}/{$sku}";
+                    $group->oem = $oem;
+                    $group->sku = $sku;
+                }
+
+                if (!$group->name || $group->name === $sku) {
+                    $group->name = $normalizer->string($name) ?: $sku;
+                }
 
                 $group->save();
 
                 return $group;
             },
-        ));
+        );
+        $group   = $this->getServiceGroupResolver()->get(
+            $oem,
+            $sku,
+            static function () use ($factory): ServiceGroup {
+                return $factory(new ServiceGroup());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($group);
+        }
+
+        // Return
+        return $group;
     }
 }

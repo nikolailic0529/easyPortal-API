@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "d07000c8-54a2-425f-8c9e-48f3bac378d3",
-                    "name": "Goldner-Spencer",
+                    "name": "Hintz, Gleason and Kozey",
                     "companyType": "CUSTOMER",
                     "updatedAt": "1657163063544",
                     "keycloakName": null,
@@ -29,26 +29,26 @@
                             "type": "Contact Person"
                         },
                         {
-                            "phoneNumber": "+13183486671",
-                            "name": "Friedrich Barrows",
+                            "phoneNumber": "+14172845734",
+                            "name": "Rosendo Parisian Sr.",
                             "mail": null,
                             "type": "Contact Person"
                         },
                         {
-                            "phoneNumber": "+14792210653",
+                            "phoneNumber": "+14434484554",
                             "name": "Prof. Tyson Ebert",
                             "mail": null,
                             "type": "Contact Person"
                         },
                         {
-                            "phoneNumber": "+19202749908",
-                            "name": "Harrison Satterfield",
+                            "phoneNumber": "+14107848803",
+                            "name": "Casimer Purdy DDS",
                             "mail": null,
                             "type": "Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Jacky Veum",
+                            "name": "Berniece Walter",
                             "mail": null,
                             "type": "Contact Person"
                         }
@@ -60,8 +60,8 @@
                             "city": "Lake Elmoreview",
                             "locationType": null,
                             "country": "Guinea-Bissau",
-                            "latitude": "-59.146989",
-                            "longitude": "-35.387874",
+                            "latitude": "-61.369785",
+                            "longitude": "-102.498708",
                             "countryCode": "BA"
                         },
                         {
@@ -70,8 +70,8 @@
                             "city": "Lake Elmoreview",
                             "locationType": null,
                             "country": "Guinea-Bissau",
-                            "latitude": "-59.146989",
-                            "longitude": "-35.387874",
+                            "latitude": "-61.369785",
+                            "longitude": "-102.498708",
                             "countryCode": "BA"
                         }
                     ],

@@ -107,12 +107,13 @@ class WithAssetDocumentTest extends TestCase {
         $asset    = AssetModel::factory()->make();
         $group    = ServiceGroup::factory()->make();
         $document = new ViewAssetDocument([
-            'document'       => [
+            'document'                  => [
                 'vendorSpecificFields' => [
                     'vendor' => $this->faker->word(),
                 ],
             ],
-            'supportPackage' => $this->faker->word(),
+            'supportPackage'            => $this->faker->word(),
+            'supportPackageDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -128,6 +129,7 @@ class WithAssetDocumentTest extends TestCase {
             ->with(
                 $oem,
                 $document->supportPackage,
+                $document->supportPackageDescription,
             )
             ->once()
             ->andReturns($group);

@@ -24,10 +24,11 @@ trait WithAssetDocument {
     protected function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
         $sku   = $assetDocument->supportPackage ?? null;
+        $name  = $assetDocument->supportPackageDescription ?? null;
         $group = null;
 
         if ($oem && $sku) {
-            $group = $this->serviceGroup($oem, $sku);
+            $group = $this->serviceGroup($oem, $sku, $name);
         }
 
         return $group;
