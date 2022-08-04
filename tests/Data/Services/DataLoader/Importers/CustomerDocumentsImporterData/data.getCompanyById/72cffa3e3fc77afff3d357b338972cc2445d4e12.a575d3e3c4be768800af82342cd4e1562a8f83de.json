@@ -1,0 +1,206 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "name": "Franecki-Ondricka",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156348807",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15868082776",
+                            "name": "Prof. Pearline Collier MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16195622011",
+                            "name": "Coleman O'Reilly",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16514309944",
+                            "name": "Eldora King",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12629471371",
+                            "name": "Prof. Kayla Pacocha",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12629471371",
+                            "name": "Mrs. Kallie Wisoky",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12629471371",
+                            "name": "Ashton Reilly",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16783609793",
+                            "name": "Elaina Upton",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19319389248",
+                            "name": "Bridgette Price",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Ms. Greta Gutmann DDS",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12709601329",
+                            "name": "Miss Francesca Lehner",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13053890657",
+                            "name": "Erin Leffler",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "91610-2838",
+                            "address": "695 Julian Trace",
+                            "city": "South Kenton",
+                            "locationType": null,
+                            "country": "Jersey",
+                            "latitude": "-32.384497",
+                            "longitude": "-153.560635",
+                            "countryCode": "SD"
+                        },
+                        {
+                            "zip": "91610-2838",
+                            "address": "695 Julian Trace",
+                            "city": "South Kenton",
+                            "locationType": null,
+                            "country": "Jersey",
+                            "latitude": "-32.384497",
+                            "longitude": "-153.560635",
+                            "countryCode": "SD"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#a4a7a9",
+                        "secondaryColor": "#f9c110",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/003355?text=nobis",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Aut exercitationem corporis provident autem dolorum quis doloremque."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Aut exercitationem corporis provident autem dolorum quis doloremque."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Aut exercitationem corporis provident autem dolorum quis doloremque."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Aut exercitationem corporis provident autem dolorum quis doloremque."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Autem voluptate eaque laboriosam quo."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Autem voluptate eaque laboriosam quo."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Et ea iure qui optio amet."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Et ea iure qui optio amet."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Et ea iure qui optio amet."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Et ea iure qui optio amet."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Sed qui molestiae saepe quasi."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Sed qui molestiae saepe quasi."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15577,
+                        "activeAssets": 11982,
+                        "activeAssetsPercentage": 76.92110162418952,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 119,
+                        "activeContracts": 300,
+                        "activeContractTotalAmount": 1242264.5599999984,
+                        "newActiveContracts": 96,
+                        "expiringContracts": 23,
+                        "activeQuotes": 47,
+                        "activeQuotesTotalAmount": 490006.3999999978,
+                        "newActiveQuotes": 17,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 47,
+                        "expiredContracts": 300,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

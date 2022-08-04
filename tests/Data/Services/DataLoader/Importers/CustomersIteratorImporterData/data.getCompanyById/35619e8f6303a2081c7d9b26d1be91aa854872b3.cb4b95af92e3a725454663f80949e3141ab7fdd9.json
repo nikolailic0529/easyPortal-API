@@ -1,0 +1,120 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "5b043b1f-c7e6-462a-8090-d8c02a97c2f2"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "5b043b1f-c7e6-462a-8090-d8c02a97c2f2",
+                    "name": "Davis Group",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162873622",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14803447526",
+                            "name": "Addie Ryan PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12812571933",
+                            "name": "Ms. Carlie Torp",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "82986-4667",
+                            "address": "2860 Reynolds Roads Suite 486",
+                            "city": "Juniorville",
+                            "locationType": null,
+                            "country": "Isle of Man",
+                            "latitude": "-22.350332",
+                            "longitude": "-116.858077",
+                            "countryCode": "SR"
+                        },
+                        {
+                            "zip": "82986-4667",
+                            "address": "2860 Reynolds Roads Suite 486",
+                            "city": "Juniorville",
+                            "locationType": null,
+                            "country": "Isle of Man",
+                            "latitude": "-22.350332",
+                            "longitude": "-116.858077",
+                            "countryCode": "SR"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 100.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 166.32,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 136.32,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                            "totalAssets": 1,
+                            "activeAssets": 1,
+                            "activeAssetsPercentage": 100.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 1,
+                            "activeContractTotalAmount": 166.32,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 136.32,
+                            "newActiveQuotes": 1,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "f8c66877-b503-457a-a978-e6d4e1237628"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "f8c66877-b503-457a-a978-e6d4e1237628",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "1777dc95-6991-4fcd-bf60-3bd77d29e559",
+                    "serialNumber": "49c6323d-675f-3a2e-9dd7-63d35bc99b95",
+                    "productDescription": "HPE M6710 900GB 6G SAS 2.5in Reman HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "QR496AR",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "73513",
+                    "city": "Brekkemouth",
+                    "address": "224 Friesen Lodge Apt. 849",
+                    "address2": null,
+                    "country": "Finland",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19065424755",
+                            "name": "Rylee Borer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14063764854",
+                            "name": "Stone Wolf",
+                            "mail": "bergnaum.vena@zieme.biz",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

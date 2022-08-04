@@ -2,46 +2,48 @@
     {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
         "bindings": [
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "bindings": [
+            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+        ]
+    },
+    {
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "bindings": [
+            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "2fa7c9a8-3dd2-5e22-8073-42fd33157451"
         ]
     },
     {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
         "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+            "e42b0534-878d-4d43-90ec-d9c1cef59b70"
         ]
     },
     {
         "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+            "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "bindings": [
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5"
         ]
     },
     {
         "query": "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
         "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
-        "bindings": [
-            "hardware",
-            "asset"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "Hardware",
-            "Hardware",
-            "117c7d57-7528-5cda-9f78-d59125228b4e",
-            "2022-02-02 00:00:02",
-            "2022-02-02 00:00:02"
-        ]
     },
     {
         "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
@@ -60,9 +62,9 @@
             "Asset",
             "ACTIVE",
             "Active",
-            "f30e7b14-08a9-5795-ab2d-245b24ac0194",
-            "2022-02-02 00:00:03",
-            "2022-02-02 00:00:03"
+            "117c7d57-7528-5cda-9f78-d59125228b4e",
+            "2022-02-02 00:00:02",
+            "2022-02-02 00:00:02"
         ]
     },
     {
@@ -73,242 +75,239 @@
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "728629-b21"
+            "p00928-b21"
         ]
     },
     {
         "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "728629-B21",
+            "P00928-B21",
             null,
             null,
-            "HP 32GB 2Rx4 PC4-2133P-R Kit",
+            "HPE 128GB 8Rx4 PC4-2933Y-L 3DS Smart Kit",
+            "f30e7b14-08a9-5795-ab2d-245b24ac0194",
+            "2022-02-02 00:00:03",
+            "2022-02-02 00:00:03"
+        ]
+    },
+    {
+        "query": "select `countries`.* from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "??"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "??",
+            "Unknown Country",
             "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
             "2022-02-02 00:00:04",
             "2022-02-02 00:00:04"
         ]
     },
     {
-        "query": "select `tags`.* from `tags` where `tags`.`deleted_at` is null",
+        "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select `tags`.* from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
+        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "hardware"
+            "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
+            "edwinborough"
         ]
     },
     {
-        "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "Hardware",
+            "Edwinborough",
+            "Edwinborough",
+            "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
             "daef2529-fec4-5f70-b570-c610c9fbbfc6",
+            "2022-02-02 00:00:05",
+            "2022-02-02 00:00:05"
+        ]
+    },
+    {
+        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "daef2529-fec4-5f70-b570-c610c9fbbfc6",
+            "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
+            "4906 beier views apt. 597",
+            "98381-7994"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
+            "daef2529-fec4-5f70-b570-c610c9fbbfc6",
+            "98381-7994",
+            "",
+            "4906 Beier Views Apt. 597",
+            "",
+            null,
+            null,
+            null,
+            "58f22f56-f2c0-5a62-b49c-e7d253306542",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
         ]
     },
     {
-        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
-    },
-    {
-        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
-        "bindings": [
-            "archived"
-        ]
-    },
-    {
-        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "ARCHIVED",
-            "Archived",
-            "58f22f56-f2c0-5a62-b49c-e7d253306542",
-            "2022-02-02 00:00:07",
-            "2022-02-02 00:00:07"
-        ]
     },
     {
         "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
-            "contract",
-            "assetwarranty"
+            "enduser contact",
+            "contact"
         ]
     },
     {
         "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "AssetWarranty",
-            "Contract",
-            "Contract",
+            "Contact",
+            "EndUser Contact",
+            "End User Contact",
             "222c6ac7-9b7b-596d-a479-3a9d56ffae6e",
+            "2022-02-02 00:00:08",
+            "2022-02-02 00:00:08"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "distributor contact",
+            "contact"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Contact",
+            "Distributor Contact",
+            "Distributor Contact",
+            "1df7dd84-1ba0-5b36-941a-ab8c4fa08012",
+            "2022-02-02 00:00:09",
+            "2022-02-02 00:00:09"
+        ]
+    },
+    {
+        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "reseller contact",
+            "contact"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Contact",
+            "Reseller Contact",
+            "Reseller Contact",
+            "3fa119fc-2cfa-5683-9801-df12333a6e50",
+            "2022-02-02 00:00:10",
+            "2022-02-02 00:00:10"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4",
+            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
+            null,
+            "117c7d57-7528-5cda-9f78-d59125228b4e",
+            "f30e7b14-08a9-5795-ab2d-245b24ac0194",
+            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+            "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+            "58f22f56-f2c0-5a62-b49c-e7d253306542",
+            "2022-08-02 13:03:33",
+            "6676449b-3959-31a7-a0e4-c5d9867af0b4",
+            "80",
+            3,
+            0,
+            "2022-02-02 00:00:11",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
         ]
     },
     {
-        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "expired",
-            "assetwarranty"
-        ]
-    },
-    {
-        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "AssetWarranty",
-            "Expired",
-            "Expired",
-            "1df7dd84-1ba0-5b36-941a-ab8c4fa08012",
+            "Asset",
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4",
+            "Stone Hettinger",
+            "+18546262843",
+            null,
+            true,
+            "b1992c67-ceeb-5e71-abba-15792c4124fc",
             "2022-02-02 00:00:13",
             "2022-02-02 00:00:13"
         ]
     },
     {
-        "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "factorywarranty",
-            "assetwarranty"
-        ]
-    },
-    {
-        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "AssetWarranty",
-            "FactoryWarranty",
-            "Factory Warranty",
-            "3fa119fc-2cfa-5683-9801-df12333a6e50",
-            "2022-02-02 00:00:16",
-            "2022-02-02 00:00:16"
-        ]
-    },
-    {
-        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `warranty_end`, `warranty_changed_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
-            "117c7d57-7528-5cda-9f78-d59125228b4e",
-            "f30e7b14-08a9-5795-ab2d-245b24ac0194",
-            "90d7496f-ff17-5b37-8b6e-72b30e8137cc",
-            null,
-            "602673a2-b21d-44b7-8d8e-3423f0ee3795",
-            null,
-            "2021-12-14 06:36:08",
-            "e565ad24-c7ec-33ce-b081-a7b6ac20d072",
-            "130",
-            2,
-            1,
-            "2022-02-02 00:00:08",
-            "2021-03-28 00:00:00",
-            "2021-12-14 06:36:08",
-            "2022-02-02 00:00:21",
-            "2022-02-02 00:00:21"
+            "222c6ac7-9b7b-596d-a479-3a9d56ffae6e",
+            "b1992c67-ceeb-5e71-abba-15792c4124fc",
+            "a4e73518-7d0a-515c-9297-8cc53564ddb1",
+            "2022-02-02 00:00:14",
+            "2022-02-02 00:00:14"
         ]
     },
     {
         "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "Asset",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "Bo Johnson",
-            "+9147479678344",
-            null,
-            false,
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4",
+            "Richie Walker",
+            "+13092050926",
+            "ratke.jane@torphy.org",
+            true,
             "cfa4f9bc-ca66-5c1e-a50f-80f64c905838",
-            "2022-02-02 00:00:22",
-            "2022-02-02 00:00:22"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
-        "bindings": [
-            "cfa4f9bc-ca66-5c1e-a50f-80f64c905838",
-            "2022-02-02 00:00:23",
-            "8c60070c-ca0e-54f7-becc-85f54c8c7449",
-            "78b35c64-e599-5c78-a102-5f29323f095f",
-            "2022-02-02 00:00:23",
-            "cfa4f9bc-ca66-5c1e-a50f-80f64c905838",
-            "2022-02-02 00:00:24",
-            "779ea853-0bd9-5997-9f15-1fe6c2ca9dfc",
-            "aeb75086-198f-5ff5-8100-06bf37105c09",
-            "2022-02-02 00:00:24"
-        ]
-    },
-    {
-        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Asset",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "Bernadine Koepp V",
-            null,
-            null,
-            null,
-            "53f409f5-cd8e-5b73-8f36-0dc72d7c5182",
-            "2022-02-02 00:00:25",
-            "2022-02-02 00:00:25"
+            "2022-02-02 00:00:15",
+            "2022-02-02 00:00:15"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "53f409f5-cd8e-5b73-8f36-0dc72d7c5182",
-            "8e0c42e3-f741-5455-8511-3a88b871fe58",
-            "2022-02-02 00:00:26",
-            "2022-02-02 00:00:26"
-        ]
-    },
-    {
-        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "daef2529-fec4-5f70-b570-c610c9fbbfc6",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "b2356c4b-91ee-5be9-b5c0-82eb308b4771",
-            "2022-02-02 00:00:27",
-            "2022-02-02 00:00:27"
-        ]
-    },
-    {
-        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "58f22f56-f2c0-5a62-b49c-e7d253306542",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "ce74eb44-e144-5e75-a036-46b11cfadca2",
-            "2022-02-02 00:00:28",
-            "2022-02-02 00:00:28"
-        ]
-    },
-    {
-        "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "2022-02-02 00:00:29",
-            null,
-            "H7J34AC-HPE Foundation Care 24x7 SVC",
-            null,
-            null,
-            "2020-12-31 00:00:00",
-            "b1992c67-ceeb-5e71-abba-15792c4124fc",
-            null,
-            null,
-            "2020-01-01 00:00:00",
             "1df7dd84-1ba0-5b36-941a-ab8c4fa08012",
-            "222c6ac7-9b7b-596d-a479-3a9d56ffae6e",
-            "2022-02-02 00:00:29",
-            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
-            "2022-02-02 00:00:30",
-            null,
-            "",
-            null,
-            null,
-            "2021-03-28 00:00:00",
-            "a4e73518-7d0a-515c-9297-8cc53564ddb1",
-            null,
-            null,
-            "2021-03-28 00:00:00",
-            "1df7dd84-1ba0-5b36-941a-ab8c4fa08012",
+            "cfa4f9bc-ca66-5c1e-a50f-80f64c905838",
+            "8c60070c-ca0e-54f7-becc-85f54c8c7449",
+            "2022-02-02 00:00:16",
+            "2022-02-02 00:00:16"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4",
+            "Mr. Diamond Muller Jr.",
+            "+16788120206",
+            "chadd.bergstrom@yahoo.com",
+            true,
+            "779ea853-0bd9-5997-9f15-1fe6c2ca9dfc",
+            "2022-02-02 00:00:17",
+            "2022-02-02 00:00:17"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
             "3fa119fc-2cfa-5683-9801-df12333a6e50",
-            "2022-02-02 00:00:30"
+            "779ea853-0bd9-5997-9f15-1fe6c2ca9dfc",
+            "53f409f5-cd8e-5b73-8f36-0dc72d7c5182",
+            "2022-02-02 00:00:18",
+            "2022-02-02 00:00:18"
         ]
     }
 ]

@@ -40,7 +40,7 @@ class CustomerLoaderTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 1,
+            Reseller::class      => 0,
             Customer::class      => 0,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -61,7 +61,7 @@ class CustomerLoaderTest extends TestCase {
         self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 1,
+            Reseller::class      => 0,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -112,7 +112,7 @@ class CustomerLoaderTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 6,
+            Reseller::class      => 2,
             Customer::class      => 2,
             Asset::class         => 1,
             AssetWarranty::class => 0,
@@ -133,11 +133,11 @@ class CustomerLoaderTest extends TestCase {
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 6,
+            Reseller::class      => 2,
             Customer::class      => 2,
-            Asset::class         => 3,
-            AssetWarranty::class => 12,
-            Document::class      => 5,
+            Asset::class         => 11,
+            AssetWarranty::class => 0,
+            Document::class      => 2,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -184,11 +184,11 @@ class CustomerLoaderTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 5,
-            Customer::class      => 4,
-            Asset::class         => 9,
-            AssetWarranty::class => 53,
-            Document::class      => 21,
+            Reseller::class      => 2,
+            Customer::class      => 3,
+            Asset::class         => 3,
+            AssetWarranty::class => 0,
+            Document::class      => 5,
             DocumentEntry::class => 0,
         ]);
 
@@ -204,12 +204,12 @@ class CustomerLoaderTest extends TestCase {
         self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 5,
-            Customer::class      => 4,
-            Asset::class         => 9,
-            AssetWarranty::class => 53,
-            Document::class      => 21,
-            DocumentEntry::class => 120,
+            Reseller::class      => 2,
+            Customer::class      => 3,
+            Asset::class         => 3,
+            AssetWarranty::class => 0,
+            Document::class      => 5,
+            DocumentEntry::class => 6,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-cold-events.json',

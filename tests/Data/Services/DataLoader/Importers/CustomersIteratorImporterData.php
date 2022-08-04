@@ -16,19 +16,17 @@ use function count;
 use function round;
 
 class CustomersIteratorImporterData extends Data {
-    public const LIMIT     = null;
-    public const CHUNK     = 10;
     public const CUSTOMERS = [
-        '06502d97-fa26-42cc-9478-34fbc1910b71',
-        'fd865591-18fc-4278-9c35-000e761d49d9',
-        'cc5799fa-e7c3-4a47-b879-e5f731a7ed8f',
-        'f6d8ddba-f3bb-4f83-904d-277d43e7e0a0',
-        'ca3fd926-367d-4690-bde9-e895916ab4df',
-        '8a25f6f7-1e65-43f7-aa10-64e1dc7f3ec8',
-        '3125937c-24bf-46ad-97c5-0727cb3b76bd',
-        'f67c0662-4715-4807-a5fb-807d75d5c92d',
-        '9ed7937c-537c-460f-abc4-d167aab8c28c',
-        'ada5cb92-2351-4b09-9502-7f767805b2f3',
+        '004d6d19-4a7d-4216-8bd5-55dbfb038e09',
+        '5b043b1f-c7e6-462a-8090-d8c02a97c2f2',
+        'fb368ca1-7aa6-4ec5-8c86-c39e211879e8',
+        '909cf52d-f00f-422e-a488-cef47eaa0542',
+        'c271b43c-be93-44a9-8595-259d355eb9f0',
+        '6f4a5f12-e0fc-4af6-9ee2-e6830737ac41',
+        '7fd29a80-1ab7-4bf8-9750-783245a989f3',
+        'e8c4a536-312d-42d1-8b1d-86958d6660f5',
+        '4eced8db-72a3-4f73-a9c6-30d85763d0ce',
+        '792df4fc-ce83-4e94-a169-a4caeb979475',
         '00000000-0000-0000-0000-000000000000',
     ];
 

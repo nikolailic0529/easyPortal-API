@@ -3,6 +3,6 @@
 namespace Tests\Data\Services\DataLoader\Loaders;
 
 class AssetLoaderDataWithDocuments extends AssetLoaderDataWithoutDocuments {
-    public const ASSET     = '03781b72-05b6-4722-879f-635b5fddde1d';
+    public const ASSET     = '00000b7e-e7dc-49ee-8294-e4708b2435e4';
     public const DOCUMENTS = true;
 }

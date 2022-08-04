@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "e3c2178a-2bbb-4cb8-8929-9b6411930ea4"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e3c2178a-2bbb-4cb8-8929-9b6411930ea4",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "0cec299d-683a-4915-8224-b95d416fa0e4",
+                    "serialNumber": "e8fcbb50-6b18-3291-9bfd-64b3ef337dcb",
+                    "productDescription": "HPE 3PAR 8000 SFF(2.5in) Fld Int Dr Encl",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "E7Y71A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "31761",
+                    "city": "North Junius",
+                    "address": "864 Lowe Mews",
+                    "address2": null,
+                    "country": "Finland",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15633574726",
+                            "name": "Tod Tillman",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

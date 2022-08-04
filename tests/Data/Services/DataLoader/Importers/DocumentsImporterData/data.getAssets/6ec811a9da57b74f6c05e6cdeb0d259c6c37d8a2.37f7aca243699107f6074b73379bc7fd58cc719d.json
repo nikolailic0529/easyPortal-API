@@ -1,0 +1,373 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "3e2784d3-fd54-41dc-91ea-f4fae7a642b0"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "3e2784d3-fd54-41dc-91ea-f4fae7a642b0",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                    "serialNumber": "65dc317f-f605-3a55-a246-0034aca988fe",
+                    "productDescription": "HPE SN3600B 32Gb 24/8 FC Switch",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "Q1H70A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80577-9918",
+                    "city": "Lake Saige",
+                    "address": "8527 Zieme View",
+                    "address2": null,
+                    "country": "Haiti",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1641340800000",
+                            "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                            "document": {
+                                "id": "7dc30fa5-1329-4d79-95d9-355d6591496c",
+                                "type": "Contract",
+                                "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                                "startDate": "2021-12-15",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "960.12",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "cf5e7265-f860-305d-849b-340da1f3d106",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "77.46",
+                            "discount": null,
+                            "listPrice": "77.46",
+                            "estimatedValueRenewal": "77.46",
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "9c07e49d-0667-48e3-931a-a00a5521005d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1641340800000",
+                            "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                            "document": {
+                                "id": "7dc30fa5-1329-4d79-95d9-355d6591496c",
+                                "type": "Contract",
+                                "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                                "startDate": "2021-12-15",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "960.12",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "cf5e7265-f860-305d-849b-340da1f3d106",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "392.87",
+                            "discount": null,
+                            "listPrice": "392.87",
+                            "estimatedValueRenewal": "392.87",
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "9c07e49d-0667-48e3-931a-a00a5521005d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "01808c99-8ddf-3ac7-b92e-5b6f3bff743a",
+                            "document": {
+                                "id": "19b5de8b-b7ad-49a7-8bbe-334470a25512",
+                                "type": "Contract",
+                                "documentNumber": "01808c99-8ddf-3ac7-b92e-5b6f3bff743a",
+                                "startDate": "2018-12-15",
+                                "endDate": "2021-12-14",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "9c07e49d-0667-48e3-931a-a00a5521005d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1641340800000",
+                            "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                            "document": {
+                                "id": "7dc30fa5-1329-4d79-95d9-355d6591496c",
+                                "type": "Contract",
+                                "documentNumber": "18237e14-109b-3ab6-a1e6-e8fdcbd87500",
+                                "startDate": "2021-12-15",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "960.12",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "cf5e7265-f860-305d-849b-340da1f3d106",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18475284307",
+                                        "name": "Orlando Howell",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "9.73",
+                            "discount": null,
+                            "listPrice": "9.73",
+                            "estimatedValueRenewal": "9.73",
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "9c07e49d-0667-48e3-931a-a00a5521005d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18475284307",
+                            "name": "Orlando Howell",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19368049305",
+                            "name": "Libbie Lemke",
+                            "mail": "bahringer.arnoldo@beier.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

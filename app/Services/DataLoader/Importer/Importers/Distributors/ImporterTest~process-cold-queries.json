@@ -4,21 +4,20 @@
         "bindings": []
     },
     {
-        "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?)) and `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?)) and `distributors`.`deleted_at` is null",
         "bindings": [
-            "143c456a-e894-4710-a1c2-745b9582ca47",
-            "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
-            "74262ef0-5df5-4479-9f7c-de0625970696",
-            "eb1cb37a-48ab-43da-a01e-220220f8654a",
-            "f066f65a-6455-4cff-8dfb-0aaaeba544f9"
+            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "a985a692-c063-499a-ab2f-0a2adef86a3f",
+            "efc39adf-0497-40a3-a6e6-bbd692f87516"
         ]
     },
     {
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "143c456a-e894-4710-a1c2-745b9582ca47",
-            "Weimann LLC",
-            "2021-09-08 10:51:24",
+            "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+            "Nienow-White",
+            "2022-06-27 12:43:36",
             "2022-02-02 00:00:02",
             "2022-02-02 00:00:03",
             "2022-02-02 00:00:03"
@@ -27,9 +26,9 @@
     {
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "562adf6b-1bc2-49b4-9d42-429e1afe5fc5",
-            "Green, Sanford and Bednar",
-            "2022-01-26 10:15:16",
+            "1af1c44e-8112-4e72-9654-b11c705e9372",
+            "Sauer-Kautzer",
+            "2022-06-27 12:44:03",
             "2022-02-02 00:00:05",
             "2022-02-02 00:00:06",
             "2022-02-02 00:00:06"
@@ -38,9 +37,9 @@
     {
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "74262ef0-5df5-4479-9f7c-de0625970696",
-            "Cruickshank, Brown and Hodkiewicz",
-            "2022-01-26 10:21:40",
+            "a985a692-c063-499a-ab2f-0a2adef86a3f",
+            "Corwin-Lind",
+            "2022-06-27 12:48:23",
             "2022-02-02 00:00:08",
             "2022-02-02 00:00:09",
             "2022-02-02 00:00:09"
@@ -49,23 +48,12 @@
     {
         "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "eb1cb37a-48ab-43da-a01e-220220f8654a",
-            "Purdy-Reichert",
-            "2022-01-26 10:51:44",
+            "efc39adf-0497-40a3-a6e6-bbd692f87516",
+            "Bartoletti-Schultz",
+            "2022-06-27 12:50:38",
             "2022-02-02 00:00:11",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
-        ]
-    },
-    {
-        "query": "insert into `distributors` (`id`, `name`, `changed_at`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "f066f65a-6455-4cff-8dfb-0aaaeba544f9",
-            "Mosciski Ltd",
-            "2022-01-26 10:52:55",
-            "2022-02-02 00:00:14",
-            "2022-02-02 00:00:15",
-            "2022-02-02 00:00:15"
         ]
     }
 ]

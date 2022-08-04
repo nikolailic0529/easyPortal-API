@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "1af1c44e-8112-4e72-9654-b11c705e9372"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "name": "Champlin-McKenzie",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656333843950",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

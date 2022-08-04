@@ -1,0 +1,138 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "982e95de-6963-4065-a315-4ef9eb6565c0"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "982e95de-6963-4065-a315-4ef9eb6565c0",
+                    "name": "Shields-Swift",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162971665",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17409906296",
+                            "name": "Miss Twila Deckow PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17409906296",
+                            "name": "Dejon Bartell",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19176206205",
+                            "name": "Joshuah Feeney",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18587293788",
+                            "name": "Granville Dickens",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18587293788",
+                            "name": "Eula Runolfsson",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "36239",
+                            "address": "5732 Noel Canyon Apt. 107",
+                            "city": "Crooksshire",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "-15.878785",
+                            "longitude": "-155.068852",
+                            "countryCode": "BA"
+                        },
+                        {
+                            "zip": "36239",
+                            "address": "5732 Noel Canyon Apt. 107",
+                            "city": "Crooksshire",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "-15.878785",
+                            "longitude": "-155.068852",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1462,
+                        "activeAssets": 1437,
+                        "activeAssetsPercentage": 98.29001367989056,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 11,
+                        "activeContractTotalAmount": 220080.079999998,
+                        "newActiveContracts": null,
+                        "expiringContracts": 3,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 3,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                            "totalAssets": 1462,
+                            "activeAssets": 1437,
+                            "activeAssetsPercentage": 98.29001367989056,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 11,
+                            "activeContractTotalAmount": 220080.079999998,
+                            "newActiveContracts": null,
+                            "expiringContracts": 3,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 3,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,139 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "79934a7c-ec40-441a-b6d7-618745a222f9"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "79934a7c-ec40-441a-b6d7-618745a222f9",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                    "serialNumber": null,
+                    "productDescription": "HPE B-series 16Gb SFP+SW XCVR",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "QK724A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "21625-4120",
+                    "city": "New Terrillport",
+                    "address": "47585 Lehner Pike",
+                    "address2": null,
+                    "country": "Guam",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "5a9a6e71-debd-3b93-9bad-3675aa0b260b",
+                            "document": {
+                                "id": "0a38d611-f78f-48e4-a861-8d56afaa8154",
+                                "type": "Contract",
+                                "documentNumber": "5a9a6e71-debd-3b93-9bad-3675aa0b260b",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "1306.8",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17633941141",
+                                        "name": "Dorris Lubowitz",
+                                        "mail": "hyatt.royce@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18315765750",
+                                        "name": "Mr. Kelvin Gutkowski Jr.",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14346857813",
+                            "name": "Elbert Maggio V",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17633941141",
+                            "name": "Dorris Lubowitz",
+                            "mail": "hyatt.royce@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12723941015",
+                            "name": "Jacklyn Cassin",
+                            "mail": "brenden.lindgren@roob.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,208 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "name": "Crist, Davis and Schneider",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155752136",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19802975848",
+                            "name": "Carolyn Abshire",
+                            "mail": "randy96@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17127640232",
+                            "name": "Desiree Pagac",
+                            "mail": "zlegros@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19802975848",
+                            "name": "Mike Stark",
+                            "mail": "yroberts@schamberger.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Raphael McDermott",
+                            "mail": "jaskolski.princess@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18325904780",
+                            "name": "Eldridge Harber",
+                            "mail": "alford.padberg@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14106737105",
+                            "name": "Stephania Adams",
+                            "mail": "walter.joyce@bogan.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14244215679",
+                            "name": "Prof. Viviane Keebler II",
+                            "mail": "jblanda@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12628270894",
+                            "name": "Prof. Dakota Mayert",
+                            "mail": "odell.quigley@monahan.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19406406033",
+                            "name": "Brandy Shanahan",
+                            "mail": "odell51@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17439089974",
+                            "name": "Janet Jakubowski",
+                            "mail": "leatha.champlin@hayes.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18439411482",
+                            "name": "Maxie Gislason",
+                            "mail": "fadel.cassidy@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16295870635",
+                            "name": "Aiyana Terry Jr.",
+                            "mail": "kkreiger@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15412401795",
+                            "name": "Hollie Blick",
+                            "mail": "nlittle@parisian.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "49524",
+                            "address": "635 Lawrence Green",
+                            "city": "West Allene",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "-67.192189",
+                            "longitude": "-62.502915",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#1876BD",
+                        "secondaryColor": "#F19167",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/008833?text=similique",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Provident aliquam quos natus dolore."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Provident aliquam quos natus dolore."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Provident aliquam quos natus dolore."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Provident aliquam quos natus dolore."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Hic autem velit temporibus earum."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Hic autem velit temporibus earum."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Quidem nam quia qui aut excepturi eum quia."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Quidem nam quia qui aut excepturi eum quia."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Quidem nam quia qui aut excepturi eum quia."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Quidem nam quia qui aut excepturi eum quia."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Incidunt ducimus ab esse omnis cumque placeat."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Incidunt ducimus ab esse omnis cumque placeat."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 12605,
+                        "activeAssets": 7648,
+                        "activeAssetsPercentage": 60.6743355811186,
+                        "activeCustomers": 113,
+                        "newActiveCustomers": 89,
+                        "activeContracts": 263,
+                        "activeContractTotalAmount": 1230212.2200000002,
+                        "newActiveContracts": 107,
+                        "expiringContracts": 28,
+                        "activeQuotes": 62,
+                        "activeQuotesTotalAmount": 301458.94999999995,
+                        "newActiveQuotes": 11,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 62,
+                        "expiredContracts": 263,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

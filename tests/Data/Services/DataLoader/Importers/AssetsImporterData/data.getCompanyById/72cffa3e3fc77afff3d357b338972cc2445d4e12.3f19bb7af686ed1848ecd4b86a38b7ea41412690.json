@@ -1,0 +1,136 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                    "name": "Ortiz, Padberg and Lehner",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156507602",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18123595997",
+                            "name": "Velva Donnelly",
+                            "mail": "hoeger.tristin@schmitt.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "32186",
+                            "address": "63666 Hickle Estates Apt. 895",
+                            "city": "West Yoshikoberg",
+                            "locationType": null,
+                            "country": "Romania",
+                            "latitude": "-63.858259",
+                            "longitude": "-170.372176",
+                            "countryCode": "MN"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#484c4e",
+                        "secondaryColor": "#f7de49",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/0077ff?text=earum",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Et dolorem debitis voluptate odio."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Et dolorem debitis voluptate odio."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Et dolorem debitis voluptate odio."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Et dolorem debitis voluptate odio."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Aut accusantium earum adipisci atque rem ea."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Aut accusantium earum adipisci atque rem ea."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Quas enim laudantium aut praesentium sit quia illum excepturi."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Quas enim laudantium aut praesentium sit quia illum excepturi."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Quas enim laudantium aut praesentium sit quia illum excepturi."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Quas enim laudantium aut praesentium sit quia illum excepturi."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Quasi nulla eveniet sunt consectetur itaque."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Quasi nulla eveniet sunt consectetur itaque."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 1656,
+                        "activeAssets": 1337,
+                        "activeAssetsPercentage": 80.73671497584542,
+                        "activeCustomers": 26,
+                        "newActiveCustomers": 18,
+                        "activeContracts": 52,
+                        "activeContractTotalAmount": 77766.96,
+                        "newActiveContracts": 6,
+                        "expiringContracts": 17,
+                        "activeQuotes": 22,
+                        "activeQuotesTotalAmount": 250756.03000000014,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 22,
+                        "expiredContracts": 52,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

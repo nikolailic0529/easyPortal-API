@@ -1,0 +1,132 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "54126f62-957a-46b1-a8ec-926fa4e94a81"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "54126f62-957a-46b1-a8ec-926fa4e94a81",
+                    "name": "Willms PLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162862774",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12252959341",
+                            "name": "Laney Blick",
+                            "mail": "junius62@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19252981529",
+                            "name": "Tiana Boehm",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14635779797",
+                            "name": "Dr. Micah Zulauf",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19734310733",
+                            "name": "Joany Walter",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "65829-5407",
+                            "address": "5728 Hessel Lakes",
+                            "city": "Kittymouth",
+                            "locationType": null,
+                            "country": "Niue",
+                            "latitude": "-3.894075",
+                            "longitude": "48.455265",
+                            "countryCode": "PK"
+                        },
+                        {
+                            "zip": "65829-5407",
+                            "address": "5728 Hessel Lakes",
+                            "city": "Kittymouth",
+                            "locationType": null,
+                            "country": "Niue",
+                            "latitude": "-3.894075",
+                            "longitude": "48.455265",
+                            "countryCode": "PK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 693,
+                        "activeAssets": 196,
+                        "activeAssetsPercentage": 28.28282828282828,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 4,
+                        "activeContractTotalAmount": 46614.020000000004,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 13770.900000000005,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                            "totalAssets": 693,
+                            "activeAssets": 196,
+                            "activeAssetsPercentage": 28.28282828282828,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 4,
+                            "activeContractTotalAmount": 46614.02000000001,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 2,
+                            "activeQuotesTotalAmount": 13770.900000000005,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

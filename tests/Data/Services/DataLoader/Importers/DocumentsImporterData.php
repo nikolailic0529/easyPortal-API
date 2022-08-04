@@ -6,9 +6,7 @@ use App\Services\DataLoader\Testing\Data\DocumentsData;
 use Illuminate\Console\Command;
 
 class DocumentsImporterData extends DocumentsData {
-    public const LIMIT  = 15;
-    public const CHUNK  = 5;
-    public const OFFSET = '0017faba-7a1a-44b2-9622-39b1b06879c4';
+    public const OFFSET = '188d13aa-9c37-4c4d-8a9e-c4364b27783e';
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {

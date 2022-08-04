@@ -1,0 +1,210 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                    "name": "Kuhic, Fadel and Kuvalis",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162921349",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17376363054",
+                            "name": "Geovany Kub",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Josiane Hackett",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Sandy Kirlin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17857213134",
+                            "name": "Prof. Bret Bartoletti",
+                            "mail": "audra.shanahan@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865554948",
+                            "name": "Julius Stroman",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mr. Miller Ratke",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Eladio Metz",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865554948",
+                            "name": "Dr. Winifred Champlin MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865554948",
+                            "name": "Mr. Edwardo Watsica",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18453328966",
+                            "name": "Prof. Jamie Corwin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Ona Hill",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13148308029",
+                            "name": "Jayson Dicki",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12348152253",
+                            "name": "Alex Farrell",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mr. Nico Ankunding",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18785091515",
+                            "name": "Mrs. Carley Powlowski Jr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16405969624",
+                            "name": "Newton Kohler",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "John Sipes",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "85245",
+                            "address": "4681 Allan Overpass",
+                            "city": "West Keyon",
+                            "locationType": null,
+                            "country": "Sri Lanka",
+                            "latitude": "-36.058488",
+                            "longitude": "103.614116",
+                            "countryCode": "CI"
+                        },
+                        {
+                            "zip": "85245",
+                            "address": "4681 Allan Overpass",
+                            "city": "West Keyon",
+                            "locationType": null,
+                            "country": "Sri Lanka",
+                            "latitude": "-36.058488",
+                            "longitude": "103.614116",
+                            "countryCode": "CI"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 611,
+                        "activeAssets": 426,
+                        "activeAssetsPercentage": 69.72176759410802,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 14,
+                        "activeContractTotalAmount": 46589.45999999999,
+                        "newActiveContracts": null,
+                        "expiringContracts": 4,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 13870.87,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 18,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                            "totalAssets": 611,
+                            "activeAssets": 426,
+                            "activeAssetsPercentage": 69.72176759410802,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 14,
+                            "activeContractTotalAmount": 46589.45999999999,
+                            "newActiveContracts": null,
+                            "expiringContracts": 4,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 13870.87,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 18,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

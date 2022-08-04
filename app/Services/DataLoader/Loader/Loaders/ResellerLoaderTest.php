@@ -111,8 +111,8 @@ class ResellerLoaderTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 1,
-            Reseller::class      => 4,
+            Distributor::class   => 2,
+            Reseller::class      => 2,
             Customer::class      => 2,
             Asset::class         => 1,
             AssetWarranty::class => 0,
@@ -132,12 +132,12 @@ class ResellerLoaderTest extends TestCase {
 
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
         self::assertModelsCount([
-            Distributor::class   => 1,
-            Reseller::class      => 4,
+            Distributor::class   => 2,
+            Reseller::class      => 2,
             Customer::class      => 2,
-            Asset::class         => 6,
-            AssetWarranty::class => 11,
-            Document::class      => 3,
+            Asset::class         => 73,
+            AssetWarranty::class => 0,
+            Document::class      => 2,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -183,12 +183,12 @@ class ResellerLoaderTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 1,
+            Distributor::class   => 2,
             Reseller::class      => 2,
-            Customer::class      => 5,
+            Customer::class      => 2,
             Asset::class         => 8,
-            AssetWarranty::class => 24,
-            Document::class      => 8,
+            AssetWarranty::class => 0,
+            Document::class      => 4,
             DocumentEntry::class => 0,
         ]);
 
@@ -203,13 +203,13 @@ class ResellerLoaderTest extends TestCase {
 
         self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
-            Distributor::class   => 1,
+            Distributor::class   => 2,
             Reseller::class      => 2,
-            Customer::class      => 5,
+            Customer::class      => 2,
             Asset::class         => 8,
-            AssetWarranty::class => 24,
-            Document::class      => 8,
-            DocumentEntry::class => 16,
+            AssetWarranty::class => 0,
+            Document::class      => 4,
+            DocumentEntry::class => 5,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-with-documents-cold-events.json',

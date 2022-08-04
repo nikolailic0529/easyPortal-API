@@ -6,9 +6,7 @@ use App\Services\DataLoader\Importer\Importers\Customers\DocumentsImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 
 class CustomerDocumentsImporterData extends DocumentsData {
-    public const CUSTOMER = 'a04716f3-95de-4046-ab13-7a575cf67f85';
-    public const LIMIT    = 50;
-    public const CHUNK    = 10;
+    public const CUSTOMER = '3adf6426-735c-4f52-9f28-e3ad593e707c';
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {

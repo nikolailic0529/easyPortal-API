@@ -1,0 +1,138 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "93da84d9-a8ee-483a-b604-9289d41fd601"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                    "name": "Towne LLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162964172",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17195156095",
+                            "name": "Brenna Schmidt",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15805268315",
+                            "name": "Mr. General Champlin II",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Monte Stiedemann PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19309128288",
+                            "name": "Dr. Julius Gulgowski DVM",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Patrick Sauer",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "80331",
+                            "address": "6052 Hartmann Mission",
+                            "city": "Port Xzavierview",
+                            "locationType": null,
+                            "country": "Belize",
+                            "latitude": "47.485508",
+                            "longitude": "174.982679",
+                            "countryCode": "DJ"
+                        },
+                        {
+                            "zip": "80331",
+                            "address": "6052 Hartmann Mission",
+                            "city": "Port Xzavierview",
+                            "locationType": null,
+                            "country": "Belize",
+                            "latitude": "47.485508",
+                            "longitude": "174.982679",
+                            "countryCode": "DJ"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1212,
+                        "activeAssets": 262,
+                        "activeAssetsPercentage": 21.61716171617162,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 3,
+                        "activeContractTotalAmount": 19193.76000000001,
+                        "newActiveContracts": null,
+                        "expiringContracts": 3,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                            "totalAssets": 1212,
+                            "activeAssets": 262,
+                            "activeAssetsPercentage": 21.61716171617162,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 3,
+                            "activeContractTotalAmount": 19193.76000000001,
+                            "newActiveContracts": null,
+                            "expiringContracts": 3,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

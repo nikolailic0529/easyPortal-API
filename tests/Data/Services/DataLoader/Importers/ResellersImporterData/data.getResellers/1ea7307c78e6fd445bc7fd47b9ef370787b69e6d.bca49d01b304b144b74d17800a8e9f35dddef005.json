@@ -1,0 +1,356 @@
+{
+    "selector": "data.getResellers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": null,
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "003b32d8-2216-4550-ae14-f18ab482e3c7",
+                    "name": "Little-Huel",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136781",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17546374158",
+                            "name": "Justina Schamberger",
+                            "mail": "mclaughlin.fannie@bergnaum.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "19666",
+                            "address": "388 Karianne Ferry",
+                            "city": "Lakinburgh",
+                            "locationType": null,
+                            "country": "Panama",
+                            "latitude": "71.12742",
+                            "longitude": "67.25049",
+                            "countryCode": "FJ"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0048aae2-ac36-4ab5-a667-c74c3c72b50b",
+                    "name": "Paucek, McKenzie and Gottlieb",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136850",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13059131972",
+                            "name": "Deonte Dickinson V",
+                            "mail": "paucek.mikel@lowe.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13059131972",
+                            "name": "Mr. Urban Shields",
+                            "mail": "pearlie16@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17627273534",
+                            "name": "Maci Hintz",
+                            "mail": "vlesch@emmerich.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "07802",
+                            "address": "7970 Hills Burgs Suite 386",
+                            "city": "Weissnatmouth",
+                            "locationType": null,
+                            "country": "Bulgaria",
+                            "latitude": "50.889134",
+                            "longitude": "42.619131",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0059c2eb-e149-4858-94eb-e4ae3525e37e",
+                    "name": "Ankunding Group",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136876",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14244128534",
+                            "name": "Hilton Gleason",
+                            "mail": "lhayes@schulist.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Celia Goyette DDS",
+                            "mail": "kendrick.toy@hartmann.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12153711073",
+                            "name": "Mr. Deangelo Bergstrom III",
+                            "mail": "sherman95@carter.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17579058597",
+                            "name": "Ashton Franecki Sr.",
+                            "mail": "rachael12@mraz.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12678572352",
+                            "name": "Ms. Myah Little",
+                            "mail": "bianka26@lueilwitz.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "27256",
+                            "address": "77156 Kuhn Ferry Suite 406",
+                            "city": "Lake Crawford",
+                            "locationType": null,
+                            "country": "Netherlands Antilles",
+                            "latitude": "-79.352214",
+                            "longitude": "-126.943305",
+                            "countryCode": "AW"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "005a0ef4-d12a-4d72-93d7-da042004eeb6",
+                    "name": "Homenick, Ernser and Jacobson",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136907",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17473126276",
+                            "name": "Jillian Sipes",
+                            "mail": "nickolas.hessel@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "75757",
+                            "address": "78988 Bert Ways Apt. 861",
+                            "city": "Marcelburgh",
+                            "locationType": null,
+                            "country": "Guyana",
+                            "latitude": "72.121023",
+                            "longitude": "114.044595",
+                            "countryCode": "CD"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "008a65ba-701e-44a7-8923-8d228c97bf7e",
+                    "name": "Walsh-Cummings",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136923",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16692558579",
+                            "name": "Jackeline McClure",
+                            "mail": "nschmitt@runte.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "56733-3718",
+                            "address": "7441 Renner Motorway Suite 563",
+                            "city": "Kelleytown",
+                            "locationType": null,
+                            "country": "Netherlands Antilles",
+                            "latitude": "57.71817",
+                            "longitude": "-142.704569",
+                            "countryCode": "AW"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

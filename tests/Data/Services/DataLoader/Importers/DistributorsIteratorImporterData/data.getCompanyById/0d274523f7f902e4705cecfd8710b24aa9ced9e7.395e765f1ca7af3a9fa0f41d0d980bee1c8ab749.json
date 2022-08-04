@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "efc39adf-0497-40a3-a6e6-bbd692f87516"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "efc39adf-0497-40a3-a6e6-bbd692f87516",
+                    "name": "Torp-Friesen",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656334238601",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

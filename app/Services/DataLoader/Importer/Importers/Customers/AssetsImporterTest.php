@@ -39,8 +39,8 @@ class AssetsImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 3,
-            Customer::class      => 2,
+            Reseller::class      => 1,
+            Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -62,11 +62,11 @@ class AssetsImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
-            Reseller::class      => 3,
-            Customer::class      => 2,
+            Reseller::class      => 1,
+            Customer::class      => 1,
             Asset::class         => CustomerAssetsImporterDataWithDocuments::LIMIT,
-            AssetWarranty::class => 56,
-            Document::class      => 4,
+            AssetWarranty::class => 0,
+            Document::class      => 3,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
@@ -115,7 +115,7 @@ class AssetsImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 1,
             Customer::class      => 1,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -138,10 +138,10 @@ class AssetsImporterTest extends TestCase {
         self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 1,
             Customer::class      => 1,
             Asset::class         => CustomerAssetsImporterDataWithoutDocuments::LIMIT,
-            AssetWarranty::class => 8,
+            AssetWarranty::class => 0,
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);

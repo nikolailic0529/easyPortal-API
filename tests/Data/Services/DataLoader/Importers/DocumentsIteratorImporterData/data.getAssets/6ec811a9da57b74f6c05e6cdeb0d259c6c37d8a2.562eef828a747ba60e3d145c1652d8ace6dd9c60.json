@@ -1,0 +1,282 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "45cc378c-b7a2-4f0e-b6a4-95304ec3c588"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "45cc378c-b7a2-4f0e-b6a4-95304ec3c588",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                    "serialNumber": "a9701463-f343-3efe-8d24-b562e1625ba8",
+                    "productDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "868704-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "94963",
+                    "city": "McKenzieville",
+                    "address": "831 Predovic Club Suite 270",
+                    "address2": null,
+                    "country": "Sri Lanka",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                            "document": {
+                                "id": "f7e1814b-98fd-407b-97e8-d558182c7b17",
+                                "type": "Quote New Business",
+                                "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                                "startDate": "2022-06-01",
+                                "endDate": "2025-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "16719.56",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17244551230",
+                                        "name": "Luis Labadie",
+                                        "mail": "alfonzo66@yahoo.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "599.4",
+                            "discount": null,
+                            "listPrice": "649.01",
+                            "estimatedValueRenewal": "649.01",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                            "document": {
+                                "id": "f7e1814b-98fd-407b-97e8-d558182c7b17",
+                                "type": "Quote New Business",
+                                "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                                "startDate": "2022-06-01",
+                                "endDate": "2025-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "16719.56",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17244551230",
+                                        "name": "Luis Labadie",
+                                        "mail": "alfonzo66@yahoo.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "3050.64",
+                            "discount": null,
+                            "listPrice": "3304.05",
+                            "estimatedValueRenewal": "3304.05",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "22062df0-c47d-32e9-811f-4960e67860d4",
+                            "document": {
+                                "id": "05a153c5-251c-413b-92dd-0cd27d6ed8fd",
+                                "type": "Quote New Business",
+                                "documentNumber": "22062df0-c47d-32e9-811f-4960e67860d4",
+                                "startDate": "2022-06-01",
+                                "endDate": "2024-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "12069.809999999998",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "2081.04",
+                            "discount": null,
+                            "listPrice": "2248.5873",
+                            "estimatedValueRenewal": "2248.5873",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "22062df0-c47d-32e9-811f-4960e67860d4",
+                            "document": {
+                                "id": "05a153c5-251c-413b-92dd-0cd27d6ed8fd",
+                                "type": "Quote New Business",
+                                "documentNumber": "22062df0-c47d-32e9-811f-4960e67860d4",
+                                "startDate": "2022-06-01",
+                                "endDate": "2024-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "12069.809999999998",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "408.72",
+                            "discount": null,
+                            "listPrice": "441.6868",
+                            "estimatedValueRenewal": "441.6868",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

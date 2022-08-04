@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "35ccd425-0a25-4178-ad23-b53f5cb391bd"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "35ccd425-0a25-4178-ad23-b53f5cb391bd",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                    "serialNumber": "",
+                    "productDescription": "HP DL380p Gen8 E5-2690v2 Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "715214-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "76009",
+                    "city": "Justenchester",
+                    "address": "155 Pete Turnpike Apt. 953",
+                    "address2": null,
+                    "country": "Georgia",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18305845958",
+                            "name": "Lawson Homenick",
+                            "mail": "norene60@crist.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19473717141",
+                            "name": "Prof. Urban Brown",
+                            "mail": "ekerluke@hoppe.info",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

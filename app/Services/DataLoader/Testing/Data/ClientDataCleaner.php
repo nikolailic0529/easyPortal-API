@@ -102,7 +102,7 @@ class ClientDataCleaner {
             $object->countryCode   = $this->map($object->countryCode, $this->countryCode);
             $object->latitude      = $this->map($object->latitude, $this->latitude);
             $object->longitude     = $this->map($object->longitude, $this->longitude);
-            $object->assetDocument = $this->limit($object->assetDocument);
+            $object->assetDocument = $this->limit($object->assetDocument ?? []);
         } elseif ($object instanceof ViewAssetDocument) {
             $object->documentNumber = $this->map($object->documentNumber, $this->uuid);
         } elseif ($object instanceof ViewDocument) {

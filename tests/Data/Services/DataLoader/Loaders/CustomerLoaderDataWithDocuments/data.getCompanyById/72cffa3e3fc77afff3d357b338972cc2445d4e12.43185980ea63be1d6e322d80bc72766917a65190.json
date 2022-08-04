@@ -1,0 +1,198 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "name": "Quigley and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155425695",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Rudolph Roob I",
+                            "mail": "fbarton@willms.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13129429882",
+                            "name": "Rebekah Okuneva",
+                            "mail": "gerardo.swaniawski@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19794177743",
+                            "name": "Ms. Anita Koelpin",
+                            "mail": "bergstrom.mandy@oberbrunner.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13149888677",
+                            "name": "Ms. Noelia Spencer MD",
+                            "mail": "hirthe.destiny@lindgren.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15408197315",
+                            "name": "Kathryne Feil Sr.",
+                            "mail": "skilback@kiehn.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17814414818",
+                            "name": "Dorcas Witting",
+                            "mail": "lawson.nienow@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19039594309",
+                            "name": "Marta Considine",
+                            "mail": "larkin.deonte@krajcik.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18315835660",
+                            "name": "Maryam Rogahn",
+                            "mail": "clementina.kessler@mclaughlin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18633867241",
+                            "name": "Samanta Turcotte PhD",
+                            "mail": "wilbert.dicki@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18702514068",
+                            "name": "Rhianna Little",
+                            "mail": "judd.ferry@gutmann.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12284973532",
+                            "name": "Mitchel Quitzon",
+                            "mail": "mckayla.boyer@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "clementina.kessler@mclaughlin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "gerardo.swaniawski@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16363093725",
+                            "name": "Ward McKenzie",
+                            "mail": "michale.mckenzie@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "bergstrom.mandy@oberbrunner.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15627698491",
+                            "name": "Hilma Cummerata",
+                            "mail": "schuyler.schroeder@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "skilback@kiehn.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "mckayla.boyer@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "shawna26@kuvalis.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "hirthe.destiny@lindgren.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17187333938",
+                            "name": "Nicolette Walker",
+                            "mail": "adolph.lebsack@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13809756789",
+                            "name": "Lorenz Osinski",
+                            "mail": "mjaskolski@gmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "75469-0901",
+                            "address": "436 Kshlerin Skyway",
+                            "city": "Lake Orphatown",
+                            "locationType": null,
+                            "country": "Mauritania",
+                            "latitude": "-80.064994",
+                            "longitude": "-17.677588",
+                            "countryCode": "CY"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 11444,
+                        "activeAssets": 9623,
+                        "activeAssetsPercentage": 84.08773156239077,
+                        "activeCustomers": 109,
+                        "newActiveCustomers": 73,
+                        "activeContracts": 207,
+                        "activeContractTotalAmount": 1832208.81,
+                        "newActiveContracts": 65,
+                        "expiringContracts": 17,
+                        "activeQuotes": 88,
+                        "activeQuotesTotalAmount": 513461.0099999998,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 88,
+                        "expiredContracts": 207,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

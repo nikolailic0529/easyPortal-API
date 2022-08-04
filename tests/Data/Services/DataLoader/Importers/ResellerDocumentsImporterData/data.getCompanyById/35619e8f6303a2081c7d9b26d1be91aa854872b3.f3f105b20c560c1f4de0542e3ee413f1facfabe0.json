@@ -1,0 +1,192 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "name": "Kilback, Glover and Dooley",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162767104",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13479107882",
+                            "name": "Darrel Koelpin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13479107882",
+                            "name": "Timothy Kunze",
+                            "mail": "savion.fahey@reichert.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17077416564",
+                            "name": "Erna Boyer",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17077416564",
+                            "name": "Dashawn Robel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19496093928",
+                            "name": "Romaine Cummerata",
+                            "mail": "gardner.fahey@pollich.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15056699292",
+                            "name": "Prof. Morgan Lakin PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15056699292",
+                            "name": "Cornell Schimmel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13105912929",
+                            "name": "Asa Conn",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19799312114",
+                            "name": "Jazmin Upton",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Elda White",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16126859159",
+                            "name": "Greyson Gorczany",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15139256932",
+                            "name": "Lou Sipes II",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15188485282",
+                            "name": "Timothy Kunze",
+                            "mail": "savion.fahey@reichert.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "",
+                            "name": "Mrs. Tyra Treutel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "07714",
+                            "address": "5488 Breitenberg Street",
+                            "city": "East Marcella",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-85.448343",
+                            "longitude": "51.629758",
+                            "countryCode": "AX"
+                        },
+                        {
+                            "zip": "07714",
+                            "address": "5488 Breitenberg Street",
+                            "city": "East Marcella",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-85.448343",
+                            "longitude": "51.629758",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 926,
+                        "activeAssets": 316,
+                        "activeAssetsPercentage": 34.12526997840173,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 6,
+                        "activeContractTotalAmount": 17391.289999999997,
+                        "newActiveContracts": null,
+                        "expiringContracts": 5,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                            "totalAssets": 926,
+                            "activeAssets": 316,
+                            "activeAssetsPercentage": 34.12526997840173,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 6,
+                            "activeContractTotalAmount": 17391.289999999997,
+                            "newActiveContracts": null,
+                            "expiringContracts": 5,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

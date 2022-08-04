@@ -1,0 +1,14 @@
+{
+    "selector": "data.getDistributors",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getDistributors(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "efc39adf-0497-40a3-a6e6-bbd692f87516",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getDistributors": []
+        }
+    }
+}

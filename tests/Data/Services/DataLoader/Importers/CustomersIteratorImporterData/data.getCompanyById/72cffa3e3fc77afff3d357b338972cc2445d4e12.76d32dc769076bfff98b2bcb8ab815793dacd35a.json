@@ -1,0 +1,208 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "name": "Mraz Inc",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155752136",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16294800709",
+                            "name": "Halie Kohler",
+                            "mail": "keagan18@pagac.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15059010355",
+                            "name": "Octavia Bednar",
+                            "mail": "wolf.myrtie@schneider.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16294800709",
+                            "name": "Charlotte Effertz",
+                            "mail": "retha85@cronin.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Korey Fay",
+                            "mail": "belle53@leffler.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15759851006",
+                            "name": "Carmella Ondricka Jr.",
+                            "mail": "katlynn.will@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17545525404",
+                            "name": "Jackson Batz",
+                            "mail": "langosh.jean@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19143913977",
+                            "name": "Mable Brakus",
+                            "mail": "hartmann.esperanza@langosh.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16176434687",
+                            "name": "Issac Heidenreich II",
+                            "mail": "joanie.spinka@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16266466242",
+                            "name": "Rosemary Legros",
+                            "mail": "stanford.bashirian@abernathy.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13108856199",
+                            "name": "Freddy Schneider",
+                            "mail": "jkeebler@hermann.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17328878942",
+                            "name": "Raymundo Volkman IV",
+                            "mail": "jreichel@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13468210790",
+                            "name": "Maverick Jaskolski",
+                            "mail": "cynthia.gibson@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16783092117",
+                            "name": "Verla Daugherty",
+                            "mail": "vfay@gmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "83992",
+                            "address": "32549 Odell Path",
+                            "city": "New Jennyfer",
+                            "locationType": null,
+                            "country": "Isle of Man",
+                            "latitude": "31.288509",
+                            "longitude": "-87.379844",
+                            "countryCode": "SR"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#1876BD",
+                        "secondaryColor": "#F19167",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/0066ff?text=sint",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Qui illum eos id ut eius."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Qui illum eos id ut eius."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Qui illum eos id ut eius."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Qui illum eos id ut eius."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Eos vero necessitatibus commodi sed."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Eos vero necessitatibus commodi sed."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Quo est voluptatum reiciendis repellat similique eum sed."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Quo est voluptatum reiciendis repellat similique eum sed."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Quo est voluptatum reiciendis repellat similique eum sed."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Quo est voluptatum reiciendis repellat similique eum sed."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Voluptates quia omnis impedit dolorem perspiciatis qui soluta."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Voluptates quia omnis impedit dolorem perspiciatis qui soluta."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 12605,
+                        "activeAssets": 7648,
+                        "activeAssetsPercentage": 60.6743355811186,
+                        "activeCustomers": 113,
+                        "newActiveCustomers": 89,
+                        "activeContracts": 263,
+                        "activeContractTotalAmount": 1230212.2200000002,
+                        "newActiveContracts": 107,
+                        "expiringContracts": 28,
+                        "activeQuotes": 62,
+                        "activeQuotesTotalAmount": 301458.94999999995,
+                        "newActiveQuotes": 11,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 62,
+                        "expiredContracts": 263,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

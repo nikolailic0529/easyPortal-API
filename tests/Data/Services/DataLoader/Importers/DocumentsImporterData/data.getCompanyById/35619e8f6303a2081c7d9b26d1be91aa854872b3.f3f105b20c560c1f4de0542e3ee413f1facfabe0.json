@@ -1,0 +1,192 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "name": "Schneider Group",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162767104",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13607102968",
+                            "name": "Marcelle DuBuque MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13607102968",
+                            "name": "Kobe Streich",
+                            "mail": "cgleason@stracke.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17812629669",
+                            "name": "Gerry Bode",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17812629669",
+                            "name": "Antoinette Christiansen Sr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12064548569",
+                            "name": "Jonatan Gleason",
+                            "mail": "berta03@gaylord.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19784475698",
+                            "name": "Bartholome Reichert",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19784475698",
+                            "name": "Dr. Fay Parisian",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18203842370",
+                            "name": "Prof. Braxton Connelly",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15626685421",
+                            "name": "Elliot Ruecker",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mabelle Metz",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17346308809",
+                            "name": "Prof. Juliet Bode",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17737247378",
+                            "name": "Irving Kuphal",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14798313947",
+                            "name": "Kobe Streich",
+                            "mail": "cgleason@stracke.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "",
+                            "name": "Kiana Goodwin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "64400",
+                            "address": "508 Krajcik Glen Apt. 822",
+                            "city": "Gusikowskihaven",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "65.415116",
+                            "longitude": "-169.202214",
+                            "countryCode": "KP"
+                        },
+                        {
+                            "zip": "64400",
+                            "address": "508 Krajcik Glen Apt. 822",
+                            "city": "Gusikowskihaven",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "65.415116",
+                            "longitude": "-169.202214",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 926,
+                        "activeAssets": 316,
+                        "activeAssetsPercentage": 34.12526997840173,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 6,
+                        "activeContractTotalAmount": 17391.289999999997,
+                        "newActiveContracts": null,
+                        "expiringContracts": 5,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                            "totalAssets": 926,
+                            "activeAssets": 316,
+                            "activeAssetsPercentage": 34.12526997840173,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 6,
+                            "activeContractTotalAmount": 17391.289999999997,
+                            "newActiveContracts": null,
+                            "expiringContracts": 5,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

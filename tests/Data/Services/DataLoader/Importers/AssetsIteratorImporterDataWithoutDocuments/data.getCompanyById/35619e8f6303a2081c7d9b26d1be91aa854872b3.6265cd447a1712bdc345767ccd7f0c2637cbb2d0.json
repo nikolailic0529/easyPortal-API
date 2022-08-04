@@ -1,0 +1,210 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "1777dc95-6991-4fcd-bf60-3bd77d29e559"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "1777dc95-6991-4fcd-bf60-3bd77d29e559",
+                    "name": "Dooley LLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162772213",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19289920800",
+                            "name": "Dr. Jarrod Lebsack DDS",
+                            "mail": "mercedes28@bahringer.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17122493302",
+                            "name": "Mr. Zackary Schiller DDS",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19065424755",
+                            "name": "Rylee Borer",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16283493712",
+                            "name": "Miss Jody Fisher",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18304595461",
+                            "name": "Dr. Charlie Cummerata PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18304595461",
+                            "name": "Rogelio Kilback",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19132064145",
+                            "name": "Prof. Schuyler Schamberger",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15208065111",
+                            "name": "Prof. Dudley Dickinson MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15742153327",
+                            "name": "Zachery Haley",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15742153327",
+                            "name": "Wilson Harris II",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12489148034",
+                            "name": "Dr. Eula Hagenes",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12348232469",
+                            "name": "Juwan Jacobson IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18016776875",
+                            "name": "Brannon Hansen",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18016776875",
+                            "name": "Prof. Kennedy Lockman",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dameon Murphy",
+                            "mail": "swuckert@reilly.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "",
+                            "name": "Tomasa Blick",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19289920800",
+                            "name": "Dr. Arielle Feest DVM",
+                            "mail": "mercedes28@bahringer.net",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "97970-4781",
+                            "address": "500 Medhurst Walks",
+                            "city": "Lake Briannetown",
+                            "locationType": null,
+                            "country": "Gabon",
+                            "latitude": "-44.724546",
+                            "longitude": "-156.566431",
+                            "countryCode": "TJ"
+                        },
+                        {
+                            "zip": "97970-4781",
+                            "address": "500 Medhurst Walks",
+                            "city": "Lake Briannetown",
+                            "locationType": null,
+                            "country": "Gabon",
+                            "latitude": "-44.724546",
+                            "longitude": "-156.566431",
+                            "countryCode": "TJ"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1042,
+                        "activeAssets": 1040,
+                        "activeAssetsPercentage": 99.80806142034548,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 10,
+                        "activeContractTotalAmount": 20425.12000000011,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 5434.079999999922,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                            "totalAssets": 1042,
+                            "activeAssets": 1040,
+                            "activeAssetsPercentage": 99.80806142034548,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 10,
+                            "activeContractTotalAmount": 20425.12000000011,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 5434.079999999922,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,1425 @@
+{
+    "selector": "data.getAssets",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getAssets(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": null,
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "00000b7e-e7dc-49ee-8294-e4708b2435e4",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                    "serialNumber": "5386c4d3-5bfb-36cf-b2f3-3fced5316590",
+                    "productDescription": "HPE 128GB 8Rx4 PC4-2933Y-L 3DS Smart Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P00928-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "43748-7409",
+                    "city": "South Elroy",
+                    "address": "661 Reina Vista",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "de905efa-ba74-36c0-87a0-920fc197cf16",
+                            "document": {
+                                "id": "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
+                                "type": "Contract",
+                                "documentNumber": "de905efa-ba74-36c0-87a0-920fc197cf16",
+                                "startDate": "2022-07-26",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5645.799999999999",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "52c0a249-eb9c-359d-8228-dff0178a27ac",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14044953007",
+                                        "name": "Dr. Furman Brown",
+                                        "mail": "windler.horacio@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                            "document": {
+                                "id": "0b45c643-fd82-4e29-9958-a1842c4f32a6",
+                                "type": "Quote renewal",
+                                "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                                "startDate": "2022-07-01",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "15919.670000000004",
+                                "languageCode": null,
+                                "updatedAt": "1657069043301",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14044953007",
+                                        "name": "Dr. Furman Brown",
+                                        "mail": "windler.horacio@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                            "document": {
+                                "id": "0b45c643-fd82-4e29-9958-a1842c4f32a6",
+                                "type": "Quote renewal",
+                                "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                                "startDate": "2022-07-01",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "15919.670000000004",
+                                "languageCode": null,
+                                "updatedAt": "1657069043301",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14044953007",
+                                        "name": "Dr. Furman Brown",
+                                        "mail": "windler.horacio@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "de905efa-ba74-36c0-87a0-920fc197cf16",
+                            "document": {
+                                "id": "5c636bd2-bd32-4c47-89d0-5d0474da3eb1",
+                                "type": "Contract",
+                                "documentNumber": "de905efa-ba74-36c0-87a0-920fc197cf16",
+                                "startDate": "2022-07-26",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5645.799999999999",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "52c0a249-eb9c-359d-8228-dff0178a27ac",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14044953007",
+                                        "name": "Dr. Furman Brown",
+                                        "mail": "windler.horacio@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                            "document": {
+                                "id": "0b45c643-fd82-4e29-9958-a1842c4f32a6",
+                                "type": "Quote renewal",
+                                "documentNumber": "52077aaa-d53a-3d53-ae9e-4e73ae861187",
+                                "startDate": "2022-07-01",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "15919.670000000004",
+                                "languageCode": null,
+                                "updatedAt": "1657069043301",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14044953007",
+                                        "name": "Dr. Furman Brown",
+                                        "mail": "windler.horacio@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18437664388",
+                                        "name": "Alvena Johnson V",
+                                        "mail": "ckilback@medhurst.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15349803617",
+                                        "name": "Mrs. Cayla Stark",
+                                        "mail": "lillian58@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+19499061635",
+                            "name": "Alexanne Will",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18437664388",
+                            "name": "Alvena Johnson V",
+                            "mail": "ckilback@medhurst.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14044953007",
+                            "name": "Dr. Furman Brown",
+                            "mail": "windler.horacio@gmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "00003ad6-5330-4eb7-862d-2558365914e1",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "ebe27e11-d579-4b5a-9d7a-9cf020770999",
+                    "serialNumber": null,
+                    "productDescription": "HP 3PAR 8200 OS Suite Drive E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "L7B46AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "01076",
+                    "city": "Rasheedview",
+                    "address": "9148 Corwin Fort",
+                    "address2": null,
+                    "country": "Bahamas",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA156AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e640115e-0e7d-325f-9b0e-22989aa1c7d8",
+                            "document": {
+                                "id": "a89ff713-3ccb-4966-882c-7debdde2fd20",
+                                "type": "Contract",
+                                "documentNumber": "e640115e-0e7d-325f-9b0e-22989aa1c7d8",
+                                "startDate": "2020-02-01",
+                                "endDate": "2021-03-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12832526311",
+                                        "name": "Miss Georgianna Macejkovic II",
+                                        "mail": "karen.roberts@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16677202270",
+                                        "name": "Alejandrin Kutch",
+                                        "mail": "freddie86@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13325843829",
+                                        "name": "Lois Rolfson",
+                                        "mail": "marta.quitzon@hotmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12832526311",
+                                        "name": "Miss Georgianna Macejkovic II",
+                                        "mail": "karen.roberts@hotmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12832526311",
+                                        "name": "Miss Georgianna Macejkovic II",
+                                        "mail": "karen.roberts@hotmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Joshuah Feeney",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "ebe27e11-d579-4b5a-9d7a-9cf020770999",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "ebe27e11-d579-4b5a-9d7a-9cf020770999"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12832526311",
+                            "name": "Miss Georgianna Macejkovic II",
+                            "mail": "karen.roberts@hotmail.com",
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16677202270",
+                            "name": "Alejandrin Kutch",
+                            "mail": "freddie86@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13325843829",
+                            "name": "Lois Rolfson",
+                            "mail": "marta.quitzon@hotmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "00025799-8aa0-4f6e-9d3b-7913af1470d0",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                    "serialNumber": "f2cf12fd-8dcc-3c7d-8e73-6eed52a8a35a",
+                    "productDescription": "HP 16GB 2Rx4 PC3-12800R-11 Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "672631-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "44610",
+                    "city": "South Carmel",
+                    "address": "2420 Dixie Harbors Suite 349",
+                    "address2": null,
+                    "country": "Botswana",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e134dd35-29fb-36c7-aafb-0d739997fb33",
+                            "document": {
+                                "id": "cb2efbb1-128b-4c9c-be05-22fb230e1462",
+                                "type": "Contract",
+                                "documentNumber": "e134dd35-29fb-36c7-aafb-0d739997fb33",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "10454.400000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "70f7390f-a7bc-30db-963f-7b602834f798",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723692761",
+                                        "name": "Edna Powlowski I",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723692761",
+                                        "name": "Edna Powlowski I",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14805063141",
+                                        "name": "Randall Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e134dd35-29fb-36c7-aafb-0d739997fb33",
+                            "document": {
+                                "id": "cb2efbb1-128b-4c9c-be05-22fb230e1462",
+                                "type": "Contract",
+                                "documentNumber": "e134dd35-29fb-36c7-aafb-0d739997fb33",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "10454.400000000001",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "70f7390f-a7bc-30db-963f-7b602834f798",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723692761",
+                                        "name": "Edna Powlowski I",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723692761",
+                                        "name": "Edna Powlowski I",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14805063141",
+                                        "name": "Randall Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "32342b61-2f3a-37e5-a8c5-1a8f32c6eb8a",
+                            "document": {
+                                "id": "3bb8ad4b-1c4a-4254-88ea-9810ad4869d2",
+                                "type": "Contract",
+                                "documentNumber": "32342b61-2f3a-37e5-a8c5-1a8f32c6eb8a",
+                                "startDate": "2021-03-01",
+                                "endDate": "2022-02-28",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "9646.56",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13867999180",
+                                        "name": "Mrs. Charlene Hermiston",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13867999180",
+                                        "name": "Mrs. Charlene Hermiston",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13867999180",
+                                        "name": "Mrs. Charlene Hermiston",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14805063141",
+                                        "name": "Randall Wisoky",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "5fea34d2-eb16-3308-929e-a06739d666c9",
+                            "document": {
+                                "id": "e0a3a736-37d0-4a27-848e-01dc169ec322",
+                                "type": "Quote renewal",
+                                "documentNumber": "5fea34d2-eb16-3308-929e-a06739d666c9",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "14175.319999999982",
+                                "languageCode": null,
+                                "updatedAt": "1654272011877",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "5fea34d2-eb16-3308-929e-a06739d666c9",
+                            "document": {
+                                "id": "e0a3a736-37d0-4a27-848e-01dc169ec322",
+                                "type": "Quote renewal",
+                                "documentNumber": "5fea34d2-eb16-3308-929e-a06739d666c9",
+                                "startDate": "2022-03-01",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "14175.319999999982",
+                                "languageCode": null,
+                                "updatedAt": "1654272011877",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18455180521",
+                            "name": "Mr. Elroy O'Kon",
+                            "mail": "bartholome64@haag.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14309604910",
+                            "name": "Corrine Aufderhar",
+                            "mail": "braun.ena@williamson.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "00032935-7e37-42c5-93ca-211be50b4d62",
+                    "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                    "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                    "serialNumber": "3147dd94-e691-30b5-8941-a25972a6ab9e",
+                    "productDescription": "HP M6710 900GB 6G SAS 10K 2.5in HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "QR496A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "23894-3534",
+                    "city": "Ellisport",
+                    "address": "3419 Robel Views Suite 853",
+                    "address2": null,
+                    "country": "Botswana",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HE808AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                            "document": {
+                                "id": "537b6bd3-5cda-414a-ace2-a167d63390ff",
+                                "type": "Quote renewal",
+                                "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654819354080",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18123595997",
+                                        "name": "Ferne Auer",
+                                        "mail": "crist.vallie@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17436415909",
+                                        "name": "Quinten Von IV",
+                                        "mail": "stiedemann.harmony@yahoo.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "6.9",
+                            "discount": null,
+                            "listPrice": "7.9002",
+                            "estimatedValueRenewal": "7.9002",
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HE808AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                            "document": {
+                                "id": "537b6bd3-5cda-414a-ace2-a167d63390ff",
+                                "type": "Quote renewal",
+                                "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654819354080",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18123595997",
+                                        "name": "Ferne Auer",
+                                        "mail": "crist.vallie@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17436415909",
+                                        "name": "Quinten Von IV",
+                                        "mail": "stiedemann.harmony@yahoo.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "9.84",
+                            "discount": null,
+                            "listPrice": "10.692",
+                            "estimatedValueRenewal": "10.692",
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1534896000000",
+                            "documentNumber": "1c4a9476-136a-3e04-a085-79b03a0d0bde",
+                            "document": {
+                                "id": "bdd8da5e-cefa-4c84-9567-ea3c7a253fc4",
+                                "type": "Contract",
+                                "documentNumber": "1c4a9476-136a-3e04-a085-79b03a0d0bde",
+                                "startDate": "2021-09-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "3536.880000000002",
+                                "languageCode": null,
+                                "updatedAt": "1657233032142",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "625684bc-4dad-33ad-a80c-db5a69d56949",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17436415909",
+                                        "name": "Quinten Von IV",
+                                        "mail": "stiedemann.harmony@yahoo.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18123595997",
+                                        "name": "Ferne Auer",
+                                        "mail": "crist.vallie@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "37.8",
+                            "discount": null,
+                            "listPrice": "37.8",
+                            "estimatedValueRenewal": "37.8",
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                            "document": {
+                                "id": "537b6bd3-5cda-414a-ace2-a167d63390ff",
+                                "type": "Quote renewal",
+                                "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654819354080",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18123595997",
+                                        "name": "Ferne Auer",
+                                        "mail": "crist.vallie@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17436415909",
+                                        "name": "Quinten Von IV",
+                                        "mail": "stiedemann.harmony@yahoo.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "1.54",
+                            "discount": null,
+                            "listPrice": "1.7775",
+                            "estimatedValueRenewal": "1.7775",
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                            "document": {
+                                "id": "537b6bd3-5cda-414a-ace2-a167d63390ff",
+                                "type": "Quote renewal",
+                                "documentNumber": "e45a7608-e688-3117-ab20-df5ec50f79c4",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654819354080",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18123595997",
+                                        "name": "Ferne Auer",
+                                        "mail": "crist.vallie@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17436415909",
+                                        "name": "Quinten Von IV",
+                                        "mail": "stiedemann.harmony@yahoo.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16197807609",
+                                        "name": "Shana Hyatt IV",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "2.2",
+                            "discount": null,
+                            "listPrice": "2.4057",
+                            "estimatedValueRenewal": "2.4057",
+                            "reseller": {
+                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+                            },
+                            "customer": {
+                                "id": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16197807609",
+                            "name": "Shana Hyatt IV",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17436415909",
+                            "name": "Quinten Von IV",
+                            "mail": "stiedemann.harmony@yahoo.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18123595997",
+                            "name": "Ferne Auer",
+                            "mail": "crist.vallie@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "00034141-3de9-44f7-91ce-5edb3cda537d",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "bcbc5086-501e-4c1b-ac49-4a969408353d",
+                    "serialNumber": "30d95ee0-5cc1-3543-8bb0-876aebd9f870",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2666V-R Smart Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "815100-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "21868",
+                    "city": "Ritchieport",
+                    "address": "814 Patience Crest",
+                    "address2": null,
+                    "country": "Botswana",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "32b78df2-2eb3-300d-a38d-074f2dc30d9e",
+                            "document": {
+                                "id": "d68a3fdf-6243-4b60-a6df-e135bee5e241",
+                                "type": "Contract",
+                                "documentNumber": "32b78df2-2eb3-300d-a38d-074f2dc30d9e",
+                                "startDate": "2018-09-18",
+                                "endDate": "2023-09-17",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "20be473b-2973-3a7d-80cc-4166bf7e9b16",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15203172695",
+                                        "name": "Ms. Hassie Denesik",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18455180521",
+                                        "name": "Mr. Elroy O'Kon",
+                                        "mail": "bartholome64@haag.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14309604910",
+                                        "name": "Corrine Aufderhar",
+                                        "mail": "braun.ena@williamson.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203172695",
+                                        "name": "Ms. Hassie Denesik",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203172695",
+                                        "name": "Ms. Hassie Denesik",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15203172695",
+                                        "name": "Ms. Hassie Denesik",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "bcbc5086-501e-4c1b-ac49-4a969408353d",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "bcbc5086-501e-4c1b-ac49-4a969408353d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15203172695",
+                            "name": "Ms. Hassie Denesik",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18455180521",
+                            "name": "Mr. Elroy O'Kon",
+                            "mail": "bartholome64@haag.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14309604910",
+                            "name": "Corrine Aufderhar",
+                            "mail": "braun.ena@williamson.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1,23 +1,19 @@
 {
-    "generated": "2022-06-24T13:12:02+00:00",
+    "generated": "2022-08-04T10:37:08+00:00",
     "distributors": [
-        "143c456a-e894-4710-a1c2-745b9582ca47"
+        "1af1c44e-8112-4e72-9654-b11c705e9372"
     ],
     "resellers": [
-        "58e62519-69d2-4881-acd2-3f7989747aa4",
-        "9bfeb5e0-5dce-4a17-a051-717e96727448",
-        "59b5f3a2-b0fa-44bc-9155-7eb666a94c19",
-        "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
-        "b0fea5d7-96e6-4c54-835d-1a474267838c"
+        "27faa47d-ab2a-4755-b36b-729114c056d2"
     ],
     "customers": [
-        "e69b8dee-804a-47a8-a9f9-0bcde5a5e079",
-        "c8468eeb-76d9-47b1-b156-d4586f777681",
-        "cba34fe2-26ba-4432-95b8-e433797c0c67",
-        "6d7fd925-dc04-42e9-bb63-178792d471d2"
+        "93da84d9-a8ee-483a-b604-9289d41fd601",
+        "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+        "fe97f500-c6e4-4968-a312-25d21318297b",
+        "412e9b0e-95e8-474a-a8e1-4f526886eb55"
     ],
     "types": [
-        "Delivery contract",
+        "Contract",
         "Quote renewal"
     ],
     "oems": "oem.csv"

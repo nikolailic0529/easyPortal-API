@@ -2,7 +2,7 @@
     {
         "App\\Models\\Distributor": [],
         "App\\Models\\Reseller": {
-            "0309df71-936c-44ce-9477-b5e9221fc96a": "0309df71-936c-44ce-9477-b5e9221fc96a"
+            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
         },
         "App\\Models\\Customer": [],
         "App\\Models\\Document": [],

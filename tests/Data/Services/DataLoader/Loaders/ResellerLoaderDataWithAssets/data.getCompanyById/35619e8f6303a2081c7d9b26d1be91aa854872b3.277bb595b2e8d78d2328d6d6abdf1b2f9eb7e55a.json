@@ -1,0 +1,144 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "bbf64ae3-73cc-4b2a-ac5c-a3a391099b4a",
+                    "name": "Beier, McLaughlin and Bogisich",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657163030651",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13039309191",
+                            "name": "Mrs. Abby Rogahn DDS",
+                            "mail": "bailey.ozella@collins.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14255401559",
+                            "name": "Mr. Conrad Mertz IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Nicola Feest",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Gonzalo Baumbach DVM",
+                            "mail": "belle62@ebert.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Jordi Becker PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15057342232",
+                            "name": "Ara Stark",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06904",
+                            "address": "5857 Gavin Forest",
+                            "city": "Lebsackshire",
+                            "locationType": null,
+                            "country": "Zimbabwe",
+                            "latitude": "-57.562379",
+                            "longitude": "-113.035083",
+                            "countryCode": "KN"
+                        },
+                        {
+                            "zip": "06904",
+                            "address": "5857 Gavin Forest",
+                            "city": "Lebsackshire",
+                            "locationType": null,
+                            "country": "Zimbabwe",
+                            "latitude": "-57.562379",
+                            "longitude": "-113.035083",
+                            "countryCode": "KN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 378,
+                        "activeAssets": 325,
+                        "activeAssetsPercentage": 85.97883597883597,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 13,
+                        "activeContractTotalAmount": 91211.39000000001,
+                        "newActiveContracts": null,
+                        "expiringContracts": 2,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 6,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                            "totalAssets": 378,
+                            "activeAssets": 325,
+                            "activeAssetsPercentage": 85.97883597883597,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 13,
+                            "activeContractTotalAmount": 91211.39000000001,
+                            "newActiveContracts": null,
+                            "expiringContracts": 2,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 6,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

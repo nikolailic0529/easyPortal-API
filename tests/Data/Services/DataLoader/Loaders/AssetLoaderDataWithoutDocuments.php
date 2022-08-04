@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use function array_merge;
 
 class AssetLoaderDataWithoutDocuments extends AssetsData {
-    public const ASSET     = 'dd3fd852-c29a-4f34-ac20-21b6f7079777';
+    public const ASSET     = '00000b7e-e7dc-49ee-8294-e4708b2435e4';
     public const DOCUMENTS = false;
 
     protected function generateData(string $path): bool {

@@ -1,0 +1,55 @@
+{
+    "selector": "data.getDistributors",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getDistributors(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": null,
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getDistributors": [
+                {
+                    "id": "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+                    "name": "Nienow-White",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656333816099",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "name": "Sauer-Kautzer",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656333843950",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                    "name": "Corwin-Lind",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656334103232",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                },
+                {
+                    "id": "efc39adf-0497-40a3-a6e6-bbd692f87516",
+                    "name": "Bartoletti-Schultz",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656334238601",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

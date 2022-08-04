@@ -1,0 +1,251 @@
+{
+    "selector": "data.getAssetsByCustomerId",
+    "query": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByCustomerId(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "8e57be47-2088-48c7-9342-0a2c64293248",
+        "from": null,
+        "lastId": "cc360d16-dcc6-4159-bb5e-588e5013f5d9",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerId": [
+                {
+                    "id": "d08156a5-38ee-49a2-98ce-111f41416581",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "730e45ec-0584-32d1-bea0-4995bca27bcf",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P19043-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "d34b7eb4-4884-4d47-8a70-aab977d7d8dc",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "aec6ed9f-899f-301b-ae82-98d966ddf837",
+                    "productDescription": "HPE DL325 Gen10 AMD EPYC 7402P FIO Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P16641-L21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "dcf09b0d-d806-49f6-bde5-c5cc68ed3dd4",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "c7fc36a2-aae4-35cd-8daa-017dba791b59",
+                    "productDescription": "HPE 1U SFF Easy Install Rail Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "734807-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "f23d1f94-eacd-4fda-88fc-ea060dc07ef9",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "1b359ee2-8230-3a3f-b6cb-7c5ed6a9c699",
+                    "productDescription": "HPE 1GbE 4p FLR-T I350 Adptr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "665240-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "f3b7db08-17d9-43bc-8530-f828de120424",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "56cede2b-1087-3d14-a991-5a7660c81369",
+                    "productDescription": "HPE 96W Smart Stg Li-ion Batt 145mm Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P01366-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

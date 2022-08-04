@@ -1,0 +1,433 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "655c92a0-5e10-4352-9c0b-c76c617c476d"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "655c92a0-5e10-4352-9c0b-c76c617c476d",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                    "serialNumber": "d51db4a7-7d76-3a72-93c0-ff60e8b4c82d",
+                    "productDescription": "HPE DL380 Gen9 24SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "767032-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "88650-1410",
+                    "city": "Laronport",
+                    "address": "689 Margaretta Inlet Suite 502",
+                    "address2": null,
+                    "country": "Tajikistan",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1591488000000",
+                            "documentNumber": "aabbabd6-0353-3b45-b28c-5d18a6285e29",
+                            "document": {
+                                "id": "cf25a2f7-5ecf-4149-84d9-5394c5c9bbcd",
+                                "type": "Contract",
+                                "documentNumber": "aabbabd6-0353-3b45-b28c-5d18a6285e29",
+                                "startDate": "2021-07-01",
+                                "endDate": "2022-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1116.72",
+                                "languageCode": null,
+                                "updatedAt": "1656638654981",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "1021.68",
+                            "discount": null,
+                            "listPrice": "1021.68",
+                            "estimatedValueRenewal": "1021.68",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "fce2ccc8-fd3b-357b-b2aa-96840cc21718",
+                            "document": {
+                                "id": "80d51e15-0871-4961-b3ce-141af715c6f8",
+                                "type": "Quote renewal",
+                                "documentNumber": "fce2ccc8-fd3b-357b-b2aa-96840cc21718",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1032.6",
+                                "languageCode": null,
+                                "updatedAt": "1657069043601",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18572975668",
+                                        "name": "Prof. Alan Abshire",
+                                        "mail": "hoppe.lincoln@flatley.biz",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18572975668",
+                                        "name": "Prof. Alan Abshire",
+                                        "mail": "hoppe.lincoln@flatley.biz",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "165.6",
+                            "discount": null,
+                            "listPrice": "181.76",
+                            "estimatedValueRenewal": "181.76",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea1bee04-17f2-3321-937b-fe260b9f9f34",
+                            "document": {
+                                "id": "1291003c-9031-4c43-a6e0-79aa3bf6f722",
+                                "type": "Contract",
+                                "documentNumber": "ea1bee04-17f2-3321-937b-fe260b9f9f34",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1259.28",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "d83b09b0-6434-3413-a00e-8374139c8174",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18572975668",
+                                        "name": "Prof. Alan Abshire",
+                                        "mail": "hoppe.lincoln@flatley.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12626643991",
+                                        "name": "Era Wiegand",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "201.96",
+                            "discount": null,
+                            "listPrice": "201.96",
+                            "estimatedValueRenewal": "201.96",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400"
+                            }
+                        },
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1591488000000",
+                            "documentNumber": "aabbabd6-0353-3b45-b28c-5d18a6285e29",
+                            "document": {
+                                "id": "cf25a2f7-5ecf-4149-84d9-5394c5c9bbcd",
+                                "type": "Contract",
+                                "documentNumber": "aabbabd6-0353-3b45-b28c-5d18a6285e29",
+                                "startDate": "2021-07-01",
+                                "endDate": "2022-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1116.72",
+                                "languageCode": null,
+                                "updatedAt": "1656638654981",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Colby Goldner",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "95.04",
+                            "discount": null,
+                            "listPrice": "95.04",
+                            "estimatedValueRenewal": "95.04",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea1bee04-17f2-3321-937b-fe260b9f9f34",
+                            "document": {
+                                "id": "1291003c-9031-4c43-a6e0-79aa3bf6f722",
+                                "type": "Contract",
+                                "documentNumber": "ea1bee04-17f2-3321-937b-fe260b9f9f34",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1259.28",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "d83b09b0-6434-3413-a00e-8374139c8174",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18572975668",
+                                        "name": "Prof. Alan Abshire",
+                                        "mail": "hoppe.lincoln@flatley.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16306124540",
+                                        "name": "Gussie Howe II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12626643991",
+                                        "name": "Era Wiegand",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "5c8cc781-bbc2-45d8-842c-0b55ed518400",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "1057.32",
+                            "discount": null,
+                            "listPrice": "1057.32",
+                            "estimatedValueRenewal": "1057.32",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "5c8cc781-bbc2-45d8-842c-0b55ed518400"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16295350369",
+                            "name": "Mr. Leonel Russel IV",
+                            "mail": "ajerde@hessel.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18572975668",
+                            "name": "Prof. Alan Abshire",
+                            "mail": "hoppe.lincoln@flatley.biz",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

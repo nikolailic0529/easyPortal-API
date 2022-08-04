@@ -1,0 +1,276 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "name": "Kirlin, Corwin and Wunsch",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156243754",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Soledad Hayes",
+                            "mail": "linnie63@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Delmer Ruecker",
+                            "mail": "amalia45@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18703341050",
+                            "name": "Reese Gaylord II",
+                            "mail": "dorothy.streich@ohara.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14583885330",
+                            "name": "Justen Collier",
+                            "mail": "jettie.satterfield@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14589872618",
+                            "name": "Judd Koch",
+                            "mail": "ukohler@sauer.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18482170236",
+                            "name": "Jane Huel",
+                            "mail": "liliana.ohara@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19259916337",
+                            "name": "Freeda Kuhic",
+                            "mail": "ben46@bashirian.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12162924933",
+                            "name": "Dr. Chadd Ferry",
+                            "mail": "barton.maya@reichert.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12075852718",
+                            "name": "Prof. Grayson Ernser",
+                            "mail": "gulgowski.kristina@braun.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14409164494",
+                            "name": "Annamarie Konopelski",
+                            "mail": "crohan@lehner.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16127453836",
+                            "name": "Aidan Bernhard",
+                            "mail": "lamar76@mclaughlin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865970351",
+                            "name": "Carmel McKenzie",
+                            "mail": "jdavis@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16517946018",
+                            "name": "Emilio Howe",
+                            "mail": "dax.mccullough@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15866040920",
+                            "name": "Kiera Leffler",
+                            "mail": "pluettgen@harris.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13806472765",
+                            "name": "Donato Emard",
+                            "mail": "ncasper@prosacco.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16516636113",
+                            "name": "Rylee Yundt",
+                            "mail": "evolkman@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15859832433",
+                            "name": "Rae West",
+                            "mail": "collier.waldo@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12248178871",
+                            "name": "Alanis Reilly Sr.",
+                            "mail": "lilla.mueller@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16897408628",
+                            "name": "Prof. Ezekiel Hickle PhD",
+                            "mail": "adietrich@feeney.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14307105352",
+                            "name": "Emily Gorczany",
+                            "mail": "darrin.nicolas@kunze.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14805092614",
+                            "name": "Stephon Price",
+                            "mail": "lrogahn@dibbert.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12513882378",
+                            "name": "Mr. Alexander Bogan",
+                            "mail": "pblock@abshire.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14758932869",
+                            "name": "Alejandra Koelpin I",
+                            "mail": "alexie.legros@beatty.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16788120206",
+                            "name": "Mr. Diamond Muller Jr.",
+                            "mail": "chadd.bergstrom@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17693784534",
+                            "name": "Dr. Nash Pollich",
+                            "mail": "wvandervort@gorczany.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16516636113",
+                            "name": "Vladimir Bode",
+                            "mail": "constantin.vandervort@kunde.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17313205487",
+                            "name": "Nils Conn",
+                            "mail": "ypredovic@dubuque.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17088517611",
+                            "name": "Niko McClure V",
+                            "mail": "cynthia20@heidenreich.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14157625223",
+                            "name": "Kaya Haley",
+                            "mail": "damore.leonor@robel.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17162319721",
+                            "name": "Clementine Borer",
+                            "mail": "xmacejkovic@stiedemann.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Flavio Bartoletti",
+                            "mail": "linnie63@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Kristofer Goldner",
+                            "mail": "linnie63@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "linnie63@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12729038313",
+                            "name": "Miss Esther Zemlak",
+                            "mail": "marvin.jerrold@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16818492137",
+                            "name": "Prof. Merle Hauck",
+                            "mail": "layla92@brakus.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "11392",
+                            "address": "6054 Deckow Islands",
+                            "city": "Abbottmouth",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-66.383508",
+                            "longitude": "-46.233742",
+                            "countryCode": "DE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 20765,
+                        "activeAssets": 18957,
+                        "activeAssetsPercentage": 91.29304117505419,
+                        "activeCustomers": 136,
+                        "newActiveCustomers": 94,
+                        "activeContracts": 352,
+                        "activeContractTotalAmount": 2893034.0400000005,
+                        "newActiveContracts": 34,
+                        "expiringContracts": 20,
+                        "activeQuotes": 67,
+                        "activeQuotesTotalAmount": 277402.91000000003,
+                        "newActiveQuotes": 13,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 67,
+                        "expiredContracts": 352,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

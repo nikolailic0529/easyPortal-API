@@ -1,0 +1,415 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "91e9d447-46ee-4bd5-8b4f-626697b7470a"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "91e9d447-46ee-4bd5-8b4f-626697b7470a",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                    "serialNumber": "1912e65e-8049-341f-9502-a24a52a9440e",
+                    "productDescription": "HPE 600GB SAS 10K SFF SC DS HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "872477-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "26664",
+                    "city": "Websterstad",
+                    "address": "999 Marks Coves",
+                    "address2": null,
+                    "country": "Haiti",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "224418b6-2ccc-338c-852e-6c1f67f40869",
+                            "document": {
+                                "id": "913a679d-ff3a-4cac-a1da-2154e5ef5bd8",
+                                "type": "Quote renewal",
+                                "documentNumber": "224418b6-2ccc-338c-852e-6c1f67f40869",
+                                "startDate": "2022-04-26",
+                                "endDate": "2024-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1887.18",
+                                "languageCode": null,
+                                "updatedAt": "1654272009919",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "cf2f0fce-e0b0-3023-ab32-2558ca3a4f1c",
+                            "document": {
+                                "id": "18b204e2-0592-461b-9292-2959a880fcaf",
+                                "type": "Contract",
+                                "documentNumber": "cf2f0fce-e0b0-3023-ab32-2558ca3a4f1c",
+                                "startDate": "2022-04-26",
+                                "endDate": "2024-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2317.04",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "1a5e6e50-6c90-3ff9-8c7b-734fb01326dd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "e4b360c4-610f-376e-9443-7b76141bf84b",
+                            "document": {
+                                "id": "ecbbd9d5-8a28-4c2b-bed3-93cc5a6950cc",
+                                "type": "Quote renewal",
+                                "documentNumber": "e4b360c4-610f-376e-9443-7b76141bf84b",
+                                "startDate": "2022-04-26",
+                                "endDate": "2023-04-25",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272012294",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18439411482",
+                                        "name": "Maxie Gislason",
+                                        "mail": "fadel.cassidy@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19369024836",
+                                        "name": "Betty Ledner V",
+                                        "mail": "margarete31@lind.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "2c80f5b3-8f08-345b-8292-a403a13f0622",
+                            "document": {
+                                "id": "4591b026-1275-4fbb-a864-1e10c8bf98af",
+                                "type": "Contract",
+                                "documentNumber": "2c80f5b3-8f08-345b-8292-a403a13f0622",
+                                "startDate": "2018-04-26",
+                                "endDate": "2022-04-25",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14458131268",
+                                        "name": "Mr. Santino Rosenbaum",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18439411482",
+                                        "name": "Maxie Gislason",
+                                        "mail": "fadel.cassidy@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14458131268",
+                                        "name": "Mr. Santino Rosenbaum",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14458131268",
+                                        "name": "Mr. Santino Rosenbaum",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "cf2f0fce-e0b0-3023-ab32-2558ca3a4f1c",
+                            "document": {
+                                "id": "18b204e2-0592-461b-9292-2959a880fcaf",
+                                "type": "Contract",
+                                "documentNumber": "cf2f0fce-e0b0-3023-ab32-2558ca3a4f1c",
+                                "startDate": "2022-04-26",
+                                "endDate": "2024-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2317.04",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "1a5e6e50-6c90-3ff9-8c7b-734fb01326dd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17318377486",
+                                        "name": "Cary Anderson",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16607583859",
+                            "name": "Prof. Martine Heathcote",
+                            "mail": "renee.wolff@ortiz.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14244215679",
+                            "name": "Prof. Viviane Keebler II",
+                            "mail": "jblanda@gmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

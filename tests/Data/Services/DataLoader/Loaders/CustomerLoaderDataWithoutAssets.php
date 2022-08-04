@@ -16,7 +16,7 @@ use function array_sum;
 class CustomerLoaderDataWithoutAssets extends AssetsData {
     use CommandOptions;
 
-    public const CUSTOMER  = 'a0df13a5-c42c-4269-ae57-71085acb5319';
+    public const CUSTOMER  = '04e2ec4e-9bb1-47c7-98f0-6096cd178974';
     public const ASSETS    = false;
     public const ASSET     = null;
     public const DOCUMENTS = false;

@@ -3,6 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 class CustomerAssetsImporterDataWithDocuments extends CustomerAssetsImporterDataWithoutDocuments {
-    public const CUSTOMER  = 'ee7b146b-181b-4339-a3c5-2e1d8a81383e';
+    public const LIMIT     = 5;
+    public const CUSTOMER  = '019a3b56-b701-4599-8452-2cf9f1f54b26';
     public const DOCUMENTS = true;
 }

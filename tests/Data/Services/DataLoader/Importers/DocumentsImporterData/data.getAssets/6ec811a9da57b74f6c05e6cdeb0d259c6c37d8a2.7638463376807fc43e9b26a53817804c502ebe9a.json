@@ -1,0 +1,379 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "b22fdcdb-18d6-4de1-a35b-3eca2125311e"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "b22fdcdb-18d6-4de1-a35b-3eca2125311e",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                    "serialNumber": "81786cfe-d6da-3928-ab89-4c5b60d179f1",
+                    "productDescription": "HP DL320eGen8v2 E3-1220v3 Base EU Svr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "717170-421",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "59205",
+                    "city": "Fridaport",
+                    "address": "9879 Linnie Lock",
+                    "address2": null,
+                    "country": "",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HL935AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": "1437264000000",
+                            "documentNumber": "66143cb1-ea48-3d02-b739-ed39bae5ce54",
+                            "document": {
+                                "id": "191b4b9c-e23c-44aa-baad-f2d7541a8f96",
+                                "type": "Contract",
+                                "documentNumber": "66143cb1-ea48-3d02-b739-ed39bae5ce54",
+                                "startDate": "2021-07-01",
+                                "endDate": "2022-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "240",
+                                "languageCode": null,
+                                "updatedAt": "1656638654185",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2b5a2e1b-ef25-3ec9-8219-6323eeeb7ba7",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14088206113",
+                                        "name": "Jaron Ward",
+                                        "mail": "greenfelder.madilyn@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14088206113",
+                                        "name": "Jaron Ward",
+                                        "mail": "greenfelder.madilyn@hotmail.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14088206113",
+                                        "name": "Jaron Ward",
+                                        "mail": "greenfelder.madilyn@hotmail.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14088206113",
+                                        "name": "Jaron Ward",
+                                        "mail": "greenfelder.madilyn@hotmail.com",
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "24",
+                            "discount": null,
+                            "listPrice": "24",
+                            "estimatedValueRenewal": "24",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                            "document": {
+                                "id": "7ee0ccca-dbd7-4b06-b001-195455c5d3b6",
+                                "type": "Quote renewal",
+                                "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "13870.87",
+                                "languageCode": null,
+                                "updatedAt": "1656521816556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12157014988",
+                                        "name": "Jeffrey Pollich",
+                                        "mail": "dejon03@waters.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "39",
+                            "discount": null,
+                            "listPrice": "42.72",
+                            "estimatedValueRenewal": "42.72",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                            "document": {
+                                "id": "7ee0ccca-dbd7-4b06-b001-195455c5d3b6",
+                                "type": "Quote renewal",
+                                "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "13870.87",
+                                "languageCode": null,
+                                "updatedAt": "1656521816556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12157014988",
+                                        "name": "Jeffrey Pollich",
+                                        "mail": "dejon03@waters.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "39",
+                            "discount": null,
+                            "listPrice": "42.72",
+                            "estimatedValueRenewal": "42.72",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                            "document": {
+                                "id": "7ee0ccca-dbd7-4b06-b001-195455c5d3b6",
+                                "type": "Quote renewal",
+                                "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "13870.87",
+                                "languageCode": null,
+                                "updatedAt": "1656521816556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12157014988",
+                                        "name": "Jeffrey Pollich",
+                                        "mail": "dejon03@waters.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "39",
+                            "discount": null,
+                            "listPrice": "42.72",
+                            "estimatedValueRenewal": "42.72",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "supportPackage": null,
+                            "warrantyEndDate": null,
+                            "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                            "document": {
+                                "id": "7ee0ccca-dbd7-4b06-b001-195455c5d3b6",
+                                "type": "Quote renewal",
+                                "documentNumber": "ea9c6d87-c560-3c23-bc8e-3085f201433e",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "13870.87",
+                                "languageCode": null,
+                                "updatedAt": "1656521816556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14244215679",
+                                        "name": "Prof. Viviane Keebler II",
+                                        "mail": "jblanda@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12157014988",
+                                        "name": "Jeffrey Pollich",
+                                        "mail": "dejon03@waters.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "194.88",
+                            "discount": null,
+                            "listPrice": "213.6",
+                            "estimatedValueRenewal": "213.6",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14088206113",
+                            "name": "Jaron Ward",
+                            "mail": "greenfelder.madilyn@hotmail.com",
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16607583859",
+                            "name": "Prof. Martine Heathcote",
+                            "mail": "renee.wolff@ortiz.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19802975848",
+                            "name": "Mike Stark",
+                            "mail": "yroberts@schamberger.biz",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

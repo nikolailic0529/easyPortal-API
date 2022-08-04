@@ -16,7 +16,7 @@ use function array_sum;
 class ResellerLoaderDataWithoutAssets extends AssetsData {
     use CommandOptions;
 
-    public const RESELLER  = '6bbb0d14-6854-4dbb-9a2c-a1292ccf2e9e';
+    public const RESELLER  = 'c0d99925-8b3b-47d8-9db2-9d3a5f5520a2';
     public const ASSETS    = false;
     public const ASSET     = null;
     public const DOCUMENTS = false;

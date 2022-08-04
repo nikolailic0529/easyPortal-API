@@ -1,0 +1,430 @@
+{
+    "selector": "data.getCustomers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "0008c6ba-9fe5-45fc-9804-7e47aeb222e0",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "0009dcab-3bf6-44d4-9dc0-6c4ba6041aed",
+                    "name": "Volkman and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736273",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16318662762",
+                            "name": "Demario Wehner",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14352045029",
+                            "name": "Melisa Stracke",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "85716-7956",
+                            "address": "1584 Hansen Underpass Apt. 023",
+                            "city": "New Jimmie",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-66.277287",
+                            "longitude": "69.260963",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "85716-7956",
+                            "address": "1584 Hansen Underpass Apt. 023",
+                            "city": "New Jimmie",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-66.277287",
+                            "longitude": "69.260963",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000a64d2-4eb9-496d-b148-587a536b3cc6",
+                    "name": "Christiansen, Gaylord and Hermann",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736304",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15418505242",
+                            "name": "Jackie Rowe",
+                            "mail": "dmarks@gutmann.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12536352255",
+                            "name": "Ena Barton IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13059429283",
+                            "name": "Wilson Gorczany",
+                            "mail": "pollich.coby@wilderman.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "80302-8288",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "North Warrenstad",
+                            "locationType": null,
+                            "country": "Guadeloupe",
+                            "latitude": "-89.749397",
+                            "longitude": "143.139634",
+                            "countryCode": "SN"
+                        },
+                        {
+                            "zip": "80302-8288",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "North Warrenstad",
+                            "locationType": null,
+                            "country": "Guadeloupe",
+                            "latitude": "-89.749397",
+                            "longitude": "143.139634",
+                            "countryCode": "SN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000a7db5-fa32-44a6-a10f-a6b4a24af90d",
+                    "name": "Hahn and Sons",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736335",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13804150397",
+                            "name": "Florine Wolff",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13804150397",
+                            "name": "Dexter Ledner",
+                            "mail": "federico.nienow@stroman.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "39289-5391",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "Lake Sage",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-28.894258",
+                            "longitude": "134.064451",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "39289-5391",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "Lake Sage",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-28.894258",
+                            "longitude": "134.064451",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000f95d9-6a43-4246-8265-3246f912f1d3",
+                    "name": "Wiza PLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736351",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12297243734",
+                            "name": "Hermina Goodwin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12297243734",
+                            "name": "Mrs. Patricia Grant Jr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "16468-8572",
+                            "address": "635 Hassan Isle Suite 756",
+                            "city": "West Mablestad",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-17.274305",
+                            "longitude": "-105.672904",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "16468-8572",
+                            "address": "635 Hassan Isle Suite 756",
+                            "city": "West Mablestad",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-17.274305",
+                            "longitude": "-105.672904",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0010b7b1-c283-4dab-92d4-45036299f35e",
+                    "name": "Ledner-Kiehn",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736382",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19853382870",
+                            "name": "Devin Mertz",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "42493-7700",
+                            "address": "30907 Howard Dam",
+                            "city": "Leonefurt",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-42.921859",
+                            "longitude": "-11.953787",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "42493-7700",
+                            "address": "30907 Howard Dam",
+                            "city": "Leonefurt",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-42.921859",
+                            "longitude": "-11.953787",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 1059.84,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                            "totalAssets": 1,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 0,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 1,
+                            "activeQuotesTotalAmount": 1059.84,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

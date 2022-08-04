@@ -1,0 +1,458 @@
+{
+    "selector": "data.getResellers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "008a65ba-701e-44a7-8923-8d228c97bf7e",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "009e19b8-90e1-4a0a-bd2b-d68f9af5db90",
+                    "name": "Friesen, Hegmann and Vandervort",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163136985",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14759749367",
+                            "name": "Austin Schinner",
+                            "mail": "ithompson@veum.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14236955822",
+                            "name": "Lonie Reynolds",
+                            "mail": "ngibson@corkery.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18287557299",
+                            "name": "Corrine Schaefer",
+                            "mail": "ortiz.presley@blick.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13314045954",
+                            "name": "Alberta Kub",
+                            "mail": "josefa.fay@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12283224075",
+                            "name": "May Borer",
+                            "mail": "fmclaughlin@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14752068230",
+                            "name": "Erica Purdy",
+                            "mail": "zoie31@green.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15635232532",
+                            "name": "Elnora Cummings",
+                            "mail": "harvey.graham@parisian.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14197835906",
+                            "name": "Yasmin Haag",
+                            "mail": "rice.micaela@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15616156552",
+                            "name": "Donavon Torp",
+                            "mail": "marley51@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Celia Goyette DDS",
+                            "mail": "yundt.sylvan@miller.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16784255495",
+                            "name": "Dr. Tyree Lowe III",
+                            "mail": "erling.wunsch@will.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13302422317",
+                            "name": "Delia Wuckert",
+                            "mail": "tania.barrows@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18287557299",
+                            "name": "Ronaldo Anderson",
+                            "mail": "bert.mosciski@johns.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14639799685",
+                            "name": "Aliya Wisoky",
+                            "mail": "eoreilly@hahn.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15206273536",
+                            "name": "Tyrese Turcotte Sr.",
+                            "mail": "pkuvalis@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18487984998",
+                            "name": "Dr. Jovan Hudson",
+                            "mail": "carlos.purdy@renner.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19363967325",
+                            "name": "Dr. Madyson Leannon",
+                            "mail": "casper.adalberto@ratke.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15126216988",
+                            "name": "Devante Schuppe",
+                            "mail": "fcasper@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14434319978",
+                            "name": "Ansley Hoppe PhD",
+                            "mail": "reva.abbott@lebsack.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13514527806",
+                            "name": "Delaney Heathcote",
+                            "mail": "wkris@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mara Nienow",
+                            "mail": "ithompson@veum.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Perry Will MD",
+                            "mail": "zoie31@green.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "64888",
+                            "address": "32926 Mertz Glens",
+                            "city": "Ephraimhaven",
+                            "locationType": null,
+                            "country": "Netherlands Antilles",
+                            "latitude": "37.981677",
+                            "longitude": "172.275756",
+                            "countryCode": "AW"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "009f8d61-de1c-4cbc-a158-4c3b855889cd",
+                    "name": "Schmeler PLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163137016",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Celia Goyette DDS",
+                            "mail": "zjaskolski@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16576325912",
+                            "name": "Prof. Elinore Watsica",
+                            "mail": "hframi@dach.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "03755-3604",
+                            "address": "1450 Mann Manors",
+                            "city": "South Verona",
+                            "locationType": null,
+                            "country": "Netherlands Antilles",
+                            "latitude": "-86.98583",
+                            "longitude": "-47.036871",
+                            "countryCode": "AW"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83",
+                    "name": "Fadel-Hoppe",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163137048",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14328911548",
+                            "name": "Dr. Vernie Botsford V",
+                            "mail": "george.pfannerstill@larson.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "04422",
+                            "address": "181 Reva Knoll",
+                            "city": "East Kristoferside",
+                            "locationType": null,
+                            "country": "Bulgaria",
+                            "latitude": "-85.405807",
+                            "longitude": "-23.095843",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00b36fdb-7835-40d5-b942-686d764e9baa",
+                    "name": "Dicki-Beatty",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163137063",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17038812927",
+                            "name": "Albert Boyer",
+                            "mail": "lconn@mueller.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17038812927",
+                            "name": "Gregorio Smith",
+                            "mail": "darian79@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "92067",
+                            "address": "98922 Schroeder Walk",
+                            "city": "Handland",
+                            "locationType": null,
+                            "country": "Panama",
+                            "latitude": "-45.473713",
+                            "longitude": "-45.640013",
+                            "countryCode": "FJ"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00b8d679-b5fc-49f3-b4de-167ad2f34e93",
+                    "name": "Barton-Blanda",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657163137095",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17265626989",
+                            "name": "Prof. Gunnar Schuster Sr.",
+                            "mail": "lelah.raynor@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "74109-2405",
+                            "address": "301 Gutkowski Knoll",
+                            "city": "Cummingsport",
+                            "locationType": null,
+                            "country": "Bulgaria",
+                            "latitude": "-32.476198",
+                            "longitude": "8.114624",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

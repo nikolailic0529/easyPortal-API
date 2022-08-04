@@ -15,14 +15,11 @@ use function count;
 use function round;
 
 class DistributorsIteratorImporterData extends Data {
-    public const LIMIT        = null;
-    public const CHUNK        = 10;
     public const DISTRIBUTORS = [
-        '143c456a-e894-4710-a1c2-745b9582ca47',
-        'eb1cb37a-48ab-43da-a01e-220220f8654a',
-        '74262ef0-5df5-4479-9f7c-de0625970696',
-        '562adf6b-1bc2-49b4-9d42-429e1afe5fc5',
-        'f066f65a-6455-4cff-8dfb-0aaaeba544f9',
+        '0920a7cb-3cf1-4a7d-bd84-f255cb753dec',
+        '1af1c44e-8112-4e72-9654-b11c705e9372',
+        'a985a692-c063-499a-ab2f-0a2adef86a3f',
+        'efc39adf-0497-40a3-a6e6-bbd692f87516',
         '00000000-0000-0000-0000-000000000000',
     ];
 
