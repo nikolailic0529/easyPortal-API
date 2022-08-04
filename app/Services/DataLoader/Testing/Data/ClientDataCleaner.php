@@ -186,13 +186,13 @@ class ClientDataCleaner {
     }
 
     /**
-     * @template T of array<mixed>|null
+     * @template T
      *
-     * @param T $items
+     * @param array<T>|null $items
      *
-     * @return T
+     * @return ($items is null ? null : array<T>)
      */
-    protected function limit(?array $items): array {
+    protected function limit(?array $items): ?array {
         return $items === null ? $items : array_slice($items, 0, 5);
     }
 }
