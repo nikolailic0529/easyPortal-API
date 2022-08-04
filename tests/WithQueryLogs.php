@@ -27,9 +27,11 @@ trait WithQueryLogs {
         $queries = $log instanceof QueryLog ? $log->get() : $log;
         $queries = $this->cleanupQueryLog($queries);
         $actual  = json_encode($queries, JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION | JSON_THROW_ON_ERROR);
-        $content = trim($data->content($expected));
+        $content = $data->file($expected)->isFile()
+            ? trim($data->content($expected))
+            : null;
 
-        if ($content === '') {
+        if (!$content) {
             self::assertNotFalse(file_put_contents($data->path($expected), "{$actual}\n"));
         } else {
             self::assertEquals($content, $actual, $message);
