@@ -164,6 +164,7 @@ type Asset {
 
 type AssetDocument {
     currencyCode: String
+    customFields: [CustomField]
     customer: Company
     discount: String
     distributor: Company
@@ -187,7 +188,8 @@ type AssetDocument {
 }
 
 type AssetVendorSpecificField {
-    customFields: [CustomField]
+    enduserSiteId: String
+    source: String
 }
 
 type BrandingData {
@@ -300,7 +302,6 @@ type CoverageStatusCheck {
 }
 
 type CustomField {
-    Id: String
     Name: String
     Value: String
 }
@@ -334,11 +335,13 @@ type DocumentEntry {
     asset: Asset
     assetId: String
     currencyCode: String
+    customFields: [CustomField]
     discount: String
     endDate: String
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
+    msrp: String
     netPrice: String
     productLineDescription: String
     skuDescription: String
@@ -619,6 +622,7 @@ type ViewAsset {
 
 type ViewAssetDocument {
     currencyCode: String
+    customFields: [CustomField]
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
