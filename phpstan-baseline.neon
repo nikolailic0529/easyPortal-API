@@ -3101,36 +3101,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Asset\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -3161,11 +3131,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:getWarrantyEnd\\(\\) should return Carbon\\\\CarbonImmutable\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -3191,42 +3156,7 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 3
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 3
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:warranties\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -3237,11 +3167,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -3266,31 +3191,6 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Asset\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
@@ -3298,11 +3198,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(App\\\\Models\\\\Asset\\)\\> given\\.$#"
 			count: 2
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
 			path: app/Models/Asset.php
 
 		-
@@ -3316,47 +3211,7 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
 
@@ -3371,77 +3226,12 @@ parameters:
 			path: app/Models/AssetWarranty.php
 
 		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\AssetWarranty\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\AssetWarranty\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
 
@@ -3466,27 +3256,12 @@ parameters:
 			path: app/Models/Audits/Model.php
 
 		-
-			message: "#^Method App\\\\Models\\\\ChangeRequest\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ChangeRequest\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\ChangeRequest\\:\\:\\$visible is not the same as PHPDoc type array\\<int, string\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:\\$visible\\.$#"
-			count: 1
-			path: app/Models/ChangeRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
 			count: 1
 			path: app/Models/ChangeRequest.php
 
@@ -3516,76 +3291,6 @@ parameters:
 			path: app/Models/Contact.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Contact\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Contact\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Contact\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Contact\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Contact\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Contact.php
@@ -3596,37 +3301,7 @@ parameters:
 			path: app/Models/Contact.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Contact\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Type\\> given\\.$#"
-			count: 1
-			path: app/Models/Contact.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Contact.php
 
@@ -3696,77 +3371,7 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 4
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Customer\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 5
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Customer\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 5
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 2
 			path: app/Models/Customer.php
 
@@ -3781,11 +3386,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
@@ -3796,42 +3396,12 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Customer\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/Customer.php
 
 		-
 			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(App\\\\Models\\\\Customer\\)\\> given\\.$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 2
 			path: app/Models/Customer.php
 
@@ -3846,16 +3416,6 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#2 \\$pivots of method App\\\\Models\\\\Customer\\:\\:syncBelongsToManyPivots\\(\\) expects array\\<string, Illuminate\\\\Support\\\\Collection\\<string, App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\>\\|Illuminate\\\\Support\\\\Collection, array\\<string, App\\\\Models\\\\ResellerCustomer\\>\\|Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\ResellerCustomer\\> given\\.$#"
-			count: 1
-			path: app/Models/Customer.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 2
-			path: app/Models/Customer.php
-
-		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: app/Models/Customer.php
@@ -3866,112 +3426,12 @@ parameters:
 			path: app/Models/CustomerLocation.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\CustomerLocation\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\CustomerLocation\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\CustomerLocation\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\CustomerLocation\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\CustomerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Type\\> given\\.$#"
-			count: 1
-			path: app/Models/CustomerLocation.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
 
@@ -4001,36 +3461,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Document.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Document\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -4051,52 +3481,12 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:notes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Document.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:oemGroup\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 3
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 3
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -4111,37 +3501,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -4156,11 +3516,6 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> given\\.$#"
 			count: 1
 			path: app/Models/Document.php
@@ -4171,32 +3526,12 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\DocumentEntry\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
 
 		-
-			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
-			message: "#^Method App\\\\Models\\\\DocumentEntry\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
 
@@ -4246,36 +3581,6 @@ parameters:
 			path: app/Models/Location.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 4
-			path: app/Models/Location.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Location\\:\\:city\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Location.php
@@ -4286,92 +3591,12 @@ parameters:
 			path: app/Models/Location.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Location\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Location.php
 
 		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#2 \\$pivots of method App\\\\Models\\\\Location\\:\\:syncBelongsToManyPivots\\(\\) expects array\\<string, Illuminate\\\\Support\\\\Collection\\<string, App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\>\\|Illuminate\\\\Support\\\\Collection, array\\<string, App\\\\Models\\\\LocationCustomer\\>\\|Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationCustomer\\> given\\.$#"
-			count: 1
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#2 \\$pivots of method App\\\\Models\\\\Location\\:\\:syncBelongsToManyPivots\\(\\) expects array\\<string, Illuminate\\\\Support\\\\Collection\\<string, App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\>\\|Illuminate\\\\Support\\\\Collection, array\\<string, App\\\\Models\\\\LocationReseller\\>\\|Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\LocationReseller\\> given\\.$#"
-			count: 1
-			path: app/Models/Location.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 2
 			path: app/Models/Location.php
 
@@ -4406,27 +3631,7 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/Note.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Note\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Note.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Note\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/Note.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
 			count: 1
 			path: app/Models/Note.php
 
@@ -4531,26 +3736,6 @@ parameters:
 			path: app/Models/QuoteRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequest\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 2
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/QuoteRequest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\QuoteRequest\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
@@ -4606,78 +3791,8 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 6
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\Reseller\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Reseller\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Reseller\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Reseller\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 5
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Reseller\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 5
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 3
 			path: app/Models/Reseller.php
 
 		-
@@ -4691,43 +3806,8 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: T of Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\SetKey given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Models\\\\Reseller\\:\\:syncMorphManyDelete\\(\\) expects App\\\\Utils\\\\Eloquent\\\\PolymorphicModel, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 3
 			path: app/Models/Reseller.php
 
 		-
@@ -4741,16 +3821,6 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#2 \\$pivots of method App\\\\Models\\\\Reseller\\:\\:syncBelongsToManyPivots\\(\\) expects array\\<string, Illuminate\\\\Support\\\\Collection\\<string, App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\>\\|Illuminate\\\\Support\\\\Collection, array\\<string, App\\\\Models\\\\ResellerCustomer\\>\\|Illuminate\\\\Support\\\\Collection\\<string, App\\\\Models\\\\ResellerCustomer\\> given\\.$#"
-			count: 1
-			path: app/Models/Reseller.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 3
-			path: app/Models/Reseller.php
-
-		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
@@ -4761,102 +3831,7 @@ parameters:
 			path: app/Models/ResellerLocation.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ResellerLocation\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ResellerLocation\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ResellerLocation\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ResellerLocation\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
 			count: 1
 			path: app/Models/ResellerLocation.php
 
@@ -4866,47 +3841,7 @@ parameters:
 			path: app/Models/ResellerLocation.php
 
 		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/ResellerLocation.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -4916,42 +3851,7 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Role\\:\\:users\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -4961,37 +3861,7 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Role\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Permission\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Permission\\> given\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -5121,117 +3991,12 @@ parameters:
 			path: app/Models/User.php
 
 		-
-			message: "#^Cannot call method forceFill\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Cannot call method getCreatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Cannot call method getDirty\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Cannot call method getKeyName\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Cannot call method getUpdatedAtColumn\\(\\) on mixed\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\User\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
 			count: 1
 			path: app/Models/User.php
 
 		-
-			message: "#^Method App\\\\Models\\\\User\\:\\:getBelongsToMany\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Method App\\\\Models\\\\User\\:\\:syncBelongsToManyPivots\\(\\) has parameter \\$pivots with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Method App\\\\Models\\\\User\\:\\:syncManyGetExisting\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Method App\\\\Models\\\\User\\:\\:syncManyGetExisting\\(\\) should return Illuminate\\\\Support\\\\Collection but returns mixed\\.$#"
-			count: 2
-			path: app/Models/User.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:__construct\\(\\) has parameter \\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:createNewPivot\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getCurrentlyAttachedPivots\\(\\) return type with generic class Illuminate\\\\Support\\\\Collection does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:getPivotAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:get\\(\\) expects \\(int\\|string\\), mixed given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:has\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetUniqueKey given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(App\\\\Utils\\\\Eloquent\\\\Pivot\\)\\: string given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Parameter \\#1 \\.\\.\\.\\$values of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:push\\(\\) expects Illuminate\\\\Database\\\\Eloquent\\\\Model, mixed given\\.$#"
-			count: 1
-			path: app/Models/User.php
-
-		-
-			message: "#^Property class@anonymous/app/Utils/Eloquent/Concerns/SyncBelongsToMany\\.php\\:116\\:\\:\\$belongsToMany with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/User.php
 

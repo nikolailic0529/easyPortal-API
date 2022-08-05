@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Relations\HasAssets;
-use App\Models\Relations\HasContracts;
-use App\Models\Relations\HasQuotes;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\PolymorphicModel;
