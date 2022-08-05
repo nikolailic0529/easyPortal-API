@@ -4551,11 +4551,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of method class@anonymous/app/Services/DataLoader/Factory/Concerns/WithTagTest\\.php\\:30\\:\\:tag\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/WithTagTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Type will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithTypeTest.php
@@ -5699,16 +5694,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolverTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TagResolver\\:\\:getUniqueKey\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TagResolver.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\TagResolver\\:\\:get\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/TagResolverTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
