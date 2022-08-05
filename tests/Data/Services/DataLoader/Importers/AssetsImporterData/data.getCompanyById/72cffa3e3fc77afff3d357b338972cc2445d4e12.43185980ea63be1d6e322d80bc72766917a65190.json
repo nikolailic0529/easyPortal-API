@@ -1,0 +1,198 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "name": "McClure, Mraz and Price",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155425695",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Demetris Ernser",
+                            "mail": "destiney.welch@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13859145147",
+                            "name": "Gavin Schultz",
+                            "mail": "bauch.tyree@grady.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13863046626",
+                            "name": "Ronny McClure",
+                            "mail": "loyce.mayer@feeney.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13478732133",
+                            "name": "Raul Zemlak I",
+                            "mail": "thea84@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12624001409",
+                            "name": "Torey Collier",
+                            "mail": "abechtelar@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17049570536",
+                            "name": "Mozell Okuneva",
+                            "mail": "ignatius47@grimes.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15209334312",
+                            "name": "Connie Fisher",
+                            "mail": "krystina55@mueller.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12792123861",
+                            "name": "Violet Gislason",
+                            "mail": "lleannon@cormier.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14702169148",
+                            "name": "Prof. Dannie Leuschke",
+                            "mail": "tdavis@torphy.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14702961617",
+                            "name": "Ms. Stacey Lakin III",
+                            "mail": "devonte.block@padberg.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18434347189",
+                            "name": "Paris Treutel DDS",
+                            "mail": "shuels@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "lleannon@cormier.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "bauch.tyree@grady.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13204912961",
+                            "name": "Maci Herzog",
+                            "mail": "mhyatt@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "loyce.mayer@feeney.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16318898110",
+                            "name": "Thomas Bartell",
+                            "mail": "muller.kaylee@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "abechtelar@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "shuels@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "lizzie.stokes@green.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "thea84@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13256028992",
+                            "name": "Heloise Senger",
+                            "mail": "agnes50@hackett.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17852488100",
+                            "name": "Lance Morissette",
+                            "mail": "mjacobs@kunde.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "92762",
+                            "address": "53952 Rodriguez Ports Apt. 181",
+                            "city": "Feilville",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "68.734707",
+                            "longitude": "-35.045816",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 11444,
+                        "activeAssets": 9623,
+                        "activeAssetsPercentage": 84.08773156239077,
+                        "activeCustomers": 109,
+                        "newActiveCustomers": 73,
+                        "activeContracts": 207,
+                        "activeContractTotalAmount": 1832208.81,
+                        "newActiveContracts": 65,
+                        "expiringContracts": 17,
+                        "activeQuotes": 88,
+                        "activeQuotesTotalAmount": 513461.0099999998,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 88,
+                        "expiredContracts": 207,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

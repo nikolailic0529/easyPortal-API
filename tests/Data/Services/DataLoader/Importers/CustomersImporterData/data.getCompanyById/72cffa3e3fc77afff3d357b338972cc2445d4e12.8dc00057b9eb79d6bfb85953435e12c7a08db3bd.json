@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Cremin LLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156220072",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14012381913",
+                            "name": "Beth Stroman",
+                            "mail": "ykuvalis@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13647132295",
+                            "name": "Angelo Miller",
+                            "mail": "tframi@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12832561266",
+                            "name": "Jedidiah Torphy",
+                            "mail": "shany.hackett@howell.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12604127359",
+                            "name": "Cooper Macejkovic",
+                            "mail": "grant.isabel@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15672360051",
+                            "name": "Osbaldo Gaylord",
+                            "mail": "gaylord17@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16174487778",
+                            "name": "Ocie Berge",
+                            "mail": "adriana.padberg@ward.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865500464",
+                            "name": "Jocelyn Torp DDS",
+                            "mail": "xmurray@robel.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12702716296",
+                            "name": "Susanna Grimes",
+                            "mail": "reinger.vernice@spinka.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13414418103",
+                            "name": "Lolita Grimes Jr.",
+                            "mail": "brendan.monahan@hane.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Santino Wuckert",
+                            "mail": "thaag@nitzsche.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17438584741",
+                            "name": "Ms. Haylee Bauch Jr.",
+                            "mail": "gerson.auer@larkin.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16208991273",
+                            "name": "Beulah Smith",
+                            "mail": "rodriguez.kathlyn@daniel.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18577395754",
+                            "name": "Joy Connelly",
+                            "mail": "isaac.batz@johnson.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14237294058",
+                            "name": "Dayton Kozey",
+                            "mail": "leffler.iva@sawayn.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18638227180",
+                            "name": "Ashtyn Lubowitz V",
+                            "mail": "orn.bettye@lubowitz.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Felicity O'Reilly",
+                            "mail": "ykuvalis@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19528288911",
+                            "name": "Toney Keebler",
+                            "mail": "griffin.mayert@beier.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "16240-2096",
+                            "address": "83815 Schumm Gardens",
+                            "city": "New Alberto",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-23.939895",
+                            "longitude": "109.736932",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 13602,
+                        "activeAssets": 11740,
+                        "activeAssetsPercentage": 86.31083664167033,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 143,
+                        "activeContracts": 438,
+                        "activeContractTotalAmount": 939181.1599999993,
+                        "newActiveContracts": 76,
+                        "expiringContracts": 78,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 20,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 438,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

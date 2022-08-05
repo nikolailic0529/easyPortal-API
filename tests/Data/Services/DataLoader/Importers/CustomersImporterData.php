@@ -7,9 +7,6 @@ use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
 
 class CustomersImporterData extends Data {
-    public const LIMIT = 50;
-    public const CHUNK = 10;
-
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $result  = $this->kernel->call('ep:data-loader-customers-import', [

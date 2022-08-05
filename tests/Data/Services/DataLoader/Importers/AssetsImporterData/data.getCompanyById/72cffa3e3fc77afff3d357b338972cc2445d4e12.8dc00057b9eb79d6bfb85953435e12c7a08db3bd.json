@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Gibson Ltd",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156220072",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19067383938",
+                            "name": "Prof. Alf Schiller",
+                            "mail": "emelia.herzog@klocko.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12694738020",
+                            "name": "Stephanie Kirlin",
+                            "mail": "wolf.kade@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15704493202",
+                            "name": "Fern Leffler",
+                            "mail": "gdooley@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14358301852",
+                            "name": "Mr. Waylon Jerde",
+                            "mail": "bertha76@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13645480838",
+                            "name": "Jed Abshire II",
+                            "mail": "volkman.belle@hoeger.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19897572949",
+                            "name": "Lora Heaney",
+                            "mail": "kristian.damore@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18124044853",
+                            "name": "Katelyn Hahn DVM",
+                            "mail": "jaiden21@cummerata.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17203997501",
+                            "name": "Aurelio Runte",
+                            "mail": "alia.barton@hansen.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16573685869",
+                            "name": "Mrs. Edyth Mohr Jr.",
+                            "mail": "lmonahan@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Demetris Ernser",
+                            "mail": "ryan.jacobs@walker.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16126911770",
+                            "name": "Braxton Gottlieb",
+                            "mail": "oconner.domenick@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18159165566",
+                            "name": "Prof. Dexter Spencer Jr.",
+                            "mail": "ukoepp@trantow.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17247275515",
+                            "name": "Verona Bergstrom",
+                            "mail": "hans.goldner@zulauf.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16579352530",
+                            "name": "Everardo Batz",
+                            "mail": "vladimir21@prohaska.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13038350654",
+                            "name": "Ms. Brooklyn Kris IV",
+                            "mail": "zhermann@larson.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mr. Jarod Bergstrom",
+                            "mail": "emelia.herzog@klocko.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19789517334",
+                            "name": "Vicenta Fadel",
+                            "mail": "maryam.bernhard@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "37847",
+                            "address": "2552 Yundt View Suite 502",
+                            "city": "East Estellafort",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "89.595508",
+                            "longitude": "-64.240164",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 13602,
+                        "activeAssets": 11740,
+                        "activeAssetsPercentage": 86.31083664167033,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 143,
+                        "activeContracts": 438,
+                        "activeContractTotalAmount": 939181.1599999993,
+                        "newActiveContracts": 76,
+                        "expiringContracts": 78,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 20,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 438,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

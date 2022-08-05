@@ -986,15 +986,6 @@ interface Constants {
     public const EP_DATA_LOADER_SLOWLOG = 0;
 
     /**
-     * Dump queries into specified directory.
-     */
-    #[Setting('ep.data_loader.dump')]
-    #[Group('data_loader')]
-    #[Type(StringType::class)]
-    #[Internal]
-    public const EP_DATA_LOADER_DUMP = null;
-
-    /**
      * Email addresses that will receive errors (overwrites default setting).
      *
      * You can use subaddressing to specify desired error level, eg

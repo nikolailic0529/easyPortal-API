@@ -1,0 +1,198 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "name": "Dooley, Hill and Kunze",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155425695",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Vincenzo Wiza",
+                            "mail": "ygraham@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17865353218",
+                            "name": "Heath Breitenberg Jr.",
+                            "mail": "qkemmer@johnson.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15707494305",
+                            "name": "Morton Hoeger",
+                            "mail": "ariane.halvorson@oconnell.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12073269735",
+                            "name": "Mr. Johnathan Zboncak III",
+                            "mail": "prussel@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14234854998",
+                            "name": "Prof. Kareem Koelpin DDS",
+                            "mail": "eileen.botsford@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15516181261",
+                            "name": "Mrs. Liliane Lebsack",
+                            "mail": "dicki.rodger@fritsch.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14585297771",
+                            "name": "Prof. Emmet Dietrich IV",
+                            "mail": "eleanora18@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13149074501",
+                            "name": "Javonte Deckow",
+                            "mail": "lina29@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16614064981",
+                            "name": "Shyanne Krajcik",
+                            "mail": "dorothy14@cremin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19179306949",
+                            "name": "Dr. Alessandro Heidenreich",
+                            "mail": "kaylee.pollich@glover.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19309243604",
+                            "name": "Destini Kuhic",
+                            "mail": "deffertz@purdy.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "lina29@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "qkemmer@johnson.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18703569723",
+                            "name": "Scottie Gutkowski",
+                            "mail": "angeline74@rempel.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "ariane.halvorson@oconnell.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14705047703",
+                            "name": "Malinda Schneider",
+                            "mail": "nikolas.dibbert@jacobs.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "eileen.botsford@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "deffertz@purdy.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "quinten.nicolas@schmidt.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": "prussel@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18562525136",
+                            "name": "Dr. Charlotte Maggio DDS",
+                            "mail": "elvis85@kutch.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15863426323",
+                            "name": "Prudence Schaden",
+                            "mail": "gaylord.auer@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "40207",
+                            "address": "55427 Cassandre Hollow Apt. 495",
+                            "city": "Feeststad",
+                            "locationType": null,
+                            "country": "Northern Mariana Islands",
+                            "latitude": "44.811857",
+                            "longitude": "-99.303271",
+                            "countryCode": "TV"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 11444,
+                        "activeAssets": 9623,
+                        "activeAssetsPercentage": 84.08773156239077,
+                        "activeCustomers": 109,
+                        "newActiveCustomers": 73,
+                        "activeContracts": 207,
+                        "activeContractTotalAmount": 1832208.81,
+                        "newActiveContracts": 65,
+                        "expiringContracts": 17,
+                        "activeQuotes": 88,
+                        "activeQuotesTotalAmount": 513461.0099999998,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 88,
+                        "expiredContracts": 207,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

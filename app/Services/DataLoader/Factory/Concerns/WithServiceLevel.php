@@ -17,7 +17,7 @@ trait WithServiceLevel {
 
     abstract protected function getServiceLevelResolver(): ServiceLevelResolver;
 
-    protected function serviceLevel(Oem $oem, ServiceGroup $group, string $sku): ?ServiceLevel {
+    protected function serviceLevel(Oem $oem, ServiceGroup $group, string $sku, string $name = null): ?ServiceLevel {
         // Null?
         $sku = $this->getNormalizer()->string($sku) ?: null;
 
@@ -26,20 +26,44 @@ trait WithServiceLevel {
         }
 
         // Find/Create
-        return $this->getServiceLevelResolver()->get($oem, $group, $sku, $this->factory(
-            static function () use ($oem, $group, $sku): ServiceLevel {
-                $level               = new ServiceLevel();
-                $level->key          = "{$group->getTranslatableKey()}/{$sku}";
-                $level->oem          = $oem;
-                $level->sku          = $sku;
-                $level->name         = $sku;
-                $level->description  = '';
-                $level->serviceGroup = $group;
+        $created = false;
+        $factory = $this->factory(
+            function (ServiceLevel $level) use (&$created, $oem, $group, $sku, $name): ServiceLevel {
+                $created    = !$level->exists;
+                $normalizer = $this->getNormalizer();
+
+                if ($created) {
+                    $level->key          = "{$group->getTranslatableKey()}/{$sku}";
+                    $level->oem          = $oem;
+                    $level->sku          = $sku;
+                    $level->description  = '';
+                    $level->serviceGroup = $group;
+                }
+
+                if (!$level->name || $level->name === $sku) {
+                    $level->name = $normalizer->string($name) ?: $sku;
+                }
 
                 $level->save();
 
                 return $level;
             },
-        ));
+        );
+        $level   = $this->getServiceLevelResolver()->get(
+            $oem,
+            $group,
+            $sku,
+            static function () use ($factory): ServiceLevel {
+                return $factory(new ServiceLevel());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($level);
+        }
+
+        // Return
+        return $level;
     }
 }

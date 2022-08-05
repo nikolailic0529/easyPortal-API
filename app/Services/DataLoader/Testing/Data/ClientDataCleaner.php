@@ -38,6 +38,7 @@ use App\Services\DataLoader\Testing\Data\Fake\Value;
 use Exception;
 
 use function array_key_exists;
+use function array_slice;
 use function sha1;
 use function sprintf;
 
@@ -92,21 +93,23 @@ class ClientDataCleaner {
 
     public function clean(object $object): void {
         if ($object instanceof ViewAsset) {
-            $object->serialNumber = $this->map($object->serialNumber, $this->uuid);
-            $object->zip          = $this->map($object->zip, $this->postcode);
-            $object->city         = $this->map($object->city, $this->city);
-            $object->address      = $this->map($object->address, $this->addressLineOne);
-            $object->address2     = $this->map($object->address2, $this->addressLineTwo);
-            $object->country      = $this->map($object->country, $this->countryName);
-            $object->countryCode  = $this->map($object->countryCode, $this->countryCode);
-            $object->latitude     = $this->map($object->latitude, $this->latitude);
-            $object->longitude    = $this->map($object->longitude, $this->longitude);
+            $object->serialNumber  = $this->map($object->serialNumber, $this->uuid);
+            $object->zip           = $this->map($object->zip, $this->postcode);
+            $object->city          = $this->map($object->city, $this->city);
+            $object->address       = $this->map($object->address, $this->addressLineOne);
+            $object->address2      = $this->map($object->address2, $this->addressLineTwo);
+            $object->country       = $this->map($object->country, $this->countryName);
+            $object->countryCode   = $this->map($object->countryCode, $this->countryCode);
+            $object->latitude      = $this->map($object->latitude, $this->latitude);
+            $object->longitude     = $this->map($object->longitude, $this->longitude);
+            $object->assetDocument = $this->limit($object->assetDocument ?? []);
         } elseif ($object instanceof ViewAssetDocument) {
             $object->documentNumber = $this->map($object->documentNumber, $this->uuid);
         } elseif ($object instanceof ViewDocument) {
             $object->documentNumber = $this->map($object->documentNumber, $this->uuid);
         } elseif ($object instanceof Document) {
-            $object->documentNumber = $this->map($object->documentNumber, $this->uuid);
+            $object->documentNumber  = $this->map($object->documentNumber, $this->uuid);
+            $object->documentEntries = $this->limit($object->documentEntries);
         } elseif ($object instanceof DocumentVendorSpecificField) {
             $object->said             = $this->map($object->said, $this->uuid);
             $object->groupId          = $this->map($object->groupId, $this->uuid);
@@ -180,5 +183,16 @@ class ClientDataCleaner {
         }
 
         return $this->map[$key];
+    }
+
+    /**
+     * @template T
+     *
+     * @param array<T>|null $items
+     *
+     * @return ($items is null ? null : array<T>)
+     */
+    protected function limit(?array $items): ?array {
+        return $items === null ? $items : array_slice($items, 0, 5);
     }
 }

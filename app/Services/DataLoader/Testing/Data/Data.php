@@ -4,13 +4,15 @@ namespace App\Services\DataLoader\Testing\Data;
 
 use App\Models\Document as DocumentModel;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Normalizer\Normalizer;
+use App\Services\DataLoader\Testing\Data\Client as DataClient;
 use Closure;
 use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -28,7 +30,9 @@ use const JSON_UNESCAPED_UNICODE;
 abstract class Data {
     use WithTestData;
 
-    public const MAP = 'map.json';
+    public const MAP   = 'map.json';
+    public const LIMIT = 25;
+    public const CHUNK = 5;
 
     public function __construct(
         protected Kernel $kernel,
@@ -174,20 +178,11 @@ abstract class Data {
         return $result;
     }
 
+    /**
+     * @param Closure(string): bool $closure
+     */
     protected function dumpClientResponses(string $path, Closure $closure): bool {
-        $previous = $this->config->get('ep.data_loader.dump');
-
-        $this->config->set('ep.data_loader.dump', $path);
-
-        try {
-            return $closure($path) && $this->cleanClientDumps($path);
-        } finally {
-            $this->config->set('ep.data_loader.dump', $previous);
-        }
-    }
-
-    protected function cleanClientDumps(string $path): bool {
-        $map     = static::MAP;
+        $map     = self::MAP;
         $data    = $this->getTestData();
         $cleaner = $this->app->make(ClientDataCleaner::class);
 
@@ -195,11 +190,19 @@ abstract class Data {
             $cleaner = $cleaner->setDefaultMap($data->json($map));
         }
 
-        foreach ((new ClientDumpsIterator($path))->getResponseIterator(true) as $object) {
-            $cleaner->clean($object);
-        }
+        $this->app->bind(Client::class, function () use ($path, $cleaner): Client {
+            return $this->app->make(DataClient::class)
+                ->setCleaner($cleaner)
+                ->setData(static::class)
+                ->setPath($path);
+        });
 
-        return $this->saveMap($data->path($map), $cleaner->getMap());
+        try {
+            return $closure($path)
+                && $this->saveMap($data->path($map), $cleaner->getMap());
+        } finally {
+            unset($this->app[Client::class]);
+        }
     }
 
     /**

@@ -1,0 +1,144 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "name": "D'Amore, Wiza and Legros",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657163134531",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18506658488",
+                            "name": "Mac Jakubowski",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13203656991",
+                            "name": "Darrel Koelpin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13479107882",
+                            "name": "Krystal Simonis",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13479107882",
+                            "name": "Timothy Kunze",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13347355655",
+                            "name": "Prof. Morgan Lakin PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18044390833",
+                            "name": "Mattie Windler",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "09164-5726",
+                            "address": "45585 Bode Crescent",
+                            "city": "Adanview",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "65.271448",
+                            "longitude": "16.973988",
+                            "countryCode": "AX"
+                        },
+                        {
+                            "zip": "09164-5726",
+                            "address": "45585 Bode Crescent",
+                            "city": "Adanview",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "65.271448",
+                            "longitude": "16.973988",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 587,
+                        "activeAssets": 247,
+                        "activeAssetsPercentage": 42.078364565587734,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 5,
+                        "activeContractTotalAmount": 13983.66,
+                        "newActiveContracts": null,
+                        "expiringContracts": 5,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 4,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                            "totalAssets": 587,
+                            "activeAssets": 247,
+                            "activeAssetsPercentage": 42.078364565587734,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 5,
+                            "activeContractTotalAmount": 13983.659999999998,
+                            "newActiveContracts": null,
+                            "expiringContracts": 5,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 4,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

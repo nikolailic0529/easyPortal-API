@@ -54,7 +54,9 @@
                 ]
             },
             "skuNumber": "HA151AC",
+            "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
+            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": "1614470400000",

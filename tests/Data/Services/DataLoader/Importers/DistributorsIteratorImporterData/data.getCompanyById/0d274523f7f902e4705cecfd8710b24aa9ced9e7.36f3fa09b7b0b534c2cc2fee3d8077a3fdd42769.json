@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "0920a7cb-3cf1-4a7d-bd84-f255cb753dec"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
+                    "name": "Bechtelar PLC",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656333816099",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

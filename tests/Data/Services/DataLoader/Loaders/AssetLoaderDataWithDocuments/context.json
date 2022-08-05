@@ -1,15 +1,16 @@
 {
-    "generated": "2022-06-24T13:02:04+00:00",
+    "generated": "2022-08-04T13:22:13+00:00",
     "distributors": [
-        "143c456a-e894-4710-a1c2-745b9582ca47"
+        "1af1c44e-8112-4e72-9654-b11c705e9372"
     ],
     "resellers": [
-        "75026113-e205-40e8-831e-0a2f9dee75bf"
+        "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
     ],
     "customers": [
-        "16804b25-302b-4581-b267-64040e8e7dbb"
+        "e42b0534-878d-4d43-90ec-d9c1cef59b70"
     ],
     "types": [
+        "Contract",
         "Quote renewal"
     ],
     "oems": "oem.csv"

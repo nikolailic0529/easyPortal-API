@@ -1,0 +1,394 @@
+{
+    "selector": "data.getCustomers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": null,
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "00002e93-1d51-4a96-bd73-08ca080ac4c0",
+                    "name": "Ernser-Pfeffer",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736101",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12234728487",
+                            "name": "Tremayne Howe",
+                            "mail": "jerde.mohamed@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17312833505",
+                            "name": "Lenna Kirlin",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19315943057",
+                            "name": "Miss Breanna Zulauf PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "51090",
+                            "address": "7982 Carmel Place Apt. 255",
+                            "city": "Declanville",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "65.436034",
+                            "longitude": "-130.643844",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "51090",
+                            "address": "7982 Carmel Place Apt. 255",
+                            "city": "Declanville",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "65.436034",
+                            "longitude": "-130.643844",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0006e2e1-8c6d-4ec6-b8b6-bbd2cae09dfa",
+                    "name": "Windler, Stehr and Kulas",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736149",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16082859205",
+                            "name": "Earl King",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Lenore Wiza",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "27023",
+                            "address": "619 Hunter Lock Apt. 594",
+                            "city": "McDermottborough",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "86.12312",
+                            "longitude": "-148.744283",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "27023",
+                            "address": "619 Hunter Lock Apt. 594",
+                            "city": "McDermottborough",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "86.12312",
+                            "longitude": "-148.744283",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000777a8-c78b-466e-8e8b-b4b791aa8453",
+                    "name": "Collier-Hagenes",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736179",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12398992926",
+                            "name": "Dayne Leffler I",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "87447",
+                            "address": "286 Sigurd Manor",
+                            "city": "Fayburgh",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-20.848729",
+                            "longitude": "24.584233",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "87447",
+                            "address": "286 Sigurd Manor",
+                            "city": "Fayburgh",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-20.848729",
+                            "longitude": "24.584233",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0007b259-060f-4e74-addf-5c41c35fddcd",
+                    "name": "Wiegand, Batz and Hessel",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736229",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18592813584",
+                            "name": "Dashawn Schinner",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19179907713",
+                            "name": "Estell Runolfsdottir IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "31970-5606",
+                            "address": "4995 Russel Place",
+                            "city": "Patiencemouth",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "76.710402",
+                            "longitude": "73.786265",
+                            "countryCode": "AG"
+                        },
+                        {
+                            "zip": "31970-5606",
+                            "address": "4995 Russel Place",
+                            "city": "Patiencemouth",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "76.710402",
+                            "longitude": "73.786265",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0008c6ba-9fe5-45fc-9804-7e47aeb222e0",
+                    "name": "Leffler, Turcotte and Jerde",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736257",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Rafaela Breitenberg",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "99170-9202",
+                            "address": "2048 Rolfson Forges",
+                            "city": "Lindmouth",
+                            "locationType": null,
+                            "country": "Guadeloupe",
+                            "latitude": "81.042386",
+                            "longitude": "-99.563518",
+                            "countryCode": "SN"
+                        },
+                        {
+                            "zip": "99170-9202",
+                            "address": "2048 Rolfson Forges",
+                            "city": "Lindmouth",
+                            "locationType": null,
+                            "country": "Guadeloupe",
+                            "latitude": "81.042386",
+                            "longitude": "-99.563518",
+                            "countryCode": "SN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,251 @@
+{
+    "selector": "data.getAssetsByCustomerId",
+    "query": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByCustomerId(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "8e57be47-2088-48c7-9342-0a2c64293248",
+        "from": null,
+        "lastId": "34275d25-bd89-425d-be80-bcf4801844b6",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerId": [
+                {
+                    "id": "44c6e71d-732e-474b-80d2-c7aed097fdf6",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "e5d2c341-094f-3580-a63c-378101f8b17a",
+                    "productDescription": "HPE Ethernet 10Gb 2-port 562SFP+ Adptr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "727055-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "4f99742d-bc7f-44af-ab56-802b7ba3e5d8",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "0ac40a51-48a3-3a42-963c-39bb21f0f2ea",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P19043-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "51fe14f9-7ad5-49e7-a6d6-88ca581da079",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "a18755bd-0c3d-315c-94f6-07a6e6f551c8",
+                    "productDescription": "HPE 500W FS Plat Ht Plg LH Pwr Sply Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "865408-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "6f96a10f-d0c7-4bc4-a28c-2fa8da36a22f",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "a5a24ad7-789a-329e-bbc2-cf21e90db81c",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2933Y-R Smart Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P19043-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "70b9c0d3-649c-459f-9cdc-81808d83c749",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "8e57be47-2088-48c7-9342-0a2c64293248",
+                    "serialNumber": "a7ff48ce-3ead-3385-bcef-a41f9937057f",
+                    "productDescription": "HPE DL325 Gen10 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P04654-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "75818-2079",
+                    "city": "Alainatown",
+                    "address": "4809 Mariano Views Suite 888",
+                    "address2": null,
+                    "country": "Holy See (Vatican City State)",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19285458556",
+                            "name": "Giovani Sporer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

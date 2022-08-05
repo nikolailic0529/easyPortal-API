@@ -1,0 +1,436 @@
+{
+    "selector": "data.getCustomers",
+    "query": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "0010b7b1-c283-4dab-92d4-45036299f35e",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "0012fff3-042f-4778-a41c-3c8c37d6f04f",
+                    "name": "Heller, Dickinson and Hegmann",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736413",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13516205174",
+                            "name": "Genesis Pfannerstill",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13864989321",
+                            "name": "Idell Robel",
+                            "mail": "abagail.hahn@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18546635072",
+                            "name": "Dr. Fanny Feeney DVM",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18546635072",
+                            "name": "Eileen Prohaska I",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "45515-3814",
+                            "address": "497 Oberbrunner Ranch",
+                            "city": "Valentinmouth",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-68.09205",
+                            "longitude": "-52.196029",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "45515-3814",
+                            "address": "497 Oberbrunner Ranch",
+                            "city": "Valentinmouth",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-68.09205",
+                            "longitude": "-52.196029",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00167526-0153-4f94-9ae3-19c5638d48c5",
+                    "name": "Quigley Ltd",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736429",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18028412104",
+                            "name": "Darius O'Kon",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18028412104",
+                            "name": "Prof. Sandy Mante DDS",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18202857936",
+                            "name": "Roslyn Robel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18142699922",
+                            "name": "Miss Kirstin Waters Jr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16502158192",
+                            "name": "Elbert Lind",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "88438",
+                            "address": "2019 Shana Grove",
+                            "city": "Pollichburgh",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-80.553545",
+                            "longitude": "-30.771161",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "88438",
+                            "address": "2019 Shana Grove",
+                            "city": "Pollichburgh",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-80.553545",
+                            "longitude": "-30.771161",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "001e09a7-089c-4af0-8e90-0982a721f611",
+                    "name": "Hintz-Schultz",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736460",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18142332790",
+                            "name": "Friedrich Steuber MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19723582014",
+                            "name": "Dr. Elda Powlowski DVM",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18062654605",
+                            "name": "Miss Flavie Bayer III",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Breanna Zulauf PhD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "68594-9758",
+                            "address": "545 Magali Mews",
+                            "city": "Ilianaborough",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "22.374219",
+                            "longitude": "-117.378439",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "68594-9758",
+                            "address": "545 Magali Mews",
+                            "city": "Ilianaborough",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "22.374219",
+                            "longitude": "-117.378439",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0021e047-9177-4603-ab91-747a705c2621",
+                    "name": "Wilkinson LLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736476",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16363990517",
+                            "name": "Nicola Howell III",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "47037-9290",
+                            "address": "310 Kovacek Grove Apt. 185",
+                            "city": "O'Keefeland",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "-27.937131",
+                            "longitude": "121.180673",
+                            "countryCode": "AG"
+                        },
+                        {
+                            "zip": "47037-9290",
+                            "address": "310 Kovacek Grove Apt. 185",
+                            "city": "O'Keefeland",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "-27.937131",
+                            "longitude": "121.180673",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0024ae29-3230-472e-8d8d-639a91b83898",
+                    "name": "Leffler Ltd",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162736507",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18722377602",
+                            "name": "Leland Jacobson MD",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18644428396",
+                            "name": "Dr. Carlee Nolan Sr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "08466-3126",
+                            "address": "611 Rodger Inlet Suite 402",
+                            "city": "Port Jazminberg",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-5.431396",
+                            "longitude": "78.858509",
+                            "countryCode": "LU"
+                        },
+                        {
+                            "zip": "08466-3126",
+                            "address": "611 Rodger Inlet Suite 402",
+                            "city": "Port Jazminberg",
+                            "locationType": null,
+                            "country": "Holy See (Vatican City State)",
+                            "latitude": "-5.431396",
+                            "longitude": "78.858509",
+                            "countryCode": "LU"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 0,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

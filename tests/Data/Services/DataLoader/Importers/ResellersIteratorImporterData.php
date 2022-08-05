@@ -16,19 +16,17 @@ use function count;
 use function round;
 
 class ResellersIteratorImporterData extends Data {
-    public const LIMIT     = null;
-    public const CHUNK     = 10;
     public const RESELLERS = [
-        '5a09d4c0-a8fa-4e11-a4f4-3adc5df7800d',
-        '8d4d4b7b-47d5-48a0-9c3d-01597b564ece',
-        '7a1771c3-5173-4cf4-8ea6-7c8290c91130',
-        '08c0401d-ec80-4a69-bbd0-26d2aac6b2e3',
-        'ecd39ab3-7044-4de6-89cc-0df2e034dbc1',
-        '02cbdc87-beef-4f76-83a8-9abad4a1599d',
-        '155f3d69-cf12-4c0e-b8c3-dc5a39020c25',
-        '765eb750-64b9-493d-ab95-b1f902ddd795',
-        '84c4936b-38cb-4dc5-a5a5-01bb19d02127',
-        'b8b3e24a-3f7b-42d4-9c13-60dd92459bb1',
+        '54f7dd6b-5234-4760-947d-c95e10751e18',
+        'bd0eec0c-4d48-4840-9ce0-237316c727e1',
+        '0917f385-4b97-4313-b255-043ad94683a7',
+        'd152bb2f-deae-4106-aac2-6d1aa1517232',
+        '6a3f5b75-5dc9-4517-aa18-a410644d33fb',
+        'd5306966-ab8b-4893-bc85-d7722998b900',
+        'a77f6f96-9c33-4e08-9838-ea291d572138',
+        '3c01bf74-b2b8-437d-8492-75a061282101',
+        '2d1c8169-8f80-41bd-8d37-e10936d25546',
+        'c017d376-0055-42a9-80d8-ac90cef3f0c5',
         '00000000-0000-0000-0000-000000000000',
     ];
 

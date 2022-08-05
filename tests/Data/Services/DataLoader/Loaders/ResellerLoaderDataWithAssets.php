@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Loaders;
 
 class ResellerLoaderDataWithAssets extends ResellerLoaderDataWithoutAssets {
-    public const RESELLER = '6c7c9474-3b59-4601-af72-1cd0f441b515';
+    public const RESELLER = '22d7dbf2-977a-49d8-8e4c-cacdaae616b2';
     public const ASSETS   = true;
-    public const ASSET    = '98c557c4-68bd-4272-8420-1972789c10da';
+    public const ASSET    = '803d34bd-1977-4743-b39e-ae8309296284';
 }

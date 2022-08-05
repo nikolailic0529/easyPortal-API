@@ -1,0 +1,126 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "6974b5ee-0cb7-4121-9f8f-1995322b540d"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
+                    "name": "Dibbert, Berge and Nikolaus",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657155594053",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Dorcas Pacocha",
+                            "mail": "donnelly.anya@cruickshank.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19345265134",
+                            "name": "Mrs. Orpha Lowe",
+                            "mail": "nyah02@upton.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19253744150",
+                            "name": "Electa Olson I",
+                            "mail": "littel.aurore@bayer.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15732532602",
+                            "name": "Haylee Bayer",
+                            "mail": "cassie00@predovic.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15862887973",
+                            "name": "Dorcas Pacocha",
+                            "mail": "fdicki@boyle.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12406907793",
+                            "name": "Dorcas Pacocha",
+                            "mail": "bschultz@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19898562646",
+                            "name": "Mike Lind",
+                            "mail": "adrianna.heathcote@beer.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15085624368",
+                            "name": "Arlo Tillman",
+                            "mail": "ettie.hauck@hahn.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Rudolph Steuber",
+                            "mail": "leuschke.aniyah@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mr. Blaze Herman DVM",
+                            "mail": "salma.hintz@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "31719",
+                            "address": "12404 Considine Skyway Apt. 294",
+                            "city": "Jillianstad",
+                            "locationType": null,
+                            "country": "Myanmar",
+                            "latitude": "-86.228594",
+                            "longitude": "-48.02634",
+                            "countryCode": "CW"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3201,
+                        "activeAssets": 2082,
+                        "activeAssetsPercentage": 65.04217432052484,
+                        "activeCustomers": 46,
+                        "newActiveCustomers": 32,
+                        "activeContracts": 47,
+                        "activeContractTotalAmount": 110206.62,
+                        "newActiveContracts": 4,
+                        "expiringContracts": 2,
+                        "activeQuotes": 18,
+                        "activeQuotesTotalAmount": 112949.29000000001,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 18,
+                        "expiredContracts": 47,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

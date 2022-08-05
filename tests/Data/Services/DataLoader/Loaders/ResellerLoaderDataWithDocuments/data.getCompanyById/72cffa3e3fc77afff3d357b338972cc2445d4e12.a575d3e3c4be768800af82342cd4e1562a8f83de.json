@@ -1,0 +1,206 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "name": "Mohr Group",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156348807",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13238941688",
+                            "name": "Dr. Dashawn Willms",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18728074309",
+                            "name": "Jade Friesen",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15207075475",
+                            "name": "Dr. Rick West II",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14326022806",
+                            "name": "Prof. Letitia Bosco",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14326022806",
+                            "name": "Aric Nikolaus",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14326022806",
+                            "name": "Thad Bode Jr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14752017299",
+                            "name": "Naomi Hickle",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19102867255",
+                            "name": "Mr. Candido Hackett V",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Sunny Steuber",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12709905064",
+                            "name": "Allie McDermott",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13136835990",
+                            "name": "Elva Littel",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "06318",
+                            "address": "886 Terry Lakes",
+                            "city": "Keshawnstad",
+                            "locationType": null,
+                            "country": "Taiwan",
+                            "latitude": "78.383969",
+                            "longitude": "53.321608",
+                            "countryCode": "BO"
+                        },
+                        {
+                            "zip": "06318",
+                            "address": "886 Terry Lakes",
+                            "city": "Keshawnstad",
+                            "locationType": null,
+                            "country": "Taiwan",
+                            "latitude": "78.383969",
+                            "longitude": "53.321608",
+                            "countryCode": "BO"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#a4a7a9",
+                        "secondaryColor": "#f9c110",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/0077dd?text=sit",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Cumque nulla voluptatum voluptatum explicabo aut iusto dolor asperiores."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Cumque nulla voluptatum voluptatum explicabo aut iusto dolor asperiores."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Cumque nulla voluptatum voluptatum explicabo aut iusto dolor asperiores."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Cumque nulla voluptatum voluptatum explicabo aut iusto dolor asperiores."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Quo est et minima omnis velit sequi."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Quo est et minima omnis velit sequi."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Natus optio voluptatem deserunt facere."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Natus optio voluptatem deserunt facere."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Natus optio voluptatem deserunt facere."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Natus optio voluptatem deserunt facere."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Ut architecto fuga necessitatibus impedit nihil nesciunt."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Ut architecto fuga necessitatibus impedit nihil nesciunt."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15577,
+                        "activeAssets": 11982,
+                        "activeAssetsPercentage": 76.92110162418952,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 119,
+                        "activeContracts": 300,
+                        "activeContractTotalAmount": 1242264.5599999984,
+                        "newActiveContracts": 96,
+                        "expiringContracts": 23,
+                        "activeQuotes": 47,
+                        "activeQuotesTotalAmount": 490006.3999999978,
+                        "newActiveQuotes": 17,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 47,
+                        "expiredContracts": 300,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

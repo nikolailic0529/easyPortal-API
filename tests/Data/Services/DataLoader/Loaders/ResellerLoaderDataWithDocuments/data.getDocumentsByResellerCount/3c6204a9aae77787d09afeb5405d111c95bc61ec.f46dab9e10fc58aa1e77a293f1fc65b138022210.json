@@ -1,0 +1,13 @@
+{
+    "selector": "data.getDocumentsByResellerCount",
+    "query": "query value($id: String!, $from: String) {\n    getDocumentsByResellerCount(resellerId: $id, fromTimestamp: $from)\n}",
+    "variables": {
+        "id": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
+        "from": null
+    },
+    "response": {
+        "data": {
+            "getDocumentsByResellerCount": 1
+        }
+    }
+}

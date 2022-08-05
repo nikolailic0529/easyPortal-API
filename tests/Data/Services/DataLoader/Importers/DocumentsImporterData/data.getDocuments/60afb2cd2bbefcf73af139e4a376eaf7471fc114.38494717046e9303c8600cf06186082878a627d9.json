@@ -1,0 +1,670 @@
+{
+    "selector": "data.getDocuments",
+    "query": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "variables": {
+        "from": null,
+        "lastId": "1978bde9-e335-4c3b-9781-56722a9a604c",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getDocuments": [
+                {
+                    "id": "1998c1e5-1562-40fc-842a-717e404afb02",
+                    "type": "Contract",
+                    "documentNumber": "b90304ce-b080-3b64-8220-774fd10368ba",
+                    "startDate": "2021-12-01",
+                    "endDate": "2022-11-30",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": "7189.4400000000005",
+                    "languageCode": null,
+                    "updatedAt": "1656481362451",
+                    "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                    "customerId": "f00d6934-1faa-4e3f-9de9-7f63eb6695a8",
+                    "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "564f4e40-6721-3c51-93f1-4025edca352e",
+                        "groupId": "986a3776-ca42-33dd-ad92-92ec99850373",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+12349007539",
+                            "name": "Elvera Pfannerstill",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16197438364",
+                            "name": "Tillman Fay",
+                            "mail": "summer.hoppe@homenick.net",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+12349007539",
+                            "name": "Elvera Pfannerstill",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+12349007539",
+                            "name": "Elvera Pfannerstill",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "a248952c-b788-401b-9868-b4c9c5724075",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "HPE Software Technical Unlimited Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "420.48",
+                            "discount": null,
+                            "listPrice": "420.48",
+                            "estimatedValueRenewal": "420.48",
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "a248952c-b788-401b-9868-b4c9c5724075",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates Service",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "210.24",
+                            "discount": null,
+                            "listPrice": "210.24",
+                            "estimatedValueRenewal": "210.24",
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "8ba9f7c1-8c74-468f-9107-82a8c28f3aa7",
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates Service",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "396",
+                            "discount": null,
+                            "listPrice": "396",
+                            "estimatedValueRenewal": "396",
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "8ba9f7c1-8c74-468f-9107-82a8c28f3aa7",
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "HPE Software Technical Unlimited Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "912",
+                            "discount": null,
+                            "listPrice": "912",
+                            "estimatedValueRenewal": "912",
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "8ba9f7c1-8c74-468f-9107-82a8c28f3aa7",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "864",
+                            "discount": null,
+                            "listPrice": "864",
+                            "estimatedValueRenewal": "864",
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "19ac876c-c518-42f7-81d3-3eed51a6558f",
+                    "type": "Contract",
+                    "documentNumber": "a91fa8a0-b6a7-3da7-85f0-20613cc7fd35",
+                    "startDate": "2019-01-17",
+                    "endDate": "2024-01-16",
+                    "currencyCode": "CHF",
+                    "totalNetPrice": null,
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "0b4daa71-ddfa-4fd7-bae7-f36a4036452f",
+                    "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "7b34646f-87c2-3f6d-b732-06f6648389c5",
+                        "groupId": "eaa50c95-7b4e-3edd-a06e-5e50ae4ba76c",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+19179496210",
+                            "name": "Annetta Green III",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+19409340919",
+                            "name": "Dr. Jamie Eichmann Jr.",
+                            "mail": "jspinka@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+13139729501",
+                            "name": "Raheem O'Connell",
+                            "mail": "bosco.art@hayes.com",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+19179496210",
+                            "name": "Annetta Green III",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+19179496210",
+                            "name": "Annetta Green III",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": "+19179496210",
+                            "name": "Annetta Green III",
+                            "mail": null,
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "e3186bc7-4018-4bf4-9d67-b2d8a2cdfbe7",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE B-series 16Gb SFP+SW XCVR",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "4ed4dccb-6a8a-4b80-bafb-fa13754679e1",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "6f903663-ccce-4b1c-9226-52be5ad09cd6",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "856a8fb2-86d6-4653-9ba7-766093b68639",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE B-series 16Gb SFP+SW XCVR",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "3c13df6d-6e82-46c3-9d1d-58a60cce0f15",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE B-series 16Gb SFP+SW XCVR",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "19b072a9-99c8-427b-95df-0187b9425163",
+                    "type": "Contract",
+                    "documentNumber": "759cb3a9-875c-33f5-8b6d-98693a5a99c3",
+                    "startDate": "2020-05-26",
+                    "endDate": "2025-05-25",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "08477cba-e03a-42c2-9ac3-79650a991664",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "9f1aef66-a4d7-35a0-8315-fd3089c05346",
+                        "groupId": "a1ffb56a-28d4-39b9-9a99-2d1a92d72194",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+12313554633",
+                            "name": "Kelly Witting IV",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16607583859",
+                            "name": "Prof. Martine Heathcote",
+                            "mail": "renee.wolff@ortiz.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+16157290243",
+                            "name": "Candice Corkery III",
+                            "mail": "lillie27@reinger.org",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+12313554633",
+                            "name": "Kelly Witting IV",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+12313554633",
+                            "name": "Kelly Witting IV",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Carol Powlowski III",
+                            "mail": null,
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "7d96e565-6435-45aa-8c58-10fe2f2d7fbf",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "a90c5440-b566-4be9-9ea8-4162d9239abf",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "8d61b2c4-bff4-48a6-8549-afd5d1a426d4",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE 32GB microSD Flash Memory Card",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "fc40e693-1ea0-4f55-833f-0376c6638b07",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE 96W Smart Stg Li-ion Batt 145mm Kit",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        },
+                        {
+                            "assetId": "a595aa8f-e7f5-499e-805a-a6a62526a0af",
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care NBD Service"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "19b5de8b-b7ad-49a7-8bbe-334470a25512",
+                    "type": "Contract",
+                    "documentNumber": "01808c99-8ddf-3ac7-b92e-5b6f3bff743a",
+                    "startDate": "2018-12-15",
+                    "endDate": "2021-12-14",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": null,
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "9c07e49d-0667-48e3-931a-a00a5521005d",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": null,
+                        "groupId": "340c3237-d9e6-35a9-ba66-5d94d14ae03a",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18475284307",
+                            "name": "Orlando Howell",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15803172486",
+                            "name": "Godfrey Grimes II",
+                            "mail": "keichmann@sanford.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19368049305",
+                            "name": "Libbie Lemke",
+                            "mail": "bahringer.arnoldo@beier.com",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+18475284307",
+                            "name": "Orlando Howell",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+18475284307",
+                            "name": "Orlando Howell",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": "+18475284307",
+                            "name": "Orlando Howell",
+                            "mail": null,
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "6c09e33e-c36f-4bf7-9ea1-a365fe87f9f0",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "29c69fb6-5228-4fa5-b74f-9fa6a406503c",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "3e2784d3-fd54-41dc-91ea-f4fae7a642b0",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "19ff9afd-3e86-4c07-a092-747f34c236c1",
+                    "type": "Contract",
+                    "documentNumber": "68cc0893-37f7-3fbc-8b6b-d2e30d5f2d3c",
+                    "startDate": "2022-01-24",
+                    "endDate": "2022-12-31",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "1112.78",
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "5479d937-5488-4f59-9541-bf19fb1b8f02",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "2e204849-0e8a-3426-bab2-b8fad57adfa1",
+                        "groupId": "4de6c41c-c6ab-3f16-9340-64c51715ab9c",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+14239351148",
+                            "name": "Mr. Myrl Boyer",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15803172486",
+                            "name": "Godfrey Grimes II",
+                            "mail": "keichmann@sanford.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14585069901",
+                            "name": "Magnolia Nienow",
+                            "mail": "kirstin31@gmail.com",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+14239351148",
+                            "name": "Mr. Myrl Boyer",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+14239351148",
+                            "name": "Mr. Myrl Boyer",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": "+12034614856",
+                            "name": "Mrs. Camylle Funk",
+                            "mail": null,
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "73883ba2-caa3-4131-8ef1-d13a77b2c095",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "556.39",
+                            "discount": null,
+                            "listPrice": "556.39",
+                            "estimatedValueRenewal": "556.39",
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        },
+                        {
+                            "assetId": "40a28988-3d04-45a7-a379-9db24317fa95",
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "556.39",
+                            "discount": null,
+                            "listPrice": "556.39",
+                            "estimatedValueRenewal": "556.39",
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -6,7 +6,7 @@ use App\Services\DataLoader\Testing\Data\AssetsData;
 use Illuminate\Console\Command;
 
 class DocumentLoaderData extends AssetsData {
-    public const DOCUMENT = 'c63823c9-ccae-493b-92ca-5cb2a696da69';
+    public const DOCUMENT = '00122a07-53e5-4c70-ba6b-bf51fcdd6695';
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {

@@ -24,10 +24,11 @@ trait WithAssetDocument {
     protected function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
         $sku   = $assetDocument->supportPackage ?? null;
+        $name  = $assetDocument->supportPackageDescription ?? null;
         $group = null;
 
         if ($oem && $sku) {
-            $group = $this->serviceGroup($oem, $sku);
+            $group = $this->serviceGroup($oem, $sku, $name);
         }
 
         return $group;
@@ -36,11 +37,12 @@ trait WithAssetDocument {
     protected function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
         $sku   = $assetDocument->skuNumber ?? null;
+        $name  = $assetDocument->skuDescription ?? null;
         $group = $this->assetDocumentServiceGroup($asset, $assetDocument);
         $level = null;
 
         if ($oem && $group && $sku) {
-            $level = $this->serviceLevel($oem, $group, $sku);
+            $level = $this->serviceLevel($oem, $group, $sku, $name);
         }
 
         return $level;

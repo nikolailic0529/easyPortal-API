@@ -15,19 +15,17 @@ use function count;
 use function round;
 
 class DocumentsIteratorImporterData extends DocumentsData {
-    public const LIMIT     = null;
-    public const CHUNK     = 10;
     public const DOCUMENTS = [
-        'd472ed2c-ed56-4aa4-9d0a-eb4d22dc5bf6',
-        'e17cfda0-d8df-4007-8dd8-7f327376c9f8',
-        '3cae1cdf-5610-4f49-af6b-5a68949f7e02',
-        'e476f5e7-5dbc-4346-9acd-12df7278c4d0',
-        'bd2f1205-d472-4203-8301-a4b761f7515a',
-        '0f14c721-e16b-46bf-a41e-47f8973964fe',
-        'b8a8d830-b7df-4c86-b2fa-c1309441f461',
-        'ef318f78-9909-45b0-a3dc-f829322378e6',
-        '5fc9b61a-8796-46ba-b649-4f8aaf00631f',
-        '2dd89a24-ba60-492f-a2e5-322e8b9a89d9',
+        '0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a',
+        '0c8324bb-600d-488b-9b53-35ee6849ff59',
+        '05a153c5-251c-413b-92dd-0cd27d6ed8fd',
+        '083145d4-b350-49cd-9844-d3998c411ce5',
+        '07a09563-d1fe-4f0f-a286-115dc2742178',
+        '0d2169e6-94b7-49ee-8560-80673d7009bf',
+        '0c890540-172e-41ea-b1f3-f91a899437b5',
+        '0821f5a6-95f1-493f-a527-c62a45ca1e13',
+        '0a38d611-f78f-48e4-a861-8d56afaa8154',
+        '013db1c0-c4b2-4f3a-830b-58de8b40ccc8',
         '00000000-0000-0000-0000-000000000000',
     ];
 

@@ -1,0 +1,13 @@
+{
+    "selector": "data.getAssetsByCustomerIdCount",
+    "query": "query value($id: String!, $from: String) {\n    getAssetsByCustomerIdCount(customerId: $id, fromTimestamp: $from)\n}",
+    "variables": {
+        "id": "03ee438b-b478-4b4b-86bd-a495f3ab2880",
+        "from": null
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerIdCount": 10
+        }
+    }
+}

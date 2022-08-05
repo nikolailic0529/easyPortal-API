@@ -1,0 +1,251 @@
+{
+    "selector": "data.getAssetsByResellerId",
+    "query": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
+        "from": null,
+        "lastId": "01ce1bc2-61ec-4174-a66b-47b2d0be7aad",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssetsByResellerId": [
+                {
+                    "id": "01d00f8c-a540-452a-bb1c-db859b9fbce8",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": "b7b57353-c54e-3570-a224-568e253a909a",
+                    "productDescription": "HP 3PAR 8000 4TB SAS 7.2K LFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "K2P87A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "86531",
+                    "city": "West Ariane",
+                    "address": "4846 Hegmann Shoal",
+                    "address2": null,
+                    "country": "Mozambique",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659506083909",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19713134179",
+                            "name": "Mariana O'Connell",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18784543798",
+                            "name": "Iva Bernhard",
+                            "mail": "johnathon.conn@bruen.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "01dfbdb4-bb95-4bd4-9bb0-10d05f54cc66",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "serialNumber": null,
+                    "productDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "451871-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "19467",
+                    "city": "Port Giovanni",
+                    "address": "801 Ankunding Mountain",
+                    "address2": null,
+                    "country": "Syrian Arab Republic",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17749662770",
+                            "name": "Rae Vandervort",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18784543798",
+                            "name": "Iva Bernhard",
+                            "mail": "johnathon.conn@bruen.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "01e0e448-2651-4d0e-8a27-318d38a54512",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "serialNumber": null,
+                    "productDescription": "HPE BLc Cisco B22HPE Fabric Ext Module",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "641146-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "19467",
+                    "city": "Port Giovanni",
+                    "address": "4568 Wuckert Loaf Apt. 912",
+                    "address2": null,
+                    "country": "Mozambique",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14095618408",
+                            "name": "Garfield Swaniawski",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18784543798",
+                            "name": "Iva Bernhard",
+                            "mail": "johnathon.conn@bruen.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "01e83101-04e4-443d-bc86-ad6eea9d92d5",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                    "serialNumber": "eb777830-3c35-32ac-b17a-c5c913c09e36",
+                    "productDescription": "HPE 32GB 2Rx4 PC4-2400T-R Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "805351-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "19467",
+                    "city": "Port Giovanni",
+                    "address": "4568 Wuckert Loaf Apt. 912",
+                    "address2": null,
+                    "country": "Mozambique",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14095618408",
+                            "name": "Garfield Swaniawski",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18784543798",
+                            "name": "Iva Bernhard",
+                            "mail": "johnathon.conn@bruen.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                },
+                {
+                    "id": "01ec7ee6-92d7-4932-adb6-1b4cc7d130fc",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
+                    "serialNumber": "6210e295-6ca1-3fbe-827c-387196d00965",
+                    "productDescription": "HPE DL360 Gen10 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "867959-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "61281-5304",
+                    "city": "Efrainborough",
+                    "address": "4644 Bradtke Corner",
+                    "address2": null,
+                    "country": "Mozambique",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16513410912",
+                            "name": "Dr. Jodie Mayert",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18784543798",
+                            "name": "Iva Bernhard",
+                            "mail": "johnathon.conn@bruen.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

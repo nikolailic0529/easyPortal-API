@@ -1,0 +1,72 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "name": "Bradtke, Kuhn and Glover",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657154915676",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "",
+                            "name": "Mr. Presley Tromp",
+                            "mail": "marjory.gusikowski@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "71817-8224",
+                            "address": "737 Malvina Harbor",
+                            "city": "North Solonberg",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-63.882526",
+                            "longitude": "96.664172",
+                            "countryCode": "AX"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3161,
+                        "activeAssets": 1101,
+                        "activeAssetsPercentage": 34.83074976273331,
+                        "activeCustomers": 17,
+                        "newActiveCustomers": 12,
+                        "activeContracts": 23,
+                        "activeContractTotalAmount": 59220.83,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 15,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 7251.96,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 3,
+                        "expiredContracts": 23,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Schaden, Abbott and Barrows",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156220072",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15408747142",
+                            "name": "Lysanne Erdman",
+                            "mail": "von.abner@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13317398893",
+                            "name": "Mr. Casper Miller",
+                            "mail": "dchamplin@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13203342035",
+                            "name": "Maggie Ankunding",
+                            "mail": "wmarks@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13059711953",
+                            "name": "Charley Walker DVM",
+                            "mail": "aniyah37@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12142644679",
+                            "name": "Elena Durgan",
+                            "mail": "keegan54@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16784600584",
+                            "name": "Lela Fritsch V",
+                            "mail": "joshua.kemmer@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17622676318",
+                            "name": "Dr. Kelton Medhurst",
+                            "mail": "beahan.duncan@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19796122401",
+                            "name": "Marta Lehner Sr.",
+                            "mail": "giles34@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18576197067",
+                            "name": "Lue Schaden",
+                            "mail": "parisian.marian@upton.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Korey Fay",
+                            "mail": "lauretta46@gutkowski.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13522603192",
+                            "name": "Assunta Swift",
+                            "mail": "johnson.ashlee@wolf.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14153434803",
+                            "name": "Prof. Lukas Marks V",
+                            "mail": "twiza@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16058635684",
+                            "name": "Alvina Koepp",
+                            "mail": "aoberbrunner@conn.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14586176059",
+                            "name": "Dr. Cortez Cassin",
+                            "mail": "maxine43@farrell.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14636780401",
+                            "name": "Jordi Herzog",
+                            "mail": "ignacio86@donnelly.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Holly Rowe",
+                            "mail": "von.abner@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12349757722",
+                            "name": "Kelly Kautzer",
+                            "mail": "champlin.hanna@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "38508-5431",
+                            "address": "267 Carolyne View Apt. 146",
+                            "city": "Assuntaside",
+                            "locationType": null,
+                            "country": "Isle of Man",
+                            "latitude": "51.577678",
+                            "longitude": "9.427314",
+                            "countryCode": "SR"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 13602,
+                        "activeAssets": 11740,
+                        "activeAssetsPercentage": 86.31083664167033,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 143,
+                        "activeContracts": 438,
+                        "activeContractTotalAmount": 939181.1599999993,
+                        "newActiveContracts": 76,
+                        "expiringContracts": 78,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 20,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 438,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

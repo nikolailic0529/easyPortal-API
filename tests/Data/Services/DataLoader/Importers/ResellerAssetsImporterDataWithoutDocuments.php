@@ -6,10 +6,8 @@ use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 
 class ResellerAssetsImporterDataWithoutDocuments extends AssetsData {
-    public const RESELLER  = '8c248080-ad4f-4dbd-8310-6afb07f67a42';
+    public const RESELLER  = '27faa47d-ab2a-4755-b36b-729114c056d2';
     public const DOCUMENTS = false;
-    public const LIMIT     = 50;
-    public const CHUNK     = 10;
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {

@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Stroman PLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156220072",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14307490439",
+                            "name": "Makayla Hackett",
+                            "mail": "marcelina.kihn@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14584438992",
+                            "name": "Levi Von",
+                            "mail": "theresia.feest@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15072338097",
+                            "name": "Ms. Mikayla Erdman DVM",
+                            "mail": "carol.kemmer@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14792086548",
+                            "name": "Aracely Leannon",
+                            "mail": "koss.santiago@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15863001632",
+                            "name": "Dawson Franecki DDS",
+                            "mail": "ikunde@jenkins.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12136489951",
+                            "name": "Chaya Schuster PhD",
+                            "mail": "zoila80@schumm.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16786189098",
+                            "name": "Jarvis Watsica II",
+                            "mail": "fvolkman@okon.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12398054219",
+                            "name": "Muriel Green",
+                            "mail": "lpredovic@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17122391857",
+                            "name": "Keith Brekke",
+                            "mail": "stella.satterfield@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dorcas Pacocha",
+                            "mail": "marisa.hudson@kerluke.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16783509160",
+                            "name": "Garett Pacocha",
+                            "mail": "uwunsch@stroman.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16097597109",
+                            "name": "Connie Braun",
+                            "mail": "kris66@kunze.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14708036331",
+                            "name": "Norbert Pfannerstill",
+                            "mail": "mitchell.cyrus@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15748457689",
+                            "name": "Adele Kautzer DVM",
+                            "mail": "conrad72@reichert.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15516627665",
+                            "name": "Dr. Joy Jast Jr.",
+                            "mail": "kristoffer.shields@miller.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Elroy Davis",
+                            "mail": "marcelina.kihn@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15645086030",
+                            "name": "Marion Reichert",
+                            "mail": "rferry@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "04154",
+                            "address": "22320 Bartoletti Cape Apt. 225",
+                            "city": "New Marian",
+                            "locationType": null,
+                            "country": "Sri Lanka",
+                            "latitude": "36.227839",
+                            "longitude": "63.658935",
+                            "countryCode": "CI"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 13602,
+                        "activeAssets": 11740,
+                        "activeAssetsPercentage": 86.31083664167033,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 143,
+                        "activeContracts": 438,
+                        "activeContractTotalAmount": 939181.1599999993,
+                        "newActiveContracts": 76,
+                        "expiringContracts": 78,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 20,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 438,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

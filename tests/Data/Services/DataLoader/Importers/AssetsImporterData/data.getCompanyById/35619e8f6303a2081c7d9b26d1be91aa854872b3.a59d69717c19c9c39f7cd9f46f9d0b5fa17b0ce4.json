@@ -1,0 +1,162 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
+                    "name": "Mueller-Okuneva",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657163096500",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15349803617",
+                            "name": "Alexanne Will",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15349803617",
+                            "name": "Mrs. Cayla Stark",
+                            "mail": "lillian58@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14637141581",
+                            "name": "Rosemary Ullrich",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Joshuah Feeney",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12567006338",
+                            "name": "Isom Haag",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14637141581",
+                            "name": "Dr. Evan Konopelski",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14783374589",
+                            "name": "Dr. Hazel Cummerata",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16898578712",
+                            "name": "Trey Dooley",
+                            "mail": "lucile89@kub.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17752568231",
+                            "name": "Eulah Beatty",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "43748-7409",
+                            "address": "3062 Schowalter Ridges",
+                            "city": "South Elroy",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "-25.232467",
+                            "longitude": "-149.456977",
+                            "countryCode": "BA"
+                        },
+                        {
+                            "zip": "43748-7409",
+                            "address": "3062 Schowalter Ridges",
+                            "city": "South Elroy",
+                            "locationType": null,
+                            "country": "Guinea-Bissau",
+                            "latitude": "-25.232467",
+                            "longitude": "-149.456977",
+                            "countryCode": "BA"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 123,
+                        "activeAssets": 116,
+                        "activeAssetsPercentage": 94.3089430894309,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 13,
+                        "activeContractTotalAmount": 49338.08,
+                        "newActiveContracts": null,
+                        "expiringContracts": 3,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 3,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                            "totalAssets": 123,
+                            "activeAssets": 116,
+                            "activeAssetsPercentage": 94.3089430894309,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 13,
+                            "activeContractTotalAmount": 49338.079999999994,
+                            "newActiveContracts": null,
+                            "expiringContracts": 3,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 3,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

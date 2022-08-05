@@ -1,0 +1,13 @@
+{
+    "selector": "data.getDocumentsByCustomerCount",
+    "query": "query value($id: String!, $from: String) {\n    getDocumentsByCustomerCount(customerId: $id, fromTimestamp: $from)\n}",
+    "variables": {
+        "id": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+        "from": null
+    },
+    "response": {
+        "data": {
+            "getDocumentsByCustomerCount": 3
+        }
+    }
+}

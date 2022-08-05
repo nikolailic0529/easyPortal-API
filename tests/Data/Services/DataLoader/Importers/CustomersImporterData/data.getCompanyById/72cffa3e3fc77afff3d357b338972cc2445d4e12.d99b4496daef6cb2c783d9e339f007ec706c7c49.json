@@ -1,0 +1,148 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "name": "Weber, Kuphal and Kreiger",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657154671012",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12768085071",
+                            "name": "Hertha Shanahan",
+                            "mail": "devante.cummings@kub.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12768085071",
+                            "name": "Hertha Shanahan",
+                            "mail": "jevon.wiza@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12768085071",
+                            "name": "Leonel Hintz",
+                            "mail": "devante.cummings@kub.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "47383",
+                            "address": "16982 Hahn Junction Apt. 596",
+                            "city": "Port Sophia",
+                            "locationType": null,
+                            "country": "Cook Islands",
+                            "latitude": "64.681563",
+                            "longitude": "142.469247",
+                            "countryCode": "AG"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#24303e",
+                        "secondaryColor": "#38b5aa",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://via.placeholder.com/640x480.png/005599?text=voluptatum",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Hic non fugiat et eligendi."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Hic non fugiat et eligendi."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Placeat quo voluptatem rem voluptatem."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Placeat quo voluptatem rem voluptatem."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Sed est aliquam omnis quia."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Sed est aliquam omnis quia."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Nulla neque libero est quo illo nihil."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Nulla neque libero est quo illo nihil."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nulla neque libero est quo illo nihil."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nulla neque libero est quo illo nihil."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Nesciunt praesentium necessitatibus rerum eveniet tempora consequatur ullam."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Nesciunt praesentium necessitatibus rerum eveniet tempora consequatur ullam."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15215,
+                        "activeAssets": 11471,
+                        "activeAssetsPercentage": 75.39270456786068,
+                        "activeCustomers": 147,
+                        "newActiveCustomers": 117,
+                        "activeContracts": 238,
+                        "activeContractTotalAmount": 411017.5099999999,
+                        "newActiveContracts": 36,
+                        "expiringContracts": 31,
+                        "activeQuotes": 48,
+                        "activeQuotesTotalAmount": 360512.47000000003,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 48,
+                        "expiredContracts": 238,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

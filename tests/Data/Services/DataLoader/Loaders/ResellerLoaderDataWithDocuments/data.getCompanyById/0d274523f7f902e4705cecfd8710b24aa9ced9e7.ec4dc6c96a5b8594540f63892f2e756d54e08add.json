@@ -1,0 +1,23 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\n    }\n}",
+    "variables": {
+        "id": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a985a692-c063-499a-ab2f-0a2adef86a3f",
+                    "name": "Murphy Inc",
+                    "companyType": "DISTRIBUTOR",
+                    "updatedAt": "1656334103232",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

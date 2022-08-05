@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Lang PLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1657156220072",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18052332548",
+                            "name": "Prof. Elfrieda Emmerich",
+                            "mail": "reichert.odie@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18304752332",
+                            "name": "Presley Veum",
+                            "mail": "kayley12@frami.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12247486146",
+                            "name": "Prof. Amelia Gorczany",
+                            "mail": "khalil00@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12562041713",
+                            "name": "America DuBuque",
+                            "mail": "marian.becker@abernathy.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19567539078",
+                            "name": "Fredrick Goldner",
+                            "mail": "umonahan@will.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19729486911",
+                            "name": "Carolyne Prosacco",
+                            "mail": "elva14@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17073802818",
+                            "name": "Dr. Trevor Quitzon",
+                            "mail": "herbert05@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14695382340",
+                            "name": "Cade Cartwright",
+                            "mail": "emmett.sanford@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13158496020",
+                            "name": "Alexandro Walter",
+                            "mail": "ylittel@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Scarlett Hartmann",
+                            "mail": "janis68@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12076780265",
+                            "name": "Mr. Lucas Hintz",
+                            "mail": "annetta.ratke@crona.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13523199535",
+                            "name": "Alessandra Lemke",
+                            "mail": "zfarrell@keebler.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19493712643",
+                            "name": "Camille Cremin",
+                            "mail": "hazel.bogan@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19017840744",
+                            "name": "Dr. Toni Effertz",
+                            "mail": "ledner.jerrod@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12485079945",
+                            "name": "Jaylan Leannon",
+                            "mail": "ghowe@goodwin.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Miss Reva Miller MD",
+                            "mail": "reichert.odie@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14783074268",
+                            "name": "Gilda Hand PhD",
+                            "mail": "sigurd.wintheiser@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "74022",
+                            "address": "32518 Hills Park",
+                            "city": "Keelingfort",
+                            "locationType": null,
+                            "country": "Jamaica",
+                            "latitude": "74.238113",
+                            "longitude": "-172.015274",
+                            "countryCode": "DK"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 13602,
+                        "activeAssets": 11740,
+                        "activeAssetsPercentage": 86.31083664167033,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 143,
+                        "activeContracts": 438,
+                        "activeContractTotalAmount": 939181.1599999993,
+                        "newActiveContracts": 76,
+                        "expiringContracts": 78,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 20,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 438,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

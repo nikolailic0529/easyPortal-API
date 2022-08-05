@@ -194,10 +194,14 @@ class AssetFactoryTest extends TestCase {
                     'status'        => null,
                     'start'         => '2020-03-01',
                     'end'           => '2021-02-28',
-                    'serviceGroup'  => 'H7J34AC',
+                    'serviceGroup'  => [
+                        'sku'  => 'H7J34AC',
+                        'name' => 'HPE NBD w DMR Proactive Care SVC',
+                    ],
                     'serviceLevels' => [
                         [
-                            'sku' => 'HA151AC',
+                            'sku'  => 'HA151AC',
+                            'name' => 'HPE Hardware Maintenance Onsite Support',
                         ],
                     ],
                     'document'      => '0056523287',
@@ -214,11 +218,17 @@ class AssetFactoryTest extends TestCase {
                         'start'         => $warranty->start?->toDateString(),
                         'end'           => $warranty->end?->toDateString(),
                         'document'      => $warranty->document_number,
-                        'serviceGroup'  => $warranty->serviceGroup?->sku,
+                        'serviceGroup'  => $warranty->serviceGroup
+                            ? [
+                                'sku'  => $warranty->serviceGroup->sku,
+                                'name' => $warranty->serviceGroup->name,
+                            ]
+                            : null,
                         'serviceLevels' => $warranty->serviceLevels
                             ->map(static function (ServiceLevel $level): array {
                                 return [
-                                    'sku' => $level->sku,
+                                    'sku'  => $level->sku,
+                                    'name' => $level->name,
                                 ];
                             })
                             ->all(),

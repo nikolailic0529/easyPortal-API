@@ -18,8 +18,6 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\TriggerCoverageStatusCheck;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Testing\Data\ClientDump;
-use App\Services\DataLoader\Testing\Data\ClientDumpFile;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use DateTimeInterface;
@@ -92,23 +90,22 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getDistributors',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getDistributors(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getDistributorPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getDistributors',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getDistributors(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getDistributorPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getCompanyRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getCompanyRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getDistributorById(string $id): ?Company {
@@ -161,23 +158,22 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getResellers',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getResellers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getResellerPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getResellers',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getResellers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getResellerPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getCompanyRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getCompanyRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getResellerById(string $id): ?Company {
@@ -230,23 +226,22 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getCustomers',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getCustomers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getCustomerPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getCustomers',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getCustomers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getCustomerPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getCompanyRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getCompanyRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getCustomerById(string $id): ?Company {
@@ -375,24 +370,23 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssetsByCustomerId',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssetsByCustomerId',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     /**
@@ -404,25 +398,24 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssetsByCustomerId',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssetsByCustomerId',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getAssetsByResellerIdCount(
@@ -452,24 +445,23 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssetsByResellerId',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssetsByResellerId',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     /**
@@ -481,25 +473,24 @@ class Client {
         int $limit = null,
         string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssetsByResellerId',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssetsByResellerId',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($lastId);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     /**
@@ -508,25 +499,24 @@ class Client {
     public function getAssets(
         DateTimeInterface $from = null,
         int $limit = null,
-        string $offset = null,
+        string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssets',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssets',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($offset);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     /**
@@ -535,26 +525,25 @@ class Client {
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
-        string $offset = null,
+        string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssets',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getAssets',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getAssetRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($offset);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getAssetRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getDocumentsCount(DateTimeInterface $from = null): int {
@@ -588,25 +577,24 @@ class Client {
     public function getDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
-        string $offset = null,
+        string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getDocuments',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query getDocuments(\$limit: Int, \$lastId: String, \$from: String) {
-                    getDocuments(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getDocumentPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getDocuments',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getDocuments(\$limit: Int, \$lastId: String, \$from: String) {
+                getDocuments(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getDocumentPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                $this->getDocumentRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($offset);
+            }
+            GRAPHQL,
+            [
+                'from' => $this->datetime($from),
+            ],
+            $this->getDocumentRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getDocumentsByResellerCount(
@@ -634,26 +622,25 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
         int $limit = null,
-        string $offset = null,
+        string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getDocumentsByReseller',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByReseller(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getDocumentsByReseller(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getDocumentPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getDocumentsByReseller',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getDocumentsByReseller(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getDocumentsByReseller(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getDocumentPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getDocumentRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($offset);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getDocumentRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getDocumentsByCustomerCount(
@@ -681,26 +668,25 @@ class Client {
         string $id,
         DateTimeInterface $from = null,
         int $limit = null,
-        string $offset = null,
+        string $lastId = null,
     ): ObjectIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getDocumentsByCustomer',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                    getDocumentsByCustomer(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getDocumentPropertiesGraphQL()}
-                    }
+        return $this->getLastIdBasedIterator(
+            'getDocumentsByCustomer',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getDocumentsByCustomer(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
+                getDocumentsByCustomer(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getDocumentPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'id'   => $id,
-                    'from' => $this->datetime($from),
-                ],
-                $this->getDocumentRetriever(),
-            )
-            ->setLimit($limit)
-            ->setOffset($offset);
+            }
+            GRAPHQL,
+            [
+                'id'   => $id,
+                'from' => $this->datetime($from),
+            ],
+            $this->getDocumentRetriever(),
+            $limit,
+            $lastId,
+        );
     }
 
     public function getDocumentById(string $id): ?Document {
@@ -825,20 +811,24 @@ class Client {
      * @param array<string,mixed>      $variables
      * @param Closure(array<mixed>): T $retriever
      *
-     * @return QueryIterator<T, array<mixed>>
+     * @return ObjectIterator<T>
      */
     public function getOffsetBasedIterator(
         string $selector,
         string $graphql,
         array $variables,
         Closure $retriever,
-    ): QueryIterator {
+        int $limit = null,
+        string|int|null $offset = null,
+    ): ObjectIterator {
         return (new QueryIterator(
             OffsetBasedIterator::class,
             new Query($this, "data.{$selector}", $graphql, $variables),
             $retriever,
         ))
-            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'))
+            ->setOffset($offset)
+            ->setLimit($limit);
     }
 
     /**
@@ -847,20 +837,24 @@ class Client {
      * @param array<string,mixed>      $variables
      * @param Closure(array<mixed>): T $retriever
      *
-     * @return QueryIterator<T, array<mixed>>
+     * @return ObjectIterator<T>
      */
     public function getLastIdBasedIterator(
         string $selector,
         string $graphql,
         array $variables,
         Closure $retriever,
-    ): QueryIterator {
+        int $limit = null,
+        string $lastId = null,
+    ): ObjectIterator {
         return (new QueryIterator(
             LastIdBasedIterator::class,
             new Query($this, "data.{$selector}", $graphql, $variables),
             $retriever,
         ))
-            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'))
+            ->setOffset($lastId)
+            ->setLimit($limit);
     }
 
     /**
@@ -907,6 +901,7 @@ class Client {
      */
     public function call(string $selector, string $graphql, array $variables = [], array $files = []): mixed {
         $json   = $this->callExecute($selector, $graphql, $variables, $files);
+        $json   = $this->callDump($selector, $graphql, $variables, $json);
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
         $result = Arr::get($json, $selector);
 
@@ -922,9 +917,6 @@ class Client {
         } else {
             $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $variables, $json));
         }
-
-        // Dump
-        $this->callDump($selector, $graphql, $variables, $json);
 
         // Return
         return $result;
@@ -1050,24 +1042,8 @@ class Client {
     /**
      * @param array<string, mixed> $variables
      */
-    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): void {
-        // Enabled?
-        if (!$this->config->get('ep.data_loader.dump')) {
-            return;
-        }
-
-        // Dump
-        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $variables)}";
-        $dump = new ClientDumpFile(new SplFileInfo($path));
-
-        $dump->setDump(new ClientDump([
-            'selector'  => $selector,
-            'query'     => $graphql,
-            'variables' => $variables,
-            'response'  => $json,
-        ]));
-
-        $dump->save();
+    protected function callDump(string $selector, string $graphql, array $variables, mixed $json): mixed {
+        return $json;
     }
 
     /**
@@ -1326,7 +1302,9 @@ class Client {
                 }
 
                 skuNumber
+                skuDescription
                 supportPackage
+                supportPackageDescription
                 warrantyEndDate
                 estimatedValueRenewal
 

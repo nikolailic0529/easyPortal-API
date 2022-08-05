@@ -1,0 +1,174 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                    "name": "DuBuque PLC",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1657162927168",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14699723682",
+                            "name": "Adela Gottlieb",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18472203033",
+                            "name": "Ethyl Schaden",
+                            "mail": "tgusikowski@durgan.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19045451890",
+                            "name": "Dr. Vivien Rodriguez Sr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12108975481",
+                            "name": "Jayden Mills",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Maudie Christiansen",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12177000293",
+                            "name": "Miles Kiehn V",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Rose Brekke",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15596525819",
+                            "name": "Tillman Fay",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19123761328",
+                            "name": "Tillman Fay",
+                            "mail": "summer.hoppe@homenick.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12834202466",
+                            "name": "Keenan Conroy",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19107569567",
+                            "name": "Prof. Jason Hill",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "51351",
+                            "address": "846 Jodie Club",
+                            "city": "Spinkahaven",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-88.497141",
+                            "longitude": "87.758901",
+                            "countryCode": "HN"
+                        },
+                        {
+                            "zip": "51351",
+                            "address": "846 Jodie Club",
+                            "city": "Spinkahaven",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-88.497141",
+                            "longitude": "87.758901",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 101,
+                        "activeAssets": 92,
+                        "activeAssetsPercentage": 91.0891089108911,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 9,
+                        "activeContractTotalAmount": 14199.059999999998,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 6,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                            "totalAssets": 101,
+                            "activeAssets": 92,
+                            "activeAssetsPercentage": 91.0891089108911,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 9,
+                            "activeContractTotalAmount": 14199.059999999998,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 6,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

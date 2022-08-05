@@ -1,47 +1,30 @@
 {
-    "generated": "2022-06-24T12:43:31+00:00",
+    "generated": "2022-08-04T13:05:53+00:00",
     "distributors": [
-        "143c456a-e894-4710-a1c2-745b9582ca47",
-        "eb1cb37a-48ab-43da-a01e-220220f8654a"
+        "1af1c44e-8112-4e72-9654-b11c705e9372",
+        "a985a692-c063-499a-ab2f-0a2adef86a3f"
     ],
     "resellers": [
-        "714aa057-1ea0-4666-b3be-4b69af99e997",
-        "ddf6df32-76f3-4122-9ad9-c537caf7ec05",
-        "3f87404c-041b-4357-83f5-b0068e5f10a5",
-        "43da5a39-ae96-4577-9a89-fd47ac5f315b",
-        "14d64fd2-e29e-4852-b187-4b31fc19a0ed",
-        "cb0e210f-96e7-4524-ac54-0ed36a2579d6",
-        "9ebe8e19-8abb-4927-b0e6-b0547d610b76",
-        "aff46e80-6e82-4695-9dd2-3fb2eed8bcf8",
-        "84a4f07a-485f-4dc7-84c3-9f292f39e5d5",
-        "c325b39c-d33e-44cd-b0d3-fefa921b9e71",
-        "aab03dd0-6604-42e4-8f5f-19cb7dd0321f",
-        "9bc4c014-effb-4f5e-bf67-4c8497a65d97",
-        "4ab1f86e-29f5-4eb0-bf0c-349ca3fe3c39",
-        "de487a44-c658-499a-8705-836ec2b614a0",
-        "143c456a-e894-4710-a1c2-745b9582ca47",
-        "9fa844b8-8064-4df7-ada1-a4af7fa9176f",
-        "6a776170-74ac-4ee9-bb02-c29befd07f2c",
-        "6a2e8378-a9ff-48d0-a992-6fd34ad0f7d3",
-        "d0f6ac7e-2f89-4ab9-b246-f736ad7341af"
+        "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+        "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+        "0fd07b17-3314-40b5-ac32-7189051f773b",
+        "77ec115b-9723-4582-ad45-2b3a83286b1f"
     ],
     "customers": [
-        "0b0cbbc9-eb17-4567-8582-574b51bb6fec",
-        "acb9a460-41b5-4434-bdfe-4543f46fd372",
-        "8f8980f8-21a0-4fa7-b5ed-16d7b41c30e0",
-        "7285fa8e-9901-4207-b367-7988d1f185a2",
-        "02f349a8-a8f0-4b12-a293-66533652c16f",
-        "0789e4fb-c13b-4c68-ba5b-32812c9d852c",
-        "aa010e95-b628-4fd5-9d09-a687cbf63e58",
-        "7dcf9a93-00d0-4504-934e-c344320dcaa5",
-        "33a7c56b-be08-4bf1-ae13-0b2b76b64adb",
-        "bab2f644-f964-4ecd-95a9-77a3818b646e"
+        "f0506708-9949-4017-a760-d8e6d0a12838",
+        "0bf4be29-41e0-4877-a35e-5d8d08f0b618",
+        "7b9dae48-2613-4478-9b2f-842dd7c1db71",
+        "e25e1111-5815-455f-af8b-93665f76b62c",
+        "35c87f11-f024-402b-9a9e-49b21d29e804",
+        "95ce79c4-7fa9-4004-9486-3adac89c55c0",
+        "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
+        "54126f62-957a-46b1-a8ec-926fa4e94a81",
+        "033bcf58-0dcd-42b6-8765-51b5815b747f",
+        "0c8e4738-9851-438b-acbb-a680be9bafea"
     ],
     "types": [
-        "Quote renewal",
-        "Quote New Business",
-        "Delivery contract",
-        "Contract renewal"
+        "Contract",
+        "Quote renewal"
     ],
     "oems": "oem.csv"
 }
