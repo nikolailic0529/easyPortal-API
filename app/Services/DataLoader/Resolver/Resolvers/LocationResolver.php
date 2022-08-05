@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\DB;
  */
 class LocationResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Location|null $factory
+     * @param Closure(Normalizer=): Location|null $factory
      *
      * @return ($factory is null ? Location|null : Location)
      */
@@ -69,15 +70,13 @@ class LocationResolver extends Resolver {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Location
-            ? $this->getCacheKey($this->getUniqueKey(
-                $model->country_id,
-                $model->city_id,
-                $model->postcode,
-                $model->line_one,
-                $model->line_two,
-            ))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey(
+            $model->country_id,
+            $model->city_id,
+            $model->postcode,
+            $model->line_one,
+            $model->line_two,
+        ));
     }
 
     /**

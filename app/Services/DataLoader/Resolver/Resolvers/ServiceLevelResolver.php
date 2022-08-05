@@ -7,6 +7,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Support\Collection;
  */
 class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): ServiceLevel|null $factory
+     * @param Closure(Normalizer=): ServiceLevel|null $factory
      *
      * @return ($factory is null ? ServiceLevel|null : ServiceLevel)
      */
@@ -30,9 +31,7 @@ class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof ServiceLevel
-            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->service_group_id, $model->sku))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->service_group_id, $model->sku));
     }
 
     /**

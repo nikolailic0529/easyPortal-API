@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Language;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class LanguageResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Language|null $factory
+     * @param Closure(Normalizer=): Language|null $factory
      *
      * @return ($factory is null ? Language|null : Language)
      */
@@ -33,9 +34,7 @@ class LanguageResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Language
-            ? $this->getCacheKey($this->getUniqueKey($model->code))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->code));
     }
 
     /**

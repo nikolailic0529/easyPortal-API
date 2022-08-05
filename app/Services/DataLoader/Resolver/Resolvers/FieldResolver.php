@@ -34,9 +34,7 @@ class FieldResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Field
-            ? $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key));
     }
 
     /**
