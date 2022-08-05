@@ -1,0 +1,443 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    skuDescription\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "e551bbce-7cf9-404a-9a00-daa4372b6372"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "e551bbce-7cf9-404a-9a00-daa4372b6372",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                    "serialNumber": "a36e7ff6-0326-3d10-af1e-5eb82e553c09",
+                    "productDescription": "HP DL380p Gen8 E5-2650 HPM EU Svr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "642106-421",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "90841-9660",
+                    "city": "Olliemouth",
+                    "address": "3500 Nienow Avenue Apt. 400",
+                    "address2": null,
+                    "country": "Guam",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HL935AC",
+                            "skuDescription": "HPE Collaborative Remote Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "3927.4399999999996",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "98.21",
+                            "discount": null,
+                            "listPrice": "98.21",
+                            "estimatedValueRenewal": "98.21",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "3927.4399999999996",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "1854.7",
+                            "discount": null,
+                            "listPrice": "1854.7",
+                            "estimatedValueRenewal": "1854.7",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "skuDescription": "HPE Remote Tech Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "ddf1bdbb-8cf1-3291-b968-b10e16c6dc49",
+                            "document": {
+                                "id": "1aa11495-76ae-4d38-841d-15d6b419e1a7",
+                                "type": "Contract",
+                                "documentNumber": "ddf1bdbb-8cf1-3291-b968-b10e16c6dc49",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "4307.22",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "7c959b3f-2a79-38c3-bd5a-b8df77ea1064",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "317.91",
+                            "discount": null,
+                            "listPrice": "317.91",
+                            "estimatedValueRenewal": "317.91",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "HPE Software Technical Unlimited Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                            "document": {
+                                "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+                                "type": "Contract",
+                                "documentNumber": "56e4f364-7f7d-3584-ad34-b6fd773cb112",
+                                "startDate": "2021-04-01",
+                                "endDate": "2022-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "3927.4399999999996",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18164553906",
+                                        "name": "Demond White",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "3.6",
+                            "discount": null,
+                            "listPrice": "3.6",
+                            "estimatedValueRenewal": "3.6",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "skuDescription": "HPE Remote Tech Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "7d9b2ffd-dff0-3f82-bd77-97d1e3f10f9d",
+                            "document": {
+                                "id": "5a0f88f8-07e4-4a9a-b266-aa01f23f82cd",
+                                "type": "Quote renewal",
+                                "documentNumber": "7d9b2ffd-dff0-3f82-bd77-97d1e3f10f9d",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "5303.16",
+                                "languageCode": null,
+                                "updatedAt": "1654272008215",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "CHF",
+                            "languageCode": null,
+                            "netPrice": "260.64",
+                            "discount": null,
+                            "listPrice": "302.01",
+                            "estimatedValueRenewal": "302.01",
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17709427853",
+                            "name": "Gunnar Roberts",
+                            "mail": "dillan62@rau.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12723941015",
+                            "name": "Jacklyn Cassin",
+                            "mail": "brenden.lindgren@roob.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

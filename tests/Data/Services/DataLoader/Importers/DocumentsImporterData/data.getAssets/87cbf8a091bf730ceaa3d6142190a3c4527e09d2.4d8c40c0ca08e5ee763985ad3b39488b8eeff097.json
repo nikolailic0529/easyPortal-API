@@ -1,0 +1,461 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    skuDescription\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "8d462e76-12db-438c-a227-07e86cb4ca46"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "8d462e76-12db-438c-a227-07e86cb4ca46",
+                    "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                    "serialNumber": "4d488cbe-2ae1-3d54-bb9f-2e5cb9ac900e",
+                    "productDescription": "HP BL660c Gen8 10Gb Flb CTO Blade",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "679118-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "43012-8733",
+                    "city": "Tannerburgh",
+                    "address": "8235 Mario Fields",
+                    "address2": null,
+                    "country": "Haiti",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1527724800000",
+                            "documentNumber": "11ffa4a1-9886-3497-abc6-49d950e851bc",
+                            "document": {
+                                "id": "00d2387e-6189-49fb-bb4b-a7d3181f1755",
+                                "type": "Contract",
+                                "documentNumber": "11ffa4a1-9886-3497-abc6-49d950e851bc",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1814.4",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Mrs. Esmeralda Ward",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "572.4",
+                            "discount": null,
+                            "listPrice": "572.4",
+                            "estimatedValueRenewal": "572.4",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HP BL660c Gen8 10Gb Flb CTO Blade",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": "1527724800000",
+                            "documentNumber": "11ffa4a1-9886-3497-abc6-49d950e851bc",
+                            "document": {
+                                "id": "00d2387e-6189-49fb-bb4b-a7d3181f1755",
+                                "type": "Contract",
+                                "documentNumber": "11ffa4a1-9886-3497-abc6-49d950e851bc",
+                                "startDate": "2021-01-01",
+                                "endDate": "2021-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1814.4",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Bartholome Reichert",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Mrs. Esmeralda Ward",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "572.4",
+                            "discount": null,
+                            "listPrice": "572.4",
+                            "estimatedValueRenewal": "572.4",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "skuDescription": "HPE Hardware Tech Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1527724800000",
+                            "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                            "document": {
+                                "id": "1978bde9-e335-4c3b-9781-56722a9a604c",
+                                "type": "Contract",
+                                "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4248",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2aa34eec-f2bb-3a91-af5e-927ae1666bc4",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Mrs. Esmeralda Ward",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "616.32",
+                            "discount": null,
+                            "listPrice": "616.32",
+                            "estimatedValueRenewal": "616.32",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A2AC",
+                            "skuDescription": "HPE Hardware Tech Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1527724800000",
+                            "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                            "document": {
+                                "id": "1978bde9-e335-4c3b-9781-56722a9a604c",
+                                "type": "Contract",
+                                "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4248",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2aa34eec-f2bb-3a91-af5e-927ae1666bc4",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Mrs. Esmeralda Ward",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "1284",
+                            "discount": null,
+                            "listPrice": "1284",
+                            "estimatedValueRenewal": "1284",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e"
+                            }
+                        },
+                        {
+                            "skuNumber": "HU4A1AC",
+                            "skuDescription": "HPE Remote Tech Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1527724800000",
+                            "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                            "document": {
+                                "id": "1978bde9-e335-4c3b-9781-56722a9a604c",
+                                "type": "Contract",
+                                "documentNumber": "9139c50a-1a73-3bc9-85bc-cb07b844eaf5",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4248",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "2aa34eec-f2bb-3a91-af5e-927ae1666bc4",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18282822789",
+                                        "name": "Mrs. Esmeralda Ward",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "f90e66c6-f90f-4b54-80d8-322ebbb0627e",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "63.36",
+                            "discount": null,
+                            "listPrice": "63.36",
+                            "estimatedValueRenewal": "63.36",
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "f90e66c6-f90f-4b54-80d8-322ebbb0627e"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19802975848",
+                            "name": "Mike Stark",
+                            "mail": "yroberts@schamberger.biz",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,461 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    skuDescription\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "63ce16e8-a506-4501-8de5-cbf43ce64880"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "63ce16e8-a506-4501-8de5-cbf43ce64880",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": "e9aafa7f-84cc-3d9e-88fa-101455e6e935",
+                    "productDescription": "HPE 3PAR 8000 8TB+SW 7.2K LFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "P9B44B",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "09164-5726",
+                    "city": "Adanview",
+                    "address": "19609 Jordane Curve",
+                    "address2": null,
+                    "country": "Tajikistan",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "HPE Software Technical Unlimited Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1631404800000",
+                            "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                            "document": {
+                                "id": "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
+                                "type": "Contract",
+                                "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                                "startDate": "2021-08-22",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4019.0799999999963",
+                                "languageCode": null,
+                                "updatedAt": "1657233031360",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "50f497eb-5093-39c5-8b38-cfc55e84ceb5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Krystal Simonis",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "19.43",
+                            "discount": null,
+                            "listPrice": "19.43",
+                            "estimatedValueRenewal": "19.43",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA158AC",
+                            "skuDescription": "HPE 3PAR 8000 8TB+SW 7.2K LFF HDD",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Software Technical Unlimited Support",
+                            "warrantyEndDate": "1631404800000",
+                            "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                            "document": {
+                                "id": "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
+                                "type": "Contract",
+                                "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                                "startDate": "2021-08-22",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4019.0799999999963",
+                                "languageCode": null,
+                                "updatedAt": "1657233031360",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "50f497eb-5093-39c5-8b38-cfc55e84ceb5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Krystal Simonis",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "19.43",
+                            "discount": null,
+                            "listPrice": "19.43",
+                            "estimatedValueRenewal": "19.43",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1631404800000",
+                            "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                            "document": {
+                                "id": "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
+                                "type": "Contract",
+                                "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                                "startDate": "2021-08-22",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4019.0799999999963",
+                                "languageCode": null,
+                                "updatedAt": "1657233031360",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "50f497eb-5093-39c5-8b38-cfc55e84ceb5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Krystal Simonis",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "1.94",
+                            "discount": null,
+                            "listPrice": "1.94",
+                            "estimatedValueRenewal": "1.94",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE 3PAR 8000 8TB+SW 7.2K LFF HDD",
+                            "supportPackage": null,
+                            "supportPackageDescription": "HPE Hardware Maintenance Onsite Support",
+                            "warrantyEndDate": "1631404800000",
+                            "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                            "document": {
+                                "id": "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
+                                "type": "Contract",
+                                "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                                "startDate": "2021-08-22",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4019.0799999999963",
+                                "languageCode": null,
+                                "updatedAt": "1657233031360",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "50f497eb-5093-39c5-8b38-cfc55e84ceb5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Krystal Simonis",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "1.94",
+                            "discount": null,
+                            "listPrice": "1.94",
+                            "estimatedValueRenewal": "1.94",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA156AC",
+                            "skuDescription": "HPE Software Updates Service",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": "1631404800000",
+                            "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                            "document": {
+                                "id": "80257351-4a7e-4292-94c6-ce7a26d9f3dd",
+                                "type": "Contract",
+                                "documentNumber": "5ba57114-4ad2-3a40-967d-5c1185084d3e",
+                                "startDate": "2021-08-22",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4019.0799999999963",
+                                "languageCode": null,
+                                "updatedAt": "1657233031360",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "50f497eb-5093-39c5-8b38-cfc55e84ceb5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13203656991",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Krystal Simonis",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "14.64",
+                            "discount": null,
+                            "listPrice": "14.64",
+                            "estimatedValueRenewal": "14.64",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13203656991",
+                            "name": "Darrel Koelpin",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16295350369",
+                            "name": "Mr. Leonel Russel IV",
+                            "mail": "ajerde@hessel.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

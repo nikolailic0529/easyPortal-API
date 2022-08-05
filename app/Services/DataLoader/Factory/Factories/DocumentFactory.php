@@ -494,11 +494,12 @@ class DocumentFactory extends ModelFactory {
 
     protected function documentEntryServiceLevel(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceLevel {
         $sku   = $documentEntry->skuNumber ?? null;
+        $name  = $documentEntry->skuDescription ?? null;
         $group = $this->documentEntryServiceGroup($model, $documentEntry);
         $level = null;
 
         if ($group && $sku && $model->oem) {
-            $level = $this->serviceLevel($model->oem, $group, $sku);
+            $level = $this->serviceLevel($model->oem, $group, $sku, $name);
         }
 
         return $level;

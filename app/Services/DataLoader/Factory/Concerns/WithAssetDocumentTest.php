@@ -146,12 +146,13 @@ class WithAssetDocumentTest extends TestCase {
         $group    = ServiceGroup::factory()->make();
         $level    = ServiceLevel::factory()->make();
         $document = new ViewAssetDocument([
-            'document'  => [
+            'document'       => [
                 'vendorSpecificFields' => [
                     'vendor' => $this->faker->word(),
                 ],
             ],
-            'skuNumber' => $this->faker->word(),
+            'skuNumber'      => $this->faker->word(),
+            'skuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -176,6 +177,7 @@ class WithAssetDocumentTest extends TestCase {
                 $oem,
                 $group,
                 $document->skuNumber,
+                $document->skuDescription,
             )
             ->once()
             ->andReturns($level);

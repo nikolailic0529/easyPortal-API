@@ -140,10 +140,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->changed_at));
         self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key ?? null);
-        self::assertEquals('CUR', $created->currency->code);
-        self::assertEquals('fr', $created->language->code);
+        self::assertEquals('CUR', $created->currency->code ?? null);
+        self::assertEquals('fr', $created->language->code ?? null);
         self::assertEquals('1234 4678 9012', $created->oem_said);
-        self::assertEquals('abc-de', $created->oemGroup->key);
+        self::assertEquals('abc-de', $created->oemGroup->key ?? null);
         self::assertEquals(0, $created->assets_count);
         self::assertEquals(0, $created->entries_count);
         self::assertEquals(1, $created->contacts_count);
@@ -502,10 +502,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
         self::assertNotNull($entry->service_level_id);
-        self::assertEquals($document->oem_id, $entry->serviceLevel->oem_id);
-        self::assertEquals($supportPackage, $entry->serviceGroup->sku);
-        self::assertEquals($skuNumber, $entry->serviceLevel->sku);
-        self::assertEquals($currencyCode, $entry->currency->code);
+        self::assertEquals($document->oem_id, $entry->serviceLevel->oem_id ?? null);
+        self::assertEquals($supportPackage, $entry->serviceGroup->sku ?? null);
+        self::assertEquals($skuNumber, $entry->serviceLevel->sku ?? null);
+        self::assertEquals($currencyCode, $entry->currency->code ?? null);
         self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
         self::assertEquals($discount, $entry->discount);
@@ -569,7 +569,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($entry->document_id);
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
-        self::assertEquals($currencyCode, $entry->currency->code);
+        self::assertEquals($currencyCode, $entry->currency->code ?? null);
         self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
         self::assertEquals($discount, $entry->discount);
@@ -671,7 +671,8 @@ class DocumentFactoryTest extends TestCase {
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $level = ServiceLevel::factory()->make();
         $entry = new DocumentEntry([
-            'skuNumber' => $this->faker->word(),
+            'skuNumber'      => $this->faker->word(),
+            'skuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -688,6 +689,7 @@ class DocumentFactoryTest extends TestCase {
                 $oem,
                 $group,
                 $entry->skuNumber,
+                $entry->skuDescription,
             )
             ->once()
             ->andReturn($level);
@@ -733,9 +735,9 @@ class DocumentFactoryTest extends TestCase {
             'documentEntries'      => [
                 [
                     'assetId'               => $a->asset_id,
-                    'skuNumber'             => $a->serviceLevel->sku,
-                    'supportPackage'        => $a->serviceGroup->sku,
-                    'currencyCode'          => $a->currency->code,
+                    'skuNumber'             => $a->serviceLevel->sku ?? null,
+                    'supportPackage'        => $a->serviceGroup->sku ?? null,
+                    'currencyCode'          => $a->currency->code ?? null,
                     'netPrice'              => $a->net_price,
                     'discount'              => $a->discount,
                     'listPrice'             => $a->list_price,
@@ -745,9 +747,9 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'assetId'               => $b->asset_id,
-                    'skuNumber'             => $b->serviceLevel->sku,
-                    'supportPackage'        => $b->serviceGroup->sku,
-                    'currencyCode'          => $a->currency->code,
+                    'skuNumber'             => $b->serviceLevel->sku ?? null,
+                    'supportPackage'        => $b->serviceGroup->sku ?? null,
+                    'currencyCode'          => $a->currency->code ?? null,
                     'netPrice'              => $b->net_price,
                     'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
@@ -757,8 +759,8 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'assetId'               => $assetB->getKey(),
-                    'skuNumber'             => $b->serviceLevel->sku,
-                    'supportPackage'        => $b->serviceGroup->sku,
+                    'skuNumber'             => $b->serviceLevel->sku ?? null,
+                    'supportPackage'        => $b->serviceGroup->sku ?? null,
                     'currencyCode'          => null,
                     'netPrice'              => null,
                     'discount'              => null,
@@ -870,10 +872,10 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($this->getDatetime($created->changed_at));
         self::assertEquals('HPE', $created->oem->key ?? null);
         self::assertEquals('MultiNational Quote', $created->type->key ?? null);
-        self::assertEquals('CUR', $created->currency->code);
-        self::assertEquals('fr', $created->language->code);
+        self::assertEquals('CUR', $created->currency->code ?? null);
+        self::assertEquals('fr', $created->language->code ?? null);
         self::assertEquals('1234 4678 9012', $created->oem_said);
-        self::assertEquals('abc-de', $created->oemGroup->key);
+        self::assertEquals('abc-de', $created->oemGroup->key ?? null);
         self::assertEquals(3, $created->assets_count);
         self::assertEquals(8, $created->entries_count);
         self::assertEquals(1, $created->contacts_count);
@@ -893,9 +895,11 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('-2.05', $e->discount);
         self::assertEquals($created->getKey(), $e->document_id);
         self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
-        self::assertEquals('H7J34AC', $e->serviceGroup->sku);
-        self::assertEquals('HA151AC', $e->serviceLevel->sku);
-        self::assertEquals('HPE', $e->serviceLevel->oem->key);
+        self::assertEquals('H7J34AC', $e->serviceGroup->sku ?? null);
+        self::assertEquals('HPE NBD w DMR Proactive Care SVC', $e->serviceGroup->name ?? null);
+        self::assertEquals('HA151AC', $e->serviceLevel->sku ?? null);
+        self::assertEquals('HPE Hardware Maintenance Onsite Support', $e->serviceLevel->name ?? null);
+        self::assertEquals('HPE', $e->serviceLevel->oem->key ?? null);
         self::assertEquals('145.00', $e->renewal);
         self::assertNull($this->getDatetime($e->end));
         self::assertEquals('1614470400000', $this->getDatetime($e->start));
@@ -915,8 +919,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($changed->distributor_id);
         self::assertEquals('3292.16', $changed->price);
         self::assertEquals('1625642660000', $this->getDatetime($changed->changed_at));
-        self::assertEquals('EUR', $changed->currency->code);
-        self::assertEquals('en', $changed->language->code);
+        self::assertEquals('EUR', $changed->currency->code ?? null);
+        self::assertEquals('en', $changed->language->code ?? null);
         self::assertNull($changed->oem_said);
         self::assertNull($changed->oemGroup);
         self::assertCount(0, $changed->statuses);

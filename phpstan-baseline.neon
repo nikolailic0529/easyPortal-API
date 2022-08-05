@@ -5521,6 +5521,11 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) should return App\\\\Services\\\\DataLoader\\\\Client\\\\QueryIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset, array\\> but returns App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getPrefetcher\\(\\) return type has no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
@@ -5991,7 +5996,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1446 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1456 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -6136,16 +6141,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$code on App\\\\Models\\\\Currency\\|null\\.$#"
-			count: 7
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$code on App\\\\Models\\\\Language\\|null\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Cannot access property \\$contactPersons on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
@@ -6153,31 +6148,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$distributorId on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$key on App\\\\Models\\\\OemGroup\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$oem on App\\\\Models\\\\ServiceLevel\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$oem_id on App\\\\Models\\\\ServiceLevel\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$sku on App\\\\Models\\\\ServiceGroup\\|null\\.$#"
-			count: 5
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$sku on App\\\\Models\\\\ServiceLevel\\|null\\.$#"
-			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-

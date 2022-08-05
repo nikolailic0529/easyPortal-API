@@ -1,0 +1,203 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    skuDescription\n    supportPackage\n    supportPackageDescription\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "f8f0df6f-282b-4858-b68f-40ce43c9e08e"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "f8f0df6f-282b-4858-b68f-40ce43c9e08e",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "90f9671e-1d08-486a-b5b1-ec503d9792e5",
+                    "serialNumber": "3755f882-b052-3892-b80f-ff035d2d3394",
+                    "productDescription": "HPE 16GB 2Rx4 PC4-2400T-R Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "sku": "836220-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "91846",
+                    "city": "North Beatrice",
+                    "address": "8736 Oberbrunner Causeway",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "80ef8c6f-ee19-349b-9ed0-f5ae3b4f8ada",
+                            "document": {
+                                "id": "5993d59a-ed73-4a4a-8905-d006af311990",
+                                "type": "Contract",
+                                "documentNumber": "80ef8c6f-ee19-349b-9ed0-f5ae3b4f8ada",
+                                "startDate": "2017-06-30",
+                                "endDate": "2022-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1656638654503",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "18b23b7c-f247-3bb6-944e-fdfb3e006529",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15206491327",
+                                        "name": "Carol Spinka",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15206491327",
+                                        "name": "Carol Spinka",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15206491327",
+                                        "name": "Carol Spinka",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15206491327",
+                                        "name": "Carol Spinka",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "90f9671e-1d08-486a-b5b1-ec503d9792e5",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": null,
+                            "discount": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "90f9671e-1d08-486a-b5b1-ec503d9792e5"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "supportPackage": null,
+                            "supportPackageDescription": "",
+                            "warrantyEndDate": null,
+                            "documentNumber": "8b6da7be-165a-358c-96b5-06c24847707a",
+                            "document": {
+                                "id": "540c7681-a424-492b-a9ab-fe898caab9a2",
+                                "type": "Quote renewal",
+                                "documentNumber": "8b6da7be-165a-358c-96b5-06c24847707a",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272008059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "90f9671e-1d08-486a-b5b1-ec503d9792e5",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "netPrice": "0",
+                            "discount": null,
+                            "listPrice": "0",
+                            "estimatedValueRenewal": "0",
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "90f9671e-1d08-486a-b5b1-ec503d9792e5"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15206491327",
+                            "name": "Carol Spinka",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16295350369",
+                            "name": "Mr. Leonel Russel IV",
+                            "mail": "ajerde@hessel.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}
