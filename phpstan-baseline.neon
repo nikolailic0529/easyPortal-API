@@ -5753,6 +5753,16 @@ parameters:
 		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
+			path: app/Services/DataLoader/Resolver/Resolvers/FieldResolver.php
+
+		-
+			message: "#^Instanceof between App\\\\Models\\\\Field and App\\\\Models\\\\Field will always evaluate to true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Resolver/Resolvers/FieldResolver.php
+
+		-
+			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
+			count: 1
 			path: app/Services/DataLoader/Resolver/Resolvers/LanguageResolver.php
 
 		-
