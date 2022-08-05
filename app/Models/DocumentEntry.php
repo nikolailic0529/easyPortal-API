@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Relations\HasAssetNullable;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasDocument;
+use App\Models\Relations\HasFields;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
@@ -54,6 +55,11 @@ class DocumentEntry extends Model {
     use HasDocument;
     use HasCurrency;
 
+    /**
+     * @use HasFields<DocumentEntryField>
+     */
+    use HasFields;
+
     protected const CASTS = [
         'net_price'  => 'decimal:2',
         'list_price' => 'decimal:2',
@@ -78,4 +84,11 @@ class DocumentEntry extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    // <editor-fold desc="HasFields">
+    // =========================================================================
+    protected function getFieldsModel(): string {
+        return DocumentEntryField::class;
+    }
+    // </editor-fold>
 }
