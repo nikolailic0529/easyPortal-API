@@ -6,15 +6,14 @@ use Tests\TestCase;
 
 use function array_keys;
 use function json_encode;
-use function reset;
 
 use const JSON_THROW_ON_ERROR;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\DocumentEntry
+ * @coversDefaultClass \App\Services\DataLoader\Schema\CustomField
  */
-class DocumentEntryTest extends TestCase {
+class CustomFieldTest extends TestCase {
     /**
      * @covers ::create
      */
@@ -23,13 +22,10 @@ class DocumentEntryTest extends TestCase {
 
         self::assertIsArray($json);
 
-        $actual     = new DocumentEntry($json);
-        $properties = DocumentEntry::getPropertiesNames();
+        $actual     = new CustomField($json);
+        $properties = CustomField::getPropertiesNames();
 
         self::assertEquals(array_keys($json), $properties);
-        self::assertIsArray($actual->customFields);
-        self::assertCount(3, $actual->customFields);
-        self::assertInstanceOf(CustomField::class, reset($actual->customFields));
         self::assertJsonStringEqualsJsonString(
             json_encode($json, JSON_THROW_ON_ERROR),
             json_encode($actual, JSON_THROW_ON_ERROR),
