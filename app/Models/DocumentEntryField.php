@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string               $id
  * @property string               $document_entry_id
  * @property string               $field_id
- * @property string               $value
+ * @property string|null          $value
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at

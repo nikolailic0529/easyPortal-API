@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `document_entry_fields` (
     `id`                CHAR(36)      NOT NULL,
     `document_entry_id` CHAR(36)      NOT NULL,
     `field_id`          CHAR(36)      NOT NULL,
-    `value`             VARCHAR(2048) NOT NULL,
+    `value`             VARCHAR(2048) NULL     DEFAULT NULL,
     `created_at`        TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`        TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted_at`        TIMESTAMP     NULL     DEFAULT NULL,
