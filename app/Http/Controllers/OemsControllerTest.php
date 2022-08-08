@@ -13,12 +13,12 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTranslations;
 use Tests\Constraints\Attachments\XlsxAttachment;
 use Tests\DataProviders\Http\Organizations\AuthOrgRootDataProvider;
 use Tests\DataProviders\Http\Users\OrgUserDataProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
-use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
@@ -27,7 +27,7 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
- * @phpstan-import-type SettingsFactory from WithSettings
+ * @phpstan-import-type TranslationsFactory from WithTranslations
  */
 class OemsControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -38,14 +38,18 @@ class OemsControllerTest extends TestCase {
      *
      * @param OrganizationFactory                             $orgFactory
      * @param UserFactory                                     $userFactory
+     * @param TranslationsFactory                             $translationsFactory
      * @param Closure(static, ?Organization, ?User): Oem|null $prepare
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
+        mixed $translationsFactory = null,
         Closure $prepare = null,
     ): void {
+        $this->setTranslations($translationsFactory);
+
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
         $oem  = $prepare
@@ -73,6 +77,21 @@ class OemsControllerTest extends TestCase {
             new ArrayDataProvider([
                 'ok'          => [
                     new XlsxAttachment('Test OEM.xlsx', $this->getTestData()->file('.csv')),
+                    static function (TestCase $test, string $locale): array {
+                        $key   = '240442d1-4387-4201-9d9b-39d7b70d1ef4';
+                        $model = (new ServiceLevel())->getMorphClass();
+
+                        return [
+                            'de_DE' => [
+                                "models.{$model}.{$key}.name"        => '(german) Group A / Level A',
+                                "models.{$model}.{$key}.description" => '(german) Group A / Level A Description',
+                            ],
+                            'it_IT' => [
+                                "models.{$model}.{$key}.name"        => '(italian) Group A / Level A',
+                                "models.{$model}.{$key}.description" => '(italian) Group A / Level A Description',
+                            ],
+                        ];
+                    },
                     static function (): Oem {
                         $oem    = Oem::factory()->create([
                             'key'  => 'TestOEM',
@@ -95,6 +114,7 @@ class OemsControllerTest extends TestCase {
                         ]);
 
                         ServiceLevel::factory()->create([
+                            'id'               => '240442d1-4387-4201-9d9b-39d7b70d1ef4',
                             'sku'              => 'A',
                             'name'             => 'Group A / Level A',
                             'description'      => 'Group A / Level A Description',
@@ -123,6 +143,11 @@ class OemsControllerTest extends TestCase {
                 ],
                 'unknown oem' => [
                     new NotFound(),
+                    static function (): array {
+                        return [
+                            // empty
+                        ];
+                    },
                     static function (): Oem {
                         return Oem::factory()->make();
                     },
