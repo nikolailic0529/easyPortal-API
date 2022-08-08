@@ -27,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `document_entry_fields` (
     `deleted_not`       TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null), 1, NULL)) VIRTUAL,
     PRIMARY KEY (`id`),
     INDEX `fk_document_entry_fields_document_entries1_idx`(`document_entry_id` ASC) VISIBLE,
-    INDEX `fk_document_entry_fields_fields1_idx`(`field_id` ASC) INVISIBLE,
-    UNIQUE INDEX `unique__field`(`document_entry_id` ASC, `field_id` ASC, `deleted_not` ASC) INVISIBLE,
+    INDEX `fk_document_entry_fields_fields1_idx`(`field_id` ASC) VISIBLE,
+    UNIQUE INDEX `unique__field`(`document_entry_id` ASC, `field_id` ASC, `deleted_not` ASC) VISIBLE,
     CONSTRAINT `fk_document_entry_fields_document_entries1`
         FOREIGN KEY (`document_entry_id`)
             REFERENCES `document_entries`(`id`)
