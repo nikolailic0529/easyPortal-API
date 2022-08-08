@@ -13,34 +13,36 @@ use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Document Entry.
  *
- * @property string               $id
- * @property string               $document_id
- * @property string|null          $asset_id
- * @property string|null          $service_group_id
- * @property string|null          $service_level_id
- * @property string|null          $product_id
- * @property string|null          $serial_number
- * @property CarbonImmutable|null $start
- * @property CarbonImmutable|null $end
- * @property string|null          $currency_id
- * @property string|null          $net_price
- * @property string|null          $list_price
- * @property string|null          $discount
- * @property string|null          $renewal
- * @property CarbonImmutable      $created_at
- * @property CarbonImmutable      $updated_at
- * @property CarbonImmutable|null $deleted_at
- * @property Asset|null           $asset
- * @property Currency|null        $currency
- * @property Document             $document
- * @property Product|null         $product
- * @property ServiceGroup|null    $serviceGroup
- * @property ServiceLevel|null    $serviceLevel
+ * @property string                              $id
+ * @property string                              $document_id
+ * @property string|null                         $asset_id
+ * @property string|null                         $service_group_id
+ * @property string|null                         $service_level_id
+ * @property string|null                         $product_id
+ * @property string|null                         $serial_number
+ * @property CarbonImmutable|null                $start
+ * @property CarbonImmutable|null                $end
+ * @property string|null                         $currency_id
+ * @property string|null                         $net_price
+ * @property string|null                         $list_price
+ * @property string|null                         $discount
+ * @property string|null                         $renewal
+ * @property CarbonImmutable                     $created_at
+ * @property CarbonImmutable                     $updated_at
+ * @property CarbonImmutable|null                $deleted_at
+ * @property Asset|null                          $asset
+ * @property Currency|null                       $currency
+ * @property Document                            $document
+ * @property Collection<int, DocumentEntryField> $fields
+ * @property Product|null                        $product
+ * @property ServiceGroup|null                   $serviceGroup
+ * @property ServiceLevel|null                   $serviceLevel
  * @method static DocumentEntryFactory factory(...$parameters)
  * @method static Builder|DocumentEntry newModelQuery()
  * @method static Builder|DocumentEntry newQuery()

@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @template TPivot of \App\Utils\Eloquent\Model
+ * @template TModel of \App\Utils\Eloquent\Model
  *
- * @property Collection<int, TPivot> $fields
+ * @property Collection<int, TModel> $fields
  *
  * @mixin Model
  */
@@ -19,7 +19,7 @@ trait HasFields {
     use SyncHasMany;
 
     /**
-     * @return HasMany<TPivot>
+     * @return HasMany<TModel>
      */
     #[CascadeDelete(true)]
     public function fields(): HasMany {
@@ -30,14 +30,14 @@ trait HasFields {
     }
 
     /**
-     * @param Collection<int,TPivot> $fields
+     * @param Collection<int,TModel> $fields
      */
     public function setFieldsAttribute(Collection $fields): void {
         $this->syncHasMany('fields', $fields);
     }
 
     /**
-     * @return class-string<TPivot>
+     * @return class-string<TModel>
      */
     abstract protected function getFieldsModel(): string;
 

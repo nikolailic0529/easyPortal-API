@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\FieldFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static Builder|Field newQuery()
  * @method static Builder|Field query()
  */
-class Field extends PolymorphicModel implements Translatable {
+class Field extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
 
@@ -34,7 +34,7 @@ class Field extends PolymorphicModel implements Translatable {
      *
      * @var string
      */
-    protected $table = 'types';
+    protected $table = 'fields';
 
     // <editor-fold desc="Translatable">
     // =========================================================================
