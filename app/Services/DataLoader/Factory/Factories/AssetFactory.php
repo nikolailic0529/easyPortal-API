@@ -295,10 +295,13 @@ class AssetFactory extends ModelFactory {
         });
         $updated   = $this->children(
             $existing,
-            $asset->coverageStatusCheck->coverageEntries,
-            function (CoverageEntry $entry) use ($model): ?AssetWarranty {
+            $asset->coverageStatusCheck->coverageEntries ?? [],
+            function (CoverageEntry $entry, AssetWarranty $warranty): bool {
+                return $this->isWarrantyEqualToCoverage($warranty, $entry);
+            },
+            function (CoverageEntry $entry, ?AssetWarranty $warranty) use ($model): ?AssetWarranty {
                 try {
-                    return $this->assetWarranty($model, $entry);
+                    return $this->assetWarranty($model, $entry, $warranty);
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
                         new FailedToProcessViewAssetCoverageEntry($model, $entry, $exception),
@@ -307,15 +310,12 @@ class AssetFactory extends ModelFactory {
 
                 return null;
             },
-            static function (AssetWarranty $a, AssetWarranty $b): int {
-                return static::compareAssetWarranties($a, $b);
-            },
         );
 
         return $documents->toBase()->merge($updated);
     }
 
-    protected function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
+    protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
         // Empty?
         $normalizer  = $this->getNormalizer();
         $description = $normalizer->text($entry->description);
@@ -327,7 +327,7 @@ class AssetFactory extends ModelFactory {
         }
 
         // Create
-        $warranty                  = new AssetWarranty();
+        $warranty                ??= new AssetWarranty();
         $warranty->start           = $start;
         $warranty->end             = $end;
         $warranty->asset           = $model;
@@ -613,10 +613,16 @@ class AssetFactory extends ModelFactory {
         return $warranty->document_number !== null && !static::isWarranty($warranty);
     }
 
-    protected static function compareAssetWarranties(AssetWarranty $a, AssetWarranty $b): int {
-        return $a->type_id <=> $b->type_id
-            ?: ($a->start->isSameDay($b->start) ? 0 : $a->start <=> $b->start)
-                ?: ($a->end->isSameDay($b->end) ? 0 : $a->end <=> $b->end);
+    protected function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
+        $normalizer = $this->getNormalizer();
+        $type       = $this->type($warranty, $entry->type)->getKey();
+        $start      = $normalizer->datetime($entry->coverageStartDate);
+        $end        = $normalizer->datetime($entry->coverageEndDate);
+        $isEqual    = $type === $warranty->type_id
+            && ($start === $warranty->start || $start?->isSameDay($warranty->start) === true)
+            && ($end === $warranty->end || $end?->isSameDay($warranty->end) === true);
+
+        return $isEqual;
     }
     // </editor-fold>
 }

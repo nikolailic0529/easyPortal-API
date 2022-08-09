@@ -18,48 +18,41 @@ class ChildrenTest extends TestCase {
      * @covers ::children
      */
     public function testChildren(): void {
-        $type                 = ChildrenTest_Type::class;
+        $id                   = 1;
         $model                = new class() extends Model {
             // empty
         };
         $modelShouldBeUpdated = (clone $model)->forceFill([
-            'id'       => 'acddf0a2-2d07-4113-ac8c-a2176ddf096c',
+            'id'       => $id++,
             'key'      => $this->faker->uuid(),
             'property' => $this->faker->uuid(),
         ]);
         $modelShouldBeReused  = (clone $model)->forceFill([
-            'id'       => 'edb4853a-796c-48af-a127-ac43492cc6b7',
+            'id'       => $id++,
             'property' => $this->faker->uuid(),
-        ]);
-        $modelShouldBeIgnored = (clone $model)->forceFill([
-            'id'       => '81ab5bcb-abb9-4b2b-ad6c-d92b4fd7b5e8',
-            'property' => $modelShouldBeReused->getAttribute('property'),
         ]);
         $modelShouldBeDeleted = (clone $model)->forceFill([
-            'id'       => 'efa31a49-2bd0-4e22-a659-d63a9827d770',
+            'id'       => $id++,
             'property' => $this->faker->uuid(),
         ]);
-        $typeShouldBeCreated  = new $type([
+        $typeShouldBeCreated  = new ChildrenTest_Type([
             'id'       => '561ecb81-db60-4fc5-b406-ab2f0d317bfa',
             'key'      => $this->faker->uuid(),
             'property' => $this->faker->uuid(),
         ]);
-        $typeShouldBeUpdated  = new $type([
+        $typeShouldBeUpdated  = new ChildrenTest_Type([
             'key'      => $modelShouldBeUpdated->getAttribute('key'),
             'property' => $this->faker->uuid(),
         ]);
-        $factory              = function (ChildrenTest_Type $type) use ($model): Model {
-            return (clone $model)->forceFill([
+        $factory              = function (ChildrenTest_Type $type, ?Model $existing) use ($model): Model {
+            return ($existing ?? clone $model)->forceFill([
                 'id'       => $type->id ?? $this->faker->uuid(),
                 'key'      => $type->key ?? null,
                 'property' => $type->property ?? null,
             ]);
         };
-        $compare              = static function (Model $a, Model $b): int {
-            return $a->getAttribute('key') <=> $b->getAttribute('key');
-        };
-        $isReusable           = static function (Model $model) use ($modelShouldBeIgnored): bool {
-            return $model->getKey() !== $modelShouldBeIgnored->getKey();
+        $comparator           = static function (ChildrenTest_Type $type, Model $model): bool {
+            return $model->getAttribute('key') === $type->key;
         };
         $children             = new class() {
             use Children {
@@ -69,13 +62,12 @@ class ChildrenTest extends TestCase {
 
         $existing = new Collection([$modelShouldBeUpdated, $modelShouldBeDeleted, $modelShouldBeReused]);
         $entries  = [$typeShouldBeCreated, $typeShouldBeUpdated];
-        $actual   = $children->children($existing, $entries, $factory, $compare, $isReusable);
+        $actual   = $children->children($existing, $entries, $comparator, $factory);
         $expected = new Collection([
             tap(clone $model, static function (Model $model) use ($modelShouldBeReused, $typeShouldBeCreated): void {
                 $model->setAttribute('id', $modelShouldBeReused->getKey());
                 $model->setAttribute('key', $typeShouldBeCreated->key);
                 $model->setAttribute('property', $typeShouldBeCreated->property);
-                $model->exists = true;
             }),
             (clone $model)->forceFill([
                 'id'       => $modelShouldBeUpdated->getKey(),

@@ -55,7 +55,6 @@ use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewDocument;
-use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -290,18 +289,26 @@ class DocumentFactory extends ModelFactory {
         return $model;
     }
 
-    protected function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
-        return $a->asset_id <=> $b->asset_id
-            ?: $a->start <=> $b->start
-            ?: $a->end <=> $b->end
-            ?: $a->currency_id <=> $b->currency_id
-            ?: $a->net_price <=> $b->net_price
-            ?: $a->list_price <=> $b->list_price
-            ?: $a->discount <=> $b->discount
-            ?: $a->renewal <=> $b->renewal
-            ?: $a->service_group_id <=> $b->service_group_id
-            ?: $a->service_level_id <=> $b->service_level_id
-            ?: 0;
+    protected function isEntryEqualDocumentEntry(
+        DocumentModel $model,
+        DocumentEntryModel $entry,
+        DocumentEntry $documentEntry,
+    ): bool {
+        $normalizer = $this->getNormalizer();
+        $start      = $normalizer->datetime($documentEntry->startDate);
+        $end        = $normalizer->datetime($documentEntry->endDate);
+        $isEqual    = $entry->asset_id === $normalizer->uuid($documentEntry->assetId)
+            && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
+            && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
+            && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
+            && $entry->net_price === $normalizer->decimal($documentEntry->netPrice)
+            && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
+            && $entry->discount === $normalizer->decimal($documentEntry->discount)
+            && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
+            && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
+            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey();
+
+        return $isEqual;
     }
     // </editor-fold>
 
@@ -422,18 +429,21 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<DocumentEntryModel>
+     * @return EloquentCollection<array-key, DocumentEntryModel>
      */
-    protected function documentEntries(DocumentModel $model, Document $document): array {
-        return $this->entries(
+    protected function documentEntries(DocumentModel $model, Document $document): EloquentCollection {
+        return $this->children(
             $model->entries,
-            $document->documentEntries,
-            function (DocumentEntry $entry) use ($model): ?DocumentEntryModel {
+            $document->documentEntries ?? [],
+            function (DocumentEntry $documentEntry, DocumentEntryModel $entry) use ($model): bool {
+                return $this->isEntryEqualDocumentEntry($model, $entry, $documentEntry);
+            },
+            function (DocumentEntry $documentEntry, ?DocumentEntryModel $entry) use ($model): ?DocumentEntryModel {
                 try {
-                    return $this->documentEntry($model, $entry);
+                    return $this->documentEntry($model, $documentEntry, $entry);
                 } catch (Throwable $exception) {
                     $this->getExceptionHandler()->report(
-                        new FailedToProcessDocumentEntry($model, $entry, $exception),
+                        new FailedToProcessDocumentEntry($model, $documentEntry, $exception),
                     );
                 }
 
@@ -442,9 +452,13 @@ class DocumentFactory extends ModelFactory {
         );
     }
 
-    protected function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
+    protected function documentEntry(
+        DocumentModel $model,
+        DocumentEntry $documentEntry,
+        ?DocumentEntryModel $entry,
+    ): DocumentEntryModel {
         $asset                = $this->documentEntryAsset($model, $documentEntry);
-        $entry                = new DocumentEntryModel();
+        $entry              ??= new DocumentEntryModel();
         $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
         $entry->product_id    = $asset->product_id ?? null;
@@ -503,32 +517,6 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $level;
-    }
-    // </editor-fold>
-
-    // <editor-fold desc="Entries">
-    // =========================================================================
-    /**
-     * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \App\Models\DocumentEntry
-     *
-     * @param Collection<int, M> $existing
-     * @param array<T>           $entries
-     * @param Closure(T): ?M     $factory
-     *
-     * @return array<M>
-     */
-    protected function entries(Collection $existing, array $entries, Closure $factory): array {
-        return $this
-            ->children(
-                $existing,
-                $entries,
-                $factory,
-                function (DocumentEntryModel $a, DocumentEntryModel $b): int {
-                    return $this->compareDocumentEntries($a, $b);
-                },
-            )
-            ->all();
     }
     // </editor-fold>
 }

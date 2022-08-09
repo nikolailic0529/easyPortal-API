@@ -4406,31 +4406,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$existing of method class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:64\\:\\:children\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:pull\\(\\) expects int, int\\|string\\|true given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$factory of method class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:64\\:\\:children\\(\\) expects Closure\\(App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\ChildrenTest_Type\\)\\: App\\\\Utils\\\\Eloquent\\\\Model\\|null, Closure\\(App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\ChildrenTest_Type\\)\\: class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:22 given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
-			message: "#^Unable to resolve the template type C in call to method class@anonymous/app/Services/DataLoader/Factory/Concerns/ChildrenTest\\.php\\:64\\:\\:children\\(\\)$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Concerns/ChildrenTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithAssetTest\\:\\:testAssetAssetNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
@@ -4571,11 +4546,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Cannot access property \\$coverageEntries on App\\\\Services\\\\DataLoader\\\\Schema\\\\CoverageStatusCheck\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Cannot access property \\$customer on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
@@ -4636,22 +4606,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Cannot call method isSameDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetDocumentsWarrantiesExtended\\(\\) should return array\\<App\\\\Models\\\\AssetWarranty\\> but returns array\\<int, App\\\\Models\\\\AssetWarranty\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:pull\\(\\) expects int, int\\|string\\|true given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -4721,11 +4676,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot call method midDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -4756,7 +4706,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1456 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1512 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -4862,26 +4812,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:sort\\(\\) expects \\(callable\\(M of App\\\\Utils\\\\Eloquent\\\\Model, M of App\\\\Utils\\\\Eloquent\\\\Model\\)\\: int\\)\\|int\\|null, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\KeysComparator given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<int,M of App\\\\Utils\\\\Eloquent\\\\Model\\>\\:\\:pull\\(\\) expects int, int\\|string\\|true given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Parameter \\#2 \\$entries of method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\:\\:entries\\(\\) expects array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry\\>, array\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$entries \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\DocumentEntry\\>\\) does not accept array\\<App\\\\Models\\\\DocumentEntry\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -5874,26 +5804,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Schema/CoverageStatusCheckTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\DocumentEntry constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$actualJson of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertJsonStringEqualsJsonString\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Schema/DocumentEntryTest.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Services\\\\\\\\DataLoader\\\\\\\\Schema\\\\\\\\CompanyContactPerson' and App\\\\Services\\\\DataLoader\\\\Schema\\\\CompanyContactPerson will always evaluate to true\\.$#"

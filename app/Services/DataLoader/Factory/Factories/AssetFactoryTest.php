@@ -1245,40 +1245,56 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::compareAssetWarranties
+     * @covers ::isWarrantyEqualToCoverage
      */
-    public function testCompareAssetWarranties(): void {
+    public function testIsWarrantyEqualToCoverage(): void {
         // Prepare
-        $a       = AssetWarranty::factory()->make([
-            'type_id' => $this->faker->uuid(),
+        $type     = TypeModel::factory()->create([
+            'object_type' => (new AssetWarranty())->getMorphClass(),
+        ]);
+        $warranty = AssetWarranty::factory()->make([
+            'type_id' => $type,
             'start'   => $this->faker->dateTime(),
             'end'     => $this->faker->dateTime(),
         ]);
-        $b       = AssetWarranty::factory()->make([
-            'type_id' => $this->faker->uuid(),
-            'start'   => $this->faker->dateTime(),
-            'end'     => $this->faker->dateTime(),
-        ]);
-        $factory = new class() extends AssetFactory {
+        $factory  = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(TypeResolver::class),
+        ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected TypeResolver $typeResolver,
+            ) {
                 // empty
             }
 
-            public static function compareAssetWarranties(AssetWarranty $a, AssetWarranty $b): int {
-                return parent::compareAssetWarranties($a, $b);
+            public function isWarrantyEqualToCoverage(AssetWarranty $warranty, CoverageEntry $entry): bool {
+                return parent::isWarrantyEqualToCoverage($warranty, $entry);
             }
         };
 
         // Test
-        self::assertNotEquals(0, $factory::compareAssetWarranties($a, $b));
-
-        // Make same
-        $a->type_id = $b->type_id;
-        $a->start   = $b->start->midDay();
-        $a->end     = $b->end;
-
-        self::assertEquals(0, $factory::compareAssetWarranties($a, $b));
+        self::assertTrue($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
+            'type'              => " {$type->key} ",
+            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
+            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
+        ])));
+        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
+            'type'              => 'another type',
+            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
+            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
+        ])));
+        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
+            'type'              => " {$type->key} ",
+            'coverageStartDate' => "{$warranty->start?->addDay()->getTimestampMs()}",
+            'coverageEndDate'   => "{$warranty->end?->getTimestampMs()}",
+        ])));
+        self::assertFalse($factory->isWarrantyEqualToCoverage($warranty, new CoverageEntry([
+            'type'              => " {$type->key} ",
+            'coverageStartDate' => "{$warranty->start?->getTimestampMs()}",
+            'coverageEndDate'   => "{$warranty->end?->addDay()->getTimestampMs()}",
+        ])));
     }
 
     /**
@@ -1312,12 +1328,17 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
-                return parent::assetWarranty($model, $entry);
+            public function assetWarranty(
+                Asset $model,
+                CoverageEntry $entry,
+                ?AssetWarranty $warranty,
+            ): ?AssetWarranty {
+                return parent::assetWarranty($model, $entry, $warranty);
             }
         };
 
-        $actual   = $factory->assetWarranty($asset, $entry)?->getAttributes();
+        // Create
+        $actual   = $factory->assetWarranty($asset, $entry, null);
         $expected = [
             'start'            => '2019-12-10 00:00:00',
             'end'              => '2024-12-09 00:00:00',
@@ -1332,7 +1353,34 @@ class AssetFactoryTest extends TestCase {
             'document_number'  => null,
         ];
 
-        self::assertEquals($expected, $actual);
+        self::assertNotNull($actual);
+        self::assertFalse($actual->exists);
+        self::assertEquals($expected, $actual->getAttributes());
+
+        // Update
+        $warranty = AssetWarranty::factory()->create();
+        $actual   = $factory->assetWarranty($asset, $entry, $warranty);
+        $expected = [
+            'id'               => $warranty->getKey(),
+            'start'            => '2019-12-10 00:00:00',
+            'end'              => '2024-12-09 00:00:00',
+            'asset_id'         => $asset->getKey(),
+            'type_id'          => $type->getKey(),
+            'status_id'        => $status->getKey(),
+            'description'      => $entry->description,
+            'service_group_id' => null,
+            'customer_id'      => null,
+            'reseller_id'      => null,
+            'document_id'      => null,
+            'document_number'  => null,
+            'created_at'       => $warranty->created_at->format($warranty->getDateFormat()),
+            'updated_at'       => $warranty->updated_at->format($warranty->getDateFormat()),
+            'deleted_at'       => null,
+        ];
+
+        self::assertNotNull($actual);
+        self::assertTrue($actual->exists);
+        self::assertEquals($expected, $actual->getAttributes());
     }
 
     /**
@@ -1362,12 +1410,16 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetWarranty(Asset $model, CoverageEntry $entry): ?AssetWarranty {
-                return parent::assetWarranty($model, $entry);
+            public function assetWarranty(
+                Asset $model,
+                CoverageEntry $entry,
+                ?AssetWarranty $warranty,
+            ): ?AssetWarranty {
+                return parent::assetWarranty($model, $entry, $warranty);
             }
         };
 
-        self::assertNull($factory->assetWarranty($asset, $entry));
+        self::assertNull($factory->assetWarranty($asset, $entry, null));
     }
 
     /**
@@ -1429,7 +1481,11 @@ class AssetFactoryTest extends TestCase {
             'status'            => $status->key,
             'description'       => "(updated) {$this->faker->text()}",
         ]);
-        $entryShouldBeIgnored    = new CoverageEntry();
+        $entryShouldBeIgnored    = new CoverageEntry([
+            'coverageStartDate' => $this->faker->date(),
+            'coverageEndDate'   => $this->faker->date(),
+            'type'              => $this->faker->word(),
+        ]);
         $viewAsset               = new ViewAsset([
             'coverageStatusCheck' => [
                 'coverageEntries' => [

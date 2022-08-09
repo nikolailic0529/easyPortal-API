@@ -28,6 +28,7 @@ use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -246,38 +247,76 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::compareDocumentEntries
+     * @covers ::isEntryEqualDocumentEntry
      */
-    public function testCompareDocumentEntries(): void {
+    public function testIsEntryEqualDocumentEntry(): void {
         // Prepare
-        $a       = DocumentEntryModel::factory()->make();
-        $b       = DocumentEntryModel::factory()->make();
-        $factory = new class() extends DocumentFactory {
+        $oem      = Oem::factory()->create();
+        $group    = ServiceGroup::factory()->create([
+            'oem_id' => $oem,
+        ]);
+        $level    = ServiceLevel::factory()->create([
+            'oem_id'           => $oem,
+            'service_group_id' => $group,
+        ]);
+        $document = DocumentModel::factory()->create([
+            'oem_id' => $oem,
+        ]);
+        $entry    = DocumentEntryModel::factory()->create([
+            'document_id'      => $document,
+            'service_group_id' => $group,
+            'service_level_id' => $level,
+        ]);
+        $factory  = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(CurrencyResolver::class),
+            $this->app->make(ServiceGroupResolver::class),
+            $this->app->make(ServiceLevelResolver::class),
+        ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CurrencyResolver $currencyResolver,
+                protected ServiceGroupResolver $serviceGroupResolver,
+                protected ServiceLevelResolver $serviceLevelResolver,
+            ) {
                 // empty
             }
 
-            public function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
-                return parent::compareDocumentEntries($a, $b);
+            public function isEntryEqualDocumentEntry(
+                DocumentModel $model,
+                DocumentEntryModel $entry,
+                DocumentEntry $documentEntry,
+            ): bool {
+                return parent::isEntryEqualDocumentEntry($model, $entry, $documentEntry);
             }
         };
 
         // Test
-        self::assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
-
-        // Make same
-        $a->asset_id         = $b->asset_id;
-        $a->currency_id      = $b->currency_id;
-        $a->net_price        = $b->net_price;
-        $a->list_price       = $b->list_price;
-        $a->discount         = $b->discount;
-        $a->renewal          = $b->renewal;
-        $a->service_level_id = $b->service_level_id;
-        $a->start            = $b->start;
-        $a->end              = $b->end;
-
-        self::assertEquals(0, $factory->compareDocumentEntries($a, $b));
+        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
+            'assetId'               => $entry->asset_id,
+            'startDate'             => (string) $entry->start?->getTimestampMs(),
+            'endDate'               => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'          => $entry->currency->code ?? null,
+            'netPrice'              => $entry->net_price,
+            'listPrice'             => $entry->list_price,
+            'discount'              => $entry->discount,
+            'estimatedValueRenewal' => $entry->renewal,
+            'supportPackage'        => $entry->serviceGroup->sku ?? null,
+            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+        ])));
+        self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
+            'assetId'               => $this->faker->uuid(),
+            'startDate'             => (string) $entry->start?->getTimestampMs(),
+            'endDate'               => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'          => $entry->currency->code ?? null,
+            'netPrice'              => $entry->net_price,
+            'listPrice'             => $entry->list_price,
+            'discount'              => $entry->discount,
+            'estimatedValueRenewal' => $entry->renewal,
+            'supportPackage'        => $entry->serviceGroup->sku ?? null,
+            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+        ])));
     }
 
     /**
@@ -489,12 +528,16 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry);
+            public function documentEntry(
+                DocumentModel $model,
+                DocumentEntry $documentEntry,
+                ?DocumentEntryModel $entry,
+            ): DocumentEntryModel {
+                return parent::documentEntry($model, $documentEntry, $entry);
             }
         };
 
-        $entry = $factory->documentEntry($document, $documentEntry);
+        $entry = $factory->documentEntry($document, $documentEntry, null);
 
         self::assertInstanceOf(DocumentEntryModel::class, $entry);
         self::assertEquals($asset->getKey(), $entry->asset_id);
@@ -557,12 +600,16 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry);
+            public function documentEntry(
+                DocumentModel $model,
+                DocumentEntry $documentEntry,
+                ?DocumentEntryModel $entry,
+            ): DocumentEntryModel {
+                return parent::documentEntry($model, $documentEntry, $entry);
             }
         };
 
-        $entry = $factory->documentEntry($document, $documentEntry);
+        $entry = $factory->documentEntry($document, $documentEntry, null);
 
         self::assertInstanceOf(DocumentEntryModel::class, $entry);
         self::assertEquals($asset->getKey(), $entry->asset_id);
@@ -793,16 +840,13 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function documentEntries(DocumentModel $model, Document $document): array {
+            public function documentEntries(DocumentModel $model, Document $document): EloquentCollection {
                 return parent::documentEntries($model, $document);
             }
         };
 
         // Test
-        $actual   = new Collection($factory->documentEntries($document, $object));
+        $actual   = $factory->documentEntries($document, $object);
         $created  = $actual
             ->filter(static function (DocumentEntryModel $entry) use ($assetB): bool {
                 return $entry->asset_id === $assetB->getKey();
@@ -842,6 +886,7 @@ class DocumentFactoryTest extends TestCase {
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
         $this->overrideAssetFinder();
+        $this->overrideUuidFactory('6c3e24b8-c5f5-42e4-acc0-a66b0f424af3');
 
         // Factory
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
