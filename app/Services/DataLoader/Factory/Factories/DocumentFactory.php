@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
+use App\Models\DocumentEntryField;
 use App\Models\OemGroup;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
@@ -12,6 +13,7 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
+use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryCustomField;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
@@ -21,6 +23,7 @@ use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithCurrency;
 use App\Services\DataLoader\Factory\Concerns\WithCustomer;
 use App\Services\DataLoader\Factory\Concerns\WithDistributor;
+use App\Services\DataLoader\Factory\Concerns\WithField;
 use App\Services\DataLoader\Factory\Concerns\WithLanguage;
 use App\Services\DataLoader\Factory\Concerns\WithOem;
 use App\Services\DataLoader\Factory\Concerns\WithOemGroup;
@@ -42,6 +45,7 @@ use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolver\Resolvers\FieldResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
@@ -51,6 +55,7 @@ use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
@@ -75,6 +80,7 @@ class DocumentFactory extends ModelFactory {
     use WithServiceGroup;
     use WithServiceLevel;
     use WithType;
+    use WithField;
     use WithStatus;
     use WithAsset;
     use WithProduct;
@@ -91,6 +97,7 @@ class DocumentFactory extends ModelFactory {
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
+        protected FieldResolver $fieldResolver,
         protected StatusResolver $statusResolver,
         protected AssetResolver $assetResolver,
         protected ResellerResolver $resellerResolver,
@@ -160,6 +167,10 @@ class DocumentFactory extends ModelFactory {
 
     protected function getTypeResolver(): TypeResolver {
         return $this->typeResolver;
+    }
+
+    protected function getFieldResolver(): FieldResolver {
+        return $this->fieldResolver;
     }
 
     protected function getStatusResolver(): StatusResolver {
@@ -470,6 +481,7 @@ class DocumentFactory extends ModelFactory {
         $entry->list_price    = $normalizer->decimal($documentEntry->listPrice);
         $entry->discount      = $normalizer->decimal($documentEntry->discount);
         $entry->renewal       = $normalizer->decimal($documentEntry->estimatedValueRenewal);
+        $entry->fields        = $this->documentEntryFields($model, $entry, $documentEntry);
         $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);
 
@@ -517,6 +529,56 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $level;
+    }
+
+    /**
+     * @return EloquentCollection<int, DocumentEntryField>
+     */
+    protected function documentEntryFields(
+        DocumentModel $document,
+        DocumentEntryModel $documentEntry,
+        DocumentEntry $entry,
+    ): EloquentCollection {
+        return $this->children(
+            $documentEntry->fields,
+            $entry->customFields ?? [],
+            function (CustomField $customField, DocumentEntryField $model): bool {
+                return $model->field_id === $this->field($model, $customField->Name)->getKey();
+            },
+            function (
+                CustomField $customField,
+                ?DocumentEntryField $field,
+            ) use (
+                $document,
+                $documentEntry,
+                $entry,
+            ): ?DocumentEntryField {
+                try {
+                    return $this->documentEntryField($document, $documentEntry, $entry, $customField, $field);
+                } catch (Throwable $exception) {
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessDocumentEntryCustomField($document, $entry, $customField, $exception),
+                    );
+                }
+
+                return null;
+            },
+        );
+    }
+
+    protected function documentEntryField(
+        DocumentModel $document,
+        DocumentEntryModel $documentEntry,
+        DocumentEntry $entry,
+        CustomField $customField,
+        ?DocumentEntryField $field,
+    ): DocumentEntryField {
+        $normalizer   = $this->getNormalizer();
+        $field      ??= new DocumentEntryField();
+        $field->field = $this->field($field, $customField->Name);
+        $field->value = $normalizer->string($customField->Value);
+
+        return $field;
     }
     // </editor-fold>
 }
