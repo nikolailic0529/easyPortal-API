@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocuments",
-    "query": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocuments($limit: Int, $lastId: String, $from: String) {\n    getDocuments(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "from": null,
         "lastId": "19ff9afd-3e86-4c07-a092-747f34c236c1",
@@ -64,7 +64,8 @@
                             "discount": null,
                             "listPrice": "60",
                             "estimatedValueRenewal": "60",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         },
                         {
                             "assetId": "3dab0640-18f8-4794-9913-5eff73d4ea74",
@@ -81,7 +82,8 @@
                             "discount": null,
                             "listPrice": "96",
                             "estimatedValueRenewal": "96",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         },
                         {
                             "assetId": "3dab0640-18f8-4794-9913-5eff73d4ea74",
@@ -98,7 +100,8 @@
                             "discount": null,
                             "listPrice": "624",
                             "estimatedValueRenewal": "624",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         },
                         {
                             "assetId": "ae0141fc-dc95-4a26-983d-dd954dc54836",
@@ -115,7 +118,8 @@
                             "discount": null,
                             "listPrice": "96",
                             "estimatedValueRenewal": "96",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         },
                         {
                             "assetId": "ae0141fc-dc95-4a26-983d-dd954dc54836",
@@ -132,7 +136,8 @@
                             "discount": null,
                             "listPrice": "60",
                             "estimatedValueRenewal": "60",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -212,7 +217,8 @@
                             "discount": null,
                             "listPrice": "1202.36",
                             "estimatedValueRenewal": "1202.36",
-                            "productLineDescription": "HPE Foundation Care NBD Service"
+                            "productLineDescription": "HPE Foundation Care NBD Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "641aba7e-27a3-4bb3-983e-8b96dfa89fcd",
@@ -229,7 +235,8 @@
                             "discount": null,
                             "listPrice": "1202.36",
                             "estimatedValueRenewal": "1202.36",
-                            "productLineDescription": "HPE Foundation Care NBD Service"
+                            "productLineDescription": "HPE Foundation Care NBD Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "641aba7e-27a3-4bb3-983e-8b96dfa89fcd",
@@ -246,7 +253,8 @@
                             "discount": null,
                             "listPrice": "137.41",
                             "estimatedValueRenewal": "137.41",
-                            "productLineDescription": "HPE Foundation Care NBD Service"
+                            "productLineDescription": "HPE Foundation Care NBD Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "641aba7e-27a3-4bb3-983e-8b96dfa89fcd",
@@ -263,7 +271,8 @@
                             "discount": null,
                             "listPrice": "137.41",
                             "estimatedValueRenewal": "137.41",
-                            "productLineDescription": "HPE Foundation Care NBD Service"
+                            "productLineDescription": "HPE Foundation Care NBD Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "ddb6e609-9381-490d-a7ce-65fa1a1c7c82",
@@ -280,7 +289,8 @@
                             "discount": null,
                             "listPrice": "1202.36",
                             "estimatedValueRenewal": "1202.36",
-                            "productLineDescription": "HPE Foundation Care NBD Service"
+                            "productLineDescription": "HPE Foundation Care NBD Service",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -360,7 +370,8 @@
                             "discount": null,
                             "listPrice": "1608",
                             "estimatedValueRenewal": "1608",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "0565286d-498a-4a84-ae1b-c3e2ac138b92",
@@ -377,7 +388,8 @@
                             "discount": null,
                             "listPrice": "96",
                             "estimatedValueRenewal": "96",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -457,7 +469,8 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "013ce9c0-eb73-4437-b1f6-6477c724dbe1",
@@ -474,7 +487,8 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "013ce9c0-eb73-4437-b1f6-6477c724dbe1",
@@ -491,7 +505,8 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "286d1941-f421-46b7-b016-3a38af0f2ee8",
@@ -508,7 +523,8 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "286d1941-f421-46b7-b016-3a38af0f2ee8",
@@ -525,7 +541,8 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -605,7 +622,8 @@
                             "discount": null,
                             "listPrice": "986.04",
                             "estimatedValueRenewal": "986.04",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "e1653342-2db3-4b66-b89c-da0f94df269f",
@@ -622,7 +640,8 @@
                             "discount": null,
                             "listPrice": "996",
                             "estimatedValueRenewal": "996",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "e1653342-2db3-4b66-b89c-da0f94df269f",
@@ -639,7 +658,8 @@
                             "discount": null,
                             "listPrice": "130.68",
                             "estimatedValueRenewal": "130.68",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "e1653342-2db3-4b66-b89c-da0f94df269f",
@@ -656,7 +676,8 @@
                             "discount": null,
                             "listPrice": "132",
                             "estimatedValueRenewal": "132",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "0d92cf04-d92d-4728-a333-35541628affe",
@@ -673,7 +694,8 @@
                             "discount": null,
                             "listPrice": "986.04",
                             "estimatedValueRenewal": "986.04",
-                            "productLineDescription": "HPE Tech Care Essential SVC"
+                            "productLineDescription": "HPE Tech Care Essential SVC",
+                            "customFields": null
                         }
                     ],
                     "status": [

@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentById",
-    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "013db1c0-c4b2-4f3a-830b-58de8b40ccc8"
     },
@@ -79,7 +79,8 @@
                         "discount": null,
                         "listPrice": "98.21",
                         "estimatedValueRenewal": "98.21",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "e551bbce-7cf9-404a-9a00-daa4372b6372",
@@ -96,7 +97,8 @@
                         "discount": null,
                         "listPrice": "1854.7",
                         "estimatedValueRenewal": "1854.7",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "e551bbce-7cf9-404a-9a00-daa4372b6372",
@@ -113,7 +115,8 @@
                         "discount": null,
                         "listPrice": "3.6",
                         "estimatedValueRenewal": "3.6",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "e551bbce-7cf9-404a-9a00-daa4372b6372",
@@ -130,7 +133,8 @@
                         "discount": null,
                         "listPrice": "7.21",
                         "estimatedValueRenewal": "7.21",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "87f9bd7d-33e0-4be1-a1a9-d450ebd95223",
@@ -147,7 +151,8 @@
                         "discount": null,
                         "listPrice": "3.6",
                         "estimatedValueRenewal": "3.6",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     }
                 ],
                 "status": [

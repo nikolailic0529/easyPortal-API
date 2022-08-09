@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentsByReseller",
-    "query": "query getDocumentsByReseller($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentsByReseller($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
         "from": null,
@@ -83,7 +83,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "d24fbc79-3d01-48fb-b2f8-8e0272620b4a",
@@ -100,7 +101,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "e1410592-d765-43ee-8564-fffa0f8e1f6d",
@@ -117,7 +119,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "50c0418d-2c76-45cc-82a2-423f77894b9e",
@@ -134,7 +137,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "7ffdf6ab-b688-4ceb-97c9-5407099ed80b",
@@ -151,7 +155,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         }
                     ],
                     "status": [

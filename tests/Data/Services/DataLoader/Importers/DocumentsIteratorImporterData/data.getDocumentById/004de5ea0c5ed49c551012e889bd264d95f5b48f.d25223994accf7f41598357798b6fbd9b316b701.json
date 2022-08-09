@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentById",
-    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "0c8324bb-600d-488b-9b53-35ee6849ff59"
     },
@@ -61,7 +61,8 @@
                         "discount": null,
                         "listPrice": "2.74",
                         "estimatedValueRenewal": "2.74",
-                        "productLineDescription": ""
+                        "productLineDescription": "",
+                        "customFields": null
                     },
                     {
                         "assetId": "dca06ee1-cdaf-4fee-a4d8-565b0b6c4c57",
@@ -78,7 +79,8 @@
                         "discount": null,
                         "listPrice": "3.88",
                         "estimatedValueRenewal": "3.88",
-                        "productLineDescription": ""
+                        "productLineDescription": "",
+                        "customFields": null
                     },
                     {
                         "assetId": "1c274b92-6401-414b-a23b-50bee046e62b",
@@ -95,7 +97,8 @@
                         "discount": null,
                         "listPrice": "2.74",
                         "estimatedValueRenewal": "2.74",
-                        "productLineDescription": ""
+                        "productLineDescription": "",
+                        "customFields": null
                     },
                     {
                         "assetId": "1c274b92-6401-414b-a23b-50bee046e62b",
@@ -112,7 +115,8 @@
                         "discount": null,
                         "listPrice": "3.88",
                         "estimatedValueRenewal": "3.88",
-                        "productLineDescription": ""
+                        "productLineDescription": "",
+                        "customFields": null
                     },
                     {
                         "assetId": "546f92c8-e298-4ee3-a13b-07e88d240e73",
@@ -129,7 +133,8 @@
                         "discount": null,
                         "listPrice": "672.6",
                         "estimatedValueRenewal": "672.6",
-                        "productLineDescription": ""
+                        "productLineDescription": "",
+                        "customFields": null
                     }
                 ],
                 "status": [

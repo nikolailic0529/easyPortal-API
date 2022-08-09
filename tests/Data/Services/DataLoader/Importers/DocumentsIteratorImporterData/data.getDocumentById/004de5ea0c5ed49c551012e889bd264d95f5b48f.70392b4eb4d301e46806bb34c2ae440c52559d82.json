@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentById",
-    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "0a38d611-f78f-48e4-a861-8d56afaa8154"
     },
@@ -79,7 +79,8 @@
                         "discount": null,
                         "listPrice": "0",
                         "estimatedValueRenewal": "0",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "745fbb57-156f-43f4-8865-f1e09db3a12e",
@@ -96,7 +97,8 @@
                         "discount": null,
                         "listPrice": "0",
                         "estimatedValueRenewal": "0",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "745fbb57-156f-43f4-8865-f1e09db3a12e",
@@ -113,7 +115,8 @@
                         "discount": null,
                         "listPrice": "653.4",
                         "estimatedValueRenewal": "653.4",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "745fbb57-156f-43f4-8865-f1e09db3a12e",
@@ -130,7 +133,8 @@
                         "discount": null,
                         "listPrice": "653.4",
                         "estimatedValueRenewal": "653.4",
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "79934a7c-ec40-441a-b6d7-618745a222f9",
@@ -147,7 +151,8 @@
                         "discount": null,
                         "listPrice": null,
                         "estimatedValueRenewal": null,
-                        "productLineDescription": "HPE Foundation Care 24x7 Service"
+                        "productLineDescription": "HPE Foundation Care 24x7 Service",
+                        "customFields": null
                     }
                 ],
                 "status": [

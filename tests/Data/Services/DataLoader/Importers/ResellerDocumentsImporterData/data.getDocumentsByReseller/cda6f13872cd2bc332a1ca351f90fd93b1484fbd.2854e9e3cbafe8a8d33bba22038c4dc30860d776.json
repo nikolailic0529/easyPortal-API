@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentsByReseller",
-    "query": "query getDocumentsByReseller($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentsByReseller($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByReseller(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
         "from": null,
@@ -83,7 +83,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "08561eab-cde5-4f75-8f29-fb2fcef147fe",
@@ -100,7 +101,8 @@
                             "discount": null,
                             "listPrice": "36.77",
                             "estimatedValueRenewal": "36.77",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "08561eab-cde5-4f75-8f29-fb2fcef147fe",
@@ -117,7 +119,8 @@
                             "discount": null,
                             "listPrice": "1.94",
                             "estimatedValueRenewal": "1.94",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "08561eab-cde5-4f75-8f29-fb2fcef147fe",
@@ -134,7 +137,8 @@
                             "discount": null,
                             "listPrice": "19.43",
                             "estimatedValueRenewal": "19.43",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "08561eab-cde5-4f75-8f29-fb2fcef147fe",
@@ -151,7 +155,8 @@
                             "discount": null,
                             "listPrice": "14.64",
                             "estimatedValueRenewal": "14.64",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -231,7 +236,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "485f0b56-5163-425d-a793-55ec5bd6a24f",
@@ -248,7 +254,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "620c499b-0d36-4784-8d3f-58527bb40921",
@@ -265,7 +272,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "7618590c-7727-40b9-a21b-eb38b187d51e",
@@ -282,7 +290,8 @@
                             "discount": null,
                             "listPrice": "1418.58",
                             "estimatedValueRenewal": "1418.58",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "66d66425-88eb-4e21-8626-442673272cc9",
@@ -299,7 +308,8 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -379,7 +389,8 @@
                             "discount": null,
                             "listPrice": "95.04",
                             "estimatedValueRenewal": "95.04",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         },
                         {
                             "assetId": "d890d218-4629-4f8f-9a19-b41354c914d9",
@@ -396,7 +407,8 @@
                             "discount": null,
                             "listPrice": "1330.56",
                             "estimatedValueRenewal": "1330.56",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service"
+                            "productLineDescription": "HPE Foundation Care 24x7 Service",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -458,7 +470,8 @@
                             "discount": null,
                             "listPrice": "48",
                             "estimatedValueRenewal": "48",
-                            "productLineDescription": ""
+                            "productLineDescription": "",
+                            "customFields": null
                         }
                     ],
                     "status": [
@@ -538,7 +551,8 @@
                             "discount": null,
                             "listPrice": "22.32",
                             "estimatedValueRenewal": "22.32",
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "3a320000-4f4d-49f0-97f7-41e0865b36a4",
@@ -555,7 +569,8 @@
                             "discount": null,
                             "listPrice": "22.32",
                             "estimatedValueRenewal": "22.32",
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "3a320000-4f4d-49f0-97f7-41e0865b36a4",
@@ -572,7 +587,8 @@
                             "discount": null,
                             "listPrice": "27.96",
                             "estimatedValueRenewal": "27.96",
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "3a320000-4f4d-49f0-97f7-41e0865b36a4",
@@ -589,7 +605,8 @@
                             "discount": null,
                             "listPrice": "27.96",
                             "estimatedValueRenewal": "27.96",
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
+                            "customFields": null
                         },
                         {
                             "assetId": "3a320000-4f4d-49f0-97f7-41e0865b36a4",
@@ -606,7 +623,8 @@
                             "discount": null,
                             "listPrice": "11.16",
                             "estimatedValueRenewal": "11.16",
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
+                            "customFields": null
                         }
                     ],
                     "status": [

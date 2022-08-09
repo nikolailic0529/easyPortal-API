@@ -1365,6 +1365,10 @@ class Client {
                 discount
                 listPrice
                 estimatedValueRenewal
+                customFields {
+                    Name
+                    Value
+                }
             }
             GRAPHQL;
     }

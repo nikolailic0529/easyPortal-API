@@ -180,9 +180,19 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
         "bindings": [
             "f7873540-59c2-4019-9522-5e7b299257b1"
+        ]
+    },
+    {
+        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
+        "bindings": [
+            "123e38fa-c1bf-5caa-aec0-0fe239da7119",
+            "2b418def-6ec2-502c-b27f-833b604fdb6a",
+            "b4b052f6-d18f-5e1a-a7b9-40735e81b263",
+            "c4092391-dd6d-55a3-9070-19e0546816e4",
+            "ff93f7ee-5add-5bb4-b77a-31d3c1dd5d1f"
         ]
     },
     {

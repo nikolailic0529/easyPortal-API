@@ -1,6 +1,6 @@
 {
     "selector": "data.getDocumentById",
-    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
     "variables": {
         "id": "0d2169e6-94b7-49ee-8560-80673d7009bf"
     },
@@ -79,7 +79,8 @@
                         "discount": null,
                         "listPrice": "83.16",
                         "estimatedValueRenewal": "83.16",
-                        "productLineDescription": "HPE Foundation Care NBD Service"
+                        "productLineDescription": "HPE Foundation Care NBD Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
@@ -96,7 +97,8 @@
                         "discount": null,
                         "listPrice": "83.16",
                         "estimatedValueRenewal": "83.16",
-                        "productLineDescription": "HPE Foundation Care NBD Service"
+                        "productLineDescription": "HPE Foundation Care NBD Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
@@ -113,7 +115,8 @@
                         "discount": null,
                         "listPrice": "891",
                         "estimatedValueRenewal": "891",
-                        "productLineDescription": "HPE Foundation Care NBD Service"
+                        "productLineDescription": "HPE Foundation Care NBD Service",
+                        "customFields": null
                     },
                     {
                         "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
@@ -130,7 +133,8 @@
                         "discount": null,
                         "listPrice": "891",
                         "estimatedValueRenewal": "891",
-                        "productLineDescription": "HPE Foundation Care NBD Service"
+                        "productLineDescription": "HPE Foundation Care NBD Service",
+                        "customFields": null
                     }
                 ],
                 "status": [
