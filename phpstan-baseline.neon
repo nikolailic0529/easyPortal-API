@@ -4541,92 +4541,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Cannot access property \\$asset on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$customer on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$description on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$document on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$document_number on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$end on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$reseller on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$serviceGroup on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$serviceLevels on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$start on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$status on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot access property \\$type on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Cannot call method create\\(\\) on App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactory\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactory\\:\\:assetDocumentsWarrantiesExtended\\(\\) should return array\\<App\\\\Models\\\\AssetWarranty\\> but returns array\\<int, App\\\\Models\\\\AssetWarranty\\|null\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$coverages \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Coverage\\>\\) does not accept array\\<App\\\\Models\\\\Coverage\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$tags \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Tag\\>\\) does not accept array\\<App\\\\Models\\\\Tag\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$warranties \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Asset\\:\\:\\$warranties \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\AssetWarranty\\>\\) does not accept array\\<App\\\\Models\\\\AssetWarranty\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
+
+		-
+			message: "#^Property App\\\\Models\\\\AssetWarranty\\:\\:\\$serviceLevels \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ServiceLevel\\>\\) does not accept array\\<int, App\\\\Models\\\\ServiceLevel\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -4706,7 +4626,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1512 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1513 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -4812,11 +4732,6 @@ parameters:
 
 		-
 			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 

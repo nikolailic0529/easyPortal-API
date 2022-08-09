@@ -449,7 +449,7 @@ class DocumentFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function documentStatuses(DocumentModel $model, Document $document): array {
+            public function documentStatuses(DocumentModel $model, Document $document): EloquentCollection {
                 return parent::documentStatuses($model, $document);
             }
         };

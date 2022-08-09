@@ -283,9 +283,9 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return Collection<int, AssetWarranty>
+     * @return EloquentCollection<int, AssetWarranty>
      */
-    protected function assetWarranties(Asset $model, ViewAsset $asset): Collection {
+    protected function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
         // Some warranties generated from Documents, we must not touch them.
         $documents = $model->warranties->filter(static function (AssetWarranty $warranty): bool {
             return !static::isWarranty($warranty);
@@ -312,7 +312,7 @@ class AssetFactory extends ModelFactory {
             },
         );
 
-        return $documents->toBase()->merge($updated);
+        return $documents->merge($updated);
     }
 
     protected function assetWarranty(Asset $model, CoverageEntry $entry, ?AssetWarranty $warranty): ?AssetWarranty {
@@ -440,7 +440,7 @@ class AssetFactory extends ModelFactory {
                 }
 
                 // Create/Update
-                /** @var AssetWarranty|null $warranty */
+                /** @var AssetWarranty $warranty */
                 $warranty                  = $existing->get($key) ?: new AssetWarranty();
                 $warranty->start           = $start;
                 $warranty->end             = $end;
@@ -513,11 +513,12 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
+        $factory  = $this->getDocumentFactory();
         $document = null;
 
-        if (isset($assetDocument->document->id)) {
+        if ($factory && isset($assetDocument->document->id)) {
             try {
-                $document = $this->getDocumentFactory()->create(new AssetDocumentObject([
+                $document = $factory->create(new AssetDocumentObject([
                     'asset'    => $model,
                     'document' => $assetDocument,
                 ]));
@@ -575,31 +576,38 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<Tag>
+     * @return EloquentCollection<array-key, Tag>
      */
-    protected function assetTags(ViewAsset $asset): array {
+    protected function assetTags(ViewAsset $asset): EloquentCollection {
+        /** @var EloquentCollection<array-key, Tag> $tags */
+        $tags = new EloquentCollection();
         $name = $this->getNormalizer()->string($asset->assetTag);
 
         if ($name) {
-            return [$this->tag($name)];
+            $tags[] = $this->tag($name);
         }
 
-        return [];
+        return $tags;
     }
 
     /**
-     * @return array<Coverage>
+     * @return EloquentCollection<array-key, Coverage>
      */
-    protected function assetCoverages(ViewAsset $asset): array {
-        return (new Collection($asset->assetCoverage ?? []))
-            ->filter(function (?string $coverage): bool {
-                return (bool) $this->getNormalizer()->string($coverage);
-            })
-            ->map(function (string $coverage): Coverage {
-                return $this->coverage($coverage);
-            })
-            ->unique()
-            ->all();
+    protected function assetCoverages(ViewAsset $asset): EloquentCollection {
+        /** @var EloquentCollection<array-key, Coverage> $statuses */
+        $statuses   = new EloquentCollection();
+        $normalizer = $this->getNormalizer();
+
+        foreach ($asset->assetCoverage ?? [] as $coverage) {
+            $coverage = $normalizer->string($coverage);
+
+            if ($coverage) {
+                $coverage                 = $this->coverage($coverage);
+                $statuses[$coverage->key] = $coverage;
+            }
+        }
+
+        return $statuses->values();
     }
     // </editor-fold>
 

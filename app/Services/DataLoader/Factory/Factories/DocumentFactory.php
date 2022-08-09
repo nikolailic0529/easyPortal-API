@@ -67,6 +67,8 @@ use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
+use function array_map;
+use function array_unique;
 use function implode;
 use function sprintf;
 
@@ -427,18 +429,23 @@ class DocumentFactory extends ModelFactory {
     }
 
     /**
-     * @return array<Status>
+     * @return EloquentCollection<array-key, Status>
      */
-    protected function documentStatuses(DocumentModel $model, Document $document): array {
-        return (new Collection($document->status ?? []))
-            ->filter(function (?string $status): bool {
-                return (bool) $this->getNormalizer()->string($status);
-            })
-            ->map(function (string $status) use ($model): Status {
-                return $this->status($model, $status);
-            })
-            ->unique()
-            ->all();
+    protected function documentStatuses(DocumentModel $model, Document $document): EloquentCollection {
+        /** @var EloquentCollection<string, Status> $statuses */
+        $statuses   = new EloquentCollection();
+        $normalizer = $this->getNormalizer();
+
+        foreach ($document->status ?? [] as $status) {
+            $status = $normalizer->string($status);
+
+            if ($status) {
+                $status                 = $this->status($model, $status);
+                $statuses[$status->key] = $status;
+            }
+        }
+
+        return $statuses->values();
     }
 
     /**

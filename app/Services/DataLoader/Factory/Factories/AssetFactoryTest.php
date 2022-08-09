@@ -944,7 +944,8 @@ class AssetFactoryTest extends TestCase {
         $factory->makePartial();
         $factory
             ->shouldReceive('getDocumentFactory')
-            ->never();
+            ->once()
+            ->andReturn(null);
 
         self::assertNull($factory->assetDocumentDocument($asset, $document));
     }
@@ -1137,7 +1138,7 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetTags(ViewAsset $asset): array {
+            public function assetTags(ViewAsset $asset): EloquentCollection {
                 return parent::assetTags($asset);
             }
         };
@@ -1180,7 +1181,7 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetCoverages(ViewAsset $asset): array {
+            public function assetCoverages(ViewAsset $asset): EloquentCollection {
                 return parent::assetCoverages($asset);
             }
         };
@@ -1520,7 +1521,7 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetWarranties(Asset $model, ViewAsset $asset): Collection {
+            public function assetWarranties(Asset $model, ViewAsset $asset): EloquentCollection {
                 return parent::assetWarranties($model, $asset);
             }
         };
