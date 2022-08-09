@@ -381,6 +381,8 @@ class DocumentFactory extends ModelFactory {
                     },
                 );
 
+                $model->loadMissing('entries.fields');
+
                 // Entries
                 try {
                     $model->entries   = $this->documentEntries($model, $document);

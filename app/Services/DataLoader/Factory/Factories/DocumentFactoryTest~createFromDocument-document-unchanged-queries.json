@@ -2,6 +2,6 @@
     "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
     "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
     "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-    "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` = ? and `document_entry_fields`.`document_entry_id` is not null and `document_entry_fields`.`deleted_at` is null",
+    "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?) and `document_entry_fields`.`deleted_at` is null",
     "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?"
 ]
