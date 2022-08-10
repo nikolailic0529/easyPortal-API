@@ -1,0 +1,3 @@
+input QuoteEntryFieldsQuery {
+    quotes: DocumentsQuery
+}

@@ -4626,7 +4626,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1513 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
+			message: "#^Parameter \\#1 \\$exceptionHandler of class class@anonymous/app/Services/DataLoader/Factory/Factories/AssetFactoryTest\\.php\\:1507 constructor expects Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler, Illuminate\\\\Contracts\\\\Debug\\\\ExceptionHandler\\|void given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
