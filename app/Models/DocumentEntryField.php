@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Relations\HasDocument;
 use App\Models\Relations\HasField;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * @property string               $id
+ * @property string               $document_id
  * @property string               $document_entry_id
  * @property string               $field_id
  * @property string|null          $value
@@ -25,6 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DocumentEntryField extends Model {
     use HasFactory;
     use HasField;
+    use HasDocument;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

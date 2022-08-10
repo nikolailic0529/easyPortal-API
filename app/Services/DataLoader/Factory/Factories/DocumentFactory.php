@@ -62,13 +62,10 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Throwable;
 
-use function array_map;
-use function array_unique;
 use function implode;
 use function sprintf;
 
@@ -582,10 +579,11 @@ class DocumentFactory extends ModelFactory {
         CustomField $customField,
         ?DocumentEntryField $field,
     ): DocumentEntryField {
-        $normalizer   = $this->getNormalizer();
-        $field      ??= new DocumentEntryField();
-        $field->field = $this->field($field, $customField->Name);
-        $field->value = $normalizer->string($customField->Value);
+        $normalizer      = $this->getNormalizer();
+        $field         ??= new DocumentEntryField();
+        $field->document = $document;
+        $field->field    = $this->field($field, $customField->Name);
+        $field->value    = $normalizer->string($customField->Value);
 
         return $field;
     }

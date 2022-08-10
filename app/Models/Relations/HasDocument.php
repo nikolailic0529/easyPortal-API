@@ -8,6 +8,8 @@ use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
+ * @property Document $document
+ *
  * @mixin Model
  */
 trait HasDocument {

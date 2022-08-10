@@ -1135,9 +1135,6 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            /**
-             * @inheritDoc
-             */
             public function assetTags(ViewAsset $asset): EloquentCollection {
                 return parent::assetTags($asset);
             }
@@ -1178,9 +1175,6 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            /**
-             * @inheritDoc
-             */
             public function assetCoverages(ViewAsset $asset): EloquentCollection {
                 return parent::assetCoverages($asset);
             }

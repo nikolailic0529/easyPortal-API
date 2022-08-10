@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\DocumentEntryField;
 use App\Models\Field;
@@ -29,6 +30,9 @@ class DocumentEntryFieldFactory extends Factory {
     public function definition(): array {
         return [
             'id'                => $this->faker->uuid(),
+            'document_id'       => static function (): Document {
+                return Document::factory()->create();
+            },
             'document_entry_id' => static function (): DocumentEntry {
                 return DocumentEntry::factory()->create();
             },

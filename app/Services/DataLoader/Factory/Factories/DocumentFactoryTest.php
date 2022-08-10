@@ -446,9 +446,6 @@ class DocumentFactoryTest extends TestCase {
                 return null;
             }
 
-            /**
-             * @inheritDoc
-             */
             public function documentStatuses(DocumentModel $model, Document $document): EloquentCollection {
                 return parent::documentStatuses($model, $document);
             }
@@ -1089,10 +1086,12 @@ class DocumentFactoryTest extends TestCase {
 
         DocumentEntryFieldModel::factory()->create([
             'document_entry_id' => $documentEntry,
+            'document_id'       => $document,
             'field_id'          => $fieldA,
         ]);
         DocumentEntryFieldModel::factory()->create([
             'document_entry_id' => $documentEntry,
+            'document_id'       => $document,
             'field_id'          => $fieldC,
         ]);
 
@@ -1177,6 +1176,7 @@ class DocumentFactoryTest extends TestCase {
         );
 
         self::assertEquals($field->getKey(), $actual->field_id);
+        self::assertEquals($document->getKey(), $actual->document_id);
         self::assertEquals($normalizer->string($customField->Value), $actual->value);
     }
     // </editor-fold>
