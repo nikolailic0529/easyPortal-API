@@ -13,4 +13,5 @@ input DocumentEntriesQuery {
     service_group_id: ID
     service_level_id: ID
     currency_id: ID
+    fields: FieldValueQuery
 }

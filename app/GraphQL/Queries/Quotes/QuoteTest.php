@@ -9,6 +9,8 @@ use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\DocumentEntryField;
+use App\Models\Field;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Note;
@@ -230,6 +232,10 @@ class QuoteTest extends TestCase {
                             }
                             start
                             end
+                            fields {
+                                field_id
+                                value
+                            }
                         }
                         language {
                             id
@@ -493,6 +499,16 @@ class QuoteTest extends TestCase {
                                     ],
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
+                                    'fields'           => [
+                                        [
+                                            'field_id' => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
+                                            'value'    => null,
+                                        ],
+                                        [
+                                            'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
+                                            'value'    => 'value',
+                                        ],
+                                    ],
                                 ],
                             ],
                             'language'          => [
@@ -628,7 +644,7 @@ class QuoteTest extends TestCase {
                                 'description'      => 'description',
                             ]);
 
-                            return Document::factory()
+                            $document = Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
                                 ->for($customer)
@@ -640,23 +656,6 @@ class QuoteTest extends TestCase {
                                 ->hasStatuses(1, [
                                     'id'   => '126042b6-2bc7-4009-9366-b4c95a94c73b',
                                     'name' => 'status a',
-                                ])
-                                ->hasEntries(1, [
-                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'         => Asset::factory()->create([
-                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                        'reseller_id' => $reseller,
-                                    ]),
-                                    'serial_number'    => null,
-                                    'product_id'       => $product,
-                                    'service_group_id' => $serviceGroup,
-                                    'service_level_id' => $serviceLevel,
-                                    'net_price'        => 123.45,
-                                    'list_price'       => null,
-                                    'discount'         => -8,
-                                    'renewal'          => 24.20,
-                                    'start'            => '2021-01-01',
-                                    'end'              => '2024-01-01',
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
@@ -677,6 +676,52 @@ class QuoteTest extends TestCase {
                                     'changed_at'     => '2021-10-19 10:15:00',
                                     'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
+
+                            $fieldType = (new DocumentEntryField())->getMorphClass();
+                            $fieldA    = Field::factory()->create([
+                                'id'          => '7807f9fd-15f3-4f06-a038-74756ddced47',
+                                'object_type' => $fieldType,
+                            ]);
+                            $fieldB    = Field::factory()->create([
+                                'id'          => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
+                                'object_type' => $fieldType,
+                            ]);
+                            $entry     = DocumentEntry::factory()->create([
+                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'document_id'      => $document,
+                                'asset_id'         => Asset::factory()->create([
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'reseller_id' => $reseller,
+                                ]),
+                                'serial_number'    => null,
+                                'product_id'       => $product,
+                                'service_group_id' => $serviceGroup,
+                                'service_level_id' => $serviceLevel,
+                                'net_price'        => 123.45,
+                                'list_price'       => null,
+                                'discount'         => -8,
+                                'renewal'          => 24.20,
+                                'start'            => '2021-01-01',
+                                'end'              => '2024-01-01',
+                            ]);
+
+                            DocumentEntryField::factory()->create([
+                                'id'                => $fieldA,
+                                'document_entry_id' => $entry,
+                                'document_id'       => $document,
+                                'field_id'          => $fieldA,
+                                'value'             => 'value',
+                            ]);
+
+                            DocumentEntryField::factory()->create([
+                                'id'                => $fieldB,
+                                'document_entry_id' => $entry,
+                                'document_id'       => $document,
+                                'field_id'          => $fieldB,
+                                'value'             => null,
+                            ]);
+
+                            return $document;
                         },
                     ],
                     'hiding price'               => [

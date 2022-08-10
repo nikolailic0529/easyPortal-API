@@ -992,6 +992,40 @@ input SearchByComplexRelationDocumentsQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input FieldValueQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationFieldValueQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Complex operator marker.
+    """
+    relation: SearchByTypeFlag! = yes
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionFieldValueQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input LocationsQuery.
 
 See also:
@@ -2232,6 +2266,11 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
+    fields: SearchByComplexRelationFieldValueQuery
+
+    """
+    Property condition.
+    """
     id: SearchByScalarID
 
     """
@@ -2398,6 +2437,36 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     type_id: SearchByScalarIDOrNull
+}
+
+"""
+Available conditions for input FieldValueQuery (only one property allowed at a time).
+"""
+input SearchByConditionFieldValueQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionFieldValueQuery!]
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionFieldValueQuery!]
+
+    """
+    Property condition.
+    """
+    field_id: SearchByScalarID
+
+    """
+    Not.
+    """
+    not: SearchByConditionFieldValueQuery
+
+    """
+    Property condition.
+    """
+    value: SearchByScalarStringOrNull
 }
 
 """
@@ -6681,6 +6750,10 @@ type DocumentEntry {
     discount: Float
     document_id: ID!
     end: Date
+
+    fields: [FieldValue!]!
+    @relation
+
     id: ID!
 
     list_price: Float
@@ -6747,6 +6820,14 @@ type Field {
 
     name: String!
     @translate
+}
+
+type FieldValue {
+    field: Field!
+    @relation
+
+    field_id: ID!
+    value: String
 }
 
 type File {

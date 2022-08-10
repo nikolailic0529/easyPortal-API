@@ -237,6 +237,9 @@ class QuotesSearchTest extends TestCase {
                             }
                             start
                             end
+                            fields {
+                                value
+                            }
                         }
                         language {
                             id
@@ -598,6 +601,9 @@ class QuotesSearchTest extends TestCase {
                         ],
                         'start'            => '2021-01-01',
                         'end'              => '2024-01-01',
+                        'fields'           => [
+                            // empty
+                        ],
                     ],
                 ],
                 'language'          => [
