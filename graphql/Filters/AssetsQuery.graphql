@@ -11,6 +11,7 @@ input AssetsQuery {
     nickname: String
     warranty_end: Date
     location: LocationsQuery
+    reseller: CompaniesQuery
     customer: CompaniesQuery
     product: ProductsQuery
     warranties: AssetWarrantiesQuery

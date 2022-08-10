@@ -5,6 +5,7 @@ input AssetsSort {
     nickname: String
     warranty_end: Date
     location: LocationsSort!
+    reseller: CompaniesSort!
     customer: CompaniesSort!
     status: StatusSort!
 }

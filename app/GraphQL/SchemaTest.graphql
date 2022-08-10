@@ -1604,6 +1604,11 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
+    reseller: SearchByComplexRelationCompaniesQuery
+
+    """
+    Property condition.
+    """
     reseller_id: SearchByScalarID
 
     """
@@ -4018,6 +4023,11 @@ input SortByClauseAssetsSort {
     Property clause.
     """
     product: SortByClauseProductsSort
+
+    """
+    Property clause.
+    """
+    reseller: SortByClauseCompaniesSort
 
     """
     Property clause.
