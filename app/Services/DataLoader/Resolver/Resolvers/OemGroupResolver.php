@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class OemGroupResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): OemGroup|null $factory
+     * @param Closure(Normalizer=): OemGroup|null $factory
      *
      * @return ($factory is null ? OemGroup|null : OemGroup)
      */
@@ -28,9 +29,7 @@ class OemGroupResolver extends Resolver {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof OemGroup
-            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->key, $model->name))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->key, $model->name));
     }
 
     /**

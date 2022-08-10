@@ -1,0 +1,5 @@
+type Field {
+    id: ID!
+    key: String!
+    name: String! @translate
+}

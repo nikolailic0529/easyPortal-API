@@ -10,6 +10,7 @@ use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\CoverageStatusCheck;
+use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
@@ -143,6 +144,8 @@ class ClientDataCleaner {
             $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->imageUrl);
             $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->imageUrl);
             $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
+        } elseif ($object instanceof CustomField) {
+            $object->Value = $this->map($object->Value, $this->text);
         } elseif ($object instanceof TranslationText) {
             $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {
@@ -190,7 +193,7 @@ class ClientDataCleaner {
      *
      * @param array<T>|null $items
      *
-     * @return ($items is null ? null : array<T>)
+     * @return   ($items is null ? null : array<T>)
      */
     protected function limit(?array $items): ?array {
         return $items === null ? $items : array_slice($items, 0, 5);

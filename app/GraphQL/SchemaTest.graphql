@@ -992,6 +992,40 @@ input SearchByComplexRelationDocumentsQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input FieldValueQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationFieldValueQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Complex operator marker.
+    """
+    relation: SearchByTypeFlag! = yes
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionFieldValueQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input LocationsQuery.
 
 See also:
@@ -1931,6 +1965,31 @@ input SearchByConditionContactsQuery {
 }
 
 """
+Available conditions for input ContractEntryFieldsQuery (only one property allowed at a time).
+"""
+input SearchByConditionContractEntryFieldsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionContractEntryFieldsQuery!]
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionContractEntryFieldsQuery!]
+
+    """
+    Property condition.
+    """
+    contracts: SearchByComplexRelationDocumentsQuery
+
+    """
+    Not.
+    """
+    not: SearchByConditionContractEntryFieldsQuery
+}
+
+"""
 Available conditions for input ContractStatusesQuery (only one property allowed at a time).
 """
 input SearchByConditionContractStatusesQuery {
@@ -2207,6 +2266,11 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
+    fields: SearchByComplexRelationFieldValueQuery
+
+    """
+    Property condition.
+    """
     id: SearchByScalarID
 
     """
@@ -2373,6 +2437,36 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     type_id: SearchByScalarIDOrNull
+}
+
+"""
+Available conditions for input FieldValueQuery (only one property allowed at a time).
+"""
+input SearchByConditionFieldValueQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionFieldValueQuery!]
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionFieldValueQuery!]
+
+    """
+    Property condition.
+    """
+    field_id: SearchByScalarID
+
+    """
+    Not.
+    """
+    not: SearchByConditionFieldValueQuery
+
+    """
+    Property condition.
+    """
+    value: SearchByScalarStringOrNull
 }
 
 """
@@ -2728,6 +2822,31 @@ input SearchByConditionProductsQuery {
     Property condition.
     """
     sku: SearchByScalarString
+}
+
+"""
+Available conditions for input QuoteEntryFieldsQuery (only one property allowed at a time).
+"""
+input SearchByConditionQuoteEntryFieldsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionQuoteEntryFieldsQuery!]
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionQuoteEntryFieldsQuery!]
+
+    """
+    Not.
+    """
+    not: SearchByConditionQuoteEntryFieldsQuery
+
+    """
+    Property condition.
+    """
+    quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -6631,6 +6750,10 @@ type DocumentEntry {
     discount: Float
     document_id: ID!
     end: Date
+
+    fields: [FieldValue!]!
+    @relation
+
     id: ID!
 
     list_price: Float
@@ -6689,6 +6812,22 @@ type DocumentsAggregatedPrice {
     count: Int!
     currency: Currency
     currency_id: ID
+}
+
+type Field {
+    id: ID!
+    key: String!
+
+    name: String!
+    @translate
+}
+
+type FieldValue {
+    field: Field!
+    @relation
+
+    field_id: ID!
+    value: String
 }
 
 type File {
@@ -8774,6 +8913,48 @@ type Query {
     @find
 
     """
+    List of all possible contract entry fields.
+
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
+    """
+    contractEntryFields(
+        where: SearchByConditionContractEntryFieldsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+            ]
+        )
+    ): [Field!]!
+    @authOrg
+    @authMe(
+        permissions: ["contracts-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Contracts\\ContractEntryFields"
+    )
+    @cached
+
+    """
     List of all possible contract statuses.
 
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -9678,6 +9859,48 @@ type Query {
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
     )
     @find
+
+    """
+    List of all possible quote entry fields.
+
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    quoteEntryFields(
+        where: SearchByConditionQuoteEntryFieldsQuery
+        @searchBy(
+            operators: [
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Complex\\Relation"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\LessThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThan"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\GreaterThanOrEqual"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Between"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotBetween"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNull"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\IsNotNull"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\Contains"
+                "App\\GraphQL\\Extensions\\LaraAsp\\SearchBy\\Operators\\Comparison\\EndsWith"
+                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\StartsWith"
+            ]
+        )
+    ): [Field!]!
+    @authOrg
+    @authMe(
+        permissions: ["quotes-view"]
+    )
+    @all(
+        builder: "App\\GraphQL\\Queries\\Quotes\\QuoteEntryFields"
+    )
+    @cached
 
     """
     List of all possible quote request durations.

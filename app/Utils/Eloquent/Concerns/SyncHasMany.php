@@ -20,7 +20,9 @@ trait SyncHasMany {
     use SyncMany;
 
     /**
-     * @param Collection<int, Model>|array<Model> $objects
+     * @template T of \Illuminate\Database\Eloquent\Model
+     *
+     * @param Collection<int, T>|EloquentCollection<int, T>|array<T> $objects
      */
     protected function syncHasMany(string $relation, Collection|array $objects): void {
         // Prepare

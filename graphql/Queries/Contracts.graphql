@@ -17,6 +17,15 @@ extend type Query {
     )
     @cached
 
+    "List of all possible contract entry fields."
+    contractEntryFields(where: ContractEntryFieldsQuery @searchBy): [Field!]!
+    @authOrg
+    @authMe(permissions: ["contracts-view"])
+    @all(
+        builder: "App\\GraphQL\\Queries\\Contracts\\ContractEntryFields"
+    )
+    @cached
+
     "List of all contracts."
     contracts (
         where: DocumentsQuery @searchBy

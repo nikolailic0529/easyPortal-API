@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Contact;
 use App\Services\DataLoader\Cache\Key;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class ContactResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Contact|null $factory
+     * @param Closure(Normalizer=): Contact|null $factory
      *
      * @return ($factory is null ? Contact|null : Contact)
      */
@@ -36,9 +37,7 @@ class ContactResolver extends Resolver {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Contact
-            ? $this->getCacheKey($this->getUniqueKey($model, $model->name, $model->phone_number, $model->email))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model, $model->name, $model->phone_number, $model->email));
     }
 
     /**

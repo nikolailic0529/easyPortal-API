@@ -33,4 +33,6 @@ type DocumentEntry {
     currency: Currency @relation
     asset_id: ID
     asset: Asset @relation
+
+    fields: [FieldValue!]! @relation
 }

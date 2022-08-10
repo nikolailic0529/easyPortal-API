@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Status;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +17,7 @@ use Illuminate\Support\Collection;
  */
 class StatusResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Status|null $factory
+     * @param Closure(Normalizer=): Status|null $factory
      *
      * @return ($factory is null ? Status|null : Status)
      */
@@ -33,9 +34,7 @@ class StatusResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Status
-            ? $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->object_type, $model->key));
     }
 
     /**

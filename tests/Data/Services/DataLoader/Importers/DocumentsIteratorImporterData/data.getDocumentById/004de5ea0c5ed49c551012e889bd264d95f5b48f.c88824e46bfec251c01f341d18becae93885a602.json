@@ -1,0 +1,110 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    skuNumber\n    skuDescription\n    startDate\n    endDate\n    warrantyEndDate\n    productLineDescription\n    supportPackage\n    supportPackageDescription\n    languageCode\n    currencyCode\n    netPrice\n    discount\n    listPrice\n    estimatedValueRenewal\n    customFields {\n        Name\n        Value\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0821f5a6-95f1-493f-a527-c62a45ca1e13"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "0821f5a6-95f1-493f-a527-c62a45ca1e13",
+                "type": "Quote renewal",
+                "documentNumber": "f10f60e6-a3f8-33bc-b867-aa1936824d11",
+                "startDate": "2022-08-03",
+                "endDate": "2024-08-02",
+                "currencyCode": "EUR",
+                "totalNetPrice": "3747.8399999999992",
+                "languageCode": null,
+                "updatedAt": "1655253429008",
+                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                "customerId": "cd58bd18-ed5b-418c-aed4-a3a58c4de3d8",
+                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+19097287743",
+                        "name": "Joy Klein",
+                        "mail": "bogan.madeline@waters.net",
+                        "type": "Customer Contact"
+                    },
+                    {
+                        "phoneNumber": "+12088560128",
+                        "name": "Dr. Devyn Deckow",
+                        "mail": "johnson.felicity@aufderhar.com",
+                        "type": "Renewal Contact"
+                    },
+                    {
+                        "phoneNumber": "+19409282065",
+                        "name": "Leilani Orn",
+                        "mail": null,
+                        "type": "EndUser Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetId": "e6ba9ff2-f9bc-4740-a659-eff7802ad602",
+                        "skuNumber": "HA156AC",
+                        "skuDescription": "HPE Software Updates SVC",
+                        "supportPackage": null,
+                        "supportPackageDescription": "",
+                        "warrantyEndDate": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "netPrice": "517.92",
+                        "discount": null,
+                        "listPrice": "588.2339",
+                        "estimatedValueRenewal": "588.2339",
+                        "productLineDescription": "",
+                        "customFields": null
+                    },
+                    {
+                        "assetId": "e6ba9ff2-f9bc-4740-a659-eff7802ad602",
+                        "skuNumber": "HU4A2AC",
+                        "skuDescription": "HPE Hardware Tech Support",
+                        "supportPackage": null,
+                        "supportPackageDescription": "",
+                        "warrantyEndDate": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "netPrice": "1129.92",
+                        "discount": null,
+                        "listPrice": "1283.4195",
+                        "estimatedValueRenewal": "1283.4195",
+                        "productLineDescription": "",
+                        "customFields": null
+                    },
+                    {
+                        "assetId": "e6ba9ff2-f9bc-4740-a659-eff7802ad602",
+                        "skuNumber": "HU4A1AC",
+                        "skuDescription": "HPE Remote Tech Support",
+                        "supportPackage": null,
+                        "supportPackageDescription": "",
+                        "warrantyEndDate": null,
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "netPrice": "169.68",
+                        "discount": null,
+                        "listPrice": "192.5129",
+                        "estimatedValueRenewal": "192.5129",
+                        "productLineDescription": "",
+                        "customFields": null
+                    }
+                ],
+                "status": [
+                    "ACTIVE"
+                ]
+            }
+        }
+    }
+}

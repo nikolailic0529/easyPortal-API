@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
+use App\Models\DocumentEntryField as DocumentEntryFieldModel;
+use App\Models\Field as FieldModel;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\ServiceGroup;
@@ -15,11 +17,13 @@ use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
+use App\Services\DataLoader\Resolver\Resolvers\FieldResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
+use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
@@ -28,6 +32,7 @@ use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -246,38 +251,76 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::compareDocumentEntries
+     * @covers ::isEntryEqualDocumentEntry
      */
-    public function testCompareDocumentEntries(): void {
+    public function testIsEntryEqualDocumentEntry(): void {
         // Prepare
-        $a       = DocumentEntryModel::factory()->make();
-        $b       = DocumentEntryModel::factory()->make();
-        $factory = new class() extends DocumentFactory {
+        $oem      = Oem::factory()->create();
+        $group    = ServiceGroup::factory()->create([
+            'oem_id' => $oem,
+        ]);
+        $level    = ServiceLevel::factory()->create([
+            'oem_id'           => $oem,
+            'service_group_id' => $group,
+        ]);
+        $document = DocumentModel::factory()->create([
+            'oem_id' => $oem,
+        ]);
+        $entry    = DocumentEntryModel::factory()->create([
+            'document_id'      => $document,
+            'service_group_id' => $group,
+            'service_level_id' => $level,
+        ]);
+        $factory  = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(CurrencyResolver::class),
+            $this->app->make(ServiceGroupResolver::class),
+            $this->app->make(ServiceLevelResolver::class),
+        ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CurrencyResolver $currencyResolver,
+                protected ServiceGroupResolver $serviceGroupResolver,
+                protected ServiceLevelResolver $serviceLevelResolver,
+            ) {
                 // empty
             }
 
-            public function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
-                return parent::compareDocumentEntries($a, $b);
+            public function isEntryEqualDocumentEntry(
+                DocumentModel $model,
+                DocumentEntryModel $entry,
+                DocumentEntry $documentEntry,
+            ): bool {
+                return parent::isEntryEqualDocumentEntry($model, $entry, $documentEntry);
             }
         };
 
         // Test
-        self::assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
-
-        // Make same
-        $a->asset_id         = $b->asset_id;
-        $a->currency_id      = $b->currency_id;
-        $a->net_price        = $b->net_price;
-        $a->list_price       = $b->list_price;
-        $a->discount         = $b->discount;
-        $a->renewal          = $b->renewal;
-        $a->service_level_id = $b->service_level_id;
-        $a->start            = $b->start;
-        $a->end              = $b->end;
-
-        self::assertEquals(0, $factory->compareDocumentEntries($a, $b));
+        self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
+            'assetId'               => $entry->asset_id,
+            'startDate'             => (string) $entry->start?->getTimestampMs(),
+            'endDate'               => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'          => $entry->currency->code ?? null,
+            'netPrice'              => $entry->net_price,
+            'listPrice'             => $entry->list_price,
+            'discount'              => $entry->discount,
+            'estimatedValueRenewal' => $entry->renewal,
+            'supportPackage'        => $entry->serviceGroup->sku ?? null,
+            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+        ])));
+        self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
+            'assetId'               => $this->faker->uuid(),
+            'startDate'             => (string) $entry->start?->getTimestampMs(),
+            'endDate'               => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'          => $entry->currency->code ?? null,
+            'netPrice'              => $entry->net_price,
+            'listPrice'             => $entry->list_price,
+            'discount'              => $entry->discount,
+            'estimatedValueRenewal' => $entry->renewal,
+            'supportPackage'        => $entry->serviceGroup->sku ?? null,
+            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+        ])));
     }
 
     /**
@@ -403,10 +446,7 @@ class DocumentFactoryTest extends TestCase {
                 return null;
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function documentStatuses(DocumentModel $model, Document $document): array {
+            public function documentStatuses(DocumentModel $model, Document $document): EloquentCollection {
                 return parent::documentStatuses($model, $document);
             }
         };
@@ -455,6 +495,8 @@ class DocumentFactoryTest extends TestCase {
         $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
         $start          = Date::make($this->faker->dateTime())->startOfDay();
         $end            = Date::make($this->faker->dateTime())->startOfDay();
+        $fieldName      = $this->faker->word();
+        $fieldValue     = $this->faker->word();
         $documentEntry  = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
             'supportPackage'        => " {$supportPackage} ",
@@ -466,6 +508,12 @@ class DocumentFactoryTest extends TestCase {
             'currencyCode'          => " {$currencyCode} ",
             'startDate'             => $start->format('Y-m-d'),
             'endDate'               => $end->format('Y-m-d'),
+            'customFields'          => [
+                [
+                    'Name'  => $fieldName,
+                    'Value' => $fieldValue,
+                ],
+            ],
         ]);
         $factory        = new class(
             $this->app->make(Normalizer::class),
@@ -475,6 +523,7 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
+            $this->app->make(FieldResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -485,16 +534,21 @@ class DocumentFactoryTest extends TestCase {
                 protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
+                protected FieldResolver $fieldResolver,
             ) {
                 // empty
             }
 
-            public function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry);
+            public function documentEntry(
+                DocumentModel $model,
+                DocumentEntry $documentEntry,
+                ?DocumentEntryModel $entry,
+            ): DocumentEntryModel {
+                return parent::documentEntry($model, $documentEntry, $entry);
             }
         };
 
-        $entry = $factory->documentEntry($document, $documentEntry);
+        $entry = $factory->documentEntry($document, $documentEntry, null);
 
         self::assertInstanceOf(DocumentEntryModel::class, $entry);
         self::assertEquals($asset->getKey(), $entry->asset_id);
@@ -512,6 +566,12 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($renewal, $entry->renewal);
         self::assertEquals($start, $entry->start);
         self::assertEquals($end, $entry->end);
+        self::assertEquals(
+            [
+                $fieldName => $fieldValue,
+            ],
+            $this->getModelFields($entry->fields),
+        );
     }
 
     /**
@@ -538,6 +598,7 @@ class DocumentFactoryTest extends TestCase {
             'currencyCode'          => " {$currencyCode} ",
             'startDate'             => null,
             'endDate'               => null,
+            'customFields'          => null,
         ]);
         $factory       = new class(
             $this->app->make(Normalizer::class),
@@ -557,12 +618,16 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentEntry(DocumentModel $model, DocumentEntry $documentEntry): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry);
+            public function documentEntry(
+                DocumentModel $model,
+                DocumentEntry $documentEntry,
+                ?DocumentEntryModel $entry,
+            ): DocumentEntryModel {
+                return parent::documentEntry($model, $documentEntry, $entry);
             }
         };
 
-        $entry = $factory->documentEntry($document, $documentEntry);
+        $entry = $factory->documentEntry($document, $documentEntry, null);
 
         self::assertInstanceOf(DocumentEntryModel::class, $entry);
         self::assertEquals($asset->getKey(), $entry->asset_id);
@@ -793,16 +858,13 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function documentEntries(DocumentModel $model, Document $document): array {
+            public function documentEntries(DocumentModel $model, Document $document): EloquentCollection {
                 return parent::documentEntries($model, $document);
             }
         };
 
         // Test
-        $actual   = new Collection($factory->documentEntries($document, $object));
+        $actual   = $factory->documentEntries($document, $object);
         $created  = $actual
             ->filter(static function (DocumentEntryModel $entry) use ($assetB): bool {
                 return $entry->asset_id === $assetB->getKey();
@@ -842,6 +904,7 @@ class DocumentFactoryTest extends TestCase {
         $this->overrideDateFactory('2021-08-30T00:00:00.000+00:00');
         $this->overrideFinders();
         $this->overrideAssetFinder();
+        $this->overrideUuidFactory('6c3e24b8-c5f5-42e4-acc0-a66b0f424af3');
 
         // Factory
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
@@ -903,6 +966,13 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('145.00', $e->renewal);
         self::assertNull($this->getDatetime($e->end));
         self::assertEquals('1614470400000', $this->getDatetime($e->start));
+        self::assertEquals(
+            [
+                'Document Type' => 'Type',
+                'Equipment No'  => 'No',
+            ],
+            $this->getModelFields($e->fields),
+        );
 
         $this->flushQueryLog();
 
@@ -944,22 +1014,26 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($e->list_price);
         self::assertNull($e->discount);
         self::assertNull($e->renewal);
+        self::assertEquals(
+            [
+                'Group Description' => 'description',
+            ],
+            $this->getModelFields($e->fields),
+        );
 
         $this->flushQueryLog();
 
         // No changes
         // ---------------------------------------------------------------------
-        $json     = $this->getTestData()->json('~createFromDocument-document-changed.json');
-        $object   = new Document($json);
-        $expected = [
-            'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
-            'select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null',
-            'select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null',
-            'update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?',
-        ];
+        $json   = $this->getTestData()->json('~createFromDocument-document-changed.json');
+        $object = new Document($json);
 
         $factory->createFromDocument($object);
-        self::assertEquals($expected, array_column($this->getQueryLog(), 'query'));
+
+        $actual   = array_column($this->getQueryLog(), 'query');
+        $expected = $this->getTestData()->json('~createFromDocument-document-unchanged-queries.json');
+
+        self::assertEquals($expected, $actual);
 
         $this->flushQueryLog();
     }
@@ -988,6 +1062,122 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
+    }
+
+    /**
+     * @covers ::documentEntryFields
+     */
+    public function testDocumentEntryFields(): void {
+        // Prepare
+        $type          = (new DocumentEntryFieldModel())->getMorphClass();
+        $fieldA        = FieldModel::factory()->create([
+            'object_type' => $type,
+        ]);
+        $fieldB        = FieldModel::factory()->create([
+            'object_type' => $type,
+        ]);
+        $fieldC        = FieldModel::factory()->create([
+            'object_type' => $type,
+        ]);
+        $document      = DocumentModel::factory()->create();
+        $documentEntry = DocumentEntryModel::factory()->create([
+            'document_id' => $document,
+        ]);
+
+        DocumentEntryFieldModel::factory()->create([
+            'document_entry_id' => $documentEntry,
+            'document_id'       => $document,
+            'field_id'          => $fieldA,
+        ]);
+        DocumentEntryFieldModel::factory()->create([
+            'document_entry_id' => $documentEntry,
+            'document_id'       => $document,
+            'field_id'          => $fieldC,
+        ]);
+
+        // Mock
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = $this->app->make(FieldResolver::class);
+        $factory    = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->atLeast()
+            ->once()
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('getFieldResolver')
+            ->atLeast()
+            ->once()
+            ->andReturn($resolver);
+
+        // Test
+        $entry  = new DocumentEntry([
+            'customFields' => [
+                [
+                    'Name'  => $fieldA->key,
+                    'Value' => 'a',
+                ],
+                [
+                    'Name'  => $fieldB->key,
+                    'Value' => 'b',
+                ],
+            ],
+        ]);
+        $actual = $factory->documentEntryFields($document, $documentEntry, $entry);
+
+        self::assertCount(2, $actual);
+        self::assertEquals(
+            [
+                $fieldA->key => 'a',
+                $fieldB->key => 'b',
+            ],
+            $this->getModelFields($actual),
+        );
+    }
+
+    /**
+     * @covers ::documentEntryField
+     */
+    public function testDocumentEntryField(): void {
+        $entry         = new DocumentEntry();
+        $field         = FieldModel::factory()->make([
+            'object_type' => (new DocumentEntryFieldModel())->getMorphClass(),
+        ]);
+        $customField   = new CustomField([
+            'Name'  => $field->key,
+            'Value' => ' value ',
+        ]);
+        $document      = DocumentModel::factory()->make();
+        $documentEntry = DocumentEntryModel::factory()->make([
+            'document_id' => $document,
+        ]);
+        $normalizer    = $this->app->make(Normalizer::class);
+        $factory       = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('field')
+            ->with(Mockery::any(), $customField->Name)
+            ->once()
+            ->andReturn($field);
+
+        $actual = $factory->documentEntryField(
+            $document,
+            $documentEntry,
+            $entry,
+            $customField,
+            null,
+        );
+
+        self::assertEquals($field->getKey(), $actual->field_id);
+        self::assertEquals($document->getKey(), $actual->document_id);
+        self::assertEquals($normalizer->string($customField->Value), $actual->value);
     }
     // </editor-fold>
 

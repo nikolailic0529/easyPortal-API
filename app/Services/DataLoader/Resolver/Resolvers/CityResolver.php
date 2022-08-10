@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,7 @@ use Illuminate\Support\Collection;
  */
 class CityResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): City|null $factory
+     * @param Closure(Normalizer=): City|null $factory
      *
      * @return ($factory is null ? City|null : City)
      */
@@ -34,9 +35,7 @@ class CityResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof City
-            ? $this->getCacheKey($this->getUniqueKey($model->country_id, $model->key))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->country_id, $model->key));
     }
 
     /**

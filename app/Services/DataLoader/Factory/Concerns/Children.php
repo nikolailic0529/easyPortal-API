@@ -6,91 +6,87 @@ use App\Utils\Eloquent\Callbacks\KeysComparator;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use SplObjectStorage;
 
 use function array_shift;
-use function count;
+use function is_bool;
 
 trait Children {
     /**
      * @template T of \App\Services\DataLoader\Schema\Type
-     * @template M of \App\Utils\Eloquent\Model
-     * @template C of \Illuminate\Support\Collection<int, M>
+     * @template M of \Illuminate\Database\Eloquent\Model
+     * @template C of \Illuminate\Support\Collection<array-key,M>|\Illuminate\Database\Eloquent\Collection<array-key,M>
      *
-     * @param C                     $existing
-     * @param array<T>              $children
-     * @param Closure(T): ?M        $factory
-     * @param Closure(M, M): int    $compare
-     * @param Closure(M): bool|null $isReusable
+     * @param C                   $existing
+     * @param array<?T>           $children
+     * @param Closure(T, M): bool $comparator
+     * @param Closure(T, ?M): ?M  $factory
      *
      * @return C
      */
     protected function children(
         Collection $existing,
         array $children,
+        Closure $comparator,
         Closure $factory,
-        Closure $compare,
-        Closure $isReusable = null,
     ): Collection {
         // Often children don't have ID for this reason we were tried to compare
         // them by properties, but there were a lot of create/soft-delete
         // queries anyway. So we are trying to re-use removed entries to
         // reduce the number of queries.
-        /** @var Collection<int, M> $created */
-        $created  = new Collection();
+
+        // Map children to existing
+        /** @var SplObjectStorage<T, ?M> $map */
+        $map      = new SplObjectStorage();
         $existing = $existing->sort(new KeysComparator());
-        $actual   = new ($existing::class)();
 
         foreach ($children as $child) {
-            $child = $factory($child);
-
-            if (!$child) {
+            if ($child === null) {
                 continue;
             }
 
-            $existingKey = $existing->search(static function (Model $model) use ($compare, $child): bool {
-                return $compare($model, $child) === 0;
+            $key         = $existing->search(static function (Model $model) use ($comparator, $child): bool {
+                return $comparator($child, $model);
             });
+            $map[$child] = null;
 
-            if ($existingKey !== false) {
-                // `forceFill` is used for relations because we need to call
-                // mutators to update property value.
-                /** @var M $item because we found the key */
-                $item = $existing->pull($existingKey);
-                $item
-                    ->forceFill($child->getAttributes())
-                    ->forceFill($child->getRelations());
+            if (!is_bool($key)) {
+                $map[$child] = $existing->get($key);
 
-                $child = $item;
-            } else {
-                $created->push($child);
+                $existing->forget($key);
             }
-
-            $actual[] = $child;
         }
 
         // Reuse
-        if (!$created->isEmpty() && !$existing->isEmpty()) {
-            $reusable = $isReusable
-                ? $existing->filter($isReusable)
-                : $existing;
+        if (!$existing->isEmpty()) {
+            $reusable = $existing->all();
 
-            if (!$reusable->isEmpty()) {
-                $created  = $created->sort(new KeysComparator())->all();
-                $reusable = $reusable->all();
+            foreach ($map as $child) {
+                if ($map[$child] !== null) {
+                    continue;
+                }
 
-                while (count($created) > 0 && count($reusable) > 0) {
-                    $child         = array_shift($created);
-                    $child->exists = true;
-
-                    $child->setAttribute(
-                        $child->getKeyName(),
-                        array_shift($reusable)->getKey(),
-                    );
+                if ($reusable) {
+                    $map[$child] = array_shift($reusable);
+                } else {
+                    break;
                 }
             }
         }
 
+        // Update
+        /** @var C $models */
+        $models = new ($existing::class)();
+
+        foreach ($map as $child) {
+            $created = $factory($child, $map[$child]);
+
+            if ($created !== null) {
+                $models[] = $created;
+            }
+        }
+
         // Return
-        return $actual;
+        return $models;
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Oem;
 use App\Models\Product;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -17,7 +18,7 @@ use Illuminate\Support\Collection;
  */
 class ProductResolver extends Resolver implements SingletonPersistent {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Product|null $factory
+     * @param Closure(Normalizer=): Product|null $factory
      *
      * @return ($factory is null ? Product|null : Product)
      */
@@ -41,9 +42,7 @@ class ProductResolver extends Resolver implements SingletonPersistent {
     }
 
     public function getKey(Model $model): Key {
-        return $model instanceof Product
-            ? $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->sku))
-            : parent::getKey($model);
+        return $this->getCacheKey($this->getUniqueKey($model->oem_id, $model->sku));
     }
 
     /**
