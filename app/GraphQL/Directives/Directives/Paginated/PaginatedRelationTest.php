@@ -119,7 +119,7 @@ class PaginatedRelationTest extends TestCase {
                         [
                             'locations'           => [
                                 [
-                                    'id' => $customer->locations->first()?->getKey(),
+                                    'id' => $customer->locations->sortBy('id')->first()?->getKey(),
                                 ],
                             ],
                             'locationsAggregated' => [
