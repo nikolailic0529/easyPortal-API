@@ -30,6 +30,7 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
+            'keycloakName'            => $this->faker->word(),
             'keycloakGroupId'         => $this->faker->word(),
             'keycloakClientScopeName' => $this->faker->word(),
         ]);
@@ -43,6 +44,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
@@ -54,8 +56,9 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => null,
-            'keycloakGroupId' => null,
+            'keycloakName'            => null,
+            'keycloakGroupId'         => null,
+            'keycloakClientScopeName' => null,
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -64,6 +67,7 @@ class OrganizationUpdaterTest extends TestCase {
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
         self::assertNotNull($organization);
+        self::assertNull($organization->keycloak_name);
         self::assertNull($organization->keycloak_scope);
         self::assertNull($organization->keycloak_group_id);
     }
@@ -75,6 +79,7 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
+            'keycloakName'            => $this->faker->word(),
             'keycloakGroupId'         => $this->faker->word(),
             'keycloakClientScopeName' => $this->faker->word(),
         ]);
@@ -82,6 +87,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         Organization::factory()->create([
             'id'                => $reseller->getKey(),
+            'keycloak_name'     => 'anothertestreseller',
             'keycloak_scope'    => 'anothertestreseller',
             'keycloak_group_id' => 'anothertestgroup',
         ]);
@@ -92,6 +98,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
@@ -103,13 +110,15 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => null,
-            'keycloakGroupId' => null,
+            'keycloakName'            => null,
+            'keycloakGroupId'         => null,
+            'keycloakClientScopeName' => null,
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
         Organization::factory()->create([
             'id'                => $reseller->getKey(),
+            'keycloak_name'     => 'anothertestreseller',
             'keycloak_scope'    => 'anothertestreseller',
             'keycloak_group_id' => 'anothertestgroup',
         ]);
@@ -120,6 +129,7 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals('anothertestreseller', $organization->keycloak_name);
         self::assertEquals('anothertestreseller', $organization->keycloak_scope);
         self::assertEquals('anothertestgroup', $organization->keycloak_group_id);
     }
@@ -131,17 +141,20 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
+            'keycloakName'            => $this->faker->word(),
             'keycloakGroupId'         => $this->faker->word(),
             'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
         Organization::factory()->create([
+            'keycloak_name'     => 'anothertestreseller',
             'keycloak_scope'    => 'anothertestreseller',
             'keycloak_group_id' => 'anothertestgroup',
         ]);
         Organization::factory()->create([
             'id'                => $reseller->getKey(),
+            'keycloak_name'     => 'anothertestreseller',
             'keycloak_scope'    => 'anothertestreseller',
             'keycloak_group_id' => 'anothertestgroup',
             'deleted_at'        => Date::now(),
@@ -154,6 +167,7 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNotNull($organization);
         self::assertFalse($organization->trashed());
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
@@ -161,18 +175,20 @@ class OrganizationUpdaterTest extends TestCase {
     /**
      * @covers ::handle
      */
-    public function testHandleScopeAndGroutIsUsedByAnotherOrganization(): void {
+    public function testHandleKeycloakNameIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
         $company           = new Company([
+            'keycloakName'            => $this->faker->word(),
             'keycloakGroupId'         => $this->faker->word(),
             'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event             = new ResellerUpdated($reseller, $company);
         $scopeOrganization = Organization::factory()->create([
-            'keycloak_scope' => $company->keycloakClientScopeName,
+            'keycloak_name' => $company->keycloakName,
         ]);
-        $groupOrganization = Organization::factory()->create([
+
+        Organization::factory()->create([
             'keycloak_group_id' => $company->keycloakGroupId,
         ]);
 
@@ -181,13 +197,93 @@ class OrganizationUpdaterTest extends TestCase {
         $updater->handle($event);
 
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
+        $fresh        = $scopeOrganization->fresh();
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
-        self::assertNull($scopeOrganization->fresh()->keycloak_scope);
-        self::assertNull($groupOrganization->fresh()->keycloak_group_id);
+        self::assertNotNull($fresh);
+        self::assertNull($fresh->keycloak_name);
+        self::assertNull($fresh->keycloak_scope);
+        self::assertNull($fresh->keycloak_group_id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleKeycloakScopeNameIsUsedByAnotherOrganization(): void {
+        $reseller          = Reseller::factory()->make();
+        $updater           = $this->app->make(OrganizationUpdater::class);
+        $company           = new Company([
+            'keycloakName'            => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
+        ]);
+        $event             = new ResellerUpdated($reseller, $company);
+        $scopeOrganization = Organization::factory()->create([
+            'keycloak_scope' => $company->keycloakClientScopeName,
+        ]);
+
+        Organization::factory()->create([
+            'keycloak_group_id' => $company->keycloakGroupId,
+        ]);
+
+        self::assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+        $fresh        = $scopeOrganization->fresh();
+
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
+        self::assertNotNull($fresh);
+        self::assertNull($fresh->keycloak_name);
+        self::assertNull($fresh->keycloak_scope);
+        self::assertNull($fresh->keycloak_group_id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleKeycloakGroutIsUsedByAnotherOrganization(): void {
+        $reseller          = Reseller::factory()->make();
+        $updater           = $this->app->make(OrganizationUpdater::class);
+        $company           = new Company([
+            'keycloakName'            => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
+        ]);
+        $event             = new ResellerUpdated($reseller, $company);
+        $scopeOrganization = Organization::factory()->create([
+            'keycloak_scope' => $company->keycloakClientScopeName,
+        ]);
+
+        Organization::factory()->create([
+            'keycloak_group_id' => $company->keycloakGroupId,
+        ]);
+
+        self::assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+        $fresh        = $scopeOrganization->fresh();
+
+        self::assertNotNull($organization);
+        self::assertEquals($reseller->name, $organization->name);
+        self::assertEquals($company->keycloakName, $organization->keycloak_name);
+        self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
+        self::assertNotNull($fresh);
+        self::assertNull($fresh->keycloak_name);
+        self::assertNull($fresh->keycloak_scope);
+        self::assertNull($fresh->keycloak_group_id);
     }
 
     /**

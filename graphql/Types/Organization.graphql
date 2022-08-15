@@ -27,6 +27,9 @@ type Organization {
     @relation
     @paginatedRelation
 
+    keycloak_name: String
+    @authMe(permissions: ["administer"])
+
     keycloak_scope: String
     @authMe(permissions: ["administer"])
 

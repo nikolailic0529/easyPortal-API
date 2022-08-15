@@ -49,6 +49,7 @@ class OrganizationsTest extends TestCase {
                         id
                         name
                         root
+                        keycloak_name
                         keycloak_scope
                     }
                     organizationsAggregated {
@@ -75,6 +76,7 @@ class OrganizationsTest extends TestCase {
                     new GraphQLPaginated('organizations'),
                     static function (): void {
                         Organization::factory()->create([
+                            'keycloak_name'  => 'test',
                             'keycloak_scope' => 'test',
                         ]);
                     },

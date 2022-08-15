@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  *
  * @property string                            $id
  * @property string                            $name
+ * @property string|null                       $keycloak_name
  * @property string|null                       $keycloak_scope
  * @property string|null                       $keycloak_group_id
  * @property string|null                       $locale

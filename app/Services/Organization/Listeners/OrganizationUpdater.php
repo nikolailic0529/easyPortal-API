@@ -29,7 +29,11 @@ class OrganizationUpdater implements Subscriber {
         $company  = $event->getCompany();
 
         // Used?
-        if (isset($company->keycloakClientScopeName) || isset($company->keycloakGroupId)) {
+        if (
+            isset($company->keycloakClientScopeName)
+            || isset($company->keycloakGroupId)
+            || isset($company->keycloakName)
+        ) {
             $existing = Organization::query()
                 ->whereKeyNot($reseller->getKey())
                 ->where(static function (Builder $query) use ($company): void {
@@ -39,6 +43,10 @@ class OrganizationUpdater implements Subscriber {
 
                     if (isset($company->keycloakGroupId)) {
                         $query->orWhere('keycloak_group_id', '=', $company->keycloakGroupId);
+                    }
+
+                    if (isset($company->keycloakName)) {
+                        $query->orWhere('keycloak_name', '=', $company->keycloakName);
                     }
                 })
                 ->get();
@@ -50,6 +58,10 @@ class OrganizationUpdater implements Subscriber {
 
                 if ($organization->keycloak_group_id === ($company->keycloakGroupId ?? null)) {
                     $organization->keycloak_group_id = null;
+                }
+
+                if ($organization->keycloak_name === ($company->keycloakName ?? null)) {
+                    $organization->keycloak_name = null;
                 }
 
                 $organization->save();
@@ -64,6 +76,7 @@ class OrganizationUpdater implements Subscriber {
 
         if ($organization) {
             if ($organization->trashed()) {
+                $organization->keycloak_name     = null;
                 $organization->keycloak_scope    = null;
                 $organization->keycloak_group_id = null;
                 $organization->restore();
@@ -83,6 +96,10 @@ class OrganizationUpdater implements Subscriber {
 
         if (isset($company->keycloakGroupId)) {
             $organization->keycloak_group_id = $this->normalizer->uuid($company->keycloakGroupId);
+        }
+
+        if (isset($company->keycloakName)) {
+            $organization->keycloak_name = $this->normalizer->string($company->keycloakName);
         }
 
         if (isset($company->brandingData)) {

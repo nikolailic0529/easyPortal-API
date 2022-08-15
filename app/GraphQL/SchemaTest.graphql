@@ -8206,6 +8206,14 @@ type Organization {
     """
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
+    keycloak_name: String
+    @authMe(
+        permissions: ["administer"]
+    )
+
+    """
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
     keycloak_scope: String
     @authMe(
         permissions: ["administer"]
