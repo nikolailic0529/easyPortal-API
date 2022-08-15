@@ -29,12 +29,12 @@ class OrganizationUpdater implements Subscriber {
         $company  = $event->getCompany();
 
         // Used?
-        if (isset($company->keycloakName) || isset($company->keycloakGroupId)) {
+        if (isset($company->keycloakClientScopeName) || isset($company->keycloakGroupId)) {
             $existing = Organization::query()
                 ->whereKeyNot($reseller->getKey())
                 ->where(static function (Builder $query) use ($company): void {
-                    if (isset($company->keycloakName)) {
-                        $query->orWhere('keycloak_scope', '=', $company->keycloakName);
+                    if (isset($company->keycloakClientScopeName)) {
+                        $query->orWhere('keycloak_scope', '=', $company->keycloakClientScopeName);
                     }
 
                     if (isset($company->keycloakGroupId)) {
@@ -44,7 +44,7 @@ class OrganizationUpdater implements Subscriber {
                 ->get();
 
             foreach ($existing as $organization) {
-                if ($organization->keycloak_scope === ($company->keycloakName ?? null)) {
+                if ($organization->keycloak_scope === ($company->keycloakClientScopeName ?? null)) {
                     $organization->keycloak_scope = null;
                 }
 
@@ -77,8 +77,8 @@ class OrganizationUpdater implements Subscriber {
         $normalizer         = $this->normalizer;
         $organization->name = $reseller->name;
 
-        if (isset($company->keycloakName)) {
-            $organization->keycloak_scope = $this->normalizer->string($company->keycloakName);
+        if (isset($company->keycloakClientScopeName)) {
+            $organization->keycloak_scope = $this->normalizer->string($company->keycloakClientScopeName);
         }
 
         if (isset($company->keycloakGroupId)) {

@@ -30,8 +30,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word(),
-            'keycloakGroupId' => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -43,8 +43,8 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
-        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
     /**
@@ -75,8 +75,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word(),
-            'keycloakGroupId' => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -92,8 +92,8 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
-        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
     /**
@@ -131,8 +131,8 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = new Company([
-            'keycloakName'    => $this->faker->word(),
-            'keycloakGroupId' => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event    = new ResellerUpdated($reseller, $company);
 
@@ -154,8 +154,8 @@ class OrganizationUpdaterTest extends TestCase {
         self::assertNotNull($organization);
         self::assertFalse($organization->trashed());
         self::assertEquals($reseller->name, $organization->name);
-        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
     }
 
     /**
@@ -165,12 +165,12 @@ class OrganizationUpdaterTest extends TestCase {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
         $company           = new Company([
-            'keycloakName'    => $this->faker->word(),
-            'keycloakGroupId' => $this->faker->word(),
+            'keycloakGroupId'         => $this->faker->word(),
+            'keycloakClientScopeName' => $this->faker->word(),
         ]);
         $event             = new ResellerUpdated($reseller, $company);
         $scopeOrganization = Organization::factory()->create([
-            'keycloak_scope' => $company->keycloakName,
+            'keycloak_scope' => $company->keycloakClientScopeName,
         ]);
         $groupOrganization = Organization::factory()->create([
             'keycloak_group_id' => $company->keycloakGroupId,
@@ -184,8 +184,8 @@ class OrganizationUpdaterTest extends TestCase {
 
         self::assertNotNull($organization);
         self::assertEquals($reseller->name, $organization->name);
-        self::assertEquals($company->keycloakName, $organization->keycloak_scope);
         self::assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+        self::assertEquals($company->keycloakClientScopeName, $organization->keycloak_scope);
         self::assertNull($scopeOrganization->fresh()->keycloak_scope);
         self::assertNull($groupOrganization->fresh()->keycloak_group_id);
     }
@@ -243,6 +243,7 @@ class OrganizationUpdaterTest extends TestCase {
         $branding     = $company->brandingData;
 
         self::assertNotNull($organization);
+        self::assertNotNull($branding);
         self::assertEquals(
             $normalizer->boolean($branding->brandingMode),
             $organization->branding_dark_theme,

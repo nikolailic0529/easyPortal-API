@@ -1,10 +1,13 @@
 [
     {
-        "model": "App\\Models\\Location",
-        "keys": [
-            "09477b7e-4f12-5f29-ad60-559bab1718e4",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "78282ba7-a73f-59f8-9871-ba703198d433"
-        ]
+        "event": "App\\Services\\Recalculator\\Events\\ModelsRecalculated",
+        "data": {
+            "model": "App\\Models\\Location",
+            "keys": [
+                "09477b7e-4f12-5f29-ad60-559bab1718e4",
+                "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+                "78282ba7-a73f-59f8-9871-ba703198d433"
+            ]
+        }
     }
 ]

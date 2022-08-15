@@ -1,8 +1,10 @@
 [
     {
         "event": "Laravel\\Scout\\Events\\ModelsImported",
-        "models": [
-            "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
-        ]
+        "data": {
+            "models": [
+                "2482aaa9-b619-4fc2-8d25-e6d9dd7e6be3"
+            ]
+        }
     }
 ]

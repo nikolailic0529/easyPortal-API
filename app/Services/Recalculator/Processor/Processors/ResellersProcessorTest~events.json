@@ -1,10 +1,13 @@
 [
     {
-        "model": "App\\Models\\Reseller",
-        "keys": [
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
-            "81d95584-bdc4-5497-9ead-b81582b26bd2",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
-        ]
+        "event": "App\\Services\\Recalculator\\Events\\ModelsRecalculated",
+        "data": {
+            "model": "App\\Models\\Reseller",
+            "keys": [
+                "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
+                "81d95584-bdc4-5497-9ead-b81582b26bd2",
+                "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+            ]
+        }
     }
 ]

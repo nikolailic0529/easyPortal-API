@@ -1,9 +1,12 @@
 [
     {
-        "model": "App\\Models\\Customer",
-        "keys": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
-        ]
+        "event": "App\\Services\\Recalculator\\Events\\ModelsRecalculated",
+        "data": {
+            "model": "App\\Models\\Customer",
+            "keys": [
+                "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
+                "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
+            ]
+        }
     }
 ]
