@@ -268,6 +268,18 @@ interface Constants {
     #[Setting]
     #[Group('telescope')]
     public const TELESCOPE_VIEW_WATCHER = true;
+
+    /**
+     * Telescope store all data in memory and will dump it only after the
+     * job/command/request is finished. For long-running jobs, this will lead
+     * to huge memory usage or even fail.
+     *
+     * The setting allows to enable Telescope when the total of items is known
+     * and less than the setting value.
+     */
+    #[Setting('ep.telescope.processor.limit')]
+    #[Group('telescope')]
+    public const EP_TELESCOPE_PROCESSOR_LIMIT = 500;
     // </editor-fold>
 
     // <editor-fold desc="EP">

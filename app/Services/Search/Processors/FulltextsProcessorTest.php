@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\Processors;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
@@ -26,9 +27,15 @@ class FulltextsProcessorTest extends TestCase {
         $log = [];
 
         $this->override(FulltextProcessor::class, static function () use (&$log): FulltextProcessor {
+            $config = Mockery::mock(Repository::class);
+            $config
+                ->shouldReceive('get')
+                ->with('ep.telescope.processor.limit', -1)
+                ->andReturn(null);
+
             $handler    = Mockery::mock(ExceptionHandler::class);
             $dispatcher = Mockery::mock(Dispatcher::class);
-            $processor  = Mockery::mock(FulltextProcessor::class, [$handler, $dispatcher]);
+            $processor  = Mockery::mock(FulltextProcessor::class, [$handler, $dispatcher, $config]);
             $processor->shouldAllowMockingProtectedMethods();
             $processor->makePartial();
             $processor

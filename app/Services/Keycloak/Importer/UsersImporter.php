@@ -37,14 +37,10 @@ class UsersImporter extends IteratorProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
-        private Repository $config,
+        Repository $config,
         private Client $client,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
-    }
-
-    protected function getConfig(): Repository {
-        return $this->config;
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     protected function getClient(): Client {

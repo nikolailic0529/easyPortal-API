@@ -16,6 +16,7 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
 use DateTimeInterface;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
@@ -48,10 +49,11 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         private Client $client,
         private Container $container,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
 
         $this->register();
     }

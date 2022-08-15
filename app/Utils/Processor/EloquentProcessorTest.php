@@ -4,6 +4,7 @@ namespace App\Utils\Processor;
 
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use App\Utils\Iterators\Eloquent\ModelsIterator;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -133,6 +134,7 @@ class EloquentProcessorTest extends TestCase {
     public function testGetTotal(): void {
         $count   = $this->faker->randomDigit();
         $state   = new EloquentState();
+        $config  = $this->app->make(Repository::class);
         $builder = Mockery::mock(Builder::class);
         $builder
             ->shouldReceive('count')
@@ -142,6 +144,10 @@ class EloquentProcessorTest extends TestCase {
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
+        $processor
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($config);
         $processor
             ->shouldReceive('getBuilder')
             ->with($state)
@@ -157,9 +163,14 @@ class EloquentProcessorTest extends TestCase {
     public function testGetTotalWithKeys(): void {
         $keys      = array_fill(0, $this->faker->randomDigit(), $this->faker->uuid());
         $state     = new EloquentState(['keys' => $keys]);
+        $config    = $this->app->make(Repository::class);
         $processor = Mockery::mock(EloquentProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
+        $processor
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($config);
 
         self::assertEquals(count($keys), $processor->getTotal($state));
     }

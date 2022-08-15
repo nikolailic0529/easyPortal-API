@@ -4,6 +4,7 @@ namespace App\Services\Search\Commands;
 
 use App\Models\Customer;
 use App\Services\Search\Processors\ModelsProcessor;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -28,10 +29,11 @@ class IndexesRebuildTest extends TestCase {
      */
     public function testInvoke(): void {
         $this->override(ModelsProcessor::class, static function (): MockInterface {
+            $config     = Mockery::mock(Repository::class);
             $handler    = Mockery::mock(ExceptionHandler::class);
             $container  = Mockery::mock(Container::class);
             $dispatcher = Mockery::mock(Dispatcher::class);
-            $processor  = Mockery::mock(ModelsProcessor::class, [$handler, $dispatcher, $container]);
+            $processor  = Mockery::mock(ModelsProcessor::class, [$handler, $dispatcher, $config, $container]);
             $processor->makePartial();
             $processor
                 ->shouldReceive('setModels')

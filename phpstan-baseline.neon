@@ -6911,22 +6911,22 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
@@ -6941,12 +6941,12 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:135 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:71 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 

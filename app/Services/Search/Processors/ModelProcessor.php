@@ -12,6 +12,7 @@ use App\Services\Search\Processors\Concerns\WithModel;
 use App\Utils\Eloquent\ModelHelper;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\EloquentProcessor;
+use App\Utils\Processor\State;
 use App\Utils\Processor\State as ProcessorState;
 use Closure;
 use ElasticAdapter\Exceptions\BulkRequestException;
@@ -50,18 +51,14 @@ class ModelProcessor extends EloquentProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
-        private Repository $config,
+        Repository $config,
         private Client $client,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
-    protected function getConfig(): Repository {
-        return $this->config;
-    }
-
     protected function getClient(): Client {
         return $this->client;
     }
@@ -289,9 +286,9 @@ class ModelProcessor extends EloquentProcessor {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected function call(Closure $callback): mixed {
-        return $this->callWithoutScoutQueue(function () use ($callback): mixed {
-            return parent::call($callback);
+    protected function call(State $state, Closure $callback): mixed {
+        return $this->callWithoutScoutQueue(function () use ($state, $callback): mixed {
+            return parent::call($state, $callback);
         });
     }
 

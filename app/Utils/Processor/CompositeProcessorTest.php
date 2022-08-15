@@ -7,6 +7,7 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Contracts\Processor;
 use Closure;
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;
@@ -29,12 +30,19 @@ class CompositeProcessorTest extends TestCase {
     public function testInvoke(): void {
         $exceptionHandler = Mockery::mock(ExceptionHandler::class);
         $dispatcher       = Mockery::mock(Dispatcher::class);
+        $config           = $this->app->make(Repository::class);
         $chunk            = $this->faker->numberBetween(1, 5);
         $countA           = $this->faker->numberBetween(1, 5);
-        $nestedA          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $countA));
+        $nestedA          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, $config, range(
+            1,
+            $countA,
+        ));
         $handlerA         = null;
         $countB           = $this->faker->numberBetween(1, 5);
-        $nestedB          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $countB));
+        $nestedB          = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, $config, range(
+            1,
+            $countB,
+        ));
         $handlerB         = Mockery::spy(static function (): void {
             // empty
         });
@@ -42,6 +50,7 @@ class CompositeProcessorTest extends TestCase {
         $nestedC          = new CompositeProcessorTest__Processor(
             $exceptionHandler,
             $dispatcher,
+            $config,
             array_map(
                 static function (int $index): Exception {
                     return new Exception("{$index}");
@@ -76,7 +85,7 @@ class CompositeProcessorTest extends TestCase {
             ),
         ];
 
-        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher]);
+        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher, $config]);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -185,9 +194,13 @@ class CompositeProcessorTest extends TestCase {
     public function testInvokeStop(): void {
         $exceptionHandler = Mockery::mock(ExceptionHandler::class);
         $dispatcher       = Mockery::mock(Dispatcher::class);
+        $config           = $this->app->make(Repository::class);
         $chunk            = $this->faker->numberBetween(1, 5);
         $count            = $this->faker->numberBetween(5, 10);
-        $nested           = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, range(1, $count));
+        $nested           = new CompositeProcessorTest__Processor($exceptionHandler, $dispatcher, $config, range(
+            1,
+            $count,
+        ));
         $handler          = Mockery::spy(static function (): void {
             // empty
         });
@@ -201,7 +214,7 @@ class CompositeProcessorTest extends TestCase {
             ),
         ];
 
-        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher]);
+        $processor = Mockery::mock(CompositeProcessor::class, [$exceptionHandler, $dispatcher, $config]);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -298,9 +311,10 @@ class CompositeProcessorTest__Processor extends IteratorProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         protected array $items,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     protected function getIterator(State $state): ObjectIterator {
