@@ -176,7 +176,7 @@ class UserProviderTest extends TestCase {
         // Prepare
         $clientId     = $this->faker->word();
         $organization = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word(),
+            'keycloak_name' => $this->faker->word(),
         ]);
         $claims       = $claims($clientId, $organization);
         $token        = $this->getToken($claims);
@@ -219,7 +219,7 @@ class UserProviderTest extends TestCase {
     public function testUpdateTokenUser(): void {
         $token        = Mockery::mock(UnencryptedToken::class);
         $organization = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word(),
+            'keycloak_name' => $this->faker->word(),
         ]);
 
         $provider = Mockery::mock(UserProvider::class);
@@ -275,7 +275,7 @@ class UserProviderTest extends TestCase {
      */
     public function testGetOrganization(bool $expected, Closure $claimsFactory, Closure $orgFactory): void {
         $org      = Organization::factory()->create([
-            'keycloak_scope' => $this->faker->word(),
+            'keycloak_name' => $this->faker->word(),
         ]);
         $user     = User::factory()->create();
         $clientId = $this->faker->word();
@@ -786,7 +786,7 @@ class UserProviderTest extends TestCase {
                         'family_name'           => 'Test',
                         'email'                 => 'dun00101@eoopy.com',
                         'reseller_access'       => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
                         'enabled'               => true,
@@ -840,7 +840,7 @@ class UserProviderTest extends TestCase {
                         'family_name'        => 'Test',
                         'email'              => 'dun00101@eoopy.com',
                         'reseller_access'    => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                         'photo'              => 'https://example.com/photo.jpg',
                         'enabled'            => true,
@@ -891,7 +891,7 @@ class UserProviderTest extends TestCase {
                         'family_name'           => 'Test',
                         'email'                 => 'dun00101@eoopy.com',
                         'reseller_access'       => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
                         'enabled'               => true,
@@ -919,7 +919,7 @@ class UserProviderTest extends TestCase {
                         'given_name'            => 'Tesg',
                         'family_name'           => 'Test',
                         'reseller_access'       => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                     ];
                 },
@@ -960,7 +960,7 @@ class UserProviderTest extends TestCase {
                         'family_name'        => 'Test',
                         'email'              => 'dun00101@eoopy.com',
                         'reseller_access'    => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                         'enabled'            => true,
                         'timezone'           => 'invalid',
@@ -984,7 +984,7 @@ class UserProviderTest extends TestCase {
                 'typ'             => 'Bearer',
                 'scope'           => 'openid profile email',
                 'reseller_access' => [
-                    $organization->keycloak_scope => true,
+                    $organization->keycloak_name => true,
                 ],
             ];
         };
@@ -1010,7 +1010,7 @@ class UserProviderTest extends TestCase {
                         'typ'             => 'Bearer',
                         'scope'           => 'openid profile email',
                         'reseller_access' => [
-                            $organization->keycloak_scope => true,
+                            $organization->keycloak_name => true,
                         ],
                     ];
                 },
@@ -1051,7 +1051,7 @@ class UserProviderTest extends TestCase {
                         'typ'             => 'Bearer',
                         'scope'           => 'openid profile email',
                         'reseller_access' => [
-                            $organization->keycloak_scope => false,
+                            $organization->keycloak_name => false,
                         ],
                     ];
                 },

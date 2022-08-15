@@ -381,7 +381,7 @@ class UserProvider implements UserProviderContract {
             $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
             $organizations = array_filter(array_keys(array_filter($organizations)));
             $organization  = Organization::query()
-                ->whereIn('keycloak_scope', $organizations)
+                ->whereIn('keycloak_name', $organizations)
                 ->when($organization, static function (Builder $builder, Organization $organization): Builder {
                     return $builder->whereKey($organization->getKey());
                 })
