@@ -56,7 +56,7 @@ abstract class EloquentProcessor extends IteratorProcessor {
     // <editor-fold desc="Processor">
     // =========================================================================
     protected function getTotal(State $state): ?int {
-        return $this->call(function () use ($state): int {
+        return $this->call($state, function () use ($state): int {
             return $state->keys === null
                 ? $this->getBuilder($state)->count()
                 : count($state->keys);

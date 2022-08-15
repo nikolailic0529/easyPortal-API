@@ -14,6 +14,7 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -35,6 +36,7 @@ class ProcessorJobTest extends TestCase {
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
             $this->app->make(Dispatcher::class),
+            $this->app->make(Repository::class),
             null,
         ]);
         $processor->shouldAllowMockingProtectedMethods();
@@ -110,6 +112,7 @@ class ProcessorJobTest extends TestCase {
         $processor = Mockery::mock(ProcessorJobTest__Processor::class, [
             $this->app->make(ExceptionHandler::class),
             $this->app->make(Dispatcher::class),
+            $this->app->make(Repository::class),
             null,
         ]);
         $processor->shouldAllowMockingProtectedMethods();

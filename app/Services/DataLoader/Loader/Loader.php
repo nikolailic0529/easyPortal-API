@@ -17,6 +17,7 @@ use App\Services\DataLoader\Loader\Concerns\WithLoaderState;
 use App\Utils\Processor\CompositeProcessor;
 use Closure;
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 
@@ -33,9 +34,10 @@ abstract class Loader extends CompositeProcessor implements Isolated {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         protected Container $container,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
 
         $container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
         $container->bind(ResellerFinder::class, ResellerLoaderFinder::class);

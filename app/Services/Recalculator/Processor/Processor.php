@@ -8,6 +8,7 @@ use App\Services\Recalculator\Exceptions\RecalculateError;
 use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Processor\EloquentProcessor;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
@@ -23,9 +24,10 @@ abstract class Processor extends EloquentProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         private Subject $subject,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     protected function item(State $state, mixed $data, mixed $item): void {

@@ -13,6 +13,7 @@ use App\Utils\Iterators\Contracts\Offsetable;
 use App\Utils\Processor\Contracts\Processor as ProcessorContract;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher as EventDispatcher;
 use Laravel\Telescope\Telescope;
@@ -87,6 +88,7 @@ abstract class Processor implements ProcessorContract {
     public function __construct(
         private ExceptionHandler $exceptionHandler,
         private EventDispatcher $dispatcher,
+        private Repository $config,
     ) {
         $this->onInit    = new Dispatcher();
         $this->onChange  = new Dispatcher();
@@ -103,6 +105,10 @@ abstract class Processor implements ProcessorContract {
 
     protected function getDispatcher(): EventDispatcher {
         return $this->dispatcher;
+    }
+
+    protected function getConfig(): Repository {
+        return $this->config;
     }
 
     public function isStopped(): bool {
@@ -132,7 +138,7 @@ abstract class Processor implements ProcessorContract {
         $state         = $this->getState() ?? $this->getDefaultState();
 
         try {
-            $this->call(function () use ($state): void {
+            $this->call($state, function () use ($state): void {
                 $this->invoke($state);
             });
         } catch (Interrupt) {
@@ -591,30 +597,37 @@ abstract class Processor implements ProcessorContract {
     /**
      * @template T
      *
+     * @param TState       $state
      * @param Closure(): T $callback
      *
      * @return T|null
      */
-    protected function call(Closure $callback): mixed {
+    protected function call(State $state, Closure $callback): mixed {
         $result = null;
+        $limit  = $this->getConfig()->get('ep.telescope.processor.limit', -1);
 
         // Global Scopes should be disabled because we want to process all objects.
-        GlobalScopes::callWithoutAll(static function () use (&$result, $callback): void {
+        GlobalScopes::callWithoutAll(static function () use (&$result, $limit, $state, $callback): void {
             // Indexing should be disabled to avoid a lot of queued jobs and
             // speed up processing.
 
-            SearchService::callWithoutIndexing(static function () use (&$result, $callback): void {
-                // Telescope should be disabled because it stored all data in memory
-                // and will dump it only after the job/command/request is finished.
-                // For long-running jobs, this will lead to huge memory usage
+            SearchService::callWithoutIndexing(static function () use (&$result, $limit, $state, $callback): void {
+                // Processor can create a lot of objects, so will be good to
+                // group multiple inserts into one.
 
-                Telescope::withoutRecording(static function () use (&$result, $callback): void {
-                    // Processor can create a lot of objects, so will be good to
-                    // group multiple inserts into one.
+                BatchSave::enable(static function () use (&$result, $limit, $state, $callback): void {
+                    // Telescope should be disabled because it stored all data
+                    // in memory and will dump it only after the job/command/request
+                    // is finished. For long-running jobs, this will lead to
+                    // huge memory usage and/or fail.
 
-                    BatchSave::enable(static function () use (&$result, $callback): void {
+                    if ($limit === null || ($limit > 0 && $state->total !== null && $state->total <= $limit)) {
                         $result = $callback();
-                    });
+                    } else {
+                        Telescope::withoutRecording(static function () use (&$result, $callback): void {
+                            $result = $callback();
+                        });
+                    }
                 });
             });
         });

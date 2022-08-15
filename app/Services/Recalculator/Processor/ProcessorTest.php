@@ -7,6 +7,7 @@ use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Utils\Eloquent\Events\Subject;
 use App\Utils\Processor\EloquentState;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -23,10 +24,12 @@ class ProcessorTest extends TestCase {
     public function testWillNotDispatchEventIfNoChanges(): void {
         $subject    = $this->app->make(Subject::class);
         $handler    = $this->app->make(ExceptionHandler::class);
+        $config     = $this->app->make(Repository::class);
         $dispatcher = Event::fake(ModelsRecalculated::class);
         $processor  = new /** @extends Processor<Customer, ChunkData<Customer>, EloquentState<Customer>> */ class(
             $handler,
             $dispatcher,
+            $config,
             $subject,
         ) extends Processor {
             protected function getModel(): string {
@@ -61,10 +64,12 @@ class ProcessorTest extends TestCase {
     public function testWillDispatchEventIfChanges(): void {
         $subject    = $this->app->make(Subject::class);
         $handler    = $this->app->make(ExceptionHandler::class);
+        $config     = $this->app->make(Repository::class);
         $dispatcher = Event::fake(ModelsRecalculated::class);
         $processor  = new /** @extends Processor<Customer, ChunkData<Customer>, EloquentState<Customer>> */ class(
             $handler,
             $dispatcher,
+            $config,
             $subject,
         ) extends Processor {
             protected function getModel(): string {

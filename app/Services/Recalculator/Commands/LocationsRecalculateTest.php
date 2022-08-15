@@ -4,6 +4,7 @@ namespace App\Services\Recalculator\Commands;
 
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Utils\Eloquent\Events\Subject;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Mockery;
@@ -23,6 +24,7 @@ class LocationsRecalculateTest extends TestCase {
             $mock = Mockery::mock(LocationsProcessor::class, [
                 Mockery::mock(ExceptionHandler::class),
                 $this->app->make(Dispatcher::class),
+                $this->app->make(Repository::class),
                 Mockery::mock(Subject::class),
             ]);
             $mock->shouldAllowMockingProtectedMethods();

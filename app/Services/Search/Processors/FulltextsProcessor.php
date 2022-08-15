@@ -7,6 +7,7 @@ use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeProcessor;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\State;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -27,9 +28,10 @@ class FulltextsProcessor extends CompositeProcessor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         private Container $container,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     // <editor-fold desc="Description">

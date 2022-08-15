@@ -9,6 +9,7 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\Processor;
 use App\Utils\Processor\State;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Throwable;
@@ -27,9 +28,10 @@ class CallbackLoader extends Processor {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Dispatcher $dispatcher,
+        Repository $config,
         protected Client $client,
     ) {
-        parent::__construct($exceptionHandler, $dispatcher);
+        parent::__construct($exceptionHandler, $dispatcher, $config);
     }
 
     // <editor-fold desc="Getters / Setters">

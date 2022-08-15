@@ -7,7 +7,12 @@ use App\Exceptions\Contracts\ExternalException;
 use App\Exceptions\Contracts\GenericException;
 use App\Exceptions\Contracts\TranslatedException;
 use App\Exceptions\Exceptions\FailedToSendMail;
+use App\Services\Keycloak\Exceptions\Auth\AuthorizationFailed;
 use App\Services\Keycloak\Exceptions\Auth\InvalidCredentials;
+use App\Services\Keycloak\Exceptions\Auth\InvalidIdentity;
+use App\Services\Keycloak\Exceptions\Auth\StateMismatch;
+use App\Services\Keycloak\Exceptions\Auth\UnknownScope;
+use App\Services\Keycloak\Exceptions\Auth\UserDisabled;
 use App\Services\Service;
 use ElasticAdapter\Exceptions\BulkRequestException;
 use Exception;
@@ -24,7 +29,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Nuwave\Lighthouse\Exceptions\DefinitionException as GraphQLDefinitionException;
+use Nuwave\Lighthouse\Exceptions\DefinitionException;
 use Nuwave\Lighthouse\Exceptions\RateLimitException;
 use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -56,7 +61,13 @@ class Handler extends ExceptionHandler {
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
+        AuthorizationFailed::class,
         InvalidCredentials::class,
+        InvalidIdentity::class,
+        StateMismatch::class,
+        UnknownScope::class,
+        UserDisabled::class,
+        DefinitionException::class,
     ];
 
     /**
@@ -267,7 +278,7 @@ class Handler extends ExceptionHandler {
             ];
             $string = $http[$error->getStatusCode()]
                 ?? "errors.http.{$error->getStatusCode()}";
-        } elseif ($error instanceof GraphQLDefinitionException) {
+        } elseif ($error instanceof DefinitionException) {
             $string = 'errors.graphql.schema_broken';
         } elseif ($error instanceof GraphQLError) {
             $string = 'errors.graphql.error';

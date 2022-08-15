@@ -12,6 +12,7 @@ use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use App\Utils\Processor\Contracts\StateStore;
 use Closure;
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Date;
@@ -34,9 +35,14 @@ class ProcessorTest extends TestCase {
      */
     public function testStart(): void {
         $state     = new State(['offset' => $this->faker->uuid()]);
+        $config    = $this->app->make(Repository::class);
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
+        $processor
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($config);
         $processor
             ->shouldReceive('getState')
             ->once()
@@ -60,6 +66,7 @@ class ProcessorTest extends TestCase {
      * @covers ::stop
      */
     public function testStop(): void {
+        $config    = $this->app->make(Repository::class);
         $processor = Mockery::mock(Processor::class);
         $iterator  = new OneChunkOffsetBasedObjectIterator(
             static function () use ($processor): array {
@@ -70,6 +77,10 @@ class ProcessorTest extends TestCase {
         );
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
+        $processor
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($config);
         $processor
             ->shouldReceive('getState')
             ->once()
@@ -116,9 +127,14 @@ class ProcessorTest extends TestCase {
     public function testResetRunning(): void {
         self::expectExceptionObject(new LogicException('Reset is not possible while running.'));
 
+        $config    = $this->app->make(Repository::class);
         $processor = Mockery::mock(Processor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
+        $processor
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($config);
         $processor
             ->shouldReceive('getState')
             ->once()
@@ -189,9 +205,10 @@ class ProcessorTest extends TestCase {
             ->andReturn([]);
 
         $data       = new stdClass();
+        $config     = $this->app->make(Repository::class);
         $handler    = $this->app->make(ExceptionHandler::class);
         $dispatcher = $this->app->make(Dispatcher::class);
-        $processor  = Mockery::mock(ProcessorTest__Processor::class, [$handler, $dispatcher]);
+        $processor  = Mockery::mock(ProcessorTest__Processor::class, [$handler, $dispatcher, $config]);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
         $processor
@@ -552,10 +569,6 @@ class ProcessorTest extends TestCase {
  * @extends Processor<mixed,mixed,State>
  */
 class ProcessorTest__Processor extends Processor {
-    public function __construct(ExceptionHandler $exceptionHandler, Dispatcher $dispatcher) {
-        parent::__construct($exceptionHandler, $dispatcher);
-    }
-
     /**
      * @inheritDoc
      */
