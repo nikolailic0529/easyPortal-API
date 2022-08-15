@@ -1,12 +1,15 @@
 [
     {
-        "App\\Models\\Distributor": [],
-        "App\\Models\\Reseller": {
-            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
-        },
-        "App\\Models\\Customer": [],
-        "App\\Models\\Document": [],
-        "App\\Models\\Location": [],
-        "App\\Models\\Asset": []
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "22d7dbf2-977a-49d8-8e4c-cacdaae616b2": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Location": [],
+            "App\\Models\\Asset": []
+        }
     }
 ]

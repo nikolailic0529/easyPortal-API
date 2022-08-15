@@ -44,7 +44,8 @@ trait WithEvents {
     private function cleanupEvent(object $event): mixed {
         // todo(tests): Probably will be good to add some generic interface for
         //      all app's events and for events that can be dumped/compared.
-        $data = null;
+        $class = $event::class;
+        $data  = null;
 
         if ($event instanceof DataImported) {
             $data = $event->getData()->getData();
@@ -55,7 +56,6 @@ trait WithEvents {
             ];
         } elseif ($event instanceof ModelsImported) {
             $data = [
-                'event'  => $event::class,
                 'models' => $event->models->map(static function (Model $model): mixed {
                     return $model->getKey();
                 }),
@@ -64,6 +64,9 @@ trait WithEvents {
             throw new LogicException('Not yet supported.');
         }
 
-        return $data;
+        return [
+            'event' => $class,
+            'data'  => $data,
+        ];
     }
 }
