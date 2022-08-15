@@ -221,7 +221,7 @@ class Keycloak {
             'email',
             'phone',
             'profile',
-            "reseller_{$this->getOrganizationScope($organization)}",
+            $this->getOrganizationScope($organization),
         ];
     }
 

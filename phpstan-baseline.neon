@@ -6821,67 +6821,12 @@ parameters:
 			path: app/Services/Organization/Eloquent/OwnedByScopeTest.php
 
 		-
-			message: "#^Cannot access property \\$brandingMode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$defaultLogoUrl on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$defaultMainColor on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$favIconUrl on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
 			message: "#^Cannot access property \\$keycloak_group_id on App\\\\Models\\\\Organization\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
 
 		-
 			message: "#^Cannot access property \\$keycloak_scope on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$logoUrl on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$mainColor on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$mainImageOnTheRight on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$resellerAnalyticsCode on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$secondaryColor on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$secondaryColorDefault on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
-			count: 1
-			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
-
-		-
-			message: "#^Cannot access property \\$useDefaultFavIcon on App\\\\Services\\\\DataLoader\\\\Schema\\\\BrandingData\\|null\\.$#"
 			count: 1
 			path: app/Services/Organization/Listeners/OrganizationUpdaterTest.php
 
