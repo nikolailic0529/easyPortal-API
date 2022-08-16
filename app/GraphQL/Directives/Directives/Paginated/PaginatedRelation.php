@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\GraphQL\Directives\Directives\Relation;
+use App\Utils\Eloquent\Callbacks\OrderByKey;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use Illuminate\Contracts\Config\Repository;
@@ -17,10 +18,11 @@ use function sprintf;
 abstract class PaginatedRelation extends Base {
     public function __construct(
         Container $container,
+        OrderByKey $orderByCallback,
         protected Repository $config,
         protected DirectiveLocator $directives,
     ) {
-        parent::__construct($container);
+        parent::__construct($container, $orderByCallback);
     }
 
     public static function definition(): string {

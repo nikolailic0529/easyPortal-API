@@ -2,6 +2,12 @@
 
 namespace App\GraphQL\Directives\Directives;
 
+use App\Utils\Eloquent\Callbacks\OrderByKey;
+use Closure;
+use GraphQL\Type\Definition\ResolveInfo;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\DatabaseManager;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
@@ -10,6 +16,14 @@ use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use function in_array;
 
 abstract class Relation extends RelationDirective {
+    public function __construct(
+        Repository $config,
+        DatabaseManager $database,
+        protected OrderByKey $orderByCallback,
+    ) {
+        parent::__construct($config, $database);
+    }
+
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
@@ -39,5 +53,20 @@ abstract class Relation extends RelationDirective {
         // Some relations like `HasMany` use `IN (<key>)` and can be used across
         // different connections.
         return in_array($relation::class, [HasMany::class], true);
+    }
+
+    protected function makeBuilderDecorator(ResolveInfo $resolveInfo): Closure {
+        $callback  = $this->orderByCallback;
+        $decorator = parent::makeBuilderDecorator($resolveInfo);
+        $decorator = static function (EloquentBuilder|EloquentRelation $builder) use ($callback, $decorator): void {
+            if ($builder instanceof EloquentRelation) {
+                $builder = $builder->getQuery();
+            }
+
+            $decorator($builder);
+            $callback($builder);
+        };
+
+        return $decorator;
     }
 }

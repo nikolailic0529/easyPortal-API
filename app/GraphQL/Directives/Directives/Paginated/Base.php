@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\GraphQL\Directives\BuilderArguments;
+use App\Utils\Eloquent\Callbacks\OrderByKey;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use Illuminate\Contracts\Container\Container;
@@ -17,6 +18,7 @@ abstract class Base extends BaseDirective implements FieldManipulator, FieldBuil
 
     public function __construct(
         protected Container $container,
+        protected OrderByKey $orderByCallback,
     ) {
         // empty
     }
@@ -33,11 +35,7 @@ abstract class Base extends BaseDirective implements FieldManipulator, FieldBuil
 
     public function handleFieldBuilder(object $builder): object {
         if ($builder instanceof Builder) {
-            $key = $builder->getModel()->getKeyName();
-
-            if ($key) {
-                $builder->orderBy($key);
-            }
+            $builder = ($this->orderByCallback)($builder);
         }
 
         return $builder;
