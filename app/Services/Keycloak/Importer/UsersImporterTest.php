@@ -520,10 +520,6 @@ class UsersImporterTest extends TestCase {
             public function process(State $state, mixed $data, mixed $item): void {
                 parent::process($state, $data, $item);
             }
-
-            protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
-                return new Collection();
-            }
         };
 
         $importer->process($state, $data, $item);
@@ -586,10 +582,6 @@ class UsersImporterTest extends TestCase {
 
             public function process(State $state, mixed $data, mixed $item): void {
                 parent::process($state, $data, $item);
-            }
-
-            protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
-                return new Collection();
             }
         };
 

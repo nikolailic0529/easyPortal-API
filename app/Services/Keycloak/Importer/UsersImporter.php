@@ -22,13 +22,15 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Date;
 use Throwable;
 
-use function array_diff;
+use function array_map;
 use function array_merge;
 use function in_array;
+use function mb_strtolower;
+use function trim;
 
 /**
  * @extends IteratorProcessor<KeycloakUser,UsersImporterChunkData,UsersImporterState>
@@ -169,10 +171,22 @@ class UsersImporter extends IteratorProcessor {
      * @return Collection<int, OrganizationUser>
      */
     protected function getUserOrganizations(User $user, KeycloakUser $item): Collection {
+        // Prepare
+        $groups = array_map(
+            static function (string $group): string {
+                return trim(mb_strtolower($group));
+            },
+            $item->groups,
+        );
+
+        if (!$groups) {
+            return new Collection();
+        }
+
         // Organizations & Roles
         // (some groups refers to the organization some to roles)
         $organizations = Organization::query()
-            ->whereIn('keycloak_group_id', $item->groups)
+            ->whereIn('keycloak_group_id', $groups)
             ->get()
             ->keyBy(new GetKey());
         $existing      = $user->organizations
@@ -184,12 +198,17 @@ class UsersImporter extends IteratorProcessor {
             ->whereNotNull('organization_id')
             ->whereIn(
                 (new Role())->getKeyName(),
-                array_diff($item->groups, $organizations->keys()->all()),
+                $groups,
             )
             ->get();
 
         foreach ($roles as $role) {
-            $key                      = $role->organization_id;
+            $key = $role->organization_id;
+
+            if ($key === null) {
+                continue;
+            }
+
             $orgUser                  = $existing->get($key) ?? new OrganizationUser();
             $orgUser->organization_id = $key;
             $orgUser->role            = $role;
@@ -214,7 +233,7 @@ class UsersImporter extends IteratorProcessor {
             ->whereKey($this->getConfig()->get('ep.keycloak.org_admin_group'))
             ->first();
 
-        if ($orgAdminRole && in_array($orgAdminRole->getKey(), $item->groups, true)) {
+        if ($orgAdminRole && in_array($orgAdminRole->getKey(), $groups, true)) {
             foreach ($organizations as $organization) {
                 $key     = $organization->getKey();
                 $orgUser = $existing->get($key) ?: new OrganizationUser();
@@ -231,7 +250,7 @@ class UsersImporter extends IteratorProcessor {
         }
 
         // Return
-        return $existing;
+        return $existing->values();
     }
 
     protected function deleteUser(User $user): void {
