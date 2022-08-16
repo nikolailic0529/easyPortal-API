@@ -98,7 +98,7 @@ class UsersImporter extends IteratorProcessor {
         $user->family_name    = $item->lastName ?? null;
         $user->email_verified = $item->emailVerified;
         $user->enabled        = $item->enabled;
-        $user->permissions    = [];
+        $user->permissions  ??= [];
         $user->office_phone   = $attributes['office_phone'][0] ?? null;
         $user->contact_email  = $attributes['contact_email'][0] ?? null;
         $user->title          = $attributes['title'][0] ?? null;

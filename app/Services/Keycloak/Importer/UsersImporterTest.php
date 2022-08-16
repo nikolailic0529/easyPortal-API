@@ -113,7 +113,7 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser) {
+        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser): ?User {
             return User::query()
                 ->with(['organizations'])
                 ->whereKey($keycloakUser->id)
@@ -126,6 +126,7 @@ class UsersImporterTest extends TestCase {
         self::assertEquals($user->given_name, $keycloakUser->firstName);
         self::assertEquals($user->family_name, $keycloakUser->lastName);
         self::assertEquals($user->email, $keycloakUser->email);
+        self::assertEmpty($user->permissions);
 
         // profile
         self::assertEquals($user->office_phone, $keycloakUser->attributes['office_phone'][0]);
@@ -237,7 +238,7 @@ class UsersImporterTest extends TestCase {
             ->setLimit(1)
             ->start();
 
-        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser) {
+        $user = GlobalScopes::callWithoutAll(static function () use ($keycloakUser): ?User {
             return User::query()
                 ->with(['organizations'])
                 ->whereKey($keycloakUser->id)
@@ -281,6 +282,75 @@ class UsersImporterTest extends TestCase {
             ->all();
 
         self::assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::import
+     *
+     * @see https://github.com/fakharanwar/easyPortal-API/issues/1008
+     */
+    public function testImportExistingUserWithPermissions(): void {
+        // Prepare
+        $org  = Organization::factory()->create([
+            'keycloak_group_id' => 'a0943090-5d61-4d4e-ba25-22eb962ab8e9',
+        ]);
+        $role = Role::factory()->create([
+            'id'              => 'fcc8bcf4-6c21-4219-a2f4-0dacfa67a030',
+            'organization_id' => $org->getKey(),
+        ]);
+        $user = User::factory()->create([
+            'id'          => '6b5501e1-c754-4f24-882e-aa35c8432775',
+            'permissions' => ['permission-a', 'permission-b'],
+        ]);
+
+        GlobalScopes::callWithoutAll(static function () use ($user, $org): void {
+            OrganizationUser::factory()->create([
+                'organization_id' => $org,
+                'user_id'         => $user,
+                'role_id'         => null,
+                'enabled'         => true,
+            ]);
+        });
+
+        $keycloakUser = new KeycloakUser([
+            'id'            => $user->getKey(),
+            'email'         => 'test@example.com',
+            'firstName'     => 'first',
+            'lastName'      => 'last',
+            'emailVerified' => false,
+            'enabled'       => true,
+            'groups'        => [
+                $role->getKey(),
+            ],
+        ]);
+
+        $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock->makePartial();
+            $mock
+                ->shouldReceive('call')
+                ->never();
+            $mock
+                ->shouldReceive('getUsers')
+                ->once()
+                ->andReturns([
+                    $keycloakUser,
+                ]);
+            $mock
+                ->shouldReceive('usersCount')
+                ->once()
+                ->andReturns(1);
+        });
+
+        // call
+        $this->app->make(UsersImporter::class)
+            ->setChunkSize(1)
+            ->setLimit(1)
+            ->start();
+
+        $user = $user->refresh();
+
+        self::assertEquals(['permission-a', 'permission-b'], $user->permissions);
     }
 
     /**
