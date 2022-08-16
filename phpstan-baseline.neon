@@ -6346,22 +6346,7 @@ parameters:
 			path: app/Services/Keycloak/Commands/PermissionsSync.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:get\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:put\\(\\) expects \\(int\\|string\\), string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\Organization\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),App\\\\Models\\\\OrganizationUser\\>\\:\\:forget\\(\\) expects array\\<\\(int\\|string\\)\\>\\|int\\|string, string\\|null given\\.$#"
+			message: "#^Method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:getUserOrganizations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -6372,16 +6357,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$item of method App\\\\Services\\\\Keycloak\\\\Importer\\\\UsersImporter\\:\\:report\\(\\) expects App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\|null, Illuminate\\\\Database\\\\Eloquent\\\\Model given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Property App\\\\Models\\\\OrganizationUser\\:\\:\\$organization_id \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporter.php
-
-		-
-			message: "#^Property App\\\\Models\\\\User\\:\\:\\$organizations \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\>\\) does not accept Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\OrganizationUser\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporter.php
 
@@ -6411,7 +6386,7 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:388 given\\.$#"
+			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:458 given\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
