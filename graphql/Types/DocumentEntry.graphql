@@ -35,4 +35,12 @@ type DocumentEntry {
     asset: Asset @relation
 
     fields: [FieldValue!]! @relation
+
+    field(field_id: ID!): FieldValue
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Field"
+    )
+    @with(
+        relation: "fields"
+    )
 }

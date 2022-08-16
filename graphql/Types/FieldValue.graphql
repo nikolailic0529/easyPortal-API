@@ -1,5 +1,5 @@
 type FieldValue {
-    field: Field! @relation
     field_id: ID!
+    field: Field! @relation
     value: String
 }

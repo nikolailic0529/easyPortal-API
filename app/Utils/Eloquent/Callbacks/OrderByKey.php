@@ -4,8 +4,6 @@ namespace App\Utils\Eloquent\Callbacks;
 
 use Illuminate\Database\Eloquent\Builder;
 
-use function is_iterable;
-
 class OrderByKey {
     /**
      * @template T of \Illuminate\Database\Eloquent\Model

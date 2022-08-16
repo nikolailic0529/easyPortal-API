@@ -232,6 +232,10 @@ class ContractTest extends TestCase {
                             }
                             start
                             end
+                            field(field_id: "7807f9fd-15f3-4f06-a038-74756ddced47") {
+                                field_id
+                                value
+                            }
                             fields {
                                 field_id
                                 value
@@ -498,6 +502,10 @@ class ContractTest extends TestCase {
                                     ],
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
+                                    'field'            => [
+                                        'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
+                                        'value'    => 'value',
+                                    ],
                                     'fields'           => [
                                         [
                                             'field_id' => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
