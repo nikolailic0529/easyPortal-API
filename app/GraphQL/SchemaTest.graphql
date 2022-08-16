@@ -6761,6 +6761,16 @@ type DocumentEntry {
     document_id: ID!
     end: Date
 
+    field(
+        field_id: ID!
+    ): FieldValue
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Field"
+    )
+    @with(
+        relation: "fields"
+    )
+
     fields: [FieldValue!]!
     @relation
 
