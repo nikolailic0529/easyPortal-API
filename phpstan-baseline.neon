@@ -2761,6 +2761,11 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
+			message: "#^Parameter \\#1 \\$cellValues of static method OpenSpout\\\\Common\\\\Entity\\\\Row\\:\\:fromValues\\(\\) expects array\\<int, bool\\|DateInterval\\|DateTimeInterface\\|float\\|int\\|string\\|null\\>, array given\\.$#"
+			count: 1
+			path: app/Http/Controllers/Export/ExportController.php
+
+		-
 			message: "#^Parameter \\#1 \\$message of class Illuminate\\\\Auth\\\\Access\\\\AuthorizationException constructor expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
@@ -2781,41 +2786,6 @@ parameters:
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:testCvs\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:testPdf\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:testXlsx\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Only numeric types are allowed in \\+, int\\|null given on the left side\\.$#"
-			count: 2
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$closure of class LastDragon_ru\\\\LaraASP\\\\Testing\\\\Constraints\\\\ClosureConstraint constructor expects Closure\\(mixed\\)\\: bool, Closure\\(Psr\\\\Http\\\\Message\\\\ResponseInterface\\)\\: true given\\.$#"
-			count: 2
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:64\\:\\:getHeaders\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportControllerTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$orgFactory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects App\\\\Models\\\\Organization\\|\\(callable\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null, App\\\\Models\\\\Organization\\|\\(callable\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\)\\)\\: App\\\\Models\\\\Organization\\|null\\)\\|null given\\.$#"
 			count: 3
 			path: app/Http/Controllers/Export/ExportControllerTest.php
@@ -2826,12 +2796,12 @@ parameters:
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$item of method class@anonymous/app/Http/Controllers/Export/ExportControllerTest\\.php\\:92\\:\\:getHeaderValue\\(\\) expects array, mixed given\\.$#"
-			count: 1
+			message: "#^Parameter \\#2 \\$userFactory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects App\\\\Models\\\\User\\|\\(callable\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null given\\.$#"
+			count: 3
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$userFactory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects App\\\\Models\\\\User\\|\\(callable\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null, App\\\\Models\\\\User\\|\\(callable\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null\\)\\: App\\\\Models\\\\User\\|null\\)\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$factory of method App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\:\\:prepare\\(\\) expects \\(Closure\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest, App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null, \\(Closure\\(static\\(App\\\\Http\\\\Controllers\\\\Export\\\\ExportControllerTest\\), App\\\\Models\\\\Organization\\|null, App\\\\Models\\\\User\\|null\\)\\: int\\|null\\)\\|null given\\.$#"
 			count: 3
 			path: app/Http/Controllers/Export/ExportControllerTest.php
 
