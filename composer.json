@@ -46,7 +46,7 @@
     "propaganistas/laravel-phone": "^4.2",
     "sentry/sentry-laravel": "^2.10",
     "staudenmeir/eloquent-has-many-deep": "^1.14",
-    "stevebauman/purify": "^4.0",
+    "stevebauman/purify": "^5.0.0",
     "symfony/mime": "^v6.0.3",
     "symfony/polyfill-php81": "^1.23"
   },
