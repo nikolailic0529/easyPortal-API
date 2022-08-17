@@ -5,8 +5,8 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use ResourceBundle;
 
-use function __;
 use function in_array;
+use function trans;
 
 class Locale implements Rule {
     /**
@@ -17,6 +17,6 @@ class Locale implements Rule {
     }
 
     public function message(): string {
-        return __('validation.locale');
+        return trans('validation.locale');
     }
 }

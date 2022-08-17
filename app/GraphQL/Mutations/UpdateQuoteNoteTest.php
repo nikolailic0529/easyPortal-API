@@ -25,8 +25,8 @@ use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
 
-use function __;
 use function array_key_exists;
+use function trans;
 
 /**
  * @internal
@@ -346,7 +346,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid note id'     => [
                         new GraphQLError('updateQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.document_statuses_hidden' => [],
@@ -370,7 +370,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid note text'   => [
                         new GraphQLError('updateQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.file.max_size' => 250,
@@ -394,7 +394,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid file size'   => [
                         new GraphQLError('updateQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.file.max_size' => 100,
@@ -418,7 +418,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid file format' => [
                         new GraphQLError('updateQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.file.max_size' => 200,

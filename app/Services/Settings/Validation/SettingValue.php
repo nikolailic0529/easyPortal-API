@@ -8,9 +8,9 @@ use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Contracts\Validation\Validator;
 
-use function __;
 use function array_map;
 use function implode;
+use function trans;
 use function trim;
 
 class SettingValue implements Rule {
@@ -50,7 +50,7 @@ class SettingValue implements Rule {
             return trim(trim($message, '.'));
         }, $messages);
 
-        return __('validation.setting', [
+        return trans('validation.setting', [
             'setting'  => $this->setting->getName(),
             'messages' => implode(', ', $messages),
         ]);

@@ -5,7 +5,7 @@ namespace App\Services\Keycloak\Exceptions\Auth;
 use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class AuthorizationFailed extends AuthException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class AuthorizationFailed extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('auth.failed');
+        return trans('auth.failed');
     }
 }

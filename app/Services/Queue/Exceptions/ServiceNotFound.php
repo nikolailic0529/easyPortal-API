@@ -6,8 +6,8 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Queue\ServiceException;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class ServiceNotFound extends ServiceException implements TranslatedException {
     public function __construct(
@@ -18,7 +18,7 @@ class ServiceNotFound extends ServiceException implements TranslatedException {
     }
 
     public function getErrorMessage(): string {
-        return __('queue.errors.service_not_found', [
+        return trans('queue.errors.service_not_found', [
             'service' => $this->service,
         ]);
     }

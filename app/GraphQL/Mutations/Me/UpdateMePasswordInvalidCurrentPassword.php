@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Me;
 use App\GraphQL\GraphQLException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class UpdateMePasswordInvalidCurrentPassword extends GraphQLException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class UpdateMePasswordInvalidCurrentPassword extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.updateMePassword.invalid_current_password');
+        return trans('graphql.mutations.updateMePassword.invalid_current_password');
     }
 }

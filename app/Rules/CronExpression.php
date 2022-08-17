@@ -5,8 +5,8 @@ namespace App\Rules;
 use Cron\CronExpression as Cron;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function is_string;
+use function trans;
 
 /**
  * Cron Expression.
@@ -22,6 +22,6 @@ class CronExpression implements Rule {
     }
 
     public function message(): string {
-        return __('validation.cron');
+        return trans('validation.cron');
     }
 }

@@ -6,9 +6,9 @@ use App\Models\User;
 use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
-use function __;
 use function implode;
 use function sprintf;
+use function trans;
 
 class UserInsufficientData extends AuthException {
     /**
@@ -27,6 +27,6 @@ class UserInsufficientData extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.auth.insufficient_data');
+        return trans('keycloak.auth.insufficient_data');
     }
 }

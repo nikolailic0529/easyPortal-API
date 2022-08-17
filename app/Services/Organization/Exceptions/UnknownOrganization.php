@@ -6,7 +6,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Organization\ServiceException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class UnknownOrganization extends ServiceException implements TranslatedException {
     public function __construct(Throwable $previous = null) {
@@ -14,6 +14,6 @@ class UnknownOrganization extends ServiceException implements TranslatedExceptio
     }
 
     public function getErrorMessage(): string {
-        return __('organization.errors.unknown_organization');
+        return trans('organization.errors.unknown_organization');
     }
 }

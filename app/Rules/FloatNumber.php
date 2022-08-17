@@ -4,9 +4,8 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function filter_var;
-
+use function trans;
 use const FILTER_VALIDATE_FLOAT;
 
 class FloatNumber implements Rule {
@@ -18,6 +17,6 @@ class FloatNumber implements Rule {
     }
 
     public function message(): string {
-        return __('validation.float');
+        return trans('validation.float');
     }
 }

@@ -23,7 +23,7 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
-use function __;
+use function trans;
 
 /**
  * @internal
@@ -198,7 +198,7 @@ class CreateTest extends TestCase {
                 ],
                 'Invalid name'        => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     $prepare,
                     [
@@ -211,7 +211,7 @@ class CreateTest extends TestCase {
                 ],
                 'Invalid permissions' => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     $prepare,
                     [
@@ -224,7 +224,7 @@ class CreateTest extends TestCase {
                 ],
                 'Role exists'         => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     static function (TestCase $test, Organization $organization): void {
                         Role::factory()->create([

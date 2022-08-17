@@ -17,7 +17,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
 use ReflectionClass;
 
-use function __;
+use function trans;
 use function trim;
 
 abstract class Notification extends IlluminateNotification {
@@ -64,7 +64,7 @@ abstract class Notification extends IlluminateNotification {
         $name      = (new ReflectionClass($this))->getShortName();
         $translate = static function (string $string, array $replacements = []) use ($service, $name): ?string {
             $key        = "notifications.{$service}.{$name}.{$string}";
-            $translated = Cast::toString(__($key, $replacements));
+            $translated = Cast::toString(trans($key, $replacements));
 
             if ($key === $translated) {
                 $translated = null;
@@ -104,7 +104,7 @@ abstract class Notification extends IlluminateNotification {
 
         // Greeting
         $greeting = $translate('greeting', $replacements)
-            ?: __('notifications.default.greeting', $replacements);
+            ?: trans('notifications.default.greeting', $replacements);
         $message  = $message->greeting($greeting);
 
         // Intro
@@ -130,7 +130,7 @@ abstract class Notification extends IlluminateNotification {
 
         // Salutation
         $salutation = $translate('salutation', $replacements)
-            ?: __('notifications.default.salutation', $replacements);
+            ?: trans('notifications.default.salutation', $replacements);
         $message    = $message->salutation($salutation);
 
         return $message;

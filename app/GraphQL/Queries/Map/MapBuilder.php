@@ -21,7 +21,6 @@ use stdClass;
 use function array_filter;
 use function array_unique;
 use function array_values;
-use function assert;
 use function count;
 use function explode;
 use function max;

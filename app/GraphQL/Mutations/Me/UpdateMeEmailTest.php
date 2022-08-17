@@ -20,7 +20,7 @@ use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithUser;
 
-use function __;
+use function trans;
 
 /**
  * @internal
@@ -110,6 +110,7 @@ class UpdateMeEmailTest extends TestCase {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::keycloak();
                         $user->save();
+
                         return true;
                     },
                     'new@example.com',
@@ -127,6 +128,7 @@ class UpdateMeEmailTest extends TestCase {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::local();
                         $user->save();
+
                         return true;
                     },
                     'new@example.com',
@@ -142,6 +144,7 @@ class UpdateMeEmailTest extends TestCase {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::keycloak();
                         $user->save();
+
                         return true;
                     },
                     'new@example.com',
@@ -154,7 +157,7 @@ class UpdateMeEmailTest extends TestCase {
                 ],
                 'keycloak/taken'       => [
                     new GraphQLError('updateMeEmail', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
@@ -162,6 +165,7 @@ class UpdateMeEmailTest extends TestCase {
                         $user->save();
 
                         User::factory(['email' => 'new@example.com'])->create();
+
                         return true;
                     },
                     'new@example.com',
@@ -173,7 +177,7 @@ class UpdateMeEmailTest extends TestCase {
                 ],
                 'local/taken'          => [
                     new GraphQLError('updateMeEmail', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
@@ -181,6 +185,7 @@ class UpdateMeEmailTest extends TestCase {
                         $user->save();
 
                         User::factory(['email' => 'new@example.com'])->create();
+
                         return true;
                     },
                     'new@example.com',

@@ -4,9 +4,9 @@ namespace App\Services\I18n\Eloquent;
 
 use App\Utils\Eloquent\Model;
 
-use function __;
 use function in_array;
 use function reset;
+use function trans;
 
 /**
  * @see \App\Services\I18n\Contracts\Translatable
@@ -26,7 +26,7 @@ trait TranslateProperties {
         $value = null;
 
         foreach ($keys as $key) {
-            $translated = __($key);
+            $translated = trans($key);
 
             if ($translated !== $key) {
                 $value = $translated;

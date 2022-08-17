@@ -13,9 +13,9 @@ use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use ReflectionClass;
 
-use function __;
 use function array_values;
 use function reset;
+use function trans;
 
 class Services {
     public function __construct(
@@ -82,7 +82,7 @@ class Services {
 
     protected function getDescription(CronJob $service): ?string {
         $key  = "settings.services.{$this->queue->getName($service)}";
-        $desc = Cast::toString(__($key));
+        $desc = Cast::toString(trans($key));
 
         if ($key === $desc) {
             $desc = (new Description())->get(new ReflectionClass($service));

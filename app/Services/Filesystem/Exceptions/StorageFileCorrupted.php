@@ -5,7 +5,7 @@ namespace App\Services\Filesystem\Exceptions;
 use App\Services\Filesystem\Disk;
 use Throwable;
 
-use function __;
+use function trans;
 
 class StorageFileCorrupted extends StorageException {
     public function __construct(
@@ -20,7 +20,7 @@ class StorageFileCorrupted extends StorageException {
     }
 
     public function getErrorMessage(): string {
-        return __('errors.storage.file_corrupted', [
+        return trans('errors.storage.file_corrupted', [
             'disc' => (string) $this->disc,
             'file' => $this->path,
         ]);

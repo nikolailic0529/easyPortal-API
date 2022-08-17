@@ -5,8 +5,8 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function filter_var;
+use function trans;
 
 use const FILTER_VALIDATE_INT;
 
@@ -26,7 +26,7 @@ class LimitRule implements Rule {
     }
 
     public function message(): string {
-        return __('validation.max.numeric', [
+        return trans('validation.max.numeric', [
             'max' => $this->getMaxValue(),
         ]);
     }

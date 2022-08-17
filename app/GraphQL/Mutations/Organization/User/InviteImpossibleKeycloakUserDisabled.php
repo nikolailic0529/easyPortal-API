@@ -6,8 +6,8 @@ use App\GraphQL\GraphQLException;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class InviteImpossibleKeycloakUserDisabled extends GraphQLException {
     public function __construct(KeycloakUser $user, Throwable $previous = null) {
@@ -18,6 +18,6 @@ class InviteImpossibleKeycloakUserDisabled extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.organization.user.invite.impossible_keycloak_user_disabled');
+        return trans('graphql.mutations.organization.user.invite.impossible_keycloak_user_disabled');
     }
 }

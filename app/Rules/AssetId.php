@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Asset;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class AssetId implements Rule {
     /**
@@ -16,6 +16,6 @@ class AssetId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.asset_id');
+        return trans('validation.asset_id');
     }
 }

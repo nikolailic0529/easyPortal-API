@@ -2,12 +2,12 @@
 
 namespace Tests\GraphQL;
 
-use function __;
+use function trans;
 
 class GraphQLValidationError extends GraphQLError {
     public function __construct(string $root) {
         parent::__construct($root, static function (): array {
-            return [__('errors.validation_failed')];
+            return [trans('errors.validation_failed')];
         });
     }
 

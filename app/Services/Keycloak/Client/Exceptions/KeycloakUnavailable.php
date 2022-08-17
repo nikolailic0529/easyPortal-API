@@ -6,7 +6,7 @@ use App\Exceptions\Contracts\ExternalException;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
-use function __;
+use function trans;
 
 class KeycloakUnavailable extends ClientException implements ExternalException, IteratorFatalError {
     public function __construct(Throwable $previous = null) {
@@ -14,6 +14,6 @@ class KeycloakUnavailable extends ClientException implements ExternalException, 
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.unavailable');
+        return trans('keycloak.client.unavailable');
     }
 }

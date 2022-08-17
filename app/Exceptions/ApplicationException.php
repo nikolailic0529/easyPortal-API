@@ -5,10 +5,9 @@ namespace App\Exceptions;
 use App\Services\Service;
 use App\Utils\Cast;
 use Exception;
-use Stringable;
 use Throwable;
 
-use function __;
+use function trans;
 
 abstract class ApplicationException extends Exception {
     use HasErrorCode;
@@ -73,6 +72,6 @@ abstract class ApplicationException extends Exception {
             }
         }
 
-        return Cast::toString(__($message, $replacements));
+        return Cast::toString(trans($message, $replacements));
     }
 }

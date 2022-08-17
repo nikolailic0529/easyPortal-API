@@ -11,8 +11,8 @@ use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use ReflectionClass;
 
-use function __;
 use function array_values;
+use function trans;
 
 class Jobs {
     public function __construct(
@@ -62,7 +62,7 @@ class Jobs {
 
     protected function getDescription(Job $job): ?string {
         $key  = "settings.jobs.{$this->queue->getName($job)}";
-        $desc = Cast::toString(__($key));
+        $desc = Cast::toString(trans($key));
 
         if ($key === $desc) {
             $desc = (new Description())->get(new ReflectionClass($job));

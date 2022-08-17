@@ -4,8 +4,8 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function in_array;
+use function trans;
 
 class Boolean implements Rule {
     /**
@@ -16,6 +16,6 @@ class Boolean implements Rule {
     }
 
     public function message(): string {
-        return __('validation.boolean');
+        return trans('validation.boolean');
     }
 }

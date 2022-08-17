@@ -6,8 +6,8 @@ use App\GraphQL\GraphQLException;
 use App\Models\Invitation;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class SignUpByInviteInvitationExpired extends GraphQLException {
     public function __construct(Invitation $invitation, Throwable $previous = null) {
@@ -18,6 +18,6 @@ class SignUpByInviteInvitationExpired extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.invitation_expired');
+        return trans('graphql.mutations.signUpByInvite.invitation_expired');
     }
 }

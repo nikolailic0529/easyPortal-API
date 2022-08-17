@@ -23,12 +23,12 @@ use InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionClassConstant;
 
-use function __;
 use function gettype;
 use function implode;
 use function is_array;
 use function reset;
 use function sprintf;
+use function trans;
 
 class Setting {
     protected SettingAttribute $definition;
@@ -118,7 +118,7 @@ class Setting {
 
     public function getDescription(): ?string {
         $key  = "settings.descriptions.{$this->getName()}";
-        $desc = Cast::toString(__($key));
+        $desc = Cast::toString(trans($key));
 
         if ($desc === $key) {
             $desc = (new Description())->get($this->constant);
@@ -133,7 +133,7 @@ class Setting {
 
         if ($attribute instanceof GroupAttribute) {
             $key  = "settings.groups.{$attribute->getName()}";
-            $name = Cast::toString(__($key));
+            $name = Cast::toString(trans($key));
 
             if ($key === $name) {
                 $group = $attribute->getName();

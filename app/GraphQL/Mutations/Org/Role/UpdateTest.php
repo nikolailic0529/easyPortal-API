@@ -25,7 +25,7 @@ use Tests\WithOrganization;
 use Tests\WithUser;
 use Throwable;
 
-use function __;
+use function trans;
 
 /**
  * @internal
@@ -210,7 +210,7 @@ class UpdateTest extends TestCase {
                 ],
                 'Empty name'                         => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     $factory,
                     null,
@@ -223,7 +223,7 @@ class UpdateTest extends TestCase {
                 ],
                 'Invalid permissionsIds'             => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     $factory,
                     null,
@@ -245,7 +245,7 @@ class UpdateTest extends TestCase {
                 ],
                 'Role exists'                        => [
                     new GraphQLError('org', static function (): array {
-                        return [__('errors.validation_failed')];
+                        return [trans('errors.validation_failed')];
                     }),
                     static function (TestCase $test, Organization $organization): Role {
                         Role::factory()->create([

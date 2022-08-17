@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Currency;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class CurrencyId implements Rule {
     /**
@@ -16,6 +16,6 @@ class CurrencyId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.currency_id');
+        return trans('validation.currency_id');
     }
 }

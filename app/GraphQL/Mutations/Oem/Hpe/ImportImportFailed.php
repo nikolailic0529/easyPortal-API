@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Oem\Hpe;
 use App\GraphQL\GraphQLException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class ImportImportFailed extends GraphQLException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class ImportImportFailed extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.oem.hpe.import.import_failed');
+        return trans('graphql.mutations.oem.hpe.import.import_failed');
     }
 }

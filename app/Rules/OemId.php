@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Oem;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class OemId implements Rule {
     /**
@@ -16,6 +16,6 @@ class OemId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.oem_id');
+        return trans('validation.oem_id');
     }
 }

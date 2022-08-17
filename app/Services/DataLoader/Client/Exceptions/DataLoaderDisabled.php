@@ -6,7 +6,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
-use function __;
+use function trans;
 
 class DataLoaderDisabled extends ClientException implements TranslatedException, IteratorFatalError {
     public function __construct(Throwable $previous = null) {
@@ -14,6 +14,6 @@ class DataLoaderDisabled extends ClientException implements TranslatedException,
     }
 
     public function getErrorMessage(): string {
-        return __('data-loader.client.disabled');
+        return trans('data-loader.client.disabled');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Team;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class TeamId implements Rule {
     /**
@@ -16,6 +16,6 @@ class TeamId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.team_id');
+        return trans('validation.team_id');
     }
 }

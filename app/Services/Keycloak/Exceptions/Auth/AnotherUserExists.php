@@ -6,8 +6,8 @@ use App\Models\User;
 use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class AnotherUserExists extends AuthException {
     public function __construct(
@@ -21,6 +21,6 @@ class AnotherUserExists extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.auth.another_user_exists');
+        return trans('keycloak.auth.another_user_exists');
     }
 }

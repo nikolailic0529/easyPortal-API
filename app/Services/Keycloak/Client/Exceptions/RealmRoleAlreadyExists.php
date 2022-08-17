@@ -4,7 +4,7 @@ namespace App\Services\Keycloak\Client\Exceptions;
 
 use Throwable;
 
-use function __;
+use function trans;
 
 class RealmRoleAlreadyExists extends ClientException {
     public function __construct(
@@ -15,6 +15,6 @@ class RealmRoleAlreadyExists extends ClientException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.realm_role_already_exists');
+        return trans('keycloak.client.realm_role_already_exists');
     }
 }

@@ -6,7 +6,7 @@ use App\Models\Permission;
 use App\Services\Auth\Auth;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class PermissionId implements Rule {
     use HasOrganization;
@@ -44,6 +44,6 @@ class PermissionId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.organization_permissions_id');
+        return trans('validation.organization_permissions_id');
     }
 }
