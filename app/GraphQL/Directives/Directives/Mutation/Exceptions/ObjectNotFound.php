@@ -3,6 +3,7 @@
 namespace App\GraphQL\Directives\Directives\Mutation\Exceptions;
 
 use App\GraphQL\Directives\Directives\Mutation\MutationException;
+use App\Utils\Cast;
 use Throwable;
 
 use function __;
@@ -28,7 +29,7 @@ class ObjectNotFound extends MutationException {
     protected function getObjectName(): string {
         $object     = $this->object ?: 'Object';
         $string     = "graphql.directives.@mutation.object.{$object}";
-        $translated = __($string);
+        $translated = Cast::toString(__($string));
 
         return $string !== $translated
             ? $translated

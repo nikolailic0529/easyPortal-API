@@ -25,6 +25,7 @@ use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
 use function array_keys;
+use function assert;
 use function sprintf;
 
 class UserProvider implements UserProviderContract {
@@ -398,6 +399,8 @@ class UserProvider implements UserProviderContract {
             if (!$isMember) {
                 $organization = null;
             }
+
+            assert($organization === null || $organization instanceof Organization);
 
             return $organization;
         });

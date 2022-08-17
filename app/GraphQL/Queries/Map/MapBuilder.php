@@ -134,8 +134,6 @@ class MapBuilder extends ParentValue {
                     ->whereBetween('longitude', Arr::sort([$boundary->getEast(), $boundary->getWest()]));
             } elseif ($boundary instanceof ArgumentSet) {
                 $builder = $boundary->enhanceBuilder($builder, []);
-
-                assert($builder instanceof Builder); // for phpstan
             } else {
                 // empty
             }
@@ -158,8 +156,6 @@ class MapBuilder extends ParentValue {
         $builder   = $arguments
             ? $arguments->enhanceBuilder($builder, [])
             : $builder;
-
-        assert($builder instanceof Builder); // for phpstan
 
         return $builder;
     }

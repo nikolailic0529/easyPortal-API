@@ -107,6 +107,7 @@
     "validation.string": "The :attribute must be a string.",
     "validation.timezone": "The :attribute must be a valid timezone.",
     "validation.unique": "The :attribute has already been taken.",
+    "validation.unique_user_email": "The :attribute must be a unused email.",
     "validation.uploaded": "The :attribute failed to upload.",
     "validation.url": "The :attribute must be a valid URL.",
     "validation.uuid": "The :attribute must be a valid UUID.",

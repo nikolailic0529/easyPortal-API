@@ -11,12 +11,12 @@ use function array_merge;
 
 class GraphQLError extends GraphQLResponse {
     /**
-     * @var array<string>|Throwable|Closure():array<string>|null
+     * @var array<string>|Throwable|Closure():array<string>|Closure():Throwable|null
      */
     protected Throwable|Closure|array|null $errors = null;
 
     /**
-     * @param array<string>|Throwable|Closure():array<string>|null $errors
+     * @param array<string>|Throwable|Closure():array<string>|Closure():Throwable|null $errors
      */
     public function __construct(string $root, Throwable|Closure|array|null $errors = null) {
         $this->errors = $errors;

@@ -7,6 +7,7 @@ use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Queue;
 use App\Services\Settings\Settings as SettingsService;
+use App\Utils\Cast;
 use App\Utils\Description;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -28,7 +29,7 @@ class Services {
     /**
      * @param array<string, mixed> $args
      *
-     * @return array<string,mixed>
+     * @return array<int,mixed>
      */
     public function __invoke(mixed $root, array $args): array {
         // Collect properties
@@ -81,7 +82,7 @@ class Services {
 
     protected function getDescription(CronJob $service): ?string {
         $key  = "settings.services.{$this->queue->getName($service)}";
-        $desc = __($key);
+        $desc = Cast::toString(__($key));
 
         if ($key === $desc) {
             $desc = (new Description())->get(new ReflectionClass($service));

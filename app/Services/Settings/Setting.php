@@ -17,6 +17,7 @@ use App\Services\Settings\Types\FloatType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
+use App\Utils\Cast;
 use App\Utils\Description;
 use InvalidArgumentException;
 use ReflectionAttribute;
@@ -117,7 +118,7 @@ class Setting {
 
     public function getDescription(): ?string {
         $key  = "settings.descriptions.{$this->getName()}";
-        $desc = __($key);
+        $desc = Cast::toString(__($key));
 
         if ($desc === $key) {
             $desc = (new Description())->get($this->constant);
@@ -132,7 +133,7 @@ class Setting {
 
         if ($attribute instanceof GroupAttribute) {
             $key  = "settings.groups.{$attribute->getName()}";
-            $name = __($key);
+            $name = Cast::toString(__($key));
 
             if ($key === $name) {
                 $group = $attribute->getName();

@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries\Application;
 use App\Services\Queue\Job;
 use App\Services\Queue\Queue;
 use App\Services\Settings\Settings as SettingsService;
+use App\Utils\Cast;
 use App\Utils\Description;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
@@ -25,7 +26,7 @@ class Jobs {
     /**
      * @param array<string, mixed> $args
      *
-     * @return array<string,mixed>
+     * @return array<int,mixed>
      */
     public function __invoke(mixed $root, array $args): array {
         // Collect properties
@@ -61,7 +62,7 @@ class Jobs {
 
     protected function getDescription(Job $job): ?string {
         $key  = "settings.jobs.{$this->queue->getName($job)}";
-        $desc = __($key);
+        $desc = Cast::toString(__($key));
 
         if ($key === $desc) {
             $desc = (new Description())->get(new ReflectionClass($job));

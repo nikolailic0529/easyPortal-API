@@ -21,7 +21,7 @@ class StorageFileCorrupted extends StorageException {
 
     public function getErrorMessage(): string {
         return __('errors.storage.file_corrupted', [
-            'disc' => $this->disc,
+            'disc' => (string) $this->disc,
             'file' => $this->path,
         ]);
     }

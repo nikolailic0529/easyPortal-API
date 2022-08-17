@@ -21,7 +21,7 @@ class StorageFileDeleteFailed extends StorageException {
 
     public function getErrorMessage(): string {
         return __('errors.storage.file_delete_failed', [
-            'disc' => $this->disc,
+            'disc' => (string) $this->disc,
             'file' => $this->path,
         ]);
     }
