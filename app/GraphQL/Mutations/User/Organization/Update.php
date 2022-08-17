@@ -23,8 +23,8 @@ class Update {
 
     public function update(OrganizationUser $user, UpdateInput $input): bool {
         // Model
+        $previousRoleId = $user->role_id;
         $user           = $user->forceFill($input->getProperties());
-        $previousRoleId = $user->getOriginal('role_id');
 
         if ($user->isClean()) {
             return true;
@@ -42,7 +42,7 @@ class Update {
             $result = $this->client->addUserToGroup($keycloakUser, $user->role_id);
         }
 
-        if ($previousRoleId && $previousRoleId !== $user->user_id) {
+        if ($previousRoleId && $previousRoleId !== $user->role_id) {
             try {
                 $this->client->removeUserFromGroup($keycloakUser, $previousRoleId);
             } catch (RequestFailed $exception) {

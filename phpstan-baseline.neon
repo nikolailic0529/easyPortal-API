@@ -1941,11 +1941,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$groupId of method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:removeUserFromGroup\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/User/Organization/Update.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\User\\\\Organization\\\\UpdateTest\\:\\:testInvoke\\(\\) has parameter \\$clientFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/User/Organization/UpdateTest.php

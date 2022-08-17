@@ -138,7 +138,7 @@ class UpdateTest extends TestCase {
                 'administer',
             ]),
             new ArrayDataProvider([
-                'All possible properties'                   => [
+                'All possible properties'                           => [
                     new GraphQLSuccess(
                         'user',
                         new JsonFragment('organization.update', [
@@ -216,7 +216,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'Empty properties'                          => [
+                'Empty properties'                                  => [
                     new GraphQLSuccess(
                         'user',
                         new JsonFragment('organization.update', [
@@ -259,7 +259,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'No unnecessary `removeUserFromGroup` call' => [
+                'No unnecessary `removeUserFromGroup` call'         => [
                     new GraphQLSuccess(
                         'user',
                         new JsonFragment('organization.update.result', true),
@@ -309,7 +309,59 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'User not found'                            => [
+                'No unnecessary `removeUserFromGroup` call (#1014)' => [
+                    new GraphQLSuccess(
+                        'user',
+                        new JsonFragment('organization.update.result', true),
+                    ),
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new KeycloakUser());
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once()
+                            ->andReturn(true);
+                        $mock
+                            ->shouldReceive('removeUserFromGroup')
+                            ->never();
+                    },
+                    static function (): User {
+                        return User::factory()->create([
+                            'id' => '1ff1cc8c-442d-4e05-9dcd-e84e5a844f86',
+                        ]);
+                    },
+                    static function (): Organization {
+                        $organization = Organization::factory()->create([
+                            'id' => '75453439-9eab-4acb-a69d-e9606e8dbc82',
+                        ]);
+                        $role         = Role::factory()->create([
+                            'id'              => 'c1e145f0-5dad-4fe4-a883-ed5cc3b6d07e',
+                            'name'            => 'Role',
+                            'organization_id' => $organization,
+                        ]);
+
+                        Team::factory()->create([
+                            'id' => '24742856-a979-4901-813b-5c08ab1cbdac',
+                        ]);
+
+                        OrganizationUser::factory()->create([
+                            'organization_id' => $organization,
+                            'user_id'         => '1ff1cc8c-442d-4e05-9dcd-e84e5a844f86',
+                            'role_id'         => $role,
+                            'enabled'         => true,
+                        ]);
+
+                        return $organization;
+                    },
+                    static function (): array {
+                        return [
+                            'team_id' => '24742856-a979-4901-813b-5c08ab1cbdac',
+                        ];
+                    },
+                ],
+                'User not found'                                    => [
                     new GraphQLError('user', static function (): Throwable {
                         return new ObjectNotFound((new User())->getMorphClass());
                     }),
@@ -326,7 +378,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'User doesn\'t belong to the organization'  => [
+                'User doesn\'t belong to the organization'          => [
                     new GraphQLError('user', static function (): Throwable {
                         return new ObjectNotFound((new OrganizationUser())->getMorphClass());
                     }),
@@ -343,7 +395,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'Me is not allowed'                         => [
+                'Me is not allowed'                                 => [
                     new GraphQLValidationError('user'),
                     null,
                     static function (self $test, Organization $organization, User $user): User {
@@ -365,7 +417,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'Role belongs to another organization'      => [
+                'Role belongs to another organization'              => [
                     new GraphQLValidationError('user'),
                     null,
                     static function (): User {
@@ -394,7 +446,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'Root cannot be updated by user'            => [
+                'Root cannot be updated by user'                    => [
                     new GraphQLUnauthorized('user'),
                     null,
                     static function (): User {
@@ -419,7 +471,7 @@ class UpdateTest extends TestCase {
                         ];
                     },
                 ],
-                'Root can be updated by root'               => [
+                'Root can be updated by root'                       => [
                     new GraphQLSuccess(
                         'user',
                         new JsonFragment('organization.update.result', true),
