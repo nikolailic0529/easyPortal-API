@@ -7,8 +7,8 @@ use App\Services\Settings\ServiceException;
 use Psr\Log\LogLevel;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class FailedToLoadSettings extends ServiceException implements TranslatedException {
     public function __construct(
@@ -24,6 +24,6 @@ class FailedToLoadSettings extends ServiceException implements TranslatedExcepti
     }
 
     public function getErrorMessage(): string {
-        return __('settings.errors.failed_to_load_settings');
+        return trans('settings.errors.failed_to_load_settings');
     }
 }

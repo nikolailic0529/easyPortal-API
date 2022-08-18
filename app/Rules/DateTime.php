@@ -7,9 +7,9 @@ use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
 
-use function __;
 use function config;
 use function is_string;
+use function trans;
 
 /**
  * ISO 8601 Date Time string with format `Y-m-dTH:i:sP` (`2018-05-23T13:43:32+00:00`).
@@ -29,7 +29,7 @@ class DateTime implements Rule {
     }
 
     public function message(): string {
-        return __('validation.date_format', [
+        return trans('validation.date_format', [
             'format' => static::FORMAT,
         ]);
     }

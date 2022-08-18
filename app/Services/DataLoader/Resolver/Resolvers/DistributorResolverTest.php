@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Distributor;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -31,22 +31,23 @@ class DistributorResolverTest extends TestCase {
         $provider = $this->app->make(DistributorResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertEquals($a->getKey(), $actual->getKey());
 
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get($a->getKey(), $factory));
         self::assertSame($actual, $provider->get(" {$a->getKey()} ", $factory));
 
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // All value should be loaded, so get() should not perform any queries
+        $queries = $this->getQueryLog()->flush();
+
         self::assertNotSame($actual, $provider->get($b->getKey(), $factory));
-        self::assertCount(0, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(0, $queries);
 
         // If value not found the new object should be created
         $uuid    = $this->faker->uuid();
@@ -55,26 +56,26 @@ class DistributorResolverTest extends TestCase {
                 'id' => $uuid,
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get($uuid, Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
         self::assertNotEmpty($created);
         self::assertEquals($uuid, $created->getKey());
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get($uuid, $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should be found
-        $c = Distributor::factory()->create();
+        $c       = Distributor::factory()->create();
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
         self::assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
     }
 }

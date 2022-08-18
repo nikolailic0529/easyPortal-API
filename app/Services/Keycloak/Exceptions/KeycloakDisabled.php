@@ -7,7 +7,7 @@ use App\Services\Keycloak\ServiceException;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
-use function __;
+use function trans;
 
 class KeycloakDisabled extends ServiceException implements IteratorFatalError, TranslatedException {
     public function __construct(Throwable $previous = null) {
@@ -15,6 +15,6 @@ class KeycloakDisabled extends ServiceException implements IteratorFatalError, T
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.disabled');
+        return trans('keycloak.client.disabled');
     }
 }

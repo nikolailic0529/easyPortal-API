@@ -3,11 +3,11 @@
 namespace App\Exceptions;
 
 use App\Services\Service;
+use App\Utils\Cast;
 use Exception;
-use Stringable;
 use Throwable;
 
-use function __;
+use function trans;
 
 abstract class ApplicationException extends Exception {
     use HasErrorCode;
@@ -61,7 +61,7 @@ abstract class ApplicationException extends Exception {
     }
 
     /**
-     * @param array<string, scalar|Stringable> $replacements
+     * @param array<string, scalar> $replacements
      */
     protected function translate(?Exception $service, string $message, array $replacements = []): string {
         if ($service) {
@@ -72,6 +72,6 @@ abstract class ApplicationException extends Exception {
             }
         }
 
-        return __($message, $replacements);
+        return Cast::toString(trans($message, $replacements));
     }
 }

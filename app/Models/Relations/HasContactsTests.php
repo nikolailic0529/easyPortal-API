@@ -4,7 +4,6 @@ namespace App\Models\Relations;
 
 use App\Models\Contact;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -12,8 +11,6 @@ use Tests\TestCase;
  * @mixin TestCase
  */
 trait HasContactsTests {
-    use WithQueryLog;
-
     /**
      * @return Model&HasContacts
      */

@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\User;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class UniqueUserEmail implements Rule {
     /**
@@ -16,6 +16,6 @@ class UniqueUserEmail implements Rule {
     }
 
     public function message(): string {
-        return __('validation.unique_user_email');
+        return trans('validation.unique_user_email');
     }
 }

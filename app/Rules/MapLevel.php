@@ -5,8 +5,8 @@ namespace App\Rules;
 use App\Models\Location;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function is_int;
+use function trans;
 
 class MapLevel implements Rule {
     /**
@@ -17,7 +17,7 @@ class MapLevel implements Rule {
     }
 
     public function message(): string {
-        return __('validation.map_level', [
+        return trans('validation.map_level', [
             'min' => 1,
             'max' => Location::GEOHASH_LENGTH,
         ]);

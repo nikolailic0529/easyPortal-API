@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class UserNotMe implements Rule, ContextAwareRule {
     use ContextAwareRuleImpl;
@@ -35,6 +35,6 @@ class UserNotMe implements Rule, ContextAwareRule {
     }
 
     public function message(): string {
-        return __('validation.user_not_me');
+        return trans('validation.user_not_me');
     }
 }

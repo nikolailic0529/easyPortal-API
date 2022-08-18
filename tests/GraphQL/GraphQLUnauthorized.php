@@ -2,12 +2,12 @@
 
 namespace Tests\GraphQL;
 
-use function __;
+use function trans;
 
 class GraphQLUnauthorized extends GraphQLError {
     public function __construct(string $root) {
         parent::__construct($root, static function (): array {
-            return [__('errors.unauthorized')];
+            return [trans('errors.unauthorized')];
         });
     }
 

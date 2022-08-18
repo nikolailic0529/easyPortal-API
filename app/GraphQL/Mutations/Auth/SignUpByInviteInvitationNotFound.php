@@ -5,8 +5,8 @@ namespace App\GraphQL\Mutations\Auth;
 use App\GraphQL\GraphQLException;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class SignUpByInviteInvitationNotFound extends GraphQLException {
     public function __construct(string $id, Throwable $previous = null) {
@@ -17,6 +17,6 @@ class SignUpByInviteInvitationNotFound extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.invitation_not_found');
+        return trans('graphql.mutations.signUpByInvite.invitation_not_found');
     }
 }

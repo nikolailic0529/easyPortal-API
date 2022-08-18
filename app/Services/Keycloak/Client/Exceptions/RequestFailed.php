@@ -5,9 +5,9 @@ namespace App\Services\Keycloak\Client\Exceptions;
 use Illuminate\Http\Client\RequestException;
 use Throwable;
 
-use function __;
 use function sprintf;
 use function strtoupper;
+use function trans;
 
 class RequestFailed extends ClientException {
     /**
@@ -31,7 +31,7 @@ class RequestFailed extends ClientException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.request_failed');
+        return trans('keycloak.client.request_failed');
     }
 
     public function isHttpError(int $code = null): bool {

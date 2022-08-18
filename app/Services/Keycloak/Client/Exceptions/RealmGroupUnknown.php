@@ -4,7 +4,7 @@ namespace App\Services\Keycloak\Client\Exceptions;
 
 use Throwable;
 
-use function __;
+use function trans;
 
 class RealmGroupUnknown extends ClientException {
     public function __construct(Throwable $previous = null) {
@@ -12,6 +12,6 @@ class RealmGroupUnknown extends ClientException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.realm_group_unknown');
+        return trans('keycloak.client.realm_group_unknown');
     }
 }

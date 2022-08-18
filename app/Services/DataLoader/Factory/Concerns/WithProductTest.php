@@ -9,7 +9,7 @@ use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -51,9 +51,9 @@ class WithProductTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists and not changed - no action required
+        $queries = $this->getQueryLog()->flush();
+
         self::assertEquals(
             $product->withoutRelations(),
             $factory->product(
@@ -64,11 +64,10 @@ class WithProductTest extends TestCase {
                 "{$product->eos->getTimestamp()}000",
             )->withoutRelations(),
         );
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If model exists and changed - it should be updated except `name`
+        $queries = $this->getQueryLog()->flush();
         $newEos  = $this->faker->randomElement(['', null]);
         $newEol  = Date::now();
         $newName = $this->faker->sentence();
@@ -84,17 +83,14 @@ class WithProductTest extends TestCase {
         self::assertEquals($newEol, $newEol);
         self::assertNull($updated->eos);
 
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If model exists and changed - empty `name` should be updated
         $product       = $updated;
         $product->name = '';
         $product->save();
 
-        $this->flushQueryLog();
-
+        $queries = $this->getQueryLog()->flush();
         $newName = $this->faker->sentence();
         $updated = $factory->product(
             $oem,
@@ -105,10 +101,7 @@ class WithProductTest extends TestCase {
         );
 
         self::assertEquals($newName, $updated->name);
-
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If not - it should be created
         $sku     = $this->faker->uuid();
@@ -124,7 +117,5 @@ class WithProductTest extends TestCase {
         self::assertEquals($oem->getKey(), $created->oem_id);
         self::assertEquals($sku, $created->sku);
         self::assertEquals($name, $created->name);
-
-        $this->flushQueryLog();
     }
 }

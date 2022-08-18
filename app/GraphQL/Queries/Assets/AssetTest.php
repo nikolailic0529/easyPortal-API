@@ -24,7 +24,6 @@ use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
@@ -46,8 +45,6 @@ use Tests\WithUser;
  * @phpstan-import-type SettingsFactory from WithSettings
  */
 class AssetTest extends TestCase {
-    use WithQueryLog;
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**

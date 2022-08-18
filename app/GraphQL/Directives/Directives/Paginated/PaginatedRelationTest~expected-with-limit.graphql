@@ -14,7 +14,7 @@ enum CachedMode {
 """
 Sort direction.
 """
-enum SortByDirection {
+enum SortByTypeDirection {
     asc
     desc
 }
@@ -35,53 +35,61 @@ input RulesMessage {
 }
 
 """
-Available conditions for input CustomerSearch (only one property allowed at a time).
+Available conditions for `input CustomerSearch` (only one property allowed at a time).
 """
 input SearchByConditionCustomerSearch {
     """
     All of the conditions must be true.
     """
     allOf: [SearchByConditionCustomerSearch!]
+    @searchByOperatorAllOf
 
     """
     Any of the conditions must be true.
     """
     anyOf: [SearchByConditionCustomerSearch!]
+    @searchByOperatorAnyOf
 
     """
     Property condition.
     """
     id: SearchByScalarID
+    @searchByProperty
 
     """
     Not.
     """
     not: SearchByConditionCustomerSearch
+    @searchByOperatorNot
 }
 
 """
-Available operators for scalar ID! (only one operator allowed at a time).
+Available operators for `scalar ID!` (only one operator allowed at a time).
 """
 input SearchByScalarID {
     """
     Equal (`=`).
     """
     equal: ID
+    @searchByOperatorEqual
 
     """
     Within a set of values.
     """
     in: [ID!]
+    @searchByOperatorIn
 
     """
     Not Equal (`!=`).
     """
     notEqual: ID
+    @searchByOperatorNotEqual
 
     """
     Outside a set of values.
     """
     notIn: [ID!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -91,7 +99,8 @@ input SortByClauseCustomerLocation {
     """
     Property clause.
     """
-    id: SortByDirection
+    id: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 type Customer {
@@ -122,34 +131,14 @@ type Customer {
         test: ID
 
         where: SearchByConditionCustomerSearch
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-            ]
-        )
+        @searchBy
     ): [CustomerLocation!]
     @relation
     @paginatedRelation
 
     locationsAggregated(
         where: SearchByConditionCustomerSearch
-        @searchBy(
-            operators: [
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AllOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\AnyOf"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Logical\\Not"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\Equal"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotEqual"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\In"
-                "LastDragon_ru\\LaraASP\\GraphQL\\SearchBy\\Operators\\Comparison\\NotIn"
-            ]
-        )
+        @searchBy
     ): CustomerLocationsAggregated
     @aggregated(
         relation: "locations"
@@ -302,11 +291,43 @@ repeatable on
     | INPUT_FIELD_DEFINITION
 
 """
-Convert Input into Search Conditions.
+Use Input as Search Conditions for the current Builder.
 """
 directive @searchBy
 on
     | ARGUMENT_DEFINITION
+
+directive @searchByOperatorAllOf
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorAnyOf
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorEqual
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorIn
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorNot
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorNotEqual
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByOperatorNotIn
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @searchByProperty
+on
+    | INPUT_FIELD_DEFINITION
 
 """
 Convert Input into Sort Clause.
@@ -314,3 +335,7 @@ Convert Input into Sort Clause.
 directive @sortBy
 on
     | ARGUMENT_DEFINITION
+
+directive @sortByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION

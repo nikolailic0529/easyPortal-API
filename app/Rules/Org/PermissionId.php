@@ -7,7 +7,7 @@ use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class PermissionId implements Rule {
     public function __construct(
@@ -36,6 +36,6 @@ class PermissionId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.org_permission_id');
+        return trans('validation.org_permission_id');
     }
 }

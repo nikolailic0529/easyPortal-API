@@ -8,7 +8,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -49,16 +49,15 @@ class WithTagTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
+
         self::assertEquals($tag, $factory->tag($tag->name));
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
 
         // If not - it should be created
         $created = $factory->tag(' New  Tag ');
 
-        self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('New Tag', $created->name);
     }

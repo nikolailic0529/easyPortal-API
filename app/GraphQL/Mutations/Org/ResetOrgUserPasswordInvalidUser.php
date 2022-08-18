@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\GraphQL\GraphQLException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class ResetOrgUserPasswordInvalidUser extends GraphQLException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class ResetOrgUserPasswordInvalidUser extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.resetOrgUserPassword.invalid_user');
+        return trans('graphql.mutations.resetOrgUserPassword.invalid_user');
     }
 }

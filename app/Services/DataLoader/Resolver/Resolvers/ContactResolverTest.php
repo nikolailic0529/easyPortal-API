@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -48,8 +48,6 @@ class ContactResolverTest extends TestCase {
         $provider = $this->app->make(ContactResolver::class);
         $actual   = $provider->get($ca, 'a', 'a', 'a', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
@@ -59,19 +57,17 @@ class ContactResolverTest extends TestCase {
         self::assertEquals($ca->getMorphClass(), $actual->object_type);
         self::assertEquals($ca->getKey(), $actual->object_id);
 
-        $this->flushQueryLog();
-
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get($ca, ' a ', 'a', 'a', $factory));
         self::assertSame($actual, $provider->get($ca, 'a', ' a ', 'a', $factory));
         self::assertSame($actual, $provider->get($ca, ' a ', ' a ', 'a', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotSame($actual, $provider->get($cb, 'name', 'phone', 'email', static function (): Contact {
             return Contact::factory()->make();
         }));
-
-        $this->flushQueryLog();
 
         // If not, the new object should be created
         $spy     = Mockery::spy(static function () use ($cb): Contact {
@@ -83,6 +79,7 @@ class ContactResolverTest extends TestCase {
                 'email'        => 'unKnOwn',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get($cb, ' unKnown ', ' unKnOwn ', ' unKnOwn ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
@@ -93,13 +90,13 @@ class ContactResolverTest extends TestCase {
         self::assertEquals('unKnOwn', $created->email);
         self::assertEquals($cb->getMorphClass(), $created->object_type);
         self::assertEquals($cb->getKey(), $created->object_id);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get($cb, ' unknown ', ' unknown ', ' unknown ', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
     }
 
     /**

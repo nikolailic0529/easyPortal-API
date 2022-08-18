@@ -7,7 +7,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
-use function __;
+use function trans;
 
 class DataLoaderUnavailable extends ClientException implements
     ExternalException,
@@ -30,6 +30,6 @@ class DataLoaderUnavailable extends ClientException implements
     }
 
     public function getErrorMessage(): string {
-        return __('data-loader.client.unavailable');
+        return trans('data-loader.client.unavailable');
     }
 }

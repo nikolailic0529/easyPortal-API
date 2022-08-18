@@ -6,7 +6,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Services\Tokens\ServiceException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class InvalidCredentials extends ServiceException implements TranslatedException {
     public function __construct(
@@ -20,6 +20,6 @@ class InvalidCredentials extends ServiceException implements TranslatedException
     }
 
     public function getErrorMessage(): string {
-        return __('tokens.invalid_credentials');
+        return trans('tokens.invalid_credentials');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\Customer;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class CustomerId implements Rule {
     /**
@@ -16,6 +16,6 @@ class CustomerId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.customer_id');
+        return trans('validation.customer_id');
     }
 }

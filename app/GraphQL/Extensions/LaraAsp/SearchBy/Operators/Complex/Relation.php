@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Eloquent\Enum;
 use LastDragon_ru\LaraASP\Eloquent\ModelHelper;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation as SearchByRelation;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
@@ -20,24 +21,23 @@ use function sprintf;
 class Relation extends SearchByRelation {
     protected function build(
         EloquentBuilder $builder,
-        string $property,
+        Property $property,
         string $operator,
         int $count,
         Closure $closure,
-    ): EloquentBuilder {
-        $relation = (new ModelHelper($builder))->getRelation($property);
-        $query    = null;
+    ): void {
+        $name     = (string) $property;
+        $relation = (new ModelHelper($builder))->getRelation($name);
 
         if ($relation instanceof HasManyDeep) {
-            $query = parent::build($builder, $property, $operator, $count, $closure);
+            parent::build($builder, $property, $operator, $count, $closure);
         } elseif ($relation instanceof MorphTo) {
-            $types = $this->getMorphTypes($builder, $property, $relation);
-            $query = $builder->hasMorphIn($property, $types, $operator, $count, 'and', $closure);
-        } else {
-            $query = $builder->whereHasIn($property, $closure, $operator, $count);
-        }
+            $types = $this->getMorphTypes($builder, $name, $relation);
 
-        return $query;
+            $builder->hasMorphIn($name, $types, $operator, $count, 'and', $closure);
+        } else {
+            $builder->whereHasIn($name, $closure, $operator, $count);
+        }
     }
 
     /**

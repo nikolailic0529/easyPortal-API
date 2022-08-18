@@ -6,8 +6,8 @@ use App\Models\Organization;
 use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class UnknownScope extends AuthException {
     public function __construct(
@@ -21,6 +21,6 @@ class UnknownScope extends AuthException {
     }
 
     public function getErrorMessage(): string {
-        return __('auth.organization_disabled');
+        return trans('auth.organization_disabled');
     }
 }

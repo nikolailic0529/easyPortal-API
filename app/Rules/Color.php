@@ -4,9 +4,9 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function is_string;
 use function preg_match;
+use function trans;
 
 class Color implements Rule {
     /**
@@ -17,6 +17,6 @@ class Color implements Rule {
     }
 
     public function message(): string {
-        return __('validation.color');
+        return trans('validation.color');
     }
 }

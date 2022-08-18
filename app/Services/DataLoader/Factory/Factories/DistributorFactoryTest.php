@@ -6,7 +6,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -29,12 +29,11 @@ class DistributorFactoryTest extends TestCase {
         $factory = $this->app->make(DistributorFactory::class);
         $json    = $this->getTestData()->json('~distributor-full.json');
         $company = new Company($json);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         $factory->find($company);
 
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 
     /**
@@ -75,11 +74,10 @@ class DistributorFactoryTest extends TestCase {
         $json    = $this->getTestData()->json('~distributor-full.json');
         $company = new Company($json);
 
-        $this->flushQueryLog();
-
         // Test
+        $queries     = $this->getQueryLog()->flush();
         $distributor = $factory->create($company);
-        $actual      = array_column($this->getQueryLog(), 'query');
+        $actual      = array_column($queries->get(), 'query');
         $expected    = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -89,13 +87,12 @@ class DistributorFactoryTest extends TestCase {
         self::assertEquals($company->name, $distributor->name);
         self::assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
 
-        $this->flushQueryLog();
-
         // Distributor should be updated
         $json     = $this->getTestData()->json('~distributor-changed.json');
         $company  = new Company($json);
+        $queries  = $this->getQueryLog()->flush();
         $updated  = $factory->create($company);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -105,15 +102,14 @@ class DistributorFactoryTest extends TestCase {
         self::assertEquals($company->name, $updated->name);
         self::assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
 
-        $this->flushQueryLog();
-
         // No changes
         $json    = $this->getTestData()->json('~distributor-changed.json');
         $company = new Company($json);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->create($company);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
     // </editor-fold>
 

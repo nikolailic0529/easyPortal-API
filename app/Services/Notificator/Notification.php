@@ -7,6 +7,7 @@ use App\Services\I18n\CurrentLocale;
 use App\Services\I18n\CurrentTimezone;
 use App\Services\I18n\Formatter;
 use App\Services\Service;
+use App\Utils\Cast;
 use Closure;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Config\Repository;
@@ -15,9 +16,8 @@ use Illuminate\Notifications\Action;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification as IlluminateNotification;
 use ReflectionClass;
-use Stringable;
 
-use function __;
+use function trans;
 use function trim;
 
 abstract class Notification extends IlluminateNotification {
@@ -64,7 +64,7 @@ abstract class Notification extends IlluminateNotification {
         $name      = (new ReflectionClass($this))->getShortName();
         $translate = static function (string $string, array $replacements = []) use ($service, $name): ?string {
             $key        = "notifications.{$service}.{$name}.{$string}";
-            $translated = __($key, $replacements);
+            $translated = Cast::toString(trans($key, $replacements));
 
             if ($key === $translated) {
                 $translated = null;
@@ -77,7 +77,7 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param Closure(string, array<string>): ?string $translate
+     * @param Closure(string, array<string, scalar>): ?string $translate
      */
     protected function getMailMessage(
         User $notifiable,
@@ -86,61 +86,59 @@ abstract class Notification extends IlluminateNotification {
         Closure $translate,
     ): MailMessage {
         $replacements = $this->getMailReplacements($notifiable, $config, $formatter, $translate);
-        $message      = (new MailMessage())
-            ->subject($translate('subject', $replacements))
-            ->when(
-                $translate('level', $replacements),
-                static function (MailMessage $message, string $level): MailMessage {
-                    return $message->level($level);
-                },
-            )
-            ->when(
-                $translate('greeting', $replacements),
-                static function (MailMessage $message, string $greeting): MailMessage {
-                    return $message->greeting($greeting);
-                },
-                static function (MailMessage $message) use ($replacements): MailMessage {
-                    return $message->greeting(
-                        __('notifications.default.greeting', $replacements),
-                    );
-                },
-            )
-            ->when(
-                $translate('intro', $replacements),
-                static function (MailMessage $message, string $intro): MailMessage {
-                    return $message->with($intro);
-                },
-            )
-            ->when(
-                $this->getMailAction($notifiable, $config, $formatter, $translate, $replacements),
-                static function (MailMessage $message, Action $action): MailMessage {
-                    return $message->with($action);
-                },
-            )
-            ->when(
-                $translate('outro', $replacements),
-                static function (MailMessage $message, string $outro): MailMessage {
-                    return $message->with($outro);
-                },
-            )
-            ->when(
-                $translate('salutation', $replacements),
-                static function (MailMessage $message, string $salutation): MailMessage {
-                    return $message->salutation($salutation);
-                },
-                static function (MailMessage $message) use ($replacements): MailMessage {
-                    return $message->salutation(
-                        __('notifications.default.salutation', $replacements),
-                    );
-                },
-            );
+        $message      = new MailMessage();
+
+        // Subject
+        $subject = $translate('subject', $replacements);
+
+        if ($subject) {
+            $message = $message->subject($subject);
+        }
+
+        // Level
+        $level = $translate('level', $replacements);
+
+        if ($level) {
+            $message = $message->level($level);
+        }
+
+        // Greeting
+        $greeting = $translate('greeting', $replacements)
+            ?: trans('notifications.default.greeting', $replacements);
+        $message  = $message->greeting($greeting);
+
+        // Intro
+        $intro = $translate('intro', $replacements);
+
+        if ($intro) {
+            $message = $message->with($intro);
+        }
+
+        // Action
+        $action = $this->getMailAction($notifiable, $config, $formatter, $translate, $replacements);
+
+        if ($action) {
+            $message = $message->with($action);
+        }
+
+        // Outro
+        $outro = $translate('outro', $replacements);
+
+        if ($outro) {
+            $message = $message->with($outro);
+        }
+
+        // Salutation
+        $salutation = $translate('salutation', $replacements)
+            ?: trans('notifications.default.salutation', $replacements);
+        $message    = $message->salutation($salutation);
 
         return $message;
     }
 
     /**
-     * @param Closure(string, array<string,scalar|Stringable>): ?string $translate
-     * @param array<string,scalar|Stringable>                           $replacements
+     * @param Closure(string, array<string,scalar>): ?string $translate
+     * @param array<string,scalar>                           $replacements
      */
     protected function getMailAction(
         User $notifiable,
@@ -153,9 +151,9 @@ abstract class Notification extends IlluminateNotification {
     }
 
     /**
-     * @param Closure(string, array<string,scalar|Stringable>): ?string $translate
+     * @param Closure(string, array<string,scalar>): ?string $translate
      *
-     * @return array<string,scalar|Stringable>
+     * @return array<string,scalar>
      */
     protected function getMailReplacements(
         User $notifiable,

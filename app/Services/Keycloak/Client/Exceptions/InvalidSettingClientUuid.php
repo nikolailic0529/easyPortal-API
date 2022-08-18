@@ -4,7 +4,7 @@ namespace App\Services\Keycloak\Client\Exceptions;
 
 use Throwable;
 
-use function __;
+use function trans;
 
 class InvalidSettingClientUuid extends ClientException {
     public function __construct(Throwable $previous = null) {
@@ -12,6 +12,6 @@ class InvalidSettingClientUuid extends ClientException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.invalid_setting_client_uuid');
+        return trans('keycloak.client.invalid_setting_client_uuid');
     }
 }

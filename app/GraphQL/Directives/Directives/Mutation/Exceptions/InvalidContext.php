@@ -5,7 +5,7 @@ namespace App\GraphQL\Directives\Directives\Mutation\Exceptions;
 use App\GraphQL\Directives\Directives\Mutation\MutationException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class InvalidContext extends MutationException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class InvalidContext extends MutationException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.directives.@mutation.invalid_context');
+        return trans('graphql.directives.@mutation.invalid_context');
     }
 }

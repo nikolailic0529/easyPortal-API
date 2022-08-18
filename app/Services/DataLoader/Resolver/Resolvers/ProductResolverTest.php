@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Oem;
 use App\Models\Product;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -44,8 +44,6 @@ class ProductResolverTest extends TestCase {
         $provider = $this->app->make(ProductResolver::class);
         $actual   = $provider->get($oemA, ' a ', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
@@ -53,25 +51,23 @@ class ProductResolverTest extends TestCase {
         self::assertEquals($a->name, $actual->name);
         self::assertEquals($oemA, $actual->oem);
 
-        $this->flushQueryLog();
-
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get($oemA, 'a', $factory));
         self::assertSame($actual, $provider->get($oemA, ' a ', $factory));
         self::assertSame($actual, $provider->get($oemA, 'A', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotSame($actual, $provider->get($oemB, 'a', static function (): Product {
             return Product::factory()->make();
         }));
 
-        $this->flushQueryLog();
-
         // Product should be found in DB
-        self::assertNotEmpty($provider->get($oemA, 'c', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertNotEmpty($provider->get($oemA, 'c', $factory));
+        self::assertCount(0, $queries);
 
         // If not, the new object should be created
         $spy     = Mockery::spy(static function () use ($oemB): Product {
@@ -80,6 +76,7 @@ class ProductResolverTest extends TestCase {
                 'sku'    => 'unKnown',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get($oemB, ' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
@@ -87,12 +84,12 @@ class ProductResolverTest extends TestCase {
         self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->sku);
         self::assertEquals($oemB->getKey(), $created->oem_id);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get($oemB, ' unknown ', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
     }
 }

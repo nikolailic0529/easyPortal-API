@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\ServiceLevel;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class ServiceLevelId implements Rule {
     /**
@@ -16,6 +16,6 @@ class ServiceLevelId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.service_level_id');
+        return trans('validation.service_level_id');
     }
 }

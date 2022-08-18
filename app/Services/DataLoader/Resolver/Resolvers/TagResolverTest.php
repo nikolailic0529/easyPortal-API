@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Tag;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -35,24 +35,20 @@ class TagResolverTest extends TestCase {
         $provider = $this->app->make(TagResolver::class);
         $actual   = $provider->get('a', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
         self::assertEquals('a', $actual->name);
 
-        $this->flushQueryLog();
-
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get(' a ', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotSame($actual, $provider->get('name', static function (): Tag {
             return Tag::factory()->make();
         }));
-
-        $this->flushQueryLog();
 
         // If not, the new object should be created
         $spy     = Mockery::spy(static function (): Tag {
@@ -60,26 +56,26 @@ class TagResolverTest extends TestCase {
                 'name' => 'unKnown',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get(' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
         self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->name);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get(' unknown ', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should be found
-        $c = Tag::factory()->create();
+        $c       = Tag::factory()->create();
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
         self::assertEquals($c->getKey(), $provider->get($c->name)?->getKey());
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
     }
 }

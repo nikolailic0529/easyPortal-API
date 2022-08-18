@@ -7,8 +7,6 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
-use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
-use Box\Spout\Reader\XLSX\Sheet;
 use Closure;
 use Exception;
 use GraphQL\Server\OperationParams;
@@ -25,6 +23,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unprocessable
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ValidationErrorResponse;
+use OpenSpout\Reader\XLSX\Reader as XLSXReader;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Constraints\ContentTypes\CsvContentType;
 use Tests\Constraints\ContentTypes\XlsxContentType;
@@ -59,8 +58,10 @@ class ExportControllerTest extends TestCase {
      * @covers ::getHeader
      *
      * @dataProvider dataProviderGetHeaders
+     *
+     * @param array<mixed> $value
      */
-    public function testGetHeaders(mixed $expected, mixed $value): void {
+    public function testGetHeaders(mixed $expected, array $value): void {
         $controller = new class() extends ExportController {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
@@ -83,8 +84,10 @@ class ExportControllerTest extends TestCase {
      * @covers ::getHeaderValue
      *
      * @dataProvider dataProviderGetHeaderValue
+     *
+     * @param array<mixed> $item
      */
-    public function testGetHeaderValue(mixed $expected, string $header, mixed $item): void {
+    public function testGetHeaderValue(mixed $expected, string $header, array $item): void {
         if ($expected instanceof Exception) {
             self::expectExceptionObject($expected);
         }
@@ -159,10 +162,11 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string, mixed> $data
-     * @param SettingsFactory      $settingsFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param Closure(static, ?Organization, ?User): ?int $factory
+     * @param array<string, mixed>                        $data
+     * @param SettingsFactory                             $settingsFactory
      */
     public function testCvs(
         Response $expected,
@@ -212,11 +216,13 @@ class ExportControllerTest extends TestCase {
         if ($response->isSuccessful()) {
             $response->assertThat(new CsvContentType());
             $response->assertThat(new Response(new ClosureConstraint(
-                static function (ResponseInterface $response) use ($count): bool {
+                static function (mixed $response) use ($count): bool {
+                    self::assertInstanceOf(ResponseInterface::class, $response);
+
                     $content = trim((string) $response->getBody(), "\n");
                     $lines   = count(explode("\n", $content));
 
-                    self::assertEquals($count + 1, $lines);
+                    self::assertEquals((int) $count + 1, $lines);
 
                     return true;
                 },
@@ -233,10 +239,11 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string, mixed> $data
-     * @param SettingsFactory      $settingsFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param Closure(static, ?Organization, ?User): ?int $factory
+     * @param array<string, mixed>                        $data
+     * @param SettingsFactory                             $settingsFactory
      */
     public function testXlsx(
         Response $expected,
@@ -286,21 +293,22 @@ class ExportControllerTest extends TestCase {
         if ($response->isSuccessful()) {
             $response->assertThat(new XlsxContentType());
             $response->assertThat(new Response(new ClosureConstraint(
-                function (ResponseInterface $response) use ($count): bool {
+                function (mixed $response) use ($count): bool {
+                    self::assertInstanceOf(ResponseInterface::class, $response);
+
                     $sheets = [];
                     $file   = $this->getTempFile((string) $response->getBody());
-                    $xlsx   = ReaderEntityFactory::createXLSXReader();
+                    $xlsx   = new XLSXReader();
 
                     $xlsx->open($file->getPathname());
 
-                    /** @var Sheet $sheet */
                     foreach ($xlsx->getSheetIterator() as $sheet) {
                         foreach ($sheet->getRowIterator() as $row) {
                             $sheets[$sheet->getIndex()] = ($sheets[$sheet->getIndex()] ?? 0) + 1;
                         }
                     }
 
-                    self::assertEquals([0 => $count + 1], $sheets);
+                    self::assertEquals([0 => (int) $count + 1], $sheets);
 
                     return true;
                 },
@@ -317,10 +325,11 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string, mixed> $data
-     * @param SettingsFactory      $settingsFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param Closure(static, ?Organization, ?User): ?int $factory
+     * @param array<string, mixed>                        $data
+     * @param SettingsFactory                             $settingsFactory
      */
     public function testPdf(
         Response $expected,
@@ -356,10 +365,11 @@ class ExportControllerTest extends TestCase {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string, mixed> $data
-     * @param SettingsFactory      $settingsFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param Closure(static, ?Organization, ?User): ?int $factory
+     * @param array<string, mixed>                        $data
+     * @param SettingsFactory                             $settingsFactory
      *
      * @return array{?Organization,?User,array<string,mixed>,?int}
      */
@@ -389,7 +399,6 @@ class ExportControllerTest extends TestCase {
 
         return [$org, $user, $data, $count];
     }
-
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">

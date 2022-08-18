@@ -14,7 +14,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -44,12 +44,11 @@ class LocationFactoryTest extends TestCase {
             'latitude'    => (string) $this->faker->latitude(),
             'longitude'   => (string) $this->faker->longitude(),
         ]);
-
-        $this->flushQueryLog();
+        $queries  = $this->getQueryLog()->flush();
 
         $factory->find($location);
 
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 
     /**
@@ -319,23 +318,20 @@ class LocationFactoryTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
-        self::assertEquals($country, $factory->country($country->code, $country->name));
-        self::assertCount(1, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertEquals($country, $factory->country($country->code, $country->name));
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->country(' CD ', ' Country  Name ');
 
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('CD', $created->code);
         self::assertEquals('Country Name', $created->name);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
 
         // No name -> code should be used
         $created = $factory->country(' AB ', null);
@@ -343,32 +339,27 @@ class LocationFactoryTest extends TestCase {
         self::assertEquals('AB', $created->code);
         self::assertEquals('AB', $created->name);
 
-        $this->flushQueryLog();
-
         // No name -> name should be updated
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->country(' AB ', ' Name ');
 
         self::assertEquals('AB', $created->code);
         self::assertEquals('Name', $created->name);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // Unknown Country -> name should be updated
+        $queries = $this->getQueryLog()->flush();
         $updated = $factory->country($factory->country(' UN ', ' Unknown Country ')->code, ' Name ');
 
         self::assertEquals('Name', $updated->name);
-        self::assertCount(3, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(3, $queries);
 
         // Name -> should not be updated
+        $queries = $this->getQueryLog()->flush();
         $updated = $factory->country($factory->country(' NA ', ' Name ')->code, ' New Name ');
 
         self::assertEquals('Name', $updated->name);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
     }
 
     /**
@@ -397,23 +388,21 @@ class LocationFactoryTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
-        self::assertEquals($city, $factory->city($country, $city->key));
-        self::assertCount(1, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertEquals($city, $factory->city($country, $city->key));
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->city($country, ' City  Name ');
 
-        self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals($country->getKey(), $created->country_id);
         self::assertEquals('City Name', $created->key);
         self::assertEquals('City Name', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 
     /**
@@ -462,9 +451,9 @@ class LocationFactoryTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
+
         self::assertEquals($location, $factory->location(
             $country,
             $city,
@@ -476,9 +465,7 @@ class LocationFactoryTest extends TestCase {
             $location->longitude,
         ));
         self::assertNotEquals('', $location->state);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If not - it should be created
         $state     = " {$this->faker->state()} ";
@@ -487,6 +474,7 @@ class LocationFactoryTest extends TestCase {
         $lineTwo   = " {$this->faker->secondaryAddress()} ";
         $latitude  = " {$this->faker->latitude()} ";
         $longitude = " {$this->faker->longitude()} ";
+        $queries   = $this->getQueryLog()->flush();
         $created   = $factory->location(
             $country,
             $city,
@@ -498,7 +486,6 @@ class LocationFactoryTest extends TestCase {
             $longitude,
         );
 
-        self::assertNotNull($created);
         self::assertEquals($country->getKey(), $created->country_id);
         self::assertEquals($city->getKey(), $created->city_id);
         self::assertEquals($normalizer->string($postcode), $created->postcode);
@@ -508,13 +495,12 @@ class LocationFactoryTest extends TestCase {
         self::assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
         self::assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
         self::assertNotNull($created->geohash);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
 
         // If state empty it should be updated
         $state          = "{$state} 2";
         $created->state = '';
+        $queries        = $this->getQueryLog()->flush();
         $updated        = $factory->location(
             $country,
             $city,
@@ -528,7 +514,7 @@ class LocationFactoryTest extends TestCase {
 
         self::assertSame($created, $updated);
         self::assertEquals($normalizer->string($state), $updated->state);
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**

@@ -36,7 +36,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -66,8 +66,7 @@ class DocumentFactoryTest extends TestCase {
     public function testFind(?string $expected, Closure $typeFactory): void {
         $type    = $typeFactory($this);
         $factory = $this->app->make(DocumentFactory::class);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         if (!$expected) {
             self::expectException(InvalidArgumentException::class);
@@ -76,7 +75,7 @@ class DocumentFactoryTest extends TestCase {
 
         $factory->find($type);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**
@@ -126,11 +125,10 @@ class DocumentFactoryTest extends TestCase {
             'document' => reset($asset->assetDocument),
         ]);
 
-        $this->flushQueryLog();
-
         // Test
+        $queries  = $this->getQueryLog()->flush();
         $created  = $factory->createFromAssetDocumentObject($object);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -155,22 +153,19 @@ class DocumentFactoryTest extends TestCase {
         self::assertCount(0, $created->entries);
         self::assertCount(1, $created->contacts);
 
-        $this->flushQueryLog();
-
         // Changed
         // ---------------------------------------------------------------------
-        $json   = $this->getTestData()->json('~asset-document-changed.json');
-        $asset  = new ViewAsset($json);
-        $object = new AssetDocumentObject([
+        $json    = $this->getTestData()->json('~asset-document-changed.json');
+        $asset   = new ViewAsset($json);
+        $object  = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
         ]);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->createFromAssetDocumentObject($object);
 
-        self::assertCount(0, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(0, $queries);
     }
 
     /**
@@ -914,11 +909,10 @@ class DocumentFactoryTest extends TestCase {
         $json   = $this->getTestData()->json('~createFromDocument-document-full.json');
         $object = new Document($json);
 
-        $this->flushQueryLog();
-
         // Test
+        $queries  = $this->getQueryLog()->flush();
         $created  = $factory->createFromDocument($object);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-full-queries.json');
 
         self::assertEquals($expected, $actual);
@@ -974,14 +968,13 @@ class DocumentFactoryTest extends TestCase {
             $this->getModelFields($e->fields),
         );
 
-        $this->flushQueryLog();
-
         // Changed
         // ---------------------------------------------------------------------
         $json     = $this->getTestData()->json('~createFromDocument-document-changed.json');
         $object   = new Document($json);
+        $queries  = $this->getQueryLog()->flush();
         $changed  = $factory->createFromDocument($object);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-changed-queries.json');
 
         self::assertEquals($expected, $actual);
@@ -1021,21 +1014,18 @@ class DocumentFactoryTest extends TestCase {
             $this->getModelFields($e->fields),
         );
 
-        $this->flushQueryLog();
-
         // No changes
         // ---------------------------------------------------------------------
-        $json   = $this->getTestData()->json('~createFromDocument-document-changed.json');
-        $object = new Document($json);
+        $json    = $this->getTestData()->json('~createFromDocument-document-changed.json');
+        $object  = new Document($json);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->createFromDocument($object);
 
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromDocument-document-unchanged-queries.json');
 
         self::assertEquals($expected, $actual);
-
-        $this->flushQueryLog();
     }
 
     /**
@@ -1054,8 +1044,6 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~createFromDocument-document-type-null.json');
         $object = new Document($json);
-
-        $this->flushQueryLog();
 
         // Test
         $created = $factory->createFromDocument($object);

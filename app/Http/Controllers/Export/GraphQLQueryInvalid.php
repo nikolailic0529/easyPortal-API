@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Export;
 use GraphQL\Server\OperationParams;
 use Throwable;
 
-use function __;
+use function trans;
 
 class GraphQLQueryInvalid extends ExportException {
     /**
@@ -28,6 +28,6 @@ class GraphQLQueryInvalid extends ExportException {
     }
 
     public function getErrorMessage(): string {
-        return __('http.controllers.export.graphql_query_invalid');
+        return trans('http.controllers.export.graphql_query_invalid');
     }
 }

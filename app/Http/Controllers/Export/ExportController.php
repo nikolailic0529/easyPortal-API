@@ -7,9 +7,6 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\OffsetBasedObjectIterator;
 use App\Utils\Iterators\OneChunkOffsetBasedObjectIterator;
 use Barryvdh\Snappy\PdfWrapper;
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-use Box\Spout\Writer\WriterInterface;
 use Closure;
 use EmptyIterator;
 use GraphQL\Server\Helper;
@@ -27,6 +24,11 @@ use Laravel\Telescope\Telescope;
 use Nuwave\Lighthouse\GraphQL;
 use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Writer\CSV\Writer as CSVWriter;
+use OpenSpout\Writer\WriterInterface;
+use OpenSpout\Writer\XLSX\Writer as XLSXWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Mime\MimeTypes;
 
@@ -73,11 +75,11 @@ class ExportController extends Controller {
     }
 
     public function csv(ExportRequest $request): StreamedResponse {
-        return $this->excel(WriterEntityFactory::createCSVWriter(), $request, __FUNCTION__, 'export.csv');
+        return $this->excel(new CSVWriter(), $request, __FUNCTION__, 'export.csv');
     }
 
     public function xlsx(ExportRequest $request): StreamedResponse {
-        return $this->excel(WriterEntityFactory::createXLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
+        return $this->excel(new XLSXWriter(), $request, __FUNCTION__, 'export.xlsx');
     }
 
     public function pdf(ExportRequest $request): Response {
@@ -110,18 +112,19 @@ class ExportController extends Controller {
             'Content-Type' => "{$mimetype}; charset=UTF-8",
         ];
 
+        $writer->openToFile('php://output');
+
         return $this->factory->streamDownload(function () use ($writer, $request, $format): void {
-            $writer   = $writer->openToFile('php://output');
             $headers  = static function (array $headers) use ($writer): void {
-                $style = (new StyleBuilder())->setFontBold()->build();
-                $row   = WriterEntityFactory::createRowFromArray($headers, $style);
+                $style = (new Style())->setFontBold();
+                $row   = Row::fromValues($headers, $style);
 
                 $writer->addRow($row);
             };
             $iterator = $this->getRowsIterator($request, $format, $headers);
 
             foreach ($iterator as $row) {
-                $writer->addRow(WriterEntityFactory::createRowFromArray($row));
+                $writer->addRow(Row::fromValues($row));
             }
 
             $writer->close();

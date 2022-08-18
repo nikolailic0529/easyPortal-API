@@ -4,9 +4,9 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function is_string;
 use function preg_match;
+use function trans;
 
 /**
  * ISO 8601 Durations
@@ -27,6 +27,6 @@ class Duration implements Rule {
     }
 
     public function message(): string {
-        return __('validation.duration');
+        return trans('validation.duration');
     }
 }

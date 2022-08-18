@@ -7,7 +7,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use Psr\Log\LogLevel;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
-use function __;
+use function trans;
 
 class FailedToSendMail extends ApplicationException implements TranslatedException {
     public function __construct(TransportExceptionInterface $previous = null) {
@@ -17,6 +17,6 @@ class FailedToSendMail extends ApplicationException implements TranslatedExcepti
     }
 
     public function getErrorMessage(): string {
-        return __('errors.failed_to_send_mail');
+        return trans('errors.failed_to_send_mail');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 use App\Models\Type;
 use App\Utils\Eloquent\Model;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -47,8 +47,6 @@ class TypeResolverTest extends TestCase {
         $provider = $this->app->make(TypeResolver::class);
         $actual   = $provider->get($model, 'a', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertEquals('a', $actual->key);
@@ -59,11 +57,13 @@ class TypeResolverTest extends TestCase {
         self::assertSame($actual, $provider->get($model, 'A', $factory));
 
         // All value should be loaded, so get() should not perform any queries
+        $queries = $this->getQueryLog()->flush();
+
         self::assertNotEmpty($provider->get($model, 'b', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotEmpty($provider->get($model, 'c', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($model): Type {
@@ -73,6 +73,7 @@ class TypeResolverTest extends TestCase {
                 'name'        => 'unKnown',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get($model, ' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
@@ -80,22 +81,21 @@ class TypeResolverTest extends TestCase {
         self::assertNotEmpty($created);
         self::assertEquals('unKnown', $created->key);
         self::assertEquals('unKnown', $created->name);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get($model, 'unknoWn', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should be found
-        $c = Type::factory()->create([
+        $c       = Type::factory()->create([
             'object_type' => $model->getMorphClass(),
         ]);
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
         self::assertEquals($c->getKey(), $provider->get($model, $c->key)?->getKey());
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
     }
 }

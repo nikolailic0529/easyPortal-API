@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\QuoteRequestDuration;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class QuoteRequestDurationId implements Rule {
     /**
@@ -16,6 +16,6 @@ class QuoteRequestDurationId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.quote_request_duration_id');
+        return trans('validation.quote_request_duration_id');
     }
 }

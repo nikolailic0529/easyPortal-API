@@ -9,7 +9,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -53,15 +53,14 @@ class WithStatusTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
-        self::assertEquals($status, $factory->status($customer, $status->key));
-        self::assertCount(1, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertEquals($status, $factory->status($customer, $status->key));
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->status($customer, ' New  status ');
 
         self::assertNotNull($created);
@@ -69,6 +68,6 @@ class WithStatusTest extends TestCase {
         self::assertEquals($customer->getMorphClass(), $created->object_type);
         self::assertEquals('New status', $created->key);
         self::assertEquals('New Status', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 }

@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class RoleId implements Rule {
     public function __construct(
@@ -28,6 +28,6 @@ class RoleId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.org_role_id');
+        return trans('validation.org_role_id');
     }
 }

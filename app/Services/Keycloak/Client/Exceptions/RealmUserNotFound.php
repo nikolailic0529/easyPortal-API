@@ -4,8 +4,8 @@ namespace App\Services\Keycloak\Client\Exceptions;
 
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class RealmUserNotFound extends ClientException {
     public function __construct(
@@ -16,6 +16,6 @@ class RealmUserNotFound extends ClientException {
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.realm_user_not_found');
+        return trans('keycloak.client.realm_user_not_found');
     }
 }

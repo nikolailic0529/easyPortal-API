@@ -8,7 +8,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -52,22 +52,21 @@ class WithLanguageTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
-        self::assertEquals($language, $factory->language($language->code));
-        self::assertCount(1, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertEquals($language, $factory->language($language->code));
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->language('nw ');
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('nw', $created->code);
         self::assertEquals('nw', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
 
         // If null - null should be returned
         self::assertNull($factory->language(null));

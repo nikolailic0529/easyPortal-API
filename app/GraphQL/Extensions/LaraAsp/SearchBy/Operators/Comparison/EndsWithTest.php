@@ -4,12 +4,16 @@ namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison;
 
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata;
 use Closure;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Handler;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
 use Mockery\MockInterface;
+use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;
+use Tests\WithGraphQLSchema;
 use Tests\WithSettings;
 
 /**
@@ -17,38 +21,51 @@ use Tests\WithSettings;
  * @coversDefaultClass \App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith
  *
  * @phpstan-import-type SettingsFactory from WithSettings
+ * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
 class EndsWithTest extends TestCase {
+    use WithGraphQLSchema;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::apply
+     * @covers ::call
      *
-     * @dataProvider dataProviderApply
+     * @dataProvider dataProviderCall
      *
      * @param array{query: string, bindings: array<mixed>} $expected
+     * @param BuilderFactory                               $builderFactory
      * @param SettingsFactory                              $settingsFactory
+     * @param Closure(static): Argument                    $argumentFactory
      */
-    public function testApply(
+    public function testCall(
         array $expected,
-        Closure $builderFactory,
+        mixed $builderFactory,
         mixed $settingsFactory,
-        string $property,
+        Property $property,
         bool $fulltext,
-        mixed $value,
+        mixed $argumentFactory,
     ): void {
         $this->setSettings($settingsFactory);
-        $this->override(Metadata::class, static function (MockInterface $mock) use ($property, $fulltext): void {
-            $mock
-                ->shouldReceive('isFulltextIndexExists')
-                ->with(Mockery::any(), $property)
-                ->once()
-                ->andReturn($fulltext);
-        });
+
+        $property = $property->getChild('operator name should be ignored');
+        $argument = $argumentFactory($this);
+        $builder  = $builderFactory($this);
+
+        $this->override(
+            Metadata::class,
+            static function (MockInterface $mock) use ($builder, $property, $fulltext): void {
+                $mock
+                    ->shouldReceive('isFulltextIndexExists')
+                    ->with(Mockery::any(), $builder->getGrammar()->wrap((string) $property->getParent()))
+                    ->once()
+                    ->andReturn($fulltext);
+            },
+        );
 
         $operator = $this->app->make(EndsWith::class);
-        $builder  = $builderFactory($this);
-        $builder  = $operator->apply($builder, $property, $value);
+        $search   = Mockery::mock(Handler::class);
+        $builder  = $operator->call($search, $builder, $property, $argument);
 
         self::assertDatabaseQueryEquals($expected, $builder);
     }
@@ -59,7 +76,7 @@ class EndsWithTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderApply(): array {
+    public function dataProviderCall(): array {
         return (new CompositeDataProvider(
             new BuilderDataProvider(),
             new ArrayDataProvider([
@@ -69,7 +86,7 @@ class EndsWithTest extends TestCase {
                             select *
                             from `tmp`
                             where (
-                                `property` LIKE ? ESCAPE '!' and MATCH(property) AGAINST (?)
+                                `property` LIKE ? ESCAPE '!' and MATCH(`property`) AGAINST (?)
                                 )
                             SQL
                         ,
@@ -81,9 +98,11 @@ class EndsWithTest extends TestCase {
                     [
                         'ep.search.fulltext.ngram_token_size' => 2,
                     ],
-                    'property',
+                    new Property('property'),
                     true,
-                    'a%b',
+                    static function (self $test): Argument {
+                        return $test->getGraphQLArgument('String!', 'a%b');
+                    },
                 ],
                 'without fulltext'                                       => [
                     [
@@ -95,9 +114,11 @@ class EndsWithTest extends TestCase {
                     [
                         'ep.search.fulltext.ngram_token_size' => 2,
                     ],
-                    'property',
+                    new Property('property'),
                     false,
-                    'a%b',
+                    static function (self $test): Argument {
+                        return $test->getGraphQLArgument('String!', 'a%b');
+                    },
                 ],
                 'value shorter than ep.search.fulltext.ngram_token_size' => [
                     [
@@ -109,9 +130,11 @@ class EndsWithTest extends TestCase {
                     [
                         'ep.search.fulltext.ngram_token_size' => 4,
                     ],
-                    'property',
+                    new Property('property'),
                     true,
-                    'abc',
+                    static function (self $test): Argument {
+                        return $test->getGraphQLArgument('String!', 'abc');
+                    },
                 ],
             ]),
         ))->getData();

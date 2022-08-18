@@ -77,7 +77,6 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ join(fromJSON(inputs.php-extensions)) }}
-          ini-values: opcache.enable_cli=1
           coverage: none
       - name: Setup Mysql
         run: |

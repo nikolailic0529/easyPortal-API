@@ -5,7 +5,7 @@ namespace App\Rules;
 use App\Models\File;
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
+use function trans;
 
 class FileId implements Rule {
     /**
@@ -16,6 +16,6 @@ class FileId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.file_id');
+        return trans('validation.file_id');
     }
 }

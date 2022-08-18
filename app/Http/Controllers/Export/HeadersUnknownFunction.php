@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Export;
 
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class HeadersUnknownFunction extends ExportException {
     public function __construct(
@@ -19,7 +19,7 @@ class HeadersUnknownFunction extends ExportException {
     }
 
     public function getErrorMessage(): string {
-        return __('http.controllers.export.headers_unknown_function', [
+        return trans('http.controllers.export.headers_unknown_function', [
             'function' => $this->function,
         ]);
     }

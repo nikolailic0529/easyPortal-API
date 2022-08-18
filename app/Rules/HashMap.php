@@ -4,11 +4,11 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-use function __;
 use function array_filter;
 use function array_keys;
 use function count;
 use function is_array;
+use function trans;
 
 /**
  * Checks that value is `array<string, mixed>`.
@@ -23,6 +23,6 @@ class HashMap implements Rule {
     }
 
     public function message(): string {
-        return __('validation.hash_map');
+        return trans('validation.hash_map');
     }
 }

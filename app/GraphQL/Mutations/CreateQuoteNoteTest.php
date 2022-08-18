@@ -22,7 +22,7 @@ use Tests\WithOrganization;
 use Tests\WithSettings;
 use Tests\WithUser;
 
-use function __;
+use function trans;
 
 /**
  * @internal
@@ -203,7 +203,7 @@ class CreateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid note'        => [
                         new GraphQLError('createQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.document_statuses_hidden' => [],
@@ -222,7 +222,7 @@ class CreateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid document'    => [
                         new GraphQLError('createQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.document_statuses_hidden' => [],
@@ -245,7 +245,7 @@ class CreateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid file size'   => [
                         new GraphQLError('createQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.document_statuses_hidden' => [],
@@ -268,7 +268,7 @@ class CreateQuoteNoteTest extends TestCase {
                     ],
                     'Invalid file format' => [
                         new GraphQLError('createQuoteNote', static function (): array {
-                            return [__('errors.validation_failed')];
+                            return [trans('errors.validation_failed')];
                         }),
                         [
                             'ep.document_statuses_hidden' => [],

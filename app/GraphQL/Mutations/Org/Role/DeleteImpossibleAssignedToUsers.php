@@ -6,8 +6,8 @@ use App\GraphQL\GraphQLException;
 use App\Models\Role;
 use Throwable;
 
-use function __;
 use function sprintf;
+use function trans;
 
 class DeleteImpossibleAssignedToUsers extends GraphQLException {
     public function __construct(Role $role, Throwable $previous = null) {
@@ -18,6 +18,6 @@ class DeleteImpossibleAssignedToUsers extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.org.role.delete.impossible_assigned_to_users');
+        return trans('graphql.mutations.org.role.delete.impossible_assigned_to_users');
     }
 }

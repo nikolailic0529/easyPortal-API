@@ -7,7 +7,7 @@ use App\Exceptions\Contracts\TranslatedException;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use Throwable;
 
-use function __;
+use function trans;
 
 class GraphQLRequestFailed extends ClientException implements
     ExternalException,
@@ -33,6 +33,6 @@ class GraphQLRequestFailed extends ClientException implements
     }
 
     public function getErrorMessage(): string {
-        return __('data-loader.client.request_failed');
+        return trans('data-loader.client.request_failed');
     }
 }

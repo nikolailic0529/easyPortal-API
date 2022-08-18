@@ -39,7 +39,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -66,12 +66,11 @@ class AssetFactoryTest extends TestCase {
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
         $asset   = new ViewAsset($json);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         $factory->find($asset);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**
@@ -110,16 +109,15 @@ class AssetFactoryTest extends TestCase {
         $documents = $container->make(DocumentFactory::class);
 
         // Load
-        $json  = $this->getTestData()->json('~asset-full.json');
-        $asset = new ViewAsset($json);
-
-        $this->flushQueryLog();
+        $json    = $this->getTestData()->json('~asset-full.json');
+        $asset   = new ViewAsset($json);
+        $queries = $this->getQueryLog()->flush();
 
         // Test
         /** @var AssetFactory $factory */
         $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $created  = $factory->create($asset);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-create-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -249,15 +247,14 @@ class AssetFactoryTest extends TestCase {
         self::assertNotNull($extended->start);
         self::assertNotNull($extended->end);
 
-        $this->flushQueryLog();
-
         // Asset should be updated
         /** @var AssetFactory $factory */
         $factory  = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json     = $this->getTestData()->json('~asset-changed.json');
         $asset    = new ViewAsset($json);
+        $queries  = $this->getQueryLog()->flush();
         $updated  = $factory->create($asset);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-update-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -302,17 +299,16 @@ class AssetFactoryTest extends TestCase {
             DocumentEntryModel::class => 0,
         ]);
 
-        $this->flushQueryLog();
-
         // No changes
         /** @var AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->create($asset);
 
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromAsset-nochanges-expected.json');
 
         self::assertEquals($expected, $actual);

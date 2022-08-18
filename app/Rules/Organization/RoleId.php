@@ -7,7 +7,7 @@ use App\Models\Role;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 
-use function __;
+use function trans;
 
 class RoleId implements Rule, ContextAwareRule {
     use HasOrganization;
@@ -43,6 +43,6 @@ class RoleId implements Rule, ContextAwareRule {
     }
 
     public function message(): string {
-        return __('validation.organization_role_id');
+        return trans('validation.organization_role_id');
     }
 }

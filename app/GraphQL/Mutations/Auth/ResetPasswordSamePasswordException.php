@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Auth;
 use App\GraphQL\GraphQLException;
 use Throwable;
 
-use function __;
+use function trans;
 
 class ResetPasswordSamePasswordException extends GraphQLException {
     public function __construct(Throwable $previous = null) {
@@ -13,6 +13,6 @@ class ResetPasswordSamePasswordException extends GraphQLException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.resetPassword.same_password');
+        return trans('graphql.mutations.resetPassword.same_password');
     }
 }
