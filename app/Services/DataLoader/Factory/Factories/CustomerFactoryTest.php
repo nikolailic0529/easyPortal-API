@@ -15,7 +15,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -40,12 +40,11 @@ class CustomerFactoryTest extends TestCase {
         $factory = $this->app->make(CustomerFactory::class);
         $json    = $this->getTestData()->json('~customer-full.json');
         $company = new Company($json);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         $factory->find($company);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**
@@ -92,11 +91,10 @@ class CustomerFactoryTest extends TestCase {
         $json    = $this->getTestData()->json('~customer-full.json');
         $company = new Company($json);
 
-        $this->flushQueryLog();
-
         // Test
+        $queries  = $this->getQueryLog()->flush();
         $customer = $factory->create($company);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -230,13 +228,12 @@ class CustomerFactoryTest extends TestCase {
             $customer->kpi->service_revenue_total_amount_change,
         );
 
-        $this->flushQueryLog();
-
         // Customer should be updated
         $json     = $this->getTestData()->json('~customer-changed.json');
         $company  = new Company($json);
+        $queries  = $this->getQueryLog()->flush();
         $updated  = $factory->create($company);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -263,15 +260,14 @@ class CustomerFactoryTest extends TestCase {
         self::assertEquals($reseller->getKey(), $updated->resellersPivots->first()->reseller_id);
         self::assertNull($updated->resellersPivots->first()->kpi_id);
 
-        $this->flushQueryLog();
-
         // No changes
         $json    = $this->getTestData()->json('~customer-changed.json');
         $company = new Company($json);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->create($company);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries->get());
     }
 
     /**

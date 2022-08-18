@@ -13,8 +13,8 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use LastDragon_ru\LaraASP\GraphQL\AstManipulator;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
+use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use LogicException;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
@@ -23,7 +23,6 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
-
 use function get_object_vars;
 use function is_array;
 use function json_encode;
@@ -159,7 +158,7 @@ class Manipulator extends AstManipulator {
                 return $this->getNodeName($field) === $fieldName;
             });
 
-            if ($existing && !$this->getNodeDirective($existing, AggregatedCount::class)) {
+            if ($existing instanceof Node && !$this->getNodeDirective($existing, AggregatedCount::class)) {
                 throw new LogicException(sprintf(
                     'Field `%s` in type `%s` already defined.',
                     $fieldName,

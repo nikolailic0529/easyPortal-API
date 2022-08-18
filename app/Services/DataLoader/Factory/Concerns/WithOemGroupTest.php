@@ -8,7 +8,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -50,24 +50,22 @@ class WithOemGroupTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
+
         self::assertEquals(
             $group->withoutRelations(),
             $factory->oemGroup($oem, $group->key, $group->name)->withoutRelations(),
         );
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->oemGroup($oem, 'newkey', ' New  Oem  Group  Name ');
 
-        self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals('newkey', $created->key);
         self::assertEquals('New Oem Group Name', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 }

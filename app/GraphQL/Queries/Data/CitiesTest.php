@@ -6,7 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
@@ -50,7 +50,7 @@ class CitiesTest extends TestCase {
         }
 
         // Flush
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         // Test
         $this
@@ -72,7 +72,7 @@ class CitiesTest extends TestCase {
 
         // Eager Loading
         if ($expected instanceof GraphQLSuccess) {
-            self::assertCount(4, $this->getQueryLog());
+            self::assertCount(4, $queries);
         }
     }
     // </editor-fold>

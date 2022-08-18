@@ -6,7 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -61,8 +61,6 @@ class LocationResolverTest extends TestCase {
         $provider = $this->app->make(LocationResolver::class);
         $actual   = $provider->get($countryA, $cityA, 'postcode a', 'line_one a', 'line_two a', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertFalse($actual->wasRecentlyCreated);
@@ -73,9 +71,9 @@ class LocationResolverTest extends TestCase {
         self::assertEquals($countryA, $actual->country);
         self::assertEquals($cityA, $actual->city);
 
-        $this->flushQueryLog();
-
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get(
             $countryA,
             $cityA,
@@ -92,7 +90,7 @@ class LocationResolverTest extends TestCase {
             ' lIne_two  a',
             $factory,
         ));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotSame($actual, $provider->get(
             $countryA,
@@ -103,18 +101,16 @@ class LocationResolverTest extends TestCase {
             $factory,
         ));
 
-        $this->flushQueryLog();
-
         // Should be found in DB
+        $queries = $this->getQueryLog()->flush();
+
         $foundA = $provider->get($countryA, $cityA, 'postcode c', 'line_one c  line_two c', '', $factory);
         $foundB = $provider->get($countryA, $cityA, 'postcode c', 'line_one c', 'line_two c', $factory);
 
         self::assertNotEmpty($foundA);
         self::assertEquals($foundA, $foundB);
         self::assertFalse($foundA->wasRecentlyCreated);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If not, the new object should be created
         $spy     = Mockery::spy(static function () use ($countryB, $cityB): Location {
@@ -127,6 +123,7 @@ class LocationResolverTest extends TestCase {
                 'line_two'   => 'Line_two a',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get(
             $countryB,
             $cityB,
@@ -145,15 +142,15 @@ class LocationResolverTest extends TestCase {
         self::assertEquals('Line_two a', $created->line_two);
         self::assertEquals($countryB->getKey(), $created->country_id);
         self::assertEquals($cityB->getKey(), $created->city_id);
-        self::assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(2, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame(
             $created,
             $provider->get($countryB, $cityB, 'Postcode', 'line_one  a', 'LINE_two a', $factory),
         );
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
     }
 }

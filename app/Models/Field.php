@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Relations\HasContracts;
+use App\Models\Relations\HasQuotes;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
@@ -30,6 +32,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 class Field extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
+    use HasContracts;
+    use HasQuotes;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -53,34 +57,6 @@ class Field extends Model implements Translatable {
             null,
             'document_id',
         );
-    }
-
-    /**
-     * @return HasManyThrough<Document>
-     */
-    #[CascadeDelete(false)]
-    public function contracts(): HasManyThrough {
-        // fixme(Models): Use HasContracts (https://github.com/fakharanwar/easyPortal-API/issues/995)
-        return $this
-            ->documents()
-            ->where(static function (Builder|HasManyThrough $builder): void {
-                /** @var Builder<Document>|HasManyThrough<Document> $builder */
-                $builder->queryContracts();
-            });
-    }
-
-    /**
-     * @return HasManyThrough<Document>
-     */
-    #[CascadeDelete(false)]
-    public function quotes(): HasManyThrough {
-        // fixme(Models): Use HasQuotes (https://github.com/fakharanwar/easyPortal-API/issues/995)
-        return $this
-            ->documents()
-            ->where(static function (Builder|HasManyThrough $builder): void {
-                /** @var Builder<Document>|HasManyThrough<Document> $builder */
-                $builder->queryQuotes();
-            });
     }
     // </editor-fold>
 

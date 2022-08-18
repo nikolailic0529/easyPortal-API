@@ -9,7 +9,7 @@ use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\TestCase;
 
 /**
@@ -53,22 +53,20 @@ class WithTypeTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
-        self::assertEquals($type, $factory->type($customer, $type->key));
-        self::assertCount(1, $this->getQueryLog());
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
+        self::assertEquals($type, $factory->type($customer, $type->key));
+        self::assertCount(1, $queries);
 
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->type($customer, ' New  type ');
 
-        self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
         self::assertEquals($customer->getMorphClass(), $created->object_type);
         self::assertEquals('New type', $created->key);
         self::assertEquals('New Type', $created->name);
-        self::assertCount(2, $this->getQueryLog());
+        self::assertCount(2, $queries);
     }
 }

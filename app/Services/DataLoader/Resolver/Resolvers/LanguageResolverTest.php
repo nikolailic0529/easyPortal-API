@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Language;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -32,24 +32,26 @@ class LanguageResolverTest extends TestCase {
         $provider = $this->app->make(LanguageResolver::class);
         $actual   = $provider->get('a', $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertEquals('a', $actual->code);
 
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get('a', $factory));
         self::assertSame($actual, $provider->get(' a ', $factory));
         self::assertSame($actual, $provider->get('A', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // All value should be loaded, so get() should not perform any queries
+        $queries = $this->getQueryLog()->flush();
+
         self::assertNotEmpty($provider->get('b', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotEmpty($provider->get('c', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Language {
@@ -58,6 +60,7 @@ class LanguageResolverTest extends TestCase {
                 'name' => 'unknown name',
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get(' uN ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
@@ -65,20 +68,19 @@ class LanguageResolverTest extends TestCase {
         self::assertNotEmpty($created);
         self::assertEquals('UN', $created->code);
         self::assertEquals('unknown name', $created->name);
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get('Un', $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         // Created object should be found
-        $c = Language::factory()->create();
+        $c       = Language::factory()->create();
+        $queries = $this->getQueryLog()->flush();
 
-        $this->flushQueryLog();
         self::assertEquals($c->getKey(), $provider->get($c->code)?->getKey());
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
     }
 }

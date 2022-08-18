@@ -7,6 +7,7 @@ use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 /**
  * @mixin Model
@@ -15,10 +16,10 @@ trait HasContracts {
     use HasDocuments;
 
     /**
-     * @return HasMany<Document>
+     * @return HasMany<Document>|HasManyThrough<Document>
      */
     #[CascadeDelete(false)]
-    public function contracts(): HasMany {
+    public function contracts(): HasMany|HasManyThrough {
         return $this
             ->documents()
             ->where(static function (Builder $builder) {

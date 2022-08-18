@@ -9,7 +9,7 @@ use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InputObjectField;
 use GraphQL\Type\Definition\Type;
-use LastDragon_ru\LaraASP\GraphQL\AstManipulator;
+use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use Nuwave\Lighthouse\Support\Contracts\Directive;
 
 class Manipulator extends AstManipulator {

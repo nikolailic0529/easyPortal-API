@@ -21,6 +21,11 @@ class Metadata {
         // empty
     }
 
+    /**
+     * @template T of \Illuminate\Database\Eloquent\Model
+     *
+     * @param EloquentBuilder<T>|QueryBuilder $builder
+     */
     public function isFulltextIndexExists(EloquentBuilder|QueryBuilder $builder, string $property): bool {
         $property = str_replace('`', '', $property);
         $table    = $builder instanceof EloquentBuilder

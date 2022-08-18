@@ -97,6 +97,7 @@ class CascadeProcessorTest extends TestCase {
         self::assertEquals(
             [
                 'relationWithTypehint',
+                'relationWithUnionTypehint',
             ],
             array_keys($processor->getRelations($model)),
         );

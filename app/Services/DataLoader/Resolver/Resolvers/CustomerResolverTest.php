@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Customer;
 use Closure;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -33,21 +33,20 @@ class CustomerResolverTest extends TestCase {
         $provider = $this->app->make(CustomerResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);
 
-        $this->flushQueryLog();
-
         // Basic
         self::assertNotEmpty($actual);
         self::assertEquals($a->getKey(), $actual->getKey());
 
         // Second call should return same instance
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($actual, $provider->get($a->getKey(), $factory));
         self::assertSame($actual, $provider->get(" {$a->getKey()} ", $factory));
 
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
 
         self::assertNotSame($actual, $provider->get($b->getKey(), $factory));
-        self::assertCount(1, $this->getQueryLog());
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // If value not found the new object should be created
         $uuid    = $this->faker->uuid();
@@ -58,18 +57,19 @@ class CustomerResolverTest extends TestCase {
                 'status_id' => $uuid,
             ]);
         });
+        $queries = $this->getQueryLog()->flush();
         $created = $provider->get($uuid, Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
         self::assertNotEmpty($created);
         self::assertEquals($uuid, $created->getKey());
-        self::assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
+        self::assertCount(1, $queries);
 
         // The created object should be in cache
+        $queries = $this->getQueryLog()->flush();
+
         self::assertSame($created, $provider->get($uuid, $factory));
-        self::assertCount(0, $this->getQueryLog());
+        self::assertCount(0, $queries);
     }
 }

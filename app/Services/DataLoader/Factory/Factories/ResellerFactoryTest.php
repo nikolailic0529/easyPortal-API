@@ -9,7 +9,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
@@ -37,12 +37,11 @@ class ResellerFactoryTest extends TestCase {
             'companyType' => 'RESELLER',
         ]);
         $factory = $this->app->make(ResellerFactory::class);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         $factory->find($company);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**
@@ -86,12 +85,11 @@ class ResellerFactoryTest extends TestCase {
         // Load
         $json    = $this->getTestData()->json('~reseller-full.json');
         $company = new Company($json);
-
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         // Test
         $reseller = $factory->create($company);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-create-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -223,13 +221,12 @@ class ResellerFactoryTest extends TestCase {
             $reseller->kpi->service_revenue_total_amount_change,
         );
 
-        $this->flushQueryLog();
-
         // Reseller should be updated
         $json     = $this->getTestData()->json('~reseller-changed.json');
         $company  = new Company($json);
+        $queries  = $this->getQueryLog()->flush();
         $updated  = $factory->create($company);
-        $actual   = array_column($this->getQueryLog(), 'query');
+        $actual   = array_column($queries->get(), 'query');
         $expected = $this->getTestData()->json('~createFromCompany-update-expected.json');
 
         self::assertEquals($expected, $actual);
@@ -253,18 +250,17 @@ class ResellerFactoryTest extends TestCase {
         );
         self::assertNull($updated->kpi);
 
-        $this->flushQueryLog();
-
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 2);
 
         // No changes
         $json    = $this->getTestData()->json('~reseller-changed.json');
         $company = new Company($json);
+        $queries = $this->getQueryLog()->flush();
 
         $factory->create($company);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**

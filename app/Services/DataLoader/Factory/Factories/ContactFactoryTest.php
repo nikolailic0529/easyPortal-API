@@ -11,7 +11,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use Closure;
 use InvalidArgumentException;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -39,11 +39,11 @@ class ContactFactoryTest extends TestCase {
         $factory  = $this->app->make(ContactFactory::class);
 
         // Exist
-        $this->flushQueryLog();
+        $queries = $this->getQueryLog()->flush();
 
         $factory->find($customer, $contact);
 
-        self::assertCount(1, $this->getQueryLog());
+        self::assertCount(1, $queries);
     }
 
     /**
@@ -138,25 +138,24 @@ class ContactFactoryTest extends TestCase {
             }
         };
 
-        $this->flushQueryLog();
-
         // If model exists - no action required
+        $queries = $this->getQueryLog()->flush();
+
         if ($customer->exists) {
             self::assertEquals(
                 $contact,
                 $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
             );
-            self::assertCount(1, $this->getQueryLog());
+            self::assertCount(1, $queries);
         } else {
             self::assertNotNull(
                 $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
             );
-            self::assertCount(0, $this->getQueryLog());
+            self::assertCount(0, $queries);
         }
 
-        $this->flushQueryLog();
-
         // If not - it should be created
+        $queries = $this->getQueryLog()->flush();
         $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
 
         self::assertNotNull($created);
@@ -167,7 +166,7 @@ class ContactFactoryTest extends TestCase {
         self::assertEquals('phone number', $created->phone_number);
         self::assertEquals('email', $created->email);
         self::assertFalse($created->phone_valid);
-        self::assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
+        self::assertCount($customer->exists ? 2 : 0, $queries);
     }
     // </editor-fold>
 

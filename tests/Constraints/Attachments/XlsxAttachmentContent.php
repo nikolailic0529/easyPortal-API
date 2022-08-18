@@ -27,9 +27,13 @@ class XlsxAttachmentContent extends Response {
         );
     }
 
-    protected function isConstraintMatches(ResponseInterface $other, Constraint $constraint): bool {
+    protected function isConstraintMatches(
+        ResponseInterface $other,
+        Constraint $constraint,
+        bool $return = false,
+    ): ?bool {
         $content = $this->toCsv($other->getBody());
-        $matches = (bool) $constraint->evaluate($content, '', true);
+        $matches = $constraint->evaluate($content, '', $return);
 
         return $matches;
     }
