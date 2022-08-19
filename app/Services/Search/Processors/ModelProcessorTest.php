@@ -44,6 +44,7 @@ use function count;
  * @coversDefaultClass \App\Services\Search\Processors\ModelProcessor
  *
  * @phpstan-import-type SettingsFactory from WithSettings
+ * @phpstan-import-type SearchIndexes from WithSearch
  */
 class ModelProcessorTest extends TestCase {
     use WithSearch;
@@ -207,7 +208,7 @@ class ModelProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderCreateIndex
      *
-     * @param array<mixed>                                       $expected
+     * @param SearchIndexes                                      $expected
      * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
      * @param array<string, string|null>                         $indexes
      */

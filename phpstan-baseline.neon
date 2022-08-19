@@ -226,92 +226,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:testResolveField\\(\\) has parameter \\$builder with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedCountTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedCountTest.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\AggregatedTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/AggregatedTest.php
 
@@ -2031,47 +1946,7 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetsAggregatedTest.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsSearchTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
@@ -2141,47 +2016,7 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsSearch.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:testQuery\\(\\) has parameter \\$contractsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
@@ -2251,47 +2086,7 @@ parameters:
 			path: app/GraphQL/Queries/Customers/CustomersAggregatedTest.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
 
@@ -2486,47 +2281,7 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuotesSearch.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:testQuery\\(\\) has parameter \\$quotesFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
 
@@ -2546,47 +2301,7 @@ parameters:
 			path: app/GraphQL/Queries/Search.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/SearchTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\GraphQL\\\\Queries\\\\SearchTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/SearchTest.php
 
@@ -6936,47 +6651,7 @@ parameters:
 			path: app/Services/Search/Builders/Builder.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Services/Search/Builders/BuilderTest\\.php\\:33\\:\\:apply\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Builders/BuilderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\Services\\\\Search\\\\Builders\\\\BuilderTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: app/Services/Search/Builders/BuilderTest.php
 
@@ -7501,26 +7176,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessor.php
 
 		-
-			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Cannot access offset 'aliases' on mixed\\.$#"
-			count: 3
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Cannot access offset mixed on mixed\\.$#"
-			count: 2
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Cannot access offset string\\|null on mixed\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -7561,27 +7216,27 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:163\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\:\\:query\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:468\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:468\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:680\\:\\:__construct\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:680\\:\\:getSearchProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -7601,26 +7256,6 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$expected of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:assertSearchIndexExists\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$expectedIndex of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:assertSearchIndexAlias\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:getSearchName\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$index of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorTest\\:\\:isSearchName\\(\\) expects string, mixed given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$items of class Illuminate\\\\Support\\\\Collection constructor expects Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\<TKey of \\(int\\|string\\), mixed\\>\\|iterable\\<TKey of \\(int\\|string\\), mixed\\>\\|null, iterable given\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
@@ -7631,17 +7266,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:163\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:468\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:680\\)\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -7651,12 +7286,12 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:468\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:469\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:679\\)\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects \\(App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|array\\{model\\: class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), static\\(class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:680\\)\\> given\\.$#"
 			count: 2
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
@@ -7686,17 +7321,17 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:393\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:394\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:393\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
+			message: "#^Parameter \\#3 \\$item of method class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:394\\:\\:process\\(\\) expects App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Model&Mockery\\\\MockInterface given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:163\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			message: "#^Property class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\:\\:\\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 

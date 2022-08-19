@@ -7,6 +7,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Mockery;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -33,6 +34,8 @@ class CountTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param Closure(static):EloquentBuilder<Model>|Closure(static):QueryBuilder $builder
      */
     public function testResolveField(int $expected, Closure $builder): void {
         $context     = Mockery::mock(GraphQLContext::class);
