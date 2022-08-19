@@ -819,8 +819,10 @@ class RelationTest extends TestCase {
                                     *
                                 from
                                     `table_b`
-                                    inner join `table_a` as `laravel_reserved_0` on `laravel_reserved_0`.`id` = `table_b`.`relation_test___model_a_id`
-                                    inner join `table_b` on `table_b`.`id` = `laravel_reserved_0`.`relation_test___model_b_id`
+                                    inner join `table_a` as `laravel_reserved_0`
+                                        on `laravel_reserved_0`.`id` = `table_b`.`relation_test___model_a_id`
+                                    inner join `table_b`
+                                        on `table_b`.`id` = `laravel_reserved_0`.`relation_test___model_b_id`
                                 where
                                     `table_a`.`id` = `table_b`.`relation_test___model_a_id`
                                     and `table_b`.`parent_id` in (
