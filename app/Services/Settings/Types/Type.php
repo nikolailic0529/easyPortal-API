@@ -19,7 +19,7 @@ abstract class Type {
     }
 
     public function fromString(string $value): mixed {
-        return $this->isNull($value) ? null : $this->fromNotNullString($value);
+        return Type::isNull($value) ? null : $this->fromNotNullString($value);
     }
 
     public function toString(mixed $value): string {
@@ -37,7 +37,7 @@ abstract class Type {
         return (string) $value;
     }
 
-    protected function isNull(string $value): bool {
+    public static function isNull(string $value): bool {
         return $value === 'null' || $value === '(null)';
     }
 

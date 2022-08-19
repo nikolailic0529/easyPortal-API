@@ -6,10 +6,10 @@ use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
-use App\Services\Settings\Attributes\PublicName;
+use App\Services\Settings\Attributes\PublicName as PublicNameAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
-use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Environment\EnvironmentRepository;
 use App\Services\Settings\Events\SettingsUpdated;
@@ -133,6 +133,14 @@ class SettingsTest extends TestCase {
 
                     #[SettingAttribute('b')]
                     public const READONLY = 'readonly';
+
+                    #[SettingAttribute('с')]
+                    #[TypeAttribute(StringType::class)]
+                    public const C = [];
+
+                    #[SettingAttribute('d')]
+                    #[TypeAttribute(StringType::class)]
+                    public const D = [];
                 })::class;
             }
 
@@ -150,16 +158,22 @@ class SettingsTest extends TestCase {
 
         $updated = $service->setEditableSettings([
             'A'        => 'updated',
+            'C'        => 'null',
+            'D'        => 'a,,,a,,b',
             'UNKNOWN'  => 'should be ignored',
             'READONLY' => 'should be ignored',
         ]);
 
-        $expected = ['A' => 'updated'];
+        $expected = [
+            'A' => 'updated',
+            'C' => null,
+            'D' => ['a', 'b'],
+        ];
         $actual   = (new Collection($updated))
             ->keyBy(static function (Setting $setting): string {
                 return $setting->getName();
             })
-            ->map(static function (Setting $setting): string {
+            ->map(static function (Setting $setting): mixed {
                 self::assertInstanceOf(Value::class, $setting);
 
                 return $setting->getValue();
@@ -351,7 +365,7 @@ class SettingsTest extends TestCase {
             protected function getStore(): string {
                 return (new class() {
                     #[SettingAttribute('a')]
-                    #[PublicName('publicSettingA')]
+                    #[PublicNameAttribute('publicSettingA')]
                     public const A = 'test';
 
                     #[SettingAttribute('b')]
@@ -480,7 +494,7 @@ class SettingsTest extends TestCase {
         $a        = new Setting(new ReflectionClassConstant(
             new class() {
                 #[SettingAttribute()]
-                #[Type(StringType::class)]
+                #[TypeAttribute(StringType::class)]
                 public const A = 123;
             },
             'A',
@@ -488,7 +502,7 @@ class SettingsTest extends TestCase {
         $b        = new Setting(new ReflectionClassConstant(
             new class() {
                 #[SettingAttribute('test.setting')]
-                #[Type(StringType::class)]
+                #[TypeAttribute(StringType::class)]
                 public const B = 123;
             },
             'B',
@@ -512,7 +526,7 @@ class SettingsTest extends TestCase {
         $setting  = new Setting(new ReflectionClassConstant(
             new class() {
                 #[SettingAttribute()]
-                #[Type(StringType::class)]
+                #[TypeAttribute(StringType::class)]
                 public const TEST = 123;
             },
             'TEST',
@@ -596,8 +610,10 @@ class SettingsTest extends TestCase {
             'null'                 => [null, StringType::class, false, null],
             '"null"'               => [null, StringType::class, false, 'null'],
             '(null)'               => [null, StringType::class, false, '(null)'],
-            '"null,null"'          => ['null,null', StringType::class, false, 'null,null'],
-            'null,null'            => [[null, null], IntType::class, true, 'null,null'],
+            'array: null,value'    => [['value'], StringType::class, true, 'null,value,,,null,,value,'],
+            'array:"null,null"'    => ['null,null', StringType::class, false, 'null,null'],
+            'array: null,null'     => [[], IntType::class, true, 'null,null'],
+            'array: null'          => [null, IntType::class, true, 'null'],
             '1,2,3'                => [[1, 2, 3], IntType::class, true, '1,2,3'],
             '123'                  => [123, IntType::class, false, '123'],
             '123 (array)'          => [[123], IntType::class, true, '123'],
