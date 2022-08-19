@@ -3379,34 +3379,64 @@ Available operators for `scalar Date!` (only one operator allowed at a time).
 """
 input SearchByScalarDate {
     """
-    Bitwise AND (`&`).
+    Within a range.
     """
-    bitwiseAnd: Date
-    @searchByOperatorBitwiseAnd
+    between: SearchByTypeRangeDate
+    @searchByOperatorBetween
 
     """
-    Bitwise Left shift (`<<`).
+    Equal (`=`).
     """
-    bitwiseLeftShift: Date
-    @searchByOperatorBitwiseLeftShift
+    equal: Date
+    @searchByOperatorEqual
 
     """
-    Bitwise OR (`|`).
+    Greater than (`>`).
     """
-    bitwiseOr: Date
-    @searchByOperatorBitwiseOr
+    greaterThan: Date
+    @searchByOperatorGreaterThan
 
     """
-    Bitwise Right shift (`>>`).
+    Greater than or equal to (`>=`).
     """
-    bitwiseRightShift: Date
-    @searchByOperatorBitwiseRightShift
+    greaterThanOrEqual: Date
+    @searchByOperatorGreaterThanOrEqual
 
     """
-    Bitwise XOR (`^`).
+    Within a set of values.
     """
-    bitwiseXor: Date
-    @searchByOperatorBitwiseXor
+    in: [Date!]
+    @searchByOperatorIn
+
+    """
+    Less than (`<`).
+    """
+    lessThan: Date
+    @searchByOperatorLessThan
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: Date
+    @searchByOperatorLessThanOrEqual
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeDate
+    @searchByOperatorNotBetween
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Date
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [Date!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -3414,34 +3444,34 @@ Available operators for `scalar Date` (only one operator allowed at a time).
 """
 input SearchByScalarDateOrNull {
     """
-    Bitwise AND (`&`).
+    Within a range.
     """
-    bitwiseAnd: Date
-    @searchByOperatorBitwiseAnd
+    between: SearchByTypeRangeDate
+    @searchByOperatorBetween
 
     """
-    Bitwise Left shift (`<<`).
+    Equal (`=`).
     """
-    bitwiseLeftShift: Date
-    @searchByOperatorBitwiseLeftShift
+    equal: Date
+    @searchByOperatorEqual
 
     """
-    Bitwise OR (`|`).
+    Greater than (`>`).
     """
-    bitwiseOr: Date
-    @searchByOperatorBitwiseOr
+    greaterThan: Date
+    @searchByOperatorGreaterThan
 
     """
-    Bitwise Right shift (`>>`).
+    Greater than or equal to (`>=`).
     """
-    bitwiseRightShift: Date
-    @searchByOperatorBitwiseRightShift
+    greaterThanOrEqual: Date
+    @searchByOperatorGreaterThanOrEqual
 
     """
-    Bitwise XOR (`^`).
+    Within a set of values.
     """
-    bitwiseXor: Date
-    @searchByOperatorBitwiseXor
+    in: [Date!]
+    @searchByOperatorIn
 
     """
     Is NOT NULL?
@@ -3454,6 +3484,36 @@ input SearchByScalarDateOrNull {
     """
     isNull: SearchByTypeFlag
     @searchByOperatorIsNull
+
+    """
+    Less than (`<`).
+    """
+    lessThan: Date
+    @searchByOperatorLessThan
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: Date
+    @searchByOperatorLessThanOrEqual
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeDate
+    @searchByOperatorNotBetween
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: Date
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [Date!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -3461,34 +3521,64 @@ Available operators for `scalar DateTime!` (only one operator allowed at a time)
 """
 input SearchByScalarDateTime {
     """
-    Bitwise AND (`&`).
+    Within a range.
     """
-    bitwiseAnd: DateTime
-    @searchByOperatorBitwiseAnd
+    between: SearchByTypeRangeDateTime
+    @searchByOperatorBetween
 
     """
-    Bitwise Left shift (`<<`).
+    Equal (`=`).
     """
-    bitwiseLeftShift: DateTime
-    @searchByOperatorBitwiseLeftShift
+    equal: DateTime
+    @searchByOperatorEqual
 
     """
-    Bitwise OR (`|`).
+    Greater than (`>`).
     """
-    bitwiseOr: DateTime
-    @searchByOperatorBitwiseOr
+    greaterThan: DateTime
+    @searchByOperatorGreaterThan
 
     """
-    Bitwise Right shift (`>>`).
+    Greater than or equal to (`>=`).
     """
-    bitwiseRightShift: DateTime
-    @searchByOperatorBitwiseRightShift
+    greaterThanOrEqual: DateTime
+    @searchByOperatorGreaterThanOrEqual
 
     """
-    Bitwise XOR (`^`).
+    Within a set of values.
     """
-    bitwiseXor: DateTime
-    @searchByOperatorBitwiseXor
+    in: [DateTime!]
+    @searchByOperatorIn
+
+    """
+    Less than (`<`).
+    """
+    lessThan: DateTime
+    @searchByOperatorLessThan
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: DateTime
+    @searchByOperatorLessThanOrEqual
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeDateTime
+    @searchByOperatorNotBetween
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: DateTime
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [DateTime!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -3496,34 +3586,34 @@ Available operators for `scalar DateTime` (only one operator allowed at a time).
 """
 input SearchByScalarDateTimeOrNull {
     """
-    Bitwise AND (`&`).
+    Within a range.
     """
-    bitwiseAnd: DateTime
-    @searchByOperatorBitwiseAnd
+    between: SearchByTypeRangeDateTime
+    @searchByOperatorBetween
 
     """
-    Bitwise Left shift (`<<`).
+    Equal (`=`).
     """
-    bitwiseLeftShift: DateTime
-    @searchByOperatorBitwiseLeftShift
+    equal: DateTime
+    @searchByOperatorEqual
 
     """
-    Bitwise OR (`|`).
+    Greater than (`>`).
     """
-    bitwiseOr: DateTime
-    @searchByOperatorBitwiseOr
+    greaterThan: DateTime
+    @searchByOperatorGreaterThan
 
     """
-    Bitwise Right shift (`>>`).
+    Greater than or equal to (`>=`).
     """
-    bitwiseRightShift: DateTime
-    @searchByOperatorBitwiseRightShift
+    greaterThanOrEqual: DateTime
+    @searchByOperatorGreaterThanOrEqual
 
     """
-    Bitwise XOR (`^`).
+    Within a set of values.
     """
-    bitwiseXor: DateTime
-    @searchByOperatorBitwiseXor
+    in: [DateTime!]
+    @searchByOperatorIn
 
     """
     Is NOT NULL?
@@ -3536,6 +3626,36 @@ input SearchByScalarDateTimeOrNull {
     """
     isNull: SearchByTypeFlag
     @searchByOperatorIsNull
+
+    """
+    Less than (`<`).
+    """
+    lessThan: DateTime
+    @searchByOperatorLessThan
+
+    """
+    Less than or equal to (`<=`).
+    """
+    lessThanOrEqual: DateTime
+    @searchByOperatorLessThanOrEqual
+
+    """
+    Outside a range.
+    """
+    notBetween: SearchByTypeRangeDateTime
+    @searchByOperatorNotBetween
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: DateTime
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [DateTime!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -4155,6 +4275,16 @@ input SearchByScalarUrlOrNull {
     """
     startsWith: Url
     @searchByOperatorStartsWith
+}
+
+input SearchByTypeRangeDate {
+    max: Date!
+    min: Date!
+}
+
+input SearchByTypeRangeDateTime {
+    max: DateTime!
+    min: DateTime!
 }
 
 input SearchByTypeRangeFloat {

@@ -31,7 +31,7 @@ return [
          * @var array<string, array<string|Operator>>
          */
         'scalars' => [
-            'Date'                          => 'Int',
+            'Date'                          => SearchByDirective::ScalarNumber,
             'DateTime'                      => 'Date',
             'Url'                           => SearchByDirective::ScalarString,
             'Email'                         => SearchByDirective::ScalarString,
