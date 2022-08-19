@@ -7,6 +7,7 @@ use App\Services\Queue\Job;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Events\SettingsUpdated;
 use App\Services\Settings\Jobs\ConfigUpdate;
+use App\Services\Settings\Types\Type;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -19,6 +20,7 @@ use function array_fill_keys;
 use function array_filter;
 use function array_keys;
 use function array_map;
+use function array_unique;
 use function array_values;
 use function explode;
 use function is_null;
@@ -253,7 +255,7 @@ class Settings {
         $type   = $setting->getType();
         $result = $value;
 
-        if (is_null($value)) {
+        if (is_null($value) || Type::isNull($value)) {
             $result = null;
         } elseif ($setting->isArray()) {
             $result = explode(self::DELIMITER, $value);
@@ -263,6 +265,9 @@ class Settings {
             $result = array_map(static function (string $value) use ($type): mixed {
                 return $type->fromString(trim($value));
             }, $result);
+            $result = array_values(array_unique(array_filter($result, static function (mixed $value): bool {
+                return $value !== null;
+            })));
         } else {
             $result = $type->fromString(trim($value));
         }

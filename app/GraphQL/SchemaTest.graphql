@@ -5727,57 +5727,6 @@ type AssetMutation {
     )
 
     """
-    Organization Sign In.
-
-    Application use standard OAuth 2.0 Authorization Code Grant.
-
-    1. Call `signIn` mutation
-        ```graphql
-        mutation {
-            auth {
-                organization(id) {
-                    signIn {
-                        url
-                    }
-                }
-            }
-        }
-        ```
-    2. Redirect the User to `url`
-    3. After successful Sign In the User will come back and Client should call
-    `authorize` mutation with `code` and `state` to finish the authorization:
-        ```graphql
-        mutation {
-            auth {
-                organization(id) {
-                    authorize(input: {code: "...", state: "..."}) {
-                        result
-                        me {
-                            enabled
-                        }
-                    }
-                }
-            }
-        }
-        ```
-    4. Check result:
-    - `result = false` -> something wrong, please try to repeat step (1)
-    - `me.enabled = false` -> user disabled or doesn't have access to the
-    Organization. In this case, the Client should allow the User to
-    Sign Out (so the User may repeat auth process if it want).
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    organization(
-        id: ID
-        @eq
-    ): AuthOrganizationMutation
-    @authGuest
-    @mutation(
-        model: "App\\Models\\Organization"
-    )
-
-    """
     @require <authOrg> Authenticated user must be a member of the current organization.
 
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
@@ -5796,49 +5745,6 @@ type AssetMutation {
     )
     @mutationMutate(
         resolver: "App\\GraphQL\\Mutations\\Asset\\SetNickname"
-    )
-
-    """
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signIn(
-        input: AuthSignInInput
-    ): AuthSignInPayload
-    @throttle(
-        name: "auth"
-    )
-    @authGuest
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
-    )
-
-    signOut: AuthSignOutPayload
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
-    )
-
-    """
-    Completes Sign Up.
-
-    1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
-    User to the `url` if `true`.
-    2. If `false` you should provide addition details (`input`) to complete Sign Up
-    process.
-
-    See also:
-    * `mutation { organization(id) { user { invite } }`
-    * `mutation { org { user { invite } }`
-    * `query { auth { invitation } }`
-
-    @require <authGuest> Current visitor must be a guest.
-    """
-    signUpByInvite(
-        input: AuthSignUpByInviteInput
-        token: String!
-    ): AuthSignUpByInvitePayload
-    @authGuest
-    @mutationCall(
-        resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
     )
 
     """
@@ -6017,6 +5923,102 @@ type AuthInvitation {
     used: Boolean!
     @field(
         resolver: "App\\GraphQL\\Queries\\Auth\\Invitation@isUsed"
+    )
+}
+
+type AuthMutation {
+    """
+    Organization Sign In.
+
+    Application use standard OAuth 2.0 Authorization Code Grant.
+
+    1. Call `signIn` mutation
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    signIn {
+                        url
+                    }
+                }
+            }
+        }
+        ```
+    2. Redirect the User to `url`
+    3. After successful Sign In the User will come back and Client should call
+    `authorize` mutation with `code` and `state` to finish the authorization:
+        ```graphql
+        mutation {
+            auth {
+                organization(id) {
+                    authorize(input: {code: "...", state: "..."}) {
+                        result
+                        me {
+                            enabled
+                        }
+                    }
+                }
+            }
+        }
+        ```
+    4. Check result:
+    - `result = false` -> something wrong, please try to repeat step (1)
+    - `me.enabled = false` -> user disabled or doesn't have access to the
+    Organization. In this case, the Client should allow the User to
+    Sign Out (so the User may repeat auth process if it want).
+
+    @require <authGuest> Current visitor must be a guest.
+    """
+    organization(
+        id: ID
+        @eq
+    ): AuthOrganizationMutation
+    @authGuest
+    @mutation(
+        model: "App\\Models\\Organization"
+    )
+
+    """
+    @require <authGuest> Current visitor must be a guest.
+    """
+    signIn(
+        input: AuthSignInInput
+    ): AuthSignInPayload
+    @throttle(
+        name: "auth"
+    )
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn"
+    )
+
+    signOut: AuthSignOutPayload
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut"
+    )
+
+    """
+    Completes Sign Up.
+
+    1. Call `auth { signUpByInvite(token: "...") { result, url } }` and redirect
+    User to the `url` if `true`.
+    2. If `false` you should provide addition details (`input`) to complete Sign Up
+    process.
+
+    See also:
+    * `mutation { organization(id) { user { invite } }`
+    * `mutation { org { user { invite } }`
+    * `query { auth { invitation } }`
+
+    @require <authGuest> Current visitor must be a guest.
+    """
+    signUpByInvite(
+        input: AuthSignUpByInviteInput
+        token: String!
+    ): AuthSignUpByInvitePayload
+    @authGuest
+    @mutationCall(
+        resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite"
     )
 }
 
@@ -7216,7 +7218,7 @@ type Mutation {
         model: "App\\Models\\Asset"
     )
 
-    auth: AssetMutation
+    auth: AuthMutation
     @mutation(
         resolver: "App\\GraphQL\\Resolvers\\NullResolver"
     )

@@ -65,7 +65,7 @@ class SettingValueTest extends TestCase {
             'null '                    => [false, SettingValueTest_Constants::class, 'VALUE', 'null'],
             'valid'                    => [true, SettingValueTest_Constants::class, 'VALUE', 'valid'],
             'invalid'                  => [false, SettingValueTest_Constants::class, 'VALUE', 'invalid value'],
-            'null array'               => [false, SettingValueTest_Constants::class, 'ARRAY', 'null'],
+            'null array'               => [true, SettingValueTest_Constants::class, 'ARRAY', 'null'],
             'valid array'              => [true, SettingValueTest_Constants::class, 'ARRAY', 'valid,valid'],
             'empty array'              => [true, SettingValueTest_Constants::class, 'ARRAY', ''],
             'valid array (whitespace)' => [true, SettingValueTest_Constants::class, 'ARRAY', 'valid, valid'],

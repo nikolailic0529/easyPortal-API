@@ -26,7 +26,7 @@ class Relation extends SearchByRelation {
         int $count,
         Closure $closure,
     ): void {
-        $name     = (string) $property;
+        $name     = $property->getName();
         $relation = (new ModelHelper($builder))->getRelation($name);
 
         if ($relation instanceof HasManyDeep) {

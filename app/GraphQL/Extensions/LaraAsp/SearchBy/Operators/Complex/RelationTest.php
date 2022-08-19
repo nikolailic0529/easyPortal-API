@@ -2,10 +2,12 @@
 
 namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex;
 
+use App\GraphQL\Extensions\Lighthouse\DirectiveLocator;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
@@ -14,7 +16,6 @@ use LastDragon_ru\LaraASP\Eloquent\Exceptions\PropertyIsNotRelation;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Exceptions\Client\ConditionTooManyOperators;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Directives\Directive;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 use Staudenmeir\EloquentHasManyDeep\HasRelationships;
@@ -22,6 +23,7 @@ use Staudenmeir\EloquentHasManyDeep\HasTableAlias;
 use Tests\DataProviders\Builders\BuilderDataProvider;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
+use Tests\WithQueryLogs;
 
 use function is_array;
 
@@ -32,6 +34,7 @@ use function is_array;
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
 class RelationTest extends TestCase {
+    use WithQueryLogs;
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -74,6 +77,16 @@ class RelationTest extends TestCase {
             self::fail('Something wrong...');
         }
     }
+
+    /**
+     * @coversNothing
+     */
+    public function testIntegration(): void {
+        $actual   = $this->app->make(DirectiveLocator::class)->create('searchByOperatorRelation');
+        $expected = Relation::class;
+
+        self::assertInstanceOf($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -92,6 +105,9 @@ class RelationTest extends TestCase {
             input TestInput {
                 property: TestOperators
                 @searchByProperty
+
+                parent: TestRelation
+                @searchByOperatorRelation
             }
 
             input TestOperators {
@@ -121,7 +137,7 @@ class RelationTest extends TestCase {
         GRAPHQL;
 
         return [
-            'not a relation'                                  => [
+            'not a relation'                                              => [
                 new PropertyIsNotRelation(new RelationTest__ModelA(), 'delete'),
                 static function (): EloquentBuilder {
                     return RelationTest__ModelA::query();
@@ -138,7 +154,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'HasMany: {exists: true}'                         => [
+            'HasMany: {exists: true}'                                     => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -171,7 +187,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'MorphTo: {exists: true}'                         => [
+            'MorphTo: {exists: true}'                                     => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -221,7 +237,7 @@ class RelationTest extends TestCase {
                 },
                 $prepare,
             ],
-            'HasManyDeep: {exists: true}'                     => [
+            'HasManyDeep: {exists: true}'                                 => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -260,7 +276,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'HasMany: {notExists: true}'                      => [
+            'HasMany: {notExists: true}'                                  => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -293,7 +309,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'MorphTo: {notExists: true}'                      => [
+            'MorphTo: {notExists: true}'                                  => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -343,7 +359,7 @@ class RelationTest extends TestCase {
                 },
                 $prepare,
             ],
-            'HasManyDeep: {notExists: true}'                  => [
+            'HasManyDeep: {notExists: true}'                              => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -382,7 +398,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'HasMany: {relation: {property: {equal: 1}}}'     => [
+            'HasMany: {relation: {property: {equal: 1}}}'                 => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -423,7 +439,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'MorphTo: {relation: {property: {equal: 1}}}'     => [
+            'MorphTo: {relation: {property: {equal: 1}}}'                 => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -483,7 +499,7 @@ class RelationTest extends TestCase {
                 },
                 $prepare,
             ],
-            'HasManyDeep: {relation: {property: {equal: 1}}}' => [
+            'HasManyDeep: {relation: {property: {equal: 1}}}'             => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -529,7 +545,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'HasMany: {count: {equal: 1}}'                    => [
+            'HasMany: {count: {equal: 1}}'                                => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -566,7 +582,7 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            'MorphTo: {count: {equal: 1}}'                    => [
+            'MorphTo: {count: {equal: 1}}'                                => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -622,7 +638,7 @@ class RelationTest extends TestCase {
                 },
                 $prepare,
             ],
-            'HasManyDeep: {count: {equal: 1}}'                => [
+            'HasManyDeep: {count: {equal: 1}}'                            => [
                 [
                     'query'    => <<<'SQL'
                         select
@@ -663,7 +679,188 @@ class RelationTest extends TestCase {
                 },
                 null,
             ],
-            '{count: { multiple operators }}'                 => [
+            'HasMany: {relation: {relation: {property: {equal: 1}}}}'     => [
+                [
+                    'query'    => <<<'SQL'
+                        select
+                            *
+                        from
+                            `table_a`
+                        where
+                            `table_a`.`id` in (
+                                select
+                                    distinct `table_b`.`table_a_id`
+                                from
+                                    `table_b`
+                                where
+                                    `table_b`.`parent_id` in (
+                                        select
+                                            distinct `table_a`.`id`
+                                        from
+                                            `table_a`
+                                        where
+                                            `table_a`.`property` = ?
+                                    )
+                            )
+                    SQL
+                    ,
+                    'bindings' => [123],
+                ],
+                static function (): EloquentBuilder {
+                    return RelationTest__ModelA::query();
+                },
+                new Property('child'),
+                static function (self $test) use ($graphql): Argument {
+                    return $test->getGraphQLArgument(
+                        'TestRelation',
+                        [
+                            'where' => [
+                                'parent' => [
+                                    'where' => [
+                                        'property' => [
+                                            'equal' => 123,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        $graphql,
+                    );
+                },
+            ],
+            'MorphTo: {relation: {relation: {property: {equal: 1}}}}'     => [
+                [
+                    'query'    => <<<'SQL'
+                        select
+                            *
+                        from
+                            `table_a`
+                        where
+                            (
+                                (
+                                    `table_a`.`object_type` = ?
+                                    and `table_a`.`object_id` in (
+                                        select
+                                            distinct `table_a`.`id`
+                                        from
+                                            `table_a`
+                                        where
+                                            `table_a`.`parent_id` in (
+                                                select
+                                                    distinct `table_a`.`id`
+                                                from
+                                                    `table_a`
+                                                where
+                                                    `table_a`.`property` = ?
+                                            )
+                                    )
+                                )
+                                or (
+                                    `table_a`.`object_type` = ?
+                                    and `table_a`.`object_id` in (
+                                        select
+                                            distinct `table_b`.`id`
+                                        from
+                                            `table_b`
+                                        where
+                                            `table_b`.`parent_id` in (
+                                                select
+                                                    distinct `table_a`.`id`
+                                                from
+                                                    `table_a`
+                                                where
+                                                    `table_a`.`property` = ?
+                                            )
+                                    )
+                                )
+                            )
+                    SQL
+                    ,
+                    'bindings' => [
+                        'a',
+                        123,
+                        'b',
+                        123,
+                    ],
+                ],
+                static function (): EloquentBuilder {
+                    return RelationTest__ModelA::query();
+                },
+                new Property('object'),
+                static function (self $test) use ($graphql): Argument {
+                    return $test->getGraphQLArgument(
+                        'TestRelation',
+                        [
+                            'where' => [
+                                'parent' => [
+                                    'where' => [
+                                        'property' => [
+                                            'equal' => 123,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        $graphql,
+                    );
+                },
+                $prepare,
+            ],
+            'HasManyDeep: {relation: {relation: {property: {equal: 1}}}}' => [
+                [
+                    'query'    => <<<'SQL'
+                        select
+                            *
+                        from
+                            `table_a`
+                        where
+                            exists (
+                                select
+                                    *
+                                from
+                                    `table_b`
+                                    inner join `table_a` as `laravel_reserved_0`
+                                        on `laravel_reserved_0`.`id` = `table_b`.`relation_test___model_a_id`
+                                    inner join `table_b`
+                                        on `table_b`.`id` = `laravel_reserved_0`.`relation_test___model_b_id`
+                                where
+                                    `table_a`.`id` = `table_b`.`relation_test___model_a_id`
+                                    and `table_b`.`parent_id` in (
+                                        select
+                                            distinct `table_a`.`id`
+                                        from
+                                            `table_a`
+                                        where
+                                            `table_a`.`property` = ?
+                                    )
+                            )
+                    SQL
+                    ,
+                    'bindings' => [123],
+                ],
+                static function (): EloquentBuilder {
+                    return RelationTest__ModelA::query();
+                },
+                new Property('children'),
+                static function (self $test) use ($graphql): Argument {
+                    return $test->getGraphQLArgument(
+                        'TestRelation',
+                        [
+                            'where' => [
+                                'parent' => [
+                                    'where' => [
+                                        'property' => [
+                                            'equal' => 123,
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        $graphql,
+                    );
+                },
+            ],
+            '{count: { multiple operators }}'                             => [
                 new ConditionTooManyOperators(['lessThan', 'equal']),
                 static function (): EloquentBuilder {
                     return RelationTest__ModelA::query();
@@ -741,6 +938,13 @@ class RelationTest__ModelA extends Model {
             ],
         );
     }
+
+    /**
+     * @return BelongsTo<RelationTest__ModelA, self>
+     */
+    public function parent(): BelongsTo {
+        return $this->belongsTo(RelationTest__ModelA::class);
+    }
 }
 
 /**
@@ -754,6 +958,13 @@ class RelationTest__ModelB extends Model {
      * @var string
      */
     public $table = 'table_b';
+
+    /**
+     * @return BelongsTo<RelationTest__ModelA, self>
+     */
+    public function parent(): BelongsTo {
+        return $this->belongsTo(RelationTest__ModelA::class);
+    }
 }
 
 /**

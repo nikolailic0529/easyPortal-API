@@ -3,6 +3,8 @@
 namespace App\GraphQL;
 
 use App\Exceptions\GraphQL\ErrorFormatter;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains as ContainsOperator;
+use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith as EndsWithOperator;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Complex\Relation as RelationOperator;
 use App\GraphQL\Extensions\Lighthouse\DirectiveLocator;
 use App\GraphQL\Extensions\Lighthouse\Directives\EqDirective;
@@ -16,7 +18,9 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Complex\Relation as SearchByRelationOperator;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorContainsDirective;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorEndsWithDirective;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByOperatorRelationDirective;
 use Nuwave\Lighthouse\Events\ManipulateResult;
 use Nuwave\Lighthouse\Schema\DirectiveLocator as LighthouseDirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\EqDirective as LighthouseEqDirective;
@@ -37,7 +41,9 @@ class Provider extends ServiceProvider {
         $this->app->singleton(LighthouseDirectiveLocator::class, DirectiveLocator::class);
         $this->app->bind(LighthouseValidatorDirective::class, ValidatorDirective::class);
         $this->app->bind(LighthouseEqDirective::class, EqDirective::class);
-        $this->app->bind(SearchByRelationOperator::class, RelationOperator::class);
+        $this->app->bind(SearchByOperatorContainsDirective::class, ContainsOperator::class);
+        $this->app->bind(SearchByOperatorEndsWithDirective::class, EndsWithOperator::class);
+        $this->app->bind(SearchByOperatorRelationDirective::class, RelationOperator::class);
     }
 
     protected function registerListeners(): void {
