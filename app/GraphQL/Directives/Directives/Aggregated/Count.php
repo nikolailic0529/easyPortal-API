@@ -8,7 +8,7 @@ use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 
 use function assert;
 
-abstract class AggregatedCount extends BaseDirective implements FieldResolver {
+abstract class Count extends BaseDirective implements FieldResolver {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """

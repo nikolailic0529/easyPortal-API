@@ -20,9 +20,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\AggregatedCount
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\Count
  */
-class AggregatedCountTest extends TestCase {
+class CountTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
     use WithSearch;

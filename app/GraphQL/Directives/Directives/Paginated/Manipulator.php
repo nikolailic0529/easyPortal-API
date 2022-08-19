@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
-use App\GraphQL\Directives\Directives\Aggregated\AggregatedCount;
+use App\GraphQL\Directives\Directives\Aggregated\Count;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
@@ -158,7 +158,7 @@ class Manipulator extends AstManipulator {
                 return $this->getNodeName($field) === $fieldName;
             });
 
-            if ($existing instanceof Node && !$this->getNodeDirective($existing, AggregatedCount::class)) {
+            if ($existing instanceof Node && !$this->getNodeDirective($existing, Count::class)) {
                 throw new LogicException(sprintf(
                     'Field `%s` in type `%s` already defined.',
                     $fieldName,
