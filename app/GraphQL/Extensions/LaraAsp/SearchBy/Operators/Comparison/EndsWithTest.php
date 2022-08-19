@@ -3,6 +3,7 @@
 namespace App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison;
 
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Metadata;
+use App\GraphQL\Extensions\Lighthouse\DirectiveLocator;
 use Closure;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\Handler;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
@@ -68,6 +69,16 @@ class EndsWithTest extends TestCase {
         $builder  = $operator->call($search, $builder, $property, $argument);
 
         self::assertDatabaseQueryEquals($expected, $builder);
+    }
+
+    /**
+     * @coversNothing
+     */
+    public function testIntegration(): void {
+        $actual   = $this->app->make(DirectiveLocator::class)->create('searchByOperatorEndsWith');
+        $expected = EndsWith::class;
+
+        self::assertInstanceOf($expected, $actual);
     }
     // </editor-fold>
 
