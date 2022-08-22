@@ -23,7 +23,9 @@ use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+
 use function get_object_vars;
+use function implode;
 use function is_array;
 use function json_encode;
 use function sprintf;
@@ -132,10 +134,11 @@ class Manipulator extends AstManipulator {
     }
 
     protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
-        $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
-        $fieldName   = 'count';
-        $fieldSource = "{$fieldName}: Int! @aggregatedCount @cached(mode: Threshold)";
         $description = "Aggregated data for {$this->getNodeTypeFullName($node)}.";
+        $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
+        $fields      = [
+            'count: Int! @aggregatedCount @cached(mode: Threshold)',
+        ];
 
         if ($this->isTypeDefinitionExists($typeName)) {
             // type?
@@ -153,29 +156,39 @@ class Manipulator extends AstManipulator {
                 $definition->description = Parser::description("\"{$description}\"");
             }
 
-            // count?
-            $existing = Arr::first($definition->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
-                return $this->getNodeName($field) === $fieldName;
-            });
+            // Fields
+            foreach ($fields as $fieldDefinition) {
+                // Exists?
+                $fieldNode = Parser::fieldDefinition($fieldDefinition);
+                $fieldName = $this->getNodeName($fieldNode);
+                $existing  = Arr::first(
+                    $definition->fields,
+                    function (FieldDefinitionNode $field) use ($fieldName): bool {
+                        return $this->getNodeName($field) === $fieldName;
+                    },
+                );
 
-            if ($existing instanceof Node && !$this->getNodeDirective($existing, Count::class)) {
-                throw new LogicException(sprintf(
-                    'Field `%s` in type `%s` already defined.',
-                    $fieldName,
-                    $typeName,
-                ));
+                if ($existing instanceof Node && !$this->getNodeDirective($existing, Count::class)) {
+                    throw new LogicException(sprintf(
+                        'Field `%s` in type `%s` already defined.',
+                        $fieldName,
+                        $typeName,
+                    ));
+                }
+
+                // Add
+                $definition->fields[] = $fieldNode;
             }
-
-            // Add
-            $definition->fields[] = Parser::fieldDefinition($fieldSource);
         } else {
+            $fieldsDefinition = implode("\n", $fields);
+
             $this->addTypeDefinition(Parser::objectTypeDefinition(
                 <<<DEF
                 """
                 {$description}
                 """
                 type {$typeName} {
-                    {$fieldSource}
+                    {$fieldsDefinition}
                 }
                 DEF,
             ));
@@ -215,6 +228,8 @@ class Manipulator extends AstManipulator {
      * @return T
      */
     private function clone(Node $field): Node {
+        // Seems will be solved in webonyx/graphql-php v15?
+        //
         // https://github.com/webonyx/graphql-php/issues/988
         return (new class([]) extends Node {
             /**
