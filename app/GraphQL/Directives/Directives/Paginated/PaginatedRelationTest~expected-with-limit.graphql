@@ -150,9 +150,54 @@ type CustomerLocation {
 }
 
 """
-Aggregated data for type CustomerLocation.
+Aggregated data for `type CustomerLocation`.
 """
 type CustomerLocationsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: CustomerLocation!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [String]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: CustomerLocation!
+        @aggregatedGroupBy
+    ): CustomerLocationsAggregatedGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
+"""
+Aggregated data for `type CustomerLocationsAggregated { groups }`.
+"""
+type CustomerLocationsAggregatedGroupsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
@@ -196,6 +241,10 @@ directive @aggregatedCount
 on
     | FIELD_DEFINITION
 
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
+
 """
 Fetch all Eloquent models and return the collection as the result.
 """
@@ -225,6 +274,25 @@ Cache the resolved value of a field.
 """
 directive @cached(
     mode: CachedMode
+)
+on
+    | FIELD_DEFINITION
+
+"""
+Adds offset-based pagination for the field.
+"""
+directive @paginated(
+    """
+    Point to a function that provides a Query Builder instance.
+    This replaces the use of a model.
+    """
+    builder: String
+
+    """
+    Specify the class name of the model to use.
+    This is only needed when the default model detection does not work.
+    """
+    model: String
 )
 on
     | FIELD_DEFINITION

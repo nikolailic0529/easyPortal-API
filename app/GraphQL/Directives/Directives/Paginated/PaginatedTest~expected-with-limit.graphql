@@ -108,7 +108,7 @@ type Asset {
 }
 
 """
-Aggregated data for type Asset.
+Aggregated data for `type Asset`.
 """
 type AssetsAggregated {
     count: Int!
@@ -117,7 +117,52 @@ type AssetsAggregated {
         mode: Threshold
     )
 
+    groups(
+        groupBy: Asset!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [String]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: Asset!
+        @aggregatedGroupBy
+    ): AssetsAggregatedGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
     types: [String!]!
+}
+
+"""
+Aggregated data for `type AssetsAggregated { groups }`.
+"""
+type AssetsAggregatedGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
 }
 
 type Customer {
@@ -125,9 +170,54 @@ type Customer {
 }
 
 """
-Aggregated data for type Customer.
+Aggregated data for `type Customer`.
 """
 type CustomersAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: Customer!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [String]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: Customer!
+        @aggregatedGroupBy
+    ): CustomersAggregatedGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
+"""
+Aggregated data for `type CustomersAggregated { groups }`.
+"""
+type CustomersAggregatedGroupsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
@@ -240,6 +330,51 @@ type TypesAggregated {
     @cached(
         mode: Threshold
     )
+
+    groups(
+        groupBy: Type!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [String]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: Type!
+        @aggregatedGroupBy
+    ): TypesAggregatedGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
+"""
+Aggregated data for `type TypesAggregated { groups }`.
+"""
+type TypesAggregatedGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
 }
 
 """
@@ -272,6 +407,10 @@ Returns `count(*)`.
 directive @aggregatedCount
 on
     | FIELD_DEFINITION
+
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
 
 """
 User must be authenticated.

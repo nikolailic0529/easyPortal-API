@@ -2,13 +2,17 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
 use App\GraphQL\Directives\Directives\Aggregated\Count;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy;
+use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -16,19 +20,24 @@ use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use LogicException;
+use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
+use Nuwave\Lighthouse\Support\Contracts\ArgManipulator;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+use Nuwave\Lighthouse\Support\Contracts\TypeManipulator;
 
+use function assert;
 use function get_object_vars;
 use function implode;
 use function is_array;
 use function json_encode;
 use function sprintf;
+use function str_ends_with;
 
 class Manipulator extends AstManipulator {
     public function __construct(
@@ -48,19 +57,7 @@ class Manipulator extends AstManipulator {
         $aggregated = $this->getAggregatedField($parent, $field);
 
         if ($aggregated) {
-            /**
-             * Apply manipulators (lighthouse doesn't process added types)
-             *
-             * @see \Nuwave\Lighthouse\Schema\AST\ASTBuilder::applyFieldManipulators()
-             */
-            $manipulators = $this->directives->associatedOfType($aggregated, FieldManipulator::class);
-
-            foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateFieldDefinition($this->document, $aggregated, $parent);
-            }
-
-            // Add
-            $parent->fields[] = $aggregated;
+            $parent->fields[] = $this->applyManipulators($aggregated, $parent);
         }
 
         // Add limit/offset arguments
@@ -90,8 +87,9 @@ class Manipulator extends AstManipulator {
             $isArgBuilderDirective = (bool) $this->getNodeDirective($argument, ArgBuilderDirective::class);
             $isSearchDirective     = (bool) $this->getNodeDirective($argument, SearchDirective::class);
             $isSortByDirective     = (bool) $this->getNodeDirective($argument, SortByDirective::class);
+            $isGroupByDirective    = (bool) $this->getNodeDirective($argument, GroupBy::class);
 
-            if ($isSortByDirective || (!$isArgBuilderDirective && !$isSearchDirective)) {
+            if ($isSortByDirective || (!$isArgBuilderDirective && !$isSearchDirective && !$isGroupByDirective)) {
                 unset($aggregated->arguments[$key]);
             }
         }
@@ -103,10 +101,14 @@ class Manipulator extends AstManipulator {
             if ($directive instanceof Base || $directive instanceof RelationDirective) {
                 unset($aggregated->directives[$key]);
             }
+
+            if ($directive instanceof Cached) {
+                unset($aggregated->directives[$key]);
+            }
         }
 
         // Set type
-        $typeName         = $this->getAggregatedFieldType($field);
+        $typeName         = $this->getAggregatedFieldType($parent, $field);
         $aggregated->type = Parser::typeReference($typeName);
 
         // Set name
@@ -133,13 +135,38 @@ class Manipulator extends AstManipulator {
         return $aggregated;
     }
 
-    protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
-        $description = "Aggregated data for {$this->getNodeTypeFullName($node)}.";
-        $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
-        $fields      = [
+    protected function getAggregatedFieldType(ObjectTypeDefinitionNode $parent, FieldDefinitionNode $node): string {
+        // Prepare
+        $nodeType    = $this->getNodeTypeName($node);
+        $typeName    = Str::pluralStudly($nodeType).'Aggregated';
+        $parentType  = $this->getNodeTypeName($parent);
+        $description = "Aggregated data for `{$this->getNodeTypeFullName($node)}`.";
+
+        if (isset(Type::getStandardTypes()[$nodeType])) {
+            $field       = $this->getNodeName($node);
+            $typeName    = $parentType.Str::ucfirst($field).'Aggregated';
+            $description = "Aggregated data for `{$this->getNodeTypeFullName($parent)} { {$field} }`.";
+        }
+
+        // Fields
+        $isNested = str_ends_with($parentType, 'Aggregated');
+        $fields   = [
             'count: Int! @aggregatedCount @cached(mode: Threshold)',
         ];
 
+        if (!$isNested) {
+            $builder  = json_encode(AggregatedBuilder::class);
+            $fields[] = <<<DEF
+                groups(
+                    groupBy: {$nodeType}!
+                    @aggregatedGroupBy
+                ): [String]!
+                @cached(mode: Threshold)
+                @paginated(builder: {$builder})
+            DEF;
+        }
+
+        // Add type
         if ($this->isTypeDefinitionExists($typeName)) {
             // type?
             $definition = $this->getTypeDefinitionNode($typeName);
@@ -177,12 +204,11 @@ class Manipulator extends AstManipulator {
                 }
 
                 // Add
-                $definition->fields[] = $fieldNode;
+                $definition->fields[] = $this->applyManipulators($fieldNode, $definition);
             }
         } else {
             $fieldsDefinition = implode("\n", $fields);
-
-            $this->addTypeDefinition(Parser::objectTypeDefinition(
+            $typeDefinition   = $this->addTypeDefinition(Parser::objectTypeDefinition(
                 <<<DEF
                 """
                 {$description}
@@ -192,8 +218,11 @@ class Manipulator extends AstManipulator {
                 }
                 DEF,
             ));
+
+            $this->applyManipulators($typeDefinition);
         }
 
+        // Return
         return $typeName;
     }
 
@@ -276,5 +305,58 @@ class Manipulator extends AstManipulator {
                 return $cloned;
             }
         })->clone($field);
+    }
+
+    /**
+     * @template T of ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode
+     *
+     * @param T $node
+     *
+     * @return T
+     */
+    protected function applyManipulators(
+        ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode $node,
+        ObjectTypeDefinitionNode $parentObject = null,
+        FieldDefinitionNode $parentField = null,
+    ): ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode {
+        // There is no way to guarantee that manipulators will be applied for
+        // newly added types and fields :(
+
+        if ($node instanceof ObjectTypeDefinitionNode) {
+            /** @see ASTBuilder::applyTypeDefinitionManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, TypeManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateTypeDefinition($this->document, $node);
+            }
+
+            foreach ($node->fields as $field) {
+                assert($field instanceof FieldDefinitionNode);
+
+                $this->applyManipulators($field, $node);
+            }
+        } elseif ($node instanceof FieldDefinitionNode) {
+            /** @see ASTBuilder::applyFieldManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, FieldManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateFieldDefinition($this->document, $node, $parentObject);
+            }
+
+            foreach ($node->arguments as $argument) {
+                assert($argument instanceof InputValueDefinitionNode);
+
+                $this->applyManipulators($argument, $parentObject, $node);
+            }
+        } else {
+            /** @see ASTBuilder::applyArgManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, ArgManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateArgDefinition($this->document, $node, $parentField, $parentObject);
+            }
+        }
+
+        return $node;
     }
 }

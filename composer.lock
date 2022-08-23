@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43f5e1128b58e5372663d261038bd2b8",
+    "content-hash": "60e0bde74c3af2f14ee23131580a5cac",
     "packages": [
         {
             "name": "babenkoivan/elastic-adapter",
@@ -3397,16 +3397,16 @@
         },
         {
             "name": "lastdragon-ru/lara-asp-core",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-core.git",
-                "reference": "0bd328fef5232e5f5be669ba711926a034403689"
+                "reference": "bd204eb5379cb295fa874c8a0b6c754fe34df739"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/0bd328fef5232e5f5be669ba711926a034403689",
-                "reference": "0bd328fef5232e5f5be669ba711926a034403689",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-core/zipball/bd204eb5379cb295fa874c8a0b6c754fe34df739",
+                "reference": "bd204eb5379cb295fa874c8a0b6c754fe34df739",
                 "shasum": ""
             },
             "require": {
@@ -3447,20 +3447,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-eloquent",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-eloquent.git",
-                "reference": "bb75aa9311f8b786e4ff3b135f42c39ff4559c05"
+                "reference": "0bbbfbe640f4915386bdec13c5b8c8c39b45eb48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/bb75aa9311f8b786e4ff3b135f42c39ff4559c05",
-                "reference": "bb75aa9311f8b786e4ff3b135f42c39ff4559c05",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/0bbbfbe640f4915386bdec13c5b8c8c39b45eb48",
+                "reference": "0bbbfbe640f4915386bdec13c5b8c8c39b45eb48",
                 "shasum": ""
             },
             "require": {
@@ -3506,20 +3506,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-formatter",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-formatter.git",
-                "reference": "b7099619059c1f62fdf8385264ee1ae4a0418483"
+                "reference": "4bfb27df8f2e5dc46eb7220ed3a8ac5b1e6d92e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/b7099619059c1f62fdf8385264ee1ae4a0418483",
-                "reference": "b7099619059c1f62fdf8385264ee1ae4a0418483",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-formatter/zipball/4bfb27df8f2e5dc46eb7220ed3a8ac5b1e6d92e1",
+                "reference": "4bfb27df8f2e5dc46eb7220ed3a8ac5b1e6d92e1",
                 "shasum": ""
             },
             "require": {
@@ -3571,20 +3571,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-graphql",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "206408ca6d2b4db45124427e1a7bf1bbde7cb9f4"
+                "reference": "c8f68b560cc42a74b22baf27b21621bb84f07122"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/206408ca6d2b4db45124427e1a7bf1bbde7cb9f4",
-                "reference": "206408ca6d2b4db45124427e1a7bf1bbde7cb9f4",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/c8f68b560cc42a74b22baf27b21621bb84f07122",
+                "reference": "c8f68b560cc42a74b22baf27b21621bb84f07122",
                 "shasum": ""
             },
             "require": {
@@ -3642,20 +3642,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-migrator.git",
-                "reference": "85c0b4385cc8916455cc4197b32ceb3519e63091"
+                "reference": "c86ab62099facb71da3f7ec5470afd0d38ece741"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/85c0b4385cc8916455cc4197b32ceb3519e63091",
-                "reference": "85c0b4385cc8916455cc4197b32ceb3519e63091",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-migrator/zipball/c86ab62099facb71da3f7ec5470afd0d38ece741",
+                "reference": "c86ab62099facb71da3f7ec5470afd0d38ece741",
                 "shasum": ""
             },
             "require": {
@@ -3715,20 +3715,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-queue",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-queue.git",
-                "reference": "3a45d4db0a45a28af020e2e5bcdfbe04f52e33e1"
+                "reference": "384918935a064aa755afae7696730af1dda72d41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/3a45d4db0a45a28af020e2e5bcdfbe04f52e33e1",
-                "reference": "3a45d4db0a45a28af020e2e5bcdfbe04f52e33e1",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/384918935a064aa755afae7696730af1dda72d41",
+                "reference": "384918935a064aa755afae7696730af1dda72d41",
                 "shasum": ""
             },
             "require": {
@@ -3778,20 +3778,20 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-spa",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-spa.git",
-                "reference": "a8c03e21ad646e896f383510980450c6b2d4bc1c"
+                "reference": "13e731bb0dbc7282679fbff4bc5cde9d877ae80e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-spa/zipball/a8c03e21ad646e896f383510980450c6b2d4bc1c",
-                "reference": "a8c03e21ad646e896f383510980450c6b2d4bc1c",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-spa/zipball/13e731bb0dbc7282679fbff4bc5cde9d877ae80e",
+                "reference": "13e731bb0dbc7282679fbff4bc5cde9d877ae80e",
                 "shasum": ""
             },
             "require": {
@@ -3844,7 +3844,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "lcobucci/clock",
@@ -12520,16 +12520,16 @@
         },
         {
             "name": "lastdragon-ru/lara-asp-testing",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "3652b8d1dc96ba7efe4ae0f292cee7833630f08c"
+                "reference": "7a799848f5cf5d2d4f63cc93493ca126966d8547"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/3652b8d1dc96ba7efe4ae0f292cee7833630f08c",
-                "reference": "3652b8d1dc96ba7efe4ae0f292cee7833630f08c",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/7a799848f5cf5d2d4f63cc93493ca126966d8547",
+                "reference": "7a799848f5cf5d2d4f63cc93493ca126966d8547",
                 "shasum": ""
             },
             "require": {
@@ -12595,7 +12595,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2022-08-19T05:29:06+00:00"
+            "time": "2022-08-23T06:09:33+00:00"
         },
         {
             "name": "mockery/mockery",
