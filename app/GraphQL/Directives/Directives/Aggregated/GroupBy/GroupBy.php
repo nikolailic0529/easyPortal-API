@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives\Directives\Aggregated;
+namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 

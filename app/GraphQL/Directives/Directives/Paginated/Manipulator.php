@@ -4,7 +4,7 @@ namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
 use App\GraphQL\Directives\Directives\Aggregated\Count;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\GroupBy;
 use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
