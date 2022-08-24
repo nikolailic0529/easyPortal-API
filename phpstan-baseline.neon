@@ -526,7 +526,7 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
 
 		-
-			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:263\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
+			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:276\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Manipulator.php
 

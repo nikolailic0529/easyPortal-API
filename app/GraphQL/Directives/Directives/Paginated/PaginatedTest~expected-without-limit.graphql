@@ -39,9 +39,9 @@ input AggregatedGroupByClauseAsset {
 }
 
 """
-Group clause for `type Customer` (only one property allowed at a time).
+Group clause for `input CustomerSearch` (only one property allowed at a time).
 """
-input AggregatedGroupByClauseCustomer {
+input AggregatedGroupByClauseCustomerSearch {
     """
     Property clause.
     """
@@ -226,7 +226,7 @@ type CustomersAggregated {
     )
 
     groups(
-        groupBy: AggregatedGroupByClauseCustomer!
+        groupBy: AggregatedGroupByClauseCustomerSearch!
         @aggregatedGroupBy
 
         limit: Int!
@@ -252,7 +252,7 @@ type CustomersAggregated {
     )
 
     groupsAggregated(
-        groupBy: AggregatedGroupByClauseCustomer!
+        groupBy: AggregatedGroupByClauseCustomerSearch!
         @aggregatedGroupBy
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(

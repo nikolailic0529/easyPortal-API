@@ -28,9 +28,9 @@ enum SortByTypeDirection {
 }
 
 """
-Group clause for `type CustomerLocation` (only one property allowed at a time).
+Group clause for `input CustomerSearch` (only one property allowed at a time).
 """
-input AggregatedGroupByClauseCustomerLocation {
+input AggregatedGroupByClauseCustomerSearch {
     """
     Property clause.
     """
@@ -195,7 +195,7 @@ type CustomerLocationsAggregated {
     )
 
     groups(
-        groupBy: AggregatedGroupByClauseCustomerLocation!
+        groupBy: AggregatedGroupByClauseCustomerSearch!
         @aggregatedGroupBy
 
         limit: Int! = 25
@@ -221,7 +221,7 @@ type CustomerLocationsAggregated {
     )
 
     groupsAggregated(
-        groupBy: AggregatedGroupByClauseCustomerLocation!
+        groupBy: AggregatedGroupByClauseCustomerSearch!
         @aggregatedGroupBy
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(

@@ -18,6 +18,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use LogicException;
@@ -157,13 +158,21 @@ class Manipulator extends AstManipulator {
         ];
 
         if (!$isNested) {
-            $type     = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
-            $builder  = json_encode(AggregatedBuilder::class);
-            $fields[] = <<<DEF
+            $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
+            $inputType  = (new Collection($node->arguments))
+                ->filter(function (InputValueDefinitionNode $arg): bool {
+                    return $this->getNodeDirective($arg, SearchByDirective::class) !== null;
+                })
+                ->map(function (InputValueDefinitionNode $arg): string {
+                    return $this->getNodeTypeName($arg);
+                })
+                ->first() ?: $nodeType;
+            $builder    = json_encode(AggregatedBuilder::class);
+            $fields[]   = <<<DEF
                 groups(
-                    groupBy: {$nodeType}!
+                    groupBy: {$inputType}!
                     @aggregatedGroupBy
-                ): [{$type}!]!
+                ): [{$returnType}!]!
                 @cached(mode: Threshold)
                 @paginated(builder: {$builder})
             DEF;
