@@ -14,7 +14,6 @@ use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
@@ -73,9 +72,7 @@ class Manipulator extends AstManipulator {
     ): ?FieldDefinitionNode {
         // Field exists?
         $fieldName = "{$this->getNodeName($field)}Aggregated";
-        $existing  = Arr::first($parent->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
-            return $this->getNodeName($field) === $fieldName;
-        });
+        $existing  = $this->getObjectField($parent, $fieldName);
 
         if ($existing) {
             return null;
@@ -157,13 +154,10 @@ class Manipulator extends AstManipulator {
         if (!$isNested && !$isSearch) {
             $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
             $inputType  = (new Collection($node->arguments))
-                ->filter(function (InputValueDefinitionNode $arg): bool {
+                ->first(function (InputValueDefinitionNode $arg): bool {
                     return $this->getNodeDirective($arg, SearchByDirective::class) !== null;
-                })
-                ->map(function (InputValueDefinitionNode $arg): string {
-                    return $this->getNodeTypeName($arg);
-                })
-                ->first() ?: $nodeType;
+                });
+            $inputType  = $this->getNodeTypeName($inputType ?? $nodeType);
             $builder    = json_encode(AggregatedBuilder::class);
             $fields[]   = <<<DEF
                 groups(
@@ -197,12 +191,7 @@ class Manipulator extends AstManipulator {
                 // Exists?
                 $fieldNode = Parser::fieldDefinition($fieldDefinition);
                 $fieldName = $this->getNodeName($fieldNode);
-                $existing  = Arr::first(
-                    $definition->fields,
-                    function (FieldDefinitionNode $field) use ($fieldName): bool {
-                        return $this->getNodeName($field) === $fieldName;
-                    },
-                );
+                $existing  = $this->getObjectField($definition, $fieldName);
 
                 if ($existing instanceof Node && !$this->getNodeDirective($existing, AggregatedCountDirective::class)) {
                     throw new LogicException(sprintf(
@@ -314,6 +303,13 @@ class Manipulator extends AstManipulator {
                 return $cloned;
             }
         })->clone($field);
+    }
+
+    protected function getObjectField(ObjectTypeDefinitionNode $object, string $name): ?FieldDefinitionNode {
+        return (new Collection($object->fields))
+            ->first(function (FieldDefinitionNode $field) use ($name): bool {
+                return $this->getNodeName($field) === $name;
+            });
     }
 
     /**
