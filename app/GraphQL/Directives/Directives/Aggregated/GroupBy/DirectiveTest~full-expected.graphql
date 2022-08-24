@@ -1,0 +1,115 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
+"""
+Group clause for `input Nested` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseNested {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    nested: AggregatedGroupByClauseNested
+    @aggregatedGroupByProperty
+
+    """
+    Property clause.
+    """
+    value: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input Properties` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseProperties {
+    """
+    Property clause.
+    """
+    idScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    idScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    nested: AggregatedGroupByClauseNested
+    @aggregatedGroupByProperty
+
+    """
+    Property clause.
+    """
+    nestedNotNull: AggregatedGroupByClauseNested
+    @aggregatedGroupByProperty
+
+    """
+    Property clause.
+    """
+    stringScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    stringScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+type Query {
+    test(
+        groupBy: AggregatedGroupByClauseProperties!
+        @aggregatedGroupBy
+    ): ID!
+    @all
+}
+
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @aggregatedGroupByProperty
+on
+    | INPUT_FIELD_DEFINITION
+
+"""
+Fetch all Eloquent models and return the collection as the result.
+"""
+directive @all(
+    """
+    Point to a function that provides a Query Builder instance.
+    This replaces the use of a model.
+    """
+    builder: String
+
+    """
+    Specify the class name of the model to use.
+    This is only needed when the default model detection does not work.
+    """
+    model: String
+
+    """
+    Apply scopes to the underlying query.
+    """
+    scopes: [String!]
+)
+on
+    | FIELD_DEFINITION

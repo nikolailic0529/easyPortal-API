@@ -3,8 +3,8 @@
 namespace App\GraphQL\Directives\Directives\Paginated;
 
 use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
-use App\GraphQL\Directives\Directives\Aggregated\Count;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\GroupBy;
+use App\GraphQL\Directives\Directives\Aggregated\Count as AggregatedCountDirective;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive as AggregatedGroupByDirective;
 use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
@@ -87,7 +87,7 @@ class Manipulator extends AstManipulator {
             $isArgBuilderDirective = (bool) $this->getNodeDirective($argument, ArgBuilderDirective::class);
             $isSearchDirective     = (bool) $this->getNodeDirective($argument, SearchDirective::class);
             $isSortByDirective     = (bool) $this->getNodeDirective($argument, SortByDirective::class);
-            $isGroupByDirective    = (bool) $this->getNodeDirective($argument, GroupBy::class);
+            $isGroupByDirective    = (bool) $this->getNodeDirective($argument, AggregatedGroupByDirective::class);
 
             if ($isSortByDirective || (!$isArgBuilderDirective && !$isSearchDirective && !$isGroupByDirective)) {
                 unset($aggregated->arguments[$key]);
@@ -195,7 +195,7 @@ class Manipulator extends AstManipulator {
                     },
                 );
 
-                if ($existing instanceof Node && !$this->getNodeDirective($existing, Count::class)) {
+                if ($existing instanceof Node && !$this->getNodeDirective($existing, AggregatedCountDirective::class)) {
                     throw new LogicException(sprintf(
                         'Field `%s` in type `%s` already defined.',
                         $fieldName,

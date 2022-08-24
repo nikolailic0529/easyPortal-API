@@ -1,3 +1,11 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
 enum CachedMode {
     """
     In this mode all queries will be cached always.
@@ -17,6 +25,17 @@ Sort direction.
 enum SortByTypeDirection {
     asc
     desc
+}
+
+"""
+Group clause for `type CustomerLocation` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCustomerLocation {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
 }
 
 """
@@ -160,7 +179,7 @@ type CustomerLocationsAggregated {
     )
 
     groups(
-        groupBy: CustomerLocation!
+        groupBy: AggregatedGroupByClauseCustomerLocation!
         @aggregatedGroupBy
 
         limit: Int! = 25
@@ -186,7 +205,7 @@ type CustomerLocationsAggregated {
     )
 
     groupsAggregated(
-        groupBy: CustomerLocation!
+        groupBy: AggregatedGroupByClauseCustomerLocation!
         @aggregatedGroupBy
     ): CustomerLocationsAggregatedGroupsAggregated
     @aggregated(
@@ -244,6 +263,10 @@ on
 directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
 
 """
 Fetch all Eloquent models and return the collection as the result.

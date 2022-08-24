@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Property;
 
-class AggregatedGroupByDirective extends Directive {
+class AggregatedGroupByPropertyDirective extends Property {
     // Lighthouse loads all files from the directives directory...
 }

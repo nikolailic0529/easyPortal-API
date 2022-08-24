@@ -2,11 +2,10 @@
 
 namespace App\GraphQL;
 
-use App\Exceptions\ApplicationException;
 use App\Exceptions\Contracts\TranslatedException;
 use GraphQL\Error\ClientAware;
 
-abstract class GraphQLException extends ApplicationException implements TranslatedException, ClientAware {
+abstract class GraphQLException extends GraphQLError implements TranslatedException, ClientAware {
     public function isClientSafe(): bool {
         return true;
     }

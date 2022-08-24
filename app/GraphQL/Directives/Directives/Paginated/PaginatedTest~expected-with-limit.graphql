@@ -1,3 +1,11 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
 enum CachedMode {
     """
     In this mode all queries will be cached always.
@@ -17,6 +25,39 @@ Sort direction.
 enum SortByTypeDirection {
     asc
     desc
+}
+
+"""
+Group clause for `type Asset` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseAsset {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `type Customer` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCustomer {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `type Type` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseType {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
 }
 
 """
@@ -118,7 +159,7 @@ type AssetsAggregated {
     )
 
     groups(
-        groupBy: Asset!
+        groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy
 
         limit: Int! = 25
@@ -144,7 +185,7 @@ type AssetsAggregated {
     )
 
     groupsAggregated(
-        groupBy: Asset!
+        groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy
     ): AssetsAggregatedGroupsAggregated
     @aggregated(
@@ -180,7 +221,7 @@ type CustomersAggregated {
     )
 
     groups(
-        groupBy: Customer!
+        groupBy: AggregatedGroupByClauseCustomer!
         @aggregatedGroupBy
 
         limit: Int! = 25
@@ -206,7 +247,7 @@ type CustomersAggregated {
     )
 
     groupsAggregated(
-        groupBy: Customer!
+        groupBy: AggregatedGroupByClauseCustomer!
         @aggregatedGroupBy
     ): CustomersAggregatedGroupsAggregated
     @aggregated(
@@ -332,7 +373,7 @@ type TypesAggregated {
     )
 
     groups(
-        groupBy: Type!
+        groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy
 
         limit: Int! = 25
@@ -358,7 +399,7 @@ type TypesAggregated {
     )
 
     groupsAggregated(
-        groupBy: Type!
+        groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy
     ): TypesAggregatedGroupsAggregated
     @aggregated(
@@ -411,6 +452,10 @@ on
 directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
 
 """
 User must be authenticated.
