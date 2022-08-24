@@ -122,6 +122,22 @@ input SortByClauseCustomerLocation {
     @sortByOperatorProperty
 }
 
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
+"""
+Aggregated data for `type AggregatedGroupByTypeGroup`.
+"""
+type AggregatedGroupByTypeGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+}
+
 type Customer {
     id: ID!
 
@@ -196,7 +212,7 @@ type CustomerLocationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-    ): [String]!
+    ): [AggregatedGroupByTypeGroup!]!
     @cached(
         mode: Threshold
     )
@@ -207,20 +223,9 @@ type CustomerLocationsAggregated {
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCustomerLocation!
         @aggregatedGroupBy
-    ): CustomerLocationsAggregatedGroupsAggregated
+    ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
-    )
-}
-
-"""
-Aggregated data for `type CustomerLocationsAggregated { groups }`.
-"""
-type CustomerLocationsAggregatedGroupsAggregated {
-    count: Int!
-    @aggregatedCount
-    @cached(
-        mode: Threshold
     )
 }
 

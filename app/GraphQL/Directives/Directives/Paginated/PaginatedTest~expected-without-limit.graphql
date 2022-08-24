@@ -144,6 +144,22 @@ input SortByClauseCustomer {
     @sortByOperatorProperty
 }
 
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
+"""
+Aggregated data for `type AggregatedGroupByTypeGroup`.
+"""
+type AggregatedGroupByTypeGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+}
+
 type Asset {
     id: ID!
 }
@@ -176,7 +192,7 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-    ): [String]!
+    ): [AggregatedGroupByTypeGroup!]!
     @cached(
         mode: Threshold
     )
@@ -187,23 +203,12 @@ type AssetsAggregated {
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy
-    ): AssetsAggregatedGroupsAggregated
+    ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 
     types: [String!]!
-}
-
-"""
-Aggregated data for `type AssetsAggregated { groups }`.
-"""
-type AssetsAggregatedGroupsAggregated {
-    count: Int!
-    @aggregatedCount
-    @cached(
-        mode: Threshold
-    )
 }
 
 type Customer {
@@ -238,7 +243,7 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-    ): [String]!
+    ): [AggregatedGroupByTypeGroup!]!
     @cached(
         mode: Threshold
     )
@@ -249,20 +254,9 @@ type CustomersAggregated {
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCustomer!
         @aggregatedGroupBy
-    ): CustomersAggregatedGroupsAggregated
+    ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
-    )
-}
-
-"""
-Aggregated data for `type CustomersAggregated { groups }`.
-"""
-type CustomersAggregatedGroupsAggregated {
-    count: Int!
-    @aggregatedCount
-    @cached(
-        mode: Threshold
     )
 }
 
@@ -390,7 +384,7 @@ type TypesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-    ): [String]!
+    ): [AggregatedGroupByTypeGroup!]!
     @cached(
         mode: Threshold
     )
@@ -401,20 +395,9 @@ type TypesAggregated {
     groupsAggregated(
         groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy
-    ): TypesAggregatedGroupsAggregated
+    ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
-    )
-}
-
-"""
-Aggregated data for `type TypesAggregated { groups }`.
-"""
-type TypesAggregatedGroupsAggregated {
-    count: Int!
-    @aggregatedCount
-    @cached(
-        mode: Threshold
     )
 }
 

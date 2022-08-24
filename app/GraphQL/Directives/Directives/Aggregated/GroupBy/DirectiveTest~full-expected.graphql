@@ -70,11 +70,16 @@ input AggregatedGroupByClauseProperties {
     @aggregatedGroupByOperatorProperty
 }
 
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
 type Query {
     test(
         groupBy: AggregatedGroupByClauseProperties!
         @aggregatedGroupBy
-    ): ID!
+    ): [AggregatedGroupByTypeGroup!]!
     @all
 }
 

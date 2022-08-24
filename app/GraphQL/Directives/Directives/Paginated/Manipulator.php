@@ -2,9 +2,10 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\Definitions\AggregatedGroupByDirective;
 use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
 use App\GraphQL\Directives\Directives\Aggregated\Count as AggregatedCountDirective;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive as AggregatedGroupByDirective;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
 use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
@@ -45,6 +46,7 @@ class Manipulator extends AstManipulator {
         DocumentAST $document,
         TypeRegistry $types,
         protected Repository $config,
+        protected AggregatedGroupByDirective $groupByDirective,
     ) {
         parent::__construct($directives, $document, $types);
     }
@@ -155,12 +157,13 @@ class Manipulator extends AstManipulator {
         ];
 
         if (!$isNested) {
+            $type     = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
             $builder  = json_encode(AggregatedBuilder::class);
             $fields[] = <<<DEF
                 groups(
                     groupBy: {$nodeType}!
                     @aggregatedGroupBy
-                ): [String]!
+                ): [{$type}!]!
                 @cached(mode: Threshold)
                 @paginated(builder: {$builder})
             DEF;

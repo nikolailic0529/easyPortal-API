@@ -211,11 +211,11 @@ class DirectiveTest extends TestCase {
                             'Nested',
                             'Value',
                             'Float',
-                            'Int',
                             'Boolean',
                             'CachedMode',
                             'Date',
                             'DateTime',
+                            'ID',
                         ]);
                 },
                 '~full.graphql',

@@ -8,6 +8,7 @@ use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use LastDragon_ru\LaraASP\GraphQL\Builder\Contracts\TypeProvider;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Directives\HandlerDirective;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
@@ -30,7 +31,7 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
     ): void {
         $this->getContainer()
             ->make(Manipulator::class, ['document' => $documentAST])
-            ->update($argDefinition);
+            ->update($parentField, $argDefinition);
     }
 
     /**
@@ -39,5 +40,11 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
      */
     public function handleBuilder($builder, mixed $value): EloquentBuilder|QueryBuilder {
         return $this->handleAnyBuilder($builder, $value);
+    }
+
+    public function getTypeProvider(DocumentAST $document): TypeProvider {
+        return $this->getContainer()->make(Manipulator::class, [
+            'document' => $document,
+        ]);
     }
 }

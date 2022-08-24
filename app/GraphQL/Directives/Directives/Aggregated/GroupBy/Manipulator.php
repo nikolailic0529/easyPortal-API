@@ -2,10 +2,13 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
+use App\GraphQL\Directives\Directives\Aggregated\Aggregated;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Exceptions\FailedToCreateGroupClause;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Property;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\PropertyOperator;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
+use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
@@ -26,7 +29,7 @@ use function str_starts_with;
 class Manipulator extends BuilderManipulator {
     // <editor-fold desc="API">
     // =========================================================================
-    public function update(InputValueDefinitionNode $node): void {
+    public function update(FieldDefinitionNode $field, InputValueDefinitionNode $node): void {
         // Convert
         $type = null;
 
@@ -57,6 +60,11 @@ class Manipulator extends BuilderManipulator {
 
         // Update
         $node->type = $type;
+
+        if ($this->getNodeDirective($field, Aggregated::class) === null) {
+            $group       = $this->getType(Group::class);
+            $field->type = Parser::typeReference("[{$group}!]!");
+        }
     }
     // </editor-fold>
 

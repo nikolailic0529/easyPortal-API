@@ -34,17 +34,22 @@ input AggregatedGroupByClauseB {
     @aggregatedGroupByOperatorProperty
 }
 
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
 type Query {
     a(
         order: AggregatedGroupByClauseA!
         @aggregatedGroupBy
-    ): ID!
+    ): [AggregatedGroupByTypeGroup!]!
     @all
 
     b(
         order: AggregatedGroupByClauseB!
         @aggregatedGroupBy
-    ): ID!
+    ): [AggregatedGroupByTypeGroup!]!
     @all
 }
 
