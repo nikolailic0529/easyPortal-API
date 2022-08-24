@@ -13,7 +13,6 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
-use GraphQL\Type\Definition\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -140,16 +139,14 @@ class Manipulator extends AstManipulator {
 
     protected function getAggregatedFieldType(ObjectTypeDefinitionNode $parent, FieldDefinitionNode $node): string {
         // Prepare
+        $isSearch    = (bool) (new Collection($node->arguments))
+            ->first(function (InputValueDefinitionNode $arg): bool {
+                return $this->getNodeDirective($arg, SearchDirective::class) !== null;
+            });
         $nodeType    = $this->getNodeTypeName($node);
-        $typeName    = Str::pluralStudly($nodeType).'Aggregated';
+        $typeName    = Str::pluralStudly($nodeType).($isSearch ? 'Search' : '').'Aggregated';
         $parentType  = $this->getNodeTypeName($parent);
         $description = "Aggregated data for `{$this->getNodeTypeFullName($node)}`.";
-
-        if (isset(Type::getStandardTypes()[$nodeType])) {
-            $field       = $this->getNodeName($node);
-            $typeName    = $parentType.Str::ucfirst($field).'Aggregated';
-            $description = "Aggregated data for `{$this->getNodeTypeFullName($parent)} { {$field} }`.";
-        }
 
         // Fields
         $isNested = str_ends_with($parentType, 'Aggregated');
@@ -157,7 +154,7 @@ class Manipulator extends AstManipulator {
             'count: Int! @aggregatedCount @cached(mode: Threshold)',
         ];
 
-        if (!$isNested) {
+        if (!$isNested && !$isSearch) {
             $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
             $inputType  = (new Collection($node->arguments))
                 ->filter(function (InputValueDefinitionNode $arg): bool {

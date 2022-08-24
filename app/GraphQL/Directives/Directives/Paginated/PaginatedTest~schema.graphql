@@ -5,6 +5,12 @@ type Query {
         test: ID
     ): [Customer!]! @authMe @paginated
 
+    search(
+        search: String! @search
+        where: CustomerSearch @searchBy
+    ): [Customer!]!
+    @paginated
+
     data: [Asset!]! @paginated
 
     type: [Type!]! @paginated

@@ -260,6 +260,17 @@ type CustomersAggregated {
     )
 }
 
+"""
+Aggregated data for `type Customer`.
+"""
+type CustomersSearchAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+}
+
 type Query {
     data(
         limit: Int!
@@ -322,6 +333,41 @@ type Query {
         @searchBy
     ): CustomersAggregated
     @authMe
+    @aggregated(
+        model: "App\\Models\\Customer"
+    )
+
+    search(
+        limit: Int!
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        search: String!
+        @search
+
+        where: SearchByConditionCustomerSearch
+        @searchBy
+    ): [Customer!]!
+    @paginated
+
+    searchAggregated(
+        search: String!
+        @search
+
+        where: SearchByConditionCustomerSearch
+        @searchBy
+    ): CustomersSearchAggregated
     @aggregated(
         model: "App\\Models\\Customer"
     )
@@ -520,6 +566,19 @@ directive @rules(
     messages: [RulesMessage!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
+    | INPUT_FIELD_DEFINITION
+
+"""
+Perform a full-text search by the given input value.
+"""
+directive @search(
+    """
+    Specify a custom index to use for search.
+    """
+    within: String
+)
+on
     | ARGUMENT_DEFINITION
     | INPUT_FIELD_DEFINITION
 
