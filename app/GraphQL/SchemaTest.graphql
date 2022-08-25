@@ -1,3 +1,11 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
 enum CachedMode {
     """
     In this mode all queries will be cached always.
@@ -21,6 +29,333 @@ Sort direction.
 enum SortByTypeDirection {
     asc
     desc
+}
+
+"""
+Group clause for `input ApplicationLogsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseApplicationLogsQuery {
+    """
+    Property clause.
+    """
+    action: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    category: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    object_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    object_type: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    status: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input AssetsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseAssetsQuery {
+    """
+    Property clause.
+    """
+    customer_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    location_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    nickname: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    oem_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    product_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    reseller_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    serial_number: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    status_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    type_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input AuditsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseAuditsQuery {
+    """
+    Property clause.
+    """
+    action: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    object_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    object_type: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    organization_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    user_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input CompaniesQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCompaniesQuery {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input DocumentEntriesQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseDocumentEntriesQuery {
+    """
+    Property clause.
+    """
+    asset_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    currency_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    document_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    product_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    serial_number: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    service_group_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    service_level_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input DocumentsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseDocumentsQuery {
+    """
+    Property clause.
+    """
+    currency_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    customer_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    distributor_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    language_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    number: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    oem_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    reseller_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    type_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input NotesQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseNotesQuery {
+    """
+    Property clause.
+    """
+    user_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input OrganizationsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseOrganizationsQuery {
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+}
+
+"""
+Group clause for `input UsersQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseUsersQuery {
+    """
+    Property clause.
+    """
+    family_name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    given_name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorProperty
 }
 
 input ApplicationMaintenanceScheduleInput {
@@ -5386,6 +5721,22 @@ scalar Url
     class: "GraphQL\\Type\\Definition\\StringType"
 )
 
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
+"""
+Aggregated data for `type AggregatedGroupByTypeGroup`.
+"""
+type AggregatedGroupByTypeGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+}
+
 type Application {
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
@@ -5578,13 +5929,47 @@ type ApplicationLog {
 }
 
 """
-Aggregated data for type ApplicationLog.
+Aggregated data for `type ApplicationLog`.
 """
 type ApplicationLogsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseApplicationLogsQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseApplicationLogsQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -5946,7 +6331,7 @@ type AssetWarranty {
 }
 
 """
-Aggregated data for type Asset.
+Aggregated data for `type Asset`.
 """
 type AssetsAggregated {
     count: Int!
@@ -5960,6 +6345,40 @@ type AssetsAggregated {
         resolver: "App\\GraphQL\\Queries\\Assets\\AssetsAggregated@coverages"
     )
     @cached
+
+    groups(
+        groupBy: AggregatedGroupByClauseAssetsQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseAssetsQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 
     types: [AssetsAggregatedType!]!
     @field(
@@ -5978,6 +6397,17 @@ type AssetsAggregatedType {
     count: Int!
     type: Type
     type_id: ID
+}
+
+"""
+Aggregated data for `type Asset`.
+"""
+type AssetsSearchAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
 }
 
 type Audit {
@@ -5999,13 +6429,47 @@ type Audit {
 }
 
 """
-Aggregated data for type Audit.
+Aggregated data for `type Audit`.
 """
 type AuditsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseAuditsQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseAuditsQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -6677,7 +7141,7 @@ implements
 }
 
 """
-Aggregated data for type Customer.
+Aggregated data for `type Customer`.
 """
 type CustomersAggregated {
     assets: Int!
@@ -6686,6 +7150,51 @@ type CustomersAggregated {
     )
     @cached
 
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
+"""
+Aggregated data for `type Customer`.
+"""
+type CustomersSearchAggregated {
     count: Int!
     @aggregatedCount
     @cached(
@@ -6863,13 +7372,47 @@ type Document {
 }
 
 """
-Aggregated data for type DocumentEntry.
+Aggregated data for `type DocumentEntry`.
 """
 type DocumentEntriesAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 
     serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
@@ -6961,13 +7504,47 @@ type DocumentEntry {
 }
 
 """
-Aggregated data for type Document.
+Aggregated data for `type Document`.
 """
 type DocumentsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseDocumentsQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseDocumentsQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 
     prices: [DocumentsAggregatedPrice!]!
@@ -6982,6 +7559,17 @@ type DocumentsAggregatedPrice {
     count: Int!
     currency: Currency
     currency_id: ID
+}
+
+"""
+Aggregated data for `type Document`.
+"""
+type DocumentsSearchAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
 }
 
 type Field {
@@ -7867,13 +8455,47 @@ type Note {
 }
 
 """
-Aggregated data for type Note.
+Aggregated data for `type Note`.
 """
 type NotesAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseNotesQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseNotesQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -8497,13 +9119,47 @@ type OrganizationUserMutation {
 }
 
 """
-Aggregated data for type Organization.
+Aggregated data for `type Organization`.
 """
 type OrganizationsAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseOrganizationsQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseOrganizationsQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -8710,7 +9366,7 @@ type Query {
     assetsSearchAggregated(
         search: SearchString!
         @search
-    ): AssetsAggregated
+    ): AssetsSearchAggregated
     @authOrg
     @authMe(
         permissions: ["assets-view"]
@@ -9010,7 +9666,7 @@ type Query {
         @builder(
             method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch"
         )
-    ): DocumentsAggregated
+    ): DocumentsSearchAggregated
     @authOrg
     @authMe(
         permissions: ["contracts-view"]
@@ -9201,7 +9857,7 @@ type Query {
     customersSearchAggregated(
         search: SearchString!
         @search
-    ): CustomersAggregated
+    ): CustomersSearchAggregated
     @authOrg
     @authMe(
         permissions: ["customers-view"]
@@ -9597,7 +10253,7 @@ type Query {
         @builder(
             method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch"
         )
-    ): DocumentsAggregated
+    ): DocumentsSearchAggregated
     @authOrg
     @authMe(
         permissions: ["quotes-view"]
@@ -9675,7 +10331,7 @@ type Query {
         @builder(
             method: "App\\GraphQL\\Queries\\Search"
         )
-    ): SearchResultsAggregated
+    ): SearchResultsSearchAggregated
     @authOrg
     @authMe(
         permissions: [
@@ -10222,9 +10878,9 @@ type Role {
 }
 
 """
-Aggregated data for union SearchResult.
+Aggregated data for `union SearchResult`.
 """
-type SearchResultsAggregated {
+type SearchResultsSearchAggregated {
     count: Int!
     @aggregatedCount
     @cached(
@@ -10497,13 +11153,47 @@ implements
 }
 
 """
-Aggregated data for type User.
+Aggregated data for `type User`.
 """
 type UsersAggregated {
     count: Int!
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseUsersQuery!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseUsersQuery!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -10551,6 +11241,14 @@ Returns `count(*)`.
 directive @aggregatedCount
 on
     | FIELD_DEFINITION
+
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
 
 """
 Fetch all Eloquent models and return the collection as the result.
