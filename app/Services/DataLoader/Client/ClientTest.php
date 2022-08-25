@@ -4,6 +4,8 @@ namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
+use LastDragon_ru\LaraASP\GraphQL\Testing\GraphQLExpectedSchema;
+use LastDragon_ru\LaraASP\GraphQL\Testing\Package\SchemaPrinter\TestSettings;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 
@@ -25,7 +27,12 @@ class ClientTest extends TestCase {
         if ($client->isEnabled()) {
             $into     = $client->getIntrospection();
             $actual   = BuildClientSchema::build($into);
-            $expected = $this->getTestData(Schema::class)->content('.graphql');
+            $expected = (new GraphQLExpectedSchema(
+                $this->getTestData(Schema::class)->content('.graphql'),
+            ))
+                ->setSettings(
+                    (new TestSettings())->setPrintUnusedDefinitions(true),
+                );
 
             self::assertGraphQLSchemaEquals($expected, $actual);
         } else {
