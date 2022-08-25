@@ -4,8 +4,8 @@ namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
 use App\GraphQL\Directives\Directives\Aggregated\Aggregated;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Exceptions\FailedToCreateGroupClause;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsString;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Property;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\PropertyOperator;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
 use GraphQL\Language\AST\FieldDefinitionNode;
@@ -98,15 +98,15 @@ class Manipulator extends BuilderManipulator {
         );
 
         // Add sortable fields
+        $asString  = $this->getContainer()->make(AsString::class);
         $direction = $this->getType(Direction::class);
-        $operator  = $this->getContainer()->make(PropertyOperator::class);
         $property  = $this->getContainer()->make(Property::class);
         $fields    = $node instanceof InputObjectType || $node instanceof ObjectType
             ? $node->getFields()
             : $node->fields;
         $supported = [
-            Type::ID     => true,
-            Type::STRING => true,
+            Type::ID     => $asString,
+            Type::STRING => $asString,
         ];
 
         foreach ($fields as $field) {
@@ -122,9 +122,8 @@ class Manipulator extends BuilderManipulator {
 
             // Nested?
             $fieldType     = $direction;
-            $fieldOperator = $operator;
+            $fieldOperator = $supported[$this->getNodeTypeName($field)] ?? null;
             $fieldTypeNode = $this->getTypeDefinitionNode($field);
-            $isSupported   = isset($supported[$this->getNodeTypeName($field)]);
             $isNested      = $fieldTypeNode instanceof InputObjectTypeDefinitionNode
                 || $fieldTypeNode instanceof ObjectTypeDefinitionNode
                 || $fieldTypeNode instanceof InputObjectType
@@ -133,7 +132,7 @@ class Manipulator extends BuilderManipulator {
             if ($isNested) {
                 $fieldType     = $this->getInputType($fieldTypeNode);
                 $fieldOperator = $property;
-            } elseif (!$isSupported) {
+            } elseif (!$fieldOperator) {
                 continue;
             } else {
                 // empty

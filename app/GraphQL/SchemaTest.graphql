@@ -39,31 +39,31 @@ input AggregatedGroupByClauseApplicationLogsQuery {
     Property clause.
     """
     action: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     category: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     object_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     object_type: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     status: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -74,55 +74,55 @@ input AggregatedGroupByClauseAssetsQuery {
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     location_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     nickname: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     reseller_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     serial_number: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     status_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     type_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -133,31 +133,31 @@ input AggregatedGroupByClauseAuditsQuery {
     Property clause.
     """
     action: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     object_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     object_type: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     organization_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     user_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -168,7 +168,7 @@ input AggregatedGroupByClauseCompaniesQuery {
     Property clause.
     """
     name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -179,43 +179,43 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     Property clause.
     """
     asset_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     currency_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     document_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     serial_number: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     service_group_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     service_level_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -226,49 +226,49 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     currency_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     distributor_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     language_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     number: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     reseller_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     type_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -279,7 +279,7 @@ input AggregatedGroupByClauseNotesQuery {
     Property clause.
     """
     user_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -290,7 +290,7 @@ input AggregatedGroupByClauseOrganizationsQuery {
     Property clause.
     """
     name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -301,13 +301,13 @@ input AggregatedGroupByClauseUsersQuery {
     Property clause.
     """
     family_name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 
     """
     Property clause.
     """
     given_name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 input ApplicationMaintenanceScheduleInput {
@@ -11198,7 +11198,7 @@ directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
 
-directive @aggregatedGroupByOperatorProperty
+directive @aggregatedGroupByOperatorAsString
 on
     | INPUT_FIELD_DEFINITION
 

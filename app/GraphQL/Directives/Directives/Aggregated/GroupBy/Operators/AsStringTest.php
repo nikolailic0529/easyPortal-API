@@ -15,11 +15,11 @@ use Tests\WithGraphQLSchema;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\PropertyOperator
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsString
  *
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
-class PropertyOperatorTest extends TestCase {
+class AsStringTest extends TestCase {
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -39,7 +39,7 @@ class PropertyOperatorTest extends TestCase {
         Property $property,
         Closure $argumentFactory,
     ): void {
-        $operator  = $this->app->make(PropertyOperator::class);
+        $operator  = $this->app->make(AsString::class);
         $argument  = $argumentFactory($this);
         $directive = $this->app->make(Directive::class);
         $builder   = $builderFactory($this);

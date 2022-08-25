@@ -35,7 +35,7 @@ input AggregatedGroupByClauseCustomerSearch {
     Property clause.
     """
     key: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -283,7 +283,7 @@ directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
 
-directive @aggregatedGroupByOperatorProperty
+directive @aggregatedGroupByOperatorAsString
 on
     | INPUT_FIELD_DEFINITION
 

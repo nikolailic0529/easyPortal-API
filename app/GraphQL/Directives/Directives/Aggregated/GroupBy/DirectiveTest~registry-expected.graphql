@@ -14,7 +14,7 @@ input AggregatedGroupByClauseA {
     Property clause.
     """
     name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -25,7 +25,7 @@ input AggregatedGroupByClauseB {
     Property clause.
     """
     name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
+    @aggregatedGroupByOperatorAsString
 }
 
 type AggregatedGroupByTypeGroup {
@@ -51,7 +51,7 @@ directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
 
-directive @aggregatedGroupByOperatorProperty
+directive @aggregatedGroupByOperatorAsString
 on
     | INPUT_FIELD_DEFINITION
 
