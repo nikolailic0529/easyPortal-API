@@ -1499,7 +1499,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    customer_id: SearchByScalarID
+    customer_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
@@ -1517,7 +1517,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    location_id: SearchByScalarID
+    location_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
@@ -1565,7 +1565,7 @@ input SearchByConditionAssetsQuery {
     """
     Property condition.
     """
-    reseller_id: SearchByScalarID
+    reseller_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
