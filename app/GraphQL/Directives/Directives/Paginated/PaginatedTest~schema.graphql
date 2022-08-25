@@ -18,14 +18,17 @@ type Query {
 
 type Customer {
     id: ID!
+    key: ID!
 }
 
 type Asset {
     id: ID!
+    key: ID!
 }
 
 type Type {
     id: ID!
+    key: ID!
 }
 
 type AssetsAggregated {
@@ -39,4 +42,5 @@ type TypesAggregated {
 
 input CustomerSearch {
     id: ID!
+    key: ID!
 }

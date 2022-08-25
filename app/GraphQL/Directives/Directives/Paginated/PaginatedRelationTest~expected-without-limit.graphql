@@ -34,7 +34,7 @@ input AggregatedGroupByClauseCustomerSearch {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
+    key: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 }
 
@@ -73,6 +73,12 @@ input SearchByConditionCustomerSearch {
     Property condition.
     """
     id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarID
     @searchByProperty
 
     """
@@ -120,6 +126,12 @@ input SortByClauseCustomerLocation {
     """
     id: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 type AggregatedGroupByTypeGroup {
@@ -140,6 +152,7 @@ type AggregatedGroupByTypeGroupsAggregated {
 
 type Customer {
     id: ID!
+    key: ID!
 
     """
     Description
@@ -182,6 +195,7 @@ type Customer {
 
 type CustomerLocation {
     id: ID!
+    key: ID!
 }
 
 """

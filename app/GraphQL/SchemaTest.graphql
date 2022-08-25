@@ -50,12 +50,6 @@ input AggregatedGroupByClauseApplicationLogsQuery {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
     object_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 
@@ -80,12 +74,6 @@ input AggregatedGroupByClauseAssetsQuery {
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
-    id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 
     """
@@ -150,12 +138,6 @@ input AggregatedGroupByClauseAuditsQuery {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
     object_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 
@@ -185,12 +167,6 @@ input AggregatedGroupByClauseCompaniesQuery {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
     name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 }
@@ -215,12 +191,6 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     Property clause.
     """
     document_id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
-    id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 
     """
@@ -273,12 +243,6 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
     language_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 
@@ -325,12 +289,6 @@ input AggregatedGroupByClauseOrganizationsQuery {
     """
     Property clause.
     """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
     name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 }
@@ -349,12 +307,6 @@ input AggregatedGroupByClauseUsersQuery {
     Property clause.
     """
     given_name: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
-    id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 }
 

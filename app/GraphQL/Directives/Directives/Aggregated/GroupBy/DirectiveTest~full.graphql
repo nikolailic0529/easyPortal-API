@@ -6,6 +6,7 @@ type Query {
 }
 
 input Properties {
+    id: String
     idScalar: ID
     idScalarNotNull: ID!
     nested: Nested

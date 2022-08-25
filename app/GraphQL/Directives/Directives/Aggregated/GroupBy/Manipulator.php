@@ -115,6 +115,11 @@ class Manipulator extends BuilderManipulator {
                 continue;
             }
 
+            // PK?
+            if ($this->getNodeName($field) === 'id') {
+                continue;
+            }
+
             // Nested?
             $fieldType     = $direction;
             $fieldOperator = $operator;
@@ -126,15 +131,17 @@ class Manipulator extends BuilderManipulator {
                 || $fieldTypeNode instanceof ObjectType;
 
             if ($isNested) {
-                // Not supported yet
-                //
-                // $fieldType     = $this->getInputType($fieldTypeNode);
-                // $fieldOperator = $property;
-                continue;
+                $fieldType     = $this->getInputType($fieldTypeNode);
+                $fieldOperator = $property;
             } elseif (!$isSupported) {
                 continue;
             } else {
                 // empty
+            }
+
+            // Not supported yet
+            if ($isNested) {
+                continue;
             }
 
             // Create new Field
