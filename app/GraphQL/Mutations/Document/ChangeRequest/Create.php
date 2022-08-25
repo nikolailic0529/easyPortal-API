@@ -6,11 +6,9 @@ use App\GraphQL\Mutations\Message\Create as Mutation;
 use App\GraphQL\Objects\MessageInput;
 use App\Models\ChangeRequest;
 use App\Models\Document;
-use App\Services\Auth\Auth;
 
 class Create {
     public function __construct(
-        protected Auth $auth,
         protected Mutation $mutation,
     ) {
         // empty

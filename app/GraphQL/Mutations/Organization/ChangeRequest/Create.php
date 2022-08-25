@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org\ChangeRequest;
+namespace App\GraphQL\Mutations\Organization\ChangeRequest;
 
 use App\GraphQL\Mutations\Message\Create as Mutation;
 use App\GraphQL\Objects\MessageInput;
