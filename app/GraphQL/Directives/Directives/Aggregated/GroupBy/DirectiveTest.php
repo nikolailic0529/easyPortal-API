@@ -186,7 +186,6 @@ class DirectiveTest extends TestCase {
         $actual         = $directive->handleBuilder($builder, $value);
 
         if (is_array($expected)) {
-            self::assertInstanceOf($builder::class, $actual);
             self::assertDatabaseQueryEquals($expected, $actual);
         } else {
             self::fail('Something wrong...');
@@ -285,9 +284,14 @@ class DirectiveTest extends TestCase {
                     [
                         'query'    => <<<'SQL'
                             select
-                                *
+                                `tmp`.`a` as `key`,
+                                count(*) as `count`
                             from
                                 `tmp`
+                            group by
+                                `key`
+                            order by
+                                `key` asc
                         SQL
                         ,
                         'bindings' => [],
