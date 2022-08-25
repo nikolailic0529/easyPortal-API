@@ -8399,7 +8399,49 @@ type OrganizationBranding {
     welcome_underline: [TranslatedString!]
 }
 
+type OrganizationChangeRequestCreatePayload
+implements
+    & Payload
+{
+    changeRequest: ChangeRequest!
+    result: Boolean!
+}
+
+type OrganizationChangeRequestMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    create(
+        input: MessageInput!
+    ): OrganizationChangeRequestCreatePayload!
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutationCreate(
+        resolver: "App\\GraphQL\\Mutations\\Organization\\ChangeRequest\\Create"
+    )
+}
+
 type OrganizationMutation {
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
+    """
+    changeRequest: OrganizationChangeRequestMutation
+    @authOrgRoot
+    @authMe(
+        permissions: ["administer"]
+    )
+    @mutation(
+        relation: "changeRequests"
+    )
+
     """
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
     the organization must be a root organization.
