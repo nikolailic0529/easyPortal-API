@@ -7,29 +7,6 @@ enum AggregatedGroupByTypeDirection {
 }
 
 """
-Group clause for `input Nested` (only one property allowed at a time).
-"""
-input AggregatedGroupByClauseNested {
-    """
-    Property clause.
-    """
-    id: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
-    nested: AggregatedGroupByClauseNested
-    @aggregatedGroupByProperty
-
-    """
-    Property clause.
-    """
-    value: AggregatedGroupByTypeDirection
-    @aggregatedGroupByOperatorProperty
-}
-
-"""
 Group clause for `input Properties` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseProperties {
@@ -44,18 +21,6 @@ input AggregatedGroupByClauseProperties {
     """
     idScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
-
-    """
-    Property clause.
-    """
-    nested: AggregatedGroupByClauseNested
-    @aggregatedGroupByProperty
-
-    """
-    Property clause.
-    """
-    nestedNotNull: AggregatedGroupByClauseNested
-    @aggregatedGroupByProperty
 
     """
     Property clause.
@@ -88,10 +53,6 @@ on
     | ARGUMENT_DEFINITION
 
 directive @aggregatedGroupByOperatorProperty
-on
-    | INPUT_FIELD_DEFINITION
-
-directive @aggregatedGroupByProperty
 on
     | INPUT_FIELD_DEFINITION
 

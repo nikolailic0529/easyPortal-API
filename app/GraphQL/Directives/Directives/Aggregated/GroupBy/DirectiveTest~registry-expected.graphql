@@ -24,12 +24,6 @@ input AggregatedGroupByClauseB {
     """
     Property clause.
     """
-    child: AggregatedGroupByClauseA
-    @aggregatedGroupByProperty
-
-    """
-    Property clause.
-    """
     name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorProperty
 }
@@ -58,10 +52,6 @@ on
     | ARGUMENT_DEFINITION
 
 directive @aggregatedGroupByOperatorProperty
-on
-    | INPUT_FIELD_DEFINITION
-
-directive @aggregatedGroupByProperty
 on
     | INPUT_FIELD_DEFINITION
 

@@ -126,8 +126,11 @@ class Manipulator extends BuilderManipulator {
                 || $fieldTypeNode instanceof ObjectType;
 
             if ($isNested) {
-                $fieldType     = $this->getInputType($fieldTypeNode);
-                $fieldOperator = $property;
+                // Not supported yet
+                //
+                // $fieldType     = $this->getInputType($fieldTypeNode);
+                // $fieldOperator = $property;
+                continue;
             } elseif (!$isSupported) {
                 continue;
             } else {
