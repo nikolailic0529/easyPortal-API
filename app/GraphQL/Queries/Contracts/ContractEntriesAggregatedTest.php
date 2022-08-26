@@ -25,6 +25,8 @@ use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
+ * @deprecated Please use `groups` query instead.
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractEntriesAggregated
  *

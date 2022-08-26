@@ -7421,12 +7421,18 @@ type DocumentEntriesAggregated {
     )
 
     serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
+    @deprecated(
+        reason: "Please use `groups` query instead."
+    )
     @field(
         resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups"
     )
     @cached
 
     serviceLevels: [DocumentEntriesAggregatedServiceLevel!]!
+    @deprecated(
+        reason: "Please use `groups` query instead."
+    )
     @field(
         resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceLevels"
     )
