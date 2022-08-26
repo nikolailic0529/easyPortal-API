@@ -95,6 +95,7 @@ class PaginatedRelationTest extends TestCase {
 
                 type CustomerLocation {
                     id: ID!
+                    key: String
                 }
                 GRAPHQL,
             )

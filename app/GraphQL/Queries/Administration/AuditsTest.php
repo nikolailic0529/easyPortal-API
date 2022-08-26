@@ -27,8 +27,10 @@ class AuditsTest extends TestCase {
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     *
+     * @param OrganizationFactory        $orgFactory
+     * @param UserFactory                $userFactory
+     * @param Closure(static): void|null $prepare
      */
     public function testQuery(
         Response $expected,
@@ -59,6 +61,13 @@ class AuditsTest extends TestCase {
                     }
                     auditsAggregated {
                         count
+                        groups(groupBy: {user_id: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {user_id: asc}) {
+                            count
+                        }
                     }
                 }
             ')->assertThat($expected);

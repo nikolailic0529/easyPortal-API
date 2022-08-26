@@ -2,13 +2,14 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
-
 use function assert;
 
-abstract class AggregatedCount extends BaseDirective implements FieldResolver {
+abstract class Count extends BaseDirective implements FieldResolver {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
@@ -23,7 +24,20 @@ abstract class AggregatedCount extends BaseDirective implements FieldResolver {
             static function (mixed $root): int {
                 assert($root instanceof BuilderValue);
 
-                return $root->getBuilder()->count();
+                $builder = $root->getBuilder();
+                $count   = 0;
+
+                if ($builder instanceof EloquentBuilder) {
+                    $builder = $builder->toBase();
+                }
+
+                if ($builder instanceof QueryBuilder && !!$builder->groups) {
+                    $count = $builder->getCountForPagination();
+                } else {
+                    $count = $builder->count();
+                }
+
+                return $count;
             },
         );
     }

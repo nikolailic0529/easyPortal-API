@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Aggregated\AggregatedCount;
+use App\GraphQL\Directives\Directives\Aggregated\Count;
 
-class AggregatedCountDirective extends AggregatedCount {
+class AggregatedCountDirective extends Count {
     // Lighthouse loads all files from the directives directory...
 }

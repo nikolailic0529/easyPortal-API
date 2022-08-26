@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -34,9 +35,10 @@ class CustomersAggregatedTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param array<mixed>        $params
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param Closure(static, ?Organization, ?User): void|null $factory
+     * @param array<mixed>                                     $params
      */
     public function testQuery(
         Response $expected,
@@ -62,6 +64,13 @@ class CustomersAggregatedTest extends TestCase {
                     customersAggregated(where: $where) {
                         count
                         assets
+                        groups(groupBy: {name: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {name: asc}) {
+                            count
+                        }
                     }
                 }
                 GRAPHQL,
@@ -89,10 +98,12 @@ class CustomersAggregatedTest extends TestCase {
         $factory = static function (TestCase $test, Organization $organization): void {
             // Customers
             $customerA = Customer::factory()->create([
+                'name'           => 'Customer A',
                 'assets_count'   => 1,
                 'contacts_count' => 1,
             ]);
             $customerB = Customer::factory()->create([
+                'name'           => 'Customer B',
                 'assets_count'   => 2,
                 'contacts_count' => 2,
             ]);
@@ -126,8 +137,21 @@ class CustomersAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customersAggregated', [
-                            'count'  => 2,
-                            'assets' => 3,
+                            'count'            => 2,
+                            'assets'           => 3,
+                            'groups'           => [
+                                [
+                                    'count' => 1,
+                                    'key'   => 'Customer A',
+                                ],
+                                [
+                                    'count' => 1,
+                                    'key'   => 'Customer B',
+                                ],
+                            ],
+                            'groupsAggregated' => [
+                                'count' => 2,
+                            ],
                         ]),
                         $factory,
                         $params,
@@ -142,8 +166,17 @@ class CustomersAggregatedTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customersAggregated', [
-                            'count'  => 1,
-                            'assets' => 1,
+                            'count'            => 1,
+                            'assets'           => 1,
+                            'groups'           => [
+                                [
+                                    'count' => 1,
+                                    'key'   => 'Customer A',
+                                ],
+                            ],
+                            'groupsAggregated' => [
+                                'count' => 1,
+                            ],
                         ]),
                         $factory,
                         $params,

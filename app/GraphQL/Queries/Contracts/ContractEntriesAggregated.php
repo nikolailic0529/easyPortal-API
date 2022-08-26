@@ -11,6 +11,9 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 use stdClass;
 
+/**
+ * @deprecated Please use `groups` query instead.
+ */
 class ContractEntriesAggregated {
     public function __construct(
         protected Repository $config,

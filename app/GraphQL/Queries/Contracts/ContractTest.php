@@ -53,8 +53,9 @@ class ContractTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $contractFactory
      */
     public function testQuery(
         Response $expected,
@@ -70,7 +71,7 @@ class ContractTest extends TestCase {
 
         if ($contractFactory) {
             $contract   = $contractFactory($this, $org, $user);
-            $contractId = $contract->id;
+            $contractId = $contract->getKey();
 
             $this->setSettings([
                 'ep.document_statuses_no_price' => ['479ddc80-35fd-442c-9634-0b9c51063e45'],
@@ -187,6 +188,13 @@ class ContractTest extends TestCase {
                         entries_count
                         entriesAggregated {
                             count
+                            groups(groupBy: {start: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {start: asc}) {
+                                count
+                            }
                         }
                         entries {
                             id
@@ -268,8 +276,9 @@ class ContractTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryNotes
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $contractFactory
      */
     public function testQueryNotes(
         Response $expected,
@@ -318,6 +327,13 @@ class ContractTest extends TestCase {
                         }
                         notesAggregated {
                             count
+                            groups(groupBy: {user_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {user_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -455,7 +471,16 @@ class ContractTest extends TestCase {
                             ],
                             'entries_count'     => 2,
                             'entriesAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => '2021-01-01',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                             'entries'           => [
                                 [
@@ -873,7 +898,16 @@ class ContractTest extends TestCase {
                                 ],
                             ],
                             'notesAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {

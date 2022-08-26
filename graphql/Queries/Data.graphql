@@ -90,4 +90,13 @@ extend type Query {
     @authMe
     @all
     @cached
+
+    "List of all products."
+    products(
+        where: ProductsQuery @searchBy
+        order: ProductsSort @sortBy
+    ): [Product!]!
+    @authOrg
+    @authMe
+    @paginated
 }

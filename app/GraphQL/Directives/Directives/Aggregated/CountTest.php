@@ -7,6 +7,7 @@ use App\Services\Search\Builders\Builder as SearchBuilder;
 use Closure;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Mockery;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -20,9 +21,9 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\AggregatedCount
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\Count
  */
-class AggregatedCountTest extends TestCase {
+class CountTest extends TestCase {
     use WithoutGlobalScopes;
     use WithGraphQLSchema;
     use WithSearch;
@@ -33,6 +34,8 @@ class AggregatedCountTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
+     *
+     * @param Closure(static):EloquentBuilder<Model>|Closure(static):QueryBuilder $builder
      */
     public function testResolveField(int $expected, Closure $builder): void {
         $context     = Mockery::mock(GraphQLContext::class);
@@ -115,7 +118,7 @@ class AggregatedCountTest extends TestCase {
      */
     public function dataProviderResolveField(): array {
         return [
-            QueryBuilder::class    => [
+            QueryBuilder::class                 => [
                 1,
                 static function (): QueryBuilder {
                     Customer::factory()->create();
@@ -123,7 +126,20 @@ class AggregatedCountTest extends TestCase {
                     return Customer::query()->toBase();
                 },
             ],
-            EloquentBuilder::class => [
+            QueryBuilder::class.'(group by)'    => [
+                1,
+                static function (self $test): QueryBuilder {
+                    Customer::factory()->count(2)->create([
+                        'name' => $test->faker->company(),
+                    ]);
+
+                    return Customer::query()
+                        ->select('name')
+                        ->groupBy('name')
+                        ->toBase();
+                },
+            ],
+            EloquentBuilder::class              => [
                 2,
                 static function (): EloquentBuilder {
                     Customer::factory()->count(2)->create();
@@ -131,7 +147,19 @@ class AggregatedCountTest extends TestCase {
                     return Customer::query();
                 },
             ],
-            SearchBuilder::class   => [
+            EloquentBuilder::class.'(group by)' => [
+                1,
+                static function (self $test): EloquentBuilder {
+                    Customer::factory()->count(2)->create([
+                        'name' => $test->faker->company(),
+                    ]);
+
+                    return Customer::query()
+                        ->select('name')
+                        ->groupBy('name');
+                },
+            ],
+            SearchBuilder::class                => [
                 2,
                 static function (self $test): SearchBuilder {
                     $test->makeSearchable(

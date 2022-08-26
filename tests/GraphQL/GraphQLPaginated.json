@@ -30,6 +30,12 @@
                     "properties": {
                         "count": {
                             "type": "integer"
+                        },
+                        "groups": {
+                            "type": "array"
+                        },
+                        "groupsAggregated": {
+                            "type": "object"
                         }
                     }
                 }

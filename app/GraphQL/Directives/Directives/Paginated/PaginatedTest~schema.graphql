@@ -5,6 +5,12 @@ type Query {
         test: ID
     ): [Customer!]! @authMe @paginated
 
+    search(
+        search: String! @search
+        where: CustomerSearch @searchBy
+    ): [Customer!]!
+    @paginated
+
     data: [Asset!]! @paginated
 
     type: [Type!]! @paginated
@@ -12,14 +18,17 @@ type Query {
 
 type Customer {
     id: ID!
+    key: ID!
 }
 
 type Asset {
     id: ID!
+    key: ID!
 }
 
 type Type {
     id: ID!
+    key: ID!
 }
 
 type AssetsAggregated {
@@ -33,4 +42,5 @@ type TypesAggregated {
 
 input CustomerSearch {
     id: ID!
+    key: ID!
 }

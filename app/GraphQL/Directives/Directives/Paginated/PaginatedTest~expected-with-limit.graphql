@@ -1,3 +1,11 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
 enum CachedMode {
     """
     In this mode all queries will be cached always.
@@ -17,6 +25,39 @@ Sort direction.
 enum SortByTypeDirection {
     asc
     desc
+}
+
+"""
+Group clause for `type Asset` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseAsset {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `input CustomerSearch` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCustomerSearch {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `type Type` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseType {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
 }
 
 """
@@ -54,6 +95,12 @@ input SearchByConditionCustomerSearch {
     Property condition.
     """
     id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarID
     @searchByProperty
 
     """
@@ -101,14 +148,37 @@ input SortByClauseCustomer {
     """
     id: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
+"""
+Aggregated data for `type AggregatedGroupByTypeGroup`.
+"""
+type AggregatedGroupByTypeGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
 }
 
 type Asset {
     id: ID!
+    key: ID!
 }
 
 """
-Aggregated data for type Asset.
+Aggregated data for `type Asset`.
 """
 type AssetsAggregated {
     count: Int!
@@ -117,17 +187,97 @@ type AssetsAggregated {
         mode: Threshold
     )
 
+    groups(
+        groupBy: AggregatedGroupByClauseAsset!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseAsset!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
     types: [String!]!
 }
 
 type Customer {
     id: ID!
+    key: ID!
 }
 
 """
-Aggregated data for type Customer.
+Aggregated data for `type Customer`.
 """
 type CustomersAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCustomerSearch!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCustomerSearch!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
+"""
+Aggregated data for `type Customer`.
+"""
+type CustomersSearchAggregated {
     count: Int!
     @aggregatedCount
     @cached(
@@ -201,6 +351,41 @@ type Query {
         model: "App\\Models\\Customer"
     )
 
+    search(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        search: String!
+        @search
+
+        where: SearchByConditionCustomerSearch
+        @searchBy
+    ): [Customer!]!
+    @paginated
+
+    searchAggregated(
+        search: String!
+        @search
+
+        where: SearchByConditionCustomerSearch
+        @searchBy
+    ): CustomersSearchAggregated
+    @aggregated(
+        model: "App\\Models\\Customer"
+    )
+
     type(
         limit: Int! = 25
         @rules(
@@ -227,6 +412,7 @@ type Query {
 
 type Type {
     id: ID!
+    key: ID!
 }
 
 """
@@ -239,6 +425,40 @@ type TypesAggregated {
     @aggregatedCount
     @cached(
         mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseType!
+        @aggregatedGroupBy
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseType!
+        @aggregatedGroupBy
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
 }
 
@@ -272,6 +492,14 @@ Returns `count(*)`.
 directive @aggregatedCount
 on
     | FIELD_DEFINITION
+
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorAsString
+on
+    | INPUT_FIELD_DEFINITION
 
 """
 User must be authenticated.
@@ -353,6 +581,19 @@ directive @rules(
     messages: [RulesMessage!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
+    | INPUT_FIELD_DEFINITION
+
+"""
+Perform a full-text search by the given input value.
+"""
+directive @search(
+    """
+    Specify a custom index to use for search.
+    """
+    within: String
+)
+on
     | ARGUMENT_DEFINITION
     | INPUT_FIELD_DEFINITION
 

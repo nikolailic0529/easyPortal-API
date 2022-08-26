@@ -2,7 +2,10 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
-use App\GraphQL\Directives\Directives\Aggregated\AggregatedCount;
+use App\GraphQL\Directives\Definitions\AggregatedGroupByDirective;
+use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
+use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
@@ -10,23 +13,30 @@ use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
 use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use LogicException;
+use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
+use Nuwave\Lighthouse\Support\Contracts\ArgManipulator;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
+use Nuwave\Lighthouse\Support\Contracts\TypeManipulator;
+
+use function assert;
 use function get_object_vars;
+use function implode;
 use function is_array;
 use function json_encode;
 use function sprintf;
+use function str_ends_with;
 
 class Manipulator extends AstManipulator {
     public function __construct(
@@ -34,6 +44,7 @@ class Manipulator extends AstManipulator {
         DocumentAST $document,
         TypeRegistry $types,
         protected Repository $config,
+        protected AggregatedGroupByDirective $groupByDirective,
     ) {
         parent::__construct($directives, $document, $types);
     }
@@ -46,19 +57,7 @@ class Manipulator extends AstManipulator {
         $aggregated = $this->getAggregatedField($parent, $field);
 
         if ($aggregated) {
-            /**
-             * Apply manipulators (lighthouse doesn't process added types)
-             *
-             * @see \Nuwave\Lighthouse\Schema\AST\ASTBuilder::applyFieldManipulators()
-             */
-            $manipulators = $this->directives->associatedOfType($aggregated, FieldManipulator::class);
-
-            foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateFieldDefinition($this->document, $aggregated, $parent);
-            }
-
-            // Add
-            $parent->fields[] = $aggregated;
+            $parent->fields[] = $this->applyManipulators($aggregated, $parent);
         }
 
         // Add limit/offset arguments
@@ -72,9 +71,7 @@ class Manipulator extends AstManipulator {
     ): ?FieldDefinitionNode {
         // Field exists?
         $fieldName = "{$this->getNodeName($field)}Aggregated";
-        $existing  = Arr::first($parent->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
-            return $this->getNodeName($field) === $fieldName;
-        });
+        $existing  = $this->getObjectField($parent, $fieldName);
 
         if ($existing) {
             return null;
@@ -88,8 +85,9 @@ class Manipulator extends AstManipulator {
             $isArgBuilderDirective = (bool) $this->getNodeDirective($argument, ArgBuilderDirective::class);
             $isSearchDirective     = (bool) $this->getNodeDirective($argument, SearchDirective::class);
             $isSortByDirective     = (bool) $this->getNodeDirective($argument, SortByDirective::class);
+            $isGroupByDirective    = (bool) $this->getNodeDirective($argument, AggregatedGroupByDirective::class);
 
-            if ($isSortByDirective || (!$isArgBuilderDirective && !$isSearchDirective)) {
+            if ($isSortByDirective || (!$isArgBuilderDirective && !$isSearchDirective && !$isGroupByDirective)) {
                 unset($aggregated->arguments[$key]);
             }
         }
@@ -101,10 +99,14 @@ class Manipulator extends AstManipulator {
             if ($directive instanceof Base || $directive instanceof RelationDirective) {
                 unset($aggregated->directives[$key]);
             }
+
+            if ($directive instanceof Cached) {
+                unset($aggregated->directives[$key]);
+            }
         }
 
         // Set type
-        $typeName         = $this->getAggregatedFieldType($field);
+        $typeName         = $this->getAggregatedFieldType($parent, $field);
         $aggregated->type = Parser::typeReference($typeName);
 
         // Set name
@@ -131,12 +133,42 @@ class Manipulator extends AstManipulator {
         return $aggregated;
     }
 
-    protected function getAggregatedFieldType(FieldDefinitionNode $node): string {
-        $typeName    = Str::pluralStudly($this->getNodeTypeName($node)).'Aggregated';
-        $fieldName   = 'count';
-        $fieldSource = "{$fieldName}: Int! @aggregatedCount @cached(mode: Threshold)";
-        $description = "Aggregated data for {$this->getNodeTypeFullName($node)}.";
+    protected function getAggregatedFieldType(ObjectTypeDefinitionNode $parent, FieldDefinitionNode $node): string {
+        // Prepare
+        $isSearch    = (bool) (new Collection($node->arguments))
+            ->first(function (InputValueDefinitionNode $arg): bool {
+                return $this->getNodeDirective($arg, SearchDirective::class) !== null;
+            });
+        $nodeType    = $this->getNodeTypeName($node);
+        $typeName    = Str::pluralStudly($nodeType).($isSearch ? 'Search' : '').'Aggregated';
+        $parentType  = $this->getNodeTypeName($parent);
+        $description = "Aggregated data for `{$this->getNodeTypeFullName($node)}`.";
 
+        // Fields
+        $isNested = str_ends_with($parentType, 'Aggregated');
+        $fields   = [
+            'count: Int! @aggregatedCount @cached(mode: Threshold)',
+        ];
+
+        if (!$isNested && !$isSearch) {
+            $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
+            $inputType  = (new Collection($node->arguments))
+                ->first(function (InputValueDefinitionNode $arg): bool {
+                    return $this->getNodeDirective($arg, SearchByDirective::class) !== null;
+                });
+            $inputType  = $this->getNodeTypeName($inputType ?? $nodeType);
+            $builder    = json_encode(AggregatedBuilder::class);
+            $fields[]   = <<<DEF
+                groups(
+                    groupBy: {$inputType}!
+                    @aggregatedGroupBy
+                ): [{$returnType}!]!
+                @cached(mode: Threshold)
+                @paginated(builder: {$builder})
+            DEF;
+        }
+
+        // Add type
         if ($this->isTypeDefinitionExists($typeName)) {
             // type?
             $definition = $this->getTypeDefinitionNode($typeName);
@@ -153,34 +185,34 @@ class Manipulator extends AstManipulator {
                 $definition->description = Parser::description("\"{$description}\"");
             }
 
-            // count?
-            $existing = Arr::first($definition->fields, function (FieldDefinitionNode $field) use ($fieldName): bool {
-                return $this->getNodeName($field) === $fieldName;
-            });
+            // Fields
+            foreach ($fields as $fieldDefinition) {
+                // Exists?
+                $fieldNode = Parser::fieldDefinition($fieldDefinition);
+                $fieldName = $this->getNodeName($fieldNode);
+                $existing  = $this->getObjectField($definition, $fieldName);
 
-            if ($existing instanceof Node && !$this->getNodeDirective($existing, AggregatedCount::class)) {
-                throw new LogicException(sprintf(
-                    'Field `%s` in type `%s` already defined.',
-                    $fieldName,
-                    $typeName,
-                ));
+                if ($existing === null) {
+                    $definition->fields[] = $this->applyManipulators($fieldNode, $definition);
+                }
             }
-
-            // Add
-            $definition->fields[] = Parser::fieldDefinition($fieldSource);
         } else {
-            $this->addTypeDefinition(Parser::objectTypeDefinition(
+            $fieldsDefinition = implode("\n", $fields);
+            $typeDefinition   = $this->addTypeDefinition(Parser::objectTypeDefinition(
                 <<<DEF
                 """
                 {$description}
                 """
                 type {$typeName} {
-                    {$fieldSource}
+                    {$fieldsDefinition}
                 }
                 DEF,
             ));
+
+            $this->applyManipulators($typeDefinition);
         }
 
+        // Return
         return $typeName;
     }
 
@@ -215,6 +247,8 @@ class Manipulator extends AstManipulator {
      * @return T
      */
     private function clone(Node $field): Node {
+        // Seems will be solved in webonyx/graphql-php v15?
+        //
         // https://github.com/webonyx/graphql-php/issues/988
         return (new class([]) extends Node {
             /**
@@ -261,5 +295,65 @@ class Manipulator extends AstManipulator {
                 return $cloned;
             }
         })->clone($field);
+    }
+
+    protected function getObjectField(ObjectTypeDefinitionNode $object, string $name): ?FieldDefinitionNode {
+        return (new Collection($object->fields))
+            ->first(function (FieldDefinitionNode $field) use ($name): bool {
+                return $this->getNodeName($field) === $name;
+            });
+    }
+
+    /**
+     * @template T of ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode
+     *
+     * @param T $node
+     *
+     * @return T
+     */
+    protected function applyManipulators(
+        ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode $node,
+        ObjectTypeDefinitionNode $parentObject = null,
+        FieldDefinitionNode $parentField = null,
+    ): ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode {
+        // There is no way to guarantee that manipulators will be applied for
+        // newly added types and fields :(
+
+        if ($node instanceof ObjectTypeDefinitionNode) {
+            /** @see ASTBuilder::applyTypeDefinitionManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, TypeManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateTypeDefinition($this->document, $node);
+            }
+
+            foreach ($node->fields as $field) {
+                assert($field instanceof FieldDefinitionNode);
+
+                $this->applyManipulators($field, $node);
+            }
+        } elseif ($node instanceof FieldDefinitionNode) {
+            /** @see ASTBuilder::applyFieldManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, FieldManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateFieldDefinition($this->document, $node, $parentObject);
+            }
+
+            foreach ($node->arguments as $argument) {
+                assert($argument instanceof InputValueDefinitionNode);
+
+                $this->applyManipulators($argument, $parentObject, $node);
+            }
+        } else {
+            /** @see ASTBuilder::applyArgManipulators() */
+            $manipulators = $this->directives->associatedOfType($node, ArgManipulator::class);
+
+            foreach ($manipulators as $manipulator) {
+                $manipulator->manipulateArgDefinition($this->document, $node, $parentField, $parentObject);
+            }
+        }
+
+        return $node;
     }
 }

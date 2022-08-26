@@ -1,0 +1,4 @@
+type Query {
+  a(order: A @aggregatedGroupBy): ID! @all
+  b(order: B @aggregatedGroupBy): ID! @all
+}

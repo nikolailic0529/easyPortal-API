@@ -50,9 +50,10 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
      */
     public function testQuery(
         Response $expected,
@@ -70,7 +71,7 @@ class CustomerTest extends TestCase {
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $org, $user)->id;
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -166,9 +167,10 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryAssets
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
      */
     public function testQueryAssets(
         Response $expected,
@@ -394,6 +396,13 @@ class CustomerTest extends TestCase {
                         }
                         assetsAggregated {
                             count
+                            groups(groupBy: {customer_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {customer_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -406,9 +415,10 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContracts
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
      */
     public function testQueryContracts(
         Response $expected,
@@ -608,6 +618,13 @@ class CustomerTest extends TestCase {
                         }
                         contractsAggregated {
                             count
+                            groups(groupBy: {customer_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {customer_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -620,9 +637,10 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryQuotes
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param array<mixed>        $settingsFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param array<mixed>                                         $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
      */
     public function testQueryQuotes(
         Response $expected,
@@ -822,6 +840,13 @@ class CustomerTest extends TestCase {
                         }
                         quotesAggregated {
                             count
+                            groups(groupBy: {customer_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {customer_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -835,9 +860,10 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryAssetAggregate
      *
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string, mixed> $params
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
+     * @param array<string, mixed>                                 $params
      */
     public function testQueryAssetAggregated(
         Response $expected,
@@ -862,6 +888,13 @@ class CustomerTest extends TestCase {
                     customer(id: $id) {
                         assetsAggregated(where: $where) {
                             count
+                            groups(groupBy: {type_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {type_id: asc}) {
+                                count
+                            }
                             types {
                                 count
                                 type_id
@@ -892,10 +925,11 @@ class CustomerTest extends TestCase {
      *
      * @dataProvider dataProviderQueryContractsAggregate
      *
-     * @param OrganizationFactory  $orgFactory
-     * @param UserFactory          $userFactory
-     * @param array<string,mixed>  $settingsFactory
-     * @param array<string, mixed> $params
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param array<string,mixed>                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
+     * @param array<string, mixed>                                 $params
      */
     public function testQueryContractsAggregated(
         Response $expected,
@@ -923,6 +957,13 @@ class CustomerTest extends TestCase {
                     customer(id: $id) {
                         contractsAggregated(where: $where) {
                             count
+                            groups(groupBy: {currency_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {currency_id: asc}) {
+                                count
+                            }
                             prices {
                                 count
                                 amount
@@ -1167,7 +1208,16 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                             'assetsAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         [
@@ -1661,7 +1711,11 @@ class CustomerTest extends TestCase {
                 // empty
             ],
             'contractsAggregated' => [
-                'count' => 0,
+                'count'            => 0,
+                'groups'           => [],
+                'groupsAggregated' => [
+                    'count' => 0,
+                ],
             ],
         ];
 
@@ -1862,7 +1916,16 @@ class CustomerTest extends TestCase {
                                     ],
                                 ],
                                 'contractsAggregated' => [
-                                    'count' => 1,
+                                    'count'            => 1,
+                                    'groups'           => [
+                                        [
+                                            'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                            'count' => 1,
+                                        ],
+                                    ],
+                                    'groupsAggregated' => [
+                                        'count' => 1,
+                                    ],
                                 ],
                             ],
                         ),
@@ -2473,7 +2536,16 @@ class CustomerTest extends TestCase {
                 ],
             ],
             'quotesAggregated' => [
-                'count' => 1,
+                'count'            => 1,
+                'groups'           => [
+                    [
+                        'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'count' => 1,
+                    ],
+                ],
+                'groupsAggregated' => [
+                    'count' => 1,
+                ],
             ],
         ];
         $customerEmptyQuote   = [
@@ -2481,7 +2553,11 @@ class CustomerTest extends TestCase {
                 // empty
             ],
             'quotesAggregated' => [
-                'count' => 0,
+                'count'            => 0,
+                'groups'           => [],
+                'groupsAggregated' => [
+                    'count' => 0,
+                ],
             ],
         ];
 
@@ -2726,8 +2802,22 @@ class CustomerTest extends TestCase {
                         'customer',
                         [
                             'assetsAggregated' => [
-                                'count'     => 3,
-                                'types'     => [
+                                'count'            => 3,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'count' => 2,
+                                    ],
+                                    [
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                        'count' => 1,
+
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 2,
+                                ],
+                                'types'            => [
                                     [
                                         'count'   => 2,
                                         'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -2747,7 +2837,7 @@ class CustomerTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'coverages' => [
+                                'coverages'        => [
                                     [
                                         'count'       => 1,
                                         'coverage_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -2903,8 +2993,21 @@ class CustomerTest extends TestCase {
                         'customer',
                         [
                             'contractsAggregated' => [
-                                'count'  => 4,
-                                'prices' => [
+                                'count'            => 4,
+                                'groups'           => [
+                                    [
+                                        'key'   => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                        'count' => 3,
+                                    ],
+                                    [
+                                        'key'   => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 2,
+                                ],
+                                'prices'           => [
                                     [
                                         'count'       => 3,
                                         'amount'      => 246.9,
@@ -2946,8 +3049,21 @@ class CustomerTest extends TestCase {
                         'customer',
                         [
                             'contractsAggregated' => [
-                                'count'  => 4,
-                                'prices' => [
+                                'count'            => 4,
+                                'groups'           => [
+                                    [
+                                        'key'   => '6bfadfe5-a886-4c7d-ac56-a8ac215aea00',
+                                        'count' => 3,
+                                    ],
+                                    [
+                                        'key'   => 'bb22eb9c-536a-4a93-97c6-28ee77cea438',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 2,
+                                ],
+                                'prices'           => [
                                     [
                                         'count'       => 3,
                                         'amount'      => 251.9,

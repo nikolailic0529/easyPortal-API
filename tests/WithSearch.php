@@ -13,6 +13,8 @@ use function str_starts_with;
 
 /**
  * @mixin TestCase
+ *
+ * @phpstan-type SearchIndexes array<string, array{aliases: array<string, array{is_write_index: bool}>}>
  */
 trait WithSearch {
     // <editor-fold desc="SetUp">
@@ -142,6 +144,9 @@ trait WithSearch {
         return $this->app->make(Repository::class)->get('scout.prefix');
     }
 
+    /**
+     * @return ($index is string ? string : null)
+     */
     private function getSearchName(?string $index): ?string {
         if ($index !== null && !$this->isSearchName($index)) {
             $index = "{$this->getSearchIndexPrefix()}{$index}";
@@ -158,7 +163,7 @@ trait WithSearch {
     // <editor-fold desc="Assertions">
     // =========================================================================
     /**
-     * @param array<mixed> $expected
+     * @param array<string, array{aliases: array<string, array{is_write_index: bool}>}> $expected
      */
     protected function assertSearchIndexes(array $expected, string $message = ''): void {
         // Prepare Expected

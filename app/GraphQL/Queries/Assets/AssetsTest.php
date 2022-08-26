@@ -19,6 +19,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -47,9 +48,10 @@ class AssetsTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param SettingsFactory                                      $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
      */
     public function testQuery(
         Response $expected,
@@ -59,15 +61,15 @@ class AssetsTest extends TestCase {
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($orgFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
 
         $this->setSettings($settingsFactory);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $organization, $user)->id;
+            $customerId = $customerFactory($this, $org, $user)->getKey();
         }
 
         // Test
@@ -267,6 +269,13 @@ class AssetsTest extends TestCase {
                     }
                     assetsAggregated(where:{ customer_id: { equal: $customer_id } }) {
                         count
+                        groups(groupBy: {product_id: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {product_id: asc}) {
+                            count
+                        }
                     }
                 }
             ', ['customer_id' => $customerId])
@@ -498,7 +507,16 @@ class AssetsTest extends TestCase {
                                 ],
                             ],
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [

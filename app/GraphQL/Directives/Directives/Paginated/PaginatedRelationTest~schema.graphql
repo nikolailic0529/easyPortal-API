@@ -5,6 +5,8 @@ type Query {
 type Customer {
     id: ID!
 
+    key: ID!
+
     "Description"
     locations(
         where: CustomerSearch @searchBy
@@ -17,8 +19,10 @@ type Customer {
 
 type CustomerLocation {
     id: ID!
+    key: ID!
 }
 
 input CustomerSearch {
     id: ID!
+    key: ID!
 }

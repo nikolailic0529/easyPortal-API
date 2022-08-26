@@ -25,6 +25,8 @@ use Tests\WithSettings;
 use Tests\WithUser;
 
 /**
+ * @deprecated Please use `groups` query instead.
+ *
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractEntriesAggregated
  *
@@ -42,8 +44,8 @@ class ContractEntriesAggregatedTest extends TestCase {
      *
      * @param OrganizationFactory                                  $orgFactory
      * @param UserFactory                                          $userFactory
-     * @param SettingsFactory                                      $settings
      * @param Closure(static, ?Organization, ?User): Document|null $factory
+     * @param SettingsFactory                                      $settings
      */
     public function testServiceGroups(
         Response $expected,
@@ -71,6 +73,13 @@ class ContractEntriesAggregatedTest extends TestCase {
                     contract(id: $id) {
                         entriesAggregated {
                             count
+                            groups(groupBy: {service_group_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {service_group_id: asc}) {
+                                count
+                            }
                             serviceGroups {
                                 count
                                 service_group_id
@@ -98,8 +107,8 @@ class ContractEntriesAggregatedTest extends TestCase {
      *
      * @param OrganizationFactory                                  $orgFactory
      * @param UserFactory                                          $userFactory
-     * @param array<mixed>                                         $settings
      * @param Closure(static, ?Organization, ?User): Document|null $factory
+     * @param array<mixed>                                         $settings
      */
     public function testServiceLevels(
         Response $expected,
@@ -127,6 +136,13 @@ class ContractEntriesAggregatedTest extends TestCase {
                     contract(id: $id) {
                         entriesAggregated {
                             count
+                            groups(groupBy: {service_level_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {service_level_id: asc}) {
+                                count
+                            }
                             serviceLevels {
                                 count
                                 service_level_id
@@ -204,8 +220,25 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
         $expected = [
             'entriesAggregated' => [
-                'count'         => 4,
-                'serviceGroups' => [
+                'count'            => 4,
+                'groups'           => [
+                    [
+                        'key'   => null,
+                        'count' => 1,
+                    ],
+                    [
+                        'key'   => 'b3fb4b06-e10e-4075-9ab2-4ccf83ae9536',
+                        'count' => 2,
+                    ],
+                    [
+                        'key'   => 'fae217ab-212d-415f-9552-0543c64c6aad',
+                        'count' => 1,
+                    ],
+                ],
+                'groupsAggregated' => [
+                    'count' => 3,
+                ],
+                'serviceGroups'    => [
                     [
                         'count'            => 1,
                         'service_group_id' => null,
@@ -317,8 +350,25 @@ class ContractEntriesAggregatedTest extends TestCase {
         ];
         $expected = [
             'entriesAggregated' => [
-                'count'         => 4,
-                'serviceLevels' => [
+                'count'            => 4,
+                'groups'           => [
+                    [
+                        'key'   => null,
+                        'count' => 1,
+                    ],
+                    [
+                        'key'   => 'b3fb4b06-e10e-4075-9ab2-4ccf83ae9536',
+                        'count' => 2,
+                    ],
+                    [
+                        'key'   => 'fae217ab-212d-415f-9552-0543c64c6aad',
+                        'count' => 1,
+                    ],
+                ],
+                'groupsAggregated' => [
+                    'count' => 3,
+                ],
+                'serviceLevels'    => [
                     [
                         'count'            => 1,
                         'service_level_id' => null,

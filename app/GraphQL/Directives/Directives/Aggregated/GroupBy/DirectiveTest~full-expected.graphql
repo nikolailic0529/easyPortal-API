@@ -1,0 +1,97 @@
+"""
+Sort direction.
+"""
+enum AggregatedGroupByTypeDirection {
+    asc
+    desc
+}
+
+"""
+Group clause for `input Properties` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseProperties {
+    """
+    Property clause.
+    """
+    dateScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
+    dateScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
+    idScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    idScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    stringScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    stringScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+type AggregatedGroupByTypeGroup {
+    count: Int!
+    key: String
+}
+
+type Query {
+    test(
+        groupBy: AggregatedGroupByClauseProperties!
+        @aggregatedGroupBy
+    ): [AggregatedGroupByTypeGroup!]!
+    @all
+}
+
+directive @aggregatedGroupBy
+on
+    | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorAsDate
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @aggregatedGroupByOperatorAsString
+on
+    | INPUT_FIELD_DEFINITION
+
+"""
+Fetch all Eloquent models and return the collection as the result.
+"""
+directive @all(
+    """
+    Point to a function that provides a Query Builder instance.
+    This replaces the use of a model.
+    """
+    builder: String
+
+    """
+    Specify the class name of the model to use.
+    This is only needed when the default model detection does not work.
+    """
+    model: String
+
+    """
+    Apply scopes to the underlying query.
+    """
+    scopes: [String!]
+)
+on
+    | FIELD_DEFINITION

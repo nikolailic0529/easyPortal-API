@@ -65,6 +65,7 @@ class PaginatedTest extends TestCase {
 
                 type Asset {
                     id: ID!
+                    key: String
                 }
                 GRAPHQL,
             )
@@ -120,6 +121,7 @@ class PaginatedTest extends TestCase {
 
                 type Model {
                     id: ID!
+                    key: String
                 }
                 GRAPHQL,
             )
@@ -173,6 +175,7 @@ class PaginatedTest extends TestCase {
 
                 type Model {
                     id: ID!
+                    key: String
                 }
                 GRAPHQL,
             )

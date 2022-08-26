@@ -1,0 +1,40 @@
+scalar Date @scalar(class: "App\\GraphQL\\Scalars\\Date")
+scalar DateTime @scalar(class: "App\\GraphQL\\Scalars\\DateTime")
+
+type Query {
+    test(groupBy: Properties @aggregatedGroupBy): ID! @all
+}
+
+input Properties {
+    id: String
+    idScalar: ID
+    idScalarNotNull: ID!
+    nested: Nested
+    nestedNotNull: Nested!
+    enum: Value
+    enumNotNull: Value!
+    stringScalar: String
+    stringScalarNotNull: String!
+    booleanScalar: Boolean
+    booleanScalarNotNull: Boolean!
+    dateScalar: Date
+    dateScalarNotNull: Date!
+    dateTimeScalar: DateTime
+    dateTimeScalarNotNull: DateTime!
+    resolver: String
+    @field(
+        resolver: "App\\GraphQL\\Resolvers\\NullResolver"
+    )
+    list: [String!]!
+}
+
+input Nested {
+    id: ID!
+    value: String
+    nested: Nested
+}
+
+enum Value {
+    one
+    two
+}

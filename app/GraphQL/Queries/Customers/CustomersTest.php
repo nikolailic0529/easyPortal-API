@@ -8,6 +8,7 @@ use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -36,9 +37,10 @@ class CustomersTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param SettingsFactory                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void|null $customerFactory
      */
     public function testQuery(
         Response $expected,
@@ -143,6 +145,13 @@ class CustomersTest extends TestCase {
             }
             customersAggregated {
                 count
+                groups(groupBy: {name: asc}) {
+                    key
+                    count
+                }
+                groupsAggregated(groupBy: {name: asc}) {
+                    count
+                }
             }
         }')->assertThat($expected);
     }
@@ -273,7 +282,16 @@ class CustomersTest extends TestCase {
                                 ],
                             ],
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'name aaa',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
