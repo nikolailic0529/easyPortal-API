@@ -4,6 +4,7 @@ namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
 use App\GraphQL\Directives\Directives\Aggregated\Aggregated;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Exceptions\FailedToCreateGroupClause;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsDate;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsString;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Property;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
@@ -98,6 +99,7 @@ class Manipulator extends BuilderManipulator {
         );
 
         // Add sortable fields
+        $asDate    = $this->getContainer()->make(AsDate::class);
         $asString  = $this->getContainer()->make(AsString::class);
         $direction = $this->getType(Direction::class);
         $property  = $this->getContainer()->make(Property::class);
@@ -107,6 +109,7 @@ class Manipulator extends BuilderManipulator {
         $supported = [
             Type::ID     => $asString,
             Type::STRING => $asString,
+            'Date'       => $asDate,
         ];
 
         foreach ($fields as $field) {

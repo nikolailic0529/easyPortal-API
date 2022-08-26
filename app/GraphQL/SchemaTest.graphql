@@ -123,6 +123,12 @@ input AggregatedGroupByClauseAssetsQuery {
     """
     type_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    warranty_end: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
 }
 
 """
@@ -196,6 +202,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     Property clause.
     """
+    end: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
     product_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
@@ -216,6 +228,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     service_level_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    start: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
 }
 
 """
@@ -243,6 +261,12 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Property clause.
     """
+    end: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
     language_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
@@ -263,6 +287,12 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     reseller_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    start: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
 
     """
     Property clause.
@@ -11197,6 +11227,10 @@ on
 directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorAsDate
+on
+    | INPUT_FIELD_DEFINITION
 
 directive @aggregatedGroupByOperatorAsString
 on

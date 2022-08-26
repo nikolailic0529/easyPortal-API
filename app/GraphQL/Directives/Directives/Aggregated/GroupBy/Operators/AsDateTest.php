@@ -15,11 +15,11 @@ use Tests\WithGraphQLSchema;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsString
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsDate
  *
  * @phpstan-import-type BuilderFactory from BuilderDataProvider
  */
-class AsStringTest extends TestCase {
+class AsDateTest extends TestCase {
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -39,7 +39,7 @@ class AsStringTest extends TestCase {
         Property $property,
         Closure $argumentFactory,
     ): void {
-        $operator  = $this->app->make(AsString::class);
+        $operator  = $this->app->make(AsDate::class);
         $argument  = $argumentFactory($this);
         $directive = $this->app->make(Directive::class);
         $builder   = $builderFactory($this);
@@ -83,11 +83,11 @@ class AsStringTest extends TestCase {
         return (new CompositeDataProvider(
             new EloquentBuilderDataProvider(),
             new ArrayDataProvider([
-                '`property` asc'  => [
+                '`property` asc'                          => [
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`a` as `key`,
+                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `key`,
                                 count(*) as `count`
                             from
                                 `tmp`
@@ -102,11 +102,11 @@ class AsStringTest extends TestCase {
                     new Property('a'),
                     $factory('asc'),
                 ],
-                '`property` desc' => [
+                '`property` desc'                         => [
                     [
                         'query'    => <<<'SQL'
                             select
-                                `tmp`.`a` as `key`,
+                                DATE_FORMAT(`tmp`.`a`, '%Y-%m-%d') as `key`,
                                 count(*) as `count`
                             from
                                 `tmp`
@@ -119,6 +119,44 @@ class AsStringTest extends TestCase {
                         'bindings' => [],
                     ],
                     new Property('a'),
+                    $factory('desc'),
+                ],
+                '`property` asc (`date` cast)'            => [
+                    [
+                        'query'    => <<<'SQL'
+                            select
+                                `tmp`.`date_column` as `key`,
+                                count(*) as `count`
+                            from
+                                `tmp`
+                            group by
+                                `key`
+                            order by
+                                `key` asc
+                        SQL
+                        ,
+                        'bindings' => [],
+                    ],
+                    new Property('date_column'),
+                    $factory('asc'),
+                ],
+                '`property` desc (`immutable_date` cast)' => [
+                    [
+                        'query'    => <<<'SQL'
+                            select
+                                `tmp`.`date_column_immutable` as `key`,
+                                count(*) as `count`
+                            from
+                                `tmp`
+                            group by
+                                `key`
+                            order by
+                                `key` desc
+                        SQL
+                        ,
+                        'bindings' => [],
+                    ],
+                    new Property('date_column_immutable'),
                     $factory('desc'),
                 ],
             ]),

@@ -5,8 +5,8 @@ namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
 use Exception;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Grammar;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Core\Utils\Cast;
@@ -40,12 +40,12 @@ abstract class BaseOperator extends OperatorDirective {
     }
 
     public function isBuilderSupported(object $builder): bool {
-        return $builder instanceof EloquentBuilder;
+        return $builder instanceof Builder;
     }
 
     public function call(Handler $handler, object $builder, Property $property, Argument $argument): object {
         // Supported?
-        if (!($builder instanceof EloquentBuilder)) {
+        if (!($builder instanceof Builder)) {
             throw new OperatorUnsupportedBuilder($this, $builder);
         }
 
@@ -63,11 +63,10 @@ abstract class BaseOperator extends OperatorDirective {
 
             throw new Exception('not implemented');
         } else {
-            $column  = $builder->qualifyColumn($column);
             $builder = $builder
                 ->toBase()
                 ->select([
-                    DB::raw("{$this->getKeyExpression($grammar, $column)} as {$grammar->wrap('key')}"),
+                    DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap('key')}"),
                     DB::raw("count(*) as {$grammar->wrap('count')}"),
                 ])
                 ->groupBy('key')
@@ -78,5 +77,10 @@ abstract class BaseOperator extends OperatorDirective {
         return $builder;
     }
 
-    abstract protected function getKeyExpression(Grammar $grammar, string $column): string;
+    /**
+     * Should return wrapped column/expression string that will be used as a key.
+     *
+     * @param Builder<Model> $builder
+     */
+    abstract protected function getKeyExpression(Builder $builder, string $column): string;
 }

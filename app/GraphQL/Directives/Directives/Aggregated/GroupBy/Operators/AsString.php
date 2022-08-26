@@ -2,14 +2,14 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators;
 
-use Illuminate\Database\Grammar;
+use Illuminate\Database\Eloquent\Builder;
 
 class AsString extends BaseOperator {
     public static function getName(): string {
         return 'asString';
     }
 
-    protected function getKeyExpression(Grammar $grammar, string $column): string {
-        return $grammar->wrap($column);
+    protected function getKeyExpression(Builder $builder, string $column): string {
+        return $builder->getGrammar()->wrap($builder->qualifyColumn($column));
     }
 }

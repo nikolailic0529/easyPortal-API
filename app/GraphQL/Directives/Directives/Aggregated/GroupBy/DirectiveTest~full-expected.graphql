@@ -13,6 +13,18 @@ input AggregatedGroupByClauseProperties {
     """
     Property clause.
     """
+    dateScalar: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
+    dateScalarNotNull: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsDate
+
+    """
+    Property clause.
+    """
     idScalar: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
@@ -51,6 +63,10 @@ type Query {
 directive @aggregatedGroupBy
 on
     | ARGUMENT_DEFINITION
+
+directive @aggregatedGroupByOperatorAsDate
+on
+    | INPUT_FIELD_DEFINITION
 
 directive @aggregatedGroupByOperatorAsString
 on

@@ -20,6 +20,14 @@ class EloquentBuilderDataProvider extends ArrayDataProvider {
                          * @var string
                          */
                         public $table = 'tmp';
+
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingAnyTypeHint
+                         */
+                        public $casts = [
+                            'date_column'           => 'date',
+                            'date_column_immutable' => 'immutable_date',
+                        ];
                     })->query();
                 },
             ],
