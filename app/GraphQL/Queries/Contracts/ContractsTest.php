@@ -55,9 +55,10 @@ class ContractsTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param SettingsFactory                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void|null $contractsFactory ,
      */
     public function testQuery(
         Response $expected,
@@ -191,6 +192,13 @@ class ContractsTest extends TestCase {
                         entries_count
                         entriesAggregated {
                             count
+                            groups(groupBy: {start: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {start: asc}) {
+                                count
+                            }
                         }
                         entries {
                             id
@@ -261,6 +269,13 @@ class ContractsTest extends TestCase {
                     }
                     contractsAggregated {
                         count
+                        groups(groupBy: {start: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {start: asc}) {
+                            count
+                        }
                     }
                 }
             ')
@@ -413,7 +428,16 @@ class ContractsTest extends TestCase {
                                     ],
                                     'entries_count'     => 2,
                                     'entriesAggregated' => [
-                                        'count' => 1,
+                                        'count'            => 1,
+                                        'groups'           => [
+                                            [
+                                                'count' => 1,
+                                                'key'   => '2021-01-01',
+                                            ],
+                                        ],
+                                        'groupsAggregated' => [
+                                            'count' => 1,
+                                        ],
                                     ],
                                     'entries'           => [
                                         [
@@ -488,7 +512,16 @@ class ContractsTest extends TestCase {
                                 ],
                             ],
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => '2021-01-01',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -715,7 +748,16 @@ class ContractsTest extends TestCase {
                             'contracts',
                             new JsonFragment('0.price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => '2021-01-01',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -741,6 +783,7 @@ class ContractsTest extends TestCase {
                                     'id' => '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
                                 ])
                                 ->create([
+                                    'start'       => '2021-01-01',
                                     'price'       => 100,
                                     'customer_id' => null,
                                 ]);
@@ -751,7 +794,16 @@ class ContractsTest extends TestCase {
                             'contracts',
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => '1972-07-06',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -777,6 +829,7 @@ class ContractsTest extends TestCase {
                                 ])
                                 ->create([
                                     'customer_id' => null,
+                                    'start'       => '1972-07-06',
                                 ]);
 
                             DocumentEntry::factory()->create([
@@ -791,7 +844,16 @@ class ContractsTest extends TestCase {
                             'contracts',
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'count' => 1,
+                                        'key'   => '2008-06-06',
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -817,6 +879,7 @@ class ContractsTest extends TestCase {
                                 ])
                                 ->create([
                                     'customer_id' => null,
+                                    'start'       => '2008-06-06',
                                 ]);
 
                             DocumentEntry::factory()->create([

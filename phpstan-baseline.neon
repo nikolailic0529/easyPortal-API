@@ -1766,36 +1766,6 @@ parameters:
 			path: app/GraphQL/Queries/Administration/AuditContext.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\AuditsTest\\:\\:testQuery\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/AuditsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\OrganizationTest\\:\\:testAudits\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/OrganizationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\OrganizationTest\\:\\:testQuery\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/OrganizationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\OrganizationTest\\:\\:testRoles\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/OrganizationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\OrganizationTest\\:\\:testUsers\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/OrganizationTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\OrganizationsTest\\:\\:testQuery\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/OrganizationsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\Roles\\:\\:__invoke\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Administration/Roles.php
@@ -1826,11 +1796,6 @@ parameters:
 			path: app/GraphQL/Queries/Administration/Users.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Administration\\\\UsersTest\\:\\:testQuery\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Administration/UsersTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\JobsTest\\:\\:testInvoke\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/JobsTest.php
@@ -1839,11 +1804,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\Logs\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/Logs.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Application\\\\LogsTest\\:\\:testInvoke\\(\\) has parameter \\$logFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Application/LogsTest.php
 
 		-
 			message: "#^If condition is always false\\.$#"
@@ -1966,11 +1926,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetsTest\\:\\:testQuery\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetsTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$keyBy of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:keyBy\\(\\) expects array\\|\\(callable\\(mixed, \\(int\\|string\\)\\)\\: \\(int\\|string\\)\\)\\|string, Closure\\(array\\)\\: string given\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Client/Settings.php
@@ -1984,16 +1939,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractStatusesTest\\:\\:testInvoke\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractStatusesTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTest\\:\\:testQuery\\(\\) has parameter \\$contractFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTest\\:\\:testQueryNotes\\(\\) has parameter \\$contractFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
@@ -2036,11 +1981,6 @@ parameters:
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsTest\\:\\:testQuery\\(\\) has parameter \\$contractsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Contracts/ContractsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerStatuses\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomerStatuses.php
@@ -2056,44 +1996,9 @@ parameters:
 			path: app/GraphQL/Queries/Customers/CustomerStatusesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQuery\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQueryAssetAggregated\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQueryAssets\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQueryContracts\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQueryContractsAggregated\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerTest\\:\\:testQueryQuotes\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomerTest.php
-
-		-
 			message: "#^Cannot cast mixed to int\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersAggregated.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersAggregatedTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersAggregatedTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:testQuery\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
@@ -2104,11 +2009,6 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersSearchTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Queries/Customers/CustomersSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomersTest\\:\\:testQuery\\(\\) has parameter \\$customerFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Customers/CustomersTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\CitiesTest\\:\\:testInvoke\\(\\) has parameter \\$countryFactory with no signature specified for Closure\\.$#"
@@ -2256,16 +2156,6 @@ parameters:
 			path: app/GraphQL/Queries/Quotes/QuoteStatusesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTest\\:\\:testQuery\\(\\) has parameter \\$quoteFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuoteTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTest\\:\\:testQueryNotes\\(\\) has parameter \\$quoteFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuoteTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuoteTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuoteTypes.php
@@ -2299,11 +2189,6 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesSearchTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Queries/Quotes/QuotesSearchTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Quotes\\\\QuotesTest\\:\\:testQuery\\(\\) has parameter \\$quotesFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Quotes/QuotesTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$scopes of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects array\\<App\\\\Services\\\\Search\\\\Contracts\\\\Scope\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>, array\\{\\}\\|array\\{'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeContractScope'\\|'App\\\\\\\\Models\\\\\\\\Scopes\\\\\\\\DocumentTypeQuoteType'\\} given\\.$#"

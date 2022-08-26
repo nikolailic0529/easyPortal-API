@@ -56,9 +56,10 @@ class QuotesTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param SettingsFactory                                  $settingsFactory
+     * @param Closure(static, ?Organization, ?User): void|null $quotesFactory
      */
     public function testQuery(
         Response $expected,
@@ -192,6 +193,13 @@ class QuotesTest extends TestCase {
                         entries_count
                         entriesAggregated {
                             count
+                            groups(groupBy: {asset_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {asset_id: asc}) {
+                                count
+                            }
                         }
                         entries {
                             id
@@ -262,6 +270,13 @@ class QuotesTest extends TestCase {
                     }
                     quotesAggregated {
                         count
+                        groups(groupBy: {customer_id: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {customer_id: asc}) {
+                            count
+                        }
                     }
                 }
             ')
@@ -558,7 +573,16 @@ class QuotesTest extends TestCase {
                 ],
                 'entries_count'     => 2,
                 'entriesAggregated' => [
-                    'count' => 1,
+                    'count'            => 1,
+                    'groups'           => [
+                        [
+                            'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                            'count' => 1,
+                        ],
+                    ],
+                    'groupsAggregated' => [
+                        'count' => 1,
+                    ],
                 ],
                 'entries'           => [
                     [
@@ -668,7 +692,18 @@ class QuotesTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [
-                        new GraphQLPaginated('quotes', $objects, ['count' => count($objects)]),
+                        new GraphQLPaginated('quotes', $objects, [
+                            'count'            => count($objects),
+                            'groups'           => [
+                                [
+                                    'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'count' => count($objects),
+                                ],
+                            ],
+                            'groupsAggregated' => [
+                                'count' => 1,
+                            ],
+                        ]),
                         [
                             'ep.document_statuses_hidden' => [
                                 '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
@@ -680,7 +715,18 @@ class QuotesTest extends TestCase {
                         $factory,
                     ],
                     'no quote_types + contract_types not match' => [
-                        new GraphQLPaginated('quotes', $objects, ['count' => count($objects)]),
+                        new GraphQLPaginated('quotes', $objects, [
+                            'count'            => count($objects),
+                            'groups'           => [
+                                [
+                                    'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'count' => count($objects),
+                                ],
+                            ],
+                            'groupsAggregated' => [
+                                'count' => 1,
+                            ],
+                        ]),
                         [
                             'ep.document_statuses_hidden' => [
                                 '418cc9fb-4f64-49b7-b691-ebfcb7ae61d2',
@@ -724,7 +770,13 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'quote_types not match'                     => [
-                        new GraphQLPaginated('quotes', [], ['count' => 0]),
+                        new GraphQLPaginated('quotes', [], [
+                            'count'            => 0,
+                            'groups'           => [],
+                            'groupsAggregated' => [
+                                'count' => 0,
+                            ],
+                        ]),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => [
@@ -740,7 +792,13 @@ class QuotesTest extends TestCase {
                         },
                     ],
                     'no quote_types + no contract_types'        => [
-                        new GraphQLPaginated('quotes', [], ['count' => 0]),
+                        new GraphQLPaginated('quotes', [], [
+                            'count'            => 0,
+                            'groups'           => [],
+                            'groupsAggregated' => [
+                                'count' => 0,
+                            ],
+                        ]),
                         [
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => [],
@@ -759,7 +817,16 @@ class QuotesTest extends TestCase {
                             'quotes',
                             new JsonFragment('0.price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => null,
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -795,7 +862,16 @@ class QuotesTest extends TestCase {
                             'quotes',
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => null,
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [
@@ -835,7 +911,16 @@ class QuotesTest extends TestCase {
                             'quotes',
                             new JsonFragment('0.entries.0.net_price', json_encode(null)),
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => null,
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         [

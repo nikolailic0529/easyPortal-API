@@ -25,8 +25,10 @@ class OrganizationsTest extends TestCase {
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     *
+     * @param OrganizationFactory        $orgFactory
+     * @param UserFactory                $userFactory
+     * @param Closure(static): void|null $prepare
      */
     public function testQuery(
         Response $expected,
@@ -54,6 +56,13 @@ class OrganizationsTest extends TestCase {
                     }
                     organizationsAggregated {
                         count
+                        groups(groupBy: {name: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {name: asc}) {
+                            count
+                        }
                     }
                 }
             ')->assertThat($expected);

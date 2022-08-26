@@ -34,8 +34,9 @@ class UsersTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                              $orgFactory
+     * @param UserFactory                                      $userFactory
+     * @param Closure(static, ?Organization, ?User): void|null $prepare
      */
     public function testQuery(
         Response $expected,
@@ -114,6 +115,13 @@ class UsersTest extends TestCase {
                     }
                     usersAggregated {
                         count
+                        groups(groupBy: {family_name: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {family_name: asc}) {
+                            count
+                        }
                     }
                 }
             ')->assertThat($expected);
@@ -198,7 +206,16 @@ class UsersTest extends TestCase {
                                 ],
                             ],
                             [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'user',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ),
                         static function (TestCase $test, Organization $organization, User $user): void {

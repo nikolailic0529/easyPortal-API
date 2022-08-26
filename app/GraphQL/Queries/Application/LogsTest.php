@@ -25,24 +25,27 @@ use Tests\WithUser;
  * @phpstan-import-type UserFactory from WithUser
  */
 class LogsTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory         $orgFactory
+     * @param UserFactory                 $userFactory
+     * @param Closure(static ): void|null $prepare
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $logFactory = null,
+        Closure $prepare = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($orgFactory));
 
-        if ($logFactory) {
-            $logFactory($this);
+        if ($prepare) {
+            $prepare($this);
         }
 
         // Test
@@ -64,6 +67,13 @@ class LogsTest extends TestCase {
                     }
                     logsAggregated(where: { category: { equal: "Queue" } }) {
                         count
+                        groups(groupBy: {object_id: asc}) {
+                            key
+                            count
+                        }
+                        groupsAggregated(groupBy: {object_id: asc}) {
+                            count
+                        }
                     }
                 }
             }')
@@ -101,7 +111,16 @@ class LogsTest extends TestCase {
                                 ],
                             ],
                             'logsAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => null,
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ],
                     ),

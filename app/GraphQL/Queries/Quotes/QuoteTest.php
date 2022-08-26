@@ -53,8 +53,9 @@ class QuoteTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $quoteFactory
      */
     public function testQuery(
         Response $expected,
@@ -70,7 +71,7 @@ class QuoteTest extends TestCase {
 
         if ($quoteFactory) {
             $quote   = $quoteFactory($this, $org, $user);
-            $quoteId = $quote->id;
+            $quoteId = $quote->getKey();
 
             $this->setSettings([
                 'ep.document_statuses_no_price' => ['874e9e92-6328-4d44-ab70-4589029e3dad'],
@@ -187,6 +188,13 @@ class QuoteTest extends TestCase {
                         entries_count
                         entriesAggregated {
                             count
+                            groups(groupBy: {asset_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {asset_id: asc}) {
+                                count
+                            }
                         }
                         entries {
                             id
@@ -268,8 +276,9 @@ class QuoteTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryNotes
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $quoteFactory
      */
     public function testQueryNotes(
         Response $expected,
@@ -285,7 +294,7 @@ class QuoteTest extends TestCase {
 
         if ($quoteFactory) {
             $quote   = $quoteFactory($this, $org, $user);
-            $quoteId = $quote->id;
+            $quoteId = $quote->getKey();
 
             $this->setSettings([
                 'ep.document_statuses_hidden' => [],
@@ -319,6 +328,13 @@ class QuoteTest extends TestCase {
                         }
                         notesAggregated {
                             count
+                            groups(groupBy: {user_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {user_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -456,7 +472,16 @@ class QuoteTest extends TestCase {
                             ],
                             'entries_count'     => 2,
                             'entriesAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                             'entries'           => [
                                 [
@@ -874,7 +899,16 @@ class QuoteTest extends TestCase {
                                 ],
                             ],
                             'notesAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {

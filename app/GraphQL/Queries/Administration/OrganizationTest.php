@@ -40,8 +40,9 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                      $orgFactory
+     * @param UserFactory                                              $userFactory
+     * @param Closure(static, ?Organization, ?User): Organization|null $prepare
      */
     public function testQuery(
         Response $expected,
@@ -153,8 +154,9 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderUsers
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                      $orgFactory
+     * @param UserFactory                                              $userFactory
+     * @param Closure(static, ?Organization, ?User): Organization|null $prepare
      */
     public function testUsers(
         Response $expected,
@@ -187,6 +189,13 @@ class OrganizationTest extends TestCase {
                         }
                         usersAggregated {
                             count
+                            groups(groupBy: {family_name: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {family_name: asc}) {
+                                count
+                            }
                         }
                     }
                 }
@@ -203,8 +212,9 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderRoles
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                      $orgFactory
+     * @param UserFactory                                              $userFactory
+     * @param Closure(static, ?Organization, ?User): Organization|null $prepare
      */
     public function testRoles(
         Response $expected,
@@ -213,12 +223,12 @@ class OrganizationTest extends TestCase {
         Closure $prepare = null,
     ): void {
         // Prepare
-        $org = $this->setOrganization($orgFactory);
-
-        $this->setUser($userFactory, $org);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $org?->getKey();
 
         if ($prepare) {
-            $prepare($this, $org);
+            $id = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -242,7 +252,7 @@ class OrganizationTest extends TestCase {
                 }
                 GRAPHQL,
                 [
-                    'id' => $org?->getKey() ?: $this->faker->uuid(),
+                    'id' => $id ?: $this->faker->uuid(),
                 ],
             )
             ->assertThat($expected);
@@ -253,8 +263,9 @@ class OrganizationTest extends TestCase {
      *
      * @dataProvider dataProviderAudits
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                                      $orgFactory
+     * @param UserFactory                                              $userFactory
+     * @param Closure(static, ?Organization, ?User): Organization|null $prepare
      */
     public function testAudits(
         Response $expected,
@@ -265,10 +276,10 @@ class OrganizationTest extends TestCase {
         // Prepare
         $org  = $this->setOrganization($orgFactory);
         $user = $this->setUser($userFactory, $org);
+        $id   = 'wrong';
 
-        $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this, $org, $user)->getKey();
+            $id = $prepare($this, $org, $user)->getKey();
         }
 
         // Test
@@ -290,12 +301,19 @@ class OrganizationTest extends TestCase {
                         }
                         auditsAggregated {
                             count
+                            groups(groupBy: {user_id: asc}) {
+                                key
+                                count
+                            }
+                            groupsAggregated(groupBy: {user_id: asc}) {
+                                count
+                            }
                         }
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $organizationId,
+                    'id' => $id,
                 ],
             )
             ->assertThat($expected);
@@ -530,7 +548,16 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                             'usersAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'last',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (): Organization {
@@ -575,7 +602,16 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                             'usersAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => 'last',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
@@ -631,10 +667,10 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ])),
-                        static function (TestCase $test, Organization $organization): void {
-                            if (!$organization->keycloak_group_id) {
-                                $organization->keycloak_group_id = $test->faker->uuid();
-                                $organization->save();
+                        static function (TestCase $test, Organization $org): Organization {
+                            if (!$org->keycloak_group_id) {
+                                $org->keycloak_group_id = $test->faker->uuid();
+                                $org->save();
                             }
 
                             Role::factory()
@@ -645,8 +681,10 @@ class OrganizationTest extends TestCase {
                                 ->create([
                                     'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                     'name'            => 'role1',
-                                    'organization_id' => $organization->getKey(),
+                                    'organization_id' => $org->getKey(),
                                 ]);
+
+                            return $org;
                         },
                     ],
                 ]),
@@ -672,11 +710,12 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ])),
-                        static function (TestCase $test, Organization $organization): void {
-                            if (!$organization->keycloak_group_id) {
-                                $organization->keycloak_group_id = $test->faker->uuid();
-                                $organization->save();
+                        static function (TestCase $test, Organization $org): Organization {
+                            if (!$org->keycloak_group_id) {
+                                $org->keycloak_group_id = $test->faker->uuid();
+                                $org->save();
                             }
+
                             Role::factory()
                                 ->hasPermissions(1, [
                                     'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
@@ -685,8 +724,10 @@ class OrganizationTest extends TestCase {
                                 ->create([
                                     'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
                                     'name'            => 'role1',
-                                    'organization_id' => $organization->getKey(),
+                                    'organization_id' => $org->getKey(),
                                 ]);
+
+                            return $org;
                         },
                     ],
                 ]),
@@ -731,7 +772,16 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                             'auditsAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
@@ -797,7 +847,16 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                             'auditsAggregated' => [
-                                'count' => 1,
+                                'count'            => 1,
+                                'groups'           => [
+                                    [
+                                        'key'   => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                        'count' => 1,
+                                    ],
+                                ],
+                                'groupsAggregated' => [
+                                    'count' => 1,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
