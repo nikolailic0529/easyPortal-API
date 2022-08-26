@@ -118,7 +118,7 @@ class CountTest extends TestCase {
      */
     public function dataProviderResolveField(): array {
         return [
-            QueryBuilder::class    => [
+            QueryBuilder::class                 => [
                 1,
                 static function (): QueryBuilder {
                     Customer::factory()->create();
@@ -126,7 +126,20 @@ class CountTest extends TestCase {
                     return Customer::query()->toBase();
                 },
             ],
-            EloquentBuilder::class => [
+            QueryBuilder::class.'(group by)'    => [
+                1,
+                static function (self $test): QueryBuilder {
+                    Customer::factory()->count(2)->create([
+                        'name' => $test->faker->company(),
+                    ]);
+
+                    return Customer::query()
+                        ->select('name')
+                        ->groupBy('name')
+                        ->toBase();
+                },
+            ],
+            EloquentBuilder::class              => [
                 2,
                 static function (): EloquentBuilder {
                     Customer::factory()->count(2)->create();
@@ -134,7 +147,19 @@ class CountTest extends TestCase {
                     return Customer::query();
                 },
             ],
-            SearchBuilder::class   => [
+            EloquentBuilder::class.'(group by)' => [
+                1,
+                static function (self $test): EloquentBuilder {
+                    Customer::factory()->count(2)->create([
+                        'name' => $test->faker->company(),
+                    ]);
+
+                    return Customer::query()
+                        ->select('name')
+                        ->groupBy('name');
+                },
+            ],
+            SearchBuilder::class                => [
                 2,
                 static function (self $test): SearchBuilder {
                     $test->makeSearchable(
