@@ -5957,7 +5957,10 @@ type ApplicationLogsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseApplicationLogsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ApplicationLogsSort"
+            where: "ApplicationLogsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -5983,7 +5986,10 @@ type ApplicationLogsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseApplicationLogsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ApplicationLogsSort"
+            where: "ApplicationLogsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -6365,7 +6371,10 @@ type AssetsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseAssetsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AssetsSort"
+            where: "AssetsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -6391,7 +6400,10 @@ type AssetsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAssetsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AssetsSort"
+            where: "AssetsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -6457,7 +6469,10 @@ type AuditsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseAuditsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AuditsSort"
+            where: "AuditsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -6483,7 +6498,10 @@ type AuditsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAuditsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AuditsSort"
+            where: "AuditsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7175,7 +7193,10 @@ type CustomersAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseCompaniesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7201,7 +7222,10 @@ type CustomersAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCompaniesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7400,7 +7424,10 @@ type DocumentEntriesAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentEntriesSort"
+            where: "DocumentEntriesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7426,7 +7453,10 @@ type DocumentEntriesAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentEntriesSort"
+            where: "DocumentEntriesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7538,7 +7568,10 @@ type DocumentsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentsSort"
+            where: "DocumentsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7564,7 +7597,10 @@ type DocumentsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentsSort"
+            where: "DocumentsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -8489,7 +8525,10 @@ type NotesAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseNotesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "NotesSort"
+            where: "NotesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -8515,7 +8554,10 @@ type NotesAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseNotesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "NotesSort"
+            where: "NotesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -9153,7 +9195,10 @@ type OrganizationsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseOrganizationsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "OrganizationsSort"
+            where: "OrganizationsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -9179,7 +9224,10 @@ type OrganizationsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseOrganizationsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "OrganizationsSort"
+            where: "OrganizationsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -9222,7 +9270,10 @@ type ProductsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseProductsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ProductsSort"
+            where: "ProductsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -9248,7 +9299,10 @@ type ProductsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseProductsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ProductsSort"
+            where: "ProductsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -11280,7 +11334,10 @@ type UsersAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseUsersQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "UsersSort"
+            where: "UsersQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -11306,7 +11363,10 @@ type UsersAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseUsersQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "UsersSort"
+            where: "UsersQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -11358,7 +11418,10 @@ directive @aggregatedCount
 on
     | FIELD_DEFINITION
 
-directive @aggregatedGroupBy
+directive @aggregatedGroupBy(
+    order: String
+    where: String
+)
 on
     | ARGUMENT_DEFINITION
 

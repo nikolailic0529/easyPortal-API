@@ -189,7 +189,10 @@ type AssetsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseAsset!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: null
+            where: null
+        )
 
         limit: Int! = 25
         @rules(
@@ -215,7 +218,10 @@ type AssetsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAsset!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: null
+            where: null
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -241,7 +247,10 @@ type CustomersAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseCustomerSearch!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "_"
+            where: "CustomerSearch"
+        )
 
         limit: Int! = 25
         @rules(
@@ -267,7 +276,10 @@ type CustomersAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCustomerSearch!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "_"
+            where: "CustomerSearch"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -429,7 +441,10 @@ type TypesAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseType!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: null
+            where: null
+        )
 
         limit: Int! = 25
         @rules(
@@ -455,7 +470,10 @@ type TypesAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseType!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: null
+            where: null
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -493,7 +511,10 @@ directive @aggregatedCount
 on
     | FIELD_DEFINITION
 
-directive @aggregatedGroupBy
+directive @aggregatedGroupBy(
+    order: String
+    where: String
+)
 on
     | ARGUMENT_DEFINITION
 

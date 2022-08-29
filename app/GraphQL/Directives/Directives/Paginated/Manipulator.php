@@ -151,17 +151,25 @@ class Manipulator extends AstManipulator {
         ];
 
         if (!$isNested && !$isSearch) {
-            $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
-            $inputType  = (new Collection($node->arguments))
+            $returnType   = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
+            $sortByType   = (new Collection($node->arguments))
+                ->first(function (InputValueDefinitionNode $arg): bool {
+                    return $this->getNodeDirective($arg, SortByDirective::class) !== null;
+                });
+            $sortByType   = json_encode($sortByType ? $this->getNodeTypeName($sortByType) : null);
+            $searchByType = (new Collection($node->arguments))
                 ->first(function (InputValueDefinitionNode $arg): bool {
                     return $this->getNodeDirective($arg, SearchByDirective::class) !== null;
                 });
-            $inputType  = $this->getNodeTypeName($inputType ?? $nodeType);
-            $builder    = json_encode(AggregatedBuilder::class);
-            $fields[]   = <<<DEF
+            $searchByType = json_encode($searchByType ? $this->getNodeTypeName($searchByType) : null);
+            $builder      = json_encode(AggregatedBuilder::class);
+            $fields[]     = <<<DEF
                 groups(
-                    groupBy: {$inputType}!
-                    @aggregatedGroupBy
+                    groupBy: {$nodeType}!
+                    @aggregatedGroupBy(
+                        where: {$searchByType}
+                        order: {$sortByType}
+                    )
                 ): [{$returnType}!]!
                 @cached(mode: Threshold)
                 @paginated(builder: {$builder})

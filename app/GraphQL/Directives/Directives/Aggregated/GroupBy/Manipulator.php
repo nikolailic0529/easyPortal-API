@@ -24,13 +24,15 @@ use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Manipulator as BuilderManipulator;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 
+use function assert;
 use function count;
+use function is_string;
 use function str_starts_with;
 
 class Manipulator extends BuilderManipulator {
     // <editor-fold desc="API">
     // =========================================================================
-    public function update(FieldDefinitionNode $field, InputValueDefinitionNode $node): void {
+    public function update(Directive $directive, FieldDefinitionNode $field, InputValueDefinitionNode $node): void {
         // Convert
         $type = null;
 
@@ -42,7 +44,7 @@ class Manipulator extends BuilderManipulator {
                 || $definition instanceof ObjectType;
 
             if ($isSupported) {
-                $name = $this->getInputType($definition);
+                $name = $this->getInputType($directive, $definition);
 
                 if ($name) {
                     $type = Parser::typeReference("{$name}!");
@@ -72,8 +74,24 @@ class Manipulator extends BuilderManipulator {
     // <editor-fold desc="Types">
     // =========================================================================
     protected function getInputType(
+        Directive $directive,
         InputObjectTypeDefinitionNode|ObjectTypeDefinitionNode|InputObjectType|ObjectType $node,
     ): ?string {
+        // Types
+        // (temporary solution until we don't use `_` for all)
+        $whereTypeName = $directive->getArgumentValue('where');
+        $whereTypeNode = is_string($whereTypeName) && $this->isTypeDefinitionExists($whereTypeName)
+            ? $this->getTypeDefinitionNode($whereTypeName)
+            : null;
+        $orderTypeName = $directive->getArgumentValue('order');
+        $orderTypeNode = is_string($orderTypeName) && $this->isTypeDefinitionExists($orderTypeName)
+            ? $this->getTypeDefinitionNode($orderTypeName)
+            : null;
+
+        if ($whereTypeNode instanceof InputObjectTypeDefinitionNode) {
+            $node = $whereTypeNode;
+        }
+
         // Exists?
         $name = $this->getInputTypeName($node);
 
@@ -133,7 +151,7 @@ class Manipulator extends BuilderManipulator {
                 || $fieldTypeNode instanceof ObjectType;
 
             if ($isNested) {
-                $fieldType     = $this->getInputType($fieldTypeNode);
+                $fieldType     = $this->getInputType($directive, $fieldTypeNode);
                 $fieldOperator = $property;
             } elseif (!$fieldOperator) {
                 continue;

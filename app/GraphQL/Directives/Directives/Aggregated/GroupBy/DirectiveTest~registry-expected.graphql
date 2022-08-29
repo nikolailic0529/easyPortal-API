@@ -47,7 +47,10 @@ type Query {
     @all
 }
 
-directive @aggregatedGroupBy
+directive @aggregatedGroupBy(
+    order: String
+    where: String
+)
 on
     | ARGUMENT_DEFINITION
 

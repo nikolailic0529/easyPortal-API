@@ -210,7 +210,10 @@ type CustomerLocationsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseCustomerSearch!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "_"
+            where: "CustomerSearch"
+        )
 
         limit: Int!
         @rules(
@@ -236,7 +239,10 @@ type CustomerLocationsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCustomerSearch!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "_"
+            where: "CustomerSearch"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -279,7 +285,10 @@ directive @aggregatedCount
 on
     | FIELD_DEFINITION
 
-directive @aggregatedGroupBy
+directive @aggregatedGroupBy(
+    order: String
+    where: String
+)
 on
     | ARGUMENT_DEFINITION
 
