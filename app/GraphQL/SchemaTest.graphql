@@ -3311,6 +3311,18 @@ input SearchByConditionProductsQuery {
     @searchByOperatorAnyOf
 
     """
+    Relationship condition.
+    """
+    assets: SearchByComplexRelationAssetsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    documentEntries: SearchByComplexRelationDocumentEntriesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     id: SearchByScalarID

@@ -3,4 +3,6 @@ input ProductsQuery {
     oem_id: ID!
     sku: String!
     name: String!
+    assets: AssetsQuery
+    documentEntries: DocumentEntriesQuery
 }
