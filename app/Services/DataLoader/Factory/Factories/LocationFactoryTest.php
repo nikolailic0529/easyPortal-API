@@ -326,10 +326,10 @@ class LocationFactoryTest extends TestCase {
 
         // If not - it should be created
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->country(' CD ', ' Country  Name ');
+        $created = $factory->country(' ?? ', ' Country  Name ');
 
         self::assertTrue($created->wasRecentlyCreated);
-        self::assertEquals('CD', $created->code);
+        self::assertEquals('??', $created->code);
         self::assertEquals('Country Name', $created->name);
         self::assertCount(2, $queries);
 
