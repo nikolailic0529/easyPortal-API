@@ -70,11 +70,17 @@ input AggregatedGroupByClauseApplicationLogsQuery {
 Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
+    customer: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    location: [SortByClauseLocationsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -94,11 +100,17 @@ input AggregatedGroupByClauseAssetsQuery {
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    product: [SortByClauseProductsSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    reseller: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -205,6 +217,9 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     end: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsDate
 
+    product: [SortByClauseProductsSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
@@ -246,11 +261,17 @@ input AggregatedGroupByClauseDocumentsQuery {
     currency_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    customer: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    distributor: [SortByClauseDistributorsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -281,6 +302,9 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    reseller: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -11430,6 +11454,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @aggregatedGroupByOperatorAsString
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @aggregatedGroupByOperatorRelation
 on
     | INPUT_FIELD_DEFINITION
 
