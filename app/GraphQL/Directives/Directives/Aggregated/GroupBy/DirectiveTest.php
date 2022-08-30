@@ -215,7 +215,6 @@ class DirectiveTest extends TestCase {
                             'Date',
                             'DateTime',
                             'ID',
-                            'AggregatedGroupByClauseNested',
                         ]);
                 },
                 '~full.graphql',

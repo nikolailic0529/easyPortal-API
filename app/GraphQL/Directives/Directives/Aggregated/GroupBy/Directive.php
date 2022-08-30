@@ -34,7 +34,7 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
     ): void {
         $this->getContainer()
             ->make(Manipulator::class, ['document' => $documentAST])
-            ->update($this, $parentField, $argDefinition);
+            ->update($this, $parentType, $parentField, $argDefinition);
     }
 
     /**

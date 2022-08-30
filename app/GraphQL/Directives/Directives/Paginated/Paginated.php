@@ -7,16 +7,20 @@ use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Str;
 
 abstract class Paginated extends Base implements FieldResolver {
+    public const NAME = 'Paginated';
+
     public static function definition(): string {
+        $name      = Str::lcfirst(Str::studly(static::NAME));
         $arguments = static::getArgumentsDefinition();
 
         return /** @lang GraphQL */ <<<GRAPHQL
             """
             Adds offset-based pagination for the field.
             """
-            directive @paginated({$arguments}) on FIELD_DEFINITION
+            directive @{$name}({$arguments}) on FIELD_DEFINITION
         GRAPHQL;
     }
 
