@@ -7,6 +7,14 @@ enum AggregatedGroupByTypeDirection {
 }
 
 """
+Sort direction.
+"""
+enum SortByTypeDirection {
+    asc
+    desc
+}
+
+"""
 Group clause for `input Properties` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseProperties {
@@ -34,6 +42,21 @@ input AggregatedGroupByClauseProperties {
     idScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    nested: [SortByClauseNested!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    nested_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    relation_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
     """
     Property clause.
     """
@@ -45,6 +68,29 @@ input AggregatedGroupByClauseProperties {
     """
     stringScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+}
+
+"""
+Sort clause for input Nested (only one property allowed at a time).
+"""
+input SortByClauseNested {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    nested: SortByClauseNested
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    value: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 type AggregatedGroupByTypeGroup {
@@ -75,6 +121,10 @@ directive @aggregatedGroupByOperatorAsString
 on
     | INPUT_FIELD_DEFINITION
 
+directive @aggregatedGroupByOperatorRelation
+on
+    | INPUT_FIELD_DEFINITION
+
 """
 Fetch all Eloquent models and return the collection as the result.
 """
@@ -98,3 +148,11 @@ directive @all(
 )
 on
     | FIELD_DEFINITION
+
+directive @sortByOperatorProperty
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @sortByProperty
+on
+    | INPUT_FIELD_DEFINITION
