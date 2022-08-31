@@ -1,4 +1,0 @@
-input FieldValueQuery {
-    field_id: ID!
-    value: String
-}

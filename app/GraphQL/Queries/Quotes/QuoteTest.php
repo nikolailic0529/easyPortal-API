@@ -9,8 +9,6 @@ use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\DocumentEntryField;
-use App\Models\Field;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Note;
@@ -240,14 +238,6 @@ class QuoteTest extends TestCase {
                             }
                             start
                             end
-                            field(field_id: "7807f9fd-15f3-4f06-a038-74756ddced47") {
-                                field_id
-                                value
-                            }
-                            fields {
-                                field_id
-                                value
-                            }
                         }
                         language {
                             id
@@ -528,20 +518,6 @@ class QuoteTest extends TestCase {
                                     ],
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
-                                    'field'            => [
-                                        'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                        'value'    => 'value',
-                                    ],
-                                    'fields'           => [
-                                        [
-                                            'field_id' => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
-                                            'value'    => null,
-                                        ],
-                                        [
-                                            'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                            'value'    => 'value',
-                                        ],
-                                    ],
                                 ],
                             ],
                             'language'          => [
@@ -710,16 +686,7 @@ class QuoteTest extends TestCase {
                                     'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
-                            $fieldType = (new DocumentEntryField())->getMorphClass();
-                            $fieldA    = Field::factory()->create([
-                                'id'          => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                'object_type' => $fieldType,
-                            ]);
-                            $fieldB    = Field::factory()->create([
-                                'id'          => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
-                                'object_type' => $fieldType,
-                            ]);
-                            $entry     = DocumentEntry::factory()->create([
+                            DocumentEntry::factory()->create([
                                 'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                 'document_id'      => $document,
                                 'asset_id'         => Asset::factory()->create([
@@ -736,22 +703,6 @@ class QuoteTest extends TestCase {
                                 'renewal'          => 24.20,
                                 'start'            => '2021-01-01',
                                 'end'              => '2024-01-01',
-                            ]);
-
-                            DocumentEntryField::factory()->create([
-                                'id'                => $fieldA,
-                                'document_entry_id' => $entry,
-                                'document_id'       => $document,
-                                'field_id'          => $fieldA,
-                                'value'             => 'value',
-                            ]);
-
-                            DocumentEntryField::factory()->create([
-                                'id'                => $fieldB,
-                                'document_entry_id' => $entry,
-                                'document_id'       => $document,
-                                'field_id'          => $fieldB,
-                                'value'             => null,
                             ]);
 
                             return $document;

@@ -17,15 +17,6 @@ extend type Query {
     )
     @cached
 
-    "List of all possible quote entry fields."
-    quoteEntryFields(where: QuoteEntryFieldsQuery @searchBy): [Field!]!
-    @authOrg
-    @authMe(permissions: ["quotes-view"])
-    @all(
-        builder: "App\\GraphQL\\Queries\\Quotes\\QuoteEntryFields"
-    )
-    @cached
-
     "List of all quotes."
     quotes (
         where: DocumentsQuery @searchBy

@@ -15,5 +15,4 @@ input DocumentEntriesQuery {
     service_level_id: ID
     serviceLevel: ServiceLevelsQuery
     currency_id: ID
-    fields: FieldValueQuery
 }

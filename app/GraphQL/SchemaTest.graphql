@@ -1414,35 +1414,6 @@ input SearchByComplexRelationDocumentsQuery {
 }
 
 """
-Conditions for the related objects (`has()`/`doesntHave()`) for `input FieldValueQuery`.
-
-See also:
-* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
-* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
-"""
-input SearchByComplexRelationFieldValueQuery {
-    """
-    Count conditions.
-    """
-    count: SearchByScalarInt
-
-    """
-    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
-    """
-    exists: Boolean
-
-    """
-    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
-    """
-    notExists: Boolean! = false
-
-    """
-    Additional conditions.
-    """
-    where: SearchByConditionFieldValueQuery
-}
-
-"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input LanguagesQuery`.
 
 See also:
@@ -2572,35 +2543,6 @@ input SearchByConditionContactsQuery {
 }
 
 """
-Available conditions for `input ContractEntryFieldsQuery` (only one property allowed at a time).
-"""
-input SearchByConditionContractEntryFieldsQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionContractEntryFieldsQuery!]
-    @searchByOperatorAllOf
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionContractEntryFieldsQuery!]
-    @searchByOperatorAnyOf
-
-    """
-    Relationship condition.
-    """
-    contracts: SearchByComplexRelationDocumentsQuery
-    @searchByOperatorRelation
-
-    """
-    Not.
-    """
-    not: SearchByConditionContractEntryFieldsQuery
-    @searchByOperatorNot
-}
-
-"""
 Available conditions for `input ContractStatusesQuery` (only one property allowed at a time).
 """
 input SearchByConditionContractStatusesQuery {
@@ -2921,12 +2863,6 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByProperty
 
     """
-    Relationship condition.
-    """
-    fields: SearchByComplexRelationFieldValueQuery
-    @searchByOperatorRelation
-
-    """
     Property condition.
     """
     id: SearchByScalarID
@@ -3157,41 +3093,6 @@ input SearchByConditionDocumentsQuery {
     Property condition.
     """
     type_id: SearchByScalarIDOrNull
-    @searchByProperty
-}
-
-"""
-Available conditions for `input FieldValueQuery` (only one property allowed at a time).
-"""
-input SearchByConditionFieldValueQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionFieldValueQuery!]
-    @searchByOperatorAllOf
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionFieldValueQuery!]
-    @searchByOperatorAnyOf
-
-    """
-    Property condition.
-    """
-    field_id: SearchByScalarID
-    @searchByProperty
-
-    """
-    Not.
-    """
-    not: SearchByConditionFieldValueQuery
-    @searchByOperatorNot
-
-    """
-    Property condition.
-    """
-    value: SearchByScalarStringOrNull
     @searchByProperty
 }
 
@@ -3629,35 +3530,6 @@ input SearchByConditionProductsQuery {
     """
     sku: SearchByScalarString
     @searchByProperty
-}
-
-"""
-Available conditions for `input QuoteEntryFieldsQuery` (only one property allowed at a time).
-"""
-input SearchByConditionQuoteEntryFieldsQuery {
-    """
-    All of the conditions must be true.
-    """
-    allOf: [SearchByConditionQuoteEntryFieldsQuery!]
-    @searchByOperatorAllOf
-
-    """
-    Any of the conditions must be true.
-    """
-    anyOf: [SearchByConditionQuoteEntryFieldsQuery!]
-    @searchByOperatorAnyOf
-
-    """
-    Not.
-    """
-    not: SearchByConditionQuoteEntryFieldsQuery
-    @searchByOperatorNot
-
-    """
-    Relationship condition.
-    """
-    quotes: SearchByComplexRelationDocumentsQuery
-    @searchByOperatorRelation
 }
 
 """
@@ -7935,20 +7807,6 @@ type DocumentEntry {
     discount: Float
     document_id: ID!
     end: Date
-
-    field(
-        field_id: ID!
-    ): FieldValue
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Field"
-    )
-    @with(
-        relation: "fields"
-    )
-
-    fields: [FieldValue!]!
-    @relation
-
     id: ID!
 
     list_price: Float
@@ -8058,22 +7916,6 @@ type DocumentsSearchAggregated {
     @cached(
         mode: Threshold
     )
-}
-
-type Field {
-    id: ID!
-    key: String!
-
-    name: String!
-    @translate
-}
-
-type FieldValue {
-    field: Field!
-    @relation
-
-    field_id: ID!
-    value: String
 }
 
 type File {
@@ -10053,26 +9895,6 @@ type Query {
     @find
 
     """
-    List of all possible contract entry fields.
-
-    @require <authOrg> Authenticated user must be a member of the current organization.
-
-    @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
-    """
-    contractEntryFields(
-        where: SearchByConditionContractEntryFieldsQuery
-        @searchBy
-    ): [Field!]!
-    @authOrg
-    @authMe(
-        permissions: ["contracts-view"]
-    )
-    @all(
-        builder: "App\\GraphQL\\Queries\\Contracts\\ContractEntryFields"
-    )
-    @cached
-
-    """
     List of all possible contract statuses.
 
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -10673,26 +10495,6 @@ type Query {
         method: "App\\GraphQL\\Queries\\Quotes\\Quotes"
     )
     @find
-
-    """
-    List of all possible quote entry fields.
-
-    @require <authOrg> Authenticated user must be a member of the current organization.
-
-    @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
-    """
-    quoteEntryFields(
-        where: SearchByConditionQuoteEntryFieldsQuery
-        @searchBy
-    ): [Field!]!
-    @authOrg
-    @authMe(
-        permissions: ["quotes-view"]
-    )
-    @all(
-        builder: "App\\GraphQL\\Queries\\Quotes\\QuoteEntryFields"
-    )
-    @cached
 
     """
     List of all possible quote request durations.
