@@ -4,4 +4,5 @@ input ProductsSort {
     name: String!
     eol: Date
     eos: Date
+    oem: OemsSort
 }

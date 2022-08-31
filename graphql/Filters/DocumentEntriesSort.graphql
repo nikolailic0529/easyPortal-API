@@ -7,4 +7,8 @@ input DocumentEntriesSort {
     end: Date
     product_id: ID
     product: ProductsSort
+    service_group_id: ID
+    serviceGroup: ServiceGroupsSort
+    service_level_id: ID
+    serviceLevel: ServiceLevelsSort
 }

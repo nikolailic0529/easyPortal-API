@@ -1,0 +1,4 @@
+input ServiceGroupsSort {
+    sku: String!
+    oem: OemsSort
+}

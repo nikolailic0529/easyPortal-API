@@ -5,6 +5,8 @@ input DocumentsSort {
     price: Float
     number: String
     oem: OemsSort
+    currency: CurrenciesSort
+    language: LanguagesSort
     distributor: DistributorsSort
     reseller: CompaniesSort
     customer: CompaniesSort

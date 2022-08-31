@@ -28,8 +28,9 @@ class ServiceGroupsTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory        $orgFactory
+     * @param UserFactory                $userFactory
+     * @param Closure(static): void|null $factory
      */
     public function testInvoke(
         Response $expected,
@@ -50,6 +51,10 @@ class ServiceGroupsTest extends TestCase {
                 serviceGroups(where: {documentEntries: { where: {}, count: {lessThan: 1} }}) {
                     id
                     oem_id
+                    oem {
+                        id
+                        key
+                    }
                     sku
                     name
                 }
@@ -73,13 +78,18 @@ class ServiceGroupsTest extends TestCase {
                         [
                             'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'oem'    => [
+                                'id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'key' => 'OEM#1',
+                            ],
                             'sku'    => 'SKU#123',
                             'name'   => 'Group',
                         ],
                     ]),
                     static function (): void {
                         $oem = Oem::factory()->create([
-                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'key' => 'OEM#1',
                         ]);
 
                         ServiceGroup::factory()->create([

@@ -2081,21 +2081,6 @@ parameters:
 			path: app/GraphQL/Queries/Data/QuoteRequestDurationsTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceGroupsTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceGroupsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceLevelsTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceLevelsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceLevelsTest\\:\\:testInvoke\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceLevelsTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\TagsTest\\:\\:testQuery\\(\\) has parameter \\$tagsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/TagsTest.php

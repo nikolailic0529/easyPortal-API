@@ -101,6 +101,12 @@ input AggregatedGroupByClauseAssetsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
@@ -137,10 +143,22 @@ input AggregatedGroupByClauseAssetsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    status: [SortByClauseStatusSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     status_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    type: [SortByClauseTypesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -248,6 +266,18 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    serviceGroup: [SortByClauseServiceGroupsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Relationship clause.
+    """
+    serviceLevel: [SortByClauseServiceLevelsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     service_group_id: AggregatedGroupByTypeDirection
@@ -270,6 +300,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
 Group clause for `input DocumentsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentsQuery {
+    """
+    Relationship clause.
+    """
+    currency: [SortByClauseCurrenciesSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
@@ -307,6 +343,12 @@ input AggregatedGroupByClauseDocumentsQuery {
     @aggregatedGroupByOperatorAsDate
 
     """
+    Relationship clause.
+    """
+    language: [SortByClauseLanguagesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     language_id: AggregatedGroupByTypeDirection
@@ -317,6 +359,12 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     number: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -354,6 +402,12 @@ Group clause for `input NotesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseNotesQuery {
     """
+    Relationship clause.
+    """
+    user: [SortByClauseUsersSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     user_id: AggregatedGroupByTypeDirection
@@ -380,6 +434,12 @@ input AggregatedGroupByClauseProductsQuery {
     """
     name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -1238,6 +1298,35 @@ input SearchByComplexRelationCoveragesQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for `input CurrenciesQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCurrenciesQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionCurrenciesQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input DistributorsQuery`.
 
 See also:
@@ -1354,6 +1443,35 @@ input SearchByComplexRelationFieldValueQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for `input LanguagesQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationLanguagesQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionLanguagesQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input LocationsQuery`.
 
 See also:
@@ -1380,6 +1498,35 @@ input SearchByComplexRelationLocationsQuery {
     Additional conditions.
     """
     where: SearchByConditionLocationsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input OemsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationOemsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionOemsQuery
 }
 
 """
@@ -1438,6 +1585,35 @@ input SearchByComplexRelationProductsQuery {
     Additional conditions.
     """
     where: SearchByConditionProductsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input ServiceGroupsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationServiceGroupsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionServiceGroupsQuery
 }
 
 """
@@ -1921,6 +2097,12 @@ input SearchByConditionAssetsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
@@ -1963,6 +2145,12 @@ input SearchByConditionAssetsQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    status: SearchByComplexRelationStatusesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     status_id: SearchByScalarIDOrNull
@@ -1972,6 +2160,12 @@ input SearchByConditionAssetsQuery {
     Relationship condition.
     """
     tags: SearchByComplexRelationTagsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    type: SearchByComplexRelationTypesQuery
     @searchByOperatorRelation
 
     """
@@ -2769,6 +2963,18 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    serviceGroup: SearchByComplexRelationServiceGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    serviceLevel: SearchByComplexRelationServiceLevelsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     service_group_id: SearchByScalarIDOrNull
@@ -2820,6 +3026,12 @@ input SearchByConditionDocumentsQuery {
     """
     contacts_count: SearchByScalarInt
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    currency: SearchByComplexRelationCurrenciesQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -2876,6 +3088,12 @@ input SearchByConditionDocumentsQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    language: SearchByComplexRelationLanguagesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     language_id: SearchByScalarIDOrNull
@@ -2892,6 +3110,12 @@ input SearchByConditionDocumentsQuery {
     """
     number: SearchByScalarStringOrNull
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -3389,6 +3613,12 @@ input SearchByConditionProductsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
@@ -3523,6 +3753,12 @@ input SearchByConditionServiceGroupsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
@@ -3570,10 +3806,22 @@ input SearchByConditionServiceLevelsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    serviceGroup: SearchByComplexRelationServiceGroupsQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -4824,6 +5072,12 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
     @sortByProperty
 
@@ -4843,6 +5097,12 @@ input SortByClauseAssetsSort {
     Property clause.
     """
     status: SortByClauseStatusSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    type: SortByClauseTypesSort
     @sortByProperty
 
     """
@@ -5039,6 +5299,17 @@ input SortByClauseCountriesSort {
 }
 
 """
+Sort clause for input CurrenciesSort (only one property allowed at a time).
+"""
+input SortByClauseCurrenciesSort {
+    """
+    Property clause.
+    """
+    code: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
 Sort clause for input CustomersSearchHeadquarterCitySort (only one property allowed at a time).
 """
 input SortByClauseCustomersSearchHeadquarterCitySort {
@@ -5143,6 +5414,30 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    serviceGroup: SortByClauseServiceGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    serviceLevel: SortByClauseServiceLevelsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    service_group_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    service_level_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     start: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5234,6 +5529,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    currency: SortByClauseCurrenciesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
     @sortByProperty
 
@@ -5254,6 +5555,12 @@ input SortByClauseDocumentsSort {
     """
     id: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    language: SortByClauseLanguagesSort
+    @sortByProperty
 
     """
     Property clause.
@@ -5283,6 +5590,17 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     start: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input LanguagesSort (only one property allowed at a time).
+"""
+input SortByClauseLanguagesSort {
+    """
+    Property clause.
+    """
+    code: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -5375,6 +5693,12 @@ input SortByClauseNotesSort {
     """
     Property clause.
     """
+    user: SortByClauseUsersSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     user_id: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5456,6 +5780,52 @@ input SortByClauseProductsSort {
     """
     Property clause.
     """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input ServiceGroupsSort (only one property allowed at a time).
+"""
+input SortByClauseServiceGroupsSort {
+    """
+    Property clause.
+    """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input ServiceLevelsSort (only one property allowed at a time).
+"""
+input SortByClauseServiceLevelsSort {
+    """
+    Property clause.
+    """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    serviceGroup: SortByClauseServiceGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5481,6 +5851,17 @@ input SortByClauseTag {
     id: SortByTypeDirection
     @sortByOperatorProperty
 
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input TypesSort (only one property allowed at a time).
+"""
+input SortByClauseTypesSort {
     """
     Property clause.
     """
@@ -11116,6 +11497,9 @@ type ServiceGroup {
     name: String!
     @translate
 
+    oem: Oem!
+    @relation
+
     oem_id: ID!
     sku: String!
 }
@@ -11129,7 +11513,14 @@ type ServiceLevel {
     name: String!
     @translate
 
+    oem: Oem!
+    @relation
+
     oem_id: ID!
+
+    serviceGroup: ServiceGroup!
+    @relation
+
     service_group_id: ID!
     sku: String!
 }

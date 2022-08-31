@@ -1,5 +1,6 @@
 input NotesSort {
     user_id: ID!
+    user: UsersSort
     pinned: Boolean!
     created_at: DateTime!
     updated_at: DateTime!
