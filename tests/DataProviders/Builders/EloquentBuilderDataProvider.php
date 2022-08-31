@@ -4,6 +4,7 @@ namespace Tests\DataProviders\Builders;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 
@@ -28,6 +29,13 @@ class EloquentBuilderDataProvider extends ArrayDataProvider {
                             'date_column'           => 'date',
                             'date_column_immutable' => 'immutable_date',
                         ];
+
+                        /**
+                         * @return BelongsTo<static, self>
+                         */
+                        public function parent(): BelongsTo {
+                            return $this->belongsTo(static::class);
+                        }
                     })->query();
                 },
             ],

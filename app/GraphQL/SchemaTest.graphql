@@ -71,10 +71,22 @@ Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
     """
+    Relationship clause.
+    """
+    customer: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    location: [SortByClauseLocationsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -89,16 +101,34 @@ input AggregatedGroupByClauseAssetsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    product: [SortByClauseProductsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    reseller: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -113,10 +143,22 @@ input AggregatedGroupByClauseAssetsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    status: [SortByClauseStatusSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     status_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    type: [SortByClauseTypesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -206,6 +248,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     @aggregatedGroupByOperatorAsDate
 
     """
+    Relationship clause.
+    """
+    product: [SortByClauseProductsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
@@ -216,6 +264,18 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     serial_number: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    serviceGroup: [SortByClauseServiceGroupsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Relationship clause.
+    """
+    serviceLevel: [SortByClauseServiceLevelsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -241,16 +301,34 @@ Group clause for `input DocumentsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentsQuery {
     """
+    Relationship clause.
+    """
+    currency: [SortByClauseCurrenciesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     currency_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    customer: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    distributor: [SortByClauseDistributorsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -265,6 +343,12 @@ input AggregatedGroupByClauseDocumentsQuery {
     @aggregatedGroupByOperatorAsDate
 
     """
+    Relationship clause.
+    """
+    language: [SortByClauseLanguagesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     language_id: AggregatedGroupByTypeDirection
@@ -277,10 +361,22 @@ input AggregatedGroupByClauseDocumentsQuery {
     @aggregatedGroupByOperatorAsString
 
     """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    reseller: [SortByClauseCompaniesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -305,6 +401,12 @@ input AggregatedGroupByClauseDocumentsQuery {
 Group clause for `input NotesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseNotesQuery {
+    """
+    Relationship clause.
+    """
+    user: [SortByClauseUsersSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Property clause.
     """
@@ -332,6 +434,12 @@ input AggregatedGroupByClauseProductsQuery {
     """
     name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    oem: [SortByClauseOemsSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -1190,6 +1298,35 @@ input SearchByComplexRelationCoveragesQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for `input CurrenciesQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCurrenciesQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionCurrenciesQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input DistributorsQuery`.
 
 See also:
@@ -1306,6 +1443,35 @@ input SearchByComplexRelationFieldValueQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for `input LanguagesQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationLanguagesQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionLanguagesQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input LocationsQuery`.
 
 See also:
@@ -1332,6 +1498,35 @@ input SearchByComplexRelationLocationsQuery {
     Additional conditions.
     """
     where: SearchByConditionLocationsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input OemsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationOemsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionOemsQuery
 }
 
 """
@@ -1390,6 +1585,35 @@ input SearchByComplexRelationProductsQuery {
     Additional conditions.
     """
     where: SearchByConditionProductsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input ServiceGroupsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationServiceGroupsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionServiceGroupsQuery
 }
 
 """
@@ -1873,6 +2097,12 @@ input SearchByConditionAssetsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
@@ -1915,6 +2145,12 @@ input SearchByConditionAssetsQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    status: SearchByComplexRelationStatusesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     status_id: SearchByScalarIDOrNull
@@ -1924,6 +2160,12 @@ input SearchByConditionAssetsQuery {
     Relationship condition.
     """
     tags: SearchByComplexRelationTagsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    type: SearchByComplexRelationTypesQuery
     @searchByOperatorRelation
 
     """
@@ -2721,6 +2963,18 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    serviceGroup: SearchByComplexRelationServiceGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    serviceLevel: SearchByComplexRelationServiceLevelsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     service_group_id: SearchByScalarIDOrNull
@@ -2772,6 +3026,12 @@ input SearchByConditionDocumentsQuery {
     """
     contacts_count: SearchByScalarInt
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    currency: SearchByComplexRelationCurrenciesQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -2828,6 +3088,12 @@ input SearchByConditionDocumentsQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    language: SearchByComplexRelationLanguagesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     language_id: SearchByScalarIDOrNull
@@ -2844,6 +3110,12 @@ input SearchByConditionDocumentsQuery {
     """
     number: SearchByScalarStringOrNull
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -3341,6 +3613,12 @@ input SearchByConditionProductsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
@@ -3475,6 +3753,12 @@ input SearchByConditionServiceGroupsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
@@ -3522,10 +3806,22 @@ input SearchByConditionServiceLevelsQuery {
     @searchByOperatorNot
 
     """
+    Relationship condition.
+    """
+    oem: SearchByComplexRelationOemsQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarID
     @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    serviceGroup: SearchByComplexRelationServiceGroupsQuery
+    @searchByOperatorRelation
 
     """
     Property condition.
@@ -4776,6 +5072,12 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
     @sortByProperty
 
@@ -4795,6 +5097,12 @@ input SortByClauseAssetsSort {
     Property clause.
     """
     status: SortByClauseStatusSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    type: SortByClauseTypesSort
     @sortByProperty
 
     """
@@ -4991,6 +5299,17 @@ input SortByClauseCountriesSort {
 }
 
 """
+Sort clause for input CurrenciesSort (only one property allowed at a time).
+"""
+input SortByClauseCurrenciesSort {
+    """
+    Property clause.
+    """
+    code: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
 Sort clause for input CustomersSearchHeadquarterCitySort (only one property allowed at a time).
 """
 input SortByClauseCustomersSearchHeadquarterCitySort {
@@ -5095,6 +5414,30 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    serviceGroup: SortByClauseServiceGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    serviceLevel: SortByClauseServiceLevelsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    service_group_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    service_level_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     start: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5186,6 +5529,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    currency: SortByClauseCurrenciesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
     @sortByProperty
 
@@ -5206,6 +5555,12 @@ input SortByClauseDocumentsSort {
     """
     id: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    language: SortByClauseLanguagesSort
+    @sortByProperty
 
     """
     Property clause.
@@ -5235,6 +5590,17 @@ input SortByClauseDocumentsSort {
     Property clause.
     """
     start: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input LanguagesSort (only one property allowed at a time).
+"""
+input SortByClauseLanguagesSort {
+    """
+    Property clause.
+    """
+    code: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -5327,6 +5693,12 @@ input SortByClauseNotesSort {
     """
     Property clause.
     """
+    user: SortByClauseUsersSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     user_id: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5408,6 +5780,52 @@ input SortByClauseProductsSort {
     """
     Property clause.
     """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input ServiceGroupsSort (only one property allowed at a time).
+"""
+input SortByClauseServiceGroupsSort {
+    """
+    Property clause.
+    """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    sku: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input ServiceLevelsSort (only one property allowed at a time).
+"""
+input SortByClauseServiceLevelsSort {
+    """
+    Property clause.
+    """
+    oem: SortByClauseOemsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    serviceGroup: SortByClauseServiceGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     sku: SortByTypeDirection
     @sortByOperatorProperty
 }
@@ -5433,6 +5851,17 @@ input SortByClauseTag {
     id: SortByTypeDirection
     @sortByOperatorProperty
 
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input TypesSort (only one property allowed at a time).
+"""
+input SortByClauseTypesSort {
     """
     Property clause.
     """
@@ -5957,7 +6386,10 @@ type ApplicationLogsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseApplicationLogsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ApplicationLogsSort"
+            where: "ApplicationLogsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -5983,7 +6415,10 @@ type ApplicationLogsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseApplicationLogsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ApplicationLogsSort"
+            where: "ApplicationLogsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -6365,7 +6800,10 @@ type AssetsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseAssetsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AssetsSort"
+            where: "AssetsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -6391,7 +6829,10 @@ type AssetsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAssetsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AssetsSort"
+            where: "AssetsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -6457,7 +6898,10 @@ type AuditsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseAuditsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AuditsSort"
+            where: "AuditsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -6483,7 +6927,10 @@ type AuditsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseAuditsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "AuditsSort"
+            where: "AuditsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7175,7 +7622,10 @@ type CustomersAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseCompaniesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7201,7 +7651,10 @@ type CustomersAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseCompaniesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7400,7 +7853,10 @@ type DocumentEntriesAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentEntriesSort"
+            where: "DocumentEntriesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7426,7 +7882,10 @@ type DocumentEntriesAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentEntriesSort"
+            where: "DocumentEntriesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -7538,7 +7997,10 @@ type DocumentsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentsSort"
+            where: "DocumentsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -7564,7 +8026,10 @@ type DocumentsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "DocumentsSort"
+            where: "DocumentsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -8489,7 +8954,10 @@ type NotesAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseNotesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "NotesSort"
+            where: "NotesQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -8515,7 +8983,10 @@ type NotesAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseNotesQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "NotesSort"
+            where: "NotesQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -9153,7 +9624,10 @@ type OrganizationsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseOrganizationsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "OrganizationsSort"
+            where: "OrganizationsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -9179,7 +9653,10 @@ type OrganizationsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseOrganizationsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "OrganizationsSort"
+            where: "OrganizationsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -9222,7 +9699,10 @@ type ProductsAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseProductsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ProductsSort"
+            where: "ProductsQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -9248,7 +9728,10 @@ type ProductsAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseProductsQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "ProductsSort"
+            where: "ProductsQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -11014,6 +11497,9 @@ type ServiceGroup {
     name: String!
     @translate
 
+    oem: Oem!
+    @relation
+
     oem_id: ID!
     sku: String!
 }
@@ -11027,7 +11513,14 @@ type ServiceLevel {
     name: String!
     @translate
 
+    oem: Oem!
+    @relation
+
     oem_id: ID!
+
+    serviceGroup: ServiceGroup!
+    @relation
+
     service_group_id: ID!
     sku: String!
 }
@@ -11280,7 +11773,10 @@ type UsersAggregated {
 
     groups(
         groupBy: AggregatedGroupByClauseUsersQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "UsersSort"
+            where: "UsersQuery"
+        )
 
         limit: Int! = 25
         @rules(
@@ -11306,7 +11802,10 @@ type UsersAggregated {
 
     groupsAggregated(
         groupBy: AggregatedGroupByClauseUsersQuery!
-        @aggregatedGroupBy
+        @aggregatedGroupBy(
+            order: "UsersSort"
+            where: "UsersQuery"
+        )
     ): AggregatedGroupByTypeGroupsAggregated
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
@@ -11358,7 +11857,10 @@ directive @aggregatedCount
 on
     | FIELD_DEFINITION
 
-directive @aggregatedGroupBy
+directive @aggregatedGroupBy(
+    order: String
+    where: String
+)
 on
     | ARGUMENT_DEFINITION
 
@@ -11367,6 +11869,10 @@ on
     | INPUT_FIELD_DEFINITION
 
 directive @aggregatedGroupByOperatorAsString
+on
+    | INPUT_FIELD_DEFINITION
+
+directive @aggregatedGroupByOperatorRelation
 on
     | INPUT_FIELD_DEFINITION
 

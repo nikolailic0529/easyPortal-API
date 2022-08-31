@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy;
 
+use App\GraphQL\Directives\BuilderManipulator;
 use App\GraphQL\Directives\Directives\Aggregated\Aggregated;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Exceptions\FailedToCreateGroupClause;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsDate;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\AsString;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Property;
-use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
+use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators\Relation;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputObjectTypeDefinitionNode;
@@ -15,22 +15,59 @@ use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
+use GraphQL\Language\Printer;
 use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InputObjectField;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Str;
-use LastDragon_ru\LaraASP\GraphQL\Builder\Manipulator as BuilderManipulator;
+use Nuwave\Lighthouse\Schema\AST\DocumentAST;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
+use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 
 use function count;
+use function is_string;
 use function str_starts_with;
 
 class Manipulator extends BuilderManipulator {
+    public function __construct(
+        Container $container,
+        DirectiveLocator $directives,
+        DocumentAST $document,
+        TypeRegistry $types,
+        private Relation $relationDirective,
+        private AsDate $asDateDirective,
+        private AsString $asStringDirective,
+    ) {
+        parent::__construct($container, $directives, $document, $types);
+    }
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    public function getRelationDirective(): Relation {
+        return $this->relationDirective;
+    }
+
+    protected function getAsDateDirective(): AsDate {
+        return $this->asDateDirective;
+    }
+
+    protected function getAsStringDirective(): AsString {
+        return $this->asStringDirective;
+    }
+    // </editor-fold>
+
     // <editor-fold desc="API">
     // =========================================================================
-    public function update(FieldDefinitionNode $field, InputValueDefinitionNode $node): void {
+    public function update(
+        Directive $directive,
+        ObjectTypeDefinitionNode $parent,
+        FieldDefinitionNode $field,
+        InputValueDefinitionNode $node,
+    ): void {
         // Convert
         $type = null;
 
@@ -42,7 +79,7 @@ class Manipulator extends BuilderManipulator {
                 || $definition instanceof ObjectType;
 
             if ($isSupported) {
-                $name = $this->getInputType($definition);
+                $name = $this->getInputType($directive, $parent, $field, $definition);
 
                 if ($name) {
                     $type = Parser::typeReference("{$name}!");
@@ -72,8 +109,33 @@ class Manipulator extends BuilderManipulator {
     // <editor-fold desc="Types">
     // =========================================================================
     protected function getInputType(
+        Directive $directive,
+        ObjectTypeDefinitionNode $parentObject,
+        FieldDefinitionNode $parentField,
         InputObjectTypeDefinitionNode|ObjectTypeDefinitionNode|InputObjectType|ObjectType $node,
     ): ?string {
+        // Types
+        // (temporary solution until we don't use `_` for all)
+        $whereTypeName = $directive->getArgumentValue('where');
+        $whereTypeNode = is_string($whereTypeName) && $this->isTypeDefinitionExists($whereTypeName)
+            ? $this->getTypeDefinitionNode($whereTypeName)
+            : null;
+        $whereTypeNode = $whereTypeNode instanceof InputObjectTypeDefinitionNode
+            ? $whereTypeNode
+            : null;
+
+        if ($whereTypeNode) {
+            $node = $whereTypeNode;
+        }
+
+        $orderTypeName = $directive->getArgumentValue('order');
+        $orderTypeNode = is_string($orderTypeName) && $this->isTypeDefinitionExists($orderTypeName)
+            ? $this->getTypeDefinitionNode($orderTypeName)
+            : null;
+        $orderTypeNode = $orderTypeNode instanceof InputObjectTypeDefinitionNode
+            ? $orderTypeNode
+            : $node;
+
         // Exists?
         $name = $this->getInputTypeName($node);
 
@@ -99,17 +161,14 @@ class Manipulator extends BuilderManipulator {
         );
 
         // Add sortable fields
-        $asDate    = $this->getContainer()->make(AsDate::class);
-        $asString  = $this->getContainer()->make(AsString::class);
-        $direction = $this->getType(Direction::class);
-        $property  = $this->getContainer()->make(Property::class);
+        $relation  = $this->getRelationDirective();
         $fields    = $node instanceof InputObjectType || $node instanceof ObjectType
             ? $node->getFields()
             : $node->fields;
         $supported = [
-            Type::ID     => $asString,
-            Type::STRING => $asString,
-            'Date'       => $asDate,
+            Type::ID     => $this->getAsStringDirective(),
+            Type::STRING => $this->getAsStringDirective(),
+            'Date'       => $this->getAsDateDirective(),
         ];
 
         foreach ($fields as $field) {
@@ -124,35 +183,63 @@ class Manipulator extends BuilderManipulator {
             }
 
             // Nested?
-            $fieldType     = $direction;
-            $fieldOperator = $supported[$this->getNodeTypeName($field)] ?? null;
             $fieldTypeNode = $this->getTypeDefinitionNode($field);
+            $fieldType     = $this->getNodeTypeName($field);
+            $fieldName     = $this->getNodeName($field);
             $isNested      = $fieldTypeNode instanceof InputObjectTypeDefinitionNode
                 || $fieldTypeNode instanceof ObjectTypeDefinitionNode
                 || $fieldTypeNode instanceof InputObjectType
                 || $fieldTypeNode instanceof ObjectType;
 
             if ($isNested) {
-                $fieldType     = $this->getInputType($fieldTypeNode);
-                $fieldOperator = $property;
-            } elseif (!$fieldOperator) {
-                continue;
+                // Sorting possible only by the field used for aggregation so we
+                // check that related field is exists (it is not the best way,
+                // but it is work) and has ID type.
+                $idField    = $this->getObjectField($node, Str::snake("{$fieldName}_id"));
+                $orderField = $node !== $orderTypeNode
+                    ? $this->getObjectField($orderTypeNode, $fieldName)
+                    : $field;
+
+                if ($orderField === null || $idField === null || $this->getNodeTypeName($idField) !== Type::ID) {
+                    continue;
+                }
+
+                // Add @sortBy (is there a better way to get proper type?)
+                $orderField       = $this->applyManipulators(
+                    Parser::inputValueDefinition(
+                        <<<GRAPHQL
+                        {$fieldName}: {$this->getNodeTypeName($orderField)}
+                        @sortBy
+                        GRAPHQL,
+                    ),
+                    $parentObject,
+                    $parentField,
+                );
+                $fieldType        = Printer::doPrint($orderField->type);
+                $fieldDirective   = $relation::getDirectiveName();
+                $fieldDescription = $relation->getFieldDescription();
+                $type->fields[]   = Parser::inputValueDefinition(
+                    <<<GRAPHQL
+                        "{$fieldDescription}"
+                        {$fieldName}: {$fieldType}
+                        {$fieldDirective}
+                        GRAPHQL,
+                );
             } else {
-                // empty
-            }
+                // Supported?
+                $fieldOperator = $supported[$fieldType] ?? null;
 
-            // Not supported yet
-            if ($isNested) {
-                continue;
-            }
+                if (!$fieldOperator) {
+                    continue;
+                }
 
-            // Create new Field
-            if ($fieldType) {
+                // Create new Field
+                $fieldType      = $this->getTypeDefinitionNode($fieldType);
                 $type->fields[] = Parser::inputValueDefinition(
                     $this->getOperatorField(
                         $fieldOperator,
-                        $this->getTypeDefinitionNode($fieldType),
-                        $this->getNodeName($field),
+                        $fieldType,
+                        $fieldName,
                     ),
                 );
             }

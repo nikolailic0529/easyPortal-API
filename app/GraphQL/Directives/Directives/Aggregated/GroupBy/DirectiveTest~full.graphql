@@ -9,8 +9,13 @@ input Properties {
     id: String
     idScalar: ID
     idScalarNotNull: ID!
+    nested_id: ID               # Should be generated
     nested: Nested
-    nestedNotNull: Nested!
+    nestedNotNull: Nested!      # Should not be generated (`*_id` missed)
+    relation_id: String
+    relation: Nested!           # Should not be generated (`*_id` is not ID)
+    service_group_id: ID
+    serviceGroup: Nested        # Should be generated
     enum: Value
     enumNotNull: Value!
     stringScalar: String

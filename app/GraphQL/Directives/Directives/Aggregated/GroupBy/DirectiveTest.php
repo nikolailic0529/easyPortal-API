@@ -175,6 +175,12 @@ class DirectiveTest extends TestCase {
             input Test {
                 a: ID!
                 b: String
+                parent: Nested
+                parent_id: ID!
+            }
+
+            input Nested {
+                b: String
             }
             GRAPHQL,
         );
@@ -215,7 +221,6 @@ class DirectiveTest extends TestCase {
                             'Date',
                             'DateTime',
                             'ID',
-                            'AggregatedGroupByClauseNested',
                         ]);
                 },
                 '~full.graphql',
@@ -231,7 +236,7 @@ class DirectiveTest extends TestCase {
         return (new CompositeDataProvider(
             new EloquentBuilderDataProvider(),
             new ArrayDataProvider([
-                'empty'               => [
+                'empty'                     => [
                     [
                         'query'    => <<<'SQL'
                             select
@@ -246,7 +251,7 @@ class DirectiveTest extends TestCase {
                         // empty
                     ],
                 ],
-                'empty operators'     => [
+                'empty operators'           => [
                     [
                         'query'    => <<<'SQL'
                             select
@@ -261,14 +266,14 @@ class DirectiveTest extends TestCase {
                         // empty
                     ],
                 ],
-                'too many properties' => [
+                'too many properties'       => [
                     new ConditionTooManyProperties(['a', 'b']),
                     [
                         'a' => 'asc',
                         'b' => 'desc',
                     ],
                 ],
-                'null'                => [
+                'null'                      => [
                     [
                         'query'    => <<<'SQL'
                             select
@@ -281,7 +286,7 @@ class DirectiveTest extends TestCase {
                     ],
                     null,
                 ],
-                'valid condition'     => [
+                'valid condition'           => [
                     [
                         'query'    => <<<'SQL'
                             select
@@ -299,6 +304,41 @@ class DirectiveTest extends TestCase {
                     ],
                     [
                         'a' => 'asc',
+                    ],
+                ],
+                'sort by relation property' => [
+                    [
+                        'query'    => <<<'SQL'
+                            select
+                                `tmp`.`parent_id` as `key`,
+                                count(*) as `count`
+                            from
+                                `tmp`
+                            group by
+                                `key`
+                            order by
+                                (
+                                    select
+                                        `laravel_reserved_0`.`b`
+                                    from
+                                        `tmp` as `laravel_reserved_0`
+                                    where
+                                        `laravel_reserved_0`.`id` = `tmp`.`parent_id`
+                                    order by
+                                        `laravel_reserved_0`.`b` asc
+                                    limit
+                                        1
+                                ) asc
+                        SQL
+                        ,
+                        'bindings' => [],
+                    ],
+                    [
+                        'parent' => [
+                            [
+                                'b' => 'asc',
+                            ],
+                        ],
                     ],
                 ],
             ]),

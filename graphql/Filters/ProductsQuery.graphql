@@ -1,6 +1,7 @@
 input ProductsQuery {
     id: ID!
     oem_id: ID!
+    oem: OemsQuery
     sku: String!
     name: String!
     assets: AssetsQuery

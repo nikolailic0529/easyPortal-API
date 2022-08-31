@@ -1,19 +1,22 @@
 input AssetsQuery {
     id: ID!
     oem_id: ID
+    oem: OemsQuery
     type_id: ID
+    type: TypesQuery
     product_id: ID
+    product: ProductsQuery
     reseller_id: ID
+    reseller: CompaniesQuery
     customer_id: ID
+    customer: CompaniesQuery
     location_id: ID
+    location: LocationsQuery
     status_id: ID
+    status: StatusesQuery
     serial_number: String
     nickname: String
     warranty_end: Date
-    location: LocationsQuery
-    reseller: CompaniesQuery
-    customer: CompaniesQuery
-    product: ProductsQuery
     warranties: AssetWarrantiesQuery
     tags: TagsQuery
     coverages: CoveragesQuery

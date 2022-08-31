@@ -19,7 +19,10 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
 
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
-            directive @aggregatedGroupBy on ARGUMENT_DEFINITION
+            directive @aggregatedGroupBy(
+                where: String
+                order: String
+            ) on ARGUMENT_DEFINITION
             GRAPHQL;
     }
 
@@ -31,7 +34,7 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
     ): void {
         $this->getContainer()
             ->make(Manipulator::class, ['document' => $documentAST])
-            ->update($parentField, $argDefinition);
+            ->update($this, $parentType, $parentField, $argDefinition);
     }
 
     /**
@@ -46,5 +49,9 @@ abstract class Directive extends HandlerDirective implements ArgManipulator, Arg
         return $this->getContainer()->make(Manipulator::class, [
             'document' => $document,
         ]);
+    }
+
+    public function getArgumentValue(string $name, mixed $default = null): mixed {
+        return parent::directiveArgValue($name, $default);
     }
 }

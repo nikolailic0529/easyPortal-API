@@ -206,6 +206,16 @@ parameters:
 			path: app/GraphQL/CacheTest.php
 
 		-
+			message: "#^Method class@anonymous/app/GraphQL/Directives/BuilderManipulator\\.php\\:37\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/BuilderManipulator.php
+
+		-
+			message: "#^Variable property access on GraphQL\\\\Language\\\\AST\\\\Node&T of mixed\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/BuilderManipulator.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Aggregated\\\\Aggregated\\:\\:getBuilderArguments\\(\\) should return array\\<string\\> but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Aggregated/Aggregated.php
@@ -524,11 +534,6 @@ parameters:
 			message: "#^Unable to resolve the template type TBuilder in call to method Nuwave\\\\Lighthouse\\\\Execution\\\\Arguments\\\\ArgumentSet\\:\\:enhanceBuilder\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/Base.php
-
-		-
-			message: "#^Method class@anonymous/app/GraphQL/Directives/Directives/Paginated/Manipulator\\.php\\:253\\:\\:cloneValue\\(\\) should return T but returns array\\|T of mixed\\.$#"
-			count: 1
-			path: app/GraphQL/Directives/Directives/Paginated/Manipulator.php
 
 		-
 			message: "#^Cannot cast mixed to int\\.$#"
@@ -2074,21 +2079,6 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\QuoteRequestDurationsTest\\:\\:testQuery\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Data/QuoteRequestDurationsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceGroupsTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceGroupsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceLevelsTest\\:\\:testInvoke\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceLevelsTest.php
-
-		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\ServiceLevelsTest\\:\\:testInvoke\\(\\) has parameter \\$translationsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Data/ServiceLevelsTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Data\\\\TagsTest\\:\\:testQuery\\(\\) has parameter \\$tagsFactory with no signature specified for Closure\\.$#"

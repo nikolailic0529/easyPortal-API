@@ -1,6 +1,8 @@
 input AssetsSort {
     id: ID!
-    product: ProductsSort!
+    oem: OemsSort
+    type: TypesSort
+    product: ProductsSort
     serial_number: String
     nickname: String
     warranty_end: Date

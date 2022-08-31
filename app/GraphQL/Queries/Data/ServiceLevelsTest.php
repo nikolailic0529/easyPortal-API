@@ -9,6 +9,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTranslations;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthMeDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -22,6 +23,7 @@ use Tests\WithUser;
  *
  * @phpstan-import-type OrganizationFactory from WithOrganization
  * @phpstan-import-type UserFactory from WithUser
+ * @phpstan-import-type TranslationsFactory from WithTranslations
  */
 class ServiceLevelsTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -29,14 +31,16 @@ class ServiceLevelsTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory        $orgFactory
+     * @param UserFactory                $userFactory
+     * @param TranslationsFactory        $translationsFactory
+     * @param Closure(static): void|null $factory
      */
     public function testInvoke(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
-        Closure $translationsFactory = null,
+        mixed $translationsFactory = null,
         Closure $factory = null,
     ): void {
         // Prepare
@@ -53,7 +57,15 @@ class ServiceLevelsTest extends TestCase {
                 serviceLevels(where: {documentEntries: { where: {}, count: {lessThan: 1} }}) {
                     id
                     oem_id
+                    oem {
+                        id
+                        key
+                    }
                     service_group_id
+                    serviceGroup {
+                        id
+                        sku
+                    }
                     sku
                     name
                     description
@@ -78,7 +90,15 @@ class ServiceLevelsTest extends TestCase {
                         [
                             'id'               => '152d295f-e888-44a2-bdf3-7dc986c4524c',
                             'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'oem'              => [
+                                'id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'key' => 'oem',
+                            ],
                             'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'serviceGroup'     => [
+                                'id'  => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'sku' => 'group',
+                            ],
                             'sku'              => 'b',
                             'name'             => 'Translated (fallback)',
                             'description'      => 'Description (fallback)',
@@ -86,7 +106,15 @@ class ServiceLevelsTest extends TestCase {
                         [
                             'id'               => 'd502e8e9-a59f-4475-8fa8-24a0dc4049a2',
                             'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'oem'              => [
+                                'id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'key' => 'oem',
+                            ],
                             'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'serviceGroup'     => [
+                                'id'  => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'sku' => 'group',
+                            ],
                             'sku'              => 'c',
                             'name'             => 'Level',
                             'description'      => 'Description',
@@ -94,7 +122,15 @@ class ServiceLevelsTest extends TestCase {
                         [
                             'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                             'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'oem'              => [
+                                'id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'key' => 'oem',
+                            ],
                             'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'serviceGroup'     => [
+                                'id'  => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'sku' => 'group',
+                            ],
                             'sku'              => 'a',
                             'name'             => 'Translated (locale)',
                             'description'      => 'Description (locale)',

@@ -37,7 +37,7 @@ class LocationsProcessorTest extends TestCase {
         $this->override(ExceptionHandler::class);
 
         // Prepare
-        $count     = $this->faker->randomNumber(3);
+        $count     = $this->faker->numberBetween(10, 100);
         $locationA = Location::factory()->create([
             'id'              => Str::uuid()->toString(),
             'assets_count'    => $count,

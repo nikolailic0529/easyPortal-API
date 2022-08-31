@@ -4,7 +4,6 @@ namespace App\GraphQL\Directives\Directives\Aggregated\GroupBy\Operators;
 
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Directive;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Direction;
-use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -17,8 +16,6 @@ use LastDragon_ru\LaraASP\GraphQL\Builder\Exceptions\OperatorUnsupportedBuilder;
 use LastDragon_ru\LaraASP\GraphQL\Builder\Property;
 use Nuwave\Lighthouse\Execution\Arguments\Argument;
 
-use function array_slice;
-use function end;
 use function implode;
 
 abstract class BaseOperator extends OperatorDirective {
@@ -50,27 +47,19 @@ abstract class BaseOperator extends OperatorDirective {
         }
 
         // Process
-        // Column
-        $path      = $property->getPath();
-        $column    = Cast::toString(end($path));
+        $column    = Cast::toString($property->getName());
         $grammar   = $builder->getGrammar();
-        $relation  = array_slice($path, 0, -1);
-        $direction = Cast::toString($argument->value);
+        $direction = $this->getKeyDirection($argument);
+        $builder   = $builder
+            ->toBase()
+            ->select([
+                DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap('key')}"),
+                DB::raw("count(*) as {$grammar->wrap('count')}"),
+            ])
+            ->groupBy('key');
 
-        if ($relation) {
-            // -> join relation
-            // -> create union with `null`
-
-            throw new Exception('not implemented');
-        } else {
-            $builder = $builder
-                ->toBase()
-                ->select([
-                    DB::raw("{$this->getKeyExpression($builder, $column)} as {$grammar->wrap('key')}"),
-                    DB::raw("count(*) as {$grammar->wrap('count')}"),
-                ])
-                ->groupBy('key')
-                ->orderBy('key', $direction);
+        if ($direction) {
+            $builder = $builder->orderBy('key', $direction);
         }
 
         /** @phpstan-ignore-next-line builder is different but it is ok in this case */
@@ -83,4 +72,8 @@ abstract class BaseOperator extends OperatorDirective {
      * @param Builder<Model> $builder
      */
     abstract protected function getKeyExpression(Builder $builder, string $column): string;
+
+    protected function getKeyDirection(Argument $argument): ?string {
+        return Cast::toString($argument->value);
+    }
 }

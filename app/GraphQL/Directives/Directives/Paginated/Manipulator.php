@@ -2,53 +2,48 @@
 
 namespace App\GraphQL\Directives\Directives\Paginated;
 
+use App\GraphQL\Directives\BuilderManipulator;
 use App\GraphQL\Directives\Definitions\AggregatedGroupByDirective;
 use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
 use App\GraphQL\Directives\Directives\Cached\Cached;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
-use GraphQL\Language\AST\Node;
-use GraphQL\Language\AST\NodeList;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Definitions\SortByDirective;
-use LastDragon_ru\LaraASP\GraphQL\Utils\AstManipulator;
 use LogicException;
-use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
 use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\RelationDirective;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
-use Nuwave\Lighthouse\Support\Contracts\ArgManipulator;
-use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
-use Nuwave\Lighthouse\Support\Contracts\TypeManipulator;
 
-use function assert;
-use function get_object_vars;
 use function implode;
-use function is_array;
 use function json_encode;
 use function sprintf;
 use function str_ends_with;
 
-class Manipulator extends AstManipulator {
+class Manipulator extends BuilderManipulator {
     public function __construct(
+        Container $container,
         DirectiveLocator $directives,
         DocumentAST $document,
         TypeRegistry $types,
         protected Repository $config,
         protected AggregatedGroupByDirective $groupByDirective,
     ) {
-        parent::__construct($directives, $document, $types);
+        parent::__construct($container, $directives, $document, $types);
     }
 
+    // <editor-fold desc="Manipulate">
+    // =========================================================================
     public function update(
         ObjectTypeDefinitionNode $parent,
         FieldDefinitionNode $field,
@@ -151,17 +146,25 @@ class Manipulator extends AstManipulator {
         ];
 
         if (!$isNested && !$isSearch) {
-            $returnType = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
-            $inputType  = (new Collection($node->arguments))
+            $returnType   = $this->groupByDirective->getTypeProvider($this->document)->getType(Group::class);
+            $sortByType   = (new Collection($node->arguments))
+                ->first(function (InputValueDefinitionNode $arg): bool {
+                    return $this->getNodeDirective($arg, SortByDirective::class) !== null;
+                });
+            $sortByType   = json_encode($sortByType ? $this->getNodeTypeName($sortByType) : null);
+            $searchByType = (new Collection($node->arguments))
                 ->first(function (InputValueDefinitionNode $arg): bool {
                     return $this->getNodeDirective($arg, SearchByDirective::class) !== null;
                 });
-            $inputType  = $this->getNodeTypeName($inputType ?? $nodeType);
-            $builder    = json_encode(AggregatedBuilder::class);
-            $fields[]   = <<<DEF
+            $searchByType = json_encode($searchByType ? $this->getNodeTypeName($searchByType) : null);
+            $builder      = json_encode(AggregatedBuilder::class);
+            $fields[]     = <<<DEF
                 groups(
-                    groupBy: {$inputType}!
-                    @aggregatedGroupBy
+                    groupBy: {$nodeType}!
+                    @aggregatedGroupBy(
+                        where: {$searchByType}
+                        order: {$sortByType}
+                    )
                 ): [{$returnType}!]!
                 @cached(mode: Threshold)
                 @paginated(builder: {$builder})
@@ -215,7 +218,10 @@ class Manipulator extends AstManipulator {
         // Return
         return $typeName;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Fields">
+    // =========================================================================
     protected function getOffsetField(): InputValueDefinitionNode {
         return Parser::inputValueDefinition(
             <<<'DEF'
@@ -238,122 +244,12 @@ class Manipulator extends AstManipulator {
             DEF,
         );
     }
+    // </editor-fold>
 
-    /**
-     * @template T of \GraphQL\Language\AST\Node
-     *
-     * @param T $field
-     *
-     * @return T
-     */
-    private function clone(Node $field): Node {
-        // Seems will be solved in webonyx/graphql-php v15?
-        //
-        // https://github.com/webonyx/graphql-php/issues/988
-        return (new class([]) extends Node {
-            /**
-             * @template T of \GraphQL\Language\AST\Node
-             *
-             * @param T $node
-             *
-             * @return T
-             */
-            public function clone(Node $node): Node {
-                return $this->cloneValue($node);
-            }
-
-            /**
-             * @template T
-             *
-             * @param T $value
-             *
-             * @return T
-             */
-            private function cloneValue(mixed $value): mixed {
-                if (is_array($value)) {
-                    $cloned = [];
-
-                    foreach ($value as $key => $arrValue) {
-                        $cloned[$key] = $this->cloneValue($arrValue);
-                    }
-                } elseif ($value instanceof Node) {
-                    $cloned = clone $value;
-
-                    foreach (get_object_vars($cloned) as $prop => $propValue) {
-                        $cloned->{$prop} = $this->cloneValue($propValue);
-                    }
-                } elseif ($value instanceof NodeList) {
-                    $cloned = clone $value;
-
-                    foreach ($value as $key => $listValue) {
-                        $cloned[$key] = $this->cloneValue($listValue);
-                    }
-                } else {
-                    $cloned = $value;
-                }
-
-                return $cloned;
-            }
-        })->clone($field);
+    // <editor-fold desc="Names">
+    // =========================================================================
+    protected function getTypeName(string $name, string $scalar = null, bool $nullable = null): string {
+        return Paginated::NAME.'Type'.Str::studly($name);
     }
-
-    protected function getObjectField(ObjectTypeDefinitionNode $object, string $name): ?FieldDefinitionNode {
-        return (new Collection($object->fields))
-            ->first(function (FieldDefinitionNode $field) use ($name): bool {
-                return $this->getNodeName($field) === $name;
-            });
-    }
-
-    /**
-     * @template T of ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode
-     *
-     * @param T $node
-     *
-     * @return T
-     */
-    protected function applyManipulators(
-        ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode $node,
-        ObjectTypeDefinitionNode $parentObject = null,
-        FieldDefinitionNode $parentField = null,
-    ): ObjectTypeDefinitionNode|FieldDefinitionNode|InputValueDefinitionNode {
-        // There is no way to guarantee that manipulators will be applied for
-        // newly added types and fields :(
-
-        if ($node instanceof ObjectTypeDefinitionNode) {
-            /** @see ASTBuilder::applyTypeDefinitionManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, TypeManipulator::class);
-
-            foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateTypeDefinition($this->document, $node);
-            }
-
-            foreach ($node->fields as $field) {
-                assert($field instanceof FieldDefinitionNode);
-
-                $this->applyManipulators($field, $node);
-            }
-        } elseif ($node instanceof FieldDefinitionNode) {
-            /** @see ASTBuilder::applyFieldManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, FieldManipulator::class);
-
-            foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateFieldDefinition($this->document, $node, $parentObject);
-            }
-
-            foreach ($node->arguments as $argument) {
-                assert($argument instanceof InputValueDefinitionNode);
-
-                $this->applyManipulators($argument, $parentObject, $node);
-            }
-        } else {
-            /** @see ASTBuilder::applyArgManipulators() */
-            $manipulators = $this->directives->associatedOfType($node, ArgManipulator::class);
-
-            foreach ($manipulators as $manipulator) {
-                $manipulator->manipulateArgDefinition($this->document, $node, $parentField, $parentObject);
-            }
-        }
-
-        return $node;
-    }
+    // </editor-fold>
 }

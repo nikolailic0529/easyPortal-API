@@ -1,12 +1,15 @@
 input DocumentsQuery {
     id: ID!
     oem_id: ID
+    oem: OemsQuery
     type_id: ID
     number: String
     start: Date!
     end: Date!
     currency_id: ID
+    currency: CurrenciesQuery
     language_id: ID
+    language: LanguagesQuery
     customer_id: ID
     customer: CompaniesQuery
     reseller_id: ID
