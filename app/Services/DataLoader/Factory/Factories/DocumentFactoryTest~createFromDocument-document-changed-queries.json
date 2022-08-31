@@ -7,7 +7,6 @@
     "update `document_statuses` set `deleted_at` = ?, `document_statuses`.`updated_at` = ? where `id` = ?",
     "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
     "select `oems`.* from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
-    "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
     "update `documents` set `synced_at` = ?, `entries_count` = ?, `assets_count` = ?, `documents`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `start` = ?, `end` = ?, `net_price` = ?, `list_price` = ?, `discount` = ?, `renewal` = ?, `document_entries`.`updated_at` = ? where `id` = ?",
     "update `document_entries` set `start` = ?, `end` = ?, `net_price` = ?, `list_price` = ?, `discount` = ?, `renewal` = ?, `document_entries`.`updated_at` = ? where `id` = ?",

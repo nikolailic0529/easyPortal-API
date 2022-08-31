@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Relations\HasAssetNullable;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasDocument;
-use App\Models\Relations\HasFields;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
@@ -13,7 +12,6 @@ use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -39,7 +37,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property Asset|null                          $asset
  * @property Currency|null                       $currency
  * @property Document                            $document
- * @property Collection<int, DocumentEntryField> $fields
  * @property Product|null                        $product
  * @property ServiceGroup|null                   $serviceGroup
  * @property ServiceLevel|null                   $serviceLevel
@@ -56,11 +53,6 @@ class DocumentEntry extends Model {
     use HasProduct;
     use HasDocument;
     use HasCurrency;
-
-    /**
-     * @use HasFields<DocumentEntryField>
-     */
-    use HasFields;
 
     protected const CASTS = [
         'net_price'  => 'decimal:2',
@@ -86,11 +78,4 @@ class DocumentEntry extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    // <editor-fold desc="HasFields">
-    // =========================================================================
-    protected function getFieldsModel(): string {
-        return DocumentEntryField::class;
-    }
-    // </editor-fold>
 }

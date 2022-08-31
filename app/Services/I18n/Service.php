@@ -5,7 +5,6 @@ namespace App\Services\I18n;
 use App\Models\Country;
 use App\Models\Coverage;
 use App\Models\Currency;
-use App\Models\Field;
 use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Permission;
@@ -34,7 +33,6 @@ class Service extends BaseService {
         ServiceLevel::class,
         Status::class,
         Type::class,
-        Field::class,
     ];
 
     /**

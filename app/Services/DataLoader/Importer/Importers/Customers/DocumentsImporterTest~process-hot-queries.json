@@ -129,19 +129,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "2abdb153-9341-499c-ad38-8a721127f979"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "3dd8894d-7ea4-552e-9197-edeac41213b6",
-            "85bab1a7-1d90-5926-942f-2c6889c25826",
-            "f0a339f3-1039-53ca-a9d3-58225ec65ab5",
-            "f4656ed7-d921-54bd-b590-81d16d8ff849",
-            "fe9bc1f8-450c-5b2d-a943-d2988e84bc6d"
         ]
     },
     {
@@ -180,19 +170,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "4fe10114-41f9-410e-9f3f-b2f42e72f5b8"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "2d28422f-f75e-54ad-a657-ccd20b752663",
-            "3a4e8177-26b0-552e-a1fc-606eb87aaef4",
-            "4fd0c106-17dc-506e-91ce-339f36836c1f",
-            "b084b802-c4da-51b9-b2a3-0d5a5e17b97d",
-            "d460b75a-9d0b-5296-9829-70321cd73017"
         ]
     },
     {
@@ -231,19 +211,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "76331547-3217-4c18-b7c4-b3448024546e"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "4926f633-fadd-586d-aedf-7c61b3a5d3a8",
-            "4a0381cc-5f50-549d-9681-a9e61e299cfc",
-            "885caa41-ce67-5241-b81b-02968b744339",
-            "bb01f74e-ea1b-5429-8bfc-af6ef89ebbf2",
-            "e1051b18-4663-5d6f-a903-fe90f4e6310a"
         ]
     },
     {
@@ -293,19 +263,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "8cbf5548-0573-48b1-8b5e-3218a3740ccc"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "4061ec07-d08b-5a07-9432-f91e21c7635f",
-            "47ce9811-0df6-5f12-b213-93e3fb44d00e",
-            "be620b0c-b39c-5b70-9bdf-087d60063b7b",
-            "eb332e1d-fc94-5760-8678-97c526bbc125",
-            "f0f94dfb-f890-5638-b393-333888de1775"
         ]
     },
     {
@@ -345,19 +305,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "99c6ad0a-0f82-481c-8e2a-28fb18428628"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "059e44b8-e3ad-5096-804e-49c8a2a45d59",
-            "b4f932d3-6231-5d8b-a158-617c38d9ebdd",
-            "c4087e0f-8cd0-5692-8e96-d7422e6ef40d",
-            "cb002ab6-4758-5e94-adad-6c86e6d175d9",
-            "e112a3f5-b612-5a5c-8dae-7c5d49d3702c"
         ]
     },
     {
@@ -475,19 +425,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "a954e350-fa8a-4f92-b301-ae8e4e6d0022"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "543639f1-5aaa-547c-b738-053834ad1edb",
-            "95054435-8b26-53f2-9d39-70f2aaa46f2b",
-            "d9749bf5-c57c-56f0-9b73-1f0585439f66",
-            "da490648-866a-5378-a610-653fa2423123",
-            "eed6b1be-ccb5-58d1-9d4c-46ae632817c8"
         ]
     },
     {
@@ -526,19 +466,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "0268a4de-6aa9-56ee-9b8d-fce05285f292",
-            "0314e932-ff4f-5d2e-ac4d-a88f9b67fdfc",
-            "304b85ee-50c9-5668-a29a-0652ea1436ca",
-            "348ace43-70c4-5e29-a326-9dddadf6d8f7",
-            "95efb1d0-bb22-5761-828d-18f9957d86fe"
         ]
     },
     {
@@ -578,19 +508,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "d3046b7f-880c-4368-b3dd-0b3c8def9a14"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "1bff7a3d-6c61-5cdf-af8d-a1858161864b",
-            "3261fb67-1e2b-508e-9075-c4169774940f",
-            "b4f577e3-e54e-5a39-b008-d22655231a69",
-            "b6939d8b-c784-534f-8b45-7bb04de256b4",
-            "d258e526-b780-5ea4-a5c9-6e8a17dfc378"
         ]
     },
     {
@@ -629,19 +549,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "d992fa68-ac06-4103-b556-94166adc12ed"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "1ff3d7d6-bd2e-5483-8144-c8465c482946",
-            "54dcfbbf-102a-5276-9abb-0d0d169c9fbe",
-            "7fe5bbba-186c-5f49-bfd2-0dfd115227b7",
-            "891e274f-76f8-568c-b17d-3112ed56e2ab",
-            "c84bb68e-1cf2-5d94-b87e-f36e1b55e725"
         ]
     },
     {
@@ -681,19 +591,9 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "f9badd49-9104-42bc-8ce3-4a1966d52817"
-        ]
-    },
-    {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "0defb2ef-f9da-5755-816a-faba7ef9f827",
-            "15c4e362-ba7a-58cf-874a-73f3bbe427b5",
-            "1d4db845-6758-57a5-8514-8d2ead89aa4c",
-            "58967d3b-00e6-54c0-a14e-3db962a854da",
-            "e80b4c88-8046-50eb-be18-b435fcf59302"
         ]
     },
     {
