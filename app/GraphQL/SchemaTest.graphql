@@ -9563,36 +9563,6 @@ type DocumentEntriesAggregated {
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
-
-    serviceGroups: [DocumentEntriesAggregatedServiceGroup!]!
-    @deprecated(
-        reason: "Please use `groups` query instead."
-    )
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceGroups"
-    )
-    @cached
-
-    serviceLevels: [DocumentEntriesAggregatedServiceLevel!]!
-    @deprecated(
-        reason: "Please use `groups` query instead."
-    )
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Contracts\\ContractEntriesAggregated@serviceLevels"
-    )
-    @cached
-}
-
-type DocumentEntriesAggregatedServiceGroup {
-    count: Int!
-    serviceGroup: ServiceGroup
-    service_group_id: ID
-}
-
-type DocumentEntriesAggregatedServiceLevel {
-    count: Int!
-    serviceLevel: ServiceLevel
-    service_level_id: ID
 }
 
 type DocumentEntry {

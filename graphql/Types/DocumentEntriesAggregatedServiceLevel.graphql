@@ -1,5 +1,0 @@
-type DocumentEntriesAggregatedServiceLevel {
-    count: Int!
-    service_level_id: ID
-    serviceLevel: ServiceLevel
-}
