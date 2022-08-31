@@ -38,6 +38,7 @@ class Manipulator extends BuilderManipulator {
         DirectiveLocator $directives,
         DocumentAST $document,
         TypeRegistry $types,
+        private Relation $relationDirective,
         private AsDate $asDateDirective,
         private AsString $asStringDirective,
     ) {
@@ -46,6 +47,10 @@ class Manipulator extends BuilderManipulator {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    public function getRelationDirective(): Relation {
+        return $this->relationDirective;
+    }
+
     protected function getAsDateDirective(): AsDate {
         return $this->asDateDirective;
     }
@@ -156,6 +161,7 @@ class Manipulator extends BuilderManipulator {
         );
 
         // Add sortable fields
+        $relation  = $this->getRelationDirective();
         $fields    = $node instanceof InputObjectType || $node instanceof ObjectType
             ? $node->getFields()
             : $node->fields;
@@ -189,7 +195,7 @@ class Manipulator extends BuilderManipulator {
                 // Sorting possible only by the field used for aggregation so we
                 // check that related field is exists (it is not the best way,
                 // but it is work) and has ID type.
-                $idField    = $this->getObjectField($node, "{$fieldName}_id");
+                $idField    = $this->getObjectField($node, Str::snake("{$fieldName}_id"));
                 $orderField = $node !== $orderTypeNode
                     ? $this->getObjectField($orderTypeNode, $fieldName)
                     : $field;
@@ -199,7 +205,7 @@ class Manipulator extends BuilderManipulator {
                 }
 
                 // Add @sortBy (is there a better way to get proper type?)
-                $orderField     = $this->applyManipulators(
+                $orderField       = $this->applyManipulators(
                     Parser::inputValueDefinition(
                         <<<GRAPHQL
                         {$fieldName}: {$this->getNodeTypeName($orderField)}
@@ -209,10 +215,12 @@ class Manipulator extends BuilderManipulator {
                     $parentObject,
                     $parentField,
                 );
-                $fieldType      = Printer::doPrint($orderField->type);
-                $fieldDirective = Relation::getDirectiveName();
-                $type->fields[] = Parser::inputValueDefinition(
+                $fieldType        = Printer::doPrint($orderField->type);
+                $fieldDirective   = $relation::getDirectiveName();
+                $fieldDescription = $relation->getFieldDescription();
+                $type->fields[]   = Parser::inputValueDefinition(
                     <<<GRAPHQL
+                        "{$fieldDescription}"
                         {$fieldName}: {$fieldType}
                         {$fieldDirective}
                         GRAPHQL,

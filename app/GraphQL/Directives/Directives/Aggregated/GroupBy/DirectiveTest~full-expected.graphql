@@ -42,6 +42,9 @@ input AggregatedGroupByClauseProperties {
     idScalarNotNull: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     nested: [SortByClauseNested!]
     @aggregatedGroupByOperatorRelation
 
@@ -55,6 +58,18 @@ input AggregatedGroupByClauseProperties {
     Property clause.
     """
     relation_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    serviceGroup: [SortByClauseNested!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    service_group_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """

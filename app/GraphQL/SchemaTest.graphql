@@ -70,6 +70,9 @@ input AggregatedGroupByClauseApplicationLogsQuery {
 Group clause for `input AssetsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseAssetsQuery {
+    """
+    Relationship clause.
+    """
     customer: [SortByClauseCompaniesSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -79,6 +82,9 @@ input AggregatedGroupByClauseAssetsQuery {
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     location: [SortByClauseLocationsSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -100,6 +106,9 @@ input AggregatedGroupByClauseAssetsQuery {
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     product: [SortByClauseProductsSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -109,6 +118,9 @@ input AggregatedGroupByClauseAssetsQuery {
     product_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     reseller: [SortByClauseCompaniesSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -217,6 +229,9 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     end: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsDate
 
+    """
+    Relationship clause.
+    """
     product: [SortByClauseProductsSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -261,6 +276,9 @@ input AggregatedGroupByClauseDocumentsQuery {
     currency_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     customer: [SortByClauseCompaniesSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -270,6 +288,9 @@ input AggregatedGroupByClauseDocumentsQuery {
     customer_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     distributor: [SortByClauseDistributorsSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -303,6 +324,9 @@ input AggregatedGroupByClauseDocumentsQuery {
     oem_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
+    """
+    Relationship clause.
+    """
     reseller: [SortByClauseCompaniesSort!]
     @aggregatedGroupByOperatorRelation
 
