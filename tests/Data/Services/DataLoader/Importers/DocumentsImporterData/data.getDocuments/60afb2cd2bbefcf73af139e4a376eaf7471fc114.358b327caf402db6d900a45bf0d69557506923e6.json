@@ -82,8 +82,7 @@
                             "discount": null,
                             "listPrice": "24",
                             "estimatedValueRenewal": "24",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "b22fdcdb-18d6-4de1-a35b-3eca2125311e",
@@ -100,8 +99,7 @@
                             "discount": null,
                             "listPrice": "216",
                             "estimatedValueRenewal": "216",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         }
                     ],
                     "status": [
@@ -181,8 +179,7 @@
                             "discount": null,
                             "listPrice": "614.25",
                             "estimatedValueRenewal": "614.25",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "168eb11f-8def-4152-8f55-6d4b3ed9a64a",
@@ -199,8 +196,7 @@
                             "discount": null,
                             "listPrice": "341.87",
                             "estimatedValueRenewal": "341.87",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "54c57c33-292c-4a04-abea-1629ebce50e4",
@@ -217,8 +213,7 @@
                             "discount": null,
                             "listPrice": "341.87",
                             "estimatedValueRenewal": "341.87",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "18c7dddd-f51e-489d-bf14-4cef95c2ec18",
@@ -235,8 +230,7 @@
                             "discount": null,
                             "listPrice": "614.25",
                             "estimatedValueRenewal": "614.25",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "695337e8-e2c8-41df-94dd-65862e0caac6",
@@ -253,8 +247,7 @@
                             "discount": null,
                             "listPrice": "585",
                             "estimatedValueRenewal": "585",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         }
                     ],
                     "status": [
@@ -334,8 +327,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         },
                         {
                             "assetId": "93d76b7a-36f3-471a-ada9-b2ae228af76e",
@@ -352,8 +344,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         },
                         {
                             "assetId": "f2d3b1ab-0984-43e0-9107-2a6732c625b1",
@@ -370,8 +361,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         },
                         {
                             "assetId": "2ab57fce-cd32-426f-831c-56714817a896",
@@ -388,8 +378,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         },
                         {
                             "assetId": "3d8f0965-5d4d-4bd1-99d6-1fa9a5491ae0",
@@ -406,8 +395,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         }
                     ],
                     "status": [
@@ -487,8 +475,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "485f0b56-5163-425d-a793-55ec5bd6a24f",
@@ -505,8 +492,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "620c499b-0d36-4784-8d3f-58527bb40921",
@@ -523,8 +509,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "7618590c-7727-40b9-a21b-eb38b187d51e",
@@ -541,8 +526,7 @@
                             "discount": null,
                             "listPrice": "1418.58",
                             "estimatedValueRenewal": "1418.58",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "66d66425-88eb-4e21-8626-442673272cc9",
@@ -559,8 +543,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         }
                     ],
                     "status": [
@@ -640,8 +623,7 @@
                             "discount": null,
                             "listPrice": "616.32",
                             "estimatedValueRenewal": "616.32",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         },
                         {
                             "assetId": "8d462e76-12db-438c-a227-07e86cb4ca46",
@@ -658,8 +640,7 @@
                             "discount": null,
                             "listPrice": "1284",
                             "estimatedValueRenewal": "1284",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         },
                         {
                             "assetId": "8d462e76-12db-438c-a227-07e86cb4ca46",
@@ -676,8 +657,7 @@
                             "discount": null,
                             "listPrice": "63.36",
                             "estimatedValueRenewal": "63.36",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         },
                         {
                             "assetId": "8d462e76-12db-438c-a227-07e86cb4ca46",
@@ -694,8 +674,7 @@
                             "discount": null,
                             "listPrice": "132",
                             "estimatedValueRenewal": "132",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         },
                         {
                             "assetId": "5a9ced4b-5e71-486b-ae9e-a0fe7631503f",
@@ -712,8 +691,7 @@
                             "discount": null,
                             "listPrice": "63.36",
                             "estimatedValueRenewal": "63.36",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         }
                     ],
                     "status": [

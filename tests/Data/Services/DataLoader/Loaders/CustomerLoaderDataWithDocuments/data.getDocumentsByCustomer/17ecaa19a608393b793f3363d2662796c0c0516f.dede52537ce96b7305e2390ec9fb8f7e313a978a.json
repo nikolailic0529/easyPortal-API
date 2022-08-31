@@ -83,8 +83,7 @@
                             "discount": null,
                             "listPrice": "59.4",
                             "estimatedValueRenewal": "59.4",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         },
                         {
                             "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
@@ -101,8 +100,7 @@
                             "discount": null,
                             "listPrice": "997.92",
                             "estimatedValueRenewal": "997.92",
-                            "productLineDescription": "HPE Foundation Care 24x7 Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care 24x7 Service"
                         }
                     ],
                     "status": [
@@ -182,8 +180,7 @@
                             "discount": null,
                             "listPrice": "166.32",
                             "estimatedValueRenewal": "166.32",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         },
                         {
                             "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
@@ -200,8 +197,7 @@
                             "discount": null,
                             "listPrice": "938.52",
                             "estimatedValueRenewal": "938.52",
-                            "productLineDescription": "HPE Tech Care Essential SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Essential SVC"
                         }
                     ],
                     "status": [
@@ -263,8 +259,7 @@
                             "discount": null,
                             "listPrice": "158",
                             "estimatedValueRenewal": "158",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
@@ -281,8 +276,7 @@
                             "discount": null,
                             "listPrice": "891.59",
                             "estimatedValueRenewal": "891.59",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [

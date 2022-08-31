@@ -65,8 +65,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "f30f487a-5223-4b31-9873-714ec3a8c5e6",
@@ -83,8 +82,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "a2854ccc-c64b-4839-8cc4-e8bf4ca3abca",
@@ -101,8 +99,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "f766a1b6-dfdd-41d1-98c7-09803783b343",
@@ -119,8 +116,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "f766a1b6-dfdd-41d1-98c7-09803783b343",
@@ -137,8 +133,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -218,8 +213,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "e7ec0b4b-3696-4b4d-b296-7cb145a5add4",
@@ -236,8 +230,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "f30f487a-5223-4b31-9873-714ec3a8c5e6",
@@ -254,8 +247,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "f766a1b6-dfdd-41d1-98c7-09803783b343",
@@ -272,8 +264,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "f766a1b6-dfdd-41d1-98c7-09803783b343",
@@ -290,8 +281,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         }
                     ],
                     "status": [
@@ -353,8 +343,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "160f2c8e-f605-4f43-afda-277c4c5c740d",
@@ -371,8 +360,7 @@
                             "discount": null,
                             "listPrice": "384",
                             "estimatedValueRenewal": "384",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9a8fc3bc-debf-424b-8c59-935f01386cf0",
@@ -389,8 +377,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "ffa2fb5f-ba80-4728-ae82-d419ee0991b9",
@@ -407,8 +394,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "491c1775-4d25-4281-abf8-1d82ca585f36",
@@ -425,8 +411,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -506,8 +491,7 @@
                             "discount": null,
                             "listPrice": "104.04",
                             "estimatedValueRenewal": "104.04",
-                            "productLineDescription": "HP HW Support, am nächsten Arbeitstag",
-                            "customFields": null
+                            "productLineDescription": "HP HW Support, am nächsten Arbeitstag"
                         }
                     ],
                     "status": [
@@ -587,8 +571,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         },
                         {
                             "assetId": "20b15a78-27c9-4885-866e-5fa123c29ad5",
@@ -605,8 +588,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE 4 hour 24x7 Proactive Care SVC"
                         }
                     ],
                     "status": [

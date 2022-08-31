@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Utils\JsonObject\JsonObjectArray;
-
 class DocumentEntry extends Type {
     public ?string $assetId;
     public ?string $skuNumber;
@@ -20,10 +18,4 @@ class DocumentEntry extends Type {
     public ?string $listPrice;
     public ?string $estimatedValueRenewal;
     public ?string $productLineDescription;
-
-    /**
-     * @var array<CustomField|null>|null
-     */
-    #[JsonObjectArray(CustomField::class)]
-    public ?array $customFields;
 }

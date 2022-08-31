@@ -82,8 +82,7 @@
                             "discount": null,
                             "listPrice": "108.11",
                             "estimatedValueRenewal": "108.11",
-                            "productLineDescription": "HPE Tech Care Basic SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Basic SVC"
                         },
                         {
                             "assetId": "33134215-158b-4956-ba99-92b9a15c50a9",
@@ -100,8 +99,7 @@
                             "discount": null,
                             "listPrice": "415.8",
                             "estimatedValueRenewal": "415.8",
-                            "productLineDescription": "HPE Tech Care Basic SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Basic SVC"
                         },
                         {
                             "assetId": "b800475f-09d7-47e3-bdbf-e39581b03b5b",
@@ -118,8 +116,7 @@
                             "discount": null,
                             "listPrice": "108.11",
                             "estimatedValueRenewal": "108.11",
-                            "productLineDescription": "HPE Tech Care Basic SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Basic SVC"
                         },
                         {
                             "assetId": "b800475f-09d7-47e3-bdbf-e39581b03b5b",
@@ -136,8 +133,7 @@
                             "discount": null,
                             "listPrice": "415.8",
                             "estimatedValueRenewal": "415.8",
-                            "productLineDescription": "HPE Tech Care Basic SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Basic SVC"
                         },
                         {
                             "assetId": "47c108c6-6dd0-4b83-bee8-54cfa29a27f9",
@@ -154,8 +150,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Tech Care Basic SVC",
-                            "customFields": null
+                            "productLineDescription": "HPE Tech Care Basic SVC"
                         }
                     ],
                     "status": [
@@ -235,8 +230,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "3decd258-2ce1-4e93-9948-6aaf5221b0fc",
@@ -253,8 +247,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "9ae34bb7-0b6e-4445-abf2-02c7c8a24126",
@@ -271,8 +264,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "46d468a0-7c16-4ddc-bd56-eca9c7668346",
@@ -289,8 +281,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "b598f159-1ed3-42c4-97da-cc0b26264b49",
@@ -307,8 +298,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         }
                     ],
                     "status": [
@@ -370,8 +360,7 @@
                             "discount": null,
                             "listPrice": "103.8096",
                             "estimatedValueRenewal": "103.8096",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "154bcd23-f564-4f8e-abb0-1cbcdd803bc5",
@@ -388,8 +377,7 @@
                             "discount": null,
                             "listPrice": "1833.9696",
                             "estimatedValueRenewal": "1833.9696",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "2d07b4dc-7b98-40ba-a344-e442816dd3f4",
@@ -406,8 +394,7 @@
                             "discount": null,
                             "listPrice": "103.8096",
                             "estimatedValueRenewal": "103.8096",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "2d07b4dc-7b98-40ba-a344-e442816dd3f4",
@@ -424,8 +411,7 @@
                             "discount": null,
                             "listPrice": "1833.9696",
                             "estimatedValueRenewal": "1833.9696",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -487,8 +473,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "ec93f86d-c571-48de-8886-4ebf6191f32f",
@@ -505,8 +490,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -586,8 +570,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "94df8c02-9283-4a80-9111-0d5f59bb731f",
@@ -604,8 +587,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "b68b87e8-6e11-4cfa-bd7c-fd69eef96943",
@@ -622,8 +604,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "27fffbfb-9d1a-49b0-aa65-4ad336f2d4b2",
@@ -640,8 +621,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "6358d203-edbc-41b3-9747-44aa7e855d98",
@@ -658,8 +638,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         }
                     ],
                     "status": [

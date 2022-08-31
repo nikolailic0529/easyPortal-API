@@ -65,8 +65,7 @@
                             "discount": null,
                             "listPrice": "306.36",
                             "estimatedValueRenewal": "306.36",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -83,8 +82,7 @@
                             "discount": null,
                             "listPrice": "61.27",
                             "estimatedValueRenewal": "61.27",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -101,8 +99,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -119,8 +116,7 @@
                             "discount": null,
                             "listPrice": "306.36",
                             "estimatedValueRenewal": "306.36",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -137,8 +133,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -200,8 +195,7 @@
                             "discount": null,
                             "listPrice": "719.1",
                             "estimatedValueRenewal": "719.1",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -218,8 +212,7 @@
                             "discount": null,
                             "listPrice": "143.82",
                             "estimatedValueRenewal": "143.82",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -236,8 +229,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -254,8 +246,7 @@
                             "discount": null,
                             "listPrice": "143.82",
                             "estimatedValueRenewal": "143.82",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -272,8 +263,7 @@
                             "discount": null,
                             "listPrice": "719.1",
                             "estimatedValueRenewal": "719.1",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -335,8 +325,7 @@
                             "discount": null,
                             "listPrice": "143.82",
                             "estimatedValueRenewal": "143.82",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -353,8 +342,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "9f93f878-cec2-4098-96f9-66af77ccac84",
@@ -371,8 +359,7 @@
                             "discount": null,
                             "listPrice": "719.1",
                             "estimatedValueRenewal": "719.1",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -389,8 +376,7 @@
                             "discount": null,
                             "listPrice": "719.1",
                             "estimatedValueRenewal": "719.1",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "80837ca0-5a91-4d09-991e-85ec6960a6ef",
@@ -407,8 +393,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
@@ -488,8 +473,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "369b5a9f-1f10-4bb0-a406-e86d0cb2d57c",
@@ -506,8 +490,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "cafefe1f-3cd2-4116-be2b-e432b1ddc84c",
@@ -524,8 +507,7 @@
                             "discount": null,
                             "listPrice": "2385.48",
                             "estimatedValueRenewal": "2385.48",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "3413507d-1308-42a9-a768-f546028c5b0f",
@@ -542,8 +524,7 @@
                             "discount": null,
                             "listPrice": "0",
                             "estimatedValueRenewal": "0",
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         },
                         {
                             "assetId": "618e3369-365f-4738-b134-a4333a7842cb",
@@ -560,8 +541,7 @@
                             "discount": null,
                             "listPrice": null,
                             "estimatedValueRenewal": null,
-                            "productLineDescription": "HPE Foundation Care NBD Service",
-                            "customFields": null
+                            "productLineDescription": "HPE Foundation Care NBD Service"
                         }
                     ],
                     "status": [
@@ -623,8 +603,7 @@
                             "discount": null,
                             "listPrice": "965.35",
                             "estimatedValueRenewal": "965.35",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "47848bf4-0b54-4579-a5b1-203bc1577ea7",
@@ -641,8 +620,7 @@
                             "discount": null,
                             "listPrice": "224.5",
                             "estimatedValueRenewal": "224.5",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "f9b047ea-900f-46ab-8908-0eb2e620c55f",
@@ -659,8 +637,7 @@
                             "discount": null,
                             "listPrice": "224.5",
                             "estimatedValueRenewal": "224.5",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "f9b047ea-900f-46ab-8908-0eb2e620c55f",
@@ -677,8 +654,7 @@
                             "discount": null,
                             "listPrice": "965.35",
                             "estimatedValueRenewal": "965.35",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         },
                         {
                             "assetId": "ff950443-871e-4576-87ad-4365fb234232",
@@ -695,8 +671,7 @@
                             "discount": null,
                             "listPrice": "965.35",
                             "estimatedValueRenewal": "965.35",
-                            "productLineDescription": "",
-                            "customFields": null
+                            "productLineDescription": ""
                         }
                     ],
                     "status": [
