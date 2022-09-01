@@ -44,8 +44,6 @@
             "startDate": "2020-03-01",
             "endDate": "28/02/2021",
             "warrantyEndDate": null,
-            "netPrice": null,
-            "discount": null,
             "listPrice": null,
             "currencyCode": "EUR",
             "estimatedValueRenewal": "145.00"
@@ -76,8 +74,6 @@
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": null,
-            "netPrice": null,
-            "discount": null,
             "listPrice": null,
             "currencyCode": "EUR",
             "estimatedValueRenewal": null

@@ -1,0 +1,139 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "d42ca42c-fa37-4f0d-8ad8-69e6303a4efe"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "d42ca42c-fa37-4f0d-8ad8-69e6303a4efe",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "14ca4c5c-1886-4919-a4ad-16a6650ef41d",
+                    "serialNumber": null,
+                    "assetSkuDescription": "HPE 3PAR 8200 All-inc Multi-sys SW E-LTU",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "L7E69AAE",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "88844-5357",
+                    "city": "Port Maudburgh",
+                    "address": "559 Kristian Manor",
+                    "address2": null,
+                    "country": "Tajikistan",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "20",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "07aea7a6-b4af-3589-9c14-d99ea1a315ae",
+                            "document": {
+                                "id": "823ff47e-ae7c-49b0-939d-2eb49d589465",
+                                "type": "Contract",
+                                "documentNumber": "07aea7a6-b4af-3589-9c14-d99ea1a315ae",
+                                "startDate": "2021-09-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5863.199999999997",
+                                "languageCode": null,
+                                "updatedAt": "1657233031518",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "8304cf87-c012-3d1a-bd72-b46894c3faf1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13479107882",
+                                        "name": "Darrel Koelpin",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Elda White",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "14ca4c5c-1886-4919-a4ad-16a6650ef41d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": null,
+                            "estimatedValueRenewal": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "14ca4c5c-1886-4919-a4ad-16a6650ef41d"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13479107882",
+                            "name": "Darrel Koelpin",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16295350369",
+                            "name": "Mr. Leonel Russel IV",
+                            "mail": "ajerde@hessel.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

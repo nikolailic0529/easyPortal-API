@@ -1,6 +1,5 @@
 input DocumentEntriesSort {
     id: ID!
-    discount: Float
     renewal: Float
     serial_number: String
     start: Date

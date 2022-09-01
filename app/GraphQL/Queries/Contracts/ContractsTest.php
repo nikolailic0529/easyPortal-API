@@ -204,9 +204,7 @@ class ContractsTest extends TestCase {
                             id
                             document_id
                             service_level_id
-                            net_price
                             list_price
-                            discount
                             renewal
                             serial_number
                             product_id
@@ -441,9 +439,7 @@ class ContractsTest extends TestCase {
                                             'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                             'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                                             'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'net_price'        => 123,
                                             'list_price'       => 67.12,
-                                            'discount'         => null,
                                             'renewal'          => 24.20,
                                             'serial_number'    => null,
                                             'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -659,9 +655,7 @@ class ContractsTest extends TestCase {
                                     'product_id'       => $product,
                                     'service_group_id' => $serviceGroup,
                                     'service_level_id' => $serviceLevel,
-                                    'net_price'        => 123,
                                     'list_price'       => 67.12,
-                                    'discount'         => null,
                                     'renewal'          => 24.20,
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
@@ -829,57 +823,6 @@ class ContractsTest extends TestCase {
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,
                                 'list_price'  => 100,
-                                'net_price'   => 100,
-                            ]);
-                        },
-                    ],
-                    'entry: hiding net_price'  => [
-                        new GraphQLPaginated(
-                            'contracts',
-                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'count' => 1,
-                                        'key'   => '2008-06-06',
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
-                            ],
-                            'ep.contract_types'             => [
-                                '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): void {
-                            $type     = Type::factory()->create([
-                                'id' => '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $document = Document::factory()
-                                ->for($type)
-                                ->for($reseller)
-                                ->hasStatuses(1, [
-                                    'id' => '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
-                                ])
-                                ->create([
-                                    'customer_id' => null,
-                                    'start'       => '2008-06-06',
-                                ]);
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                                'net_price'   => 100,
                             ]);
                         },
                     ],

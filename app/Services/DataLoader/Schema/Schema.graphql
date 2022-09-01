@@ -165,7 +165,6 @@ type Asset {
 type AssetDocument {
     currencyCode: String
     customer: Company
-    discount: String
     distributor: Company
     document: Document
     documentNumber: String
@@ -174,8 +173,6 @@ type AssetDocument {
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
-    msrp: String
-    netPrice: String
     reseller: Company
     serviceGroupSku: String
     serviceGroupSkuDescription: String
@@ -333,13 +330,10 @@ type DocumentEntry {
     asset: Asset
     assetId: String
     currencyCode: String
-    discount: String
     endDate: String
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
-    msrp: String
-    netPrice: String
     serviceGroupSku: String
     serviceGroupSkuDescription: String
     serviceLevelSku: String
@@ -621,7 +615,6 @@ type ViewAssetDocument {
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
-    discount: String
     distributor: ViewCompany
     document: ViewDocument
     documentNumber: String
@@ -630,8 +623,6 @@ type ViewAssetDocument {
     estimatedValueRenewal: String
     languageCode: String
     listPrice: String
-    msrp: String
-    netPrice: String
     quantity: Int
     reseller: ViewCompany
     sellCurrencyCode: String

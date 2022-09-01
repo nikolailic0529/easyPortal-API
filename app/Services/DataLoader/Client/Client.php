@@ -1264,8 +1264,6 @@ class Client {
 
                 currencyCode
                 languageCode
-                netPrice
-                discount
                 listPrice
 
                 document {
@@ -1360,8 +1358,6 @@ class Client {
                 endDate
                 languageCode
                 currencyCode
-                netPrice
-                discount
                 listPrice
                 estimatedValueRenewal
             }

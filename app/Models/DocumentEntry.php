@@ -27,9 +27,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property CarbonImmutable|null                $start
  * @property CarbonImmutable|null                $end
  * @property string|null                         $currency_id
- * @property string|null                         $net_price
  * @property string|null                         $list_price
- * @property string|null                         $discount
  * @property string|null                         $renewal
  * @property CarbonImmutable                     $created_at
  * @property CarbonImmutable                     $updated_at
@@ -55,9 +53,7 @@ class DocumentEntry extends Model {
     use HasCurrency;
 
     protected const CASTS = [
-        'net_price'  => 'decimal:2',
         'list_price' => 'decimal:2',
-        'discount'   => 'decimal:2',
         'renewal'    => 'decimal:2',
         'start'      => 'date',
         'end'        => 'date',

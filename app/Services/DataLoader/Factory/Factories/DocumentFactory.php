@@ -300,9 +300,7 @@ class DocumentFactory extends ModelFactory {
             && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
             && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
             && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
-            && $entry->net_price === $normalizer->decimal($documentEntry->netPrice)
             && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
-            && $entry->discount === $normalizer->decimal($documentEntry->discount)
             && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
             && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
             && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey();
@@ -470,9 +468,7 @@ class DocumentFactory extends ModelFactory {
         $entry->start         = $normalizer->datetime($documentEntry->startDate);
         $entry->end           = $normalizer->datetime($documentEntry->endDate);
         $entry->currency      = $this->currency($documentEntry->currencyCode);
-        $entry->net_price     = $normalizer->decimal($documentEntry->netPrice);
         $entry->list_price    = $normalizer->decimal($documentEntry->listPrice);
-        $entry->discount      = $normalizer->decimal($documentEntry->discount);
         $entry->renewal       = $normalizer->decimal($documentEntry->estimatedValueRenewal);
         $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);

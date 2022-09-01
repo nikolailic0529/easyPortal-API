@@ -1,0 +1,126 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "variables": {
+        "id": "0d2169e6-94b7-49ee-8560-80673d7009bf"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "0d2169e6-94b7-49ee-8560-80673d7009bf",
+                "type": "Contract",
+                "documentNumber": "51437c1f-ef45-312f-a455-4a8b3aed063d",
+                "startDate": "2020-12-01",
+                "endDate": "2021-11-30",
+                "currencyCode": "EUR",
+                "totalNetPrice": "974.16",
+                "languageCode": null,
+                "updatedAt": "1654262846658",
+                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                "customerId": "05b6fd69-fc2e-4657-b3fd-7bb3b9bd8f6d",
+                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": "d3c8f13a-021d-3fe2-846d-9e173e524d72",
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+18286484693",
+                        "name": "Rodolfo Schinner",
+                        "mail": "flatley.eva@mckenzie.com",
+                        "type": "EndUser Contact"
+                    },
+                    {
+                        "phoneNumber": "+17039892088",
+                        "name": "Lamar Mayert",
+                        "mail": "uhagenes@carroll.com",
+                        "type": "Distributor Contact"
+                    },
+                    {
+                        "phoneNumber": "+16783509160",
+                        "name": "Garett Pacocha",
+                        "mail": "uwunsch@stroman.org",
+                        "type": "Reseller Contact"
+                    },
+                    {
+                        "phoneNumber": "+18286484693",
+                        "name": "Rodolfo Schinner",
+                        "mail": "flatley.eva@mckenzie.com",
+                        "type": "Hardware System Contact"
+                    },
+                    {
+                        "phoneNumber": "+18286484693",
+                        "name": "Rodolfo Schinner",
+                        "mail": "flatley.eva@mckenzie.com",
+                        "type": "Software System Contact"
+                    },
+                    {
+                        "phoneNumber": "+18286484693",
+                        "name": "Rodolfo Schinner",
+                        "mail": "flatley.eva@mckenzie.com",
+                        "type": "System Manager Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HL935AC",
+                        "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "83.16",
+                        "estimatedValueRenewal": "83.16"
+                    },
+                    {
+                        "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HL935AC",
+                        "serviceLevelSkuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "83.16",
+                        "estimatedValueRenewal": "83.16"
+                    },
+                    {
+                        "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "891",
+                        "estimatedValueRenewal": "891"
+                    },
+                    {
+                        "assetId": "b5734ef9-630e-4994-94bc-525ac0744c3c",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA151AC",
+                        "serviceLevelSkuDescription": "HP DL380p Gen8 8-SFF CTO Server",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "891",
+                        "estimatedValueRenewal": "891"
+                    }
+                ],
+                "status": [
+                    "EXPIRED"
+                ]
+            }
+        }
+    }
+}

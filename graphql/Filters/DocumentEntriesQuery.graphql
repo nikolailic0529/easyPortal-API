@@ -3,7 +3,6 @@ input DocumentEntriesQuery {
     document_id: ID!
     asset_id: ID
     asset: AssetsQuery
-    discount: Float
     renewal: Float
     serial_number: String
     start: Date

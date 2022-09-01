@@ -12,8 +12,6 @@ class DocumentEntry extends Type {
     public ?string $endDate;
     public ?string $currencyCode;
     public ?string $languageCode;
-    public ?string $netPrice;
-    public ?string $discount;
     public ?string $listPrice;
     public ?string $estimatedValueRenewal;
 }

@@ -2847,12 +2847,6 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
-    discount: SearchByScalarFloatOrNull
-    @searchByProperty
-
-    """
-    Property condition.
-    """
     document_id: SearchByScalarID
     @searchByProperty
 
@@ -5241,12 +5235,6 @@ input SortByClauseDistributorsSort {
 Sort clause for input DocumentEntriesSort (only one property allowed at a time).
 """
 input SortByClauseDocumentEntriesSort {
-    """
-    Property clause.
-    """
-    discount: SortByTypeDirection
-    @sortByOperatorProperty
-
     """
     Property clause.
     """
@@ -7804,20 +7792,11 @@ type DocumentEntry {
     @relation
 
     currency_id: ID
-    discount: Float
     document_id: ID!
     end: Date
     id: ID!
 
     list_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
-    net_price: Float
     @field(
         resolver: "App\\GraphQL\\Queries\\Documents\\Price"
     )

@@ -1,0 +1,379 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "c88f00d2-f207-4fc5-9b8a-a0762edfb7eb",
+                    "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                    "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                    "serialNumber": "2ca32039-3cf0-3a0f-888f-33742f5bc49a",
+                    "assetSkuDescription": "HPE DL380 Gen9 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "719064-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "32360-7649",
+                    "city": "Marcusland",
+                    "address": "56084 Eichmann Divide",
+                    "address2": null,
+                    "country": "",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                            "document": {
+                                "id": "9b24bd39-7d1b-4d3f-9259-5b3b293269ac",
+                                "type": "Quote renewal",
+                                "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                                "startDate": "2022-10-01",
+                                "endDate": "2023-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3451.9199999999996",
+                                "languageCode": null,
+                                "updatedAt": "1657360204556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19039594309",
+                                        "name": "Marta Considine",
+                                        "mail": "larkin.deonte@krajcik.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13515334605",
+                                        "name": "Nya Hegmann DDS",
+                                        "mail": "xhaley@gleason.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Dayne Rowe DDS",
+                                        "mail": "marian32@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "282.84",
+                            "estimatedValueRenewal": "282.84",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                            "document": {
+                                "id": "9b24bd39-7d1b-4d3f-9259-5b3b293269ac",
+                                "type": "Quote renewal",
+                                "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                                "startDate": "2022-10-01",
+                                "endDate": "2023-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3451.9199999999996",
+                                "languageCode": null,
+                                "updatedAt": "1657360204556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19039594309",
+                                        "name": "Marta Considine",
+                                        "mail": "larkin.deonte@krajcik.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13515334605",
+                                        "name": "Nya Hegmann DDS",
+                                        "mail": "xhaley@gleason.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Dayne Rowe DDS",
+                                        "mail": "marian32@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "282.84",
+                            "estimatedValueRenewal": "282.84",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "3565d6db-f845-3ab9-96ef-34e004c77456",
+                            "document": {
+                                "id": "070157ef-c7c4-4a57-8e67-94c30dfe068e",
+                                "type": "Contract",
+                                "documentNumber": "3565d6db-f845-3ab9-96ef-34e004c77456",
+                                "startDate": "2021-10-01",
+                                "endDate": "2022-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "5649.599999999999",
+                                "languageCode": null,
+                                "updatedAt": "1657233029397",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "8897c643-d152-3de9-af86-7f0bb35f8e8f",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Erika Rodriguez",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13515334605",
+                                        "name": "Nya Hegmann DDS",
+                                        "mail": "xhaley@gleason.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Erika Rodriguez",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Erika Rodriguez",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "4836835d-a1cf-4521-b422-21dc05c32add",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "1343.76",
+                            "estimatedValueRenewal": "1343.76",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "4836835d-a1cf-4521-b422-21dc05c32add"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                            "document": {
+                                "id": "9b24bd39-7d1b-4d3f-9259-5b3b293269ac",
+                                "type": "Quote renewal",
+                                "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                                "startDate": "2022-10-01",
+                                "endDate": "2023-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3451.9199999999996",
+                                "languageCode": null,
+                                "updatedAt": "1657360204556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19039594309",
+                                        "name": "Marta Considine",
+                                        "mail": "larkin.deonte@krajcik.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13515334605",
+                                        "name": "Nya Hegmann DDS",
+                                        "mail": "xhaley@gleason.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Dayne Rowe DDS",
+                                        "mail": "marian32@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "1720.08",
+                            "estimatedValueRenewal": "1720.08",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "warrantyEndDate": null,
+                            "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                            "document": {
+                                "id": "9b24bd39-7d1b-4d3f-9259-5b3b293269ac",
+                                "type": "Quote renewal",
+                                "documentNumber": "56d840ad-6092-3c27-a95d-c44e5bdc847e",
+                                "startDate": "2022-10-01",
+                                "endDate": "2023-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3451.9199999999996",
+                                "languageCode": null,
+                                "updatedAt": "1657360204556",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19039594309",
+                                        "name": "Marta Considine",
+                                        "mail": "larkin.deonte@krajcik.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13515334605",
+                                        "name": "Nya Hegmann DDS",
+                                        "mail": "xhaley@gleason.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16234942961",
+                                        "name": "Dayne Rowe DDS",
+                                        "mail": "marian32@hotmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "99a3cd0d-ea2a-4803-95f4-5757f3580fed",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "1720.08",
+                            "estimatedValueRenewal": "1720.08",
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "99a3cd0d-ea2a-4803-95f4-5757f3580fed"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16234942961",
+                            "name": "Erika Rodriguez",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+13515334605",
+                            "name": "Nya Hegmann DDS",
+                            "mail": "xhaley@gleason.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -293,9 +293,7 @@ class DocumentFactoryTest extends TestCase {
             'startDate'             => (string) $entry->start?->getTimestampMs(),
             'endDate'               => (string) $entry->end?->getTimestampMs(),
             'currencyCode'          => $entry->currency->code ?? null,
-            'netPrice'              => $entry->net_price,
             'listPrice'             => $entry->list_price,
-            'discount'              => $entry->discount,
             'estimatedValueRenewal' => $entry->renewal,
             'serviceGroupSku'       => $entry->serviceGroup->sku ?? null,
             'serviceLevelSku'       => $entry->serviceLevel->sku ?? null,
@@ -305,9 +303,7 @@ class DocumentFactoryTest extends TestCase {
             'startDate'             => (string) $entry->start?->getTimestampMs(),
             'endDate'               => (string) $entry->end?->getTimestampMs(),
             'currencyCode'          => $entry->currency->code ?? null,
-            'netPrice'              => $entry->net_price,
             'listPrice'             => $entry->list_price,
-            'discount'              => $entry->discount,
             'estimatedValueRenewal' => $entry->renewal,
             'serviceGroupSku'       => $entry->serviceGroup->sku ?? null,
             'serviceLevelSku'       => $entry->serviceLevel->sku ?? null,
@@ -480,8 +476,6 @@ class DocumentFactoryTest extends TestCase {
         $serviceLevelSku = $this->faker->word();
         $serviceGroupSku = $this->faker->word();
         $currencyCode    = $this->faker->currencyCode();
-        $netPrice        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount        = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal         = number_format($this->faker->randomFloat(2), 2, '.', '');
         $start           = Date::make($this->faker->dateTime())->startOfDay();
@@ -490,8 +484,6 @@ class DocumentFactoryTest extends TestCase {
             'assetId'               => " {$asset->getKey()} ",
             'serviceGroupSku'       => " {$serviceGroupSku} ",
             'serviceLevelSku'       => " {$serviceLevelSku} ",
-            'netPrice'              => " {$netPrice} ",
-            'discount'              => " {$discount} ",
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
@@ -541,9 +533,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($serviceGroupSku, $entry->serviceGroup->sku ?? null);
         self::assertEquals($serviceLevelSku, $entry->serviceLevel->sku ?? null);
         self::assertEquals($currencyCode, $entry->currency->code ?? null);
-        self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
-        self::assertEquals($discount, $entry->discount);
         self::assertEquals($renewal, $entry->renewal);
         self::assertEquals($start, $entry->start);
         self::assertEquals($end, $entry->end);
@@ -559,15 +549,11 @@ class DocumentFactoryTest extends TestCase {
             'serial_number' => $this->faker->uuid(),
         ]);
         $currencyCode  = $this->faker->currencyCode();
-        $netPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice     = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $documentEntry = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
             'serviceLevelSku'       => null,
-            'netPrice'              => " {$netPrice} ",
-            'discount'              => " {$discount} ",
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
@@ -609,9 +595,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
         self::assertEquals($currencyCode, $entry->currency->code ?? null);
-        self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
-        self::assertEquals($discount, $entry->discount);
         self::assertEquals($renewal, $entry->renewal);
     }
 
@@ -777,8 +761,6 @@ class DocumentFactoryTest extends TestCase {
                     'serviceLevelSku'       => $a->serviceLevel->sku ?? null,
                     'serviceGroupSku'       => $a->serviceGroup->sku ?? null,
                     'currencyCode'          => $a->currency->code ?? null,
-                    'netPrice'              => $a->net_price,
-                    'discount'              => $a->discount,
                     'listPrice'             => $a->list_price,
                     'estimatedValueRenewal' => $a->renewal,
                     'startDate'             => null,
@@ -789,8 +771,6 @@ class DocumentFactoryTest extends TestCase {
                     'serviceLevelSku'       => $b->serviceLevel->sku ?? null,
                     'serviceGroupSku'       => $b->serviceGroup->sku ?? null,
                     'currencyCode'          => $a->currency->code ?? null,
-                    'netPrice'              => $b->net_price,
-                    'discount'              => $b->discount,
                     'listPrice'             => $b->list_price,
                     'estimatedValueRenewal' => $b->renewal,
                     'startDate'             => null,
@@ -801,8 +781,6 @@ class DocumentFactoryTest extends TestCase {
                     'serviceLevelSku'       => $b->serviceLevel->sku ?? null,
                     'serviceGroupSku'       => $b->serviceGroup->sku ?? null,
                     'currencyCode'          => null,
-                    'netPrice'              => null,
-                    'discount'              => null,
                     'listPrice'             => null,
                     'estimatedValueRenewal' => null,
                     'startDate'             => null,
@@ -865,8 +843,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($expected, $existing);
         self::assertNotNull($created);
         self::assertNull($created->list_price);
-        self::assertNull($created->net_price);
-        self::assertNull($created->discount);
         self::assertNull($created->renewal);
     }
 
@@ -926,9 +902,7 @@ class DocumentFactoryTest extends TestCase {
         });
 
         self::assertNotNull($e);
-        self::assertEquals('23.40', $e->net_price);
         self::assertEquals('48.00', $e->list_price);
-        self::assertEquals('-2.05', $e->discount);
         self::assertEquals($created->getKey(), $e->document_id);
         self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
         self::assertEquals('H7J34AC', $e->serviceGroup->sku ?? null);
@@ -975,9 +949,7 @@ class DocumentFactoryTest extends TestCase {
         });
 
         self::assertNotNull($e);
-        self::assertNull($e->net_price);
         self::assertNull($e->list_price);
-        self::assertNull($e->discount);
         self::assertNull($e->renewal);
 
         // No changes

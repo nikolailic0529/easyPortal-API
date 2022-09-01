@@ -55,8 +55,6 @@
             "startDate": "1614470400000",
             "endDate": null,
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "145"
@@ -93,8 +91,6 @@
             "startDate": null,
             "endDate": "1677542400000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "25"
@@ -131,8 +127,6 @@
             "startDate": null,
             "endDate": "1740700800000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "10.44"
@@ -174,8 +168,6 @@
             "startDate": null,
             "endDate": "1614470400000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "40"
@@ -214,8 +206,6 @@
             "startDate": null,
             "endDate": "1677542400000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "0"
@@ -254,8 +244,6 @@
             "startDate": null,
             "endDate": "1740700800000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"
@@ -295,8 +283,6 @@
             "startDate": null,
             "endDate": "1614470400000",
             "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "145"

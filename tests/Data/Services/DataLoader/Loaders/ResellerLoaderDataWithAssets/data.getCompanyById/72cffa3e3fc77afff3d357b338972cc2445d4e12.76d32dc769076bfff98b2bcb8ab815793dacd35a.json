@@ -11,7 +11,7 @@
                     "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                     "name": "Fritsch-Nader",
                     "companyType": "RESELLER",
-                    "updatedAt": "1657155752136",
+                    "updatedAt": "1659982065604",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -138,11 +138,11 @@
                             },
                             {
                                 "language_code": "de_DE",
-                                "text": "Quis eaque molestiae similique dignissimos."
+                                "text": "Tenetur eos error omnis placeat."
                             },
                             {
                                 "language_code": "de",
-                                "text": "Quis eaque molestiae similique dignissimos."
+                                "text": "Tenetur eos error omnis placeat."
                             }
                         ],
                         "underlineText": [

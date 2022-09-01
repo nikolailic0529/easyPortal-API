@@ -556,9 +556,7 @@ class CustomerTest extends TestCase {
                                 id
                                 document_id
                                 service_level_id
-                                net_price
                                 list_price
-                                discount
                                 renewal
                                 serial_number
                                 product_id
@@ -778,9 +776,7 @@ class CustomerTest extends TestCase {
                                 id
                                 document_id
                                 service_level_id
-                                net_price
                                 list_price
-                                discount
                                 renewal
                                 serial_number
                                 product_id
@@ -1851,9 +1847,7 @@ class CustomerTest extends TestCase {
                                                 'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                                 'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                                                 'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                                'net_price'        => 123,
                                                 'list_price'       => 67.12,
-                                                'discount'         => null,
                                                 'renewal'          => 24.20,
                                                 'serial_number'    => null,
                                                 'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -2069,9 +2063,7 @@ class CustomerTest extends TestCase {
                                     'product_id'       => $product,
                                     'service_group_id' => $serviceGroup,
                                     'service_level_id' => $serviceLevel,
-                                    'net_price'        => 123,
                                     'list_price'       => 67.12,
-                                    'discount'         => null,
                                     'renewal'          => 24.20,
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
@@ -2337,9 +2329,7 @@ class CustomerTest extends TestCase {
                     'product_id'       => $product,
                     'service_group_id' => $serviceGroup,
                     'service_level_id' => $serviceLevel,
-                    'net_price'        => 123,
                     'list_price'       => 67.12,
-                    'discount'         => null,
                     'renewal'          => 24.20,
                     'start'            => '2021-01-01',
                     'end'              => '2024-01-01',
@@ -2471,9 +2461,7 @@ class CustomerTest extends TestCase {
                             'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                             'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                             'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            'net_price'        => 123.00,
                             'list_price'       => 67.12,
-                            'discount'         => null,
                             'renewal'          => 24.20,
                             'serial_number'    => null,
                             'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',

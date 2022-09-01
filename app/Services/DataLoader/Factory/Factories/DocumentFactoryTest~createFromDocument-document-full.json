@@ -38,8 +38,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": "1614470400000",
             "endDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "145"
@@ -50,8 +48,6 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": null,
             "endDate": "1677542400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "25"
@@ -62,8 +58,6 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": null,
             "endDate": "1740700800000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "10.44"
@@ -76,8 +70,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": null,
             "endDate": "1614470400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "40"
@@ -90,8 +82,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": null,
             "endDate": "1677542400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "0"
@@ -104,8 +94,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": null,
             "endDate": "1740700800000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"
@@ -118,8 +106,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": null,
             "endDate": "1740700800000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"
@@ -132,8 +118,6 @@
             "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": null,
             "endDate": "1740700800000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"

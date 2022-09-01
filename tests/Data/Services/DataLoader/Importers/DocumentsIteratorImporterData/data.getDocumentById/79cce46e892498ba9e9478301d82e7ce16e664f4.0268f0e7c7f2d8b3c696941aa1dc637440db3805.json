@@ -1,0 +1,121 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n}\n    }\n}",
+    "variables": {
+        "id": "05a153c5-251c-413b-92dd-0cd27d6ed8fd"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "05a153c5-251c-413b-92dd-0cd27d6ed8fd",
+                "type": "Quote New Business",
+                "documentNumber": "22062df0-c47d-32e9-811f-4960e67860d4",
+                "startDate": "2022-06-01",
+                "endDate": "2024-05-31",
+                "currencyCode": "EUR",
+                "totalNetPrice": "12069.809999999998",
+                "languageCode": null,
+                "updatedAt": "1654254524322",
+                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+17479140372",
+                        "name": "Dr. Junior Casper",
+                        "mail": "kboehm@hotmail.com",
+                        "type": "Customer Contact"
+                    },
+                    {
+                        "phoneNumber": "+12088560128",
+                        "name": "Dr. Devyn Deckow",
+                        "mail": "johnson.felicity@aufderhar.com",
+                        "type": "Renewal Contact"
+                    },
+                    {
+                        "phoneNumber": null,
+                        "name": null,
+                        "mail": null,
+                        "type": "EndUser Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetId": "3914f1e4-31fe-4e1b-b100-8606984d8373",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HU4A1AC",
+                        "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "441.6868",
+                        "estimatedValueRenewal": "441.6868"
+                    },
+                    {
+                        "assetId": "3914f1e4-31fe-4e1b-b100-8606984d8373",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HU4A2AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "2248.5873",
+                        "estimatedValueRenewal": "2248.5873"
+                    },
+                    {
+                        "assetId": "45cc378c-b7a2-4f0e-b6a4-95304ec3c588",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HU4A2AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "2248.5873",
+                        "estimatedValueRenewal": "2248.5873"
+                    },
+                    {
+                        "assetId": "45cc378c-b7a2-4f0e-b6a4-95304ec3c588",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HU4A1AC",
+                        "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "441.6868",
+                        "estimatedValueRenewal": "441.6868"
+                    },
+                    {
+                        "assetId": "17cd66f7-51e7-4fd1-b524-3060c5a8ecf0",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HU4A2AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "2248.5873",
+                        "estimatedValueRenewal": "2248.5873"
+                    }
+                ],
+                "status": [
+                    "ACTIVE"
+                ]
+            }
+        }
+    }
+}

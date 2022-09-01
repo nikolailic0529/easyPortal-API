@@ -2,14 +2,6 @@ type DocumentEntry {
     id: ID!
     document_id: ID!
 
-    net_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     list_price: Float
     @field(
         resolver: "App\\GraphQL\\Queries\\Documents\\Price"
@@ -18,7 +10,6 @@ type DocumentEntry {
         relation: "document.statuses"
     )
 
-    discount: Float
     renewal: Float
     serial_number: String
     start: Date
