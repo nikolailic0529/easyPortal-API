@@ -1,0 +1,198 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "745fbb57-156f-43f4-8865-f1e09db3a12e"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "745fbb57-156f-43f4-8865-f1e09db3a12e",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                    "serialNumber": "f78f1774-279b-3adc-a415-d85df75b76c9",
+                    "assetSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QW937A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "21625-4120",
+                    "city": "New Terrillport",
+                    "address": "47585 Lehner Pike",
+                    "address2": null,
+                    "country": "Guam",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": {
+                                "id": "544d5936-8d0c-482b-a1eb-dce6f6b35585",
+                                "type": "Contract",
+                                "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "1330.56",
+                                "languageCode": null,
+                                "updatedAt": "1656435413627",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "f85b03f1-633c-35eb-ac9e-4c688f0db6ff",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12723941015",
+                                        "name": "Jacklyn Cassin",
+                                        "mail": "brenden.lindgren@roob.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14346857813",
+                                        "name": "Elbert Maggio V",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18315765750",
+                                        "name": "Mr. Kelvin Gutkowski Jr.",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                                "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14346857813",
+                            "name": "Elbert Maggio V",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12723941015",
+                            "name": "Jacklyn Cassin",
+                            "mail": "brenden.lindgren@roob.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

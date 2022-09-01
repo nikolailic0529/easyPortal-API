@@ -1,0 +1,134 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "2f5dcdae-ed5a-4a87-a9b1-417819b638e4"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "2f5dcdae-ed5a-4a87-a9b1-417819b638e4",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "e25e1111-5815-455f-af8b-93665f76b62c",
+                    "serialNumber": "d59ac623-e287-386c-b931-fe5829977f47",
+                    "assetSkuDescription": "HPE 300GB SAS 10K SFF SC DS HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "872475-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "14626-9668",
+                    "city": "Abbiemouth",
+                    "address": "976 Gislason River Suite 245",
+                    "address2": null,
+                    "country": "Greenland",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "081573e7-386f-33b6-a36d-7b2746b13fcf",
+                            "document": {
+                                "id": "b9379a91-e7c8-4652-85b8-b340bfa68f49",
+                                "type": "Contract",
+                                "documentNumber": "081573e7-386f-33b6-a36d-7b2746b13fcf",
+                                "startDate": "2018-11-27",
+                                "endDate": "2023-11-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "55a3e392-2283-302f-9908-fbc026867f20",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15209092139",
+                                        "name": "Reginald Lockman I",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14582734372",
+                                        "name": "Darren Kris",
+                                        "mail": "cjacobs@ratke.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14636264113",
+                                        "name": "Kacey Corwin",
+                                        "mail": "streich.jade@hotmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15209092139",
+                                        "name": "Reginald Lockman I",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15209092139",
+                                        "name": "Reginald Lockman I",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15209092139",
+                                        "name": "Reginald Lockman I",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "e25e1111-5815-455f-af8b-93665f76b62c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "e25e1111-5815-455f-af8b-93665f76b62c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15209092139",
+                            "name": "Reginald Lockman I",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14582734372",
+                            "name": "Darren Kris",
+                            "mail": "cjacobs@ratke.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+14636264113",
+                            "name": "Kacey Corwin",
+                            "mail": "streich.jade@hotmail.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1262,10 +1262,6 @@ class Client {
                 endDate
                 documentNumber
 
-                currencyCode
-                languageCode
-                listPrice
-
                 document {
                     id
                     type
@@ -1303,9 +1299,6 @@ class Client {
                 serviceGroupSkuDescription
                 serviceLevelSku
                 serviceLevelSkuDescription
-
-                warrantyEndDate
-                estimatedValueRenewal
 
                 customer {
                   id

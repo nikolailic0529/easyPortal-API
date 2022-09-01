@@ -24,11 +24,6 @@
             "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null,
-            "currencyCode": "CUR",
-            "languageCode": "fr",
-            "listPrice": "48",
-            "estimatedValueRenewal": "145",
             "document": {
                 "id": "688b9621-3244-464b-9468-3cd74f5eaacf",
                 "type": "MultiNational Quote",

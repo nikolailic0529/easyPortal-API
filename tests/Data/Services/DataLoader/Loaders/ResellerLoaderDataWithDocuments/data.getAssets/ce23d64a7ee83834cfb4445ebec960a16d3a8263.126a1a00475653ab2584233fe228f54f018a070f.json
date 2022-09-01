@@ -1,0 +1,317 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "7fba8ea5-f3cd-4080-96a7-18fd1d96a4ef"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "7fba8ea5-f3cd-4080-96a7-18fd1d96a4ef",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
+                    "serialNumber": "6c52fcc0-a38f-3f9c-80f8-db71d0f15c9d",
+                    "assetSkuDescription": "HPE D3600 Enclosure",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QW968A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "91547-9635",
+                    "city": "Keaganport",
+                    "address": "4372 Pagac Motorway Suite 064",
+                    "address2": null,
+                    "country": "Venezuela",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "documentNumber": "48dbda41-f5c2-39ac-8b3f-36e0f2a3a54d",
+                            "document": {
+                                "id": "171bce84-3caa-4471-942c-ef8539de5eb0",
+                                "type": "Quote New Business",
+                                "documentNumber": "48dbda41-f5c2-39ac-8b3f-36e0f2a3a54d",
+                                "startDate": "2022-02-19",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4199.9000000000015",
+                                "languageCode": null,
+                                "updatedAt": "1654272002994",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17314746360",
+                                        "name": "Ms. Kristina Brakus",
+                                        "mail": "lkunze@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19319774572",
+                                        "name": "Dr. Terence Cartwright",
+                                        "mail": "mayert.sandy@jenkins.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "fcce8dee-5a04-465c-96d9-be2123543915"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "aff07cee-e6f6-374b-be33-403b5d25d33a",
+                            "document": {
+                                "id": "ec865b1a-c01a-4d04-b4f8-c79f5253fb6c",
+                                "type": "Contract",
+                                "documentNumber": "aff07cee-e6f6-374b-be33-403b5d25d33a",
+                                "startDate": "2022-02-19",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1384.71",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "33ab9ac3-65b7-3d1e-858e-16216d4aa820",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17314746360",
+                                        "name": "Ms. Kristina Brakus",
+                                        "mail": "lkunze@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19529745630",
+                                        "name": "Dr. Iva Robel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "fcce8dee-5a04-465c-96d9-be2123543915"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "documentNumber": "aff07cee-e6f6-374b-be33-403b5d25d33a",
+                            "document": {
+                                "id": "ec865b1a-c01a-4d04-b4f8-c79f5253fb6c",
+                                "type": "Contract",
+                                "documentNumber": "aff07cee-e6f6-374b-be33-403b5d25d33a",
+                                "startDate": "2022-02-19",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1384.71",
+                                "languageCode": null,
+                                "updatedAt": "1656406898120",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "33ab9ac3-65b7-3d1e-858e-16216d4aa820",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17314746360",
+                                        "name": "Ms. Kristina Brakus",
+                                        "mail": "lkunze@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19529745630",
+                                        "name": "Dr. Iva Robel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "fcce8dee-5a04-465c-96d9-be2123543915"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "48dbda41-f5c2-39ac-8b3f-36e0f2a3a54d",
+                            "document": {
+                                "id": "171bce84-3caa-4471-942c-ef8539de5eb0",
+                                "type": "Quote New Business",
+                                "documentNumber": "48dbda41-f5c2-39ac-8b3f-36e0f2a3a54d",
+                                "startDate": "2022-02-19",
+                                "endDate": "2023-02-28",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4199.9000000000015",
+                                "languageCode": null,
+                                "updatedAt": "1654272002994",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17314746360",
+                                        "name": "Ms. Kristina Brakus",
+                                        "mail": "lkunze@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19319774572",
+                                        "name": "Dr. Terence Cartwright",
+                                        "mail": "mayert.sandy@jenkins.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "fcce8dee-5a04-465c-96d9-be2123543915"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+17314746360",
+                            "name": "Ms. Kristina Brakus",
+                            "mail": "lkunze@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

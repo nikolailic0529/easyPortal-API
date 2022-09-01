@@ -1,0 +1,317 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9f93f878-cec2-4098-96f9-66af77ccac84"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "9f93f878-cec2-4098-96f9-66af77ccac84",
+                    "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                    "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                    "serialNumber": "cbd1583f-4bc7-31bb-9fa1-18e5630388d8",
+                    "assetSkuDescription": null,
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "Aruba",
+                    "assetSku": "JG896A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "52784-2952",
+                    "city": "Mohammedstad",
+                    "address": "6336 Marques Valleys",
+                    "address2": null,
+                    "country": "Jersey",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "0aa8316b-72d9-3e39-b177-b8c879d739f3",
+                            "document": {
+                                "id": "2abdb153-9341-499c-ad38-8a721127f979",
+                                "type": "Quote New Business",
+                                "documentNumber": "0aa8316b-72d9-3e39-b177-b8c879d739f3",
+                                "startDate": "2022-02-01",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4927.679999999999",
+                                "languageCode": null,
+                                "updatedAt": "1654272003494",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "Telefonische SW Unterstützung",
+                            "documentNumber": "229df4e7-cef7-3fef-a1a8-f3d256158a25",
+                            "document": {
+                                "id": "76331547-3217-4c18-b7c4-b3448024546e",
+                                "type": "Quote New Business",
+                                "documentNumber": "229df4e7-cef7-3fef-a1a8-f3d256158a25",
+                                "startDate": "2022-02-01",
+                                "endDate": "2027-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "11154",
+                                "languageCode": null,
+                                "updatedAt": "1654272009059",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "14fbac0d-00b8-3dab-8b74-dae785f4ddaf",
+                            "document": {
+                                "id": "c8fdd1c2-a581-4cf4-8f49-634a41f08ecf",
+                                "type": "Quote New Business",
+                                "documentNumber": "14fbac0d-00b8-3dab-8b74-dae785f4ddaf",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2730.2399999999993",
+                                "languageCode": null,
+                                "updatedAt": "1654272011294",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "documentNumber": "707c3e4a-b111-324b-8621-5c61fe008285",
+                            "document": {
+                                "id": "a954e350-fa8a-4f92-b301-ae8e4e6d0022",
+                                "type": "Quote New Business",
+                                "documentNumber": "707c3e4a-b111-324b-8621-5c61fe008285",
+                                "startDate": "2022-02-01",
+                                "endDate": "2024-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4927.679999999999",
+                                "languageCode": null,
+                                "updatedAt": "1654272010481",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates SVC",
+                            "documentNumber": "d01da63d-efb1-3d9e-8c65-4bf15c742afb",
+                            "document": {
+                                "id": "d992fa68-ac06-4103-b556-94166adc12ed",
+                                "type": "Quote New Business",
+                                "documentNumber": "d01da63d-efb1-3d9e-8c65-4bf15c742afb",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2730.2399999999993",
+                                "languageCode": null,
+                                "updatedAt": "1654272011590",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12403737765",
+                                        "name": "Nedra Doyle",
+                                        "mail": "griffin94@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12396904465",
+                                        "name": "Cary Mohr",
+                                        "mail": "batz.henri@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                                "customerId": "3adf6426-735c-4f52-9f28-e3ad593e707c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+                            },
+                            "customer": {
+                                "id": "3adf6426-735c-4f52-9f28-e3ad593e707c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": null,
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

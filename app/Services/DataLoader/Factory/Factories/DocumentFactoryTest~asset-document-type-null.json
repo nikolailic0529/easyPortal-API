@@ -51,11 +51,7 @@
             "serviceLevelSku": "HA151AC",
             "serviceGroupSku": "H7J34AC",
             "startDate": "1614470400000",
-            "endDate": null,
-            "warrantyEndDate": null,
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145"
+            "endDate": null
         }
     ]
 }
