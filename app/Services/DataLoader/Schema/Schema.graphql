@@ -177,7 +177,6 @@ type AssetDocument {
     listPrice: String
     msrp: String
     netPrice: String
-    productLineDescription: String
     reseller: Company
     skuDescription: String
     skuNumber: String
@@ -343,7 +342,6 @@ type DocumentEntry {
     listPrice: String
     msrp: String
     netPrice: String
-    productLineDescription: String
     skuDescription: String
     skuNumber: String
     startDate: String
@@ -637,7 +635,6 @@ type ViewAssetDocument {
     listPrice: String
     msrp: String
     netPrice: String
-    productLineDescription: String
     quantity: Int
     reseller: ViewCompany
     sellCurrencyCode: String

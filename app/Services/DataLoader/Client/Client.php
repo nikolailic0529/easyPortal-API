@@ -1355,8 +1355,6 @@ class Client {
                 skuDescription
                 startDate
                 endDate
-                warrantyEndDate
-                productLineDescription
                 supportPackage
                 supportPackageDescription
                 languageCode

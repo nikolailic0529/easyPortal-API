@@ -8,7 +8,6 @@ class DocumentEntry extends Type {
     public ?string $skuDescription;
     public ?string $supportPackage;
     public ?string $supportPackageDescription;
-    public ?string $warrantyEndDate;
     public ?string $startDate;
     public ?string $endDate;
     public ?string $currencyCode;
@@ -17,5 +16,4 @@ class DocumentEntry extends Type {
     public ?string $discount;
     public ?string $listPrice;
     public ?string $estimatedValueRenewal;
-    public ?string $productLineDescription;
 }
