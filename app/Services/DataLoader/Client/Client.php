@@ -1206,12 +1206,12 @@ class Client {
             id
             serialNumber
 
-            productDescription
+            assetSku
+            assetSkuDescription
             assetTag
             assetType
             status
             vendor
-            sku
 
             eolDate
             eosDate

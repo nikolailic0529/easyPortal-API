@@ -133,6 +133,8 @@ type Asset {
     address2: String
     assetCoverage: String
     assetDocument: [AssetDocument]
+    assetSku: String
+    assetSkuDescription: String
     assetTag: String
     assetType: String
     city: String
@@ -148,12 +150,10 @@ type Asset {
     latitude: String
     lifecycleStatus: String
     longitude: String
-    productDescription: String
     reseller: Company
     resellerId: String
     serialNumber: String
     serialNumberIsGenerated: String
-    sku: String
     sourceDocument: [SourceDocument]
     status: String
     updatedAt: String
@@ -590,6 +590,8 @@ type ViewAsset {
     assetCoverage: [String]
     assetDocument: [ViewAssetDocument]
     assetExpireDate: String
+    assetSku: String
+    assetSkuDescription: String
     assetTag: String
     assetType: String
     city: String
@@ -606,12 +608,10 @@ type ViewAsset {
     latitude: String
     lifecycleStatus: String
     longitude: String
-    productDescription: String
     reseller: ViewCompany
     resellerId: String
     serialNumber: String
     serialNumberIsGenerated: String
-    sku: String
     sourceDocument: [SourceDocument]
     status: String
     updatedAt: String

@@ -129,8 +129,8 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
-        self::assertEquals($asset->productDescription, $created->product->name ?? null);
-        self::assertEquals($asset->sku, $created->product->sku ?? null);
+        self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
+        self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
         self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($created->product->eol ?? null));
@@ -268,7 +268,7 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->vendor, $updated->oem->key ?? null);
         self::assertNotNull($created->product);
         self::assertEquals($created->product->name, $updated->product->name ?? null);
-        self::assertEquals($asset->sku, $updated->product->sku ?? null);
+        self::assertEquals($asset->assetSku, $updated->product->sku ?? null);
         self::assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos ?? null));
         self::assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol ?? null));
         self::assertEquals($asset->assetType, $updated->type->key);
@@ -333,8 +333,8 @@ class AssetFactoryTest extends TestCase {
         self::assertEquals($asset->serialNumber, $created->serial_number);
         self::assertEquals($asset->dataQualityScore, $created->data_quality);
         self::assertEquals($asset->vendor, $created->oem->key ?? null);
-        self::assertEquals($asset->productDescription, $created->product->name ?? null);
-        self::assertEquals($asset->sku, $created->product->sku ?? null);
+        self::assertEquals($asset->assetSkuDescription, $created->product->name ?? null);
+        self::assertEquals($asset->assetSku, $created->product->sku ?? null);
         self::assertNull($created->product->eos ?? null);
         self::assertEquals($asset->eosDate, (string) ($created->product->eos ?? null));
         self::assertEquals($asset->eolDate, (string) ($created->product->eol ?? null));
@@ -1009,11 +1009,11 @@ class AssetFactoryTest extends TestCase {
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
         $asset = new ViewAsset([
-            'vendor'             => $this->faker->word(),
-            'sku'                => $this->faker->word(),
-            'eolDate'            => "{$this->faker->unixTime()}000",
-            'eosDate'            => '',
-            'productDescription' => $this->faker->sentence(),
+            'vendor'              => $this->faker->word(),
+            'assetSku'            => $this->faker->word(),
+            'assetSkuDescription' => $this->faker->sentence(),
+            'eolDate'             => "{$this->faker->unixTime()}000",
+            'eosDate'             => '',
         ]);
 
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -1026,7 +1026,7 @@ class AssetFactoryTest extends TestCase {
             ->andReturn($oem);
         $factory
             ->shouldReceive('product')
-            ->with($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+            ->with($oem, $asset->assetSku, $asset->assetSkuDescription, $asset->eolDate, $asset->eosDate)
             ->once()
             ->andReturns();
 

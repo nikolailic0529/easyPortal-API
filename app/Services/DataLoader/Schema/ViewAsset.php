@@ -9,11 +9,11 @@ class ViewAsset extends Type implements TypeWithId {
     public ?string $resellerId;
     public ?string $customerId;
     public ?string $serialNumber;
-    public ?string $productDescription;
+    public ?string $assetSkuDescription;
     public ?string $assetTag;
     public ?string $assetType;
     public ?string $vendor;
-    public ?string $sku;
+    public ?string $assetSku;
     public ?string $eolDate;
     public ?string $eosDate;
     public ?string $zip;

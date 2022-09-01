@@ -545,10 +545,10 @@ class AssetFactory extends ModelFactory {
     protected function assetProduct(ViewAsset $asset): ?Product {
         $product = null;
 
-        if ($asset->sku) {
+        if ($asset->assetSku) {
             $oem     = $this->assetOem($asset);
             $product = $oem
-                ? $this->product($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+                ? $this->product($oem, $asset->assetSku, $asset->assetSkuDescription, $asset->eolDate, $asset->eosDate)
                 : null;
         }
 
