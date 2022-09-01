@@ -164,7 +164,6 @@ type Asset {
 
 type AssetDocument {
     currencyCode: String
-    customFields: [CustomField]
     customer: Company
     discount: String
     distributor: Company
@@ -178,11 +177,11 @@ type AssetDocument {
     msrp: String
     netPrice: String
     reseller: Company
-    skuDescription: String
-    skuNumber: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 
@@ -334,7 +333,6 @@ type DocumentEntry {
     asset: Asset
     assetId: String
     currencyCode: String
-    customFields: [CustomField]
     discount: String
     endDate: String
     estimatedValueRenewal: String
@@ -342,11 +340,11 @@ type DocumentEntry {
     listPrice: String
     msrp: String
     netPrice: String
-    skuDescription: String
-    skuNumber: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 
@@ -620,7 +618,6 @@ type ViewAsset {
 
 type ViewAssetDocument {
     currencyCode: String
-    customFields: [CustomField]
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
@@ -638,11 +635,11 @@ type ViewAssetDocument {
     quantity: Int
     reseller: ViewCompany
     sellCurrencyCode: String
-    skuDescription: String
-    skuNumber: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 

@@ -3,11 +3,10 @@
 namespace App\Services\DataLoader\Schema;
 
 class ViewAssetDocument extends Type {
-    public ?string $skuNumber;
-    public ?string $skuDescription;
-
-    public ?string $supportPackage;
-    public ?string $supportPackageDescription;
+    public ?string $serviceGroupSku;
+    public ?string $serviceGroupSkuDescription;
+    public ?string $serviceLevelSku;
+    public ?string $serviceLevelSkuDescription;
 
     public ?string $warrantyEndDate;
 

@@ -4,10 +4,10 @@ namespace App\Services\DataLoader\Schema;
 
 class DocumentEntry extends Type {
     public ?string $assetId;
-    public ?string $skuNumber;
-    public ?string $skuDescription;
-    public ?string $supportPackage;
-    public ?string $supportPackageDescription;
+    public ?string $serviceGroupSku;
+    public ?string $serviceGroupSkuDescription;
+    public ?string $serviceLevelSku;
+    public ?string $serviceLevelSkuDescription;
     public ?string $startDate;
     public ?string $endDate;
     public ?string $currencyCode;

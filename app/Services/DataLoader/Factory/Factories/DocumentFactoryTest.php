@@ -297,8 +297,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => $entry->list_price,
             'discount'              => $entry->discount,
             'estimatedValueRenewal' => $entry->renewal,
-            'supportPackage'        => $entry->serviceGroup->sku ?? null,
-            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+            'serviceGroupSku'       => $entry->serviceGroup->sku ?? null,
+            'serviceLevelSku'       => $entry->serviceLevel->sku ?? null,
         ])));
         self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
             'assetId'               => $this->faker->uuid(),
@@ -309,8 +309,8 @@ class DocumentFactoryTest extends TestCase {
             'listPrice'             => $entry->list_price,
             'discount'              => $entry->discount,
             'estimatedValueRenewal' => $entry->renewal,
-            'supportPackage'        => $entry->serviceGroup->sku ?? null,
-            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+            'serviceGroupSku'       => $entry->serviceGroup->sku ?? null,
+            'serviceLevelSku'       => $entry->serviceLevel->sku ?? null,
         ])));
     }
 
@@ -472,24 +472,24 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentEntry
      */
     public function testDocumentEntry(): void {
-        $document       = DocumentModel::factory()->make();
-        $asset          = AssetModel::factory()->create([
+        $document        = DocumentModel::factory()->make();
+        $asset           = AssetModel::factory()->create([
             'id'            => $this->faker->uuid(),
             'serial_number' => $this->faker->uuid(),
         ]);
-        $skuNumber      = $this->faker->word();
-        $supportPackage = $this->faker->word();
-        $currencyCode   = $this->faker->currencyCode();
-        $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $start          = Date::make($this->faker->dateTime())->startOfDay();
-        $end            = Date::make($this->faker->dateTime())->startOfDay();
-        $documentEntry  = new DocumentEntry([
+        $serviceLevelSku = $this->faker->word();
+        $serviceGroupSku = $this->faker->word();
+        $currencyCode    = $this->faker->currencyCode();
+        $netPrice        = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $discount        = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $listPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $renewal         = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $start           = Date::make($this->faker->dateTime())->startOfDay();
+        $end             = Date::make($this->faker->dateTime())->startOfDay();
+        $documentEntry   = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
-            'supportPackage'        => " {$supportPackage} ",
-            'skuNumber'             => " {$skuNumber} ",
+            'serviceGroupSku'       => " {$serviceGroupSku} ",
+            'serviceLevelSku'       => " {$serviceLevelSku} ",
             'netPrice'              => " {$netPrice} ",
             'discount'              => " {$discount} ",
             'listPrice'             => " {$listPrice} ",
@@ -498,7 +498,7 @@ class DocumentFactoryTest extends TestCase {
             'startDate'             => $start->format('Y-m-d'),
             'endDate'               => $end->format('Y-m-d'),
         ]);
-        $factory        = new class(
+        $factory         = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(AssetResolver::class),
             $this->app->make(ProductResolver::class),
@@ -538,8 +538,8 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($asset->product, $entry->product);
         self::assertNotNull($entry->service_level_id);
         self::assertEquals($document->oem_id, $entry->serviceLevel->oem_id ?? null);
-        self::assertEquals($supportPackage, $entry->serviceGroup->sku ?? null);
-        self::assertEquals($skuNumber, $entry->serviceLevel->sku ?? null);
+        self::assertEquals($serviceGroupSku, $entry->serviceGroup->sku ?? null);
+        self::assertEquals($serviceLevelSku, $entry->serviceLevel->sku ?? null);
         self::assertEquals($currencyCode, $entry->currency->code ?? null);
         self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
@@ -565,7 +565,7 @@ class DocumentFactoryTest extends TestCase {
         $renewal       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $documentEntry = new DocumentEntry([
             'assetId'               => " {$asset->getKey()} ",
-            'skuNumber'             => null,
+            'serviceLevelSku'       => null,
             'netPrice'              => " {$netPrice} ",
             'discount'              => " {$discount} ",
             'listPrice'             => " {$listPrice} ",
@@ -681,8 +681,8 @@ class DocumentFactoryTest extends TestCase {
         $group = ServiceGroup::factory()->make();
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $entry = new DocumentEntry([
-            'supportPackage'            => $this->faker->word(),
-            'supportPackageDescription' => $this->faker->word(),
+            'serviceGroupSku'            => $this->faker->word(),
+            'serviceGroupSkuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -692,8 +692,8 @@ class DocumentFactoryTest extends TestCase {
             ->shouldReceive('serviceGroup')
             ->with(
                 $oem,
-                $entry->supportPackage,
-                $entry->supportPackageDescription,
+                $entry->serviceGroupSku,
+                $entry->serviceGroupSkuDescription,
             )
             ->once()
             ->andReturn($group);
@@ -710,8 +710,8 @@ class DocumentFactoryTest extends TestCase {
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $level = ServiceLevel::factory()->make();
         $entry = new DocumentEntry([
-            'skuNumber'      => $this->faker->word(),
-            'skuDescription' => $this->faker->word(),
+            'serviceLevelSku'            => $this->faker->word(),
+            'serviceLevelSkuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -727,8 +727,8 @@ class DocumentFactoryTest extends TestCase {
             ->with(
                 $oem,
                 $group,
-                $entry->skuNumber,
-                $entry->skuDescription,
+                $entry->serviceLevelSku,
+                $entry->serviceLevelSkuDescription,
             )
             ->once()
             ->andReturn($level);
@@ -774,8 +774,8 @@ class DocumentFactoryTest extends TestCase {
             'documentEntries'      => [
                 [
                     'assetId'               => $a->asset_id,
-                    'skuNumber'             => $a->serviceLevel->sku ?? null,
-                    'supportPackage'        => $a->serviceGroup->sku ?? null,
+                    'serviceLevelSku'       => $a->serviceLevel->sku ?? null,
+                    'serviceGroupSku'       => $a->serviceGroup->sku ?? null,
                     'currencyCode'          => $a->currency->code ?? null,
                     'netPrice'              => $a->net_price,
                     'discount'              => $a->discount,
@@ -786,8 +786,8 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'assetId'               => $b->asset_id,
-                    'skuNumber'             => $b->serviceLevel->sku ?? null,
-                    'supportPackage'        => $b->serviceGroup->sku ?? null,
+                    'serviceLevelSku'       => $b->serviceLevel->sku ?? null,
+                    'serviceGroupSku'       => $b->serviceGroup->sku ?? null,
                     'currencyCode'          => $a->currency->code ?? null,
                     'netPrice'              => $b->net_price,
                     'discount'              => $b->discount,
@@ -798,8 +798,8 @@ class DocumentFactoryTest extends TestCase {
                 ],
                 [
                     'assetId'               => $assetB->getKey(),
-                    'skuNumber'             => $b->serviceLevel->sku ?? null,
-                    'supportPackage'        => $b->serviceGroup->sku ?? null,
+                    'serviceLevelSku'       => $b->serviceLevel->sku ?? null,
+                    'serviceGroupSku'       => $b->serviceGroup->sku ?? null,
                     'currencyCode'          => null,
                     'netPrice'              => null,
                     'discount'              => null,

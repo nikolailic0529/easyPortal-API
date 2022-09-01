@@ -37,10 +37,10 @@
                 },
                 "documentNumber": "0056523287"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": null

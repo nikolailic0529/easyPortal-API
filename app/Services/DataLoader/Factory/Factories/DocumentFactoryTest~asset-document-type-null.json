@@ -48,8 +48,8 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1614470400000",
             "endDate": null,
             "warrantyEndDate": null,

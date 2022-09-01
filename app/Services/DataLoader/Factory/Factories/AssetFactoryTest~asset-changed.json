@@ -53,8 +53,8 @@
                     }
                 ]
             },
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1624406400000",
             "warrantyEndDate": "1614470400000",

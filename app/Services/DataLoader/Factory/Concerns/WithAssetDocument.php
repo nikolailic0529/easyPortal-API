@@ -23,8 +23,8 @@ trait WithAssetDocument {
 
     protected function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
-        $sku   = $assetDocument->supportPackage ?? null;
-        $name  = $assetDocument->supportPackageDescription ?? null;
+        $sku   = $assetDocument->serviceGroupSku ?? null;
+        $name  = $assetDocument->serviceGroupSkuDescription ?? null;
         $group = null;
 
         if ($oem && $sku) {
@@ -36,8 +36,8 @@ trait WithAssetDocument {
 
     protected function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
-        $sku   = $assetDocument->skuNumber ?? null;
-        $name  = $assetDocument->skuDescription ?? null;
+        $sku   = $assetDocument->serviceLevelSku ?? null;
+        $name  = $assetDocument->serviceLevelSkuDescription ?? null;
         $group = $this->assetDocumentServiceGroup($asset, $assetDocument);
         $level = null;
 

@@ -53,10 +53,10 @@
                     }
                 ]
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": "1614470400000",
@@ -99,8 +99,8 @@
                     }
                 ]
             },
-            "skuNumber": null,
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": null,
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": "1614470400000",
@@ -119,8 +119,8 @@
         {
             "documentNumber": null,
             "document": null,
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": "1614470400000",

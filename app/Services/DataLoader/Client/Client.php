@@ -1301,10 +1301,11 @@ class Client {
                     distributorId
                 }
 
-                skuNumber
-                skuDescription
-                supportPackage
-                supportPackageDescription
+                serviceGroupSku
+                serviceGroupSkuDescription
+                serviceLevelSku
+                serviceLevelSkuDescription
+
                 warrantyEndDate
                 estimatedValueRenewal
 
@@ -1351,12 +1352,12 @@ class Client {
 
             documentEntries {
                 assetId
-                skuNumber
-                skuDescription
+                serviceGroupSku
+                serviceGroupSkuDescription
+                serviceLevelSku
+                serviceLevelSkuDescription
                 startDate
                 endDate
-                supportPackage
-                supportPackageDescription
                 languageCode
                 currencyCode
                 netPrice

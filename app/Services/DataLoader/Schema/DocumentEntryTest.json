@@ -1,9 +1,9 @@
 {
     "assetId": "d0751d0c-85d3-47a5-8fff-7423dd8c0d58",
-    "skuNumber": "HA151AC",
-    "skuDescription": "HPE Hardware Maintenance Onsite Support",
-    "supportPackage": "H7J32AC",
-    "supportPackageDescription": "HPE Foundation Care NBD SVC",
+    "serviceGroupSku": "H7J32AC",
+    "serviceGroupSkuDescription": "HPE Foundation Care NBD SVC",
+    "serviceLevelSku": "HA151AC",
+    "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
     "startDate": "2020-04-01",
     "endDate": "2021-03-31",
     "currencyCode": "EUR",

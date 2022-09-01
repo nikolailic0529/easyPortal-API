@@ -70,9 +70,9 @@ class ClientDumpContext {
                 $customers[] = $object->customer->id ?? null;
                 $types[]     = $object->document->type ?? null;
                 $oems[]      = [
-                    $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
-                    $object->supportPackage ?? null,
-                    $object->skuNumber ?? null,
+                        $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
+                        $object->serviceGroupSku ?? null,
+                        $object->serviceLevelSku ?? null,
                 ];
             } elseif ($object instanceof ViewDocument) {
                 $distributors[] = $object->distributorId ?? null;
@@ -93,8 +93,8 @@ class ClientDumpContext {
             } elseif ($object instanceof DocumentEntry) {
                 $oems[] = [
                     $oem,
-                    $object->supportPackage ?? null,
-                    $object->skuNumber ?? null,
+                    $object->serviceGroupSku ?? null,
+                    $object->serviceLevelSku ?? null,
                 ];
             } elseif ($object instanceof CompanyKpis) {
                 $resellers[] = $object->resellerId ?? null;

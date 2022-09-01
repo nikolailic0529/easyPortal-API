@@ -20,8 +20,8 @@
     "assetDocument": [
         {
             "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": null,

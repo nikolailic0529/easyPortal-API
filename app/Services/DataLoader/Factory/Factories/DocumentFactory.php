@@ -499,8 +499,8 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {
-        $sku   = $documentEntry->supportPackage ?? null;
-        $name  = $documentEntry->supportPackageDescription ?? null;
+        $sku   = $documentEntry->serviceGroupSku ?? null;
+        $name  = $documentEntry->serviceGroupSkuDescription ?? null;
         $group = null;
 
         if ($sku && $model->oem) {
@@ -511,8 +511,8 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentEntryServiceLevel(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceLevel {
-        $sku   = $documentEntry->skuNumber ?? null;
-        $name  = $documentEntry->skuDescription ?? null;
+        $sku   = $documentEntry->serviceLevelSku ?? null;
+        $name  = $documentEntry->serviceLevelSkuDescription ?? null;
         $group = $this->documentEntryServiceGroup($model, $documentEntry);
         $level = null;
 
