@@ -11,7 +11,7 @@
                     "id": "7a99318f-3ba2-4dc5-bd93-54ddfb70ff79",
                     "name": "Bailey and Sons",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162921349",
+                    "updatedAt": "1662156766140",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -142,21 +142,21 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 611,
-                        "activeAssets": 426,
-                        "activeAssetsPercentage": 69.72176759410802,
+                        "totalAssets": 612,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 14,
-                        "activeContractTotalAmount": 46589.45999999999,
+                        "activeContracts": 11,
+                        "activeContractTotalAmount": 44798.51999999999,
                         "newActiveContracts": null,
-                        "expiringContracts": 4,
+                        "expiringContracts": 3,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 13870.87,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
-                        "expiredContracts": 18,
+                        "expiredContracts": 21,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -172,21 +172,21 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                            "totalAssets": 611,
-                            "activeAssets": 426,
-                            "activeAssetsPercentage": 69.72176759410802,
+                            "totalAssets": 612,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
-                            "activeContracts": 14,
-                            "activeContractTotalAmount": 46589.45999999999,
+                            "activeContracts": 11,
+                            "activeContractTotalAmount": 44798.52,
                             "newActiveContracts": null,
-                            "expiringContracts": 4,
+                            "expiringContracts": 3,
                             "activeQuotes": 1,
                             "activeQuotesTotalAmount": 13870.87,
                             "newActiveQuotes": 0,
                             "expiringQuotes": 0,
                             "expiredQuotes": 0,
-                            "expiredContracts": 18,
+                            "expiredContracts": 21,
                             "orderedQuotes": null,
                             "acceptedQuotes": null,
                             "requestedQuotes": null,
@@ -201,7 +201,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

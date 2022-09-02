@@ -23,13 +23,15 @@
                     "city": "Jammieshire",
                     "address": "14021 Jodie Hills",
                     "address2": null,
-                    "country": "French Polynesia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Bahrain",
+                    "latitude": "-50.936487",
+                    "longitude": "-84.644676",
+                    "countryCode": "HN",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141732109",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

@@ -23,166 +23,22 @@
                     "city": "East Rosetown",
                     "address": "5180 Toy Square",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "72.067661",
+                    "longitude": "94.811865",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662145861761",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "305aebc8-0480-3e23-bd53-2366ab12f920",
-                            "document": {
-                                "id": "71c2e384-9ca1-45a4-adbf-92874fd77b5e",
-                                "type": "Contract",
-                                "documentNumber": "305aebc8-0480-3e23-bd53-2366ab12f920",
-                                "startDate": "2020-09-23",
-                                "endDate": "2021-09-30",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "11738.370000000003",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+16295350369",
-                                        "name": "Mr. Leonel Russel IV",
-                                        "mail": "ajerde@hessel.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
-                                "customerId": "e3f11308-abc6-40a7-b80f-7ed1f42fa600",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
-                            },
-                            "customer": {
-                                "id": "e3f11308-abc6-40a7-b80f-7ed1f42fa600"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
                             "serviceLevelSkuDescription": "HPE 500W FS Plat Ht Plg Pwr Supply Kit",
-                            "documentNumber": "305aebc8-0480-3e23-bd53-2366ab12f920",
-                            "document": {
-                                "id": "71c2e384-9ca1-45a4-adbf-92874fd77b5e",
-                                "type": "Contract",
-                                "documentNumber": "305aebc8-0480-3e23-bd53-2366ab12f920",
-                                "startDate": "2020-09-23",
-                                "endDate": "2021-09-30",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "11738.370000000003",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+16295350369",
-                                        "name": "Mr. Leonel Russel IV",
-                                        "mail": "ajerde@hessel.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18437983309",
-                                        "name": "Helga Goodwin",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
-                                "customerId": "e3f11308-abc6-40a7-b80f-7ed1f42fa600",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
-                            },
-                            "customer": {
-                                "id": "e3f11308-abc6-40a7-b80f-7ed1f42fa600"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
                             "documentNumber": "305aebc8-0480-3e23-bd53-2366ab12f920",
                             "document": {
                                 "id": "71c2e384-9ca1-45a4-adbf-92874fd77b5e",
@@ -345,7 +201,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662145861761",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-09-23",
+                                "coverageEndDate": "2021-09-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-09-14",
+                                "coverageEndDate": "2020-10-13",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

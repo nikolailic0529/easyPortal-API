@@ -21,15 +21,17 @@
                     "eosDate": null,
                     "zip": "10305",
                     "city": "North Keyon",
-                    "address": "654 Fern Corners",
+                    "address": "1944 Hackett Burg Apt. 263",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-29.725775",
+                    "longitude": "-84.067802",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141216822",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

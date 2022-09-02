@@ -57,7 +57,7 @@ class DocumentEntryFactory extends Factory {
             'oem_said'             => null,
             'oem_sar_number'       => null,
             'environment_id'       => null,
-            'equipment_number'     => null,
+            'equipment_number'     => $this->faker->uuid(),
             'language_id'          => null,
             'created_at'           => Date::now(),
             'updated_at'           => Date::now(),

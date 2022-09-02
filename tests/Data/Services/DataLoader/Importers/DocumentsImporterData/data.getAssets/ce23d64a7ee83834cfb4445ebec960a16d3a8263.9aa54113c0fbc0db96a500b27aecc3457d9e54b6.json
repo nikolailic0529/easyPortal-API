@@ -23,20 +23,150 @@
                     "city": "Botsfordside",
                     "address": "2135 Horacio Hollow",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-18.635514",
+                    "longitude": "10.606729",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662149421659",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "3d643fb9-e853-3b49-9e2f-7725e571acb2",
+                            "document": {
+                                "id": "1a08fa52-37af-417b-b60a-bda753edd20a",
+                                "type": "Quote renewal",
+                                "documentNumber": "3d643fb9-e853-3b49-9e2f-7725e571acb2",
+                                "startDate": "2021-12-30",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272003072",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+14585069901",
+                                        "name": "Magnolia Nienow",
+                                        "mail": "kirstin31@gmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "fc845cb9-e946-4ccd-9965-5e7733728754",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "fc845cb9-e946-4ccd-9965-5e7733728754"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "4df7e109-e53c-37a2-94ac-026d973d3441",
+                            "document": {
+                                "id": "bb195f5e-726b-4b45-b15c-7115263425a7",
+                                "type": "Contract",
+                                "documentNumber": "4df7e109-e53c-37a2-94ac-026d973d3441",
+                                "startDate": "2021-09-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "683.9",
+                                "languageCode": null,
+                                "updatedAt": "1657233032142",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "a33f4388-d426-3a9f-b93b-8253bc2d2129",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+13854757247",
+                                        "name": "Meredith Conn",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14585069901",
+                                        "name": "Magnolia Nienow",
+                                        "mail": "kirstin31@gmail.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13854757247",
+                                        "name": "Meredith Conn",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13854757247",
+                                        "name": "Meredith Conn",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13854757247",
+                                        "name": "Meredith Conn",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "fc845cb9-e946-4ccd-9965-5e7733728754",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "fc845cb9-e946-4ccd-9965-5e7733728754"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
                             "documentNumber": "e32ef4c4-aad6-3f49-a3f3-349c246d01d1",
                             "document": {
                                 "id": "68777cfd-e64b-487b-a1b0-479ad0815415",
@@ -196,134 +326,6 @@
                             "customer": {
                                 "id": "fc845cb9-e946-4ccd-9965-5e7733728754"
                             }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "3d643fb9-e853-3b49-9e2f-7725e571acb2",
-                            "document": {
-                                "id": "1a08fa52-37af-417b-b60a-bda753edd20a",
-                                "type": "Quote renewal",
-                                "documentNumber": "3d643fb9-e853-3b49-9e2f-7725e571acb2",
-                                "startDate": "2021-12-30",
-                                "endDate": "2023-08-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "0",
-                                "languageCode": null,
-                                "updatedAt": "1654272003072",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+14585069901",
-                                        "name": "Magnolia Nienow",
-                                        "mail": "kirstin31@gmail.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                                "customerId": "fc845cb9-e946-4ccd-9965-5e7733728754",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-                            },
-                            "customer": {
-                                "id": "fc845cb9-e946-4ccd-9965-5e7733728754"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "4df7e109-e53c-37a2-94ac-026d973d3441",
-                            "document": {
-                                "id": "bb195f5e-726b-4b45-b15c-7115263425a7",
-                                "type": "Contract",
-                                "documentNumber": "4df7e109-e53c-37a2-94ac-026d973d3441",
-                                "startDate": "2021-09-01",
-                                "endDate": "2022-08-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "683.9",
-                                "languageCode": null,
-                                "updatedAt": "1657233032142",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": "a33f4388-d426-3a9f-b93b-8253bc2d2129",
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+13854757247",
-                                        "name": "Meredith Conn",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+14585069901",
-                                        "name": "Magnolia Nienow",
-                                        "mail": "kirstin31@gmail.com",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13854757247",
-                                        "name": "Meredith Conn",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13854757247",
-                                        "name": "Meredith Conn",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13854757247",
-                                        "name": "Meredith Conn",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                                "customerId": "fc845cb9-e946-4ccd-9965-5e7733728754",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-                            },
-                            "customer": {
-                                "id": "fc845cb9-e946-4ccd-9965-5e7733728754"
-                            }
                         }
                     ],
                     "latestContactPersons": [
@@ -346,7 +348,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662149421659",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-09-01",
+                                "coverageEndDate": "2022-08-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-11-30",
+                                "coverageEndDate": "2021-12-29",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

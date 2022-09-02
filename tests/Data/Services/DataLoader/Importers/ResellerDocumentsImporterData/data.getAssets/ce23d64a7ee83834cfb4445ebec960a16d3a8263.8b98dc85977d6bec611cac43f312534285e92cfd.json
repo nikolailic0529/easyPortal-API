@@ -23,13 +23,15 @@
                     "city": "East Marcella",
                     "address": "5488 Breitenberg Street",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "-85.448343",
+                    "longitude": "51.629758",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140040942",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

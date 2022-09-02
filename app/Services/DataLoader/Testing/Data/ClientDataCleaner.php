@@ -26,10 +26,11 @@ use App\Services\DataLoader\Testing\Data\Fake\Company as CompanyValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryCode as CountryCodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryName as CountryNameValue;
 use App\Services\DataLoader\Testing\Data\Fake\Email as EmailValue;
-use App\Services\DataLoader\Testing\Data\Fake\ImageUrl;
+use App\Services\DataLoader\Testing\Data\Fake\ImageUrl as ImageUrlValue;
 use App\Services\DataLoader\Testing\Data\Fake\Latitude as LatitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Longitude as LongitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Name as NameValue;
+use App\Services\DataLoader\Testing\Data\Fake\Number as NumberValue;
 use App\Services\DataLoader\Testing\Data\Fake\Phone as PhoneValue;
 use App\Services\DataLoader\Testing\Data\Fake\Postcode as PostcodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Text as TextValue;
@@ -58,6 +59,7 @@ class ClientDataCleaner {
     public function __construct(
         protected UuidValue $uuid,
         protected TextValue $text,
+        protected NumberValue $number,
         protected CompanyValue $company,
         protected LatitudeValue $latitude,
         protected LongitudeValue $longitude,
@@ -70,7 +72,7 @@ class ClientDataCleaner {
         protected PhoneValue $phone,
         protected EmailValue $email,
         protected NameValue $name,
-        protected ImageUrl $imageUrl,
+        protected ImageUrlValue $imageUrl,
     ) {
         // empty
     }
@@ -146,7 +148,10 @@ class ClientDataCleaner {
         } elseif ($object instanceof TranslationText) {
             $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {
-            // empty
+            $object->said            = $this->map($object->said, $this->uuid);
+            $object->sarNumber       = $this->map($object->said, $this->uuid);
+            $object->environmentId   = $this->map($object->environmentId, $this->number);
+            $object->equipmentNumber = $this->map($object->equipmentNumber, $this->number);
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

@@ -11,7 +11,7 @@
                     "id": "f54de78a-6d6a-4e79-8e44-eec9d8d99afd",
                     "name": "Swaniawski, Dare and Greenholt",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163120234",
+                    "updatedAt": "1662156982520",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 30,
-                        "activeAssets": 30,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 30,
-                            "activeAssets": 30,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

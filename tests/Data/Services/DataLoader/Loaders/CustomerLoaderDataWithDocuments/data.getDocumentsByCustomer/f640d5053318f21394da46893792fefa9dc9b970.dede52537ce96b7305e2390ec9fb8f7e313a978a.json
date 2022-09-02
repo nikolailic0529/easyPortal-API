@@ -1,0 +1,307 @@
+{
+    "selector": "data.getDocumentsByCustomer",
+    "query": "query getDocumentsByCustomer($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByCustomer(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n    assetProductType\n    environmentId\n    equipmentNumber\n    lineItemListPrice\n    lineItemMonthlyRetailPrice\n    said\n    sarNumber\n}\n    }\n}",
+    "variables": {
+        "id": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+        "from": null,
+        "lastId": null,
+        "limit": 250
+    },
+    "response": {
+        "data": {
+            "getDocumentsByCustomer": [
+                {
+                    "id": "76148cc9-ada8-4219-b2c9-ba75ce8423fe",
+                    "type": "Contract",
+                    "documentNumber": "ac5760f9-e710-3122-873a-9b4e949983fa",
+                    "startDate": "2021-05-01",
+                    "endDate": "2022-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "1057.32",
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": null,
+                        "groupId": "bd6e5f43-36aa-3a89-a4e5-462b6940299f",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+13017492936",
+                            "name": "Ms. Rosamond Schaden Sr.",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14014368880",
+                            "name": "Jillian Kiehn",
+                            "mail": "ckuvalis@dietrich.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18708280445",
+                            "name": "Jolie Crooks I",
+                            "mail": "russel.enola@hotmail.com",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": "+13017492936",
+                            "name": "Ms. Rosamond Schaden Sr.",
+                            "mail": null,
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": "+13017492936",
+                            "name": "Ms. Rosamond Schaden Sr.",
+                            "mail": null,
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Brandon Wintheiser",
+                            "mail": "streich.gerald@gmail.com",
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "997.92",
+                            "estimatedValueRenewal": "997.92",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        },
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "59.4",
+                            "estimatedValueRenewal": "59.4",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        }
+                    ],
+                    "status": [
+                        "EXPIRED"
+                    ]
+                },
+                {
+                    "id": "7d8fb7d1-092f-43e3-9437-09706ef9cbf6",
+                    "type": "Contract",
+                    "documentNumber": "b33c6b62-aa40-3248-aadd-a8260164dc0f",
+                    "startDate": "2022-05-01",
+                    "endDate": "2023-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "1104.84",
+                    "languageCode": null,
+                    "updatedAt": "1654262846658",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": "ef9b3ff5-9d8e-3400-a6f5-703dc1d25a02",
+                        "groupId": "bd6e5f43-36aa-3a89-a4e5-462b6940299f",
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14014368880",
+                            "name": "Jillian Kiehn",
+                            "mail": "ckuvalis@dietrich.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+18708280445",
+                            "name": "Jolie Crooks I",
+                            "mail": "russel.enola@hotmail.com",
+                            "type": "Reseller Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Brandon Wintheiser",
+                            "mail": "streich.gerald@gmail.com",
+                            "type": "Hardware System Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Brandon Wintheiser",
+                            "mail": "streich.gerald@gmail.com",
+                            "type": "Software System Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Brandon Wintheiser",
+                            "mail": "streich.gerald@gmail.com",
+                            "type": "System Manager Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "166.32",
+                            "estimatedValueRenewal": "166.32",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        },
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "938.52",
+                            "estimatedValueRenewal": "938.52",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        }
+                    ],
+                    "status": [
+                        "ACTIVE"
+                    ]
+                },
+                {
+                    "id": "f3a8ba95-ce52-49bb-ba31-3402337e421d",
+                    "type": "Quote renewal",
+                    "documentNumber": "188c7473-3b6c-308f-bbc0-b14b6c46c5cc",
+                    "startDate": "2022-05-01",
+                    "endDate": "2023-04-30",
+                    "currencyCode": "EUR",
+                    "totalNetPrice": "906",
+                    "languageCode": null,
+                    "updatedAt": "1654272012434",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+                    "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                    "vendorSpecificFields": {
+                        "vendor": "HPE",
+                        "said": null,
+                        "groupId": null,
+                        "groupDescription": null
+                    },
+                    "contactPersons": [
+                        {
+                            "phoneNumber": "+18708280445",
+                            "name": "Jolie Crooks I",
+                            "mail": "russel.enola@hotmail.com",
+                            "type": "Customer Contact"
+                        },
+                        {
+                            "phoneNumber": "+14014368880",
+                            "name": "Jillian Kiehn",
+                            "mail": "ckuvalis@dietrich.com",
+                            "type": "Renewal Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        }
+                    ],
+                    "documentEntries": [
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "158",
+                            "estimatedValueRenewal": "158",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        },
+                        {
+                            "assetId": "c1197a7f-7d6d-4e61-8c2e-f9ea27497921",
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "startDate": null,
+                            "endDate": null,
+                            "currencyCode": "EUR",
+                            "languageCode": null,
+                            "listPrice": "891.59",
+                            "estimatedValueRenewal": "891.59",
+                            "assetProductType": null,
+                            "environmentId": null,
+                            "equipmentNumber": null,
+                            "lineItemListPrice": null,
+                            "lineItemMonthlyRetailPrice": null,
+                            "said": null,
+                            "sarNumber": null
+                        }
+                    ],
+                    "status": [
+                        "ORDERED"
+                    ]
+                }
+            ]
+        }
+    }
+}

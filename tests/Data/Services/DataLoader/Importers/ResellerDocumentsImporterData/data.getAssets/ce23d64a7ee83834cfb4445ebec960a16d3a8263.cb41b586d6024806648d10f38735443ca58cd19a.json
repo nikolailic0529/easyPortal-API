@@ -21,15 +21,17 @@
                     "eosDate": null,
                     "zip": "06968",
                     "city": "Lake Clint",
-                    "address": "2536 Darwin Well",
+                    "address": "664 Muller Radial Suite 315",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "2.061672",
+                    "longitude": "-83.973156",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662148427963",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

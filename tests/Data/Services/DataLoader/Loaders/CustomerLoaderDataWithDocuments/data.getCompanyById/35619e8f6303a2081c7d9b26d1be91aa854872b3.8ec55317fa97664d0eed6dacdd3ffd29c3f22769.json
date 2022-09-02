@@ -11,7 +11,7 @@
                     "id": "4836835d-a1cf-4521-b422-21dc05c32add",
                     "name": "Dooley Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162845007",
+                    "updatedAt": "1662156679687",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,9 +46,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 6,
-                        "activeAssets": 5,
-                        "activeAssetsPercentage": 83.33333333333334,
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -76,9 +76,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                            "totalAssets": 6,
-                            "activeAssets": 5,
-                            "activeAssetsPercentage": 83.33333333333334,
+                            "totalAssets": 2,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

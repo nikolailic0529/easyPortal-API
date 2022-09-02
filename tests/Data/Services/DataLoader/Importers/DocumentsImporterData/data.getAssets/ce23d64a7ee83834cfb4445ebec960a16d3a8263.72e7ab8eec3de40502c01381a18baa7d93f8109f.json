@@ -24,12 +24,14 @@
                     "address": "1944 Hackett Burg Apt. 263",
                     "address2": null,
                     "country": "Ethiopia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-29.725775",
+                    "longitude": "-84.067802",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141401441",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

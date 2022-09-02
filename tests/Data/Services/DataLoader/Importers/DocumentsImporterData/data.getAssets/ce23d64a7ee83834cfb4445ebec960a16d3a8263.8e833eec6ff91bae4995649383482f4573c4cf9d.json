@@ -23,13 +23,16 @@
                     "city": "Lake Kayleighfurt",
                     "address": "411 Irwin Parks Suite 218",
                     "address2": null,
-                    "country": "French Polynesia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Bahrain",
+                    "latitude": "-33.731473",
+                    "longitude": "59.678081",
+                    "countryCode": "HN",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662172311963",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -382,7 +385,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662172311963",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2017-02-02",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-01-22",
+                                "coverageEndDate": "2022-02-20",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

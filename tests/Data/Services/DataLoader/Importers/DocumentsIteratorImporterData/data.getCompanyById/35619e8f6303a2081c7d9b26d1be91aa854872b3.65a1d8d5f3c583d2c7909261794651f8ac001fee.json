@@ -11,7 +11,7 @@
                     "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
                     "name": "Sauer, Green and Stracke",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162777354",
+                    "updatedAt": "1662156602158",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -76,13 +76,13 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 469,
-                        "activeAssets": 414,
-                        "activeAssetsPercentage": 88.27292110874201,
+                        "totalAssets": 503,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 8,
-                        "activeContractTotalAmount": 62005.82999999999,
+                        "activeContractTotalAmount": 62005.829999999994,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 0,
@@ -106,9 +106,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                            "totalAssets": 469,
-                            "activeAssets": 414,
-                            "activeAssetsPercentage": 88.27292110874201,
+                            "totalAssets": 503,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 8,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

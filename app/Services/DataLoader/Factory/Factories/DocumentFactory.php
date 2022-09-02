@@ -293,6 +293,9 @@ class DocumentFactory extends ModelFactory {
         DocumentEntryModel $entry,
         DocumentEntry $documentEntry,
     ): bool {
+        // Entries doesn't have ID, but we need to compare them somehow...
+        //
+        // Is there a better way?
         $normalizer = $this->getNormalizer();
         $start      = $normalizer->datetime($documentEntry->startDate);
         $end        = $normalizer->datetime($documentEntry->endDate);
@@ -302,8 +305,11 @@ class DocumentFactory extends ModelFactory {
             && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
             && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
             && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
+            && $entry->monthly_list_price === $normalizer->decimal($documentEntry->lineItemListPrice)
+            && $entry->monthly_retail_price === $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice)
             && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
-            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey();
+            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey()
+            && $entry->equipment_number === $normalizer->string($documentEntry->equipmentNumber);
 
         return $isEqual;
     }
@@ -459,19 +465,27 @@ class DocumentFactory extends ModelFactory {
         DocumentEntry $documentEntry,
         ?DocumentEntryModel $entry,
     ): DocumentEntryModel {
-        $asset                = $this->documentEntryAsset($model, $documentEntry);
-        $entry              ??= new DocumentEntryModel();
-        $normalizer           = $this->getNormalizer();
-        $entry->asset         = $asset;
-        $entry->product_id    = $asset->product_id ?? null;
-        $entry->serial_number = $asset->serial_number ?? null;
-        $entry->start         = $normalizer->datetime($documentEntry->startDate);
-        $entry->end           = $normalizer->datetime($documentEntry->endDate);
-        $entry->currency      = $this->currency($documentEntry->currencyCode);
-        $entry->list_price    = $normalizer->decimal($documentEntry->listPrice);
-        $entry->renewal       = $normalizer->decimal($documentEntry->estimatedValueRenewal);
-        $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
-        $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);
+        $asset                       = $this->documentEntryAsset($model, $documentEntry);
+        $entry                     ??= new DocumentEntryModel();
+        $normalizer                  = $this->getNormalizer();
+        $entry->asset                = $asset;
+        $entry->assetType            = $this->documentEntryAssetType($model, $documentEntry);
+        $entry->product_id           = $asset->product_id ?? null;
+        $entry->serial_number        = $asset->serial_number ?? null;
+        $entry->start                = $normalizer->datetime($documentEntry->startDate);
+        $entry->end                  = $normalizer->datetime($documentEntry->endDate);
+        $entry->currency             = $this->currency($documentEntry->currencyCode);
+        $entry->list_price           = $normalizer->decimal($documentEntry->listPrice);
+        $entry->monthly_list_price   = $normalizer->decimal($documentEntry->lineItemListPrice);
+        $entry->monthly_retail_price = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
+        $entry->renewal              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
+        $entry->oem_said             = $normalizer->string($documentEntry->said);
+        $entry->oem_sar_number       = $normalizer->string($documentEntry->sarNumber);
+        $entry->environment_id       = $normalizer->string($documentEntry->environmentId);
+        $entry->equipment_number     = $normalizer->string($documentEntry->equipmentNumber);
+        $entry->language             = $this->language($documentEntry->languageCode);
+        $entry->serviceGroup         = $this->documentEntryServiceGroup($model, $documentEntry);
+        $entry->serviceLevel         = $this->documentEntryServiceLevel($model, $documentEntry);
 
         return $entry;
     }
@@ -492,6 +506,15 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $asset;
+    }
+
+    protected function documentEntryAssetType(DocumentModel $model, DocumentEntry $documentEntry): ?TypeModel {
+        $type = $this->getNormalizer()->string($documentEntry->assetProductType);
+        $type = $type
+            ? $this->type(new AssetModel(), $type)
+            : null;
+
+        return $type;
     }
 
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {

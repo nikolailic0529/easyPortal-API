@@ -21,90 +21,20 @@
                     "eosDate": null,
                     "zip": "91547-9635",
                     "city": "Keaganport",
-                    "address": "4372 Pagac Motorway Suite 064",
+                    "address": "6536 Labadie Shoals",
                     "address2": null,
-                    "country": "Venezuela",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Liechtenstein",
+                    "latitude": "-16.028667",
+                    "longitude": "-156.006025",
+                    "countryCode": "AS",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662162113028",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
-                            "documentNumber": "00229bd6-b87d-3d75-b370-631726e01d7d",
-                            "document": {
-                                "id": "09f9880e-cb70-4abd-bb8a-2796e75c84e6",
-                                "type": "Contract",
-                                "documentNumber": "00229bd6-b87d-3d75-b370-631726e01d7d",
-                                "startDate": "2022-02-19",
-                                "endDate": "2023-02-28",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "3801.3199999999997",
-                                "languageCode": null,
-                                "updatedAt": "1656406898120",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": "cbd95d87-5db6-390d-be8d-3385257b938b",
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+17314746360",
-                                        "name": "Ms. Kristina Brakus",
-                                        "mail": "lkunze@yahoo.com",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+19529745630",
-                                        "name": "Dr. Iva Robel",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-                                "customerId": "fcce8dee-5a04-465c-96d9-be2123543915",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
-                            },
-                            "customer": {
-                                "id": "fcce8dee-5a04-465c-96d9-be2123543915"
-                            }
-                        },
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
@@ -382,7 +312,44 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662162113028",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-02-19",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4A6AC-HPE Tech Care Essential SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2022-02-19",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4A6AC-HPE Tech Care Essential SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-01-20",
+                                "coverageEndDate": "2022-02-18",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 5Y FC NBD DL380 Gen9 SVC",
+                                "serviceSku": "U7AH5E"
+                            },
+                            {
+                                "coverageStartDate": "2017-01-20",
+                                "coverageEndDate": "2020-02-18",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

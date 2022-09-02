@@ -39,8 +39,8 @@ class ImporterTest extends TestCase {
             Distributor::class   => 2,
             Reseller::class      => 8,
             Customer::class      => 25,
-            Asset::class         => 74,
-            Document::class      => 46,
+            Asset::class         => 77,
+            Document::class      => 47,
             DocumentEntry::class => 0,
         ]);
 

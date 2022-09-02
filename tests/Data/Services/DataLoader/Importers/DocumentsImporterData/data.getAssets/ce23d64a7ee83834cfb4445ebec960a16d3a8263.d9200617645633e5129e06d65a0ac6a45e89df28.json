@@ -21,15 +21,17 @@
                     "eosDate": null,
                     "zip": "74933",
                     "city": "Thielside",
-                    "address": "142 Hermiston Fields Apt. 002",
+                    "address": "678 Klein Valley",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "67.037845",
+                    "longitude": "-104.914388",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662164650206",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +128,20 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662164650206",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-04-28",
+                                "coverageEndDate": "2021-04-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -23,88 +23,18 @@
                     "city": "Spinkahaven",
                     "address": "846 Jodie Club",
                     "address2": null,
-                    "country": "French Polynesia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Bahrain",
+                    "latitude": "-88.497141",
+                    "longitude": "87.758901",
+                    "countryCode": "HN",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662163122031",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "0eff34c7-f680-3ad8-afcc-1e9061abd88b",
-                            "document": {
-                                "id": "1a271e72-0890-44a4-90d1-00e93645ad23",
-                                "type": "Contract",
-                                "documentNumber": "0eff34c7-f680-3ad8-afcc-1e9061abd88b",
-                                "startDate": "2021-01-14",
-                                "endDate": "2021-12-31",
-                                "currencyCode": "CHF",
-                                "totalNetPrice": "6137.739999999999",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+12177000293",
-                                        "name": "Miles Kiehn V",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+19409340919",
-                                        "name": "Dr. Jamie Eichmann Jr.",
-                                        "mail": "jspinka@gmail.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+16197438364",
-                                        "name": "Tillman Fay",
-                                        "mail": "summer.hoppe@homenick.net",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12177000293",
-                                        "name": "Miles Kiehn V",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12177000293",
-                                        "name": "Miles Kiehn V",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12177000293",
-                                        "name": "Miles Kiehn V",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
-                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
-                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-                            },
-                            "customer": {
-                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
-                            }
-                        },
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
@@ -328,7 +258,7 @@
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HL935AC",
-                            "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                            "serviceLevelSkuDescription": "HPE DL380 Gen10 8SFF CTO Server",
                             "documentNumber": "0eff34c7-f680-3ad8-afcc-1e9061abd88b",
                             "document": {
                                 "id": "1a271e72-0890-44a4-90d1-00e93645ad23",
@@ -418,7 +348,36 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662163122031",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-01-01",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-12-15",
+                                "coverageEndDate": "2021-01-13",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y FC 24x7 DL380 Gen10 SVC",
+                                "serviceSku": "H8QP7E"
+                            },
+                            {
+                                "coverageStartDate": "2017-12-15",
+                                "coverageEndDate": "2021-01-13",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

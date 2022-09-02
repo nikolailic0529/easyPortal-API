@@ -11,7 +11,7 @@
                     "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
                     "name": "Schowalter-Langosh",
                     "companyType": "RESELLER",
-                    "updatedAt": "1657154915676",
+                    "updatedAt": "1662157024215",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -38,20 +38,20 @@
                     "brandingData": null,
                     "companyKpis": {
                         "totalAssets": 3161,
-                        "activeAssets": 1101,
-                        "activeAssetsPercentage": 34.83074976273331,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": 17,
-                        "newActiveCustomers": 12,
-                        "activeContracts": 23,
-                        "activeContractTotalAmount": 59220.83,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 8,
+                        "activeContractTotalAmount": 1363.32,
                         "newActiveContracts": 0,
-                        "expiringContracts": 15,
+                        "expiringContracts": 0,
                         "activeQuotes": 3,
-                        "activeQuotesTotalAmount": 7251.96,
-                        "newActiveQuotes": 2,
+                        "activeQuotesTotalAmount": 7251.959999999999,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 3,
-                        "expiredContracts": 23,
+                        "expiredContracts": 8,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -64,7 +64,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "INACTIVE"
+                    ]
                 }
             ]
         }

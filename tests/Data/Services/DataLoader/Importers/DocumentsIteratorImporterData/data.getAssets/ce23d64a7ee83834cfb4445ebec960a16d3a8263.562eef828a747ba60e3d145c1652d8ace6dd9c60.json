@@ -24,72 +24,19 @@
                     "address": "831 Predovic Club Suite 270",
                     "address2": null,
                     "country": "Sri Lanka",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "39.082818",
+                    "longitude": "155.873786",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662155550943",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A1AC",
-                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
-                            "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
-                            "document": {
-                                "id": "f7e1814b-98fd-407b-97e8-d558182c7b17",
-                                "type": "Quote New Business",
-                                "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
-                                "startDate": "2022-06-01",
-                                "endDate": "2025-05-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "16719.56",
-                                "languageCode": null,
-                                "updatedAt": "1654254524322",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+17479140372",
-                                        "name": "Dr. Junior Casper",
-                                        "mail": "kboehm@hotmail.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12088560128",
-                                        "name": "Dr. Devyn Deckow",
-                                        "mail": "johnson.felicity@aufderhar.com",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+17244551230",
-                                        "name": "Luis Labadie",
-                                        "mail": "alfonzo66@yahoo.com",
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
-                            },
-                            "customer": {
-                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HU4A2AC",
                             "serviceLevelSkuDescription": "HPE Hardware Tech Support",
                             "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
@@ -236,6 +183,61 @@
                                         "phoneNumber": null,
                                         "name": null,
                                         "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "137361ff-fa7f-4dac-b0a6-0045f1b9a07d"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                            "document": {
+                                "id": "f7e1814b-98fd-407b-97e8-d558182c7b17",
+                                "type": "Quote New Business",
+                                "documentNumber": "2261c8b7-98a5-3547-be1f-626fa8a06b7c",
+                                "startDate": "2022-06-01",
+                                "endDate": "2025-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "16719.56",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17244551230",
+                                        "name": "Luis Labadie",
+                                        "mail": "alfonzo66@yahoo.com",
                                         "type": "EndUser Contact"
                                     }
                                 ],
@@ -254,7 +256,20 @@
                         }
                     ],
                     "latestContactPersons": null,
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662155550943",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-09-18",
+                                "coverageEndDate": "2021-10-17",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

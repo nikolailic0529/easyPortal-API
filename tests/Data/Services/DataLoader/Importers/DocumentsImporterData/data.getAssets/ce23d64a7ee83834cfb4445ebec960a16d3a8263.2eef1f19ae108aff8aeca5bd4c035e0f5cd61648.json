@@ -23,13 +23,15 @@
                     "city": "Port Janet",
                     "address": "6729 Williamson Crescent Apt. 506",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "70.402635",
+                    "longitude": "157.611849",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662143063983",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

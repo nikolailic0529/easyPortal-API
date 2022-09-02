@@ -19,17 +19,20 @@
                     "assetSku": "QW937A",
                     "eolDate": null,
                     "eosDate": null,
-                    "zip": "21625-4120",
+                    "zip": "66244",
                     "city": "New Terrillport",
                     "address": "47585 Lehner Pike",
                     "address2": null,
-                    "country": "Guam",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Myanmar",
+                    "latitude": "55.471391",
+                    "longitude": "71.448023",
+                    "countryCode": "CW",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662165346867",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -190,7 +193,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662165346867",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-01-01",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-06-10",
+                                "coverageEndDate": "2020-06-10",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

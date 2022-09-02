@@ -11,7 +11,7 @@
                     "id": "6f4a5f12-e0fc-4af6-9ee2-e6830737ac41",
                     "name": "Grimes Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162905047",
+                    "updatedAt": "1662156748481",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -58,7 +58,7 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 1,
+                        "totalAssets": 3,
                         "activeAssets": 0,
                         "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
@@ -88,7 +88,7 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                            "totalAssets": 1,
+                            "totalAssets": 3,
                             "activeAssets": 0,
                             "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,

@@ -24,12 +24,14 @@
                     "address": "927 Hansen Branch",
                     "address2": null,
                     "country": "Myanmar",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-32.17714",
+                    "longitude": "-106.415258",
+                    "countryCode": "CW",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140085011",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

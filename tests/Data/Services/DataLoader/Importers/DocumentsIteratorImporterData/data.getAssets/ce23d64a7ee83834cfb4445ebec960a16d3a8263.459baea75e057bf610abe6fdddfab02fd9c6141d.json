@@ -20,146 +20,21 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "97783-3838",
-                    "city": "Stoltenbergside",
-                    "address": "32103 Cleve Route",
+                    "city": "Port Coopermouth",
+                    "address": "13692 Tanya Spring Apt. 172",
                     "address2": null,
-                    "country": "Niue",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Sri Lanka",
+                    "latitude": "12.990191",
+                    "longitude": "-107.301173",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662169518419",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "1eba4f13-d27c-3125-a853-d1eaad1151c1",
-                            "document": {
-                                "id": "33433cbc-5473-4cf1-b900-d87ba5611556",
-                                "type": "Quote renewal",
-                                "documentNumber": "1eba4f13-d27c-3125-a853-d1eaad1151c1",
-                                "startDate": "2022-07-01",
-                                "endDate": "2023-06-30",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "0",
-                                "languageCode": null,
-                                "updatedAt": "1654272003746",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12088560128",
-                                        "name": "Dr. Devyn Deckow",
-                                        "mail": "johnson.felicity@aufderhar.com",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
-                            },
-                            "customer": {
-                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
-                            "documentNumber": "28965c19-9b28-3792-a023-6d659bddd7cd",
-                            "document": {
-                                "id": "c56366bd-5ba1-4852-a72e-bb5e9f927e08",
-                                "type": "Contract",
-                                "documentNumber": "28965c19-9b28-3792-a023-6d659bddd7cd",
-                                "startDate": "2022-07-01",
-                                "endDate": "2023-06-30",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "1368",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12088560128",
-                                        "name": "Dr. Devyn Deckow",
-                                        "mail": "johnson.felicity@aufderhar.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+17479140372",
-                                        "name": "Dr. Junior Casper",
-                                        "mail": "kboehm@hotmail.com",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13214965058",
-                                        "name": "Adrianna Smitham",
-                                        "mail": "sschmeler@gmail.com",
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13214965058",
-                                        "name": "Adrianna Smitham",
-                                        "mail": "sschmeler@gmail.com",
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
-                            },
-                            "customer": {
-                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
-                            }
-                        },
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
@@ -342,6 +217,116 @@
                             "customer": {
                                 "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
                             }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "95bd82aa-5383-3750-8ca3-61710f0dec90",
+                            "document": {
+                                "id": "083145d4-b350-49cd-9844-d3998c411ce5",
+                                "type": "Quote renewal",
+                                "documentNumber": "95bd82aa-5383-3750-8ca3-61710f0dec90",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "4854.4800000000005",
+                                "languageCode": null,
+                                "updatedAt": "1657069043285",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13214965058",
+                                        "name": "Adrianna Smitham",
+                                        "mail": "sschmeler@gmail.com",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "documentNumber": "3107e6fb-dafd-36a5-b942-c045861a18cd",
+                            "document": {
+                                "id": "2e801e28-7017-453b-a394-c8484a548cc4",
+                                "type": "Quote renewal",
+                                "documentNumber": "3107e6fb-dafd-36a5-b942-c045861a18cd",
+                                "startDate": "2022-07-01",
+                                "endDate": "2022-12-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2432.88",
+                                "languageCode": null,
+                                "updatedAt": "1654254524322",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17479140372",
+                                        "name": "Dr. Junior Casper",
+                                        "mail": "kboehm@hotmail.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
+                            }
                         }
                     ],
                     "latestContactPersons": [
@@ -364,7 +349,36 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662169518419",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-07-01",
+                                "coverageEndDate": "2023-06-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4A6AC-HPE Tech Care Essential SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-10-01",
+                                "coverageEndDate": "2022-06-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2010-08-27",
+                                "coverageEndDate": "2011-08-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

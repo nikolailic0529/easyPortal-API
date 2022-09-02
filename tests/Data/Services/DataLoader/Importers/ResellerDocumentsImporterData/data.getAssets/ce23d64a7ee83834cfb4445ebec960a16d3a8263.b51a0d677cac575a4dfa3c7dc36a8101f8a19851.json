@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "09164-5726",
                     "city": "Adanview",
-                    "address": "19609 Jordane Curve",
+                    "address": "45585 Bode Crescent",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "65.271448",
+                    "longitude": "16.973988",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662138517223",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -345,7 +348,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662138517223",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-08-22",
+                                "coverageEndDate": "2023-08-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-08-14",
+                                "coverageEndDate": "2021-09-12",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

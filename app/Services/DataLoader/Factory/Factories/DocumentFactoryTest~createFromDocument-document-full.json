@@ -40,7 +40,15 @@
             "endDate": null,
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "145"
+            "estimatedValueRenewal": "145",
+            "assetProductType": "Hardware",
+            "lineItemListPrice": "45",
+            "lineItemMonthlyRetailPrice": "55",
+            "said": null,
+            "sarNumber": "SAR#1",
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": "EN"
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -50,7 +58,15 @@
             "endDate": "1677542400000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "25"
+            "estimatedValueRenewal": "25",
+            "assetProductType": "Hardware",
+            "lineItemListPrice": "45",
+            "lineItemMonthlyRetailPrice": "55",
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": "EN"
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -60,7 +76,15 @@
             "endDate": "1740700800000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "10.44"
+            "estimatedValueRenewal": "10.44",
+            "assetProductType": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -72,7 +96,15 @@
             "endDate": "1614470400000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "40"
+            "estimatedValueRenewal": "40",
+            "assetProductType": "Software",
+            "lineItemListPrice": "10",
+            "lineItemMonthlyRetailPrice": "55",
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": "DE"
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -84,7 +116,15 @@
             "endDate": "1677542400000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "0"
+            "estimatedValueRenewal": "0",
+            "assetProductType": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null
         },
         {
             "assetId": "c0200a6c-1b8a-4365-9f1b-32d753194335",
@@ -96,7 +136,15 @@
             "endDate": "1740700800000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "24.3"
+            "estimatedValueRenewal": "24.3",
+            "assetProductType": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null
         },
         {
             "assetId": null,
@@ -108,7 +156,15 @@
             "endDate": "1740700800000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "24.3"
+            "estimatedValueRenewal": "24.3",
+            "assetProductType": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null
         },
         {
             "assetId": null,
@@ -120,7 +176,15 @@
             "endDate": "1740700800000",
             "listPrice": "48",
             "currencyCode": "EUR",
-            "estimatedValueRenewal": "24.3"
+            "estimatedValueRenewal": "24.3",
+            "assetProductType": null,
+            "lineItemListPrice": null,
+            "lineItemMonthlyRetailPrice": null,
+            "said": null,
+            "sarNumber": null,
+            "environmentId": null,
+            "equipmentNumber": null,
+            "languageCode": null
         }
     ]
 }

@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "90841-9660",
                     "city": "Olliemouth",
-                    "address": "3500 Nienow Avenue Apt. 400",
+                    "address": "965 Maximo Extension Suite 973",
                     "address2": null,
-                    "country": "Guam",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Myanmar",
+                    "latitude": "-52.695638",
+                    "longitude": "152.168262",
+                    "countryCode": "CW",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662169393049",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -400,7 +403,76 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662169393049",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-04-20",
+                                "coverageEndDate": "2023-03-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-04-20",
+                                "coverageEndDate": "2021-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 SVC",
+                                "serviceSku": "U6VD5PE"
+                            },
+                            {
+                                "coverageStartDate": "2021-04-20",
+                                "coverageEndDate": "2022-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 SVC",
+                                "serviceSku": "U6VD5PE"
+                            },
+                            {
+                                "coverageStartDate": "2019-04-20",
+                                "coverageEndDate": "2020-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2018-04-20",
+                                "coverageEndDate": "2019-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2014-03-21",
+                                "coverageEndDate": "2017-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y 4H 24x7 DL38x(p) HW Support",
+                                "serviceSku": "U4545E"
+                            },
+                            {
+                                "coverageStartDate": "2017-04-20",
+                                "coverageEndDate": "2018-04-19",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 DL380p Gen8 w/IC SVC",
+                                "serviceSku": "U6VJ0PE"
+                            },
+                            {
+                                "coverageStartDate": "2018-10-26",
+                                "coverageEndDate": "2018-10-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

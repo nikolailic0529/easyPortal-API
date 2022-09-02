@@ -11,7 +11,7 @@
                     "id": "9b6bd960-0bbe-441c-a204-7ae63aeebd73",
                     "name": "Okuneva LLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162977784",
+                    "updatedAt": "1662156827608",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -64,9 +64,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 360,
-                        "activeAssets": 348,
-                        "activeAssetsPercentage": 96.66666666666667,
+                        "totalAssets": 376,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 5,
@@ -94,9 +94,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                            "totalAssets": 360,
-                            "activeAssets": 348,
-                            "activeAssetsPercentage": 96.66666666666667,
+                            "totalAssets": 376,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 5,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

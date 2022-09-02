@@ -11,7 +11,7 @@
                     "id": "93b826cf-3aa1-4d6a-b77a-031d71ec3900",
                     "name": "Johnson Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162963985",
+                    "updatedAt": "1662156813414",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -52,9 +52,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 13,
-                        "activeAssets": 7,
-                        "activeAssetsPercentage": 53.84615384615385,
+                        "totalAssets": 18,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -82,9 +82,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                            "totalAssets": 13,
-                            "activeAssets": 7,
-                            "activeAssetsPercentage": 53.84615384615385,
+                            "totalAssets": 18,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

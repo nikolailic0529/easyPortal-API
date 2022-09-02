@@ -40,8 +40,8 @@ class IteratorImporterTest extends TestCase {
             Distributor::class   => 2,
             Reseller::class      => 7,
             Customer::class      => 10,
-            Asset::class         => 23,
-            AssetWarranty::class => 0,
+            Asset::class         => 24,
+            AssetWarranty::class => 43,
             Document::class      => 29,
             DocumentEntry::class => 0,
         ]);
@@ -62,10 +62,10 @@ class IteratorImporterTest extends TestCase {
             Distributor::class   => 2,
             Reseller::class      => 7,
             Customer::class      => 10,
-            Asset::class         => 23,
-            AssetWarranty::class => 0,
+            Asset::class         => 24,
+            AssetWarranty::class => 43,
             Document::class      => 29,
-            DocumentEntry::class => 42,
+            DocumentEntry::class => 40,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-cold-events.json',

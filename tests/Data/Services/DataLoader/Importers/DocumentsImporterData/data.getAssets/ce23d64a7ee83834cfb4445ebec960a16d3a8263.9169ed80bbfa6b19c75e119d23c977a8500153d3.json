@@ -21,168 +21,24 @@
                     "eosDate": null,
                     "zip": "30184-8270",
                     "city": "Lake Kiraville",
-                    "address": "7684 Hulda Crescent",
+                    "address": "8662 Deanna Stravenue",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-12.211101",
+                    "longitude": "44.959132",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662147506542",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HA156AC",
-                            "serviceLevelSkuDescription": "HPE Software Updates Service",
-                            "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
-                            "document": {
-                                "id": "18bf4663-6d6d-41df-ab3c-7c05caab4669",
-                                "type": "Contract",
-                                "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
-                                "startDate": "2020-11-01",
-                                "endDate": "2021-10-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "828",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+16607583859",
-                                        "name": "Prof. Martine Heathcote",
-                                        "mail": "renee.wolff@ortiz.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+19802975848",
-                                        "name": "Mike Stark",
-                                        "mail": "yroberts@schamberger.biz",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                                "customerId": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
-                            },
-                            "customer": {
-                                "id": "a2a32196-e319-4d35-a821-5e00fbc6feb2"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA156AC",
                             "serviceLevelSkuDescription": "HPE IMC NTA SW Mod w/5-node E-LTU",
-                            "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
-                            "document": {
-                                "id": "18bf4663-6d6d-41df-ab3c-7c05caab4669",
-                                "type": "Contract",
-                                "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
-                                "startDate": "2020-11-01",
-                                "endDate": "2021-10-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "828",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+16607583859",
-                                        "name": "Prof. Martine Heathcote",
-                                        "mail": "renee.wolff@ortiz.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+19802975848",
-                                        "name": "Mike Stark",
-                                        "mail": "yroberts@schamberger.biz",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": "Mabelle Metz",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                                "customerId": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
-                            },
-                            "customer": {
-                                "id": "a2a32196-e319-4d35-a821-5e00fbc6feb2"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA156AC",
-                            "serviceLevelSkuDescription": "HPE Software Updates Service",
                             "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
                             "document": {
                                 "id": "18bf4663-6d6d-41df-ab3c-7c05caab4669",
@@ -328,7 +184,80 @@
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HA158AC",
-                            "serviceLevelSkuDescription": "Telefonische SW Unterstützung",
+                            "serviceLevelSkuDescription": "HPE IMC Std SW Plat w/50-node E-LTU",
+                            "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
+                            "document": {
+                                "id": "18bf4663-6d6d-41df-ab3c-7c05caab4669",
+                                "type": "Contract",
+                                "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
+                                "startDate": "2020-11-01",
+                                "endDate": "2021-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "828",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Mabelle Metz",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16607583859",
+                                        "name": "Prof. Martine Heathcote",
+                                        "mail": "renee.wolff@ortiz.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19802975848",
+                                        "name": "Mike Stark",
+                                        "mail": "yroberts@schamberger.biz",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Mabelle Metz",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Mabelle Metz",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Mabelle Metz",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                                "customerId": "a2a32196-e319-4d35-a821-5e00fbc6feb2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+                            },
+                            "customer": {
+                                "id": "a2a32196-e319-4d35-a821-5e00fbc6feb2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE IMC NTA SW Mod w/5-node E-LTU",
                             "documentNumber": "d0ef07c5-06ba-3cd9-b29c-22b22b0cd822",
                             "document": {
                                 "id": "18bf4663-6d6d-41df-ab3c-7c05caab4669",

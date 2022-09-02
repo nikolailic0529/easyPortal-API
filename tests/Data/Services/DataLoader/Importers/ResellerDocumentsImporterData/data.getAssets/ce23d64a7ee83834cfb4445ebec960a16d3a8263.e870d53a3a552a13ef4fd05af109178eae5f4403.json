@@ -24,12 +24,14 @@
                     "address": "69433 Petra Well",
                     "address2": null,
                     "country": "Nicaragua",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-22.036264",
+                    "longitude": "-8.047634",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662143577147",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

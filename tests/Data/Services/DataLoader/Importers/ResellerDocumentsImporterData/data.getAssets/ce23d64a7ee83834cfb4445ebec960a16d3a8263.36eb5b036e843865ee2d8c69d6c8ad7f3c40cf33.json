@@ -24,12 +24,14 @@
                     "address": "7530 Bettye Cove Apt. 088",
                     "address2": null,
                     "country": "Nicaragua",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-66.122593",
+                    "longitude": "125.525536",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662145841366",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

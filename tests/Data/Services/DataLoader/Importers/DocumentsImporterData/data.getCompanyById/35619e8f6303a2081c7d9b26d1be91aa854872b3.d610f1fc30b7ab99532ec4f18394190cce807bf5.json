@@ -11,7 +11,7 @@
                     "id": "09c766be-e5b4-4cb2-9f95-402486af7059",
                     "name": "Koepp, Schamberger and Eichmann",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162751588",
+                    "updatedAt": "1662156573797",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,9 +46,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 86,
-                        "activeAssets": 86,
-                        "activeAssetsPercentage": 100.0,
+                        "totalAssets": 96,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -76,9 +76,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-                            "totalAssets": 86,
-                            "activeAssets": 86,
-                            "activeAssetsPercentage": 100.0,
+                            "totalAssets": 96,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

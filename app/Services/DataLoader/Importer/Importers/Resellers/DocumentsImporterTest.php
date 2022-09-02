@@ -40,8 +40,8 @@ class DocumentsImporterTest extends TestCase {
             Distributor::class   => 1,
             Reseller::class      => 1,
             Customer::class      => 14,
-            Asset::class         => 71,
-            AssetWarranty::class => 0,
+            Asset::class         => 73,
+            AssetWarranty::class => 64,
             Document::class      => 30,
             DocumentEntry::class => 0,
         ]);
@@ -62,8 +62,8 @@ class DocumentsImporterTest extends TestCase {
             Distributor::class   => 1,
             Reseller::class      => 1,
             Customer::class      => 14,
-            Asset::class         => 71,
-            AssetWarranty::class => 0,
+            Asset::class         => 73,
+            AssetWarranty::class => 64,
             Document::class      => 30,
             DocumentEntry::class => 98,
         ]);

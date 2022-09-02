@@ -23,13 +23,15 @@
                     "city": "Nigelland",
                     "address": "49667 Ryan View Suite 376",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "14.674388",
+                    "longitude": "-20.572686",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662152983323",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -199,7 +201,36 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662152983323",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-08-01",
+                                "coverageEndDate": "2022-07-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-03-09",
+                                "coverageEndDate": "2021-03-08",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y FC 24x7 DL360 Gen10 SVC",
+                                "serviceSku": "H8QF0E"
+                            },
+                            {
+                                "coverageStartDate": "2018-03-09",
+                                "coverageEndDate": "2021-04-07",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -19,134 +19,27 @@
                     "assetSku": "681844-B21",
                     "eolDate": null,
                     "eosDate": null,
-                    "zip": "30754",
+                    "zip": "16449-7153",
                     "city": "Cruickshankside",
-                    "address": "17452 Marge Stream Apt. 367",
+                    "address": "2524 Quincy Neck Suite 297",
                     "address2": null,
-                    "country": "",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "63.051887",
+                    "longitude": "148.504695",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662165368067",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
-                            "documentNumber": "471acaa3-4155-3513-842f-ed9ba23426ba",
-                            "document": {
-                                "id": "18af6bb6-25c5-4cb5-8332-bc7f89ccc158",
-                                "type": "Quote renewal",
-                                "documentNumber": "471acaa3-4155-3513-842f-ed9ba23426ba",
-                                "startDate": "2023-01-01",
-                                "endDate": "2023-12-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "0",
-                                "languageCode": null,
-                                "updatedAt": "1656981962417",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+19475559074",
-                                        "name": "Tia Prosacco DDS",
-                                        "mail": "mosciski.nikita@hotmail.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18563841650",
-                                        "name": "Dr. Kirsten Windler V",
-                                        "mail": "jackson.nader@stracke.com",
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                                "customerId": "bff7c3d4-beb3-4210-92cb-281687b6a8ba",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-                            },
-                            "customer": {
-                                "id": "bff7c3d4-beb3-4210-92cb-281687b6a8ba"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HA151AC",
                             "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "471acaa3-4155-3513-842f-ed9ba23426ba",
-                            "document": {
-                                "id": "18af6bb6-25c5-4cb5-8332-bc7f89ccc158",
-                                "type": "Quote renewal",
-                                "documentNumber": "471acaa3-4155-3513-842f-ed9ba23426ba",
-                                "startDate": "2023-01-01",
-                                "endDate": "2023-12-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "0",
-                                "languageCode": null,
-                                "updatedAt": "1656981962417",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+19475559074",
-                                        "name": "Tia Prosacco DDS",
-                                        "mail": "mosciski.nikita@hotmail.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18563841650",
-                                        "name": "Dr. Kirsten Windler V",
-                                        "mail": "jackson.nader@stracke.com",
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                                "customerId": "bff7c3d4-beb3-4210-92cb-281687b6a8ba",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
-                            },
-                            "customer": {
-                                "id": "bff7c3d4-beb3-4210-92cb-281687b6a8ba"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A1AC",
-                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
                             "documentNumber": "471acaa3-4155-3513-842f-ed9ba23426ba",
                             "document": {
                                 "id": "18af6bb6-25c5-4cb5-8332-bc7f89ccc158",
@@ -254,7 +147,52 @@
                         }
                     ],
                     "latestContactPersons": null,
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662165368067",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-01-01",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2014-10-27",
+                                "coverageEndDate": "2017-10-26",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y FC 24x7 c7000 Blade Enclosure SVC",
+                                "serviceSku": "U2HA2E"
+                            },
+                            {
+                                "coverageStartDate": "2014-10-27",
+                                "coverageEndDate": "2017-10-26",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 3Y FC 24x7 c7000 Blade Enclosure SVC",
+                                "serviceSku": "U2HA2E"
+                            },
+                            {
+                                "coverageStartDate": "2014-10-27",
+                                "coverageEndDate": "2019-10-26",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 5Y 4H 24x7 c7000 Enclosure HWSupp",
+                                "serviceSku": "UE487E"
+                            },
+                            {
+                                "coverageStartDate": "2014-10-27",
+                                "coverageEndDate": "2017-10-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "70190-0587",
                     "city": "Gusikowskihaven",
-                    "address": "62196 Gay Court",
+                    "address": "4475 Jasen Glens",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-84.836546",
+                    "longitude": "-86.429919",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662151525439",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662151525439",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2017-01-24",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2016-10-22",
+                                "coverageEndDate": "2019-11-20",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -20,16 +20,18 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "23068-8315",
-                    "city": "Danykastad",
-                    "address": "113 Daija Hollow",
+                    "city": "Sanfordberg",
+                    "address": "675 Floy Drives",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "42.036691",
+                    "longitude": "-124.823539",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662139006776",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {

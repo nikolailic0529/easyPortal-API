@@ -24,12 +24,14 @@
                     "address": "4681 Allan Overpass",
                     "address2": null,
                     "country": "Sri Lanka",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-36.058488",
+                    "longitude": "103.614116",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140231944",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

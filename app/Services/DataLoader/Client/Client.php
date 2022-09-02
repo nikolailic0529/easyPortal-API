@@ -1353,6 +1353,13 @@ class Client {
                 currencyCode
                 listPrice
                 estimatedValueRenewal
+                assetProductType
+                environmentId
+                equipmentNumber
+                lineItemListPrice
+                lineItemMonthlyRetailPrice
+                said
+                sarNumber
             }
             GRAPHQL;
     }

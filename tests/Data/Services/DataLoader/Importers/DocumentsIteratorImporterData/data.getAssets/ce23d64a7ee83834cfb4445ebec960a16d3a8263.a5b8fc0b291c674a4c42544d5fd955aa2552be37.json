@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "98248-5561",
                     "city": "Joymouth",
-                    "address": "2594 Doug View Apt. 957",
+                    "address": "44525 Leif Mission Suite 253",
                     "address2": null,
-                    "country": "Niue",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Sri Lanka",
+                    "latitude": "14.322119",
+                    "longitude": "121.974904",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662156293975",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -346,7 +349,36 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662156293975",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-08-03",
+                                "coverageEndDate": "2023-08-02",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4B5AC-HPE Tech Care Basic Exch SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-08-03",
+                                "coverageEndDate": "2022-08-02",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "HT7A1AC-HPE NS NBD Parts Exchange Support",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-07-30",
+                                "coverageEndDate": "2020-08-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -24,12 +24,14 @@
                     "address": "8736 Oberbrunner Causeway",
                     "address2": null,
                     "country": "Nicaragua",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "50.403257",
+                    "longitude": "147.347202",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662158216965",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -181,7 +183,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662158216965",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2017-06-30",
+                                "coverageEndDate": "2022-06-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-11-26",
+                                "coverageEndDate": "2020-11-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

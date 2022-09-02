@@ -23,13 +23,16 @@
                     "city": "Jammieshire",
                     "address": "14021 Jodie Hills",
                     "address2": null,
-                    "country": "French Polynesia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Bahrain",
+                    "latitude": "-50.936487",
+                    "longitude": "-84.644676",
+                    "countryCode": "HN",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662159697357",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662159697342",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2019-01-17",
+                                "coverageEndDate": "2024-01-16",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2022-09-03",
+                                "coverageEndDate": "2022-09-03",
+                                "type": "FactoryWarranty",
+                                "status": "Future",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

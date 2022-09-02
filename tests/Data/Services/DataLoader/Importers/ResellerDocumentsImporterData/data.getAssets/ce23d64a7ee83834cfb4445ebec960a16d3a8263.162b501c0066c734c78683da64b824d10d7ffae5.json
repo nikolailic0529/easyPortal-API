@@ -23,13 +23,16 @@
                     "city": "Herminiastad",
                     "address": "7530 Bettye Cove Apt. 088",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "-66.122593",
+                    "longitude": "125.525536",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662143613072",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662143613072",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-12",
+                                "coverageEndDate": "2025-06-11",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-05-31",
+                                "coverageEndDate": "2023-06-29",
+                                "type": "FactoryWarranty",
+                                "status": "Active",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

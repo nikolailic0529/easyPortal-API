@@ -23,13 +23,16 @@
                     "city": "Port Fae",
                     "address": "53268 Donny Lake Suite 001",
                     "address2": null,
-                    "country": "Guam",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Myanmar",
+                    "latitude": "55.990189",
+                    "longitude": "128.040836",
+                    "countryCode": "CW",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140947266",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -58,79 +61,6 @@
                                     {
                                         "phoneNumber": "+18202534466",
                                         "name": "Hyman Russel",
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+17709427853",
-                                        "name": "Gunnar Roberts",
-                                        "mail": "dillan62@rau.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+14587213921",
-                                        "name": "Candace Gerhold",
-                                        "mail": "timmothy82@cruickshank.com",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18202534466",
-                                        "name": "Hyman Russel",
-                                        "mail": null,
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18202534466",
-                                        "name": "Hyman Russel",
-                                        "mail": null,
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+18202534466",
-                                        "name": "Hyman Russel",
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
-                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
-                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
-                            },
-                            "customer": {
-                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA158AC",
-                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
-                            "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
-                            "document": {
-                                "id": "dab03736-a5fe-4073-bbb3-1bb59b7be652",
-                                "type": "Contract",
-                                "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
-                                "startDate": "2022-04-01",
-                                "endDate": "2023-03-31",
-                                "currencyCode": "CHF",
-                                "totalNetPrice": "3199.2",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": "564d1dd7-eee3-3dbf-901f-855e8ef8a9cd",
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
                                         "mail": null,
                                         "type": "EndUser Contact"
                                     },
@@ -360,6 +290,77 @@
                             "customer": {
                                 "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
                             }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
+                            "document": {
+                                "id": "dab03736-a5fe-4073-bbb3-1bb59b7be652",
+                                "type": "Contract",
+                                "documentNumber": "f3b4acfd-a37c-3202-9e52-c90a11637b9d",
+                                "startDate": "2022-04-01",
+                                "endDate": "2023-03-31",
+                                "currencyCode": "CHF",
+                                "totalNetPrice": "3199.2",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "564d1dd7-eee3-3dbf-901f-855e8ef8a9cd",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17709427853",
+                                        "name": "Gunnar Roberts",
+                                        "mail": "dillan62@rau.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14587213921",
+                                        "name": "Candace Gerhold",
+                                        "mail": "timmothy82@cruickshank.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18202534466",
+                                        "name": "Hyman Russel",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                                "customerId": "7dd5da83-03f1-4847-b4cd-ea6fd047d756",
+                                "distributorId": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": null,
+                            "customer": {
+                                "id": "7dd5da83-03f1-4847-b4cd-ea6fd047d756"
+                            }
                         }
                     ],
                     "latestContactPersons": [
@@ -382,7 +383,20 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662140947266",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-03-23",
+                                "coverageEndDate": "2023-03-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1L06AC-HPE Partner-Branded NBD Support SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

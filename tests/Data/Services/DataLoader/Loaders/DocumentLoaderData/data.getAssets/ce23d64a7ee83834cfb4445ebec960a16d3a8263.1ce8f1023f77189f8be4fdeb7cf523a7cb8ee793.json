@@ -24,12 +24,14 @@
                     "address": "7658 Martina Vista",
                     "address2": null,
                     "country": "Puerto Rico",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "-89.265842",
+                    "longitude": "-121.432516",
+                    "countryCode": "SB",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140136635",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

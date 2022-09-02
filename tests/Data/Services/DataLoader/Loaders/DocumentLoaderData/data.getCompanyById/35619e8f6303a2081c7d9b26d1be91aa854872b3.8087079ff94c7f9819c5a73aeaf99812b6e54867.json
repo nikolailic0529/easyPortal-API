@@ -11,7 +11,7 @@
                     "id": "60e73b13-f741-4c73-a32d-a23fa438d9ad",
                     "name": "Hilpert-Marvin",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162883936",
+                    "updatedAt": "1662156723701",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 4,
-                        "activeAssets": 4,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 4,
-                            "activeAssets": 4,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

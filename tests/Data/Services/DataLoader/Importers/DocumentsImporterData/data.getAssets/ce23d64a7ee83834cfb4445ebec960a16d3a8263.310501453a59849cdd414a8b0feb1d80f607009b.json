@@ -21,15 +21,17 @@
                     "eosDate": null,
                     "zip": "26664",
                     "city": "Websterstad",
-                    "address": "999 Marks Coves",
+                    "address": "503 Kyra Trail Apt. 916",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-89.727057",
+                    "longitude": "-101.761806",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662139735806",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

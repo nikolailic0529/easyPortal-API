@@ -11,7 +11,7 @@
                     "id": "54e27fda-9562-429d-a155-db003a6b757a",
                     "name": "Runolfsson Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162864149",
+                    "updatedAt": "1662156701182",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 82,
-                        "activeAssets": 82,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 5,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 82,
-                            "activeAssets": 82,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 5,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

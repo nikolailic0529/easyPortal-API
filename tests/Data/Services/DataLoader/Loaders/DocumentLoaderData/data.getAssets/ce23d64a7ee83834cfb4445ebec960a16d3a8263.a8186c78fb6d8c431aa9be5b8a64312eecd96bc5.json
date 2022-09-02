@@ -20,16 +20,18 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "89915-8265",
-                    "city": "Paucekland",
-                    "address": "375 Antonette Trail",
+                    "city": "North Oceaneberg",
+                    "address": "7658 Martina Vista",
                     "address2": null,
-                    "country": "Senegal",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Puerto Rico",
+                    "latitude": "-89.265842",
+                    "longitude": "-121.432516",
+                    "countryCode": "SB",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141372930",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

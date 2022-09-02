@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "91547-9635",
                     "city": "Keaganport",
-                    "address": "4372 Pagac Motorway Suite 064",
+                    "address": "6536 Labadie Shoals",
                     "address2": null,
-                    "country": "Venezuela",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Liechtenstein",
+                    "latitude": "-16.028667",
+                    "longitude": "-156.006025",
+                    "countryCode": "AS",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662167231886",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -309,7 +312,44 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662167231886",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-02-19",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4B2AC-HPE Tech Care Basic SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2022-02-19",
+                                "coverageEndDate": "2023-02-28",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4B2AC-HPE Tech Care Basic SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-01-20",
+                                "coverageEndDate": "2022-02-18",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 5Y FC NBD D2600 DISK ENC SVC",
+                                "serviceSku": "U4YB3E"
+                            },
+                            {
+                                "coverageStartDate": "2017-01-20",
+                                "coverageEndDate": "2020-02-18",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

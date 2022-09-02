@@ -24,12 +24,14 @@
                     "address": "517 Borer Estates Suite 674",
                     "address2": null,
                     "country": "Nicaragua",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "29.808887",
+                    "longitude": "16.745366",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141401441",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

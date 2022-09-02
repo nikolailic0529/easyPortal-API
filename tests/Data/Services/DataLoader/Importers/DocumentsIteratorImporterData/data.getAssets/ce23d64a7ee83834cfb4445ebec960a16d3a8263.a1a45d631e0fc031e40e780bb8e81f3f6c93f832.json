@@ -20,91 +20,21 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "97783-3838",
-                    "city": "Stoltenbergside",
-                    "address": "32103 Cleve Route",
+                    "city": "Port Coopermouth",
+                    "address": "13692 Tanya Spring Apt. 172",
                     "address2": null,
-                    "country": "Niue",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Sri Lanka",
+                    "latitude": "12.990191",
+                    "longitude": "-107.301173",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662146251769",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HA151AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
-                            "documentNumber": "dfaa6230-88a7-301a-a085-44534c5581af",
-                            "document": {
-                                "id": "1d6a591d-2ebf-43fb-a776-ef8befaa370c",
-                                "type": "Contract",
-                                "documentNumber": "dfaa6230-88a7-301a-a085-44534c5581af",
-                                "startDate": "2022-07-01",
-                                "endDate": "2023-06-30",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "4567.68",
-                                "languageCode": null,
-                                "updatedAt": "1654262846658",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+12088560128",
-                                        "name": "Dr. Devyn Deckow",
-                                        "mail": "johnson.felicity@aufderhar.com",
-                                        "type": "Distributor Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+17479140372",
-                                        "name": "Dr. Junior Casper",
-                                        "mail": "kboehm@hotmail.com",
-                                        "type": "Reseller Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13214965058",
-                                        "name": "Adrianna Smitham",
-                                        "mail": "sschmeler@gmail.com",
-                                        "type": "Hardware System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+13214965058",
-                                        "name": "Adrianna Smitham",
-                                        "mail": "sschmeler@gmail.com",
-                                        "type": "Software System Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "System Manager Contact"
-                                    }
-                                ],
-                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
-                            },
-                            "customer": {
-                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
-                            }
-                        },
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
@@ -342,6 +272,61 @@
                             "customer": {
                                 "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
                             }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "documentNumber": "55c3c01e-cdae-32c1-b21e-5d89fcf656d7",
+                            "document": {
+                                "id": "35cac46b-56ce-4919-a263-4ae65bc57c96",
+                                "type": "Quote renewal",
+                                "documentNumber": "55c3c01e-cdae-32c1-b21e-5d89fcf656d7",
+                                "startDate": "2022-07-01",
+                                "endDate": "2023-06-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272003825",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12088560128",
+                                        "name": "Dr. Devyn Deckow",
+                                        "mail": "johnson.felicity@aufderhar.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                                "customerId": "8e3ba44b-5949-4503-991b-ddf8b785177c",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "594184e7-24d4-4614-8db4-fe132adb86f4"
+                            },
+                            "customer": {
+                                "id": "8e3ba44b-5949-4503-991b-ddf8b785177c"
+                            }
                         }
                     ],
                     "latestContactPersons": [
@@ -364,7 +349,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662146251769",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-07-01",
+                                "coverageEndDate": "2023-06-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2021-10-01",
+                                "coverageEndDate": "2022-06-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "88650-1410",
                     "city": "Laronport",
-                    "address": "689 Margaretta Inlet Suite 502",
+                    "address": "72155 Emmy Place Apt. 049",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "77.877334",
+                    "longitude": "26.808182",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662163268816",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -400,7 +403,36 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662163268816",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-07-01",
+                                "coverageEndDate": "2023-06-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "HU4B2AC-HPE Tech Care Basic SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-07-01",
+                                "coverageEndDate": "2022-06-30",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-06-08",
+                                "coverageEndDate": "2020-06-07",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

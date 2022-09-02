@@ -3951,13 +3951,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Models\\\\\\\\DocumentEntry' and App\\\\Models\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
@@ -3968,11 +3963,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$distributorId on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-

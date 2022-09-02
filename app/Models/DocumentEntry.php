@@ -9,12 +9,16 @@ use App\Models\Relations\HasLanguage;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
-use App\Models\Relations\HasTypeNullable;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use InvalidArgumentException;
+
+use function sprintf;
 
 /**
  * Document Entry.
@@ -65,11 +69,6 @@ class DocumentEntry extends Model {
     use HasCurrency;
     use HasLanguage;
 
-    use HasTypeNullable {
-        type as assetType;
-        setTypeAttribute as setAssetTypeAttribute;
-    }
-
     protected const CASTS = [
         'monthly_retail_price' => 'decimal:2',
         'monthly_list_price'   => 'decimal:2',
@@ -94,4 +93,27 @@ class DocumentEntry extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    // <editor-fold desc="Relations">
+    // =========================================================================
+    /**
+     * @return BelongsTo<Type, self>
+     */
+    #[CascadeDelete(false)]
+    public function assetType(): BelongsTo {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function setAssetTypeAttribute(?Type $type): void {
+        if ($type && $type->object_type !== (new Asset())->getMorphClass()) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$type` must be `%s`, `%s` given.',
+                $this->getMorphClass(),
+                $type->object_type,
+            ));
+        }
+
+        $this->assetType()->associate($type);
+    }
+    // </editor-fold>
 }

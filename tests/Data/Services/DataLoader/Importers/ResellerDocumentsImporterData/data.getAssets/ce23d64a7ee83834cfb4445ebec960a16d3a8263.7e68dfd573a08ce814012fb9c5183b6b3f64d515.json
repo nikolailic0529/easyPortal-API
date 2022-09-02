@@ -21,15 +21,17 @@
                     "eosDate": null,
                     "zip": "07714",
                     "city": "East Marcella",
-                    "address": "66671 Russel Crossing",
+                    "address": "5488 Breitenberg Street",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "-85.448343",
+                    "longitude": "-176.362317",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662160044196",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +128,20 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662160044196",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2016-08-19",
+                                "coverageEndDate": "2017-09-17",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

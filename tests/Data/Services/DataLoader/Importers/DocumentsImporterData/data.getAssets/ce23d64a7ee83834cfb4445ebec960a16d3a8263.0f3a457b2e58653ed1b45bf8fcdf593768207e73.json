@@ -21,22 +21,135 @@
                     "eosDate": null,
                     "zip": "70257-2841",
                     "city": "East Dallas",
-                    "address": "5426 Senger Trail Apt. 553",
+                    "address": "81526 Madelynn Wells Apt. 660",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-80.793952",
+                    "longitude": "-38.506011",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662143595284",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
+                            "document": {
+                                "id": "78ca29c4-475c-401f-b02f-0a57f55dc34f",
+                                "type": "Quote New Business",
+                                "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3887.04",
+                                "languageCode": null,
+                                "updatedAt": "1654272009093",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "09c766be-e5b4-4cb2-9f95-402486af7059",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "09c766be-e5b4-4cb2-9f95-402486af7059"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HU4A1AC",
                             "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
+                            "document": {
+                                "id": "78ca29c4-475c-401f-b02f-0a57f55dc34f",
+                                "type": "Quote New Business",
+                                "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
+                                "startDate": "2022-02-01",
+                                "endDate": "2023-01-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3887.04",
+                                "languageCode": null,
+                                "updatedAt": "1654272009093",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "09c766be-e5b4-4cb2-9f95-402486af7059",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "09c766be-e5b4-4cb2-9f95-402486af7059"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
                             "documentNumber": "9e8223bc-d04a-3fd2-96fb-d2b3bcdd3749",
                             "document": {
                                 "id": "18de85b7-17d2-4d77-afa8-e53fdf32774e",
@@ -108,118 +221,8 @@
                         {
                             "serviceGroupSku": null,
                             "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
-                            "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
-                            "document": {
-                                "id": "78ca29c4-475c-401f-b02f-0a57f55dc34f",
-                                "type": "Quote New Business",
-                                "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
-                                "startDate": "2022-02-01",
-                                "endDate": "2023-01-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "3887.04",
-                                "languageCode": null,
-                                "updatedAt": "1654272009093",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+19368049305",
-                                        "name": "Libbie Lemke",
-                                        "mail": "bahringer.arnoldo@beier.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-                                "customerId": "09c766be-e5b4-4cb2-9f95-402486af7059",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
-                            },
-                            "customer": {
-                                "id": "09c766be-e5b4-4cb2-9f95-402486af7059"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
                             "serviceLevelSku": "HU4A1AC",
                             "serviceLevelSkuDescription": "HPE Remote Tech Support",
-                            "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
-                            "document": {
-                                "id": "78ca29c4-475c-401f-b02f-0a57f55dc34f",
-                                "type": "Quote New Business",
-                                "documentNumber": "140fe839-d8a1-3819-a5f7-62a017bac698",
-                                "startDate": "2022-02-01",
-                                "endDate": "2023-01-31",
-                                "currencyCode": "EUR",
-                                "totalNetPrice": "3887.04",
-                                "languageCode": null,
-                                "updatedAt": "1654272009093",
-                                "vendorSpecificFields": {
-                                    "vendor": "HPE",
-                                    "said": null,
-                                    "groupId": null,
-                                    "groupDescription": null
-                                },
-                                "contactPersons": [
-                                    {
-                                        "phoneNumber": "+19368049305",
-                                        "name": "Libbie Lemke",
-                                        "mail": "bahringer.arnoldo@beier.com",
-                                        "type": "Customer Contact"
-                                    },
-                                    {
-                                        "phoneNumber": "+15803172486",
-                                        "name": "Godfrey Grimes II",
-                                        "mail": "keichmann@sanford.net",
-                                        "type": "Renewal Contact"
-                                    },
-                                    {
-                                        "phoneNumber": null,
-                                        "name": null,
-                                        "mail": null,
-                                        "type": "EndUser Contact"
-                                    }
-                                ],
-                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-                                "customerId": "09c766be-e5b4-4cb2-9f95-402486af7059",
-                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
-                            },
-                            "startDate": null,
-                            "endDate": null,
-                            "reseller": {
-                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
-                            },
-                            "customer": {
-                                "id": "09c766be-e5b4-4cb2-9f95-402486af7059"
-                            }
-                        },
-                        {
-                            "serviceGroupSku": null,
-                            "serviceGroupSkuDescription": null,
-                            "serviceLevelSku": "HU4A2AC",
-                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
                             "documentNumber": "9e8223bc-d04a-3fd2-96fb-d2b3bcdd3749",
                             "document": {
                                 "id": "18de85b7-17d2-4d77-afa8-e53fdf32774e",
@@ -309,7 +312,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662143595284",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-12-21",
+                                "coverageEndDate": "2023-01-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-12-14",
+                                "coverageEndDate": "2020-01-12",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

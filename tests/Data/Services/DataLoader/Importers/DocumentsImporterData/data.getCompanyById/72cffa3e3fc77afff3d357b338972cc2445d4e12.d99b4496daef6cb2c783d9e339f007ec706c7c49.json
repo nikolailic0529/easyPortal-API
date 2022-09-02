@@ -11,7 +11,7 @@
                     "id": "0fd07b17-3314-40b5-ac32-7189051f773b",
                     "name": "Gleichner PLC",
                     "companyType": "RESELLER",
-                    "updatedAt": "1657154671012",
+                    "updatedAt": "1662157011025",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -113,21 +113,21 @@
                         ]
                     },
                     "companyKpis": {
-                        "totalAssets": 15215,
-                        "activeAssets": 11471,
-                        "activeAssetsPercentage": 75.39270456786068,
+                        "totalAssets": 15780,
+                        "activeAssets": 77,
+                        "activeAssetsPercentage": 0.4879594423320659,
                         "activeCustomers": 147,
-                        "newActiveCustomers": 117,
-                        "activeContracts": 238,
-                        "activeContractTotalAmount": 411017.5099999999,
-                        "newActiveContracts": 36,
-                        "expiringContracts": 31,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 217,
+                        "activeContractTotalAmount": 343609.47,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 25,
                         "activeQuotes": 48,
-                        "activeQuotesTotalAmount": 360512.47000000003,
-                        "newActiveQuotes": 3,
+                        "activeQuotesTotalAmount": 360512.47,
+                        "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 48,
-                        "expiredContracts": 238,
+                        "expiredContracts": 217,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -140,7 +140,9 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "status": null
+                    "status": [
+                        "ACTIVE"
+                    ]
                 }
             ]
         }

@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "70257-2841",
                     "city": "East Dallas",
-                    "address": "5426 Senger Trail Apt. 553",
+                    "address": "81526 Madelynn Wells Apt. 660",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-80.793952",
+                    "longitude": "-38.506011",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662146983250",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -309,7 +312,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662146983250",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-12-21",
+                                "coverageEndDate": "2023-01-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-12-14",
+                                "coverageEndDate": "2020-01-12",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

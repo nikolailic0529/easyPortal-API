@@ -11,7 +11,7 @@
                     "id": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
                     "name": "Mitchell LLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162835175",
+                    "updatedAt": "1662156667740",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 81,
-                        "activeAssets": 81,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 81,
-                            "activeAssets": 81,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

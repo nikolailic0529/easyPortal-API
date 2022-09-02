@@ -23,13 +23,16 @@
                     "city": "Nayelishire",
                     "address": "7214 Gibson Pike Suite 496",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "-14.196056",
+                    "longitude": "-163.064904",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140233727",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -286,7 +289,60 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662140233727",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-01-01",
+                                "coverageEndDate": "2023-06-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2009-02-04",
+                                "coverageEndDate": "2013-02-03",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 4Y 4H 24x7 c7000 Enclosure HW Supp",
+                                "serviceSku": "UE483E"
+                            },
+                            {
+                                "coverageStartDate": "2015-02-04",
+                                "coverageEndDate": "2016-02-03",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC 24x7 c7000 Enclosure SVC",
+                                "serviceSku": "U2WG7PE"
+                            },
+                            {
+                                "coverageStartDate": "2014-02-04",
+                                "coverageEndDate": "2015-02-03",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HP 1y PW 4h 24x7 c7000 Enclosure HWSupp",
+                                "serviceSku": "UE491PE"
+                            },
+                            {
+                                "coverageStartDate": "2013-02-04",
+                                "coverageEndDate": "2014-02-03",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HP 1y PW 4h 24x7 c7000 Enclosure HWSupp",
+                                "serviceSku": "UE491PE"
+                            },
+                            {
+                                "coverageStartDate": "2008-06-20",
+                                "coverageEndDate": "2011-07-19",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

@@ -24,12 +24,14 @@
                     "address": "3435 Hegmann Islands",
                     "address2": null,
                     "country": "Bahrain",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "latitude": "3.156343",
+                    "longitude": "-136.948205",
+                    "countryCode": "HN",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662148416338",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "20",
                     "assetDocument": [
                         {

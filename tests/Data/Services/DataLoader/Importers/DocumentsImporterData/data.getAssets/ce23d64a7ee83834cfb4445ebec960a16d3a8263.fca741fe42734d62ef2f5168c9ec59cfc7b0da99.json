@@ -20,16 +20,19 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "58211",
-                    "city": "West Estefania",
-                    "address": "24116 Anais Highway Apt. 055",
+                    "city": "North Einarside",
+                    "address": "72192 Angeline Plain",
                     "address2": null,
-                    "country": "Haiti",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Ethiopia",
+                    "latitude": "40.538594",
+                    "longitude": "98.62947",
+                    "countryCode": "KP",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662140333457",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662140333457",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-06-02",
+                                "coverageEndDate": "2025-06-01",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-05-26",
+                                "coverageEndDate": "2023-06-24",
+                                "type": "FactoryWarranty",
+                                "status": "Active",
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

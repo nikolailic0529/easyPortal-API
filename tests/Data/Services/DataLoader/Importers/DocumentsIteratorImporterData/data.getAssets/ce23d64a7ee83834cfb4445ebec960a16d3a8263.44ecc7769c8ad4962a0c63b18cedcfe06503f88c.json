@@ -23,13 +23,15 @@
                     "city": "Lake Eunaburgh",
                     "address": "6804 Guido Shore Apt. 914",
                     "address2": null,
-                    "country": "Niue",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Sri Lanka",
+                    "latitude": "53.399531",
+                    "longitude": "-145.943942",
+                    "countryCode": "CI",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662145955699",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {

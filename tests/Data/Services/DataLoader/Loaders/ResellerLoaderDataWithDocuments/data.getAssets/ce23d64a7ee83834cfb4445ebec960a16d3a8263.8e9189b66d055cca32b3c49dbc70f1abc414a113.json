@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "67028",
                     "city": "Daremouth",
-                    "address": "132 Lisette Mews Suite 173",
+                    "address": "922 Lisette Stream Suite 452",
                     "address2": null,
-                    "country": "Malaysia",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Aruba",
+                    "latitude": "-81.037631",
+                    "longitude": "-41.230119",
+                    "countryCode": "SO",
                     "status": "ACTIVE",
-                    "updatedAt": "1659507880359",
-                    "assetCoverage": [],
+                    "updatedAt": "1662160298807",
+                    "assetCoverage": [
+                        "COVERED",
+                        "ON_CONTRACT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662160298807",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2019-12-07",
+                                "coverageEndDate": "2024-12-06",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2019-11-30",
+                                "coverageEndDate": "2022-12-29",
+                                "type": "FactoryWarranty",
+                                "status": "Expiring",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

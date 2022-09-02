@@ -20,16 +20,19 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "09164-5726",
-                    "city": "North Gus",
+                    "city": "Adanview",
                     "address": "45585 Bode Crescent",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "65.271448",
+                    "longitude": "16.973988",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662168932556",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -126,7 +129,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662168932556",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2021-01-01",
+                                "coverageEndDate": "2022-12-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2016-12-09",
+                                "coverageEndDate": "2018-01-07",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

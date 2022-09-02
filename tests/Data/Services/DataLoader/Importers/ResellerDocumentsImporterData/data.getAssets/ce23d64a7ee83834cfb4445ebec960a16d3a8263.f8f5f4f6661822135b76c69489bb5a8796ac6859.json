@@ -20,16 +20,19 @@
                     "eolDate": null,
                     "eosDate": null,
                     "zip": "88844-5357",
-                    "city": "Port Maudburgh",
-                    "address": "559 Kristian Manor",
+                    "city": "New Victortown",
+                    "address": "60229 Rosalinda Vista",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "82.629918",
+                    "longitude": "-165.588245",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662141879563",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -272,7 +275,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662141879563",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-09-01",
+                                "coverageEndDate": "2023-08-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-08-22",
+                                "coverageEndDate": "2020-09-20",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA155BW-Wty: HPE Parts Exchange Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }

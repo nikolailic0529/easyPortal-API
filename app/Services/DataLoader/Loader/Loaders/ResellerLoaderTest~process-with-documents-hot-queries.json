@@ -14,13 +14,13 @@
     {
         "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "177b5db9-4491-5c92-9159-feeaaed04588"
+            "9ac99690-89a6-5864-872d-b54849763c93"
         ]
     },
     {
         "query": "select `types`.*, `reseller_location_types`.`reseller_location_id` as `pivot_reseller_location_id`, `reseller_location_types`.`type_id` as `pivot_type_id`, `reseller_location_types`.`created_at` as `pivot_created_at`, `reseller_location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `reseller_location_types` on `types`.`id` = `reseller_location_types`.`type_id` where `reseller_location_types`.`deleted_at` is null and `reseller_location_types`.`reseller_location_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "9ac99690-89a6-5864-872d-b54849763c93"
+            "173087c2-7a4d-59e4-9dc9-a7e80f20003b"
         ]
     },
     {
@@ -33,14 +33,18 @@
     {
         "query": "select `kpis`.* from `kpis` where `kpis`.`id` in (?) and `kpis`.`deleted_at` is null",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b"
+            "415803cc-b49e-5033-a639-65bc0920bbb1"
         ]
     },
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?) and `types`.`deleted_at` is null",
         "bindings": [
-            "415803cc-b49e-5033-a639-65bc0920bbb1"
+            "ea851f94-2570-558c-a187-5ce87d26152c"
         ]
+    },
+    {
+        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
     },
     {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
@@ -116,13 +120,13 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "0593ec50-95af-5996-a8bd-887ed8c832e5",
-            "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
-            "415803cc-b49e-5033-a639-65bc0920bbb1",
-            "5c25703d-5a07-50e2-87d6-c1f57eb105b4",
-            "81d534c5-a257-5850-afb6-72cad50161b8",
-            "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
-            "f5fee4c5-dd46-513a-b99f-61fe2650691c"
+            "1ef72848-3761-5f9e-b5aa-2f745833994c",
+            "76657ada-28d9-5d39-8709-2e525e4082c7",
+            "8a7d5085-4545-5e8d-bfbd-497d486234e5",
+            "8fed5079-8106-53c6-8686-ed17c3e5d1c5",
+            "e9f4e8c0-b897-5a3a-b9a2-5c188a3ff3b4",
+            "ea851f94-2570-558c-a187-5ce87d26152c",
+            "ebc2c210-2ce5-56f2-8adb-28b9bca122ca"
         ]
     },
     {
@@ -143,10 +147,6 @@
     },
     {
         "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
         "bindings": []
     },
     {

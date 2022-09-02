@@ -21,15 +21,18 @@
                     "eosDate": null,
                     "zip": "28460-5099",
                     "city": "Flatleybury",
-                    "address": "481 Jaydon Land Apt. 413",
+                    "address": "517 Borer Estates Suite 674",
                     "address2": null,
-                    "country": "Tajikistan",
-                    "latitude": null,
-                    "longitude": null,
-                    "countryCode": null,
+                    "country": "Nicaragua",
+                    "latitude": "29.808887",
+                    "longitude": "16.745366",
+                    "countryCode": "AX",
                     "status": "ACTIVE",
-                    "updatedAt": "1659445413632",
-                    "assetCoverage": [],
+                    "updatedAt": "1662165542652",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
                     "dataQualityScore": "80",
                     "assetDocument": [
                         {
@@ -236,7 +239,28 @@
                             "type": "Reseller Contact"
                         }
                     ],
-                    "coverageStatusCheck": null
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662165542652",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-08-21",
+                                "coverageEndDate": "2023-08-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2020-06-10",
+                                "coverageEndDate": "2020-06-10",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
                 }
             ]
         }
