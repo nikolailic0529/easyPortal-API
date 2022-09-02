@@ -30,6 +30,8 @@ use function sprintf;
  * @property string|null          $service_group_id
  * @property string|null          $service_level_id
  * @property string|null          $product_id
+ * @property string|null          $product_line_id
+ * @property string|null          $product_group_id
  * @property string|null          $serial_number
  * @property CarbonImmutable|null $start
  * @property CarbonImmutable|null $end
@@ -52,6 +54,8 @@ use function sprintf;
  * @property Document             $document
  * @property Language|null        $language
  * @property Product|null         $product
+ * @property ProductLine|null     $productLine
+ * @property ProductGroup|null    $productGroup
  * @property ServiceGroup|null    $serviceGroup
  * @property ServiceLevel|null    $serviceLevel
  * @method static DocumentEntryFactory factory(...$parameters)
@@ -114,6 +118,30 @@ class DocumentEntry extends Model {
         }
 
         $this->assetType()->associate($type);
+    }
+
+    /**
+     * @return BelongsTo<ProductLine, self>
+     */
+    #[CascadeDelete(false)]
+    public function productLine(): BelongsTo {
+        return $this->belongsTo(ProductLine::class);
+    }
+
+    public function setProductLineAttribute(?ProductLine $line): void {
+        $this->productLine()->associate($line);
+    }
+
+    /**
+     * @return BelongsTo<ProductGroup, self>
+     */
+    #[CascadeDelete(false)]
+    public function productGroup(): BelongsTo {
+        return $this->belongsTo(ProductGroup::class);
+    }
+
+    public function setProductGroupAttribute(?ProductGroup $line): void {
+        $this->productGroup()->associate($line);
     }
     // </editor-fold>
 }

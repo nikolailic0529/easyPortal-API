@@ -38,6 +38,8 @@ use App\Models\OrganizationUser;
 use App\Models\PasswordReset;
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDocument;
@@ -160,6 +162,8 @@ class AppServiceProvider extends ServiceProvider {
             'PasswordReset'             => PasswordReset::class,
             'Permission'                => Permission::class,
             'Product'                   => Product::class,
+            'ProductGroup'              => ProductGroup::class,
+            'ProductLine'               => ProductLine::class,
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
             'QuoteRequestDocument'      => QuoteRequestDocument::class,

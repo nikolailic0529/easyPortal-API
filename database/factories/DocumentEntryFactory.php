@@ -43,6 +43,8 @@ class DocumentEntryFactory extends Factory {
             'product_id'           => static function (): Product {
                 return Product::factory()->create();
             },
+            'product_line_id'      => null,
+            'product_group_id'     => null,
             'service_group_id'     => null,
             'service_level_id'     => null,
             'currency_id'          => static function (): Currency {
