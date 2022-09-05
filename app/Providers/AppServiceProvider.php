@@ -40,6 +40,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\ProductGroup;
 use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDocument;
@@ -164,6 +165,7 @@ class AppServiceProvider extends ServiceProvider {
             'Product'                   => Product::class,
             'ProductGroup'              => ProductGroup::class,
             'ProductLine'               => ProductLine::class,
+            'Psp'                       => Psp::class,
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
             'QuoteRequestDocument'      => QuoteRequestDocument::class,

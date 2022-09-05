@@ -42,6 +42,7 @@ use function sprintf;
  * @property string|null          $renewal
  * @property string|null          $oem_said
  * @property string|null          $oem_sar_number
+ * @property string|null          $psp_id
  * @property string|null          $environment_id
  * @property string|null          $equipment_number
  * @property string|null          $language_id
@@ -56,6 +57,7 @@ use function sprintf;
  * @property Product|null         $product
  * @property ProductLine|null     $productLine
  * @property ProductGroup|null    $productGroup
+ * @property Psp|null             $psp
  * @property ServiceGroup|null    $serviceGroup
  * @property ServiceLevel|null    $serviceLevel
  * @method static DocumentEntryFactory factory(...$parameters)
@@ -140,8 +142,20 @@ class DocumentEntry extends Model {
         return $this->belongsTo(ProductGroup::class);
     }
 
-    public function setProductGroupAttribute(?ProductGroup $line): void {
-        $this->productGroup()->associate($line);
+    public function setProductGroupAttribute(?ProductGroup $group): void {
+        $this->productGroup()->associate($group);
+    }
+
+    /**
+     * @return BelongsTo<Psp, self>
+     */
+    #[CascadeDelete(false)]
+    public function psp(): BelongsTo {
+        return $this->belongsTo(Psp::class);
+    }
+
+    public function setPspAttribute(?Psp $psp): void {
+        $this->psp()->associate($psp);
     }
     // </editor-fold>
 }
