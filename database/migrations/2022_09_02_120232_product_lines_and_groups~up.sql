@@ -4,7 +4,6 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 
 CREATE TABLE IF NOT EXISTS `product_lines` (
     `id`          CHAR(36)     NOT NULL,
-    `oem_id`      CHAR(36)     NOT NULL,
     `key`         VARCHAR(255) NOT NULL,
     `name`        VARCHAR(255) NOT NULL,
     `created_at`  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -12,14 +11,8 @@ CREATE TABLE IF NOT EXISTS `product_lines` (
     `deleted_at`  TIMESTAMP    NULL     DEFAULT NULL,
     `deleted_not` TINYINT(1) GENERATED ALWAYS AS (if((`deleted_at` is null), 1, NULL)) STORED,
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `unique__key__oem_id__deleted_not`(`key` ASC, `oem_id` ASC, `deleted_not` ASC) VISIBLE,
-    INDEX `idx__deleted_at`(`deleted_at` ASC) VISIBLE,
-    INDEX `fk_product_lines_oems1_idx`(`oem_id` ASC) VISIBLE,
-    CONSTRAINT `fk_product_lines_oems1`
-        FOREIGN KEY (`oem_id`)
-            REFERENCES `oems`(`id`)
-            ON DELETE RESTRICT
-            ON UPDATE RESTRICT
+    UNIQUE INDEX `unique__key__deleted_not`(`key` ASC, `deleted_not` ASC) VISIBLE,
+    INDEX `idx__deleted_at`(`deleted_at` ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS `product_groups` (

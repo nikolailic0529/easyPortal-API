@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Oem;
 use App\Models\ProductLine;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,9 +29,6 @@ class ProductLineFactory extends Factory {
             'id'         => $this->faker->uuid(),
             'key'        => $this->faker->uuid(),
             'name'       => $this->faker->sentence(),
-            'oem_id'     => static function (): Oem {
-                return Oem::factory()->create();
-            },
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

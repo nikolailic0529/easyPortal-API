@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Relations\HasDocumentEntries;
-use App\Models\Relations\HasOem;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\ProductLineFactory;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * ProductLine.
  *
  * @property string               $id
- * @property string               $oem_id
  * @property string               $key
  * @property string               $name
  * @property CarbonImmutable      $created_at
@@ -27,7 +25,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class ProductLine extends Model {
     use HasFactory;
-    use HasOem;
     use HasDocumentEntries;
 
     /**
