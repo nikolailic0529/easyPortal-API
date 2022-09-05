@@ -7,6 +7,8 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 
+use function mb_strtoupper;
+
 /**
  * @mixin Factory
  */
@@ -26,7 +28,7 @@ trait WithCurrency {
         // Find/Create
         return $this->getCurrencyResolver()->get($code, $this->factory(static function () use ($code): Currency {
             $model       = new Currency();
-            $model->code = $code;
+            $model->code = mb_strtoupper($code);
             $model->name = $code;
 
             $model->save();
