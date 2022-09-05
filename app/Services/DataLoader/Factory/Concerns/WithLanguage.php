@@ -7,6 +7,8 @@ use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 
+use function mb_strtolower;
+
 /**
  * @mixin Factory
  */
@@ -22,7 +24,7 @@ trait WithLanguage {
             $language = $this->getLanguageResolver()->get($code, $this->factory(function () use ($code): Language {
                 $model       = new Language();
                 $normalizer  = $this->getNormalizer();
-                $model->code = $normalizer->string($code);
+                $model->code = mb_strtolower($normalizer->string($code));
                 $model->name = $normalizer->string($code);
 
                 $model->save();

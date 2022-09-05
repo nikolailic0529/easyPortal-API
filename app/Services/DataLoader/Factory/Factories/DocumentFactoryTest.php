@@ -1065,7 +1065,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('SAR#1', $e->oem_sar_number);
         self::assertNull($e->environment_id);
         self::assertNull($e->equipment_number);
-        self::assertEquals('EN', $e->language->code ?? null);
+        self::assertEquals('en', $e->language->code ?? null);
         self::assertNotNull($e->psp);
         self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->psp->key);
         self::assertEquals('PSP#A', $e->psp->name);
@@ -1085,7 +1085,7 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('3292.16', $changed->price);
         self::assertEquals('1625642660000', $this->getDatetime($changed->changed_at));
         self::assertEquals('EUR', $changed->currency->code ?? null);
-        self::assertEquals('EN', $changed->language->code ?? null);
+        self::assertEquals('en', $changed->language->code ?? null);
         self::assertNull($changed->oem_said);
         self::assertNull($changed->oemGroup);
         self::assertCount(0, $changed->statuses);
