@@ -1362,6 +1362,8 @@ class Client {
                 lineItemMonthlyRetailPrice
                 said
                 sarNumber
+                pspId
+                pspName
             }
             GRAPHQL;
     }

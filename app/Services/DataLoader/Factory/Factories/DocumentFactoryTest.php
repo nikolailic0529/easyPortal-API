@@ -9,6 +9,7 @@ use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\ProductGroup;
 use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
@@ -22,6 +23,7 @@ use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
@@ -481,6 +483,9 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentEntry(): void {
         $document           = DocumentModel::factory()->make();
+        $psp                = Psp::factory()->create([
+            'key' => $this->faker->uuid(),
+        ]);
         $asset              = Asset::factory()->create([
             'id'            => $this->faker->uuid(),
             'serial_number' => $this->faker->uuid(),
@@ -527,6 +532,8 @@ class DocumentFactoryTest extends TestCase {
             'environmentId'                => " {$environmentId} ",
             'equipmentNumber'              => " {$equipmentNumber} ",
             'languageCode'                 => " {$language} ",
+            'pspId'                        => " {$psp->key} ",
+            'pspName'                      => " {$psp->name} ",
         ]);
 
         $factory = new class(
@@ -541,6 +548,7 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
+            $this->app->make(PspResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -555,6 +563,7 @@ class DocumentFactoryTest extends TestCase {
                 protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
+                protected PspResolver $pspResolver,
             ) {
                 // empty
             }
@@ -594,6 +603,9 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($environmentId, $entry->environment_id);
         self::assertEquals($equipmentNumber, $entry->equipment_number);
         self::assertEquals($language, $entry->language->code ?? null);
+        self::assertEquals($psp->getKey(), $entry->psp_id);
+        self::assertEquals($psp->key, $entry->psp->key ?? null);
+        self::assertEquals($psp->name, $entry->psp->name ?? null);
     }
 
     /**
@@ -702,6 +714,30 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull(
             $factory->documentEntryProductLine($model, $entry),
+        );
+    }
+
+    /**
+     * @covers ::documentEntryPsp
+     */
+    public function testDocumentEntryPsp(): void {
+        $psp     = Psp::factory()->make();
+        $model   = DocumentModel::factory()->create();
+        $entry   = new DocumentEntry([
+            'pspId'   => $psp->key,
+            'pspName' => $psp->name,
+        ]);
+        $factory = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('psp')
+            ->with($psp->key, $psp->name)
+            ->once()
+            ->andReturn($psp);
+
+        self::assertNotNull(
+            $factory->documentEntryPsp($model, $entry),
         );
     }
 
@@ -846,6 +882,8 @@ class DocumentFactoryTest extends TestCase {
                     'environmentId'                => $a->environment_id,
                     'equipmentNumber'              => $a->equipment_number,
                     'languageCode'                 => $a->language->code ?? null,
+                    'pspId'                        => $a->psp->key ?? null,
+                    'pspName'                      => $a->psp->name ?? null,
                 ],
                 [
                     'assetId'                      => $b->asset_id,
@@ -866,6 +904,8 @@ class DocumentFactoryTest extends TestCase {
                     'environmentId'                => $b->environment_id,
                     'equipmentNumber'              => $b->equipment_number,
                     'languageCode'                 => $b->language->code ?? null,
+                    'pspId'                        => $b->psp->key ?? null,
+                    'pspName'                      => $b->psp->name ?? null,
                 ],
                 [
                     'assetId'                      => $assetB->getKey(),
@@ -886,6 +926,8 @@ class DocumentFactoryTest extends TestCase {
                     'environmentId'                => null,
                     'equipmentNumber'              => null,
                     'languageCode'                 => null,
+                    'pspId'                        => null,
+                    'pspName'                      => null,
                 ],
             ],
         ]);
@@ -1022,6 +1064,9 @@ class DocumentFactoryTest extends TestCase {
         self::assertNull($e->environment_id);
         self::assertNull($e->equipment_number);
         self::assertEquals('EN', $e->language->code ?? null);
+        self::assertNotNull($e->psp);
+        self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->psp->key);
+        self::assertEquals('PSP#A', $e->psp->name);
 
         // Changed
         // ---------------------------------------------------------------------

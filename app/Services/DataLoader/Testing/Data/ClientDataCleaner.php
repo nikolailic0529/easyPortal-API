@@ -153,6 +153,8 @@ class ClientDataCleaner {
             $object->environmentId                = $this->map($object->environmentId, $this->number);
             $object->equipmentNumber              = $this->map($object->equipmentNumber, $this->number);
             $object->assetProductGroupDescription = $this->map($object->assetProductGroupDescription, $this->text);
+            $object->pspId                        = $this->map($object->pspId, $this->uuid);
+            $object->pspName                      = $this->map($object->pspName, $this->text);
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

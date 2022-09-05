@@ -1,0 +1,15 @@
+{
+    "selector": "data.getDocumentsByCustomer",
+    "query": "query getDocumentsByCustomer($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getDocumentsByCustomer(customerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    assetProductLine\n    assetProductGroupDescription\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n    assetProductType\n    environmentId\n    equipmentNumber\n    lineItemListPrice\n    lineItemMonthlyRetailPrice\n    said\n    sarNumber\n    pspId\n    pspName\n}\n    }\n}",
+    "variables": {
+        "id": "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+        "from": null,
+        "lastId": "f3a8ba95-ce52-49bb-ba31-3402337e421d",
+        "limit": 250
+    },
+    "response": {
+        "data": {
+            "getDocumentsByCustomer": []
+        }
+    }
+}

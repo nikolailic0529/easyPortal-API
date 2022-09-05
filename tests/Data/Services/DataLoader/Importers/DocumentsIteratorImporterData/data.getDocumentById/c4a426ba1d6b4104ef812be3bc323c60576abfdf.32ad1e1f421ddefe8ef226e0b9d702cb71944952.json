@@ -1,0 +1,146 @@
+{
+    "selector": "data.getDocumentById",
+    "query": "query getDocumentById($id: String!) {\n    getDocumentById(id: $id) {\n        id\ntype\nstatus\ndocumentNumber\nstartDate\nendDate\ncurrencyCode\ntotalNetPrice\nlanguageCode\nupdatedAt\nresellerId\ncustomerId\ndistributorId\n\nvendorSpecificFields {\n    vendor\n    groupId\n    groupDescription\n    said\n}\n\ncontactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\ndocumentEntries {\n    assetId\n    assetProductLine\n    assetProductGroupDescription\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    startDate\n    endDate\n    languageCode\n    currencyCode\n    listPrice\n    estimatedValueRenewal\n    assetProductType\n    environmentId\n    equipmentNumber\n    lineItemListPrice\n    lineItemMonthlyRetailPrice\n    said\n    sarNumber\n    pspId\n    pspName\n}\n    }\n}",
+    "variables": {
+        "id": "0c890540-172e-41ea-b1f3-f91a899437b5"
+    },
+    "response": {
+        "data": {
+            "getDocumentById": {
+                "id": "0c890540-172e-41ea-b1f3-f91a899437b5",
+                "type": "Contract",
+                "documentNumber": "2607b31f-6b4a-3ac9-b865-dc5953d9e97f",
+                "startDate": "2021-06-27",
+                "endDate": "2024-06-26",
+                "currencyCode": "EUR",
+                "totalNetPrice": "354.96",
+                "languageCode": null,
+                "updatedAt": "1654262846658",
+                "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
+                "customerId": "8cb1e9b4-b881-4810-9fd7-d3556db827f6",
+                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "vendorSpecificFields": {
+                    "vendor": "HPE",
+                    "said": "d07fe0c4-b8ba-3d17-875f-42e164b8e4dd",
+                    "groupId": null,
+                    "groupDescription": null
+                },
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+19083750506",
+                        "name": "Dr. Dominique Will V",
+                        "mail": null,
+                        "type": "EndUser Contact"
+                    },
+                    {
+                        "phoneNumber": "+15748017097",
+                        "name": "Maureen Hodkiewicz Sr.",
+                        "mail": "theresia.kub@yahoo.com",
+                        "type": "Distributor Contact"
+                    },
+                    {
+                        "phoneNumber": null,
+                        "name": null,
+                        "mail": null,
+                        "type": "Reseller Contact"
+                    },
+                    {
+                        "phoneNumber": "+19083750506",
+                        "name": "Dr. Dominique Will V",
+                        "mail": null,
+                        "type": "Hardware System Contact"
+                    },
+                    {
+                        "phoneNumber": "+19083750506",
+                        "name": "Dr. Dominique Will V",
+                        "mail": null,
+                        "type": "Software System Contact"
+                    },
+                    {
+                        "phoneNumber": null,
+                        "name": null,
+                        "mail": null,
+                        "type": "System Manager Contact"
+                    }
+                ],
+                "documentEntries": [
+                    {
+                        "assetId": "c745f9a0-6a2a-4a55-abad-66aceaed9dc6",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA158AC",
+                        "serviceLevelSkuDescription": "Telefonische SW Unterstützung",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "30.96",
+                        "estimatedValueRenewal": "30.96",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    },
+                    {
+                        "assetId": "c745f9a0-6a2a-4a55-abad-66aceaed9dc6",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA360AC",
+                        "serviceLevelSkuDescription": "HPE Hardware Replacement Support",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "324",
+                        "estimatedValueRenewal": "324",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    },
+                    {
+                        "assetId": "c745f9a0-6a2a-4a55-abad-66aceaed9dc6",
+                        "serviceGroupSku": null,
+                        "serviceGroupSkuDescription": null,
+                        "serviceLevelSku": "HA156AC",
+                        "serviceLevelSkuDescription": "HPE Software Updates Service",
+                        "startDate": null,
+                        "endDate": null,
+                        "currencyCode": "EUR",
+                        "languageCode": null,
+                        "listPrice": "0",
+                        "estimatedValueRenewal": "0",
+                        "assetProductType": null,
+                        "assetProductLine": null,
+                        "assetProductGroupDescription": null,
+                        "environmentId": null,
+                        "equipmentNumber": null,
+                        "lineItemListPrice": null,
+                        "lineItemMonthlyRetailPrice": null,
+                        "said": null,
+                        "sarNumber": null,
+                        "pspId": null,
+                        "pspName": null
+                    }
+                ],
+                "status": [
+                    "ACTIVE"
+                ]
+            }
+        }
+    }
+}

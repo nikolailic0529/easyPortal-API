@@ -237,7 +237,7 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `monthly_list_price`, `monthly_retail_price`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `renewal`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `monthly_list_price`, `monthly_retail_price`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `renewal`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "c30973dd-e7cd-40ae-8bda-021880774e11",
             null,
@@ -256,6 +256,7 @@
             null,
             null,
             "973a91ee-acb9-5bac-9eb0-49cece40cf0c",
+            null,
             null,
             null,
             "7a526902-5778-3763-a37e-9d7ad842aef1",
@@ -282,6 +283,7 @@
             "973a91ee-acb9-5bac-9eb0-49cece40cf0c",
             null,
             null,
+            null,
             "0ffd2f0b-a6bc-334f-849f-c8a5f8415cde",
             null,
             null,
@@ -304,6 +306,7 @@
             null,
             null,
             "0d7d46e3-18d9-501d-977d-0be8fb498ce1",
+            null,
             null,
             null,
             "f9c52d72-3a65-3353-a4ed-9b2c9e3feca1",
@@ -330,6 +333,7 @@
             "0d7d46e3-18d9-501d-977d-0be8fb498ce1",
             null,
             null,
+            null,
             "5db3f627-2640-3cc0-90a7-7be857068124",
             null,
             null,
@@ -352,6 +356,7 @@
             null,
             null,
             "973a91ee-acb9-5bac-9eb0-49cece40cf0c",
+            null,
             null,
             null,
             "a17e4afd-da17-3455-a35a-5cf674c92115",

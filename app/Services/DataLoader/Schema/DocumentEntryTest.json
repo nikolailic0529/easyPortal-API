@@ -18,5 +18,7 @@
     "lineItemListPrice": "123",
     "lineItemMonthlyRetailPrice": "123",
     "said": "123",
-    "sarNumber": "123"
+    "sarNumber": "123",
+    "pspId": "a5e533d9-845f-4820-9086-5ff9f169558f",
+    "pspName": "name"
 }

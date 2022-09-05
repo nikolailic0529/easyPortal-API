@@ -354,6 +354,8 @@ type DocumentEntry {
     lineItemListPrice: String
     lineItemMonthlyRetailPrice: String
     listPrice: String
+    pspId: String
+    pspName: String
     said: String
     sarNumber: String
     serviceGroupSku: String

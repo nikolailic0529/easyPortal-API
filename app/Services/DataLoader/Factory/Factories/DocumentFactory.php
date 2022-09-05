@@ -8,6 +8,7 @@ use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
 use App\Models\ProductGroup;
 use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
@@ -29,6 +30,7 @@ use App\Services\DataLoader\Factory\Concerns\WithOemGroup;
 use App\Services\DataLoader\Factory\Concerns\WithProduct;
 use App\Services\DataLoader\Factory\Concerns\WithProductGroup;
 use App\Services\DataLoader\Factory\Concerns\WithProductLine;
+use App\Services\DataLoader\Factory\Concerns\WithPsp;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Factory\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
@@ -52,6 +54,7 @@ use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
@@ -92,6 +95,7 @@ class DocumentFactory extends ModelFactory {
     use WithCustomer;
     use WithDistributor;
     use WithAssetDocument;
+    use WithPsp;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
@@ -113,6 +117,7 @@ class DocumentFactory extends ModelFactory {
         protected OemGroupResolver $oemGroupResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
+        protected PspResolver $pspResolver,
         protected ?DistributorFinder $distributorFinder = null,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
@@ -201,6 +206,10 @@ class DocumentFactory extends ModelFactory {
 
     protected function getLanguageResolver(): LanguageResolver {
         return $this->languageResolver;
+    }
+
+    protected function getPspResolver(): PspResolver {
+        return $this->pspResolver;
     }
 
     protected function getAssetFinder(): ?AssetFinder {
@@ -506,6 +515,7 @@ class DocumentFactory extends ModelFactory {
         $entry->language             = $this->language($documentEntry->languageCode);
         $entry->serviceGroup         = $this->documentEntryServiceGroup($model, $documentEntry);
         $entry->serviceLevel         = $this->documentEntryServiceLevel($model, $documentEntry);
+        $entry->psp                  = $this->documentEntryPsp($model, $documentEntry);
 
         return $entry;
     }
@@ -543,6 +553,10 @@ class DocumentFactory extends ModelFactory {
 
     protected function documentEntryProductGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ProductGroup {
         return $this->productGroup($documentEntry->assetProductGroupDescription);
+    }
+
+    protected function documentEntryPsp(DocumentModel $model, DocumentEntry $documentEntry): ?Psp {
+        return $this->psp($documentEntry->pspId, $documentEntry->pspName);
     }
 
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {

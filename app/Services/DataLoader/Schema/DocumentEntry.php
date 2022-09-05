@@ -23,4 +23,6 @@ class DocumentEntry extends Type {
     public ?string $lineItemMonthlyRetailPrice;
     public ?string $said;
     public ?string $sarNumber;
+    public ?string $pspId;
+    public ?string $pspName;
 }
