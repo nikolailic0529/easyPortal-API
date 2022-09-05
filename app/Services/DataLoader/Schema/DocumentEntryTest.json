@@ -11,6 +11,8 @@
     "listPrice": "864",
     "estimatedValueRenewal": "864",
     "assetProductType": "type",
+    "assetProductLine": "line",
+    "assetProductGroupDescription": "group",
     "environmentId": "123",
     "equipmentNumber": "123",
     "lineItemListPrice": "123",

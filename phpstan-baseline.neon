@@ -7951,6 +7951,16 @@ parameters:
 			path: database/factories/ProductFactory.php
 
 		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductGroup\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ProductGroupFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductLineFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductLine\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductLine\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ProductLineFactory.php
+
+		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\QuoteRequestAssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\QuoteRequestAsset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\QuoteRequestAsset\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/QuoteRequestAssetFactory.php

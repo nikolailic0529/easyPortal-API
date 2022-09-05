@@ -148,10 +148,11 @@ class ClientDataCleaner {
         } elseif ($object instanceof TranslationText) {
             $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {
-            $object->said            = $this->map($object->said, $this->uuid);
-            $object->sarNumber       = $this->map($object->said, $this->uuid);
-            $object->environmentId   = $this->map($object->environmentId, $this->number);
-            $object->equipmentNumber = $this->map($object->equipmentNumber, $this->number);
+            $object->said                         = $this->map($object->said, $this->uuid);
+            $object->sarNumber                    = $this->map($object->said, $this->uuid);
+            $object->environmentId                = $this->map($object->environmentId, $this->number);
+            $object->equipmentNumber              = $this->map($object->equipmentNumber, $this->number);
+            $object->assetProductGroupDescription = $this->map($object->assetProductGroupDescription, $this->text);
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

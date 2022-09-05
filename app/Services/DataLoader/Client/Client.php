@@ -1343,6 +1343,8 @@ class Client {
 
             documentEntries {
                 assetId
+                assetProductLine
+                assetProductGroupDescription
                 serviceGroupSku
                 serviceGroupSkuDescription
                 serviceLevelSku

@@ -15,6 +15,8 @@ class DocumentEntry extends Type {
     public ?string $listPrice;
     public ?string $estimatedValueRenewal;
     public ?string $assetProductType;
+    public ?string $assetProductLine;
+    public ?string $assetProductGroupDescription;
     public ?string $environmentId;
     public ?string $equipmentNumber;
     public ?string $lineItemListPrice;

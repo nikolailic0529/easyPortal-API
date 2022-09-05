@@ -6,6 +6,8 @@ use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\OemGroup;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
@@ -25,6 +27,8 @@ use App\Services\DataLoader\Factory\Concerns\WithLanguage;
 use App\Services\DataLoader\Factory\Concerns\WithOem;
 use App\Services\DataLoader\Factory\Concerns\WithOemGroup;
 use App\Services\DataLoader\Factory\Concerns\WithProduct;
+use App\Services\DataLoader\Factory\Concerns\WithProductGroup;
+use App\Services\DataLoader\Factory\Concerns\WithProductLine;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Factory\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
@@ -45,6 +49,8 @@ use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
@@ -77,6 +83,8 @@ class DocumentFactory extends ModelFactory {
     use WithStatus;
     use WithAsset;
     use WithProduct;
+    use WithProductLine;
+    use WithProductGroup;
     use WithCurrency;
     use WithLanguage;
     use WithContacts;
@@ -95,6 +103,8 @@ class DocumentFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
         protected ProductResolver $productResolver,
+        protected ProductLineResolver $productLineResolver,
+        protected ProductGroupResolver $productGroupResolver,
         protected CurrencyResolver $currencyResolver,
         protected DocumentResolver $documentResolver,
         protected LanguageResolver $languageResolver,
@@ -155,6 +165,14 @@ class DocumentFactory extends ModelFactory {
 
     protected function getProductResolver(): ProductResolver {
         return $this->productResolver;
+    }
+
+    protected function getProductLineResolver(): ProductLineResolver {
+        return $this->productLineResolver;
+    }
+
+    protected function getProductGroupResolver(): ProductGroupResolver {
+        return $this->productGroupResolver;
     }
 
     protected function getTypeResolver(): TypeResolver {
@@ -471,6 +489,8 @@ class DocumentFactory extends ModelFactory {
         $entry->asset                = $asset;
         $entry->assetType            = $this->documentEntryAssetType($model, $documentEntry);
         $entry->product_id           = $asset->product_id ?? null;
+        $entry->productLine          = $this->documentEntryProductLine($model, $documentEntry);
+        $entry->productGroup         = $this->documentEntryProductGroup($model, $documentEntry);
         $entry->serial_number        = $asset->serial_number ?? null;
         $entry->start                = $normalizer->datetime($documentEntry->startDate);
         $entry->end                  = $normalizer->datetime($documentEntry->endDate);
@@ -515,6 +535,14 @@ class DocumentFactory extends ModelFactory {
             : null;
 
         return $type;
+    }
+
+    protected function documentEntryProductLine(DocumentModel $model, DocumentEntry $documentEntry): ?ProductLine {
+        return $this->productLine($documentEntry->assetProductLine);
+    }
+
+    protected function documentEntryProductGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ProductGroup {
+        return $this->productGroup($documentEntry->assetProductGroupDescription);
     }
 
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {
