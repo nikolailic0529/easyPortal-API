@@ -20,6 +20,19 @@
         ]
     },
     {
+        "query": "select `service_levels`.*, `asset_warranty_service_levels`.`asset_warranty_id` as `pivot_asset_warranty_id`, `asset_warranty_service_levels`.`service_level_id` as `pivot_service_level_id`, `asset_warranty_service_levels`.`created_at` as `pivot_created_at`, `asset_warranty_service_levels`.`updated_at` as `pivot_updated_at` from `service_levels` inner join `asset_warranty_service_levels` on `service_levels`.`id` = `asset_warranty_service_levels`.`service_level_id` where `asset_warranty_service_levels`.`deleted_at` is null and `asset_warranty_service_levels`.`asset_warranty_id` in (?, ?, ?, ?) and `service_levels`.`deleted_at` is null",
+        "bindings": [
+            "032f497d-b9f5-50a0-a11f-3f424461289e",
+            "1e5336b0-3b7f-5b0e-b6fb-34c07744aac5",
+            "52e947eb-c196-53ed-8fc5-a469de4821bc",
+            "e0db2412-5307-5641-9778-1bf4acc92fce"
+        ]
+    },
+    {
+        "query": "select `documents`.* from `documents` where 0 = 1 and `documents`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
         "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
             "00f0a6d3-442d-4a31-a573-459ea5f51efd",
@@ -33,28 +46,27 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "1670bba9-3efb-59ba-b301-80a3e6f0f12a",
-            "3281ff93-0d10-51b0-9ee1-9f1137459da4",
-            "4dd16909-c87b-5fa0-81fc-c94496c993a0",
-            "4e2771a1-e5ca-5713-8f5b-efdae3201789",
-            "5eea18d9-3197-59d6-89c2-523aa2446090",
-            "649baf69-b5d6-5c8c-8239-978fc81bf04f",
-            "671df735-1dfd-52f0-b640-682ef4176743",
-            "9920d2f8-08eb-5f3d-9442-1cfa93084360",
-            "9f246c5b-c48b-505d-903f-d624a13a9bc4",
-            "dcf43a09-f754-546c-beb2-7dbcf657e9a8",
-            "e0db2412-5307-5641-9778-1bf4acc92fce",
-            "e24fa720-663e-591e-b53b-4992091fa75e",
-            "e59ea133-72a6-5988-a1cf-bf221cb2b4e4",
-            "ed5835fa-fab0-5a50-b1bf-f6dd3162adb1",
-            "f7ef267a-c7e2-5573-b508-e2dfeabcd858"
+            "13865559-9bb2-5175-bc80-5dbca95e4700",
+            "44ab340e-8a4a-5d4a-9699-ea621e16f35f",
+            "7bfd22e2-b198-5f86-89d7-b7b64d0e8f54",
+            "80181758-7d85-56bb-b2b9-dd01deeb81e3",
+            "a93c7615-1f5c-52b3-b764-44341a8a4ea4",
+            "ae477457-7079-5297-9d3b-326b1150859c",
+            "b1bda371-c9e1-537a-99c3-85c76d7a960d",
+            "b82efadc-0e83-5f27-80f4-85d42d9a5ebd",
+            "cfa9e9ab-89aa-5e14-a34b-604725199378",
+            "d77e2045-125c-5f68-8488-ab1b2b5196ca",
+            "db694ea8-fda5-5e26-a219-b8e7b6636b30",
+            "dc642d19-f527-5385-80be-1032be72e463",
+            "de3e8991-f1ee-50e0-9657-8f95bf7fb85a",
+            "e29fc221-657d-55c5-9b8b-d7e043f401f3",
+            "e59ea133-72a6-5988-a1cf-bf221cb2b4e4"
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "71bad29a-cfcf-54eb-92bd-efb55119699c",
-            "d6bee321-20d1-5aca-9a45-659a8e7d8b08"
+            "ec553a82-56f4-5e32-a673-7374f0ab0def"
         ]
     },
     {
@@ -146,16 +158,11 @@
         "bindings": []
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "43147 osinski falls",
-            "48267"
-        ]
+        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "bindings": []
     },
     {
-        "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
+        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -167,8 +174,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:29",
-            "2022-02-02 00:02:32",
+            "2022-02-02 00:02:51",
+            "2022-02-02 00:03:15",
             "00f0a6d3-442d-4a31-a573-459ea5f51efd"
         ]
     },
@@ -181,8 +188,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:02:53",
-            "2022-02-02 00:02:56",
+            "2022-02-02 00:03:49",
+            "2022-02-02 00:03:52",
             "011c4141-aa44-407e-a53c-7328cc6275ab"
         ]
     },
@@ -195,18 +202,9 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:17",
-            "2022-02-02 00:03:20",
+            "2022-02-02 00:04:13",
+            "2022-02-02 00:04:35",
             "01c13a3b-7c8a-4962-865a-ef64ef1b697a"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b25693ac-dbf2-5644-ab8c-dd6c9c0432de",
-            "3ccd6f9b-e5de-5731-880c-cf750922fd80",
-            "24463 fahey estates",
-            "48267"
         ]
     },
     {
@@ -218,8 +216,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:03:41",
-            "2022-02-02 00:03:44",
+            "2022-02-02 00:05:09",
+            "2022-02-02 00:05:12",
             "026d0837-89cd-4431-b317-6b57ce6a0c1f"
         ]
     },
@@ -232,8 +230,8 @@
     {
         "query": "update `assets` set `synced_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:04:05",
-            "2022-02-02 00:04:08",
+            "2022-02-02 00:05:33",
+            "2022-02-02 00:05:36",
             "02dc80b1-e7fa-4870-bf1e-2180244b13a9"
         ]
     }

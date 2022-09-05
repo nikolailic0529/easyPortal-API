@@ -11,7 +11,7 @@
                     "id": "033bcf58-0dcd-42b6-8765-51b5815b747f",
                     "name": "Hyatt, Rohan and Sipes",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162740979",
+                    "updatedAt": "1662156563427",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,14 +53,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 26,
-                        "activeAssets": 26,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -83,14 +83,14 @@
                         {
                             "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
                             "totalAssets": 26,
-                            "activeAssets": 26,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
                             "activeContractTotalAmount": 0.0,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

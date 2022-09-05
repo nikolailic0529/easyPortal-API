@@ -153,6 +153,7 @@ class WithAssetDocumentTest extends TestCase {
             ],
             'serviceLevelSku'            => $this->faker->word(),
             'serviceLevelSkuDescription' => $this->faker->word(),
+            'serviceFullDescription'     => $this->faker->sentence(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -178,6 +179,7 @@ class WithAssetDocumentTest extends TestCase {
                 $group,
                 $document->serviceLevelSku,
                 $document->serviceLevelSkuDescription,
+                $document->serviceFullDescription,
             )
             ->once()
             ->andReturns($level);

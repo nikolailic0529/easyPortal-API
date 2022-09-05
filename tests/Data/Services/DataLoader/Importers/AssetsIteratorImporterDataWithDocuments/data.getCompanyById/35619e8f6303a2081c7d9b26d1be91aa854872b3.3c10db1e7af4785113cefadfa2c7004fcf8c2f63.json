@@ -11,7 +11,7 @@
                     "id": "54126f62-957a-46b1-a8ec-926fa4e94a81",
                     "name": "Willms PLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162862774",
+                    "updatedAt": "1662156699713",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -65,18 +65,18 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 693,
-                        "activeAssets": 196,
-                        "activeAssetsPercentage": 28.28282828282828,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
                         "activeContractTotalAmount": 46614.020000000004,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 4,
                         "activeQuotes": 2,
                         "activeQuotesTotalAmount": 13770.900000000005,
                         "newActiveQuotes": 0,
-                        "expiringQuotes": 0,
+                        "expiringQuotes": 1,
                         "expiredQuotes": 0,
                         "expiredContracts": 4,
                         "orderedQuotes": null,
@@ -95,18 +95,18 @@
                         {
                             "resellerId": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                             "totalAssets": 693,
-                            "activeAssets": 196,
-                            "activeAssetsPercentage": 28.28282828282828,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
                             "activeContractTotalAmount": 46614.02000000001,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 4,
                             "activeQuotes": 2,
                             "activeQuotesTotalAmount": 13770.900000000005,
                             "newActiveQuotes": 0,
-                            "expiringQuotes": 0,
+                            "expiringQuotes": 1,
                             "expiredQuotes": 0,
                             "expiredContracts": 4,
                             "orderedQuotes": null,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

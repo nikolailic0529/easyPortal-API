@@ -1,0 +1,400 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "4588d734-3f35-41de-aa43-56e977dce94a"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "4588d734-3f35-41de-aa43-56e977dce94a",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                    "serialNumber": "77412802-bf0e-3c2d-a23f-cd27d0d7b9ea",
+                    "assetSkuDescription": "HP MSA 1040 2Prt FC DC SFF Strg",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "E7W00A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "34782-5723",
+                    "city": "Sanfordberg",
+                    "address": "429 Else Isle",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "76.383816",
+                    "longitude": "-163.532812",
+                    "countryCode": "AX",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662155092554",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                            "document": {
+                                "id": "058bd2fb-1c48-47f3-99fe-720dcf8b8b4b",
+                                "type": "Quote renewal",
+                                "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                                "startDate": "2022-06-24",
+                                "endDate": "2023-06-23",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272002596",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "3ad8c054-ea61-330c-9584-7820b3b3c554",
+                            "document": {
+                                "id": "9d097402-1c64-4f89-9bde-9024b440e275",
+                                "type": "Contract",
+                                "documentNumber": "3ad8c054-ea61-330c-9584-7820b3b3c554",
+                                "startDate": "2017-06-24",
+                                "endDate": "2022-06-23",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1656028897215",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "c8add1fc-d8c2-3254-bfa9-045c69144403",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                            "document": {
+                                "id": "058bd2fb-1c48-47f3-99fe-720dcf8b8b4b",
+                                "type": "Quote renewal",
+                                "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                                "startDate": "2022-06-24",
+                                "endDate": "2023-06-23",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272002596",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                            "document": {
+                                "id": "058bd2fb-1c48-47f3-99fe-720dcf8b8b4b",
+                                "type": "Quote renewal",
+                                "documentNumber": "a642f281-7c89-3d4d-bcc0-661471b5196a",
+                                "startDate": "2022-06-24",
+                                "endDate": "2023-06-23",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1654272002596",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA158AC",
+                            "serviceLevelSkuDescription": "HPE Software Technical Unlimited Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "3ad8c054-ea61-330c-9584-7820b3b3c554",
+                            "document": {
+                                "id": "9d097402-1c64-4f89-9bde-9024b440e275",
+                                "type": "Contract",
+                                "documentNumber": "3ad8c054-ea61-330c-9584-7820b3b3c554",
+                                "startDate": "2017-06-24",
+                                "endDate": "2022-06-23",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1656028897215",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "c8add1fc-d8c2-3254-bfa9-045c69144403",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+16295350369",
+                                        "name": "Mr. Leonel Russel IV",
+                                        "mail": "ajerde@hessel.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18137713803",
+                                        "name": "Prof. Morgan Lakin PhD",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "0a26b379-d9db-4c83-a7e0-55a4fc4d0d7a"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+18137713803",
+                            "name": "Prof. Morgan Lakin PhD",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+16295350369",
+                            "name": "Mr. Leonel Russel IV",
+                            "mail": "ajerde@hessel.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662155092554",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2017-06-24",
+                                "coverageEndDate": "2022-06-23",
+                                "type": "Contract",
+                                "status": "Expired",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2022-03-28",
+                                "coverageEndDate": "2022-03-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

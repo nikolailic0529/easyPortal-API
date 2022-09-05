@@ -58,7 +58,6 @@ class WithServiceLevelTest extends TestCase {
         self::assertEquals($level, $actual);
         self::assertCount(1, $queries);
 
-
         // If model exists and changed - it should not be updated
         $queries = $this->getQueryLog()->flush();
         $newName = $this->faker->sentence();
@@ -96,17 +95,31 @@ class WithServiceLevelTest extends TestCase {
         self::assertEquals($newName, $updated->name);
         self::assertCount(1, $queries);
 
+        // If model exists and changed - empty `description` should be updated
+        $level              = $updated;
+        $level->description = '';
+        $level->save();
+
+        $newDesc = $this->faker->sentence();
+        $queries = $this->getQueryLog()->flush();
+        $updated = $factory->serviceLevel($oem, $group, $level->sku, null, $newDesc);
+
+        self::assertNotNull($updated);
+        self::assertEquals($newDesc, $updated->description);
+        self::assertCount(1, $queries);
+
         // If not - it should be created
         $sku     = $this->faker->uuid();
         $name    = $this->faker->sentence();
+        $desc    = $this->faker->sentence();
         $queries = $this->getQueryLog()->flush();
-        $created = $factory->serviceLevel($oem, $group, $sku, $name);
+        $created = $factory->serviceLevel($oem, $group, $sku, $name, $desc);
 
         self::assertNotNull($created);
         self::assertEquals($oem->getKey(), $created->oem_id);
         self::assertEquals($sku, $created->sku);
         self::assertEquals($name, $created->name);
-        self::assertEquals('', $created->description);
+        self::assertEquals($desc, $created->description);
         self::assertCount(1, $queries);
 
         // If not - it should be created (no `name`)
@@ -118,6 +131,7 @@ class WithServiceLevelTest extends TestCase {
         self::assertEquals($oem->getKey(), $created->oem_id);
         self::assertEquals($sku, $created->sku);
         self::assertEquals($sku, $created->name);
+        self::assertEquals('', $created->description);
         self::assertCount(1, $queries);
     }
 }

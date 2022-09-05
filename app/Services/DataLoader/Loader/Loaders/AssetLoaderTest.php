@@ -110,7 +110,7 @@ class AssetLoaderTest extends TestCase {
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
-            Customer::class      => 1,
+            Customer::class      => 2,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -130,10 +130,10 @@ class AssetLoaderTest extends TestCase {
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
-            Customer::class      => 1,
+            Customer::class      => 2,
             Asset::class         => 1,
             AssetWarranty::class => 0,
-            Document::class      => 2,
+            Document::class      => 3,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(

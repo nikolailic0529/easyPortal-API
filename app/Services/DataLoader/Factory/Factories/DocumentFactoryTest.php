@@ -803,6 +803,7 @@ class DocumentFactoryTest extends TestCase {
         $entry = new DocumentEntry([
             'serviceLevelSku'            => $this->faker->word(),
             'serviceLevelSkuDescription' => $this->faker->word(),
+            'serviceFullDescription'     => $this->faker->sentence(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -820,6 +821,7 @@ class DocumentFactoryTest extends TestCase {
                 $group,
                 $entry->serviceLevelSku,
                 $entry->serviceLevelSkuDescription,
+                $entry->serviceFullDescription,
             )
             ->once()
             ->andReturn($level);

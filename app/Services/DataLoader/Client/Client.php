@@ -1299,6 +1299,7 @@ class Client {
                 serviceGroupSkuDescription
                 serviceLevelSku
                 serviceLevelSkuDescription
+                serviceFullDescription
 
                 customer {
                   id
@@ -1349,6 +1350,7 @@ class Client {
                 serviceGroupSkuDescription
                 serviceLevelSku
                 serviceLevelSkuDescription
+                serviceFullDescription
                 startDate
                 endDate
                 languageCode

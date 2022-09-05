@@ -11,7 +11,7 @@
                     "id": "f0506708-9949-4017-a760-d8e6d0a12838",
                     "name": "Frami-Volkman",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163113031",
+                    "updatedAt": "1662156973144",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 71,
-                        "activeAssets": 71,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 71,
-                            "activeAssets": 71,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

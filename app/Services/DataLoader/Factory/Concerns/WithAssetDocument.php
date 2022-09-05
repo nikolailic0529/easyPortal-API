@@ -37,12 +37,13 @@ trait WithAssetDocument {
     protected function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
         $oem   = $this->assetDocumentOem($asset, $assetDocument);
         $sku   = $assetDocument->serviceLevelSku ?? null;
-        $name  = $assetDocument->serviceLevelSkuDescription ?? null;
         $group = $this->assetDocumentServiceGroup($asset, $assetDocument);
         $level = null;
 
         if ($oem && $group && $sku) {
-            $level = $this->serviceLevel($oem, $group, $sku, $name);
+            $name  = $assetDocument->serviceLevelSkuDescription ?? null;
+            $desc  = $assetDocument->serviceFullDescription ?? null;
+            $level = $this->serviceLevel($oem, $group, $sku, $name, $desc);
         }
 
         return $level;

@@ -8,6 +8,7 @@ class DocumentEntry extends Type {
     public ?string $serviceGroupSkuDescription;
     public ?string $serviceLevelSku;
     public ?string $serviceLevelSkuDescription;
+    public ?string $serviceFullDescription;
     public ?string $startDate;
     public ?string $endDate;
     public ?string $currencyCode;

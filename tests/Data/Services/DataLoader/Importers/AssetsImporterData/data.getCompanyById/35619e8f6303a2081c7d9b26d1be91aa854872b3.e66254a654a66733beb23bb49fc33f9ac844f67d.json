@@ -11,7 +11,7 @@
                     "id": "a46afc79-df1d-4ed7-b152-374d6b57b106",
                     "name": "Bayer PLC",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162992419",
+                    "updatedAt": "1662156842108",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 297,
-                        "activeAssets": 297,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 297,
-                            "activeAssets": 297,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

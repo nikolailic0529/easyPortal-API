@@ -7,6 +7,7 @@ class ViewAssetDocument extends Type {
     public ?string $serviceGroupSkuDescription;
     public ?string $serviceLevelSku;
     public ?string $serviceLevelSkuDescription;
+    public ?string $serviceFullDescription;
 
     public ?string       $documentNumber;
     public ?ViewDocument $document;

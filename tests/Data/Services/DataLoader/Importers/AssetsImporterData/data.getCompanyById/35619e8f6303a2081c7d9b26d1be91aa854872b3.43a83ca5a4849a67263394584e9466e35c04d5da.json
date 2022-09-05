@@ -11,7 +11,7 @@
                     "id": "ebe27e11-d579-4b5a-9d7a-9cf020770999",
                     "name": "Cormier, Altenwerth and Brekke",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163106734",
+                    "updatedAt": "1662156965744",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 177,
-                        "activeAssets": 56,
-                        "activeAssetsPercentage": 31.63841807909605,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 177,
-                            "activeAssets": 56,
-                            "activeAssetsPercentage": 31.63841807909605,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

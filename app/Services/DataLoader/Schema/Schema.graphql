@@ -358,6 +358,7 @@ type DocumentEntry {
     pspName: String
     said: String
     sarNumber: String
+    serviceFullDescription: String
     serviceGroupSku: String
     serviceGroupSkuDescription: String
     serviceLevelSku: String

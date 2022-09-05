@@ -11,7 +11,7 @@
                     "id": "03ee438b-b478-4b4b-86bd-a495f3ab2880",
                     "name": "Torphy and Sons",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162741932",
+                    "updatedAt": "1662156564364",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 10,
-                        "activeAssets": 10,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 10,
-                            "activeAssets": 10,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

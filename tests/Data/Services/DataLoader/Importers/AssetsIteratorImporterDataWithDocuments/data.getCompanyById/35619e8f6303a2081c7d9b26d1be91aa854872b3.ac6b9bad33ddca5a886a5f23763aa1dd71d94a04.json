@@ -11,7 +11,7 @@
                     "id": "e25e1111-5815-455f-af8b-93665f76b62c",
                     "name": "Dooley Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163093265",
+                    "updatedAt": "1662156951278",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 115,
-                        "activeAssets": 97,
-                        "activeAssetsPercentage": 84.34782608695653,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 115,
-                            "activeAssets": 97,
-                            "activeAssetsPercentage": 84.34782608695653,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

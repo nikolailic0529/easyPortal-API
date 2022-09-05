@@ -4,6 +4,7 @@
     "serviceGroupSkuDescription": "HPE Foundation Care NBD SVC",
     "serviceLevelSku": "HA151AC",
     "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+    "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement",
     "startDate": "2020-04-01",
     "endDate": "2021-03-31",
     "currencyCode": "EUR",

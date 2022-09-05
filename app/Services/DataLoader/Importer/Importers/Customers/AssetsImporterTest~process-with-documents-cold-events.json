@@ -18,9 +18,7 @@
             },
             "App\\Models\\Location": {
                 "0a872c01-f844-590a-a819-942bfa09a5d2": "0a872c01-f844-590a-a819-942bfa09a5d2",
-                "ec553a82-56f4-5e32-a673-7374f0ab0def": "ec553a82-56f4-5e32-a673-7374f0ab0def",
-                "71bad29a-cfcf-54eb-92bd-efb55119699c": "71bad29a-cfcf-54eb-92bd-efb55119699c",
-                "d6bee321-20d1-5aca-9a45-659a8e7d8b08": "d6bee321-20d1-5aca-9a45-659a8e7d8b08"
+                "ec553a82-56f4-5e32-a673-7374f0ab0def": "ec553a82-56f4-5e32-a673-7374f0ab0def"
             },
             "App\\Models\\Asset": {
                 "00f0a6d3-442d-4a31-a573-459ea5f51efd": "00f0a6d3-442d-4a31-a573-459ea5f51efd",

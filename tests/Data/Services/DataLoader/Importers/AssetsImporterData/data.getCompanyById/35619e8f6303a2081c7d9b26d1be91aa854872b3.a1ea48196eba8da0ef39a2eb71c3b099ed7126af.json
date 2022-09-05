@@ -11,7 +11,7 @@
                     "id": "164093f3-c8fe-43d6-8580-46558eb6665f",
                     "name": "Koepp-Prosacco",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162770573",
+                    "updatedAt": "1662156594674",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 30,
-                        "activeAssets": 30,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 30,
-                            "activeAssets": 30,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

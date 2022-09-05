@@ -11,7 +11,7 @@
                     "id": "45e609ab-3a89-429e-9462-16db018a7fde",
                     "name": "Borer, Graham and Torp",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162841988",
+                    "updatedAt": "1662156674985",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -77,8 +77,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 639,
-                        "activeAssets": 639,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 11,
@@ -107,8 +107,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 639,
-                            "activeAssets": 639,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 11,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

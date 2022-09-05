@@ -3,6 +3,7 @@
     "serviceGroupSkuDescription": "HPE Foundation Care 24x7 SVC",
     "serviceLevelSku": "HA151AC",
     "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+    "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement",
     "documentNumber": "1234567890",
     "document": {
         "id": "6e002dbc-fbc9-42bd-b3af-4076fca1663e",
