@@ -9,5 +9,5 @@ input AssetsSort {
     location: LocationsSort!
     reseller: CompaniesSort!
     customer: CompaniesSort!
-    status: StatusSort!
+    status: StatusesSort!
 }

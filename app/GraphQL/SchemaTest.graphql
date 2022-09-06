@@ -145,7 +145,7 @@ input AggregatedGroupByClauseAssetsQuery {
     """
     Relationship clause.
     """
-    status: [SortByClauseStatusSort!]
+    status: [SortByClauseStatusesSort!]
     @aggregatedGroupByOperatorRelation
 
     """
@@ -5358,7 +5358,7 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
-    status: SortByClauseStatusSort
+    status: SortByClauseStatusesSort
     @sortByProperty
 
     """
@@ -6258,9 +6258,9 @@ input SortByClauseServiceLevelsSort {
 }
 
 """
-Sort clause for input StatusSort (only one property allowed at a time).
+Sort clause for input StatusesSort (only one property allowed at a time).
 """
-input SortByClauseStatusSort {
+input SortByClauseStatusesSort {
     """
     Property clause.
     """
