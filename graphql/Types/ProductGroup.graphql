@@ -1,0 +1,5 @@
+type ProductGroup {
+    id: ID!
+    key: String!
+    name: String!
+}

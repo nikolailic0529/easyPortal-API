@@ -224,9 +224,21 @@ Group clause for `input DocumentEntriesQuery` (only one property allowed at a ti
 """
 input AggregatedGroupByClauseDocumentEntriesQuery {
     """
+    Relationship clause.
+    """
+    assetType: [SortByClauseTypesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
     Property clause.
     """
     asset_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    asset_type_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
@@ -248,15 +260,87 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     @aggregatedGroupByOperatorAsDate
 
     """
+    Property clause.
+    """
+    environment_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    equipment_number: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    language: [SortByClauseLanguagesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    language_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    oem_said: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    oem_sar_number: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
     Relationship clause.
     """
     product: [SortByClauseProductsSort!]
     @aggregatedGroupByOperatorRelation
 
     """
+    Relationship clause.
+    """
+    productGroup: [SortByClauseProductGroupsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Relationship clause.
+    """
+    productLine: [SortByClauseProductLinesSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    product_group_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
     Property clause.
     """
     product_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    product_line_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    psp: [SortByClausePspsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    psp_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
@@ -1530,6 +1614,64 @@ input SearchByComplexRelationOrganizationsQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for `input ProductGroupsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationProductGroupsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionProductGroupsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input ProductLinesQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationProductLinesQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionProductLinesQuery
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for `input ProductsQuery`.
 
 See also:
@@ -1556,6 +1698,35 @@ input SearchByComplexRelationProductsQuery {
     Additional conditions.
     """
     where: SearchByConditionProductsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input PspsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationPspsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionPspsQuery
 }
 
 """
@@ -2833,9 +3004,21 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByOperatorRelation
 
     """
+    Relationship condition.
+    """
+    assetType: SearchByComplexRelationTypesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     asset_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    asset_type_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
@@ -2859,7 +3042,49 @@ input SearchByConditionDocumentEntriesQuery {
     """
     Property condition.
     """
+    environment_id: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    equipment_number: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    language: SearchByComplexRelationLanguagesQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    language_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    list_price: SearchByScalarFloatOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    monthly_list_price: SearchByScalarFloatOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    monthly_retail_price: SearchByScalarFloatOrNull
     @searchByProperty
 
     """
@@ -2869,15 +3094,63 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByOperatorNot
 
     """
+    Property condition.
+    """
+    oem_said: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    oem_sar_number: SearchByScalarStringOrNull
+    @searchByProperty
+
+    """
     Relationship condition.
     """
     product: SearchByComplexRelationProductsQuery
     @searchByOperatorRelation
 
     """
+    Relationship condition.
+    """
+    productGroup: SearchByComplexRelationProductGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Relationship condition.
+    """
+    productLine: SearchByComplexRelationProductLinesQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    product_group_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
     Property condition.
     """
     product_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    product_line_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    psp: SearchByComplexRelationPspsQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    psp_id: SearchByScalarIDOrNull
     @searchByProperty
 
     """
@@ -3462,6 +3735,88 @@ input SearchByConditionOrganizationsQuery {
 }
 
 """
+Available conditions for `input ProductGroupsQuery` (only one property allowed at a time).
+"""
+input SearchByConditionProductGroupsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionProductGroupsQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionProductGroupsQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionProductGroupsQuery
+    @searchByOperatorNot
+}
+
+"""
+Available conditions for `input ProductLinesQuery` (only one property allowed at a time).
+"""
+input SearchByConditionProductLinesQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionProductLinesQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionProductLinesQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionProductLinesQuery
+    @searchByOperatorNot
+}
+
+"""
 Available conditions for `input ProductsQuery` (only one property allowed at a time).
 """
 input SearchByConditionProductsQuery {
@@ -3524,6 +3879,47 @@ input SearchByConditionProductsQuery {
     """
     sku: SearchByScalarString
     @searchByProperty
+}
+
+"""
+Available conditions for `input PspsQuery` (only one property allowed at a time).
+"""
+input SearchByConditionPspsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionPspsQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionPspsQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionPspsQuery
+    @searchByOperatorNot
 }
 
 """
@@ -5238,7 +5634,31 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    assetType: SortByClauseTypesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    asset_type_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     end: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    environment_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    equipment_number: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -5250,13 +5670,91 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    language: SortByClauseLanguagesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    language_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    list_price: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    monthly_list_price: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    monthly_retail_price: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    oem_said: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    oem_sar_number: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     product: SortByClauseProductsSort
     @sortByProperty
 
     """
     Property clause.
     """
+    productGroup: SortByClauseProductGroupsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    productLine: SortByClauseProductLinesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    product_group_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     product_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    product_line_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    psp: SortByClausePspsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    psp_id: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -5610,6 +6108,52 @@ input SortByClauseOrganizationsSort {
 }
 
 """
+Sort clause for input ProductGroupsSort (only one property allowed at a time).
+"""
+input SortByClauseProductGroupsSort {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input ProductLinesSort (only one property allowed at a time).
+"""
+input SortByClauseProductLinesSort {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
 Sort clause for input ProductsSort (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
@@ -5647,6 +6191,29 @@ input SortByClauseProductsSort {
     Property clause.
     """
     sku: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input PspsSort (only one property allowed at a time).
+"""
+input SortByClausePspsSort {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -7786,7 +8353,11 @@ type DocumentEntry {
     asset: Asset
     @relation
 
+    assetType: Type
+    @relation
+
     asset_id: ID
+    asset_type_id: ID
 
     currency: Currency
     @relation
@@ -7794,7 +8365,14 @@ type DocumentEntry {
     currency_id: ID
     document_id: ID!
     end: Date
+    environment_id: String
+    equipment_number: String
     id: ID!
+
+    language: Language
+    @relation
+
+    language_id: ID
 
     list_price: Float
     @field(
@@ -7804,11 +8382,51 @@ type DocumentEntry {
         relation: "document.statuses"
     )
 
+    monthly_list_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
+    monthly_retail_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
+    oem_said: String
+    oem_sar_number: String
+
     product: Product
     @relation
 
+    productGroup: ProductGroup
+    @relation
+
+    productLine: ProductLine
+    @relation
+
+    product_group_id: ID
     product_id: ID
+    product_line_id: ID
+
+    psp: Psp
+    @relation
+
+    psp_id: ID
+
     renewal: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
     serial_number: String
 
     serviceGroup: ServiceGroup
@@ -9508,6 +10126,18 @@ type Product {
     sku: String!
 }
 
+type ProductGroup {
+    id: ID!
+    key: String!
+    name: String!
+}
+
+type ProductLine {
+    id: ID!
+    key: String!
+    name: String!
+}
+
 """
 Aggregated data for `type Product`.
 """
@@ -9557,6 +10187,12 @@ type ProductsAggregated {
     @aggregated(
         builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
     )
+}
+
+type Psp {
+    id: ID!
+    key: String!
+    name: String!
 }
 
 type Query {

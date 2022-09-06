@@ -1,5 +1,6 @@
 input DocumentEntriesSort {
     id: ID!
+    list_price: Float
     renewal: Float
     serial_number: String
     start: Date
@@ -10,4 +11,20 @@ input DocumentEntriesSort {
     serviceGroup: ServiceGroupsSort
     service_level_id: ID
     serviceLevel: ServiceLevelsSort
+    monthly_list_price: Float
+    monthly_retail_price: Float
+    oem_said: String
+    oem_sar_number: String
+    environment_id: String
+    equipment_number: String
+    product_line_id: ID
+    productLine: ProductLinesSort
+    product_group_id: ID
+    productGroup: ProductGroupsSort
+    asset_type_id: ID
+    assetType: TypesSort
+    language_id: ID
+    language: LanguagesSort
+    psp_id: ID
+    psp: PspsSort
 }

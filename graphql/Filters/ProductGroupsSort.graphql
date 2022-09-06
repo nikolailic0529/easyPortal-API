@@ -1,0 +1,5 @@
+input ProductGroupsSort {
+    id: ID!
+    key: String!
+    name: String!
+}

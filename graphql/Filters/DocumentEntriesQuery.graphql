@@ -3,6 +3,7 @@ input DocumentEntriesQuery {
     document_id: ID!
     asset_id: ID
     asset: AssetsQuery
+    list_price: Float
     renewal: Float
     serial_number: String
     start: Date
@@ -14,4 +15,20 @@ input DocumentEntriesQuery {
     service_level_id: ID
     serviceLevel: ServiceLevelsQuery
     currency_id: ID
+    monthly_list_price: Float
+    monthly_retail_price: Float
+    oem_said: String
+    oem_sar_number: String
+    environment_id: String
+    equipment_number: String
+    product_line_id: ID
+    productLine: ProductLinesQuery
+    product_group_id: ID
+    productGroup: ProductGroupsQuery
+    asset_type_id: ID
+    assetType: TypesQuery
+    language_id: ID
+    language: LanguagesQuery
+    psp_id: ID
+    psp: PspsQuery
 }
