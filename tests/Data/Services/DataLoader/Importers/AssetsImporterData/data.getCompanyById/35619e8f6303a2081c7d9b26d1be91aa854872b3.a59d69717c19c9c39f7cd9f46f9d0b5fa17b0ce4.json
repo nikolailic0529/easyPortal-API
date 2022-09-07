@@ -11,7 +11,7 @@
                     "id": "e42b0534-878d-4d43-90ec-d9c1cef59b70",
                     "name": "Mueller-Okuneva",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163096500",
+                    "updatedAt": "1662156954533",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -94,21 +94,21 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 123,
-                        "activeAssets": 116,
-                        "activeAssetsPercentage": 94.3089430894309,
+                        "totalAssets": 172,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 13,
+                        "activeContracts": 11,
                         "activeContractTotalAmount": 49338.08,
                         "newActiveContracts": null,
-                        "expiringContracts": 3,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
-                        "expiredContracts": 3,
+                        "expiredContracts": 5,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -124,21 +124,21 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                            "totalAssets": 123,
-                            "activeAssets": 116,
-                            "activeAssetsPercentage": 94.3089430894309,
+                            "totalAssets": 172,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
-                            "activeContracts": 13,
+                            "activeContracts": 11,
                             "activeContractTotalAmount": 49338.079999999994,
                             "newActiveContracts": null,
-                            "expiringContracts": 3,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
                             "expiringQuotes": 0,
                             "expiredQuotes": 0,
-                            "expiredContracts": 3,
+                            "expiredContracts": 5,
                             "orderedQuotes": null,
                             "acceptedQuotes": null,
                             "requestedQuotes": null,
@@ -153,7 +153,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

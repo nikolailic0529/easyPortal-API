@@ -1206,12 +1206,12 @@ class Client {
             id
             serialNumber
 
-            productDescription
+            assetSku
+            assetSkuDescription
             assetTag
             assetType
             status
             vendor
-            sku
 
             eolDate
             eosDate
@@ -1262,12 +1262,6 @@ class Client {
                 endDate
                 documentNumber
 
-                currencyCode
-                languageCode
-                netPrice
-                discount
-                listPrice
-
                 document {
                     id
                     type
@@ -1301,12 +1295,11 @@ class Client {
                     distributorId
                 }
 
-                skuNumber
-                skuDescription
-                supportPackage
-                supportPackageDescription
-                warrantyEndDate
-                estimatedValueRenewal
+                serviceGroupSku
+                serviceGroupSkuDescription
+                serviceLevelSku
+                serviceLevelSkuDescription
+                serviceFullDescription
 
                 customer {
                   id
@@ -1351,20 +1344,28 @@ class Client {
 
             documentEntries {
                 assetId
-                skuNumber
-                skuDescription
+                assetProductLine
+                assetProductGroupDescription
+                serviceGroupSku
+                serviceGroupSkuDescription
+                serviceLevelSku
+                serviceLevelSkuDescription
+                serviceFullDescription
                 startDate
                 endDate
-                warrantyEndDate
-                productLineDescription
-                supportPackage
-                supportPackageDescription
                 languageCode
                 currencyCode
-                netPrice
-                discount
                 listPrice
                 estimatedValueRenewal
+                assetProductType
+                environmentId
+                equipmentNumber
+                lineItemListPrice
+                lineItemMonthlyRetailPrice
+                said
+                sarNumber
+                pspId
+                pspName
             }
             GRAPHQL;
     }

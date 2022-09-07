@@ -11,7 +11,7 @@
                     "id": "8cb1e9b4-b881-4810-9fd7-d3556db827f6",
                     "name": "Hermann Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162951476",
+                    "updatedAt": "1662156799841",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 1,
-                        "activeAssets": 1,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 1,
-                            "activeAssets": 1,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

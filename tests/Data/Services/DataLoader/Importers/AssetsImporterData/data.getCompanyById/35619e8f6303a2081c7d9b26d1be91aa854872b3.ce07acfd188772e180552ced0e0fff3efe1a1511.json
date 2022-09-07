@@ -11,7 +11,7 @@
                     "id": "0501ec0a-652e-4276-81fa-8e651a098b18",
                     "name": "Rowe Inc",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162743510",
+                    "updatedAt": "1662156566177",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -58,15 +58,15 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 205,
-                        "activeAssets": 175,
-                        "activeAssetsPercentage": 85.36585365853658,
+                        "totalAssets": 236,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 4,
                         "activeContractTotalAmount": 18479.760000000002,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -88,15 +88,15 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                            "totalAssets": 205,
-                            "activeAssets": 175,
-                            "activeAssetsPercentage": 85.36585365853658,
+                            "totalAssets": 236,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 4,
                             "activeContractTotalAmount": 18479.760000000002,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

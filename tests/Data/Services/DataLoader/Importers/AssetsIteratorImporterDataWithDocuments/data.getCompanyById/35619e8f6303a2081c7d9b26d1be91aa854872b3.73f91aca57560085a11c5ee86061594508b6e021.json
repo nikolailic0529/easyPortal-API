@@ -11,7 +11,7 @@
                     "id": "4a4955d5-6c40-456c-94fe-25f41ffb25ef",
                     "name": "Wuckert, Smith and Keeling",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162848224",
+                    "updatedAt": "1662156682883",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 123,
-                        "activeAssets": 91,
-                        "activeAssetsPercentage": 73.98373983739837,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 123,
-                            "activeAssets": 91,
-                            "activeAssetsPercentage": 73.98373983739837,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

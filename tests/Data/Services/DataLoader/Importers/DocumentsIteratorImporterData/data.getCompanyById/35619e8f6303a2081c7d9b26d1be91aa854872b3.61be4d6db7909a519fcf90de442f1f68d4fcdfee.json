@@ -11,7 +11,7 @@
                     "id": "8e3ba44b-5949-4503-991b-ddf8b785177c",
                     "name": "Hudson-Ondricka",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162954870",
+                    "updatedAt": "1662156802560",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -52,9 +52,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 14,
-                        "activeAssets": 4,
-                        "activeAssetsPercentage": 28.57142857142857,
+                        "totalAssets": 16,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -82,9 +82,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                            "totalAssets": 14,
-                            "activeAssets": 4,
-                            "activeAssetsPercentage": 28.57142857142857,
+                            "totalAssets": 16,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

@@ -5,15 +5,16 @@ namespace App\Services\DataLoader\Factory\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
-use App\Models\DocumentEntryField;
 use App\Models\OemGroup;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntry;
-use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryCustomField;
 use App\Services\DataLoader\Exceptions\FailedToProcessDocumentEntryNoAsset;
 use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Factory\Concerns\Children;
@@ -23,11 +24,13 @@ use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithCurrency;
 use App\Services\DataLoader\Factory\Concerns\WithCustomer;
 use App\Services\DataLoader\Factory\Concerns\WithDistributor;
-use App\Services\DataLoader\Factory\Concerns\WithField;
 use App\Services\DataLoader\Factory\Concerns\WithLanguage;
 use App\Services\DataLoader\Factory\Concerns\WithOem;
 use App\Services\DataLoader\Factory\Concerns\WithOemGroup;
 use App\Services\DataLoader\Factory\Concerns\WithProduct;
+use App\Services\DataLoader\Factory\Concerns\WithProductGroup;
+use App\Services\DataLoader\Factory\Concerns\WithProductLine;
+use App\Services\DataLoader\Factory\Concerns\WithPsp;
 use App\Services\DataLoader\Factory\Concerns\WithReseller;
 use App\Services\DataLoader\Factory\Concerns\WithServiceGroup;
 use App\Services\DataLoader\Factory\Concerns\WithServiceLevel;
@@ -45,17 +48,18 @@ use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolver\Resolvers\DocumentResolver;
-use App\Services\DataLoader\Resolver\Resolvers\FieldResolver;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
@@ -79,10 +83,11 @@ class DocumentFactory extends ModelFactory {
     use WithServiceGroup;
     use WithServiceLevel;
     use WithType;
-    use WithField;
     use WithStatus;
     use WithAsset;
     use WithProduct;
+    use WithProductLine;
+    use WithProductGroup;
     use WithCurrency;
     use WithLanguage;
     use WithContacts;
@@ -90,18 +95,20 @@ class DocumentFactory extends ModelFactory {
     use WithCustomer;
     use WithDistributor;
     use WithAssetDocument;
+    use WithPsp;
 
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
-        protected FieldResolver $fieldResolver,
         protected StatusResolver $statusResolver,
         protected AssetResolver $assetResolver,
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
         protected ProductResolver $productResolver,
+        protected ProductLineResolver $productLineResolver,
+        protected ProductGroupResolver $productGroupResolver,
         protected CurrencyResolver $currencyResolver,
         protected DocumentResolver $documentResolver,
         protected LanguageResolver $languageResolver,
@@ -110,6 +117,7 @@ class DocumentFactory extends ModelFactory {
         protected OemGroupResolver $oemGroupResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
+        protected PspResolver $pspResolver,
         protected ?DistributorFinder $distributorFinder = null,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
@@ -164,12 +172,16 @@ class DocumentFactory extends ModelFactory {
         return $this->productResolver;
     }
 
-    protected function getTypeResolver(): TypeResolver {
-        return $this->typeResolver;
+    protected function getProductLineResolver(): ProductLineResolver {
+        return $this->productLineResolver;
     }
 
-    protected function getFieldResolver(): FieldResolver {
-        return $this->fieldResolver;
+    protected function getProductGroupResolver(): ProductGroupResolver {
+        return $this->productGroupResolver;
+    }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->typeResolver;
     }
 
     protected function getStatusResolver(): StatusResolver {
@@ -194,6 +206,10 @@ class DocumentFactory extends ModelFactory {
 
     protected function getLanguageResolver(): LanguageResolver {
         return $this->languageResolver;
+    }
+
+    protected function getPspResolver(): PspResolver {
+        return $this->pspResolver;
     }
 
     protected function getAssetFinder(): ?AssetFinder {
@@ -304,6 +320,9 @@ class DocumentFactory extends ModelFactory {
         DocumentEntryModel $entry,
         DocumentEntry $documentEntry,
     ): bool {
+        // Entries doesn't have ID, but we need to compare them somehow...
+        //
+        // Is there a better way?
         $normalizer = $this->getNormalizer();
         $start      = $normalizer->datetime($documentEntry->startDate);
         $end        = $normalizer->datetime($documentEntry->endDate);
@@ -311,12 +330,13 @@ class DocumentFactory extends ModelFactory {
             && ($entry->start === $documentEntry->startDate || $entry->start?->isSameDay($start) === true)
             && ($entry->end === $documentEntry->endDate || $entry->end?->isSameDay($end) === true)
             && $entry->currency_id === $this->currency($documentEntry->currencyCode)?->getKey()
-            && $entry->net_price === $normalizer->decimal($documentEntry->netPrice)
             && $entry->list_price === $normalizer->decimal($documentEntry->listPrice)
-            && $entry->discount === $normalizer->decimal($documentEntry->discount)
             && $entry->renewal === $normalizer->decimal($documentEntry->estimatedValueRenewal)
+            && $entry->monthly_list_price === $normalizer->decimal($documentEntry->lineItemListPrice)
+            && $entry->monthly_retail_price === $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice)
             && $entry->service_group_id === $this->documentEntryServiceGroup($model, $documentEntry)?->getKey()
-            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey();
+            && $entry->service_level_id === $this->documentEntryServiceLevel($model, $documentEntry)?->getKey()
+            && $entry->equipment_number === $normalizer->string($documentEntry->equipmentNumber);
 
         return $isEqual;
     }
@@ -379,8 +399,6 @@ class DocumentFactory extends ModelFactory {
                         $assets->loadMissing('oem');
                     },
                 );
-
-                $model->loadMissing('entries.fields');
 
                 // Entries
                 try {
@@ -474,22 +492,30 @@ class DocumentFactory extends ModelFactory {
         DocumentEntry $documentEntry,
         ?DocumentEntryModel $entry,
     ): DocumentEntryModel {
-        $asset                = $this->documentEntryAsset($model, $documentEntry);
-        $entry              ??= new DocumentEntryModel();
-        $normalizer           = $this->getNormalizer();
-        $entry->asset         = $asset;
-        $entry->product_id    = $asset->product_id ?? null;
-        $entry->serial_number = $asset->serial_number ?? null;
-        $entry->start         = $normalizer->datetime($documentEntry->startDate);
-        $entry->end           = $normalizer->datetime($documentEntry->endDate);
-        $entry->currency      = $this->currency($documentEntry->currencyCode);
-        $entry->net_price     = $normalizer->decimal($documentEntry->netPrice);
-        $entry->list_price    = $normalizer->decimal($documentEntry->listPrice);
-        $entry->discount      = $normalizer->decimal($documentEntry->discount);
-        $entry->renewal       = $normalizer->decimal($documentEntry->estimatedValueRenewal);
-        $entry->fields        = $this->documentEntryFields($model, $entry, $documentEntry);
-        $entry->serviceGroup  = $this->documentEntryServiceGroup($model, $documentEntry);
-        $entry->serviceLevel  = $this->documentEntryServiceLevel($model, $documentEntry);
+        $asset                       = $this->documentEntryAsset($model, $documentEntry);
+        $entry                     ??= new DocumentEntryModel();
+        $normalizer                  = $this->getNormalizer();
+        $entry->asset                = $asset;
+        $entry->assetType            = $this->documentEntryAssetType($model, $documentEntry);
+        $entry->product_id           = $asset->product_id ?? null;
+        $entry->productLine          = $this->documentEntryProductLine($model, $documentEntry);
+        $entry->productGroup         = $this->documentEntryProductGroup($model, $documentEntry);
+        $entry->serial_number        = $asset->serial_number ?? null;
+        $entry->start                = $normalizer->datetime($documentEntry->startDate);
+        $entry->end                  = $normalizer->datetime($documentEntry->endDate);
+        $entry->currency             = $this->currency($documentEntry->currencyCode);
+        $entry->list_price           = $normalizer->decimal($documentEntry->listPrice);
+        $entry->monthly_list_price   = $normalizer->decimal($documentEntry->lineItemListPrice);
+        $entry->monthly_retail_price = $normalizer->decimal($documentEntry->lineItemMonthlyRetailPrice);
+        $entry->renewal              = $normalizer->decimal($documentEntry->estimatedValueRenewal);
+        $entry->oem_said             = $normalizer->string($documentEntry->said);
+        $entry->oem_sar_number       = $normalizer->string($documentEntry->sarNumber);
+        $entry->environment_id       = $normalizer->string($documentEntry->environmentId);
+        $entry->equipment_number     = $normalizer->string($documentEntry->equipmentNumber);
+        $entry->language             = $this->language($documentEntry->languageCode);
+        $entry->serviceGroup         = $this->documentEntryServiceGroup($model, $documentEntry);
+        $entry->serviceLevel         = $this->documentEntryServiceLevel($model, $documentEntry);
+        $entry->psp                  = $this->documentEntryPsp($model, $documentEntry);
 
         return $entry;
     }
@@ -512,9 +538,30 @@ class DocumentFactory extends ModelFactory {
         return $asset;
     }
 
+    protected function documentEntryAssetType(DocumentModel $model, DocumentEntry $documentEntry): ?TypeModel {
+        $type = $this->getNormalizer()->string($documentEntry->assetProductType);
+        $type = $type
+            ? $this->type(new AssetModel(), $type)
+            : null;
+
+        return $type;
+    }
+
+    protected function documentEntryProductLine(DocumentModel $model, DocumentEntry $documentEntry): ?ProductLine {
+        return $this->productLine($documentEntry->assetProductLine);
+    }
+
+    protected function documentEntryProductGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ProductGroup {
+        return $this->productGroup($documentEntry->assetProductGroupDescription);
+    }
+
+    protected function documentEntryPsp(DocumentModel $model, DocumentEntry $documentEntry): ?Psp {
+        return $this->psp($documentEntry->pspId, $documentEntry->pspName);
+    }
+
     protected function documentEntryServiceGroup(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceGroup {
-        $sku   = $documentEntry->supportPackage ?? null;
-        $name  = $documentEntry->supportPackageDescription ?? null;
+        $sku   = $documentEntry->serviceGroupSku ?? null;
+        $name  = $documentEntry->serviceGroupSkuDescription ?? null;
         $group = null;
 
         if ($sku && $model->oem) {
@@ -525,67 +572,17 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentEntryServiceLevel(DocumentModel $model, DocumentEntry $documentEntry): ?ServiceLevel {
-        $sku   = $documentEntry->skuNumber ?? null;
-        $name  = $documentEntry->skuDescription ?? null;
+        $sku   = $documentEntry->serviceLevelSku ?? null;
         $group = $this->documentEntryServiceGroup($model, $documentEntry);
         $level = null;
 
         if ($group && $sku && $model->oem) {
-            $level = $this->serviceLevel($model->oem, $group, $sku, $name);
+            $name  = $documentEntry->serviceLevelSkuDescription ?? null;
+            $desc  = $documentEntry->serviceFullDescription ?? null;
+            $level = $this->serviceLevel($model->oem, $group, $sku, $name, $desc);
         }
 
         return $level;
-    }
-
-    /**
-     * @return EloquentCollection<int, DocumentEntryField>
-     */
-    protected function documentEntryFields(
-        DocumentModel $document,
-        DocumentEntryModel $documentEntry,
-        DocumentEntry $entry,
-    ): EloquentCollection {
-        return $this->children(
-            $documentEntry->fields,
-            $entry->customFields ?? [],
-            function (CustomField $customField, DocumentEntryField $model): bool {
-                return $model->field_id === $this->field($model, $customField->Name)->getKey();
-            },
-            function (
-                CustomField $customField,
-                ?DocumentEntryField $field,
-            ) use (
-                $document,
-                $documentEntry,
-                $entry,
-            ): ?DocumentEntryField {
-                try {
-                    return $this->documentEntryField($document, $documentEntry, $entry, $customField, $field);
-                } catch (Throwable $exception) {
-                    $this->getExceptionHandler()->report(
-                        new FailedToProcessDocumentEntryCustomField($document, $entry, $customField, $exception),
-                    );
-                }
-
-                return null;
-            },
-        );
-    }
-
-    protected function documentEntryField(
-        DocumentModel $document,
-        DocumentEntryModel $documentEntry,
-        DocumentEntry $entry,
-        CustomField $customField,
-        ?DocumentEntryField $field,
-    ): DocumentEntryField {
-        $normalizer      = $this->getNormalizer();
-        $field         ??= new DocumentEntryField();
-        $field->document = $document;
-        $field->field    = $this->field($field, $customField->Name);
-        $field->value    = $normalizer->string($customField->Value);
-
-        return $field;
     }
     // </editor-fold>
 }

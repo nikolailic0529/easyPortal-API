@@ -1,0 +1,5 @@
+input PspsQuery {
+    id: ID!
+    key: String!
+    name: String!
+}

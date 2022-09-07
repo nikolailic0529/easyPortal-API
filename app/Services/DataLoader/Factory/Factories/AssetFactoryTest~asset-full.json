@@ -1,10 +1,10 @@
 {
     "id": "c0200a6c-1b8a-4365-9f1b-32d753194335",
     "serialNumber": "CK012345ARB",
-    "productDescription": "Aruba AP-215 Dual 3x3:3 802.11ac AP",
+    "assetSkuDescription": "Aruba AP-215 Dual 3x3:3 802.11ac AP",
     "assetType": "Software",
     "vendor": "HPE",
-    "sku": "JW1123",
+    "assetSku": "JW1123",
     "eolDate": "1615161600000",
     "eosDate": "",
     "country": "Great Britain",
@@ -53,18 +53,13 @@
                     }
                 ]
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": "1614470400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145",
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
@@ -99,16 +94,10 @@
                     }
                 ]
             },
-            "skuNumber": null,
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": null,
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": "1614470400000",
-            "netPrice": "22.4",
-            "discount": "0",
-            "listPrice": "8",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "123",
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
@@ -119,16 +108,10 @@
         {
             "documentNumber": null,
             "document": null,
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": "1614470400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145",
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },

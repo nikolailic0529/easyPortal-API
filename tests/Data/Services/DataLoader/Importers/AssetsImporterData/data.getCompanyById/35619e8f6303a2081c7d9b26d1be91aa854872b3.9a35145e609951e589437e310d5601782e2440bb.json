@@ -11,7 +11,7 @@
                     "id": "59d71dc6-ecd0-45de-b11f-794cbde72f2b",
                     "name": "McClure-Gleason",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162871743",
+                    "updatedAt": "1662156709604",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,9 +46,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 77,
-                        "activeAssets": 64,
-                        "activeAssetsPercentage": 83.11688311688312,
+                        "totalAssets": 101,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -76,9 +76,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                            "totalAssets": 77,
-                            "activeAssets": 64,
-                            "activeAssetsPercentage": 83.11688311688312,
+                            "totalAssets": 101,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

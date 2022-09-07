@@ -1,0 +1,5 @@
+input PspsSort {
+    id: ID!
+    key: String!
+    name: String!
+}

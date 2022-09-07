@@ -11,7 +11,7 @@
                     "id": "9b5416d8-d32d-4524-ba79-ece0f0233c7a",
                     "name": "Cole-Gottlieb",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162977571",
+                    "updatedAt": "1662156827373",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -59,8 +59,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 5,
-                        "activeAssets": 4,
-                        "activeAssetsPercentage": 80.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -89,8 +89,8 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 5,
-                            "activeAssets": 4,
-                            "activeAssetsPercentage": 80.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -117,7 +117,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

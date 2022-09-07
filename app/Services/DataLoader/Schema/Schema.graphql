@@ -133,6 +133,8 @@ type Asset {
     address2: String
     assetCoverage: String
     assetDocument: [AssetDocument]
+    assetSku: String
+    assetSkuDescription: String
     assetTag: String
     assetType: String
     city: String
@@ -148,12 +150,10 @@ type Asset {
     latitude: String
     lifecycleStatus: String
     longitude: String
-    productDescription: String
     reseller: Company
     resellerId: String
     serialNumber: String
     serialNumberIsGenerated: String
-    sku: String
     sourceDocument: [SourceDocument]
     status: String
     updatedAt: String
@@ -163,27 +163,34 @@ type Asset {
 }
 
 type AssetDocument {
+    assetProductGroupDescription: String
+    assetProductLine: String
+    assetProductType: String
     currencyCode: String
-    customFields: [CustomField]
     customer: Company
-    discount: String
     distributor: Company
     document: Document
     documentNumber: String
     endDate: String
+    environmentId: String
+    eoslDate: String
     equipmentNumber: String
     estimatedValueRenewal: String
     languageCode: String
+    lineItemListPrice: String
+    lineItemMonthlyRetailPrice: String
     listPrice: String
-    msrp: String
-    netPrice: String
-    productLineDescription: String
+    pspId: String
+    pspName: String
     reseller: Company
-    skuDescription: String
-    skuNumber: String
+    said: String
+    sarNumber: String
+    serviceFullDescription: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 
@@ -334,21 +341,29 @@ type Document {
 type DocumentEntry {
     asset: Asset
     assetId: String
+    assetProductGroupDescription: String
+    assetProductLine: String
+    assetProductType: String
     currencyCode: String
-    customFields: [CustomField]
-    discount: String
     endDate: String
+    environmentId: String
+    eoslDate: String
+    equipmentNumber: String
     estimatedValueRenewal: String
     languageCode: String
+    lineItemListPrice: String
+    lineItemMonthlyRetailPrice: String
     listPrice: String
-    msrp: String
-    netPrice: String
-    productLineDescription: String
-    skuDescription: String
-    skuNumber: String
+    pspId: String
+    pspName: String
+    said: String
+    sarNumber: String
+    serviceFullDescription: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 
@@ -590,6 +605,8 @@ type ViewAsset {
     assetCoverage: [String]
     assetDocument: [ViewAssetDocument]
     assetExpireDate: String
+    assetSku: String
+    assetSkuDescription: String
     assetTag: String
     assetType: String
     city: String
@@ -606,12 +623,10 @@ type ViewAsset {
     latitude: String
     lifecycleStatus: String
     longitude: String
-    productDescription: String
     reseller: ViewCompany
     resellerId: String
     serialNumber: String
     serialNumberIsGenerated: String
-    sku: String
     sourceDocument: [SourceDocument]
     status: String
     updatedAt: String
@@ -621,31 +636,38 @@ type ViewAsset {
 }
 
 type ViewAssetDocument {
+    assetProductGroupDescription: String
+    assetProductLine: String
+    assetProductType: String
     currencyCode: String
-    customFields: [CustomField]
     customer: ViewCompany
     customerInvoiceDate: String
     customerPurchaseOrderDate: String
-    discount: String
     distributor: ViewCompany
     document: ViewDocument
     documentNumber: String
     endDate: String
+    environmentId: String
+    eoslDate: String
     equipmentNumber: String
     estimatedValueRenewal: String
     languageCode: String
+    lineItemListPrice: String
+    lineItemMonthlyRetailPrice: String
     listPrice: String
-    msrp: String
-    netPrice: String
-    productLineDescription: String
+    pspId: String
+    pspName: String
     quantity: Int
     reseller: ViewCompany
+    said: String
+    sarNumber: String
     sellCurrencyCode: String
-    skuDescription: String
-    skuNumber: String
+    serviceFullDescription: String
+    serviceGroupSku: String
+    serviceGroupSkuDescription: String
+    serviceLevelSku: String
+    serviceLevelSkuDescription: String
     startDate: String
-    supportPackage: String
-    supportPackageDescription: String
     warrantyEndDate: String
 }
 

@@ -1,0 +1,5 @@
+input ProductLinesQuery {
+    id: ID!
+    key: String!
+    name: String!
+}

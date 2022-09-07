@@ -1,0 +1,922 @@
+{
+    "selector": "data.getAssetsByResellerId",
+    "query": "query items($id: String!, $limit: Int, $lastId: String, $from: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "27faa47d-ab2a-4755-b36b-729114c056d2",
+        "from": null,
+        "lastId": "0135c00e-0f20-49b5-bb10-f10e5df57237",
+        "limit": 5
+    },
+    "response": {
+        "data": {
+            "getAssetsByResellerId": [
+                {
+                    "id": "01418a52-d035-4202-bcce-f750ce3ac059",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": "04d6fe58-1e2b-3c1a-b8fe-caa8dc46c998",
+                    "assetSkuDescription": "HPE 240GB SATA MU SFF SC DS SSD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "880295-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "60031-1134",
+                    "city": "East Geneberg",
+                    "address": "25543 Favian Ferry",
+                    "address2": null,
+                    "country": "Belize",
+                    "latitude": "-79.65522",
+                    "longitude": "149.364866",
+                    "countryCode": "DJ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137699130",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "33ed8382-04da-38b3-8d01-431df574013c",
+                            "document": {
+                                "id": "8fc885cf-9f0f-4323-98c0-20365369bb72",
+                                "type": "Contract",
+                                "documentNumber": "33ed8382-04da-38b3-8d01-431df574013c",
+                                "startDate": "2021-07-07",
+                                "endDate": "2022-07-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "901.74",
+                                "languageCode": null,
+                                "updatedAt": "1657233031782",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "496bc684-2ece-3e34-ab34-a3fc99ec5523",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Dr. Augustus Lakin",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "33ed8382-04da-38b3-8d01-431df574013c",
+                            "document": {
+                                "id": "8fc885cf-9f0f-4323-98c0-20365369bb72",
+                                "type": "Contract",
+                                "documentNumber": "33ed8382-04da-38b3-8d01-431df574013c",
+                                "startDate": "2021-07-07",
+                                "endDate": "2022-07-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "901.74",
+                                "languageCode": null,
+                                "updatedAt": "1657233031782",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "496bc684-2ece-3e34-ab34-a3fc99ec5523",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Dr. Augustus Lakin",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15805268315",
+                            "name": "Mr. General Champlin II",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662137699130",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-07-07",
+                                "coverageEndDate": "2022-07-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2022-04-28",
+                                "coverageEndDate": "2022-04-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "01487898-b607-456c-b4b8-cabd2b5b02cd",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                    "serialNumber": "61b3ade3-452c-3a13-b142-9c4ade641af5",
+                    "assetSkuDescription": "HP 3PAR 8000 4TB SAS 7.2K LFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "K2P87A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80331",
+                    "city": "Port Xzavierview",
+                    "address": "6052 Hartmann Mission",
+                    "address2": null,
+                    "country": "Belize",
+                    "latitude": "47.485508",
+                    "longitude": "13.23433",
+                    "countryCode": "DJ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137710094",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "7153c285-ceea-3238-9f43-6bd7cb158dfa",
+                            "document": {
+                                "id": "b2312283-6c80-4ffb-99c4-375dbbb57e41",
+                                "type": "Contract",
+                                "documentNumber": "7153c285-ceea-3238-9f43-6bd7cb158dfa",
+                                "startDate": "2021-05-01",
+                                "endDate": "2022-04-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "25893.71999999983",
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19309128288",
+                                        "name": "Dr. Julius Gulgowski DVM",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19309128288",
+                                        "name": "Dr. Julius Gulgowski DVM",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "93da84d9-a8ee-483a-b604-9289d41fd601"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+19309128288",
+                            "name": "Dr. Julius Gulgowski DVM",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662137710094",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-05-01",
+                                "coverageEndDate": "2023-04-30",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H1K92AC-HPE Proactive Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2021-04-28",
+                                "coverageEndDate": "2021-04-28",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "01b884ea-4c7f-4484-8016-87d17d6e2f23",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
+                    "serialNumber": "8177461c-af97-339e-832b-82ff9663a6cb",
+                    "assetSkuDescription": "HPE SN1100Q 16Gb 2p FC HBA",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "P9D94A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "55606",
+                    "city": "West Calistabury",
+                    "address": "65785 Neha Canyon",
+                    "address2": null,
+                    "country": "Belize",
+                    "latitude": "-50.021254",
+                    "longitude": "-25.44333",
+                    "countryCode": "DJ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137768930",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "ae699a40-3847-3532-a081-af631e383afc",
+                            "document": {
+                                "id": "ccfd5517-d3f5-4482-af9d-57ef1410acfb",
+                                "type": "Contract",
+                                "documentNumber": "ae699a40-3847-3532-a081-af631e383afc",
+                                "startDate": "2018-02-13",
+                                "endDate": "2023-02-12",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": null,
+                                "languageCode": null,
+                                "updatedAt": "1654262846658",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "d83107e0-ee01-3e61-b4e2-3783c51aaddc",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15034598264",
+                                        "name": "Miss Augustine Bogisich",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15034598264",
+                                        "name": "Miss Augustine Bogisich",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15034598264",
+                                        "name": "Miss Augustine Bogisich",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15319251626",
+                                        "name": "Ms. Asa Haag",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "412e9b0e-95e8-474a-a8e1-4f526886eb55",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "412e9b0e-95e8-474a-a8e1-4f526886eb55"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15034598264",
+                            "name": "Miss Augustine Bogisich",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662137768930",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-02-13",
+                                "coverageEndDate": "2023-02-12",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-11-13",
+                                "coverageEndDate": "2020-12-12",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "01c141c9-5d6d-42c8-8861-5999fab8345e",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                    "serialNumber": "c3784e3f-0105-37be-b65a-122c984762d7",
+                    "assetSkuDescription": "HPE 16GB 2Rx4 PC4-2133P-R Kit",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "726719-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80331",
+                    "city": "Port Xzavierview",
+                    "address": "6052 Hartmann Mission",
+                    "address2": null,
+                    "country": "Belize",
+                    "latitude": "47.485508",
+                    "longitude": "13.23433",
+                    "countryCode": "DJ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137716850",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "02ed31c0-b65e-3b3c-bb36-08c6e7c0015b",
+                            "document": {
+                                "id": "78e6c289-8759-4180-8ae5-732f3221e187",
+                                "type": "Contract",
+                                "documentNumber": "02ed31c0-b65e-3b3c-bb36-08c6e7c0015b",
+                                "startDate": "2021-09-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1850.31",
+                                "languageCode": null,
+                                "updatedAt": "1657233031220",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "ab35807f-b573-3112-800c-ecffc712aa0d",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+17195156095",
+                                        "name": "Brenna Schmidt",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17195156095",
+                                        "name": "Brenna Schmidt",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+17195156095",
+                                        "name": "Brenna Schmidt",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": "Prof. Monte Stiedemann PhD",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "93da84d9-a8ee-483a-b604-9289d41fd601",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "93da84d9-a8ee-483a-b604-9289d41fd601"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+17195156095",
+                            "name": "Brenna Schmidt",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662137716850",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2020-08-26",
+                                "coverageEndDate": "2020-08-26",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "01ce1bc2-61ec-4174-a66b-47b2d0be7aad",
+                    "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                    "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                    "serialNumber": "2db05f3c-9c68-3352-bd51-0b793732cfad",
+                    "assetSkuDescription": "HPE FlexFabric 20Gb 2P 650FLB Adptr",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "700763-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "60031-1134",
+                    "city": "East Geneberg",
+                    "address": "25543 Favian Ferry",
+                    "address2": null,
+                    "country": "Belize",
+                    "latitude": "-79.65522",
+                    "longitude": "149.364866",
+                    "countryCode": "DJ",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662137786139",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "10ad9d94-60dc-3b07-bc41-a83add6fc025",
+                            "document": {
+                                "id": "f64a13dc-54eb-4156-977e-ca4489f42b03",
+                                "type": "Quote renewal",
+                                "documentNumber": "10ad9d94-60dc-3b07-bc41-a83add6fc025",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3876.96",
+                                "languageCode": null,
+                                "updatedAt": "1656716692221",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "5950ac66-9683-381d-992e-0355e3bfa8ed",
+                            "document": {
+                                "id": "b779f99b-8991-4364-950d-0cabb130e832",
+                                "type": "Contract",
+                                "documentNumber": "5950ac66-9683-381d-992e-0355e3bfa8ed",
+                                "startDate": "2021-09-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "716.84",
+                                "languageCode": null,
+                                "updatedAt": "1657233032063",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "be19dd28-5717-33eb-b57d-f1c66d08e8c5",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15805268315",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Dr. Augustus Lakin",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "fe97f500-c6e4-4968-a312-25d21318297b",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "fe97f500-c6e4-4968-a312-25d21318297b"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "10ad9d94-60dc-3b07-bc41-a83add6fc025",
+                            "document": {
+                                "id": "f64a13dc-54eb-4156-977e-ca4489f42b03",
+                                "type": "Quote renewal",
+                                "documentNumber": "10ad9d94-60dc-3b07-bc41-a83add6fc025",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "3876.96",
+                                "languageCode": null,
+                                "updatedAt": "1656716692221",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+14329367859",
+                                        "name": "Newton Braun",
+                                        "mail": "dixie95@hotmail.com",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15597761469",
+                                        "name": "Mr. General Champlin II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
+                                "customerId": "13c8f977-00bb-4906-bd59-2bf457cf39cb",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "27faa47d-ab2a-4755-b36b-729114c056d2"
+                            },
+                            "customer": {
+                                "id": "13c8f977-00bb-4906-bd59-2bf457cf39cb"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+15805268315",
+                            "name": "Mr. General Champlin II",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+14329367859",
+                            "name": "Newton Braun",
+                            "mail": "dixie95@hotmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662137786139",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-09-01",
+                                "coverageEndDate": "2023-08-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J34AC-HPE Foundation Care 24x7 SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-08-25",
+                                "coverageEndDate": "2019-09-23",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA360AW-Wty: HPE HW Replacement Support",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

@@ -11,7 +11,7 @@
                     "id": "5479d937-5488-4f59-9541-bf19fb1b8f02",
                     "name": "Tromp, McClure and Beahan",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162863430",
+                    "updatedAt": "1662156700276",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 100,
-                        "activeAssets": 100,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 100,
-                            "activeAssets": 100,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

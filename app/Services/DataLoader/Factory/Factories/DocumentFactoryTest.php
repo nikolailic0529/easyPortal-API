@@ -2,13 +2,14 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
-use App\Models\Asset as AssetModel;
+use App\Models\Asset;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
-use App\Models\DocumentEntryField as DocumentEntryFieldModel;
-use App\Models\Field as FieldModel;
 use App\Models\Oem;
 use App\Models\OemGroup;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
@@ -17,13 +18,16 @@ use App\Services\DataLoader\Factory\AssetDocumentObject;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CurrencyResolver;
-use App\Services\DataLoader\Resolver\Resolvers\FieldResolver;
+use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductGroupResolver;
+use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolver\Resolvers\PspResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolver\Resolvers\StatusResolver;
-use App\Services\DataLoader\Schema\CustomField;
+use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
@@ -117,7 +121,7 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~asset-document-full.json');
         $asset  = new ViewAsset($json);
-        $model  = AssetModel::factory()->create([
+        $model  = Asset::factory()->create([
             'id' => $asset->id,
         ]);
         $object = new AssetDocumentObject([
@@ -179,7 +183,7 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~asset-document-no-document.json');
         $asset  = new ViewAsset($json);
-        $model  = AssetModel::factory()->create([
+        $model  = Asset::factory()->create([
             'id' => $asset->id,
         ]);
         $object = new AssetDocumentObject([
@@ -204,7 +208,7 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-no-customer.json');
         $asset   = new ViewAsset($json);
-        $model   = AssetModel::factory()->create([
+        $model   = Asset::factory()->create([
             'id' => $asset->id,
         ]);
         $object  = new AssetDocumentObject([
@@ -232,7 +236,7 @@ class DocumentFactoryTest extends TestCase {
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-type-null.json');
         $asset   = new ViewAsset($json);
-        $model   = AssetModel::factory()->create([
+        $model   = Asset::factory()->create([
             'id' => $asset->id,
         ]);
         $object  = new AssetDocumentObject([
@@ -293,28 +297,30 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         self::assertTrue($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
-            'assetId'               => $entry->asset_id,
-            'startDate'             => (string) $entry->start?->getTimestampMs(),
-            'endDate'               => (string) $entry->end?->getTimestampMs(),
-            'currencyCode'          => $entry->currency->code ?? null,
-            'netPrice'              => $entry->net_price,
-            'listPrice'             => $entry->list_price,
-            'discount'              => $entry->discount,
-            'estimatedValueRenewal' => $entry->renewal,
-            'supportPackage'        => $entry->serviceGroup->sku ?? null,
-            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+            'assetId'                    => $entry->asset_id,
+            'startDate'                  => (string) $entry->start?->getTimestampMs(),
+            'endDate'                    => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'               => $entry->currency->code ?? null,
+            'listPrice'                  => $entry->list_price,
+            'estimatedValueRenewal'      => $entry->renewal,
+            'serviceGroupSku'            => $entry->serviceGroup->sku ?? null,
+            'serviceLevelSku'            => $entry->serviceLevel->sku ?? null,
+            'lineItemListPrice'          => $entry->monthly_list_price,
+            'lineItemMonthlyRetailPrice' => $entry->monthly_retail_price,
+            'equipmentNumber'            => $entry->equipment_number,
         ])));
         self::assertFalse($factory->isEntryEqualDocumentEntry($document, $entry, new DocumentEntry([
-            'assetId'               => $this->faker->uuid(),
-            'startDate'             => (string) $entry->start?->getTimestampMs(),
-            'endDate'               => (string) $entry->end?->getTimestampMs(),
-            'currencyCode'          => $entry->currency->code ?? null,
-            'netPrice'              => $entry->net_price,
-            'listPrice'             => $entry->list_price,
-            'discount'              => $entry->discount,
-            'estimatedValueRenewal' => $entry->renewal,
-            'supportPackage'        => $entry->serviceGroup->sku ?? null,
-            'skuNumber'             => $entry->serviceLevel->sku ?? null,
+            'assetId'                    => $this->faker->uuid(),
+            'startDate'                  => (string) $entry->start?->getTimestampMs(),
+            'endDate'                    => (string) $entry->end?->getTimestampMs(),
+            'currencyCode'               => $entry->currency->code ?? null,
+            'listPrice'                  => $entry->list_price,
+            'estimatedValueRenewal'      => $entry->renewal,
+            'serviceGroupSku'            => $entry->serviceGroup->sku ?? null,
+            'serviceLevelSku'            => $entry->serviceLevel->sku ?? null,
+            'lineItemListPrice'          => $entry->monthly_list_price,
+            'lineItemMonthlyRetailPrice' => $entry->monthly_retail_price,
+            'equipmentNumber'            => $entry->equipment_number,
         ])));
     }
 
@@ -329,7 +335,7 @@ class DocumentFactoryTest extends TestCase {
         $factory = $this->app->make(DocumentFactoryTest_Factory::class);
         $json    = $this->getTestData()->json('~asset-document-full.json');
         $asset   = new ViewAsset($json);
-        $model   = AssetModel::factory()->create([
+        $model   = Asset::factory()->create([
             'id' => $asset->id,
         ]);
         $object  = new AssetDocumentObject([
@@ -476,60 +482,88 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentEntry
      */
     public function testDocumentEntry(): void {
-        $document       = DocumentModel::factory()->make();
-        $asset          = AssetModel::factory()->create([
+        $document           = DocumentModel::factory()->make();
+        $psp                = Psp::factory()->create([
+            'key' => $this->faker->uuid(),
+        ]);
+        $asset              = Asset::factory()->create([
             'id'            => $this->faker->uuid(),
             'serial_number' => $this->faker->uuid(),
         ]);
-        $skuNumber      = $this->faker->word();
-        $supportPackage = $this->faker->word();
-        $currencyCode   = $this->faker->currencyCode();
-        $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $start          = Date::make($this->faker->dateTime())->startOfDay();
-        $end            = Date::make($this->faker->dateTime())->startOfDay();
-        $fieldName      = $this->faker->word();
-        $fieldValue     = $this->faker->word();
-        $documentEntry  = new DocumentEntry([
-            'assetId'               => " {$asset->getKey()} ",
-            'supportPackage'        => " {$supportPackage} ",
-            'skuNumber'             => " {$skuNumber} ",
-            'netPrice'              => " {$netPrice} ",
-            'discount'              => " {$discount} ",
-            'listPrice'             => " {$listPrice} ",
-            'estimatedValueRenewal' => " {$renewal} ",
-            'currencyCode'          => " {$currencyCode} ",
-            'startDate'             => $start->format('Y-m-d'),
-            'endDate'               => $end->format('Y-m-d'),
-            'customFields'          => [
-                [
-                    'Name'  => $fieldName,
-                    'Value' => $fieldValue,
-                ],
-            ],
+        $assetType          = TypeModel::factory()->create([
+            'key' => $this->faker->word(),
         ]);
-        $factory        = new class(
+        $productLine        = ProductLine::factory()->create([
+            'key' => $this->faker->word(),
+        ]);
+        $productGroup       = ProductGroup::factory()->create([
+            'key' => $this->faker->word(),
+        ]);
+        $serviceLevelSku    = $this->faker->word();
+        $serviceGroupSku    = $this->faker->word();
+        $currencyCode       = $this->faker->currencyCode();
+        $listPrice          = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $renewal            = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $start              = Date::make($this->faker->dateTime())?->startOfDay();
+        $end                = Date::make($this->faker->dateTime())?->startOfDay();
+        $said               = $this->faker->word();
+        $sarNumber          = $this->faker->word();
+        $monthlyListPrice   = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $monthlyRetailPrice = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $environmentId      = $this->faker->word();
+        $equipmentNumber    = $this->faker->word();
+        $language           = $this->faker->languageCode();
+        $documentEntry      = new DocumentEntry([
+            'assetId'                      => " {$asset->getKey()} ",
+            'assetProductType'             => " {$assetType->key} ",
+            'assetProductLine'             => " {$productLine->key} ",
+            'assetProductGroupDescription' => " {$productGroup->key} ",
+            'serviceGroupSku'              => " {$serviceGroupSku} ",
+            'serviceLevelSku'              => " {$serviceLevelSku} ",
+            'listPrice'                    => " {$listPrice} ",
+            'estimatedValueRenewal'        => " {$renewal} ",
+            'currencyCode'                 => " {$currencyCode} ",
+            'startDate'                    => $start?->format('Y-m-d'),
+            'endDate'                      => $end?->format('Y-m-d'),
+            'lineItemListPrice'            => " {$monthlyListPrice} ",
+            'lineItemMonthlyRetailPrice'   => " {$monthlyRetailPrice} ",
+            'said'                         => " {$said} ",
+            'sarNumber'                    => " {$sarNumber} ",
+            'environmentId'                => " {$environmentId} ",
+            'equipmentNumber'              => " {$equipmentNumber} ",
+            'languageCode'                 => " {$language} ",
+            'pspId'                        => " {$psp->key} ",
+            'pspName'                      => " {$psp->name} ",
+        ]);
+
+        $factory = new class(
             $this->app->make(Normalizer::class),
+            $this->app->make(TypeResolver::class),
+            $this->app->make(LanguageResolver::class),
             $this->app->make(AssetResolver::class),
             $this->app->make(ProductResolver::class),
+            $this->app->make(ProductLineResolver::class),
+            $this->app->make(ProductGroupResolver::class),
             $this->app->make(OemResolver::class),
             $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
-            $this->app->make(FieldResolver::class),
+            $this->app->make(PspResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
+                protected TypeResolver $typeResolver,
+                protected LanguageResolver $languageResolver,
                 protected AssetResolver $assetResolver,
                 protected ProductResolver $productResolver,
+                protected ProductLineResolver $productLineResolver,
+                protected ProductGroupResolver $productGroupResolver,
                 protected OemResolver $oemResolver,
                 protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
-                protected FieldResolver $fieldResolver,
+                protected PspResolver $pspResolver,
             ) {
                 // empty
             }
@@ -545,102 +579,40 @@ class DocumentFactoryTest extends TestCase {
 
         $entry = $factory->documentEntry($document, $documentEntry, null);
 
-        self::assertInstanceOf(DocumentEntryModel::class, $entry);
         self::assertEquals($asset->getKey(), $entry->asset_id);
+        self::assertEquals($assetType->key, $entry->assetType->key ?? null);
+        self::assertEquals((new Asset())->getMorphClass(), $entry->assetType->object_type ?? null);
         self::assertNull($entry->document_id);
         self::assertEquals($asset->serial_number, $entry->serial_number);
         self::assertEquals($asset->product, $entry->product);
+        self::assertEquals($productLine->getKey(), $entry->product_line_id);
+        self::assertEquals($productGroup->getKey(), $entry->product_group_id);
         self::assertNotNull($entry->service_level_id);
         self::assertEquals($document->oem_id, $entry->serviceLevel->oem_id ?? null);
-        self::assertEquals($supportPackage, $entry->serviceGroup->sku ?? null);
-        self::assertEquals($skuNumber, $entry->serviceLevel->sku ?? null);
+        self::assertEquals($serviceGroupSku, $entry->serviceGroup->sku ?? null);
+        self::assertEquals($serviceLevelSku, $entry->serviceLevel->sku ?? null);
         self::assertEquals($currencyCode, $entry->currency->code ?? null);
-        self::assertEquals($netPrice, $entry->net_price);
         self::assertEquals($listPrice, $entry->list_price);
-        self::assertEquals($discount, $entry->discount);
         self::assertEquals($renewal, $entry->renewal);
         self::assertEquals($start, $entry->start);
         self::assertEquals($end, $entry->end);
-        self::assertEquals(
-            [
-                $fieldName => $fieldValue,
-            ],
-            $this->getModelFields($entry->fields),
-        );
-    }
-
-    /**
-     * @covers ::documentEntry
-     */
-    public function testDocumentEntrySkuNumberNull(): void {
-        $document      = DocumentModel::factory()->make();
-        $asset         = AssetModel::factory()->create([
-            'id'            => $this->faker->uuid(),
-            'serial_number' => $this->faker->uuid(),
-        ]);
-        $currencyCode  = $this->faker->currencyCode();
-        $netPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $listPrice     = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $renewal       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $documentEntry = new DocumentEntry([
-            'assetId'               => " {$asset->getKey()} ",
-            'skuNumber'             => null,
-            'netPrice'              => " {$netPrice} ",
-            'discount'              => " {$discount} ",
-            'listPrice'             => " {$listPrice} ",
-            'estimatedValueRenewal' => " {$renewal} ",
-            'currencyCode'          => " {$currencyCode} ",
-            'startDate'             => null,
-            'endDate'               => null,
-            'customFields'          => null,
-        ]);
-        $factory       = new class(
-            $this->app->make(Normalizer::class),
-            $this->app->make(AssetResolver::class),
-            $this->app->make(ProductResolver::class),
-            $this->app->make(OemResolver::class),
-            $this->app->make(CurrencyResolver::class),
-        ) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected AssetResolver $assetResolver,
-                protected ProductResolver $productResolver,
-                protected OemResolver $oemResolver,
-                protected CurrencyResolver $currencyResolver,
-            ) {
-                // empty
-            }
-
-            public function documentEntry(
-                DocumentModel $model,
-                DocumentEntry $documentEntry,
-                ?DocumentEntryModel $entry,
-            ): DocumentEntryModel {
-                return parent::documentEntry($model, $documentEntry, $entry);
-            }
-        };
-
-        $entry = $factory->documentEntry($document, $documentEntry, null);
-
-        self::assertInstanceOf(DocumentEntryModel::class, $entry);
-        self::assertEquals($asset->getKey(), $entry->asset_id);
-        self::assertNull($entry->document_id);
-        self::assertEquals($asset->serial_number, $entry->serial_number);
-        self::assertEquals($asset->product, $entry->product);
-        self::assertEquals($currencyCode, $entry->currency->code ?? null);
-        self::assertEquals($netPrice, $entry->net_price);
-        self::assertEquals($listPrice, $entry->list_price);
-        self::assertEquals($discount, $entry->discount);
-        self::assertEquals($renewal, $entry->renewal);
+        self::assertEquals($monthlyListPrice, $entry->monthly_list_price);
+        self::assertEquals($monthlyRetailPrice, $entry->monthly_retail_price);
+        self::assertEquals($said, $entry->oem_said);
+        self::assertEquals($sarNumber, $entry->oem_sar_number);
+        self::assertEquals($environmentId, $entry->environment_id);
+        self::assertEquals($equipmentNumber, $entry->equipment_number);
+        self::assertEquals($language, $entry->language->code ?? null);
+        self::assertEquals($psp->getKey(), $entry->psp_id);
+        self::assertEquals($psp->key, $entry->psp->key ?? null);
+        self::assertEquals($psp->name, $entry->psp->name ?? null);
     }
 
     /**
      * @covers ::documentEntryAsset
      */
     public function testDocumentEntryAsset(): void {
-        $asset = AssetModel::factory()->make();
+        $asset = Asset::factory()->make();
         $model = DocumentModel::factory()->create();
         $entry = new DocumentEntry([
             'assetId' => $asset->getKey(),
@@ -695,6 +667,104 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::documentEntryAssetType
+     */
+    public function testDocumentEntryAssetType(): void {
+        $type       = TypeModel::factory()->make();
+        $model      = DocumentModel::factory()->create();
+        $entry      = new DocumentEntry([
+            'assetProductType' => $type->key,
+        ]);
+        $normalizer = $this->app->make(Normalizer::class);
+        $factory    = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getNormalizer')
+            ->once()
+            ->andReturn($normalizer);
+        $factory
+            ->shouldReceive('type')
+            ->with(Mockery::any(), $type->key)
+            ->once()
+            ->andReturn($type);
+
+        self::assertNotNull(
+            $factory->documentEntryAssetType($model, $entry),
+        );
+    }
+
+    /**
+     * @covers ::documentEntryProductLine
+     */
+    public function testDocumentEntryProductLine(): void {
+        $line    = ProductLine::factory()->make();
+        $model   = DocumentModel::factory()->create();
+        $entry   = new DocumentEntry([
+            'assetProductLine' => $line->key,
+        ]);
+        $factory = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('productLine')
+            ->with($line->key)
+            ->once()
+            ->andReturn($line);
+
+        self::assertNotNull(
+            $factory->documentEntryProductLine($model, $entry),
+        );
+    }
+
+    /**
+     * @covers ::documentEntryPsp
+     */
+    public function testDocumentEntryPsp(): void {
+        $psp     = Psp::factory()->make();
+        $model   = DocumentModel::factory()->create();
+        $entry   = new DocumentEntry([
+            'pspId'   => $psp->key,
+            'pspName' => $psp->name,
+        ]);
+        $factory = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('psp')
+            ->with($psp->key, $psp->name)
+            ->once()
+            ->andReturn($psp);
+
+        self::assertNotNull(
+            $factory->documentEntryPsp($model, $entry),
+        );
+    }
+
+    /**
+     * @covers ::documentEntryProductGroup
+     */
+    public function testDocumentEntryProductGroup(): void {
+        $line    = ProductGroup::factory()->make();
+        $model   = DocumentModel::factory()->create();
+        $entry   = new DocumentEntry([
+            'assetProductGroupDescription' => $line->key,
+        ]);
+        $factory = Mockery::mock(DocumentFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('productGroup')
+            ->with($line->key)
+            ->once()
+            ->andReturn($line);
+
+        self::assertNotNull(
+            $factory->documentEntryProductGroup($model, $entry),
+        );
+    }
+
+    /**
      * @covers ::documentEntryServiceGroup
      */
     public function testDocumentEntryServiceGroup(): void {
@@ -702,8 +772,8 @@ class DocumentFactoryTest extends TestCase {
         $group = ServiceGroup::factory()->make();
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $entry = new DocumentEntry([
-            'supportPackage'            => $this->faker->word(),
-            'supportPackageDescription' => $this->faker->word(),
+            'serviceGroupSku'            => $this->faker->word(),
+            'serviceGroupSkuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -713,8 +783,8 @@ class DocumentFactoryTest extends TestCase {
             ->shouldReceive('serviceGroup')
             ->with(
                 $oem,
-                $entry->supportPackage,
-                $entry->supportPackageDescription,
+                $entry->serviceGroupSku,
+                $entry->serviceGroupSkuDescription,
             )
             ->once()
             ->andReturn($group);
@@ -731,8 +801,9 @@ class DocumentFactoryTest extends TestCase {
         $model = DocumentModel::factory()->create()->setRelation('oem', $oem);
         $level = ServiceLevel::factory()->make();
         $entry = new DocumentEntry([
-            'skuNumber'      => $this->faker->word(),
-            'skuDescription' => $this->faker->word(),
+            'serviceLevelSku'            => $this->faker->word(),
+            'serviceLevelSkuDescription' => $this->faker->word(),
+            'serviceFullDescription'     => $this->faker->sentence(),
         ]);
 
         $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -748,8 +819,9 @@ class DocumentFactoryTest extends TestCase {
             ->with(
                 $oem,
                 $group,
-                $entry->skuNumber,
-                $entry->skuDescription,
+                $entry->serviceLevelSku,
+                $entry->serviceLevelSkuDescription,
+                $entry->serviceFullDescription,
             )
             ->once()
             ->andReturn($level);
@@ -762,8 +834,8 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentEntries(): void {
         // Prepare
-        $assetA       = AssetModel::factory()->create();
-        $assetB       = AssetModel::factory()->create();
+        $assetA       = Asset::factory()->create();
+        $assetB       = Asset::factory()->create();
         $document     = DocumentModel::factory()->create();
         $serviceGroup = ServiceGroup::factory()->create([
             'oem_id' => $document->oem_id,
@@ -794,40 +866,70 @@ class DocumentFactoryTest extends TestCase {
             ],
             'documentEntries'      => [
                 [
-                    'assetId'               => $a->asset_id,
-                    'skuNumber'             => $a->serviceLevel->sku ?? null,
-                    'supportPackage'        => $a->serviceGroup->sku ?? null,
-                    'currencyCode'          => $a->currency->code ?? null,
-                    'netPrice'              => $a->net_price,
-                    'discount'              => $a->discount,
-                    'listPrice'             => $a->list_price,
-                    'estimatedValueRenewal' => $a->renewal,
-                    'startDate'             => null,
-                    'endDate'               => null,
+                    'assetId'                      => $a->asset_id,
+                    'serviceLevelSku'              => $a->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $a->serviceGroup->sku ?? null,
+                    'currencyCode'                 => $a->currency->code ?? null,
+                    'listPrice'                    => $a->list_price,
+                    'estimatedValueRenewal'        => $a->renewal,
+                    'startDate'                    => $a->start,
+                    'endDate'                      => $a->end,
+                    'assetProductType'             => $a->assetType->key ?? null,
+                    'assetProductLine'             => $a->productLine->key ?? null,
+                    'assetProductGroupDescription' => $a->productGroup->key ?? null,
+                    'lineItemListPrice'            => $a->monthly_list_price,
+                    'lineItemMonthlyRetailPrice'   => $a->monthly_retail_price,
+                    'said'                         => $a->oem_said,
+                    'sarNumber'                    => $a->oem_sar_number,
+                    'environmentId'                => $a->environment_id,
+                    'equipmentNumber'              => $a->equipment_number,
+                    'languageCode'                 => $a->language->code ?? null,
+                    'pspId'                        => $a->psp->key ?? null,
+                    'pspName'                      => $a->psp->name ?? null,
                 ],
                 [
-                    'assetId'               => $b->asset_id,
-                    'skuNumber'             => $b->serviceLevel->sku ?? null,
-                    'supportPackage'        => $b->serviceGroup->sku ?? null,
-                    'currencyCode'          => $a->currency->code ?? null,
-                    'netPrice'              => $b->net_price,
-                    'discount'              => $b->discount,
-                    'listPrice'             => $b->list_price,
-                    'estimatedValueRenewal' => $b->renewal,
-                    'startDate'             => null,
-                    'endDate'               => null,
+                    'assetId'                      => $b->asset_id,
+                    'serviceLevelSku'              => $b->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $b->serviceGroup->sku ?? null,
+                    'currencyCode'                 => $b->currency->code ?? null,
+                    'listPrice'                    => $b->list_price,
+                    'estimatedValueRenewal'        => $b->renewal,
+                    'startDate'                    => $b->start,
+                    'endDate'                      => $b->end,
+                    'assetProductType'             => $b->assetType->key ?? null,
+                    'assetProductLine'             => $b->productLine->key ?? null,
+                    'assetProductGroupDescription' => $b->productGroup->key ?? null,
+                    'lineItemListPrice'            => $b->monthly_list_price,
+                    'lineItemMonthlyRetailPrice'   => $b->monthly_retail_price,
+                    'said'                         => $b->oem_said,
+                    'sarNumber'                    => $b->oem_sar_number,
+                    'environmentId'                => $b->environment_id,
+                    'equipmentNumber'              => $b->equipment_number,
+                    'languageCode'                 => $b->language->code ?? null,
+                    'pspId'                        => $b->psp->key ?? null,
+                    'pspName'                      => $b->psp->name ?? null,
                 ],
                 [
-                    'assetId'               => $assetB->getKey(),
-                    'skuNumber'             => $b->serviceLevel->sku ?? null,
-                    'supportPackage'        => $b->serviceGroup->sku ?? null,
-                    'currencyCode'          => null,
-                    'netPrice'              => null,
-                    'discount'              => null,
-                    'listPrice'             => null,
-                    'estimatedValueRenewal' => null,
-                    'startDate'             => null,
-                    'endDate'               => null,
+                    'assetId'                      => $assetB->getKey(),
+                    'serviceLevelSku'              => $b->serviceLevel->sku ?? null,
+                    'serviceGroupSku'              => $b->serviceGroup->sku ?? null,
+                    'currencyCode'                 => null,
+                    'listPrice'                    => null,
+                    'estimatedValueRenewal'        => null,
+                    'startDate'                    => null,
+                    'endDate'                      => null,
+                    'assetProductType'             => null,
+                    'assetProductLine'             => null,
+                    'assetProductGroupDescription' => null,
+                    'lineItemListPrice'            => null,
+                    'lineItemMonthlyRetailPrice'   => null,
+                    'said'                         => null,
+                    'sarNumber'                    => null,
+                    'environmentId'                => null,
+                    'equipmentNumber'              => null,
+                    'languageCode'                 => null,
+                    'pspId'                        => null,
+                    'pspName'                      => null,
                 ],
             ],
         ]);
@@ -875,7 +977,7 @@ class DocumentFactoryTest extends TestCase {
             ->sort()
             ->values();
         $expected = (new Collection([$a, $b, $created]))
-            ->map(static function (DocumentEntryModel $entry) {
+            ->map(static function (DocumentEntryModel $entry): string {
                 return $entry->getKey();
             })
             ->sort()
@@ -886,8 +988,6 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals($expected, $existing);
         self::assertNotNull($created);
         self::assertNull($created->list_price);
-        self::assertNull($created->net_price);
-        self::assertNull($created->discount);
         self::assertNull($created->renewal);
     }
 
@@ -947,9 +1047,7 @@ class DocumentFactoryTest extends TestCase {
         });
 
         self::assertNotNull($e);
-        self::assertEquals('23.40', $e->net_price);
         self::assertEquals('48.00', $e->list_price);
-        self::assertEquals('-2.05', $e->discount);
         self::assertEquals($created->getKey(), $e->document_id);
         self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->asset_id);
         self::assertEquals('H7J34AC', $e->serviceGroup->sku ?? null);
@@ -960,13 +1058,17 @@ class DocumentFactoryTest extends TestCase {
         self::assertEquals('145.00', $e->renewal);
         self::assertNull($this->getDatetime($e->end));
         self::assertEquals('1614470400000', $this->getDatetime($e->start));
-        self::assertEquals(
-            [
-                'Document Type' => 'Type',
-                'Equipment No'  => 'No',
-            ],
-            $this->getModelFields($e->fields),
-        );
+        self::assertEquals('Hardware', $e->assetType->key ?? null);
+        self::assertEquals('45.00', $e->monthly_list_price);
+        self::assertEquals('55.00', $e->monthly_retail_price);
+        self::assertNull($e->oem_said);
+        self::assertEquals('SAR#1', $e->oem_sar_number);
+        self::assertNull($e->environment_id);
+        self::assertNull($e->equipment_number);
+        self::assertEquals('en', $e->language->code ?? null);
+        self::assertNotNull($e->psp);
+        self::assertEquals('c0200a6c-1b8a-4365-9f1b-32d753194335', $e->psp->key);
+        self::assertEquals('PSP#A', $e->psp->name);
 
         // Changed
         // ---------------------------------------------------------------------
@@ -997,22 +1099,14 @@ class DocumentFactoryTest extends TestCase {
         self::assertCount(0, $changed->statuses);
         self::assertCount(0, $changed->refresh()->statuses);
 
-        /** @var DocumentEntryModel $e */
+        /** @var DocumentEntryModel|null $e */
         $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {
             return is_null($entry->renewal);
         });
 
         self::assertNotNull($e);
-        self::assertNull($e->net_price);
         self::assertNull($e->list_price);
-        self::assertNull($e->discount);
         self::assertNull($e->renewal);
-        self::assertEquals(
-            [
-                'Group Description' => 'description',
-            ],
-            $this->getModelFields($e->fields),
-        );
 
         // No changes
         // ---------------------------------------------------------------------
@@ -1050,122 +1144,6 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
-    }
-
-    /**
-     * @covers ::documentEntryFields
-     */
-    public function testDocumentEntryFields(): void {
-        // Prepare
-        $type          = (new DocumentEntryFieldModel())->getMorphClass();
-        $fieldA        = FieldModel::factory()->create([
-            'object_type' => $type,
-        ]);
-        $fieldB        = FieldModel::factory()->create([
-            'object_type' => $type,
-        ]);
-        $fieldC        = FieldModel::factory()->create([
-            'object_type' => $type,
-        ]);
-        $document      = DocumentModel::factory()->create();
-        $documentEntry = DocumentEntryModel::factory()->create([
-            'document_id' => $document,
-        ]);
-
-        DocumentEntryFieldModel::factory()->create([
-            'document_entry_id' => $documentEntry,
-            'document_id'       => $document,
-            'field_id'          => $fieldA,
-        ]);
-        DocumentEntryFieldModel::factory()->create([
-            'document_entry_id' => $documentEntry,
-            'document_id'       => $document,
-            'field_id'          => $fieldC,
-        ]);
-
-        // Mock
-        $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(FieldResolver::class);
-        $factory    = Mockery::mock(DocumentFactory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->atLeast()
-            ->once()
-            ->andReturn($normalizer);
-        $factory
-            ->shouldReceive('getFieldResolver')
-            ->atLeast()
-            ->once()
-            ->andReturn($resolver);
-
-        // Test
-        $entry  = new DocumentEntry([
-            'customFields' => [
-                [
-                    'Name'  => $fieldA->key,
-                    'Value' => 'a',
-                ],
-                [
-                    'Name'  => $fieldB->key,
-                    'Value' => 'b',
-                ],
-            ],
-        ]);
-        $actual = $factory->documentEntryFields($document, $documentEntry, $entry);
-
-        self::assertCount(2, $actual);
-        self::assertEquals(
-            [
-                $fieldA->key => 'a',
-                $fieldB->key => 'b',
-            ],
-            $this->getModelFields($actual),
-        );
-    }
-
-    /**
-     * @covers ::documentEntryField
-     */
-    public function testDocumentEntryField(): void {
-        $entry         = new DocumentEntry();
-        $field         = FieldModel::factory()->make([
-            'object_type' => (new DocumentEntryFieldModel())->getMorphClass(),
-        ]);
-        $customField   = new CustomField([
-            'Name'  => $field->key,
-            'Value' => ' value ',
-        ]);
-        $document      = DocumentModel::factory()->make();
-        $documentEntry = DocumentEntryModel::factory()->make([
-            'document_id' => $document,
-        ]);
-        $normalizer    = $this->app->make(Normalizer::class);
-        $factory       = Mockery::mock(DocumentFactory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getNormalizer')
-            ->once()
-            ->andReturn($normalizer);
-        $factory
-            ->shouldReceive('field')
-            ->with(Mockery::any(), $customField->Name)
-            ->once()
-            ->andReturn($field);
-
-        $actual = $factory->documentEntryField(
-            $document,
-            $documentEntry,
-            $entry,
-            $customField,
-            null,
-        );
-
-        self::assertEquals($field->getKey(), $actual->field_id);
-        self::assertEquals($document->getKey(), $actual->document_id);
-        self::assertEquals($normalizer->string($customField->Value), $actual->value);
     }
     // </editor-fold>
 
@@ -1291,7 +1269,7 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::createFromDocument($document);
     }
 
-    public function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?AssetModel {
+    public function documentEntryAsset(DocumentModel $model, DocumentEntry $documentEntry): ?Asset {
         return parent::documentEntryAsset($model, $documentEntry);
     }
 

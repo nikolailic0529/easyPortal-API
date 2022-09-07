@@ -3,11 +3,11 @@
     "resellerId": "5c74df1c-5022-4074-a441-052b6a144b0a",
     "customerId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
     "serialNumber": "CZ12345678L",
-    "productDescription": "HP 3PAR 7000 4-pt 8Gb/s FC Adapter",
+    "assetSkuDescription": "HP 3PAR 7000 4-pt 8Gb/s FC Adapter",
     "assetTag": "Hardware",
     "assetType": "Hardware",
     "vendor": "HPE",
-    "sku": "QR123A",
+    "assetSku": "QR123A",
     "eolDate": "",
     "eosDate": "",
     "zip": "97076",
@@ -37,13 +37,12 @@
                 },
                 "documentNumber": "0056523287"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
-            "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "endDate": "1614470400000"
         }
     ],
     "latestContactPersons": [

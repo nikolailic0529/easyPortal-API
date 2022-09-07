@@ -39,7 +39,7 @@ class ImporterTest extends TestCase {
         self::assertModelsCount([
             Distributor::class   => 2,
             Reseller::class      => 8,
-            Customer::class      => 25,
+            Customer::class      => 26,
             Asset::class         => 0,
             AssetWarranty::class => 0,
             Document::class      => 0,
@@ -60,7 +60,7 @@ class ImporterTest extends TestCase {
         self::assertModelsCount([
             Asset::class         => AssetsImporterData::LIMIT,
             AssetWarranty::class => 0,
-            Document::class      => 36,
+            Document::class      => 37,
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(

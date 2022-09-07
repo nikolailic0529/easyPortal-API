@@ -382,7 +382,7 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
@@ -458,67 +458,27 @@
         "bindings": []
     },
     {
-        "query": "select `countries`.* from `countries` where (`code` = ?) and `countries`.`deleted_at` is null limit 1",
-        "bindings": [
-            "??"
-        ]
-    },
-    {
-        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-        "bindings": [
-            "??",
-            "Unknown Country",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "2022-02-02 00:00:30",
-            "2022-02-02 00:00:30"
-        ]
-    },
-    {
         "query": "select `cities`.* from `cities` where `cities`.`deleted_at` is null",
         "bindings": []
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
+        "query": "select `coverages`.* from `coverages` where `coverages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select `coverages`.* from `coverages` where (`key` = ?) and `coverages`.`deleted_at` is null limit 1",
         "bindings": [
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "north oceaneberg"
+            "archived"
         ]
     },
     {
-        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "North Oceaneberg",
-            "North Oceaneberg",
+            "ARCHIVED",
+            "Archived",
             "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
             "2022-02-02 00:00:31",
             "2022-02-02 00:00:31"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "7658 martina vista",
-            "89915-8265"
-        ]
-    },
-    {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
-            "89915-8265",
-            "",
-            "7658 Martina Vista",
-            "",
-            null,
-            null,
-            null,
-            "aabc8766-1ba5-5190-9313-61000c5bb10f",
-            "2022-02-02 00:00:32",
-            "2022-02-02 00:00:32"
         ]
     },
     {
@@ -531,15 +491,15 @@
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
-            "aabc8766-1ba5-5190-9313-61000c5bb10f",
-            "2022-08-02 13:03:33",
+            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
+            "2022-09-02 18:06:49",
             null,
             "20",
             3,
-            0,
-            "2022-02-02 00:00:34",
-            "2022-02-02 00:00:35",
-            "2022-02-02 00:00:35"
+            1,
+            "2022-02-02 00:00:32",
+            "2022-02-02 00:00:33",
+            "2022-02-02 00:00:33"
         ]
     },
     {
@@ -551,19 +511,19 @@
             "+18654718658",
             null,
             true,
-            "11960e90-6be6-5f26-8551-17f5b0b15c8f",
-            "2022-02-02 00:00:36",
-            "2022-02-02 00:00:36"
+            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
+            "2022-02-02 00:00:34",
+            "2022-02-02 00:00:34"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "20c76148-4ae4-592b-8452-6b7416d9f67a",
-            "11960e90-6be6-5f26-8551-17f5b0b15c8f",
-            "3b321ef5-c418-5f79-bc0a-4296b39b579b",
-            "2022-02-02 00:00:37",
-            "2022-02-02 00:00:37"
+            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
+            "aabc8766-1ba5-5190-9313-61000c5bb10f",
+            "2022-02-02 00:00:35",
+            "2022-02-02 00:00:35"
         ]
     },
     {
@@ -575,19 +535,19 @@
             "+14793040351",
             "schmidt.rasheed@yahoo.com",
             true,
-            "7c738ddf-c772-5bd4-a301-5a4a8dd861a6",
-            "2022-02-02 00:00:38",
-            "2022-02-02 00:00:38"
+            "11960e90-6be6-5f26-8551-17f5b0b15c8f",
+            "2022-02-02 00:00:36",
+            "2022-02-02 00:00:36"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
-            "7c738ddf-c772-5bd4-a301-5a4a8dd861a6",
-            "0fec8543-e073-538c-99b9-975b5f9fc711",
-            "2022-02-02 00:00:39",
-            "2022-02-02 00:00:39"
+            "11960e90-6be6-5f26-8551-17f5b0b15c8f",
+            "3b321ef5-c418-5f79-bc0a-4296b39b579b",
+            "2022-02-02 00:00:37",
+            "2022-02-02 00:00:37"
         ]
     },
     {
@@ -599,26 +559,36 @@
             "+17405885277",
             "okirlin@streich.com",
             true,
-            "dbc736d1-858c-519d-9727-c60bd86a3aad",
-            "2022-02-02 00:00:40",
-            "2022-02-02 00:00:40"
+            "7c738ddf-c772-5bd4-a301-5a4a8dd861a6",
+            "2022-02-02 00:00:38",
+            "2022-02-02 00:00:38"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "7c738ddf-c772-5bd4-a301-5a4a8dd861a6",
+            "0fec8543-e073-538c-99b9-975b5f9fc711",
+            "2022-02-02 00:00:39",
+            "2022-02-02 00:00:39"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
+            "773b201c-3f74-46f1-a84f-9d478731f202",
             "dbc736d1-858c-519d-9727-c60bd86a3aad",
-            "bfb7f2d2-0852-52ed-b307-d352a5c6de5a",
-            "2022-02-02 00:00:41",
-            "2022-02-02 00:00:41"
+            "2022-02-02 00:00:40",
+            "2022-02-02 00:00:40"
         ]
     },
     {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-02-02 00:00:42",
+            "2022-02-02 00:00:41",
             "773b201c-3f74-46f1-a84f-9d478731f202"
         ]
     },
@@ -683,15 +653,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5cdb9cf9-2ed2-5fb4-8aaa-15a9597e1765",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "7658 martina vista",
-            "89915-8265"
-        ]
-    },
-    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "43d802ba-087e-48a5-99f5-fd0f6a9c444d",
@@ -701,15 +662,15 @@
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
-            "aabc8766-1ba5-5190-9313-61000c5bb10f",
-            "2022-08-02 13:03:33",
+            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
+            "2022-09-02 17:35:36",
             null,
             "20",
             3,
-            0,
+            1,
+            "2022-02-02 00:00:52",
             "2022-02-02 00:00:53",
-            "2022-02-02 00:00:54",
-            "2022-02-02 00:00:54"
+            "2022-02-02 00:00:53"
         ]
     },
     {
@@ -721,19 +682,19 @@
             "+18654718658",
             null,
             true,
-            "5998002f-c0eb-50f1-999d-ed59797a61ef",
-            "2022-02-02 00:00:55",
-            "2022-02-02 00:00:55"
+            "bfb7f2d2-0852-52ed-b307-d352a5c6de5a",
+            "2022-02-02 00:00:54",
+            "2022-02-02 00:00:54"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "bfb7f2d2-0852-52ed-b307-d352a5c6de5a",
             "5998002f-c0eb-50f1-999d-ed59797a61ef",
-            "401a6b6f-f919-58cd-8c4d-c5d641b83960",
-            "2022-02-02 00:00:56",
-            "2022-02-02 00:00:56"
+            "2022-02-02 00:00:55",
+            "2022-02-02 00:00:55"
         ]
     },
     {
@@ -745,19 +706,19 @@
             "+14793040351",
             "schmidt.rasheed@yahoo.com",
             true,
-            "018a4be1-e096-5319-9d26-7a11f50d3a3f",
-            "2022-02-02 00:00:57",
-            "2022-02-02 00:00:57"
+            "401a6b6f-f919-58cd-8c4d-c5d641b83960",
+            "2022-02-02 00:00:56",
+            "2022-02-02 00:00:56"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "401a6b6f-f919-58cd-8c4d-c5d641b83960",
             "018a4be1-e096-5319-9d26-7a11f50d3a3f",
-            "5785ba44-8989-5853-98bf-f7cb01af6548",
-            "2022-02-02 00:00:58",
-            "2022-02-02 00:00:58"
+            "2022-02-02 00:00:57",
+            "2022-02-02 00:00:57"
         ]
     },
     {
@@ -769,16 +730,26 @@
             "+17405885277",
             "okirlin@streich.com",
             true,
-            "a88b9c9a-6a63-5952-8f29-7281a5562963",
-            "2022-02-02 00:00:59",
-            "2022-02-02 00:00:59"
+            "5785ba44-8989-5853-98bf-f7cb01af6548",
+            "2022-02-02 00:00:58",
+            "2022-02-02 00:00:58"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "5785ba44-8989-5853-98bf-f7cb01af6548",
             "a88b9c9a-6a63-5952-8f29-7281a5562963",
+            "2022-02-02 00:00:59",
+            "2022-02-02 00:00:59"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
+            "43d802ba-087e-48a5-99f5-fd0f6a9c444d",
             "b4c5576c-501a-582c-9281-0349a08a2883",
             "2022-02-02 00:01:00",
             "2022-02-02 00:01:00"
@@ -861,50 +832,6 @@
         ]
     },
     {
-        "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "paucekland"
-        ]
-    },
-    {
-        "query": "insert into `cities` (`key`, `name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Paucekland",
-            "Paucekland",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
-            "2022-02-02 00:01:19",
-            "2022-02-02 00:01:19"
-        ]
-    },
-    {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "375 antonette trail",
-            "89915-8265"
-        ]
-    },
-    {
-        "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
-            "89915-8265",
-            "",
-            "375 Antonette Trail",
-            "",
-            null,
-            null,
-            null,
-            "ae66a563-5e50-542a-b1f7-8c9d35718c68",
-            "2022-02-02 00:01:20",
-            "2022-02-02 00:01:20"
-        ]
-    },
-    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
@@ -914,15 +841,15 @@
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
-            "ae66a563-5e50-542a-b1f7-8c9d35718c68",
-            "2022-08-02 13:03:33",
+            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
+            "2022-09-02 17:56:12",
             null,
             "20",
             3,
-            0,
-            "2022-02-02 00:01:22",
-            "2022-02-02 00:01:23",
-            "2022-02-02 00:01:23"
+            1,
+            "2022-02-02 00:01:20",
+            "2022-02-02 00:01:21",
+            "2022-02-02 00:01:21"
         ]
     },
     {
@@ -934,19 +861,19 @@
             "+18654718658",
             null,
             true,
-            "3225cd57-1f95-5d08-bbf3-5df5c8f8cf4f",
-            "2022-02-02 00:01:24",
-            "2022-02-02 00:01:24"
+            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
+            "2022-02-02 00:01:22",
+            "2022-02-02 00:01:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "20c76148-4ae4-592b-8452-6b7416d9f67a",
-            "3225cd57-1f95-5d08-bbf3-5df5c8f8cf4f",
-            "85a4f9a1-bee2-52e6-868a-5b0af2bbdf0d",
-            "2022-02-02 00:01:25",
-            "2022-02-02 00:01:25"
+            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
+            "ae66a563-5e50-542a-b1f7-8c9d35718c68",
+            "2022-02-02 00:01:23",
+            "2022-02-02 00:01:23"
         ]
     },
     {
@@ -958,19 +885,19 @@
             "+14793040351",
             "schmidt.rasheed@yahoo.com",
             true,
-            "f42fd4a4-236b-53c8-bbe9-2d076119eb3b",
-            "2022-02-02 00:01:26",
-            "2022-02-02 00:01:26"
+            "3225cd57-1f95-5d08-bbf3-5df5c8f8cf4f",
+            "2022-02-02 00:01:24",
+            "2022-02-02 00:01:24"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
-            "f42fd4a4-236b-53c8-bbe9-2d076119eb3b",
-            "838b604c-18c0-581a-9174-75140edbc835",
-            "2022-02-02 00:01:27",
-            "2022-02-02 00:01:27"
+            "3225cd57-1f95-5d08-bbf3-5df5c8f8cf4f",
+            "85a4f9a1-bee2-52e6-868a-5b0af2bbdf0d",
+            "2022-02-02 00:01:25",
+            "2022-02-02 00:01:25"
         ]
     },
     {
@@ -982,26 +909,36 @@
             "+17405885277",
             "okirlin@streich.com",
             true,
-            "e1cbe48a-5515-5a32-bcf2-199d8d9a62f7",
-            "2022-02-02 00:01:28",
-            "2022-02-02 00:01:28"
+            "f42fd4a4-236b-53c8-bbe9-2d076119eb3b",
+            "2022-02-02 00:01:26",
+            "2022-02-02 00:01:26"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "f42fd4a4-236b-53c8-bbe9-2d076119eb3b",
+            "838b604c-18c0-581a-9174-75140edbc835",
+            "2022-02-02 00:01:27",
+            "2022-02-02 00:01:27"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
+            "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
             "e1cbe48a-5515-5a32-bcf2-199d8d9a62f7",
-            "94dd6e86-92a8-51f6-b2e6-7f835a6e39df",
-            "2022-02-02 00:01:29",
-            "2022-02-02 00:01:29"
+            "2022-02-02 00:01:28",
+            "2022-02-02 00:01:28"
         ]
     },
     {
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-02-02 00:01:30",
+            "2022-02-02 00:01:29",
             "65f75240-d24a-4e73-aeb0-d8afb3d792fc"
         ]
     },
@@ -1066,15 +1003,6 @@
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "abdc3b92-9333-5950-85a1-7b2cd945a1a9",
-            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
-            "375 antonette trail",
-            "89915-8265"
-        ]
-    },
-    {
         "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `coverages_count`, `synced_at`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1cc12c44-7e2e-4f7b-b281-4c237976a254",
@@ -1084,15 +1012,15 @@
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
             "60e73b13-f741-4c73-a32d-a23fa438d9ad",
-            "ae66a563-5e50-542a-b1f7-8c9d35718c68",
-            "2022-08-02 13:03:33",
+            "3bde2a54-ec93-5b6a-89f0-e12815e0ff63",
+            "2022-09-02 17:11:30",
             null,
             "20",
             3,
-            0,
+            1,
+            "2022-02-02 00:01:40",
             "2022-02-02 00:01:41",
-            "2022-02-02 00:01:42",
-            "2022-02-02 00:01:42"
+            "2022-02-02 00:01:41"
         ]
     },
     {
@@ -1104,19 +1032,19 @@
             "+18654718658",
             null,
             true,
-            "b0b8eb25-58c5-54ea-9b85-42af181ee7eb",
-            "2022-02-02 00:01:43",
-            "2022-02-02 00:01:43"
+            "94dd6e86-92a8-51f6-b2e6-7f835a6e39df",
+            "2022-02-02 00:01:42",
+            "2022-02-02 00:01:42"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "20c76148-4ae4-592b-8452-6b7416d9f67a",
+            "94dd6e86-92a8-51f6-b2e6-7f835a6e39df",
             "b0b8eb25-58c5-54ea-9b85-42af181ee7eb",
-            "4b7d3841-9537-5b92-a275-fd629f8bcc76",
-            "2022-02-02 00:01:44",
-            "2022-02-02 00:01:44"
+            "2022-02-02 00:01:43",
+            "2022-02-02 00:01:43"
         ]
     },
     {
@@ -1128,19 +1056,19 @@
             "+14793040351",
             "schmidt.rasheed@yahoo.com",
             true,
-            "0899c7ae-80b2-5378-aa7b-fb1762981720",
-            "2022-02-02 00:01:45",
-            "2022-02-02 00:01:45"
+            "4b7d3841-9537-5b92-a275-fd629f8bcc76",
+            "2022-02-02 00:01:44",
+            "2022-02-02 00:01:44"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "95c7f4c2-b90c-522a-bc3a-0895aed08a17",
+            "4b7d3841-9537-5b92-a275-fd629f8bcc76",
             "0899c7ae-80b2-5378-aa7b-fb1762981720",
-            "c967a04a-8fd7-5ca2-b0aa-2ad55ff58f02",
-            "2022-02-02 00:01:46",
-            "2022-02-02 00:01:46"
+            "2022-02-02 00:01:45",
+            "2022-02-02 00:01:45"
         ]
     },
     {
@@ -1152,16 +1080,26 @@
             "+17405885277",
             "okirlin@streich.com",
             true,
-            "ff1b805c-2207-58b4-8582-cf5df4fcea33",
-            "2022-02-02 00:01:47",
-            "2022-02-02 00:01:47"
+            "c967a04a-8fd7-5ca2-b0aa-2ad55ff58f02",
+            "2022-02-02 00:01:46",
+            "2022-02-02 00:01:46"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "7748f7a8-735b-5d16-b9dc-ab0ff0adf2f5",
+            "c967a04a-8fd7-5ca2-b0aa-2ad55ff58f02",
             "ff1b805c-2207-58b4-8582-cf5df4fcea33",
+            "2022-02-02 00:01:47",
+            "2022-02-02 00:01:47"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8d4b2573-4215-5fbf-a57d-3a98cbc4b0df",
+            "1cc12c44-7e2e-4f7b-b281-4c237976a254",
             "ce49114b-92fe-5a35-8994-843c92d3fbf3",
             "2022-02-02 00:01:48",
             "2022-02-02 00:01:48"
@@ -1192,18 +1130,27 @@
         ]
     },
     {
-        "query": "insert into `document_entries` (`asset_id`, `created_at`, `currency_id`, `discount`, `document_id`, `end`, `id`, `list_price`, `net_price`, `product_id`, `renewal`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `document_entries` (`asset_id`, `asset_type_id`, `created_at`, `currency_id`, `document_id`, `end`, `environment_id`, `equipment_number`, `id`, `language_id`, `list_price`, `monthly_list_price`, `monthly_retail_price`, `oem_said`, `oem_sar_number`, `product_group_id`, `product_id`, `product_line_id`, `psp_id`, `renewal`, `serial_number`, `service_group_id`, `service_level_id`, `start`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "773b201c-3f74-46f1-a84f-9d478731f202",
+            null,
             "2022-02-02 00:02:17",
             "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
-            null,
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            null,
+            null,
             null,
             "41428876-beb5-581e-a6e4-408344fa86aa",
             null,
             null,
+            null,
+            null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
+            null,
             null,
             null,
             null,
@@ -1211,15 +1158,24 @@
             null,
             "2022-02-02 00:02:17",
             "43d802ba-087e-48a5-99f5-fd0f6a9c444d",
+            null,
             "2022-02-02 00:02:18",
             "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
-            null,
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            null,
+            null,
             null,
             "11c20a9a-3961-5987-aef1-1e6abbe494e0",
             null,
             null,
+            null,
+            null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
+            null,
             null,
             null,
             null,
@@ -1227,15 +1183,24 @@
             null,
             "2022-02-02 00:02:18",
             "65f75240-d24a-4e73-aeb0-d8afb3d792fc",
+            null,
             "2022-02-02 00:02:19",
             "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
-            null,
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            null,
+            null,
             null,
             "3e8b1397-de12-50e7-840f-8f700882c0db",
             null,
             null,
+            null,
+            null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
+            null,
             null,
             null,
             null,
@@ -1243,15 +1208,24 @@
             null,
             "2022-02-02 00:02:19",
             "1cc12c44-7e2e-4f7b-b281-4c237976a254",
+            null,
             "2022-02-02 00:02:20",
             "1762fa5f-baf9-50c5-bddf-612f9e606d5e",
-            null,
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695",
+            null,
+            null,
             null,
             "f4877ee2-4e16-59d1-83a1-1074d78c9295",
             null,
             null,
+            null,
+            null,
+            null,
+            null,
+            null,
             "46b4153d-5bdc-5ccf-9773-0cb545c422fa",
+            null,
+            null,
             null,
             null,
             null,

@@ -11,7 +11,7 @@
                     "id": "47bea87c-d672-4e05-915f-f37da6ae0a9b",
                     "name": "Russel, Thiel and Thompson",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162844425",
+                    "updatedAt": "1662156678952",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -53,8 +53,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 43,
-                        "activeAssets": 43,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -83,8 +83,8 @@
                         {
                             "resellerId": "27faa47d-ab2a-4755-b36b-729114c056d2",
                             "totalAssets": 43,
-                            "activeAssets": 43,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

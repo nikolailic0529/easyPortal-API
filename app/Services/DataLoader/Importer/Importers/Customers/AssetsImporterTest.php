@@ -65,7 +65,7 @@ class AssetsImporterTest extends TestCase {
             Reseller::class      => 1,
             Customer::class      => 1,
             Asset::class         => CustomerAssetsImporterDataWithDocuments::LIMIT,
-            AssetWarranty::class => 0,
+            AssetWarranty::class => 4,
             Document::class      => 3,
             DocumentEntry::class => 0,
         ]);

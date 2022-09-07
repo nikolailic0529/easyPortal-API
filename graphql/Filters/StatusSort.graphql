@@ -1,3 +1,0 @@
-input StatusSort {
-    name: String!
-}

@@ -1,5 +1,0 @@
-type FieldValue {
-    field_id: ID!
-    field: Field! @relation
-    value: String
-}

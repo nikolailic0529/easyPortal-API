@@ -22,9 +22,7 @@ use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\DocumentEntryField;
 use App\Models\DocumentStatus;
-use App\Models\Field;
 use App\Models\File;
 use App\Models\Invitation;
 use App\Models\Kpi;
@@ -40,6 +38,9 @@ use App\Models\OrganizationUser;
 use App\Models\PasswordReset;
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Models\QuoteRequestDocument;
@@ -146,9 +147,7 @@ class AppServiceProvider extends ServiceProvider {
             'Distributor'               => Distributor::class,
             'Document'                  => Document::class,
             'DocumentEntry'             => DocumentEntry::class,
-            'DocumentEntryField'        => DocumentEntryField::class,
             'DocumentStatus'            => DocumentStatus::class,
-            'Field'                     => Field::class,
             'File'                      => File::class,
             'Invitation'                => Invitation::class,
             'Kpi'                       => Kpi::class,
@@ -164,6 +163,9 @@ class AppServiceProvider extends ServiceProvider {
             'PasswordReset'             => PasswordReset::class,
             'Permission'                => Permission::class,
             'Product'                   => Product::class,
+            'ProductGroup'              => ProductGroup::class,
+            'ProductLine'               => ProductLine::class,
+            'Psp'                       => Psp::class,
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
             'QuoteRequestDocument'      => QuoteRequestDocument::class,

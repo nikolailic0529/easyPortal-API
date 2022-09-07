@@ -65,7 +65,7 @@ class IteratorImporterTest extends TestCase {
             Reseller::class      => 4,
             Customer::class      => 10,
             Asset::class         => 10,
-            AssetWarranty::class => 0,
+            AssetWarranty::class => 11,
             Document::class      => 13,
             DocumentEntry::class => 0,
         ]);

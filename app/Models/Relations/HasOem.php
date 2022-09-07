@@ -6,6 +6,8 @@ use App\Models\Oem;
 use App\Utils\Eloquent\Model;
 
 /**
+ * @property Oem $oem
+ *
  * @mixin Model
  */
 trait HasOem {

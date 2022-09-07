@@ -11,7 +11,7 @@
                     "id": "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297",
                     "name": "Johnston-Dickens",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163070580",
+                    "updatedAt": "1662156923965",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -167,8 +167,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 1470,
-                        "activeAssets": 1470,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 22,
@@ -197,8 +197,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 1470,
-                            "activeAssets": 1470,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 22,
@@ -225,7 +225,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

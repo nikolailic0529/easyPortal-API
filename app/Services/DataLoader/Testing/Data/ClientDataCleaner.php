@@ -10,7 +10,6 @@ use App\Services\DataLoader\Schema\CompanyKpis;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\CoverageEntry;
 use App\Services\DataLoader\Schema\CoverageStatusCheck;
-use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\DocumentVendorSpecificField;
@@ -27,10 +26,11 @@ use App\Services\DataLoader\Testing\Data\Fake\Company as CompanyValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryCode as CountryCodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\CountryName as CountryNameValue;
 use App\Services\DataLoader\Testing\Data\Fake\Email as EmailValue;
-use App\Services\DataLoader\Testing\Data\Fake\ImageUrl;
+use App\Services\DataLoader\Testing\Data\Fake\ImageUrl as ImageUrlValue;
 use App\Services\DataLoader\Testing\Data\Fake\Latitude as LatitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Longitude as LongitudeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Name as NameValue;
+use App\Services\DataLoader\Testing\Data\Fake\Number as NumberValue;
 use App\Services\DataLoader\Testing\Data\Fake\Phone as PhoneValue;
 use App\Services\DataLoader\Testing\Data\Fake\Postcode as PostcodeValue;
 use App\Services\DataLoader\Testing\Data\Fake\Text as TextValue;
@@ -59,6 +59,7 @@ class ClientDataCleaner {
     public function __construct(
         protected UuidValue $uuid,
         protected TextValue $text,
+        protected NumberValue $number,
         protected CompanyValue $company,
         protected LatitudeValue $latitude,
         protected LongitudeValue $longitude,
@@ -71,7 +72,7 @@ class ClientDataCleaner {
         protected PhoneValue $phone,
         protected EmailValue $email,
         protected NameValue $name,
-        protected ImageUrl $imageUrl,
+        protected ImageUrlValue $imageUrl,
     ) {
         // empty
     }
@@ -144,12 +145,16 @@ class ClientDataCleaner {
             $object->useDefaultFavIcon   = $this->map($object->useDefaultFavIcon, $this->imageUrl);
             $object->mainImageOnTheRight = $this->map($object->mainImageOnTheRight, $this->imageUrl);
             $object->logoUrl             = $this->map($object->logoUrl, $this->imageUrl);
-        } elseif ($object instanceof CustomField) {
-            $object->Value = $this->map($object->Value, $this->text);
         } elseif ($object instanceof TranslationText) {
             $object->text = $this->map($object->text, $this->text);
         } elseif ($object instanceof DocumentEntry) {
-            // empty
+            $object->said                         = $this->map($object->said, $this->uuid);
+            $object->sarNumber                    = $this->map($object->said, $this->uuid);
+            $object->environmentId                = $this->map($object->environmentId, $this->number);
+            $object->equipmentNumber              = $this->map($object->equipmentNumber, $this->number);
+            $object->assetProductGroupDescription = $this->map($object->assetProductGroupDescription, $this->text);
+            $object->pspId                        = $this->map($object->pspId, $this->uuid);
+            $object->pspName                      = $this->map($object->pspName, $this->text);
         } elseif ($object instanceof CompanyKpis) {
             // empty
         } elseif ($object instanceof CentralAssetDbStatistics) {

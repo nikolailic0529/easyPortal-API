@@ -1,0 +1,5 @@
+type Psp {
+    id: ID!
+    key: String!
+    name: String!
+}

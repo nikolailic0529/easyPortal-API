@@ -64,7 +64,7 @@ class WithCurrencyTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertTrue($created->wasRecentlyCreated);
-        self::assertEquals('new', $created->code);
+        self::assertEquals('NEW', $created->code);
         self::assertEquals('new', $created->name);
         self::assertCount(2, $queries);
 

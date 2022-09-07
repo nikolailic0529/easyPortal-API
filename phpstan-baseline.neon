@@ -2811,34 +2811,9 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\DocumentEntry\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
-			count: 1
-			path: app/Models/DocumentEntry.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Field\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Field.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Field\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Field.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Field\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Field.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
-			count: 2
-			path: app/Models/Field.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Invitation\\:\\:sender\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
@@ -3976,13 +3951,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) with 'App\\\\\\\\Models\\\\\\\\DocumentEntry' and App\\\\Models\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\DocumentEntry will always evaluate to true\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
@@ -3993,11 +3963,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$distributorId on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
@@ -7906,19 +7871,9 @@ parameters:
 			path: database/factories/DocumentEntryFactory.php
 
 		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\DocumentEntryFieldFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\DocumentEntryField\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\DocumentEntryField\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/DocumentEntryFieldFactory.php
-
-		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\DocumentFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Document\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Document\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/DocumentFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\FieldFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Field\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Field\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/FieldFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\FileFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\File\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\File\\>\\:\\:\\$model\\.$#"
@@ -7994,6 +7949,21 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Product\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Product\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/ProductFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductGroup\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ProductGroupFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductLineFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductLine\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductLine\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ProductLineFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\PspFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Psp\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Psp\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/PspFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\QuoteRequestAssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\QuoteRequestAsset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\QuoteRequestAsset\\>\\:\\:\\$model\\.$#"

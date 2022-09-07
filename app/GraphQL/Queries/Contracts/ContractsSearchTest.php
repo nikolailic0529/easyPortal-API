@@ -200,9 +200,7 @@ class ContractsSearchTest extends TestCase {
                             id
                             document_id
                             service_level_id
-                            net_price
                             list_price
-                            discount
                             renewal
                             serial_number
                             product_id
@@ -236,9 +234,6 @@ class ContractsSearchTest extends TestCase {
                             }
                             start
                             end
-                            fields {
-                                value
-                            }
                         }
                         language {
                             id
@@ -420,9 +415,7 @@ class ContractsSearchTest extends TestCase {
                                             'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                             'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                                             'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'net_price'        => 123,
                                             'list_price'       => 67.12,
-                                            'discount'         => null,
                                             'renewal'          => 24.20,
                                             'serial_number'    => null,
                                             'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -456,9 +449,6 @@ class ContractsSearchTest extends TestCase {
                                             ],
                                             'start'            => '2021-01-01',
                                             'end'              => '2024-01-01',
-                                            'fields'           => [
-                                                // empty
-                                            ],
                                         ],
                                     ],
                                     'language'          => [
@@ -629,9 +619,7 @@ class ContractsSearchTest extends TestCase {
                                     'product_id'       => $product,
                                     'service_group_id' => $serviceGroup,
                                     'service_level_id' => $serviceLevel,
-                                    'net_price'        => 123,
                                     'list_price'       => 67.12,
-                                    'discount'         => null,
                                     'renewal'          => 24.20,
                                     'start'            => '2021-01-01',
                                     'end'              => '2024-01-01',
@@ -788,51 +776,6 @@ class ContractsSearchTest extends TestCase {
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,
                                 'list_price'  => 100,
-                                'net_price'   => 100,
-                            ]);
-
-                            return new Collection([
-                                $document,
-                            ]);
-                        },
-                    ],
-                    'entries: hiding net_price'  => [
-                        new GraphQLPaginated(
-                            'contractsSearch',
-                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
-                            [
-                                'count' => 1,
-                            ],
-                        ),
-                        [
-                            'ep.document_statuses_no_price' => [
-                                '27414eb0-0c64-4270-bd2a-c8a90a2adb96',
-                            ],
-                            'ep.contract_types'             => [
-                                '264e9633-e16b-47c1-9707-ccd0f554bc53',
-                            ],
-                        ],
-                        static function (TestCase $test, Organization $organization): Collection {
-                            $type     = Type::factory()->create([
-                                'id' => '264e9633-e16b-47c1-9707-ccd0f554bc53',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
-                            $document = Document::factory()
-                                ->for($type)
-                                ->for($reseller)
-                                ->hasStatuses(1, [
-                                    'id' => '27414eb0-0c64-4270-bd2a-c8a90a2adb96',
-                                ])
-                                ->create([
-                                    'customer_id' => null,
-                                ]);
-
-                            DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                                'net_price'   => 100,
                             ]);
 
                             return new Collection([

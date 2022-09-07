@@ -11,7 +11,7 @@
                     "id": "f273feb9-4043-4ce2-9633-2dab7a75c566",
                     "name": "Baumbach and Sons",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163115828",
+                    "updatedAt": "1662156976956",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -76,12 +76,12 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 0,
-                        "activeAssets": 0,
-                        "activeAssetsPercentage": 0.0,
+                        "totalAssets": 72,
+                        "activeAssets": 70,
+                        "activeAssetsPercentage": 97.22222222222221,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 0,
+                        "activeContracts": 1,
                         "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
@@ -103,9 +103,39 @@
                         "serviceRevenueTotalAmount": null,
                         "serviceRevenueTotalAmountChange": null
                     },
-                    "companyResellerKpis": [],
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
+                            "totalAssets": 72,
+                            "activeAssets": 70,
+                            "activeAssetsPercentage": 97.22222222222221,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 1,
+                            "activeContractTotalAmount": 0.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 0,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 0,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
                     "status": [
-                        "INACTIVE"
+                        "ACTIVE"
                     ]
                 }
             ]

@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "0260d0b8-30cc-4a12-a123-3b103804d77b"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "0260d0b8-30cc-4a12-a123-3b103804d77b",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                    "serialNumber": "b2f80dac-c846-31aa-b6c6-bd7a734ff473",
+                    "assetSkuDescription": "HP 3PAR 8000 600GB SAS 10K SFF HDD",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "K2P99A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "55576",
+                    "city": "Karlfurt",
+                    "address": "276 Ilene Views Suite 691",
+                    "address2": null,
+                    "country": "Georgia",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+17435403551",
+                            "name": "Dr. Fleta Halvorson",
+                            "mail": "russel.sporer@lemke.org",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19473717141",
+                            "name": "Prof. Urban Brown",
+                            "mail": "ekerluke@hoppe.info",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

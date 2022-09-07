@@ -1,0 +1,148 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "cb5a9c17-a591-46ee-b12e-d2b6b42f1236"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "cb5a9c17-a591-46ee-b12e-d2b6b42f1236",
+                    "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "customerId": "1b002a0b-d6e6-41ee-9365-316ecd32530c",
+                    "serialNumber": "2a91fcc1-ba2e-3914-9828-5d11b8d3eeab",
+                    "assetSkuDescription": "HPE SN3000B 24/12 FC Switch",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "QW937A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "66244",
+                    "city": "New Terrillport",
+                    "address": "47585 Lehner Pike",
+                    "address2": null,
+                    "country": "Myanmar",
+                    "latitude": "55.471391",
+                    "longitude": "71.448023",
+                    "countryCode": "CW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662146275123",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A2AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HU4A1AC",
+                            "serviceLevelSkuDescription": "HPE Remote Tech Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA156AC",
+                            "serviceLevelSkuDescription": "HPE Software Updates Service",
+                            "serviceFullDescription": null,
+                            "documentNumber": "693b5d32-bbc6-3659-bed5-687cfaff40d3",
+                            "document": null,
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+                            },
+                            "customer": {
+                                "id": "1b002a0b-d6e6-41ee-9365-316ecd32530c"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+14346857813",
+                            "name": "Elbert Maggio V",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12723941015",
+                            "name": "Jacklyn Cassin",
+                            "mail": "brenden.lindgren@roob.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

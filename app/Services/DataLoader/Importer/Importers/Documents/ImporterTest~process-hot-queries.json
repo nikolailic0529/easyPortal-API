@@ -64,8 +64,8 @@
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "000a8541-d46d-5609-92dd-ab0394157014",
-            "0035c7c0-b088-55be-8884-05c2627973d3",
             "02febde5-b66a-5a90-90ba-e2c180699795",
+            "055cb005-9656-500b-a197-8a18b379ba5b",
             "069334c6-08d7-56d5-b29f-7bc788e02ac8",
             "0fb3bc28-4160-5c00-b848-92a3f875ce23",
             "1055eae1-ed9a-576e-b5b8-6ec3ea748e20",
@@ -73,95 +73,95 @@
             "155ccd57-5db2-51c3-b589-49c2ffb17bb9",
             "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12",
             "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
-            "178ff0e2-c7bb-5509-a967-17cba0577716",
-            "1ab8fbc8-76ce-5916-ac7f-4e7c028012a0",
             "1aeb8778-dc3d-5b37-8258-24f9ae596c7a",
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
+            "1d9801da-2d08-5c0b-9c2e-2ff1d5d7012a",
             "22185166-97d1-50fb-a974-ac51dd9d8c7c",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
             "256690df-7390-5e44-b06f-b8aec0839ec5",
-            "286f18c4-e5c5-5c25-a1ff-906be6d3eb31",
-            "290a85c4-fae7-594c-a656-3a1678ef7e35",
             "298b8f47-ac4c-5139-b349-220a23ef8a9f",
             "29ce44dd-bde2-5d90-ac67-f0be137ae073",
             "29fbf58d-7f22-5405-9a49-d9ac8bd02a8d",
-            "2b7fbc87-9443-5c2b-b231-a3ae516fa11b",
             "2d3f7f7a-cd0e-5f58-8e60-2ead5f14cf9f",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
-            "31bdd64a-b699-5e5c-814f-9902d44b330a",
+            "2fc77da8-39ea-553b-a27d-7c96acd0d821",
+            "30d30b7f-eb74-5f9f-af30-bda292fa3846",
             "323001c5-4447-50ab-b630-577ca6e43d29",
             "3595f430-1ac6-540a-a3ed-7801e85f10d7",
+            "3b1ae96c-bcc8-5d41-bf41-c6c87319e084",
             "3b8089ac-c7b2-5bf6-9a42-1a14329dd662",
             "3d37388e-3cb7-56ab-875e-d84a05396aab",
+            "43463b52-28e4-57c0-9b93-3fb6c6ca872e",
             "46010aff-3f3f-5d3c-9f84-2558bdab3904",
-            "48da72db-ee2e-54ce-8a95-b373295fff04",
             "492a6ff9-11c3-55c8-bc63-29e00a191b98",
+            "49801b8c-0748-52d6-8c11-45176c719a5e",
             "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136",
             "4dffc312-d6a2-5c21-a7f0-de9930bee2a4",
             "4f6940dd-886c-57e3-9071-a8f436ba83f0",
             "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
             "58abe961-ca19-5057-8d6e-67ccf4529345",
+            "5b554b38-8727-5166-be5d-8db99087dc58",
+            "5b7c4226-5fc7-5d21-ac9c-98ce57ec6643",
             "5e893dde-8b1b-5477-8629-a11466b4648e",
+            "5f41c6ae-ae9c-5c6a-947f-c65dd7a193c8",
+            "5f9796cc-f52b-5afa-9fd8-2e3aee1c8eb3",
             "6064ff66-f89d-574d-9e4a-b958bc105161",
             "60711d0f-f5f3-58d4-bc16-21b1b9695580",
             "631331d5-133a-58aa-b04a-adc2f4ab4de8",
             "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
             "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
             "669f6ddf-4e7e-5aa6-8ef6-dd321e511e2b",
-            "67995976-678b-5001-b573-88bb6744726c",
             "68e76df7-b1e2-594e-b631-9e8d6c54d506",
-            "6ce46eea-dbd7-58ba-82d9-abedd894f9e5",
+            "6d689a3e-0c34-5d6c-862d-e7261db2aaf5",
             "6fa2b388-20d8-51db-8d63-c290ef24889e",
+            "7053b5ea-12e0-51c1-9907-5616c23b5836",
+            "70655934-ea96-5256-8c3c-973520765d80",
             "7116180b-5f21-573b-ac0c-656543f0f0e6",
             "722a2d0e-136a-5516-948b-0ff23e66436a",
-            "790a1e77-1bae-5afa-9766-fba987a97a2d",
+            "74f21adc-69b0-58e2-bf58-43615c6dedd8",
+            "775001f9-1e0a-5cad-afed-842df459fcab",
             "7c49aa06-9911-5906-8eb5-5984969a43b3",
+            "7e77d19d-2744-51f9-9255-c387ebc28fb1",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
             "7fd38c78-8106-5809-ab5d-51402a99f1ca",
             "8317af49-83a3-574e-97d3-12abdacae412",
-            "83e2cde7-63fc-55fd-8876-ce17253a38e4",
+            "836d4e4a-9fdb-57c5-9b70-ef6e46fc3f4d",
             "87e3dc13-76b2-5c36-895d-5ab33f29da58",
             "89c7eb88-94bd-56a3-a682-83117bf4a16d",
-            "91a6ff45-f6f2-53ae-97ed-edbe0c25e654",
+            "97060fa2-cce3-5225-8c48-cdfbd331c32f",
+            "97c8c221-4ffb-5c8c-a606-1d4089d44390",
+            "9c9686b6-57ea-5a48-a06e-35ae444ec8a9",
             "a6d9fcb3-49aa-5f19-95cb-cb2d16d29c29",
-            "ab99128c-dade-5804-99f4-ef6dda398146",
-            "ac42df30-0938-5513-a0bf-f42cd109583c",
             "acb6bcb5-866b-5e98-a903-d6b16c0c0be6",
             "ade629fc-638b-5727-abfd-d44ccb67b670",
             "adefed16-5702-56cd-8112-ae204dbbb580",
-            "af9a3e96-44cd-5401-99c7-529e4f095fe9",
-            "b0e4c5f0-864c-57fc-8113-0b0f2e399f70",
             "b477aa83-2f21-594b-b4c5-fd311e18f0dd",
+            "b67e76f0-8ae6-5c33-9a09-d40a4117ff75",
             "b84962b6-c0c7-5b3a-b87c-a744777b0ee8",
             "b908ec46-850c-5de2-b931-1cd1de831731",
             "b990a23e-03b7-57bf-a4fa-5e68495f3d5e",
-            "bba20898-34c7-5e3f-ad79-c722d811d1c3",
-            "bdb0cae0-f1cd-5af0-b783-8bbb58a588fa",
+            "b9ab187e-18e1-5e7e-a635-f203e97536d7",
             "bece5ff3-5429-5b66-979e-54215bcd3fa2",
             "bfed16ba-537b-5382-a8c3-eaef6c3e8897",
+            "c1d9a6bc-c30e-5ed7-80bf-b9fba5ce279d",
             "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
-            "c8bb98e0-c034-56d2-a467-1c5fc6d4fab1",
-            "cdf97570-854e-5c1b-a815-0293e4ae2112",
+            "c96e95fa-a083-5977-ab7a-b16ae532c802",
             "cf96b634-40ff-5e39-98ee-a7970b71a5c5",
-            "d140fdfd-bc6a-5392-9c40-4b92dab87f93",
             "d8ac9704-9805-5cf8-a6ff-0ce0ffad7d69",
             "d8ba5992-c637-5305-ac53-1e02cc040d0e",
             "da0937bd-89ae-5871-8cad-d17b0c65443f",
             "dd500f21-6347-5bd1-8c52-fac465fc3df3",
             "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
             "e17173d4-3cd1-5dd1-922e-65426f913752",
+            "eb44b5ea-249a-56a8-8bee-322a570437f2",
             "ef9b2df6-9064-54ef-a846-60cccdc5a6e8",
-            "f0a2699e-0cd6-5e96-b822-27b5691d20ff",
             "f0fc2834-0b25-511c-95f7-2cf190ba3074",
-            "f153ce97-5fb2-51da-b8c7-85e892350ded",
             "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
             "f4510e55-457f-5cef-b3b5-6febd400acdf",
             "f6de2667-5990-59c3-92a5-07ad44454b8c",
             "f8da8b47-7b3c-50fa-9c6b-dd15087af463",
-            "fa37ca66-c1d5-50a4-a107-b9487a9186a7",
-            "fb959a6c-f352-5dca-beb5-8ba9934eb89a",
             "fea6b85b-8324-517d-b223-4f64d371edd3"
         ]
     },
@@ -194,8 +194,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:23:43",
-            "2022-02-02 00:23:48",
+            "2022-02-02 00:24:20",
+            "2022-02-02 00:24:25",
             "18ad2286-e0ac-4aa3-b457-f29d599c7e8b"
         ]
     },
@@ -214,26 +214,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18ad2286-e0ac-4aa3-b457-f29d599c7e8b"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "0c75c407-899e-54cc-9ecd-f6745b245966",
-            "5d0ada54-c8e5-5f68-a218-2d53a57e591e",
-            "79115380-2dc5-5391-af86-099ff7762ce6",
-            "d4c6be18-ce8e-59ee-9464-7e6950530e1d",
-            "dbdf562e-a506-518b-a79e-f88b83523ddd"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:24:18",
-            "2022-02-02 00:24:21",
+            "2022-02-02 00:24:55",
+            "2022-02-02 00:24:58",
             "18ad2286-e0ac-4aa3-b457-f29d599c7e8b"
         ]
     },
@@ -246,8 +236,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:24:44",
-            "2022-02-02 00:24:49",
+            "2022-02-02 00:25:21",
+            "2022-02-02 00:25:26",
             "18af6bb6-25c5-4cb5-8332-bc7f89ccc158"
         ]
     },
@@ -264,25 +254,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18af6bb6-25c5-4cb5-8332-bc7f89ccc158"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "893ce972-36e9-5ee9-9a97-b84e4541448c",
-            "940af7f9-efad-5e4b-a601-100a02b65886",
-            "c335028d-c0c0-5667-a5b8-6f4fe726858e",
-            "cb6974ce-278a-51e2-9954-90f976573163"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:25:19",
-            "2022-02-02 00:25:22",
+            "2022-02-02 00:25:56",
+            "2022-02-02 00:25:59",
             "18af6bb6-25c5-4cb5-8332-bc7f89ccc158"
         ]
     },
@@ -303,8 +284,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:25:45",
-            "2022-02-02 00:25:50",
+            "2022-02-02 00:26:22",
+            "2022-02-02 00:26:27",
             "18b204e2-0592-461b-9292-2959a880fcaf"
         ]
     },
@@ -323,26 +304,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18b204e2-0592-461b-9292-2959a880fcaf"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "068eff68-bb5a-5988-a2fa-1cd1155bdea5",
-            "078febfb-0f8f-569f-8b5b-8eb191c42418",
-            "4dc0d16b-6239-58b5-84d5-2cf17a6aa9bc",
-            "8a0eb6cf-1639-5807-a386-a946f0f59ffd",
-            "cd042eda-1136-5e71-b80f-d3cd551e6d19"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:26:20",
-            "2022-02-02 00:26:23",
+            "2022-02-02 00:26:57",
+            "2022-02-02 00:27:00",
             "18b204e2-0592-461b-9292-2959a880fcaf"
         ]
     },
@@ -355,8 +326,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:26:46",
-            "2022-02-02 00:26:51",
+            "2022-02-02 00:27:23",
+            "2022-02-02 00:27:28",
             "18bf4663-6d6d-41df-ab3c-7c05caab4669"
         ]
     },
@@ -373,26 +344,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18bf4663-6d6d-41df-ab3c-7c05caab4669"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "4be51723-1c36-503d-841b-423cb81445c4",
-            "87489a38-853a-5a31-bb2c-9e6bc7b04f14",
-            "b7061987-9cd7-5e6b-b842-370f2015cbee",
-            "f60737d2-b285-5221-a289-ed875d007e65",
-            "fc71690b-3447-5ec1-8866-57a33ee6fb1f"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:27:21",
-            "2022-02-02 00:27:24",
+            "2022-02-02 00:27:58",
+            "2022-02-02 00:28:01",
             "18bf4663-6d6d-41df-ab3c-7c05caab4669"
         ]
     },
@@ -413,8 +374,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:27:47",
-            "2022-02-02 00:27:52",
+            "2022-02-02 00:28:24",
+            "2022-02-02 00:28:29",
             "18c58d7a-6fbc-4c9b-97da-dead426381a8"
         ]
     },
@@ -435,26 +396,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18c58d7a-6fbc-4c9b-97da-dead426381a8"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "b490d8a9-ff06-5f8d-a4b5-27f14ec2a069",
-            "d7a91157-45ae-589d-bd12-fecd44c92b18",
-            "ddda9ae5-051b-5cbe-9760-85294ca27102",
-            "e5703a29-375f-51c5-a6a4-bec9cdda3635",
-            "e70b29a6-009b-5808-8386-49a2b31f2c87"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:28:22",
-            "2022-02-02 00:28:25",
+            "2022-02-02 00:28:59",
+            "2022-02-02 00:29:02",
             "18c58d7a-6fbc-4c9b-97da-dead426381a8"
         ]
     },
@@ -522,84 +473,84 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "04a02968-a6e1-5a32-9195-369ce8f2aaac",
-            "09ab3299-6f28-5a1f-bd8f-24961ef0679a",
-            "0ba0bb3e-d5d5-5606-adc6-5b5994cfecd7",
             "1144a493-a8f7-5d65-8c73-cd4f74fe314b",
-            "12f16d1c-6d62-512d-8f54-732a7d2644f7",
+            "14d80f1a-2e24-500d-9a69-5d33f0524ae3",
             "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12",
-            "19e18807-cc10-5f35-b6af-70254c698006",
-            "1c99446f-cbe6-53f9-9feb-f51ade4f315d",
+            "1c9741ed-d3a5-568b-8654-0c287924695d",
             "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
             "1ed0807b-7e08-5e68-a85d-ea97c202af43",
+            "211e8c01-1a44-551a-a6ac-547a6515e6cc",
             "22185166-97d1-50fb-a974-ac51dd9d8c7c",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
-            "22ef3a10-0f04-55d9-a062-d54d1da65f43",
             "256690df-7390-5e44-b06f-b8aec0839ec5",
             "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
             "29fbf58d-7f22-5405-9a49-d9ac8bd02a8d",
-            "2c33e57d-5ce7-52c6-842d-ab9a4960d3f5",
+            "2c6a0672-e7b7-5ca4-abc1-9c507a079f47",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
-            "36a79fdf-f630-58f0-99ef-6a7dcf06068e",
             "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
+            "3ce4e7cd-269c-5f71-ad43-17e0d5c4d274",
+            "3d7ff0d9-48de-52d0-ad39-c7faf336a6fd",
+            "3f78394c-bf7f-579a-b3cc-f194a1b50544",
             "40940c08-224e-5fc1-8090-4fb12d9837d2",
-            "4096686c-e87e-5160-8676-1f92e409778c",
-            "40f83db4-671e-5dc6-8a51-453e41dace0e",
-            "425c3857-1d66-57ef-946b-30d5257171bd",
-            "45373043-63da-513a-a305-f3efa2576d75",
+            "435d3b49-fae1-55fe-be45-3e39e10866c7",
+            "448ef7cd-710c-5cc4-a1be-a6f19364afe4",
             "47094457-b3a5-5773-92ca-02790f2d10e1",
             "492a6ff9-11c3-55c8-bc63-29e00a191b98",
             "4949f540-de85-57b4-900f-1066bd020c51",
-            "544fa88b-4c96-5222-9317-3cdbd0919946",
             "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
-            "5cc5819f-ee3f-5740-ad98-69547179746f",
-            "5d8ae509-940d-5ce0-962a-7eaa4d5db5b0",
-            "5f49fa3d-7478-51e7-a75a-ea5164eb857a",
+            "55d304f5-fd70-5f37-bc06-7fde1a773d18",
+            "5c55543d-be2c-572c-9101-16c744eda4b0",
             "6064ff66-f89d-574d-9e4a-b958bc105161",
+            "670daaa4-8f8f-595f-be93-c9be78007b19",
             "7116180b-5f21-573b-ac0c-656543f0f0e6",
             "722a2d0e-136a-5516-948b-0ff23e66436a",
+            "77857077-35e8-5b35-8caf-e9a7cf212c35",
+            "78524fcb-653f-5e96-b2f3-7172ab3604db",
+            "79b0aeb2-af35-5468-9a7f-a6677f926650",
             "7aa77346-75ca-5f9b-8265-5b851651dbd7",
+            "7d4fa1c0-c2fd-580d-814a-69ac8a0a78c5",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
-            "813069a1-2640-5b89-944c-69eddadbec4e",
-            "868d79a3-0137-5e67-a78c-dd7ad2cb821d",
+            "85a74880-c0b5-5a0d-8f5b-7794406dc8d2",
             "89c7eb88-94bd-56a3-a682-83117bf4a16d",
             "8c741131-8515-50eb-8a3f-fee09bb8f32d",
-            "8d237ccf-780d-5689-a7fe-7214444af1a0",
+            "8d9ca098-963c-58c5-ba50-024cd6c86665",
             "8ed23ef9-a1eb-5859-bc4b-b1e8fbd72c7f",
             "93927e63-e6b6-5ba4-a7d0-0e26baba3fc4",
-            "9c9bc915-bdd0-5897-bee3-dedac3c457f5",
+            "9445a1ba-09e2-56de-9702-2b38592cf1cf",
+            "9b1f5381-530f-5228-b7d0-671d68eac944",
             "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
-            "a192bfa5-1e08-5f09-9e79-254558774f8a",
             "a38d080e-0a99-51ba-b25e-05a0f175e183",
             "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
+            "a5c51eb1-82b2-56ba-9f35-123a172d6fab",
+            "a77cb695-1913-51ab-ac3f-2298965f2abf",
             "a936db4c-085a-5d5e-b5db-dd15a03b3b44",
+            "ab60943f-127f-5c3d-8fa5-21d8d42d9372",
             "ade629fc-638b-5727-abfd-d44ccb67b670",
             "adefed16-5702-56cd-8112-ae204dbbb580",
             "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
             "b0a4cd45-f1f2-5941-a082-31e9b27e5130",
-            "b40c46c2-ba41-5c1a-bd5b-f8c0f94f7e9e",
             "b477aa83-2f21-594b-b4c5-fd311e18f0dd",
             "b84962b6-c0c7-5b3a-b87c-a744777b0ee8",
             "b921b865-6cb1-5f24-8a00-1067b776d781",
-            "bf1c988c-9123-561e-aabd-b9b0988b626c",
-            "c35e4bdd-a985-58a6-9e66-544e0f343f76",
+            "c11928e9-1722-5af3-946d-ed04393e1997",
+            "c1a1cae6-3672-575f-ba63-d0de3789e3f3",
+            "c252d0cc-8ce3-5c67-8544-c709bf5f6201",
             "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
             "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
-            "c88e0738-e063-5f5c-89f6-8d39600b7209",
-            "c9cff7db-9e0a-514c-836a-d7d86adfb4a5",
             "cb25e04c-9e13-5287-815f-58772f12466b",
+            "cc95e40d-5211-5920-8115-cfc34432f65d",
+            "d4a61106-bcb6-5d5e-b69e-139c057e459b",
             "d5287ae3-8326-5224-b72c-65fa2bf13cd9",
-            "d76921a3-2a5e-563c-902e-5267efb3f281",
+            "d6a70b34-5a01-5fd4-ac48-7426dd62290c",
             "d8ac9704-9805-5cf8-a6ff-0ce0ffad7d69",
             "d8ba5992-c637-5305-ac53-1e02cc040d0e",
-            "da762df2-5d01-5ca9-855c-a61561cd2534",
-            "de3e948f-922b-5747-bfb9-73e5c8c90c25",
+            "e5c8fb18-7c3d-5f65-895b-1f7eeee1aa88",
             "e8a6fd2c-374a-534c-bb87-26f2da70028d",
             "ec553a82-56f4-5e32-a673-7374f0ab0def",
             "f10232e3-9024-567f-9383-55ba191f128d",
             "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
-            "f9dd3e58-8e31-5d42-b427-a1b69870c51d",
+            "fdff6d12-e0ac-53c8-8ac7-5aecf1a0a876",
             "fea6b85b-8324-517d-b223-4f64d371edd3"
         ]
     },
@@ -620,8 +571,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:28:48",
-            "2022-02-02 00:28:53",
+            "2022-02-02 00:29:25",
+            "2022-02-02 00:29:30",
             "18de85b7-17d2-4d77-afa8-e53fdf32774e"
         ]
     },
@@ -640,26 +591,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18de85b7-17d2-4d77-afa8-e53fdf32774e"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "3832e5ec-be97-5e06-b28a-3a662581edef",
-            "3d3a44d9-f5e4-537f-9b9e-c15e4c5d310b",
-            "6056cf8e-d5fa-5cf5-85c8-1f69fd535849",
-            "8931fd1f-5b7d-556c-bdc3-93f410467ff3",
-            "d6362117-ceed-55eb-ac0e-f6e5de939f27"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:29:29",
-            "2022-02-02 00:29:32",
+            "2022-02-02 00:30:06",
+            "2022-02-02 00:30:09",
             "18de85b7-17d2-4d77-afa8-e53fdf32774e"
         ]
     },
@@ -680,8 +621,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:29:59",
-            "2022-02-02 00:30:04",
+            "2022-02-02 00:30:36",
+            "2022-02-02 00:30:41",
             "18e090b3-1a84-48be-b93e-373c8f4123ce"
         ]
     },
@@ -702,26 +643,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18e090b3-1a84-48be-b93e-373c8f4123ce"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "2178ac02-638b-5da8-9973-da984605b7ad",
-            "2d4e783b-8cf1-52f5-bb02-f8247456b8cb",
-            "480029f1-66b8-56f7-9448-447780f58c7f",
-            "70866489-f8e0-5713-852a-caf2d86af829",
-            "afc927c8-af85-50c1-a63a-1b501ace3af4"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:30:40",
-            "2022-02-02 00:30:43",
+            "2022-02-02 00:31:17",
+            "2022-02-02 00:31:20",
             "18e090b3-1a84-48be-b93e-373c8f4123ce"
         ]
     },
@@ -734,8 +665,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:31:10",
-            "2022-02-02 00:31:15",
+            "2022-02-02 00:31:47",
+            "2022-02-02 00:31:52",
             "18ef5697-9dbc-47f1-9aa5-4310fbf2f63e"
         ]
     },
@@ -753,25 +684,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "18ef5697-9dbc-47f1-9aa5-4310fbf2f63e"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "222a09e1-172b-5bcc-bced-7318411f9d64",
-            "51d361f4-d283-526b-9fe9-3d42a3a7a5ad",
-            "bd996556-e4cd-54da-a867-1fca0570f254",
-            "cb3060e7-fea0-5edc-aca9-04611e9e5deb"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:31:51",
-            "2022-02-02 00:31:54",
+            "2022-02-02 00:32:28",
+            "2022-02-02 00:32:31",
             "18ef5697-9dbc-47f1-9aa5-4310fbf2f63e"
         ]
     },
@@ -784,8 +706,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:32:21",
-            "2022-02-02 00:32:26",
+            "2022-02-02 00:32:58",
+            "2022-02-02 00:33:03",
             "19028e84-d41a-401d-80c3-b03956e89dd5"
         ]
     },
@@ -803,23 +725,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19028e84-d41a-401d-80c3-b03956e89dd5"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "4e3c3a1d-1b42-5562-a151-73e6c7259b2f",
-            "8b770d90-0265-5e2c-a163-cb9e3cd1b9e3"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:33:02",
-            "2022-02-02 00:33:05",
+            "2022-02-02 00:33:39",
+            "2022-02-02 00:33:42",
             "19028e84-d41a-401d-80c3-b03956e89dd5"
         ]
     },
@@ -840,8 +755,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:33:32",
-            "2022-02-02 00:33:37",
+            "2022-02-02 00:34:09",
+            "2022-02-02 00:34:14",
             "190386bc-415c-42ec-85c8-7b85e297dbea"
         ]
     },
@@ -862,26 +777,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "190386bc-415c-42ec-85c8-7b85e297dbea"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "5ccdb429-f5b6-53a4-a948-8f547ba71611",
-            "76129bad-b2f7-53c7-9170-41b250701341",
-            "8c40918e-f26f-5fa8-ad6e-497df74f93f4",
-            "b73b0aeb-248f-514a-b06a-afb340a5cd94",
-            "e08fde4f-121d-553e-95c2-19318ee5c428"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:34:13",
-            "2022-02-02 00:34:16",
+            "2022-02-02 00:34:50",
+            "2022-02-02 00:34:53",
             "190386bc-415c-42ec-85c8-7b85e297dbea"
         ]
     },
@@ -949,9 +854,10 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "00a946d7-3ade-5911-adad-c8b48f6a77e8",
+            "0044ad34-947c-5415-b766-36fa4fa64219",
             "011d5516-eaff-59d6-afc2-b81baa7a6596",
             "01bc1ebd-0682-52b7-8fe2-90c4f4d21f26",
+            "0472978f-bb89-5ba8-a740-4c149f153c56",
             "0c70c87a-6765-5eed-9857-ea054818135e",
             "0fb3bc28-4160-5c00-b848-92a3f875ce23",
             "1055eae1-ed9a-576e-b5b8-6ec3ea748e20",
@@ -959,32 +865,37 @@
             "1312971f-e8dd-573e-8409-d7c06b35973f",
             "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12",
             "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
-            "1cb7f897-862d-5092-9a69-6f8a8b1e9503",
+            "178577ae-ffe1-573e-ba2c-c45b56f66623",
+            "189d9093-b906-5c82-8054-58db41a2906b",
+            "195be70a-b9ff-524d-8eba-f565178effad",
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
             "1ed0807b-7e08-5e68-a85d-ea97c202af43",
             "2262e255-99d6-599a-8e2f-87c5bd861f28",
-            "22ec465b-c8ba-531a-bc20-e05517640dbb",
             "256690df-7390-5e44-b06f-b8aec0839ec5",
+            "26b3b1bb-6da1-5d2c-b1a6-53158bd7d531",
             "298b8f47-ac4c-5139-b349-220a23ef8a9f",
             "29fbf58d-7f22-5405-9a49-d9ac8bd02a8d",
-            "2cca481b-733e-56de-9126-5697f4ab7687",
+            "2aa9dce8-89d1-5ae4-bee1-8d7bbf885799",
             "2d3f7f7a-cd0e-5f58-8e60-2ead5f14cf9f",
-            "2f838413-b0be-5225-a05a-874fb8f1e258",
-            "2f9a264a-3a18-52b1-b60f-d9d9f99164f0",
             "3595f430-1ac6-540a-a3ed-7801e85f10d7",
             "3bf302dd-0a07-5b78-bdd5-5e2f7c3fa553",
             "3d37388e-3cb7-56ab-875e-d84a05396aab",
+            "3d7ff0d9-48de-52d0-ad39-c7faf336a6fd",
             "3f1e4e71-b331-5004-82ae-07893027d7dc",
-            "412461dd-d24e-53cb-b29f-c89c088f1dfa",
+            "41ca0db2-4699-5f8b-9dd6-32042e5a8853",
             "46010aff-3f3f-5d3c-9f84-2558bdab3904",
+            "462d8be2-cb12-511a-aced-52221826c6b6",
+            "46f833ef-9aa6-55f1-820d-c670cb993494",
             "492a6ff9-11c3-55c8-bc63-29e00a191b98",
-            "498951c0-327b-5078-affe-7e8b7a092b40",
+            "4d37f503-005d-5a2e-8203-0898404dd842",
             "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136",
             "4dffc312-d6a2-5c21-a7f0-de9930bee2a4",
             "4f6940dd-886c-57e3-9071-a8f436ba83f0",
+            "4f7531c3-3280-50e8-a39c-767325b8a4ed",
             "58abe961-ca19-5057-8d6e-67ccf4529345",
-            "5b423f5a-7b89-5c7b-bfdb-4547007ab7c6",
+            "5b6567ac-c0c8-58b5-86ee-12c40735b4e5",
             "5bab5ac6-c572-5e38-8514-612174f12d18",
+            "5c843606-aa91-5dae-ae21-9d732088dea9",
             "5ce49095-8259-50a4-b618-162f555332dc",
             "5e893dde-8b1b-5477-8629-a11466b4648e",
             "5f850542-b06f-52b8-ba48-bb5124d1c408",
@@ -993,29 +904,28 @@
             "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
             "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
             "68e76df7-b1e2-594e-b631-9e8d6c54d506",
+            "6a112608-c5ff-5e23-8827-acbcb63133e3",
+            "6b0d833b-333b-5dc6-b789-b841b87a7c2a",
             "6fa2b388-20d8-51db-8d63-c290ef24889e",
+            "704d10b5-8363-55ad-85e0-b7bdc7b7253d",
             "71327853-9be0-5a5d-bce1-0c9dbd6d69a0",
-            "71f7ae58-67d2-5a88-9e3b-eeb73382a82f",
             "71fb2666-0e1a-5024-94ba-ade124977c7d",
             "722a2d0e-136a-5516-948b-0ff23e66436a",
-            "7d2a2a43-140d-5af6-b48a-2a563013f688",
             "7fd38c78-8106-5809-ab5d-51402a99f1ca",
             "80c5a861-5e9b-5a20-b54b-c914f2dacb39",
             "8317af49-83a3-574e-97d3-12abdacae412",
+            "866f2382-b7ef-55ed-bd59-b88b4b892a0c",
             "87e3dc13-76b2-5c36-895d-5ab33f29da58",
             "88a69a03-dd81-56df-983c-77987db78dd2",
             "89c7eb88-94bd-56a3-a682-83117bf4a16d",
             "8a1b0377-f6c3-55a7-88ad-af527c68d260",
             "96443b35-9d77-5232-b586-e8134ccb82cf",
+            "97dea860-78ab-59b8-acc8-48a807b4997a",
             "98dedad6-adb3-5f47-ace0-0c702286f38b",
             "98ebeb4f-982b-55a2-9ff3-2a9205bcff2d",
-            "9916784a-6d2e-52ca-ba05-505594e03aa3",
-            "9a4fd6c2-4750-5e54-8510-a3694c8c97c1",
             "9a688898-9826-559a-bc64-0c5a430fa427",
-            "9c9bc915-bdd0-5897-bee3-dedac3c457f5",
-            "9d6a8490-a41f-553d-8065-957b9e4e6511",
-            "a17190da-5b71-5508-808b-bd50adcefd59",
-            "a78860d7-362e-5ef4-82cc-19fc3d1c05f5",
+            "9b1f5381-530f-5228-b7d0-671d68eac944",
+            "a48b07f4-8a11-5f54-a19f-7a53400b95b3",
             "ac723299-bef9-5eb6-9fb6-ae575d29154f",
             "ade367fc-709e-5958-9bea-247b6288f356",
             "ade629fc-638b-5727-abfd-d44ccb67b670",
@@ -1026,26 +936,22 @@
             "b908ec46-850c-5de2-b931-1cd1de831731",
             "b990a23e-03b7-57bf-a4fa-5e68495f3d5e",
             "bfed16ba-537b-5382-a8c3-eaef6c3e8897",
-            "c16868fd-06a1-58a5-9911-171c4af316e8",
             "c1f40323-b529-5f35-834c-faff896216cf",
             "c259b2ea-89fa-513b-8f7f-3c46406243a1",
-            "c62a5176-ffd0-5756-a9bc-96d83db18d18",
             "c66d92a5-d8d8-510e-96d7-f2cc2cdeb644",
+            "c7ff33e0-90f0-59e5-89bb-347f8ca6c02a",
             "cce5f504-8bfa-5a13-be23-018cf6014b7f",
             "cfb686bc-058b-53f1-a97b-d60bda039c81",
+            "d3ae52dd-2dd5-5b54-9d38-058e0f19826f",
             "d53d04fc-25e3-5b24-9e01-986a221ccf3c",
-            "d60d6d55-5da3-59cd-873f-839296e374fb",
+            "d73c2fe6-bfac-5d25-97a0-b70021fa9c72",
             "d8ac9704-9805-5cf8-a6ff-0ce0ffad7d69",
             "d8ba5992-c637-5305-ac53-1e02cc040d0e",
-            "d8d2cff7-c6b6-50a9-a60e-edf09bf7a024",
             "dd500f21-6347-5bd1-8c52-fac465fc3df3",
-            "de3e948f-922b-5747-bfb9-73e5c8c90c25",
             "deab8642-8143-5186-95fd-ba97f6724ad8",
-            "df0e6da6-5737-57ad-a29a-d2e279deda21",
             "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
             "e17173d4-3cd1-5dd1-922e-65426f913752",
-            "e95a8c22-6a30-5479-a1fd-cc83977ec66c",
-            "ea6613ad-33dd-5416-a546-3adce79c308f",
+            "e271e99a-d5c8-5bcc-81e0-0665ab98fb5e",
             "ee9043a6-113e-521f-ab08-998ed7139cfa",
             "ef9b2df6-9064-54ef-a846-60cccdc5a6e8",
             "f0fc2834-0b25-511c-95f7-2cf190ba3074",
@@ -1055,7 +961,6 @@
             "f49b18c4-8c11-5530-9fbe-de75ee8c7de5",
             "f6de2667-5990-59c3-92a5-07ad44454b8c",
             "f81b7755-7c09-55a4-ba2c-0dbd0feed2a9",
-            "faf4015d-890c-5a1c-af7c-93e6ce1ae68f",
             "fea6b85b-8324-517d-b223-4f64d371edd3",
             "fef409e3-64ab-5a50-a423-1cb389266bea"
         ]
@@ -1077,8 +982,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:34:43",
-            "2022-02-02 00:34:48",
+            "2022-02-02 00:35:20",
+            "2022-02-02 00:35:25",
             "191b4b9c-e23c-44aa-baad-f2d7541a8f96"
         ]
     },
@@ -1095,23 +1000,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "191b4b9c-e23c-44aa-baad-f2d7541a8f96"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "b293a4a0-8046-50cf-a3f8-c29668506cbf",
-            "deba1237-1c01-52f4-88eb-d59502f2adc1"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:35:30",
-            "2022-02-02 00:35:33",
+            "2022-02-02 00:36:07",
+            "2022-02-02 00:36:10",
             "191b4b9c-e23c-44aa-baad-f2d7541a8f96"
         ]
     },
@@ -1132,8 +1030,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:36:04",
-            "2022-02-02 00:36:09",
+            "2022-02-02 00:36:41",
+            "2022-02-02 00:36:46",
             "192c82b6-a499-454f-9d58-5d53b060f384"
         ]
     },
@@ -1154,26 +1052,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "192c82b6-a499-454f-9d58-5d53b060f384"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "05c751fe-5fbb-547b-babe-a3b107ab40b5",
-            "1d4021d5-c9b4-53fd-90ee-5e59c7289ae4",
-            "6ac67610-4f17-58de-9ba3-37b61e7cc6d0",
-            "6f11936d-0fe7-56f4-abc0-0c90a67a47f9",
-            "b6e4c192-0055-554d-b6f2-d9b2fe912f58"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:36:51",
-            "2022-02-02 00:36:54",
+            "2022-02-02 00:37:28",
+            "2022-02-02 00:37:31",
             "192c82b6-a499-454f-9d58-5d53b060f384"
         ]
     },
@@ -1194,8 +1082,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:37:25",
-            "2022-02-02 00:37:30",
+            "2022-02-02 00:38:02",
+            "2022-02-02 00:38:07",
             "196a7197-9cbe-44a1-8c63-2d005e19a5ed"
         ]
     },
@@ -1216,26 +1104,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "196a7197-9cbe-44a1-8c63-2d005e19a5ed"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "1a6cff24-0c45-5fe7-8b15-349b6f528734",
-            "1cf08c7a-5b96-5901-83f2-e16c3305754e",
-            "30488931-d356-5e88-9387-1613a6deb1eb",
-            "b436b34d-ae08-5d16-a3c1-82869a25b7fd",
-            "bca42ec2-c98f-5a8e-a6ad-18f7190a7e2c"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:38:12",
-            "2022-02-02 00:38:15",
+            "2022-02-02 00:38:49",
+            "2022-02-02 00:38:52",
             "196a7197-9cbe-44a1-8c63-2d005e19a5ed"
         ]
     },
@@ -1256,8 +1134,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:38:46",
-            "2022-02-02 00:38:51",
+            "2022-02-02 00:39:23",
+            "2022-02-02 00:39:28",
             "19712245-8bd4-4690-b85d-460e641eaa0c"
         ]
     },
@@ -1278,26 +1156,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19712245-8bd4-4690-b85d-460e641eaa0c"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "58956a35-f2a3-5620-a866-fdb7b01ddd1e",
-            "87772456-bded-5b0c-a160-4e93b284945d",
-            "8e927f99-7871-5fae-afa2-dae0cdfb6a06",
-            "dad3a753-d96d-563e-bd60-3a44c4e15d71",
-            "ea2640e9-a16b-5d44-a888-b6d5be7b94c0"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:39:33",
-            "2022-02-02 00:39:36",
+            "2022-02-02 00:40:10",
+            "2022-02-02 00:40:13",
             "19712245-8bd4-4690-b85d-460e641eaa0c"
         ]
     },
@@ -1318,16 +1186,17 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:40:07",
-            "2022-02-02 00:40:12",
+            "2022-02-02 00:40:44",
+            "2022-02-02 00:40:49",
             "1978bde9-e335-4c3b-9781-56722a9a604c"
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
         "bindings": [
             "8d462e76-12db-438c-a227-07e86cb4ca46",
-            "5a9ced4b-5e71-486b-ae9e-a0fe7631503f"
+            "5a9ced4b-5e71-486b-ae9e-a0fe7631503f",
+            "442cac4e-49ac-4fdf-aa35-55a6b8dfaece"
         ]
     },
     {
@@ -1337,26 +1206,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1978bde9-e335-4c3b-9781-56722a9a604c"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "2f8b4a4e-7d99-56de-85a2-72db5ed00020",
-            "8d23075e-1edb-50c2-8fa2-f29a4b1d0590",
-            "a42526d1-a7e1-50ad-a3a4-ee1a216791d5",
-            "cb761734-4512-50ac-83f7-41f6be4cb410",
-            "fbd01f4a-6530-5078-af44-004083d05a1e"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:40:54",
-            "2022-02-02 00:40:57",
+            "2022-02-02 00:41:31",
+            "2022-02-02 00:41:34",
             "1978bde9-e335-4c3b-9781-56722a9a604c"
         ]
     },
@@ -1426,104 +1285,104 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "093eb178-6183-5996-b43d-421bcb5601d0",
-            "0985eb83-b5a9-52b0-bf96-986ec6a4f4d6",
-            "0ef7faa6-919d-5f78-8d6c-e07b2611deae",
             "0fb3bc28-4160-5c00-b848-92a3f875ce23",
             "1055eae1-ed9a-576e-b5b8-6ec3ea748e20",
-            "107206fa-150e-5f62-980d-985a9ca434b0",
             "1144a493-a8f7-5d65-8c73-cd4f74fe314b",
-            "12f16d1c-6d62-512d-8f54-732a7d2644f7",
-            "133c4651-4f1e-5eba-a8cd-bba9cf95854c",
+            "12266713-8e68-5d1a-905f-c7a8bf1f63b6",
             "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
+            "1c343b0c-a4e7-5066-84d3-b265c355d4a0",
+            "1c9741ed-d3a5-568b-8654-0c287924695d",
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
             "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
             "1ed0807b-7e08-5e68-a85d-ea97c202af43",
+            "211e8c01-1a44-551a-a6ac-547a6515e6cc",
             "22185166-97d1-50fb-a974-ac51dd9d8c7c",
             "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
             "298b8f47-ac4c-5139-b349-220a23ef8a9f",
             "2d3f7f7a-cd0e-5f58-8e60-2ead5f14cf9f",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
-            "2e5c6cd0-e978-55f8-bedd-94e46b48ff49",
             "3595f430-1ac6-540a-a3ed-7801e85f10d7",
             "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
             "3d37388e-3cb7-56ab-875e-d84a05396aab",
-            "3e5c048c-2119-5253-8956-9c9a9a6ea3e0",
+            "3d7ff0d9-48de-52d0-ad39-c7faf336a6fd",
             "40940c08-224e-5fc1-8090-4fb12d9837d2",
-            "4096686c-e87e-5160-8676-1f92e409778c",
+            "453accb5-7da6-5849-8f76-9074645e54a3",
             "46010aff-3f3f-5d3c-9f84-2558bdab3904",
             "47094457-b3a5-5773-92ca-02790f2d10e1",
             "4c72302c-9715-59c5-ae48-1d9a7c6622b9",
+            "4c88bfd2-c934-519f-9d4d-0a2b4f09cff1",
             "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136",
             "4dffc312-d6a2-5c21-a7f0-de9930bee2a4",
             "4f6940dd-886c-57e3-9071-a8f436ba83f0",
             "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
+            "58347356-3e27-56d8-9b4d-d43a32cde645",
+            "58a1ce7b-2fbe-546d-90cd-78dd08524fa1",
             "58abe961-ca19-5057-8d6e-67ccf4529345",
-            "5baa47d5-d58a-5f91-acc3-6ffc93f774d9",
             "5e893dde-8b1b-5477-8629-a11466b4648e",
-            "5f49fa3d-7478-51e7-a75a-ea5164eb857a",
             "6064ff66-f89d-574d-9e4a-b958bc105161",
             "60711d0f-f5f3-58d4-bc16-21b1b9695580",
+            "611cdf66-629b-58a6-a028-44cad353f3a1",
             "631331d5-133a-58aa-b04a-adc2f4ab4de8",
-            "63722b76-c53a-5b2c-8f41-e01ce9cda9c7",
             "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
             "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
-            "66727601-8442-5086-8972-d44c62b5ddd8",
+            "684190d7-4878-5ea5-b2ab-6a73db377304",
             "68e76df7-b1e2-594e-b631-9e8d6c54d506",
             "6fa2b388-20d8-51db-8d63-c290ef24889e",
             "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "75805e31-d2d0-5ef5-acab-66fcdb9b9fae",
-            "785c1e15-614c-5255-9372-2a5e75ca8dd4",
             "7aa77346-75ca-5f9b-8265-5b851651dbd7",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
             "7fd38c78-8106-5809-ab5d-51402a99f1ca",
+            "816f2776-f7f6-531c-a155-d462f51112fc",
+            "81a3dc42-8df3-5fc3-963c-3ff95d2fe134",
             "8317af49-83a3-574e-97d3-12abdacae412",
+            "85a74880-c0b5-5a0d-8f5b-7794406dc8d2",
             "87e3dc13-76b2-5c36-895d-5ab33f29da58",
             "8a22a69e-18ed-5da8-af3d-69950a534d14",
-            "8c0d2e76-5e95-59ad-a26f-e7c2106628bc",
-            "8ca3610b-49a2-5f1a-afaa-7a3527f962e5",
             "8ed23ef9-a1eb-5859-bc4b-b1e8fbd72c7f",
-            "9376db9b-4162-53d2-b279-a721b74b4560",
-            "9c9bc915-bdd0-5897-bee3-dedac3c457f5",
+            "9431e417-a95f-5944-a381-86fb56bb5643",
+            "982e7380-b39f-5715-8685-73e3e9b71dde",
+            "9b1f5381-530f-5228-b7d0-671d68eac944",
             "9cb4b06a-2bab-5390-9029-fdc90ec21cbb",
-            "9fd1804c-6a00-51f5-9461-eb7686f4e547",
             "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
             "a38d080e-0a99-51ba-b25e-05a0f175e183",
             "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
-            "a6baee66-805f-5bc6-b057-c73844d1bfb3",
             "a936db4c-085a-5d5e-b5db-dd15a03b3b44",
-            "ad221547-0986-5164-9a86-c4e4dc83496d",
+            "ad000d47-6cb1-52d7-b4b2-6cf0a7d7d8b3",
+            "ad7539d1-ec07-5503-ad7e-3e0dd01d912c",
             "adefed16-5702-56cd-8112-ae204dbbb580",
+            "ae5f0dc6-a76a-52b1-a27a-6e9536e06e80",
             "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
+            "b77b55fd-7e8e-53bb-a13f-9c779125e76d",
             "b908ec46-850c-5de2-b931-1cd1de831731",
             "b921b865-6cb1-5f24-8a00-1067b776d781",
             "b990a23e-03b7-57bf-a4fa-5e68495f3d5e",
-            "bf1c988c-9123-561e-aabd-b9b0988b626c",
             "bfed16ba-537b-5382-a8c3-eaef6c3e8897",
             "c0be347a-af7c-595f-97a1-31719480dd2c",
             "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
             "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
             "cb25e04c-9e13-5287-815f-58772f12466b",
+            "cbe692d1-979c-562a-8a63-bd66670e3a79",
             "cc85308c-55e7-5260-9e4f-f73088834989",
-            "d700da8c-bb48-5d3c-8e7d-d4ffad06b197",
-            "d76d979b-af8f-50c6-8986-11d11b430f5e",
+            "cc95e40d-5211-5920-8115-cfc34432f65d",
+            "cd4989a5-b3c3-54ab-a0e3-e2267d9d6694",
+            "d40aeb07-6a87-58a7-a22b-4143074d9927",
+            "d876a083-cac9-5c77-9750-c65e1d3dbba1",
+            "d984db42-e209-548f-a1e2-89db23038eb1",
+            "da762df2-5d01-5ca9-855c-a61561cd2534",
             "dd500f21-6347-5bd1-8c52-fac465fc3df3",
-            "de3e948f-922b-5747-bfb9-73e5c8c90c25",
             "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
-            "e0e8f943-47bf-54f8-892b-6c0337163e89",
             "e17173d4-3cd1-5dd1-922e-65426f913752",
-            "e8a19910-6301-574c-8421-27bcce8af957",
-            "e8e36a8c-61dc-5d37-9e6a-f7277a65f470",
+            "e8fb1c1b-1578-5912-b423-8ff4e47a22d6",
             "ec553a82-56f4-5e32-a673-7374f0ab0def",
-            "ee6e7972-6084-52a5-bbdc-a9bc8caa6e9f",
             "ef9b2df6-9064-54ef-a846-60cccdc5a6e8",
             "f0fc2834-0b25-511c-95f7-2cf190ba3074",
             "f10232e3-9024-567f-9383-55ba191f128d",
             "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
+            "f2b0457c-f271-506e-9ffa-8dfa4d9411e2",
+            "f37a43e7-11c7-5ec9-914a-2ed0dd8bc8bb",
             "f4510e55-457f-5cef-b3b5-6febd400acdf",
-            "f4e2b3f8-1b92-575f-983c-3c97680b5521",
             "f6de2667-5990-59c3-92a5-07ad44454b8c"
         ]
     },
@@ -1544,8 +1403,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:41:28",
-            "2022-02-02 00:41:33",
+            "2022-02-02 00:42:05",
+            "2022-02-02 00:42:10",
             "1998c1e5-1562-40fc-842a-717e404afb02"
         ]
     },
@@ -1563,26 +1422,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1998c1e5-1562-40fc-842a-717e404afb02"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "1198640f-360e-5900-9287-fa53fbbdbea3",
-            "4a1e6d15-e773-5f97-97f2-d19266dca579",
-            "6eb91cb1-59d8-59ec-af7f-266bff58ab84",
-            "8b6bbf74-f6dd-558f-8fee-e92041b50daa",
-            "a33ab747-1cd6-57bf-b930-969264b38200"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:42:21",
-            "2022-02-02 00:42:24",
+            "2022-02-02 00:42:58",
+            "2022-02-02 00:43:01",
             "1998c1e5-1562-40fc-842a-717e404afb02"
         ]
     },
@@ -1603,8 +1452,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:42:59",
-            "2022-02-02 00:43:04",
+            "2022-02-02 00:43:36",
+            "2022-02-02 00:43:41",
             "19ac876c-c518-42f7-81d3-3eed51a6558f"
         ]
     },
@@ -1625,26 +1474,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19ac876c-c518-42f7-81d3-3eed51a6558f"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "17b208a6-3bc6-5501-8c75-5f4bdac61ef0",
-            "314a0a86-384b-56f6-8371-830e34facf3a",
-            "5d79954b-7e5a-5b85-abac-c6d1353d470a",
-            "9d1405c9-6fd9-556e-9a07-20fbce95c06f",
-            "cd4b0810-d54b-521c-b232-e829a0be3bdb"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:43:52",
-            "2022-02-02 00:43:55",
+            "2022-02-02 00:44:29",
+            "2022-02-02 00:44:32",
             "19ac876c-c518-42f7-81d3-3eed51a6558f"
         ]
     },
@@ -1665,8 +1504,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:44:30",
-            "2022-02-02 00:44:35",
+            "2022-02-02 00:45:07",
+            "2022-02-02 00:45:12",
             "19b072a9-99c8-427b-95df-0187b9425163"
         ]
     },
@@ -1687,26 +1526,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19b072a9-99c8-427b-95df-0187b9425163"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "347879be-bcd7-5ba7-8fec-38bd7498981e",
-            "56975e02-b108-5230-9bc9-783c9380a595",
-            "604c95cd-83b3-57f9-92b5-09618ed46fcb",
-            "c45b03ce-9947-5422-850f-f728c954592e",
-            "e810ba28-7855-5fd0-804e-aca62d026f5a"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:45:23",
-            "2022-02-02 00:45:26",
+            "2022-02-02 00:46:00",
+            "2022-02-02 00:46:03",
             "19b072a9-99c8-427b-95df-0187b9425163"
         ]
     },
@@ -1727,8 +1556,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:46:01",
-            "2022-02-02 00:46:06",
+            "2022-02-02 00:46:38",
+            "2022-02-02 00:46:43",
             "19b5de8b-b7ad-49a7-8bbe-334470a25512"
         ]
     },
@@ -1747,24 +1576,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19b5de8b-b7ad-49a7-8bbe-334470a25512"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "37589fb1-11ae-59ca-871f-16ea83fd42e3",
-            "b154f3ce-ef58-50b2-ba19-464851f055ea",
-            "cb7dc8b3-4a55-563d-926e-6dff1cbc4910"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:46:54",
-            "2022-02-02 00:46:57",
+            "2022-02-02 00:47:31",
+            "2022-02-02 00:47:34",
             "19b5de8b-b7ad-49a7-8bbe-334470a25512"
         ]
     },
@@ -1785,8 +1606,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:47:32",
-            "2022-02-02 00:47:37",
+            "2022-02-02 00:48:09",
+            "2022-02-02 00:48:14",
             "19ff9afd-3e86-4c07-a092-747f34c236c1"
         ]
     },
@@ -1804,23 +1625,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "19ff9afd-3e86-4c07-a092-747f34c236c1"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "2713d232-902e-5f65-b9be-13884c3d224b",
-            "9720cde9-62dc-5c4c-a60b-1bb268f68516"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:48:25",
-            "2022-02-02 00:48:28",
+            "2022-02-02 00:49:02",
+            "2022-02-02 00:49:05",
             "19ff9afd-3e86-4c07-a092-747f34c236c1"
         ]
     },
@@ -1888,40 +1702,37 @@
     {
         "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "09dbc2af-cfec-5325-8be6-c80fc427aa04",
+            "05e4842e-56ed-55f5-a175-e2e3d6b34a29",
+            "0b914966-9fc0-5242-b373-4f3f0318aa43",
             "0fb3bc28-4160-5c00-b848-92a3f875ce23",
             "1055eae1-ed9a-576e-b5b8-6ec3ea748e20",
             "1144a493-a8f7-5d65-8c73-cd4f74fe314b",
             "119b30d3-1d72-5916-a239-fca90dcccc1c",
+            "1408a9b4-b52d-583c-b1c5-befc68fff533",
             "1757b1ee-fca4-5b6f-8d1f-a97a4a4782b8",
             "1cbd99c2-863c-5468-8e2e-bd90fe31848b",
             "1d4bf2a9-7db0-5159-8dbc-e215817b8cb8",
-            "1ea8ff8f-5e80-554e-b70d-6bcb2150d5b6",
-            "1f62c84f-dccb-5dc2-8b8e-8afba2fb5e72",
             "22185166-97d1-50fb-a974-ac51dd9d8c7c",
-            "235aa929-30fc-5fcb-befe-bd171c8c2f2d",
             "262a476f-6f6d-5cf0-9a1a-a9881d4a5d4c",
+            "295e3dfc-4103-5629-a4cc-59f99a466e3e",
             "298b8f47-ac4c-5139-b349-220a23ef8a9f",
-            "2ac2039c-22df-58af-b8a1-27d5e1713acc",
-            "2ccc6dc9-b141-56a1-8919-b09975917cf1",
+            "2a4b3280-7d59-54db-be87-c34cd48ded1b",
             "2d3f7f7a-cd0e-5f58-8e60-2ead5f14cf9f",
             "2e1fdcb4-18bf-5349-92df-87911d7ecb39",
             "3595f430-1ac6-540a-a3ed-7801e85f10d7",
-            "3622605d-f9fc-51e0-b7b3-11213566b9d6",
             "38086b95-d84b-5a54-bbb4-1bbf455ed2df",
-            "3c0ef805-4af1-52d1-b77b-36303cb312f5",
+            "39530c35-2252-52d1-a5ac-29d3205b35bb",
             "3d37388e-3cb7-56ab-875e-d84a05396aab",
+            "3fea199a-4eaf-51da-b2c4-91983feaf68d",
             "40940c08-224e-5fc1-8090-4fb12d9837d2",
-            "445d3e0f-2505-561a-b63a-8feda15e672c",
-            "45c1361f-c6a3-595b-bd45-0ff422ff1c0e",
             "45fd9403-5d5a-56f2-b8d6-7f62a32f35b3",
             "46010aff-3f3f-5d3c-9f84-2558bdab3904",
             "47094457-b3a5-5773-92ca-02790f2d10e1",
+            "47d91cd4-cd39-5b36-8a9c-917cc51c23bd",
             "4d53b4e3-47a1-5f4d-9aa8-2ab378b3d136",
             "4dffc312-d6a2-5c21-a7f0-de9930bee2a4",
             "4f6940dd-886c-57e3-9071-a8f436ba83f0",
-            "5052bcf5-11e7-5300-9ef5-17bdec523214",
-            "51386f3f-a80c-5196-9a9b-3bbc4235a5e4",
+            "5001e105-f058-5309-ab6d-96a534866750",
             "5566d17f-8473-516c-b4d6-fcf8ef65d40c",
             "58abe961-ca19-5057-8d6e-67ccf4529345",
             "5e893dde-8b1b-5477-8629-a11466b4648e",
@@ -1931,66 +1742,69 @@
             "631331d5-133a-58aa-b04a-adc2f4ab4de8",
             "6488a019-bf5f-5fe4-bc9c-c2033cc50f7e",
             "6621eb29-cf53-5c61-b5cd-5b00506e55f8",
-            "6741349e-99ad-544d-a722-5814d8adaaad",
             "68e76df7-b1e2-594e-b631-9e8d6c54d506",
             "6bec9504-10a7-510e-8e54-443df7aea1c1",
-            "6c3bf7bc-0cf1-5227-ab57-c948a3ab7493",
+            "6bf95a2d-9947-51a2-b7fe-229dd8f36bb2",
             "6fa2b388-20d8-51db-8d63-c290ef24889e",
             "7116180b-5f21-573b-ac0c-656543f0f0e6",
-            "75ab382a-3cd1-5e13-bf00-4222f57d7a64",
-            "785c1e15-614c-5255-9372-2a5e75ca8dd4",
-            "792bfefd-795a-5af6-a40b-346807847666",
             "7aa77346-75ca-5f9b-8265-5b851651dbd7",
-            "7e7ceac8-0640-5e0a-95fd-13038c745271",
-            "7e8dcde3-8e65-5166-961d-e3c2c51e2e56",
+            "7c9d90db-728e-5c6f-b958-408b86c03b42",
             "7f2d0b64-dc9e-56d0-b76b-58c000840b01",
             "7fd38c78-8106-5809-ab5d-51402a99f1ca",
             "8317af49-83a3-574e-97d3-12abdacae412",
-            "866cc324-d00e-5e6d-b783-f0fce005bdf9",
             "87e3dc13-76b2-5c36-895d-5ab33f29da58",
-            "89bd5200-163a-53aa-9fb7-8115b38ab001",
+            "8ae85a55-b7b0-5814-8786-45ddbf07f278",
             "8ed23ef9-a1eb-5859-bc4b-b1e8fbd72c7f",
-            "987b2871-792f-506e-a778-0b589280828a",
-            "9d480865-9d2f-5683-b074-196563cbc5bb",
+            "9134abf2-ee9f-53c4-9791-fb57ffe32c15",
+            "982e7380-b39f-5715-8685-73e3e9b71dde",
+            "9ea4edbb-6be0-5edb-8683-e6fa679298d5",
+            "a02a734a-b30a-5e42-9707-0736aeaf28d2",
+            "a0393458-5928-5ca2-81fd-826c98595067",
             "a0855e8d-f891-5d5d-85e9-e8428af3ca38",
+            "a2c6617b-c2aa-56c8-a7ed-1e6681d7f770",
             "a38d080e-0a99-51ba-b25e-05a0f175e183",
             "a4774fd9-b268-55a8-9e22-455d21c5b8c2",
-            "a6b43ea2-451d-5b27-879c-355d2e982025",
+            "a77c8ca3-9e35-5256-b060-476450660059",
             "a8ee9532-6ec2-5c40-a6ee-28bbe2462122",
             "a936db4c-085a-5d5e-b5db-dd15a03b3b44",
-            "ac897d7a-c982-536f-aa6a-e86a39249363",
             "adefed16-5702-56cd-8112-ae204dbbb580",
             "ae8fbaf0-d3c3-5777-8532-8bc868ae1de1",
-            "b8758597-f7d0-56fa-9c38-b44b977dcd0a",
+            "b523ecb8-ac38-5878-ae69-99988530644f",
+            "b8618f5c-e35e-5f48-b6ee-640836066203",
             "b908ec46-850c-5de2-b931-1cd1de831731",
             "b921b865-6cb1-5f24-8a00-1067b776d781",
             "b990a23e-03b7-57bf-a4fa-5e68495f3d5e",
-            "bcd91d61-d4ec-57af-9585-0dca2524224b",
             "bfed16ba-537b-5382-a8c3-eaef6c3e8897",
             "c1605b69-b9b2-5858-8570-8c3a4d940831",
             "c1ae6bf1-4333-570d-a5b7-495aaafc2e10",
             "c41eaa4e-d2f8-515f-8bc7-113fd1484faa",
             "c4a22828-05b7-5086-ac66-bbb33aeddd37",
+            "c4ee4f97-5e95-5f95-a0c2-08534a697a2b",
             "c55b0e1b-aba0-5a08-8e7e-7bf1edda2975",
-            "cac19345-09a1-5b63-99fe-f4f2eaed59c7",
+            "c6eca087-b48e-5e33-a571-b457e266f5ca",
             "cb25e04c-9e13-5287-815f-58772f12466b",
-            "d3c98e40-a1cf-5ec3-a913-02722379f5f9",
+            "d64cf607-6692-57b1-b386-eab9a6398b5d",
+            "d850864f-6ebd-5224-bd0d-04ddeb826fc0",
+            "d890ad9d-9aba-581d-8afa-e732731e14f8",
             "dd500f21-6347-5bd1-8c52-fac465fc3df3",
+            "de1f748e-6edc-516b-aa55-b715dba996f3",
             "e0d67bc6-8e71-55f3-a2e8-0641ce2d71e9",
             "e17173d4-3cd1-5dd1-922e-65426f913752",
-            "e33f4b54-caab-5fce-9fcc-fab1580d1abe",
-            "e8f5e3c1-fca5-5210-b4cb-f0277523a945",
-            "e9ede415-f2ce-5569-bdf4-ec17977533ae",
+            "e6297b1b-d8fd-560e-8373-b8d78d1e5894",
+            "e843b9b5-1111-5753-96a4-11ffbb69ac3b",
             "ec553a82-56f4-5e32-a673-7374f0ab0def",
             "ef9b2df6-9064-54ef-a846-60cccdc5a6e8",
             "f0fc2834-0b25-511c-95f7-2cf190ba3074",
             "f10232e3-9024-567f-9383-55ba191f128d",
             "f183febd-b166-5d79-bc88-0b3f8e3b4d71",
             "f19f8fd9-47cd-5cf6-8fa3-82595e35eba8",
+            "f42d54d3-c1d7-5bfb-a28a-4798e34904f1",
             "f4510e55-457f-5cef-b3b5-6febd400acdf",
             "f48f7fee-de4a-5e90-880c-23e732bb8028",
             "f5e029e2-78e6-5e85-a9e6-243094a67a5a",
-            "f6de2667-5990-59c3-92a5-07ad44454b8c"
+            "f6de2667-5990-59c3-92a5-07ad44454b8c",
+            "fb8debbc-3893-5a17-8a5e-7385e904ac6a",
+            "fc0c7aca-eb8d-5f3a-9e8e-80463ed15400"
         ]
     },
     {
@@ -2002,8 +1816,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:49:03",
-            "2022-02-02 00:49:08",
+            "2022-02-02 00:49:40",
+            "2022-02-02 00:49:45",
             "1a08fa52-37af-417b-b60a-bda753edd20a"
         ]
     },
@@ -2021,26 +1835,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1a08fa52-37af-417b-b60a-bda753edd20a"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "611f4192-7f17-54f6-9d1c-c4b9095c28e6",
-            "991eeb60-0305-508f-aca0-43bd555e6636",
-            "d5f1566a-dd25-5e9f-bd64-88ee4f63cf40",
-            "de98236d-bfa1-5c9c-8dcd-fc22345eef15",
-            "fd287976-b03f-5393-b0a2-528764fee626"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:50:02",
-            "2022-02-02 00:50:05",
+            "2022-02-02 00:50:39",
+            "2022-02-02 00:50:42",
             "1a08fa52-37af-417b-b60a-bda753edd20a"
         ]
     },
@@ -2061,16 +1865,17 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:50:44",
-            "2022-02-02 00:50:49",
+            "2022-02-02 00:51:21",
+            "2022-02-02 00:51:26",
             "1a271e72-0890-44a4-90d1-00e93645ad23"
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
         "bindings": [
             "641aba7e-27a3-4bb3-983e-8b96dfa89fcd",
-            "ddb6e609-9381-490d-a7ce-65fa1a1c7c82"
+            "ddb6e609-9381-490d-a7ce-65fa1a1c7c82",
+            "e67e9279-652d-4a97-b036-e10a32047688"
         ]
     },
     {
@@ -2080,26 +1885,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1a271e72-0890-44a4-90d1-00e93645ad23"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "1f1fdf10-ac44-5af1-a2ec-c17b1b4aa2ea",
-            "916ec7c9-a205-5f92-ba62-60d5e946e5e0",
-            "9cbfd9a5-f91a-5525-b3c0-e59ce56feb7c",
-            "aab1d1fe-e7b3-5695-bf5c-baae95952908",
-            "d2e678eb-9cf8-54b6-99d1-db8a653b51e0"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:51:43",
-            "2022-02-02 00:51:46",
+            "2022-02-02 00:52:20",
+            "2022-02-02 00:52:23",
             "1a271e72-0890-44a4-90d1-00e93645ad23"
         ]
     },
@@ -2120,8 +1915,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:52:25",
-            "2022-02-02 00:52:30",
+            "2022-02-02 00:53:02",
+            "2022-02-02 00:53:07",
             "1a2ae49b-1f50-470b-832d-6a1c0d338fa7"
         ]
     },
@@ -2138,23 +1933,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1a2ae49b-1f50-470b-832d-6a1c0d338fa7"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "949e7669-0c68-55bb-a8a7-51fec6a2d9ef",
-            "d6376730-8daa-50f7-8ace-348af61124ee"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:53:24",
-            "2022-02-02 00:53:27",
+            "2022-02-02 00:54:01",
+            "2022-02-02 00:54:04",
             "1a2ae49b-1f50-470b-832d-6a1c0d338fa7"
         ]
     },
@@ -2175,8 +1963,8 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:54:06",
-            "2022-02-02 00:54:11",
+            "2022-02-02 00:54:43",
+            "2022-02-02 00:54:48",
             "1a2eb19c-fe72-4c7b-831f-064e5e065612"
         ]
     },
@@ -2194,26 +1982,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1a2eb19c-fe72-4c7b-831f-064e5e065612"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "4ce8a391-8d09-543a-beb7-d853c9260706",
-            "9d107376-96ef-5d73-a035-4ec31b1087ba",
-            "c5389e20-6c50-5dd1-9679-7a14cb880262",
-            "eb6cc62b-8475-58a6-9fad-2147c70eb2c5",
-            "fa58308d-5bbd-5f13-9172-09ba6b0c9334"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:55:05",
-            "2022-02-02 00:55:08",
+            "2022-02-02 00:55:42",
+            "2022-02-02 00:55:45",
             "1a2eb19c-fe72-4c7b-831f-064e5e065612"
         ]
     },
@@ -2234,16 +2012,17 @@
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:55:47",
-            "2022-02-02 00:55:52",
+            "2022-02-02 00:56:24",
+            "2022-02-02 00:56:29",
             "1a3101e0-30e4-4e66-8ca7-14dee1444eef"
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
         "bindings": [
             "e1653342-2db3-4b66-b89c-da0f94df269f",
-            "0d92cf04-d92d-4728-a333-35541628affe"
+            "0d92cf04-d92d-4728-a333-35541628affe",
+            "4ea5a1e3-39bc-4cc1-a45f-56d585317133"
         ]
     },
     {
@@ -2253,26 +2032,16 @@
         ]
     },
     {
-        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` in (?) and `document_entries`.`deleted_at` is null",
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "1a3101e0-30e4-4e66-8ca7-14dee1444eef"
         ]
     },
     {
-        "query": "select `document_entry_fields`.* from `document_entry_fields` where `document_entry_fields`.`document_entry_id` in (?, ?, ?, ?, ?) and `document_entry_fields`.`deleted_at` is null",
-        "bindings": [
-            "7010b82c-3c20-5011-adae-2ae407ece648",
-            "77d216c0-e271-5133-959e-5cf07c200ed0",
-            "93136695-71e2-5ea2-86f5-d0424923870a",
-            "ccb41012-446f-5b1c-82c4-0afc3fd02f1b",
-            "fabfd46a-d883-5f6f-930a-e2ca1e62e975"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-02-02 00:56:46",
-            "2022-02-02 00:56:49",
+            "2022-02-02 00:57:23",
+            "2022-02-02 00:57:26",
             "1a3101e0-30e4-4e66-8ca7-14dee1444eef"
         ]
     }

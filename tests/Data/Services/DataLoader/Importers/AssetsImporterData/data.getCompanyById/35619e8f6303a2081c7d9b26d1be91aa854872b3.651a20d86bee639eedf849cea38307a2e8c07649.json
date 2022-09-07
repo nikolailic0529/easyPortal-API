@@ -11,7 +11,7 @@
                     "id": "982e95de-6963-4065-a315-4ef9eb6565c0",
                     "name": "Shields-Swift",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162971665",
+                    "updatedAt": "1662156821898",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -70,13 +70,13 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 1462,
-                        "activeAssets": 1437,
-                        "activeAssetsPercentage": 98.29001367989056,
+                        "totalAssets": 1468,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 11,
-                        "activeContractTotalAmount": 220080.079999998,
+                        "activeContracts": 8,
+                        "activeContractTotalAmount": 0.0,
                         "newActiveContracts": null,
                         "expiringContracts": 3,
                         "activeQuotes": 0,
@@ -84,7 +84,7 @@
                         "newActiveQuotes": 0,
                         "expiringQuotes": 0,
                         "expiredQuotes": 0,
-                        "expiredContracts": 3,
+                        "expiredContracts": 6,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
@@ -100,13 +100,13 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-                            "totalAssets": 1462,
-                            "activeAssets": 1437,
-                            "activeAssetsPercentage": 98.29001367989056,
+                            "totalAssets": 1468,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
-                            "activeContracts": 11,
-                            "activeContractTotalAmount": 220080.079999998,
+                            "activeContracts": 8,
+                            "activeContractTotalAmount": 0.0,
                             "newActiveContracts": null,
                             "expiringContracts": 3,
                             "activeQuotes": 0,
@@ -114,7 +114,7 @@
                             "newActiveQuotes": 0,
                             "expiringQuotes": 0,
                             "expiredQuotes": 0,
-                            "expiredContracts": 3,
+                            "expiredContracts": 6,
                             "orderedQuotes": null,
                             "acceptedQuotes": null,
                             "requestedQuotes": null,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

@@ -2,28 +2,28 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Utils\JsonObject\JsonObjectArray;
-
 class DocumentEntry extends Type {
     public ?string $assetId;
-    public ?string $skuNumber;
-    public ?string $skuDescription;
-    public ?string $supportPackage;
-    public ?string $supportPackageDescription;
-    public ?string $warrantyEndDate;
+    public ?string $serviceGroupSku;
+    public ?string $serviceGroupSkuDescription;
+    public ?string $serviceLevelSku;
+    public ?string $serviceLevelSkuDescription;
+    public ?string $serviceFullDescription;
     public ?string $startDate;
     public ?string $endDate;
     public ?string $currencyCode;
     public ?string $languageCode;
-    public ?string $netPrice;
-    public ?string $discount;
     public ?string $listPrice;
     public ?string $estimatedValueRenewal;
-    public ?string $productLineDescription;
-
-    /**
-     * @var array<CustomField|null>|null
-     */
-    #[JsonObjectArray(CustomField::class)]
-    public ?array $customFields;
+    public ?string $assetProductType;
+    public ?string $assetProductLine;
+    public ?string $assetProductGroupDescription;
+    public ?string $environmentId;
+    public ?string $equipmentNumber;
+    public ?string $lineItemListPrice;
+    public ?string $lineItemMonthlyRetailPrice;
+    public ?string $said;
+    public ?string $sarNumber;
+    public ?string $pspId;
+    public ?string $pspName;
 }

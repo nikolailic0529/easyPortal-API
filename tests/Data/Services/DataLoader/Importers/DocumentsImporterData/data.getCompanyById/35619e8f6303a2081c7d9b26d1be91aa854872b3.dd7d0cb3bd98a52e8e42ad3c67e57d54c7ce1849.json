@@ -11,7 +11,7 @@
                     "id": "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83",
                     "name": "Streich, Dickens and Cronin",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162838565",
+                    "updatedAt": "1662156671101",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -52,9 +52,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 257,
-                        "activeAssets": 78,
-                        "activeAssetsPercentage": 30.35019455252918,
+                        "totalAssets": 273,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -82,9 +82,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
-                            "totalAssets": 257,
-                            "activeAssets": 78,
-                            "activeAssetsPercentage": 30.35019455252918,
+                            "totalAssets": 273,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -111,7 +111,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "0c8e4738-9851-438b-acbb-a680be9bafea",
                     "name": "Ryan-Sauer",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162755026",
+                    "updatedAt": "1662156577961",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -106,9 +106,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 5610,
-                        "activeAssets": 5590,
-                        "activeAssetsPercentage": 99.64349376114082,
+                        "totalAssets": 5608,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 11,
@@ -136,9 +136,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                            "totalAssets": 5610,
-                            "activeAssets": 5590,
-                            "activeAssetsPercentage": 99.64349376114082,
+                            "totalAssets": 5608,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 11,
@@ -165,7 +165,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

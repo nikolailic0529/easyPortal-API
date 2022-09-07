@@ -7,7 +7,6 @@ use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Document as DocumentModel;
-use App\Models\DocumentEntryField;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
@@ -21,7 +20,6 @@ use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContra
 use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CustomField;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
@@ -241,46 +239,6 @@ trait Helper {
         }
 
         return $contacts;
-    }
-
-    /**
-     * @param array<CustomField|null>|null $fields
-     *
-     * @return array<string, ?string>|null
-     */
-    protected function getFields(array|null $fields): ?array {
-        $result = null;
-
-        if ($fields !== null) {
-            $result = [];
-
-            foreach ($fields as $field) {
-                if ($field !== null) {
-                    $result[$field->Name] = $field->Value;
-                }
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param Collection<int, DocumentEntryField>|array<DocumentEntryField> $fields
-     *
-     * @return array<string, ?string>|null
-     */
-    protected function getModelFields(Collection|array|null $fields): ?array {
-        $result = null;
-
-        if ($fields !== null) {
-            $result = [];
-
-            foreach ($fields as $field) {
-                $result[$field->field->key] = $field->value;
-            }
-        }
-
-        return $result;
     }
     // </editor-fold>
 

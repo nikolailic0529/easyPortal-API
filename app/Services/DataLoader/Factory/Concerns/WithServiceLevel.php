@@ -17,7 +17,13 @@ trait WithServiceLevel {
 
     abstract protected function getServiceLevelResolver(): ServiceLevelResolver;
 
-    protected function serviceLevel(Oem $oem, ServiceGroup $group, string $sku, string $name = null): ?ServiceLevel {
+    protected function serviceLevel(
+        Oem $oem,
+        ServiceGroup $group,
+        string $sku,
+        string $name = null,
+        string $description = null,
+    ): ?ServiceLevel {
         // Null?
         $sku = $this->getNormalizer()->string($sku) ?: null;
 
@@ -28,7 +34,7 @@ trait WithServiceLevel {
         // Find/Create
         $created = false;
         $factory = $this->factory(
-            function (ServiceLevel $level) use (&$created, $oem, $group, $sku, $name): ServiceLevel {
+            function (ServiceLevel $level) use (&$created, $oem, $group, $sku, $name, $description): ServiceLevel {
                 $created    = !$level->exists;
                 $normalizer = $this->getNormalizer();
 
@@ -42,6 +48,10 @@ trait WithServiceLevel {
 
                 if (!$level->name || $level->name === $sku) {
                     $level->name = $normalizer->string($name) ?: $sku;
+                }
+
+                if (!$level->description) {
+                    $level->description = $normalizer->text($description) ?: '';
                 }
 
                 $level->save();

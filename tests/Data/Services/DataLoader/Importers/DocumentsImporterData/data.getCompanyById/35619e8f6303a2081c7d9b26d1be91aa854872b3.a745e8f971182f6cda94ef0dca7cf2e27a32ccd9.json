@@ -11,7 +11,7 @@
                     "id": "08477cba-e03a-42c2-9ac3-79650a991664",
                     "name": "Weissnat-Marks",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162749182",
+                    "updatedAt": "1662156571318",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -65,14 +65,14 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 534,
-                        "activeAssets": 426,
-                        "activeAssetsPercentage": 79.7752808988764,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 6,
                         "activeContractTotalAmount": 59760.1200000001,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 0,
                         "activeQuotesTotalAmount": 0.0,
                         "newActiveQuotes": 0,
@@ -95,14 +95,14 @@
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
                             "totalAssets": 534,
-                            "activeAssets": 426,
-                            "activeAssetsPercentage": 79.7752808988764,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 6,
                             "activeContractTotalAmount": 59760.1200000001,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 0,
                             "activeQuotesTotalAmount": 0.0,
                             "newActiveQuotes": 0,
@@ -123,7 +123,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

@@ -11,7 +11,7 @@
                     "id": "ea120a15-983f-42ab-92c8-8d34eb859523",
                     "name": "Boyer-Reilly",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163104516",
+                    "updatedAt": "1662156963588",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -47,8 +47,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 8,
-                        "activeAssets": 8,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -77,8 +77,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 8,
-                            "activeAssets": 8,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

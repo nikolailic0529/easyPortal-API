@@ -2,14 +2,6 @@ type DocumentEntry {
     id: ID!
     document_id: ID!
 
-    net_price: Float
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
-    )
-    @with(
-        relation: "document.statuses"
-    )
-
     list_price: Float
     @field(
         resolver: "App\\GraphQL\\Queries\\Documents\\Price"
@@ -18,13 +10,43 @@ type DocumentEntry {
         relation: "document.statuses"
     )
 
-    discount: Float
+    monthly_list_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
+    monthly_retail_price: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
     renewal: Float
+    @field(
+        resolver: "App\\GraphQL\\Queries\\Documents\\Price"
+    )
+    @with(
+        relation: "document.statuses"
+    )
+
     serial_number: String
+    oem_said: String
+    oem_sar_number: String
+    environment_id: String
+    equipment_number: String
     start: Date
     end: Date
     product_id: ID
     product: Product @relation
+    product_line_id: ID
+    productLine: ProductLine @relation
+    product_group_id: ID
+    productGroup: ProductGroup @relation
     service_group_id: ID
     serviceGroup: ServiceGroup @relation
     service_level_id: ID
@@ -33,14 +55,10 @@ type DocumentEntry {
     currency: Currency @relation
     asset_id: ID
     asset: Asset @relation
-
-    fields: [FieldValue!]! @relation
-
-    field(field_id: ID!): FieldValue
-    @field(
-        resolver: "App\\GraphQL\\Queries\\Documents\\Field"
-    )
-    @with(
-        relation: "fields"
-    )
+    asset_type_id: ID
+    assetType: Type @relation
+    language_id: ID
+    language: Language @relation
+    psp_id: ID
+    psp: Psp @relation
 }

@@ -107,13 +107,13 @@ class WithAssetDocumentTest extends TestCase {
         $asset    = AssetModel::factory()->make();
         $group    = ServiceGroup::factory()->make();
         $document = new ViewAssetDocument([
-            'document'                  => [
+            'document'                   => [
                 'vendorSpecificFields' => [
                     'vendor' => $this->faker->word(),
                 ],
             ],
-            'supportPackage'            => $this->faker->word(),
-            'supportPackageDescription' => $this->faker->word(),
+            'serviceGroupSku'            => $this->faker->word(),
+            'serviceGroupSkuDescription' => $this->faker->word(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -128,8 +128,8 @@ class WithAssetDocumentTest extends TestCase {
             ->shouldReceive('serviceGroup')
             ->with(
                 $oem,
-                $document->supportPackage,
-                $document->supportPackageDescription,
+                $document->serviceGroupSku,
+                $document->serviceGroupSkuDescription,
             )
             ->once()
             ->andReturns($group);
@@ -146,13 +146,14 @@ class WithAssetDocumentTest extends TestCase {
         $group    = ServiceGroup::factory()->make();
         $level    = ServiceLevel::factory()->make();
         $document = new ViewAssetDocument([
-            'document'       => [
+            'document'                   => [
                 'vendorSpecificFields' => [
                     'vendor' => $this->faker->word(),
                 ],
             ],
-            'skuNumber'      => $this->faker->word(),
-            'skuDescription' => $this->faker->word(),
+            'serviceLevelSku'            => $this->faker->word(),
+            'serviceLevelSkuDescription' => $this->faker->word(),
+            'serviceFullDescription'     => $this->faker->sentence(),
         ]);
 
         $factory = Mockery::mock(WithAssetDocumentTest_Factory::class);
@@ -176,8 +177,9 @@ class WithAssetDocumentTest extends TestCase {
             ->with(
                 $oem,
                 $group,
-                $document->skuNumber,
-                $document->skuDescription,
+                $document->serviceLevelSku,
+                $document->serviceLevelSkuDescription,
+                $document->serviceFullDescription,
             )
             ->once()
             ->andReturns($level);

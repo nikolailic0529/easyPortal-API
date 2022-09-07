@@ -11,7 +11,7 @@
                     "id": "888848ed-fdc8-42c6-b932-15a6f2400b45",
                     "name": "Leuschke Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162944241",
+                    "updatedAt": "1662156793114",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -71,8 +71,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 185,
-                        "activeAssets": 185,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -101,8 +101,8 @@
                         {
                             "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
                             "totalAssets": 185,
-                            "activeAssets": 185,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -129,7 +129,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

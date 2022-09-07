@@ -11,7 +11,7 @@
                     "id": "e09c5523-28e6-4860-99ed-0d6cfdb655e8",
                     "name": "Sanford, Kertzmann and Rodriguez",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163090450",
+                    "updatedAt": "1662156947888",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -46,9 +46,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 72,
-                        "activeAssets": 38,
-                        "activeAssetsPercentage": 52.77777777777778,
+                        "totalAssets": 84,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 2,
@@ -76,9 +76,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                            "totalAssets": 72,
-                            "activeAssets": 38,
-                            "activeAssetsPercentage": 52.77777777777778,
+                            "totalAssets": 84,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 2,
@@ -105,7 +105,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

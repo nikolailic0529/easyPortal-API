@@ -1,10 +1,10 @@
 {
     "id": "c0200a6c-1b8a-4365-9f1b-32d753194335",
     "serialNumber": "CK012345ARB",
-    "productDescription": null,
+    "assetSkuDescription": null,
     "assetType": "Software",
     "vendor": "HPE",
-    "sku": "JW1123",
+    "assetSku": "JW1123",
     "eolDate": null,
     "eosDate": "1615161600000",
     "zip": "12345",
@@ -53,16 +53,10 @@
                     }
                 ]
             },
-            "skuNumber": "HA151AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HA151AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": "1583020800000",
             "endDate": "1624406400000",
-            "warrantyEndDate": "1614470400000",
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145",
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },

@@ -9,8 +9,6 @@ use App\Models\CustomerLocation;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\DocumentEntryField;
-use App\Models\Field;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\Note;
@@ -18,6 +16,9 @@ use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Product;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
@@ -200,9 +201,7 @@ class QuoteTest extends TestCase {
                             id
                             document_id
                             service_level_id
-                            net_price
                             list_price
-                            discount
                             renewal
                             serial_number
                             product_id
@@ -240,13 +239,41 @@ class QuoteTest extends TestCase {
                             }
                             start
                             end
-                            field(field_id: "7807f9fd-15f3-4f06-a038-74756ddced47") {
-                                field_id
-                                value
+                            monthly_list_price
+                            monthly_retail_price
+                            oem_said
+                            oem_sar_number
+                            environment_id
+                            equipment_number
+                            product_line_id
+                            productLine {
+                                id
+                                key
+                                name
                             }
-                            fields {
-                                field_id
-                                value
+                            product_group_id
+                            productGroup {
+                                id
+                                key
+                                name
+                            }
+                            asset_type_id
+                            assetType {
+                                id
+                                key
+                                name
+                            }
+                            language_id
+                            language {
+                                id
+                                name
+                                code
+                            }
+                            psp_id
+                            psp {
+                                id
+                                key
+                                name
                             }
                         }
                         language {
@@ -370,7 +397,7 @@ class QuoteTest extends TestCase {
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                         => [
+                    'ok'                                     => [
                         new GraphQLSuccess('quote', [
                             'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -485,16 +512,14 @@ class QuoteTest extends TestCase {
                             ],
                             'entries'           => [
                                 [
-                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                    'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'net_price'        => 123.45,
-                                    'list_price'       => null,
-                                    'discount'         => -8.00,
-                                    'renewal'          => 24.20,
-                                    'serial_number'    => null,
-                                    'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                    'product'          => [
+                                    'id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'service_level_id'     => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                    'document_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'list_price'           => null,
+                                    'renewal'              => 24.20,
+                                    'serial_number'        => null,
+                                    'product_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'product'              => [
                                         'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'name'   => 'Product1',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -507,14 +532,14 @@ class QuoteTest extends TestCase {
                                             'name' => 'oem1',
                                         ],
                                     ],
-                                    'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                    'serviceGroup'     => [
+                                    'service_group_id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                    'serviceGroup'         => [
                                         'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                                         'name'   => 'Group',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                         'sku'    => 'SKU#123',
                                     ],
-                                    'serviceLevel'     => [
+                                    'serviceLevel'         => [
                                         'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                                         'name'             => 'Level',
                                         'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
@@ -522,25 +547,47 @@ class QuoteTest extends TestCase {
                                         'sku'              => 'SKU#123',
                                         'description'      => 'description',
                                     ],
-                                    'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'asset'            => [
+                                    'asset_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'asset'                => [
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     ],
-                                    'start'            => '2021-01-01',
-                                    'end'              => '2024-01-01',
-                                    'field'            => [
-                                        'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                        'value'    => 'value',
+                                    'start'                => '2021-01-01',
+                                    'end'                  => '2024-01-01',
+                                    'monthly_list_price'   => 123.45,
+                                    'monthly_retail_price' => 543.21,
+                                    'oem_said'             => '1234-5678-9012',
+                                    'oem_sar_number'       => '1234567890',
+                                    'environment_id'       => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                    'equipment_number'     => '0987654321',
+                                    'product_line_id'      => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                    'productLine'          => [
+                                        'id'   => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                        'key'  => 'Line#A',
+                                        'name' => 'Line A',
                                     ],
-                                    'fields'           => [
-                                        [
-                                            'field_id' => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
-                                            'value'    => null,
-                                        ],
-                                        [
-                                            'field_id' => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                            'value'    => 'value',
-                                        ],
+                                    'product_group_id'     => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                    'productGroup'         => [
+                                        'id'   => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                        'key'  => 'Group#A',
+                                        'name' => 'Group A',
+                                    ],
+                                    'asset_type_id'        => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                    'assetType'            => [
+                                        'id'   => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                        'key'  => 'Type#A',
+                                        'name' => 'Type A',
+                                    ],
+                                    'language_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                    'language'             => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                        'name' => 'Lang1',
+                                        'code' => 'en',
+                                    ],
+                                    'psp_id'               => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                    'psp'                  => [
+                                        'id'   => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                        'key'  => 'Psp#A',
+                                        'name' => 'Psp A',
                                     ],
                                 ],
                             ],
@@ -676,6 +723,26 @@ class QuoteTest extends TestCase {
                                 'name'             => 'Level',
                                 'description'      => 'description',
                             ]);
+                            $productLine  = ProductLine::factory()->create([
+                                'id'   => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                'key'  => 'Line#A',
+                                'name' => 'Line A',
+                            ]);
+                            $productGroup = ProductGroup::factory()->create([
+                                'id'   => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                'key'  => 'Group#A',
+                                'name' => 'Group A',
+                            ]);
+                            $assetType    = Type::factory()->create([
+                                'id'   => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                'key'  => 'Type#A',
+                                'name' => 'Type A',
+                            ]);
+                            $psp          = Psp::factory()->create([
+                                'id'   => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                'key'  => 'Psp#A',
+                                'name' => 'Psp A',
+                            ]);
 
                             $document = Document::factory()
                                 ->for($oem)
@@ -710,54 +777,38 @@ class QuoteTest extends TestCase {
                                     'synced_at'      => '2021-10-19 10:25:00',
                                 ]);
 
-                            $fieldType = (new DocumentEntryField())->getMorphClass();
-                            $fieldA    = Field::factory()->create([
-                                'id'          => '7807f9fd-15f3-4f06-a038-74756ddced47',
-                                'object_type' => $fieldType,
-                            ]);
-                            $fieldB    = Field::factory()->create([
-                                'id'          => '1a17f7ce-8460-41d9-9fff-870102b7a4b8',
-                                'object_type' => $fieldType,
-                            ]);
-                            $entry     = DocumentEntry::factory()->create([
-                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'document_id'      => $document,
-                                'asset_id'         => Asset::factory()->create([
+                            DocumentEntry::factory()->create([
+                                'id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'document_id'          => $document,
+                                'asset_id'             => Asset::factory()->create([
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'reseller_id' => $reseller,
                                 ]),
-                                'serial_number'    => null,
-                                'product_id'       => $product,
-                                'service_group_id' => $serviceGroup,
-                                'service_level_id' => $serviceLevel,
-                                'net_price'        => 123.45,
-                                'list_price'       => null,
-                                'discount'         => -8,
-                                'renewal'          => 24.20,
-                                'start'            => '2021-01-01',
-                                'end'              => '2024-01-01',
-                            ]);
-
-                            DocumentEntryField::factory()->create([
-                                'id'                => $fieldA,
-                                'document_entry_id' => $entry,
-                                'document_id'       => $document,
-                                'field_id'          => $fieldA,
-                                'value'             => 'value',
-                            ]);
-
-                            DocumentEntryField::factory()->create([
-                                'id'                => $fieldB,
-                                'document_entry_id' => $entry,
-                                'document_id'       => $document,
-                                'field_id'          => $fieldB,
-                                'value'             => null,
+                                'serial_number'        => null,
+                                'product_id'           => $product,
+                                'service_group_id'     => $serviceGroup,
+                                'service_level_id'     => $serviceLevel,
+                                'list_price'           => null,
+                                'renewal'              => 24.20,
+                                'start'                => '2021-01-01',
+                                'end'                  => '2024-01-01',
+                                'monthly_list_price'   => 123.45,
+                                'monthly_retail_price' => 543.21,
+                                'oem_said'             => '1234-5678-9012',
+                                'oem_sar_number'       => '1234567890',
+                                'environment_id'       => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                'equipment_number'     => '0987654321',
+                                'product_line_id'      => $productLine,
+                                'product_group_id'     => $productGroup,
+                                'asset_type_id'        => $assetType,
+                                'language_id'          => $language,
+                                'psp_id'               => $psp,
                             ]);
 
                             return $document;
                         },
                     ],
-                    'hiding price'               => [
+                    'hiding price'                           => [
                         new GraphQLSuccess('quote', new JsonFragment('price', json_encode(null))),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
@@ -779,7 +830,37 @@ class QuoteTest extends TestCase {
                                 ]);
                         },
                     ],
-                    'entries: hiding list_price' => [
+                    'entries: hiding `renewal`'              => [
+                        new GraphQLSuccess(
+                            'quote',
+                            new JsonFragment('entries.0.renewal', json_encode(null)),
+                        ),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '874e9e92-6328-4d44-ab70-4589029e3dad',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id' => $document,
+                                'renewal'     => 100,
+                            ]);
+
+                            return $document;
+                        },
+                    ],
+                    'entries: hiding `list_price`'           => [
                         new GraphQLSuccess(
                             'quote',
                             new JsonFragment('entries.0.list_price', json_encode(null)),
@@ -804,16 +885,15 @@ class QuoteTest extends TestCase {
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,
                                 'list_price'  => 100,
-                                'net_price'   => 100,
                             ]);
 
                             return $document;
                         },
                     ],
-                    'entries: hiding net_price'  => [
+                    'entries: hiding `monthly_list_price`'   => [
                         new GraphQLSuccess(
                             'quote',
-                            new JsonFragment('entries.0.net_price', json_encode(null)),
+                            new JsonFragment('entries.0.monthly_list_price', json_encode(null)),
                         ),
                         static function (TestCase $test, Organization $organization): Document {
                             $type     = Type::factory()->create([
@@ -833,9 +913,38 @@ class QuoteTest extends TestCase {
                                 ]);
 
                             DocumentEntry::factory()->create([
-                                'document_id' => $document,
-                                'list_price'  => 100,
-                                'net_price'   => 100,
+                                'document_id'        => $document,
+                                'monthly_list_price' => 100,
+                            ]);
+
+                            return $document;
+                        },
+                    ],
+                    'entries: hiding `monthly_retail_price`' => [
+                        new GraphQLSuccess(
+                            'quote',
+                            new JsonFragment('entries.0.monthly_retail_price', json_encode(null)),
+                        ),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->hasStatuses(1, [
+                                    'id' => '874e9e92-6328-4d44-ab70-4589029e3dad',
+                                ])
+                                ->create([
+                                    'customer_id' => null,
+                                ]);
+
+                            DocumentEntry::factory()->create([
+                                'document_id'          => $document,
+                                'monthly_retail_price' => 100,
                             ]);
 
                             return $document;

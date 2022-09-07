@@ -15,6 +15,9 @@ use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Product;
+use App\Models\ProductGroup;
+use App\Models\ProductLine;
+use App\Models\Psp;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
@@ -204,9 +207,7 @@ class ContractsTest extends TestCase {
                             id
                             document_id
                             service_level_id
-                            net_price
                             list_price
-                            discount
                             renewal
                             serial_number
                             product_id
@@ -244,8 +245,41 @@ class ContractsTest extends TestCase {
                             }
                             start
                             end
-                            fields {
-                                value
+                            monthly_list_price
+                            monthly_retail_price
+                            oem_said
+                            oem_sar_number
+                            environment_id
+                            equipment_number
+                            product_line_id
+                            productLine {
+                                id
+                                key
+                                name
+                            }
+                            product_group_id
+                            productGroup {
+                                id
+                                key
+                                name
+                            }
+                            asset_type_id
+                            assetType {
+                                id
+                                key
+                                name
+                            }
+                            language_id
+                            language {
+                                id
+                                name
+                                code
+                            }
+                            psp_id
+                            psp {
+                                id
+                                key
+                                name
                             }
                         }
                         language {
@@ -323,7 +357,7 @@ class ContractsTest extends TestCase {
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok'                       => [
+                    'ok'                                   => [
                         new GraphQLPaginated(
                             'contracts',
                             [
@@ -441,16 +475,14 @@ class ContractsTest extends TestCase {
                                     ],
                                     'entries'           => [
                                         [
-                                            'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                            'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
-                                            'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'net_price'        => 123,
-                                            'list_price'       => 67.12,
-                                            'discount'         => null,
-                                            'renewal'          => 24.20,
-                                            'serial_number'    => null,
-                                            'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                            'product'          => [
+                                            'id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                            'service_level_id'     => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                            'document_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                            'list_price'           => 67.12,
+                                            'renewal'              => 24.20,
+                                            'serial_number'        => null,
+                                            'product_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                            'product'              => [
                                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                                 'name'   => 'Product1',
                                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -463,14 +495,14 @@ class ContractsTest extends TestCase {
                                                     'name' => 'oem1',
                                                 ],
                                             ],
-                                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
-                                            'serviceGroup'     => [
+                                            'service_group_id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                            'serviceGroup'         => [
                                                 'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
                                                 'name'   => 'Group',
                                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                                 'sku'    => 'SKU#123',
                                             ],
-                                            'serviceLevel'     => [
+                                            'serviceLevel'         => [
                                                 'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
                                                 'name'             => 'Level',
                                                 'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
@@ -478,14 +510,47 @@ class ContractsTest extends TestCase {
                                                 'sku'              => 'SKU#123',
                                                 'description'      => 'description',
                                             ],
-                                            'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                            'asset'            => [
+                                            'asset_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                            'asset'                => [
                                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                             ],
-                                            'start'            => '2021-01-01',
-                                            'end'              => '2024-01-01',
-                                            'fields'           => [
-                                                // empty
+                                            'start'                => '2021-01-01',
+                                            'end'                  => '2024-01-01',
+                                            'monthly_list_price'   => 123.45,
+                                            'monthly_retail_price' => 543.21,
+                                            'oem_said'             => '1234-5678-9012',
+                                            'oem_sar_number'       => '1234567890',
+                                            'environment_id'       => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                            'equipment_number'     => '0987654321',
+                                            'product_line_id'      => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                            'productLine'          => [
+                                                'id'   => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                                'key'  => 'Line#A',
+                                                'name' => 'Line A',
+                                            ],
+                                            'product_group_id'     => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                            'productGroup'         => [
+                                                'id'   => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                                'key'  => 'Group#A',
+                                                'name' => 'Group A',
+                                            ],
+                                            'asset_type_id'        => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                            'assetType'            => [
+                                                'id'   => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                                'key'  => 'Type#A',
+                                                'name' => 'Type A',
+                                            ],
+                                            'language_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                            'language'             => [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                                'name' => 'Lang1',
+                                                'code' => 'en',
+                                            ],
+                                            'psp_id'               => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                            'psp'                  => [
+                                                'id'   => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                                'key'  => 'Psp#A',
+                                                'name' => 'Psp A',
                                             ],
                                         ],
                                     ],
@@ -642,6 +707,27 @@ class ContractsTest extends TestCase {
                                 'name'             => 'Level',
                                 'description'      => 'description',
                             ]);
+                            $productLine  = ProductLine::factory()->create([
+                                'id'   => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                'key'  => 'Line#A',
+                                'name' => 'Line A',
+                            ]);
+                            $productGroup = ProductGroup::factory()->create([
+                                'id'   => 'e46a3ce7-2ff4-486a-bd77-3224cdaaa326',
+                                'key'  => 'Group#A',
+                                'name' => 'Group A',
+                            ]);
+                            $assetType    = Type::factory()->create([
+                                'id'   => '2213e78f-00bb-463a-b869-b9c52391bdf4',
+                                'key'  => 'Type#A',
+                                'name' => 'Type A',
+                            ]);
+                            $psp          = Psp::factory()->create([
+                                'id'   => '6e46c5d5-d6df-4fe8-905e-faf00147e0d1',
+                                'key'  => 'Psp#A',
+                                'name' => 'Psp A',
+                            ]);
+
                             Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
@@ -656,21 +742,30 @@ class ContractsTest extends TestCase {
                                     'name' => 'status a',
                                 ])
                                 ->hasEntries(1, [
-                                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'         => Asset::factory()->create([
+                                    'id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'asset_id'             => Asset::factory()->create([
                                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                         'reseller_id' => $reseller,
                                     ]),
-                                    'serial_number'    => null,
-                                    'product_id'       => $product,
-                                    'service_group_id' => $serviceGroup,
-                                    'service_level_id' => $serviceLevel,
-                                    'net_price'        => 123,
-                                    'list_price'       => 67.12,
-                                    'discount'         => null,
-                                    'renewal'          => 24.20,
-                                    'start'            => '2021-01-01',
-                                    'end'              => '2024-01-01',
+                                    'serial_number'        => null,
+                                    'product_id'           => $product,
+                                    'service_group_id'     => $serviceGroup,
+                                    'service_level_id'     => $serviceLevel,
+                                    'list_price'           => 67.12,
+                                    'renewal'              => 24.20,
+                                    'start'                => '2021-01-01',
+                                    'end'                  => '2024-01-01',
+                                    'monthly_list_price'   => 123.45,
+                                    'monthly_retail_price' => 543.21,
+                                    'oem_said'             => '1234-5678-9012',
+                                    'oem_sar_number'       => '1234567890',
+                                    'environment_id'       => '6d2bb6c4-2b79-474b-9f7f-fbca859a2cf8',
+                                    'equipment_number'     => '0987654321',
+                                    'product_line_id'      => $productLine,
+                                    'product_group_id'     => $productGroup,
+                                    'asset_type_id'        => $assetType,
+                                    'language_id'          => $language,
+                                    'psp_id'               => $psp,
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
@@ -707,7 +802,7 @@ class ContractsTest extends TestCase {
                                 ->create();
                         },
                     ],
-                    'no types'                 => [
+                    'no types'                             => [
                         new GraphQLPaginated('contracts', [
                             // empty
                         ]),
@@ -725,7 +820,7 @@ class ContractsTest extends TestCase {
                             ]);
                         },
                     ],
-                    'type not match'           => [
+                    'type not match'                       => [
                         new GraphQLPaginated('contracts', [
                             // empty
                         ]),
@@ -743,7 +838,7 @@ class ContractsTest extends TestCase {
                             ]);
                         },
                     ],
-                    'hiding price'             => [
+                    'hiding price'                         => [
                         new GraphQLPaginated(
                             'contracts',
                             new JsonFragment('0.price', json_encode(null)),
@@ -789,22 +884,10 @@ class ContractsTest extends TestCase {
                                 ]);
                         },
                     ],
-                    'entry: hiding list_price' => [
+                    'entries: hiding `renewal`'            => [
                         new GraphQLPaginated(
                             'contracts',
-                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'count' => 1,
-                                        'key'   => '1972-07-06',
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
+                            new JsonFragment('0.entries.0.renewal', json_encode(null)),
                         ),
                         [
                             'ep.document_statuses_no_price' => [
@@ -814,78 +897,114 @@ class ContractsTest extends TestCase {
                                 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
+                        static function (TestCase $test, Organization $org): void {
                             $type     = Type::factory()->create([
                                 'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
                             $document = Document::factory()
+                                ->ownedBy($org)
                                 ->for($type)
-                                ->for($reseller)
                                 ->hasStatuses(1, [
                                     'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
                                 ])
-                                ->create([
-                                    'customer_id' => null,
-                                    'start'       => '1972-07-06',
-                                ]);
+                                ->create();
 
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,
-                                'list_price'  => 100,
-                                'net_price'   => 100,
+                                'renewal'     => 100,
                             ]);
                         },
                     ],
-                    'entry: hiding net_price'  => [
+                    'entry: hiding `list_price`'           => [
                         new GraphQLPaginated(
                             'contracts',
-                            new JsonFragment('0.entries.0.net_price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'count' => 1,
-                                        'key'   => '2008-06-06',
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
+                            new JsonFragment('0.entries.0.list_price', json_encode(null)),
                         ),
                         [
                             'ep.document_statuses_no_price' => [
-                                '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
+                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
                             ],
                             'ep.contract_types'             => [
-                                '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
+                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
+                        static function (TestCase $test, Organization $org): void {
                             $type     = Type::factory()->create([
-                                'id' => '7b0b02a2-62a6-4af7-92ad-fcadf38220a4',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
+                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
                             ]);
                             $document = Document::factory()
+                                ->ownedBy($org)
                                 ->for($type)
-                                ->for($reseller)
                                 ->hasStatuses(1, [
-                                    'id' => '456aa30a-41ff-4eee-abe8-2c078bdd63d8',
+                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
                                 ])
-                                ->create([
-                                    'customer_id' => null,
-                                    'start'       => '2008-06-06',
-                                ]);
+                                ->create();
 
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,
                                 'list_price'  => 100,
-                                'net_price'   => 100,
+                            ]);
+                        },
+                    ],
+                    'entry: hiding `monthly_list_price`'   => [
+                        new GraphQLPaginated(
+                            'contracts',
+                            new JsonFragment('0.entries.0.monthly_list_price', json_encode(null)),
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                            ],
+                            'ep.contract_types'             => [
+                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $org): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ]);
+                            $document = Document::factory()
+                                ->ownedBy($org)
+                                ->for($type)
+                                ->hasStatuses(1, [
+                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                                ])
+                                ->create();
+
+                            DocumentEntry::factory()->create([
+                                'document_id'        => $document,
+                                'monthly_list_price' => 100,
+                            ]);
+                        },
+                    ],
+                    'entry: hiding `monthly_retail_price`' => [
+                        new GraphQLPaginated(
+                            'contracts',
+                            new JsonFragment('0.entries.0.monthly_retail_price', json_encode(null)),
+                        ),
+                        [
+                            'ep.document_statuses_no_price' => [
+                                'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                            ],
+                            'ep.contract_types'             => [
+                                'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ],
+                        ],
+                        static function (TestCase $test, Organization $org): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f83c8bef-5dba-49e0-a6d5-f58726bdb71c',
+                            ]);
+                            $document = Document::factory()
+                                ->ownedBy($org)
+                                ->for($type)
+                                ->hasStatuses(1, [
+                                    'id' => 'db02949a-0d28-400d-88e7-15f7c6433ff3',
+                                ])
+                                ->create();
+
+                            DocumentEntry::factory()->create([
+                                'document_id'          => $document,
+                                'monthly_retail_price' => 100,
                             ]);
                         },
                     ],

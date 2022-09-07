@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n    }\n}",
+    "variables": {
+        "id": "7859879b-5a3e-40f2-bb06-2ec0cf61de76"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "7859879b-5a3e-40f2-bb06-2ec0cf61de76",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "ca4a12de-90ad-4468-8892-2a275febf285",
+                    "serialNumber": "9de72a1c-73fc-35b3-b70a-4c9792ebfbf3",
+                    "assetSkuDescription": "HP Z iLO Adv 3yr TS-U Lic-BTO (GLiS-PTS)",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "765762-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "62191-6788",
+                    "city": "Dannyfurt",
+                    "address": "3807 Desmond Mission",
+                    "address2": null,
+                    "country": "Finland",
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1659445413632",
+                    "assetCoverage": [],
+                    "dataQualityScore": "80",
+                    "assetDocument": [],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+13317494384",
+                            "name": "Ms. Clementina Corkery II",
+                            "mail": "okozey@lynch.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12313547604",
+                            "name": "Norene Dibbert",
+                            "mail": "ines73@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": null
+                }
+            ]
+        }
+    }
+}

@@ -1,10 +1,10 @@
 {
     "id": "c0200a6c-1b8a-4365-9f1b-32d753194335",
     "serialNumber": "CK012345ARB",
-    "productDescription": "Aruba AP-215 Dual 3x3:3 802.11ac AP",
+    "assetSkuDescription": "Aruba AP-215 Dual 3x3:3 802.11ac AP",
     "assetType": "Software",
     "vendor": "HPE",
-    "sku": "JW1123",
+    "assetSku": "JW1123",
     "eolDate": "1615161600000",
     "eosDate": "",
     "country": "Great Britain",
@@ -48,18 +48,13 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": "1614470400000",
-            "endDate": null,
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145"
+            "endDate": null
         },
         {
             "document": {
@@ -88,16 +83,10 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HL935AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HL935AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": null,
-            "endDate": "1677542400000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "25"
+            "endDate": "1677542400000"
         },
         {
             "document": {
@@ -126,16 +115,10 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HL935AC",
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": "HL935AC",
+            "serviceGroupSku": "H7J34AC",
             "startDate": null,
-            "endDate": "1740700800000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "10.44"
+            "endDate": "1740700800000"
         },
         {
             "document": {
@@ -167,18 +150,13 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": null,
-            "endDate": "1614470400000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "40"
+            "endDate": "1614470400000"
         },
         {
             "document": {
@@ -207,18 +185,13 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": null,
-            "endDate": "1677542400000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "0"
+            "endDate": "1677542400000"
         },
         {
             "document": {
@@ -247,18 +220,13 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
-            "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceLevelSku": "HA151AC",
+            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+            "serviceGroupSku": "H7J34AC",
+            "serviceGroupSkuDescription": "HPE NBD w DMR Proactive Care SVC",
+            "serviceFullDescription": "Remote Support and Diagnosis  Advance Parts Replacement   License to Use & SW Updates",
             "startDate": null,
-            "endDate": "1740700800000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "24.3"
+            "endDate": "1740700800000"
         },
         {
             "document": {
@@ -290,16 +258,10 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "distributorId": "2d4c0f62-7e8f-4001-b16a-131db759c3f4"
             },
-            "skuNumber": null,
-            "supportPackage": "H7J34AC",
+            "serviceLevelSku": null,
+            "serviceGroupSku": "H7J34AC",
             "startDate": null,
-            "endDate": "1614470400000",
-            "warrantyEndDate": null,
-            "netPrice": "23.4",
-            "discount": "-2.05",
-            "listPrice": "48",
-            "currencyCode": "EUR",
-            "estimatedValueRenewal": "145"
+            "endDate": "1614470400000"
         }
     ]
 }

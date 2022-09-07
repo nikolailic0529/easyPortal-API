@@ -11,7 +11,7 @@
                     "id": "d4d40692-3385-4423-b580-04b645b9c163",
                     "name": "Hickle, King and Fahey",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1659605195117",
+                    "updatedAt": "1662156923950",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -76,15 +76,15 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 1473,
-                        "activeAssets": 738,
-                        "activeAssetsPercentage": 50.101832993890014,
+                        "totalAssets": 1475,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 10,
                         "activeContractTotalAmount": 12636.48,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 2,
                         "activeQuotesTotalAmount": 101332.3100000001,
                         "newActiveQuotes": 0,
@@ -106,15 +106,15 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-                            "totalAssets": 1473,
-                            "activeAssets": 738,
-                            "activeAssetsPercentage": 50.101832993890014,
+                            "totalAssets": 1475,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 10,
                             "activeContractTotalAmount": 12636.48,
                             "newActiveContracts": null,
-                            "expiringContracts": 0,
+                            "expiringContracts": 1,
                             "activeQuotes": 2,
                             "activeQuotesTotalAmount": 101332.3100000001,
                             "newActiveQuotes": 0,
@@ -135,7 +135,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

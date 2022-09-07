@@ -11,7 +11,7 @@
                     "id": "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
                     "name": "Herzog Inc",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657163016877",
+                    "updatedAt": "1662156867010",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -82,9 +82,9 @@
                         }
                     ],
                     "companyKpis": {
-                        "totalAssets": 1091,
-                        "activeAssets": 1023,
-                        "activeAssetsPercentage": 93.76718606782768,
+                        "totalAssets": 1105,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 5,
@@ -112,9 +112,9 @@
                     "companyResellerKpis": [
                         {
                             "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
-                            "totalAssets": 1091,
-                            "activeAssets": 1023,
-                            "activeAssetsPercentage": 93.76718606782768,
+                            "totalAssets": 1105,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 5,
@@ -141,7 +141,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

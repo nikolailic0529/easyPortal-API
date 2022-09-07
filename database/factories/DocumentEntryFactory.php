@@ -32,30 +32,38 @@ class DocumentEntryFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'               => $this->faker->uuid(),
-            'document_id'      => static function (): Document {
+            'id'                   => $this->faker->uuid(),
+            'document_id'          => static function (): Document {
                 return Document::factory()->create();
             },
-            'asset_id'         => static function (): Asset {
+            'asset_id'             => static function (): Asset {
                 return Asset::factory()->create();
             },
-            'product_id'       => static function (): Product {
+            'asset_type_id'        => null,
+            'product_id'           => static function (): Product {
                 return Product::factory()->create();
             },
-            'service_group_id' => null,
-            'service_level_id' => null,
-            'currency_id'      => static function (): Currency {
+            'product_line_id'      => null,
+            'product_group_id'     => null,
+            'service_group_id'     => null,
+            'service_level_id'     => null,
+            'currency_id'          => static function (): Currency {
                 return Currency::query()->first() ?? Currency::factory()->create();
             },
-            'start'            => $this->faker->dateTime(),
-            'end'              => $this->faker->dateTime(),
-            'net_price'        => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'list_price'       => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'discount'         => number_format($this->faker->randomFloat(2, 0, 75), 2, '.', ''),
-            'renewal'          => number_format($this->faker->randomFloat(2), 2, '.', ''),
-            'created_at'       => Date::now(),
-            'updated_at'       => Date::now(),
-            'deleted_at'       => null,
+            'start'                => $this->faker->dateTime(),
+            'end'                  => $this->faker->dateTime(),
+            'list_price'           => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'monthly_list_price'   => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'monthly_retail_price' => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'renewal'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'oem_said'             => null,
+            'oem_sar_number'       => null,
+            'environment_id'       => null,
+            'equipment_number'     => $this->faker->uuid(),
+            'language_id'          => null,
+            'created_at'           => Date::now(),
+            'updated_at'           => Date::now(),
+            'deleted_at'           => null,
         ];
     }
 }

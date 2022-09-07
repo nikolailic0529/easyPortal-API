@@ -11,7 +11,7 @@
                     "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
                     "name": "Kihn-Bergnaum",
                     "companyType": "RESELLER",
-                    "updatedAt": "1657155752136",
+                    "updatedAt": "1662148157794",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -138,11 +138,11 @@
                             },
                             {
                                 "language_code": "de_DE",
-                                "text": "Iure recusandae qui ad."
+                                "text": "Ea minus autem et quasi."
                             },
                             {
                                 "language_code": "de",
-                                "text": "Iure recusandae qui ad."
+                                "text": "Ea minus autem et quasi."
                             }
                         ],
                         "underlineText": [
@@ -173,21 +173,21 @@
                         ]
                     },
                     "companyKpis": {
-                        "totalAssets": 12605,
-                        "activeAssets": 7648,
-                        "activeAssetsPercentage": 60.6743355811186,
+                        "totalAssets": 12703,
+                        "activeAssets": 19,
+                        "activeAssetsPercentage": 0.14957096748799498,
                         "activeCustomers": 113,
-                        "newActiveCustomers": 89,
-                        "activeContracts": 263,
-                        "activeContractTotalAmount": 1230212.2200000002,
-                        "newActiveContracts": 107,
-                        "expiringContracts": 28,
-                        "activeQuotes": 62,
-                        "activeQuotesTotalAmount": 301458.94999999995,
-                        "newActiveQuotes": 11,
-                        "expiringQuotes": 0,
-                        "expiredQuotes": 62,
-                        "expiredContracts": 263,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 242,
+                        "activeContractTotalAmount": 1188029.3000000003,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 27,
+                        "activeQuotes": 68,
+                        "activeQuotesTotalAmount": 311534.86,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 68,
+                        "expiredContracts": 242,
                         "orderedQuotes": null,
                         "acceptedQuotes": null,
                         "requestedQuotes": null,
