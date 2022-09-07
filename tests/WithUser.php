@@ -10,7 +10,7 @@ use function is_callable;
 /**
  * @mixin TestCase
  *
- * @phpstan-type UserFactory User|callable(static, ?Organization=):?User|null
+ * @phpstan-type UserFactory User|callable(\Tests\TestCase, ?Organization):?User|null
  */
 trait WithUser {
     /**

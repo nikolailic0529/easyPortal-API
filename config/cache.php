@@ -45,6 +45,11 @@ return [
             'connection'      => 'cache',
             'lock_connection' => 'default',
         ],
+        'queue'                => [
+            'driver'          => 'redis',
+            'connection'      => 'queue',
+            'lock_connection' => 'default',
+        ],
         CacheStores::STATE     => [
             'driver'          => 'redis',
             'connection'      => 'default',

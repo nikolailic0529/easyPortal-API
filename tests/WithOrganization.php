@@ -14,7 +14,7 @@ use function is_callable;
 /**
  * @mixin TestCase
  *
- * @phpstan-type OrganizationFactory Organization|callable(static):?Organization|null
+ * @phpstan-type OrganizationFactory Organization|callable(\Tests\TestCase):?Organization|null
  */
 trait WithOrganization {
     /**
