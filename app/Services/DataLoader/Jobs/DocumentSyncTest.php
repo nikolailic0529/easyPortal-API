@@ -2,18 +2,14 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Asset;
 use App\Models\Document;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Support\Collection;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
-
-use function count;
 
 /**
  * @internal
@@ -42,28 +38,21 @@ class DocumentSyncTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $this->override(AssetSync::class, static function (MockInterface $mock) use ($document): void {
-            $assets = GlobalScopes::callWithoutAll(static function () use ($document): Collection {
-                return $document->assets;
-            });
-
+        $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
             $mock->makePartial();
             $mock
-                ->shouldReceive('__invoke')
-                ->times(count($assets))
-                ->andReturn([
-                    'result' => true,
-                ]);
-
-            foreach ($assets as $asset) {
-                $mock
-                    ->shouldReceive('init')
-                    ->withArgs(static function (Asset $actual) use ($asset): bool {
-                        return $asset->getKey() === $actual->getKey();
-                    })
-                    ->once()
-                    ->andReturnSelf();
-            }
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
+                ->once()
+                ->andReturn(true);
         });
 
         $job      = $this->app->make(DocumentSync::class)->init($document);
@@ -103,10 +92,19 @@ class DocumentSyncTest extends TestCase {
                 ->andReturn(true);
         });
 
-        $this->override(AssetSync::class, static function (MockInterface $mock) use ($exception): void {
+        $this->override(IteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
             $mock->makePartial();
             $mock
-                ->shouldReceive('__invoke')
+                ->shouldReceive('setIterator')
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('setWithDocuments')
+                ->with(true)
+                ->once()
+                ->andReturnSelf();
+            $mock
+                ->shouldReceive('start')
                 ->once()
                 ->andThrow($exception);
         });

@@ -77,7 +77,8 @@ trait WithAssets {
                     $processor = $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator($iterator);
+                        ->setIterator($iterator)
+                        ->setWithDocuments($state->withAssetsDocuments);
 
                     return $processor;
                 },

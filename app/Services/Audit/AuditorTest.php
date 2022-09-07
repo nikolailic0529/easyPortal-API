@@ -8,9 +8,11 @@ use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
+use App\Utils\Eloquent\Model;
 use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -53,25 +55,42 @@ class AuditorTest extends TestCase {
      */
     public function testUpdated(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
-        $changeRequest = ChangeRequest::factory()->create([
-            'subject' => 'old',
-        ]);
 
-        $this->override(Auditor::class, static function (MockInterface $mock) use ($changeRequest): void {
-            $properties = [
-                'subject' => [
-                    'value'    => 'new',
-                    'previous' => 'old',
-                ],
-            ];
+        $model   = ChangeRequest::factory()->create([
+            'subject'    => 'old',
+            'created_at' => Date::now()->subDay(),
+            'updated_at' => Date::now()->subDay(),
+        ]);
+        $changes = [
+            'value'    => 'new',
+            'previous' => 'old',
+        ];
+
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($model, $changes): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelUpdated(), ['properties' => $properties], $changeRequest);
+                ->withArgs(
+                    static function (
+                        Action $auditAction,
+                        array $auditContext = null,
+                        Model $auditModel = null,
+                        Authenticatable $auditUser = null,
+                    ) use (
+                        $model,
+                        $changes
+                    ): bool {
+                        return $auditAction === Action::modelUpdated()
+                            && $auditModel === $model
+                            && $auditUser === null
+                            && isset($auditContext['properties']['updated_at'])
+                            && ($auditContext['properties']['subject'] ?? null) === $changes;
+                    },
+                );
         });
 
-        $changeRequest->subject = 'new';
-        $changeRequest->save();
+        $model->subject = 'new';
+        $model->save();
     }
 
     /**
