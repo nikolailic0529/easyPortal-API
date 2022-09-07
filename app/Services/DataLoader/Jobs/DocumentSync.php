@@ -3,8 +3,10 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Document;
+use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\Eloquent\EloquentIterator;
 use Exception;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -53,11 +55,15 @@ class DocumentSync extends Sync {
         try {
             $result   = true;
             $document = Document::query()->whereKey($this->getObjectId())->first();
-            $assets   = $document ? $document->assets : [];
 
-            foreach ($assets as $asset) {
-                $job    = $container->make(AssetSync::class)->init($asset);
-                $result = ($container->call($job)['result'] ?? false) && $result;
+            if ($document) {
+                $iterator = $document->assets()->getQuery()->getChangeSafeIterator();
+                $iterator = new EloquentIterator($iterator);
+                $result   = $container
+                    ->make(IteratorImporter::class)
+                    ->setIterator($iterator)
+                    ->setWithDocuments(true)
+                    ->start();
             }
         } catch (Exception $exception) {
             $handler->report($exception);

@@ -4416,7 +4416,7 @@ parameters:
 			path: app/Services/DataLoader/Jobs/AssetSync.php
 
 		-
-			message: "#^Cannot access offset 'result' on mixed\\.$#"
+			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
