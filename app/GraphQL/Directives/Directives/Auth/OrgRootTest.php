@@ -95,52 +95,52 @@ class OrgRootTest extends TestCase {
         return [
             'no organization - no user'                          => [
                 new GraphQLUnauthenticated('value'),
-                static function () {
+                static function (): ?Organization {
                     return null;
                 },
-                static function () {
+                static function (): ?User {
                     return null;
                 },
                 false,
             ],
             'organization - no user'                             => [
                 new GraphQLUnauthenticated('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->make();
                 },
-                static function () {
+                static function (): ?User {
                     return null;
                 },
                 false,
             ],
             'root organization - no user'                        => [
                 new GraphQLUnauthenticated('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->make();
                 },
-                static function () {
+                static function (): ?User {
                     return null;
                 },
                 true,
             ],
             'organization - user'                                => [
                 new GraphQLUnauthorized('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->create();
                 },
-                static function (TestCase $test, ?Organization $organization) {
+                static function (TestCase $test): User {
                     return User::factory()->create([
-                        'organization_id' => $organization,
+                        //'organization_id' => $organization,
                     ]);
                 },
                 false,
             ],
             'root organization - user'                           => [
                 new GraphQLSuccess('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->create();
                 },
-                static function (TestCase $test, ?Organization $organization) {
+                static function (TestCase $test, ?Organization $organization): User {
                     return User::factory()->create([
                         'organization_id' => $organization,
                     ]);
@@ -149,20 +149,20 @@ class OrgRootTest extends TestCase {
             ],
             'organization - user from another organization'      => [
                 new GraphQLUnauthorized('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->create();
                 },
-                static function () {
+                static function (): User {
                     return User::factory()->create();
                 },
                 false,
             ],
             'root organization - user from another organization' => [
                 new GraphQLUnauthorized('value'),
-                static function () {
+                static function (): Organization {
                     return Organization::factory()->create();
                 },
-                static function () {
+                static function (): User {
                     return User::factory()->create();
                 },
                 true,
