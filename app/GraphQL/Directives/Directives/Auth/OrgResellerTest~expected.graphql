@@ -1,0 +1,68 @@
+type Query {
+    """
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
+    """
+    value: Test!
+    @authOrgReseller
+    @mock
+}
+
+"""
+Description.
+
+@require <authOrgReseller> Authenticated user must be a member of the current organization, and
+the organization must be a Reseller (or a root organization).
+"""
+type Test
+@authOrgReseller
+{
+    """
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
+    """
+    extension: String!
+    @authOrgReseller
+
+    """
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
+    """
+    extensionRoot: String!
+    @authOrgReseller
+
+    """
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
+    """
+    one: String!
+    @authOrgReseller
+
+    """
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
+    """
+    two: String!
+    @authOrgReseller
+}
+
+"""
+Authenticated user must be a member of the current organization, and
+the organization must be a Reseller (or a root organization).
+"""
+directive @authOrgReseller
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+)
+on
+    | FIELD_DEFINITION

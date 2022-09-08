@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Document;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
 use Closure;
@@ -53,12 +52,13 @@ class CreateContractNoteTest extends TestCase {
         array $input = [],
     ): void {
         // Prepare
-        $organization = $this->setOrganization($orgFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
         $this->setSettings($settingsFactory);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $org, $user);
         } else {
             // Lighthouse performs validation BEFORE permission check :(
             //
@@ -66,8 +66,8 @@ class CreateContractNoteTest extends TestCase {
             //
             // Following code required to "fix" it
 
-            if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->make());
+            if (!$org) {
+                $org = $this->setOrganization(Organization::factory()->make());
             }
 
             if (!$settingsFactory) {
@@ -77,16 +77,13 @@ class CreateContractNoteTest extends TestCase {
                 ]);
             }
 
-            $type     = Type::factory()->create([
+            $type = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $organization ? $organization->getKey() : $this->faker->uuid(),
-            ]);
-            Document::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                'type_id'     => $type->getKey(),
-                'reseller_id' => $reseller->getKey(),
+
+            Document::factory()->ownedBy($org)->create([
+                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'type_id' => $type->getKey(),
             ]);
         }
 
@@ -127,11 +124,12 @@ class CreateContractNoteTest extends TestCase {
                 }
             }';
 
-        $input      = $input ?: [
-            'contract_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'        => 'note',
-            'files'       => null,
-        ];
+        $input      = $input
+            ?: [
+                'contract_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'note'        => 'note',
+                'files'       => null,
+            ];
         $operations = [
             'operationName' => 'createContractNote',
             'query'         => $query,
@@ -162,20 +160,18 @@ class CreateContractNoteTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, User $user): void {
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): void {
             if ($user) {
                 $user->save();
             }
-            $type     = Type::factory()->create([
+
+            $type = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-            Document::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'type_id'     => $type->getKey(),
-                'reseller_id' => $reseller->getKey(),
+
+            Document::factory()->ownedBy($org)->create([
+                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                'type_id' => $type->getKey(),
             ]);
         };
         $input    = [

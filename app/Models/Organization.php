@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Audits\Audit;
+use App\Models\Enums\OrganizationType;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;
 use App\Services\Audit\Concerns\Auditable;
@@ -18,46 +19,45 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-
-// @phpcs:disable Generic.Files.LineLength.TooLong
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Organization.
  *
- * @property string                            $id
- * @property string                            $name
- * @property string|null                       $keycloak_name
- * @property string|null                       $keycloak_scope
- * @property string|null                       $keycloak_group_id
- * @property string|null                       $locale
- * @property string|null                       $currency_id
- * @property string|null                       $website_url
- * @property string|null                       $email
- * @property string|null                       $timezone
- * @property string|null                       $analytics_code
- * @property bool|null                         $branding_dark_theme
- * @property string|null                       $branding_main_color
- * @property string|null                       $branding_secondary_color
- * @property string|null                       $branding_logo_url
- * @property string|null                       $branding_favicon_url
- * @property string|null                       $branding_default_main_color
- * @property string|null                       $branding_default_secondary_color
- * @property string|null                       $branding_default_logo_url
- * @property string|null                       $branding_default_favicon_url
- * @property string|null                       $branding_welcome_image_url
- * @property TranslatedString|null             $branding_welcome_heading
- * @property TranslatedString|null             $branding_welcome_underline
- * @property string|null                       $branding_dashboard_image_url
- * @property CarbonImmutable                   $created_at
- * @property CarbonImmutable                   $updated_at
- * @property CarbonImmutable|null              $deleted_at
- * @property-read Collection<int, Audit>       $audits
- * @property-read Reseller|null                $company
- * @property Currency|null                     $currency
- * @property Collection<int, OrganizationUser> $organizationUsers
- * @property-read Collection<int, Role>        $roles
- * @property-read Collection<int, User>        $users
+ * @property string                                 $id
+ * @property string                                 $name
+ * @property OrganizationType                       $type
+ * @property string|null                            $keycloak_name
+ * @property string|null                            $keycloak_scope
+ * @property string|null                            $keycloak_group_id
+ * @property string|null                            $locale
+ * @property string|null                            $currency_id
+ * @property string|null                            $website_url
+ * @property string|null                            $email
+ * @property string|null                            $timezone
+ * @property string|null                            $analytics_code
+ * @property bool|null                              $branding_dark_theme
+ * @property string|null                            $branding_main_color
+ * @property string|null                            $branding_secondary_color
+ * @property string|null                            $branding_logo_url
+ * @property string|null                            $branding_favicon_url
+ * @property string|null                            $branding_default_main_color
+ * @property string|null                            $branding_default_secondary_color
+ * @property string|null                            $branding_default_logo_url
+ * @property string|null                            $branding_default_favicon_url
+ * @property string|null                            $branding_welcome_image_url
+ * @property TranslatedString|null                  $branding_welcome_heading
+ * @property TranslatedString|null                  $branding_welcome_underline
+ * @property string|null                            $branding_dashboard_image_url
+ * @property CarbonImmutable                        $created_at
+ * @property CarbonImmutable                        $updated_at
+ * @property CarbonImmutable|null                   $deleted_at
+ * @property-read Collection<int, Audit>            $audits
+ * @property-read Reseller|null                     $company
+ * @property Currency|null                          $currency
+ * @property-read Collection<int, OrganizationUser> $organizationUsers
+ * @property-read Collection<int, Role>             $roles
+ * @property-read Collection<int, User>             $users
  * @method static OrganizationFactory factory(...$parameters)
  * @method static Builder|Organization newModelQuery()
  * @method static Builder|Organization newQuery()
@@ -72,6 +72,7 @@ class Organization extends Model implements
     use HasChangeRequests;
 
     protected const CASTS = [
+        'type'                       => OrganizationType::class,
         'branding_dark_theme'        => 'bool',
         'branding_welcome_heading'   => TranslatedString::class,
         'branding_welcome_underline' => TranslatedString::class,
@@ -125,11 +126,11 @@ class Organization extends Model implements
     }
 
     /**
-     * @return HasOne<Reseller>
+     * @return MorphTo<Reseller, Organization>
      */
     #[CascadeDelete(false)]
-    public function company(): HasOne {
-        return $this->hasOne(Reseller::class, (new Reseller())->getKeyName());
+    public function company(): MorphTo {
+        return $this->morphTo(null, 'type', 'id');
     }
 
     #[CascadeDelete(true)]

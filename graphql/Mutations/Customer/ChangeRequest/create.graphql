@@ -2,7 +2,7 @@ extend type CustomerChangeRequestMutation {
     create(
         input: MessageInput!
     ): CustomerChangeRequestCreatePayload!
-    @authOrg
+    @authOrgReseller
     @authMe(permissions: ["requests-customer-change"])
     @mutationCreate(
         resolver: "App\\GraphQL\\Mutations\\Customer\\ChangeRequest\\Create"

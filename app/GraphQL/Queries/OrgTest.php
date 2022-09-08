@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
+use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
 use App\Models\Location;
 use App\Models\Organization;
@@ -75,6 +76,7 @@ class OrgTest extends TestCase {
                     org {
                         id
                         name
+                        type
                         locale
                         website_url
                         email
@@ -261,12 +263,17 @@ class OrgTest extends TestCase {
                 new UnknownUserDataProvider(),
                 new ArrayDataProvider([
                     'unknown'  => [
-                        new GraphQLSuccess('org', $expected),
+                        new GraphQLSuccess('org', array_merge($expected, [
+                            'type' => OrganizationType::reseller(),
+                        ])),
                         null,
-                        null,
+                        static function (TestCase $test, Organization $org): void {
+                            $org->type = OrganizationType::reseller();
+                        },
                     ],
                     'reseller' => [
                         new GraphQLSuccess('org', array_merge($expected, [
+                            'type'        => OrganizationType::reseller(),
                             'kpi'         => [
                                 'assets_total' => 1,
                             ],
@@ -280,14 +287,15 @@ class OrgTest extends TestCase {
                             ],
                         ],
                         static function (TestCase $test, Organization $org): void {
-                            $kpi      = Kpi::factory()->create([
+                            $org->type = OrganizationType::reseller();
+                            $kpi       = Kpi::factory()->create([
                                 'assets_total' => 1,
                             ]);
-                            $reseller = Reseller::factory()->create([
+                            $reseller  = Reseller::factory()->ownedBy($org)->create([
                                 'id'     => $org->getKey(),
                                 'kpi_id' => $kpi,
                             ]);
-                            $location = Location::factory()->create([
+                            $location  = Location::factory()->create([
                                 'id' => '1afffd34-de59-48e0-9689-57be151af10c',
                             ]);
 

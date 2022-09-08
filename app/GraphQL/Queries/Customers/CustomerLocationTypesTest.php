@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -130,7 +130,7 @@ class CustomerLocationTypesTest extends TestCase {
 
         return (new MergeDataProvider([
             'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('customerLocationTypes'),
+                new AuthOrgResellerDataProvider('customerLocationTypes'),
                 new OrgUserDataProvider('customerLocationTypes', [
                     'customers-view',
                 ]),

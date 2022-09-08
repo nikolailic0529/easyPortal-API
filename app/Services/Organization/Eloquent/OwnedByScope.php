@@ -2,6 +2,7 @@
 
 namespace App\Services\Organization\Eloquent;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Search\Builders\Builder;
@@ -92,10 +93,17 @@ class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
 
         if ($model instanceof OwnedByOrganization) {
             $property = self::SEARCH_METADATA_ORGANIZATION;
-        } elseif ($model instanceof OwnedByReseller) {
-            $property = self::SEARCH_METADATA_RESELLER;
         } else {
-            // empty
+            switch ($this->organization->getType()) {
+                case OrganizationType::reseller():
+                    if ($model instanceof OwnedByReseller) {
+                        $property = self::SEARCH_METADATA_RESELLER;
+                    }
+                    break;
+                default:
+                    // empty
+                    break;
+            }
         }
 
         $builder->whereMetadata("{$prefix}.{$property}", $organization);
@@ -128,10 +136,21 @@ class OwnedByScope extends DisableableScope implements ScopeWithMetadata {
 
         if ($model instanceof OwnedByOrganization) {
             $property = new ModelProperty($model::getOwnedByOrganizationColumn());
-        } elseif ($model instanceof OwnedByReseller) {
-            $property = new ModelProperty($model::getOwnedByResellerColumn());
         } else {
-            // empty
+            $type = $organization instanceof CurrentOrganization
+                ? $organization->getType()
+                : $organization->type;
+
+            switch ($type) {
+                case OrganizationType::reseller():
+                    if ($model instanceof OwnedByReseller) {
+                        $property = new ModelProperty($model::getOwnedByResellerColumn());
+                    }
+                    break;
+                default:
+                    // empty
+                    break;
+            }
         }
 
         return $property;

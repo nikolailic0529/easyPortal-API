@@ -1,0 +1,17 @@
+type Query {
+    value: Test! @authOrgReseller @mock
+}
+
+"""
+Description.
+"""
+type Test @authOrgReseller {
+    one: String!
+
+    two: String! @authOrgReseller
+}
+
+extend type Test @authOrgReseller {
+    extension: String!
+    extensionRoot: String! @authOrgReseller
+}

@@ -3,6 +3,7 @@
 namespace Tests\DataProviders\GraphQL\Organizations;
 
 use App\GraphQL\Directives\Definitions\AuthOrgRootDirective;
+use App\Models\Enums\OrganizationType;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
@@ -16,21 +17,21 @@ use Tests\Providers\Users\RootUserProvider;
  * @see AuthOrgRootDirective
  */
 class AuthOrgRootDataProvider extends ArrayDataProvider {
-    public function __construct(string $root, string $id = null) {
+    public function __construct(string $root, string $id = null, OrganizationType $type = null) {
         parent::__construct([
-            'no organization is not allowed' => [
+            'organization=null is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new NullProvider(),
                 new RootUserProvider(),
             ],
-            'organization is not allowed'    => [
+            'organization=any is not allowed'  => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new OrganizationProvider(),
                 new RootUserProvider(),
             ],
-            'root organization is allowed'   => [
+            'organization=root is allowed'     => [
                 new UnknownValue(),
-                new RootOrganizationProvider($id),
+                new RootOrganizationProvider($id, $type),
             ],
         ]);
     }

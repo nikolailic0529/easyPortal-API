@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Currency;
+use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -65,7 +66,7 @@ class ContractsAggregatedTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionDocumentsQuery) {
                     contractsAggregated(where: $where) {
@@ -117,7 +118,7 @@ class ContractsAggregatedTest extends TestCase {
         ];
         $factory       = static function (
             TestCase $test,
-            Organization $organization,
+            Organization $org,
         ) use (
             $hiddenStatus,
             $noPriceStatus,
@@ -129,9 +130,15 @@ class ContractsAggregatedTest extends TestCase {
 
             // Resellers
             $resellerA = Reseller::factory()->create([
-                'id' => $organization->getKey(),
+                'id' => $org->getKey(),
             ]);
             $resellerB = Reseller::factory()->create();
+
+            // Customers
+            $customerA = Customer::factory()->create([
+                'id' => $org->getKey(),
+            ]);
+            $customerB = Customer::factory()->create();
 
             // Currencies
             $currencyA = Currency::factory()->create([
@@ -154,24 +161,28 @@ class ContractsAggregatedTest extends TestCase {
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerA,
+                'customer_id' => $customerA,
                 'currency_id' => $currencyA,
                 'price'       => 10,
             ]);
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerB,
+                'customer_id' => $customerB,
                 'currency_id' => $currencyA,
                 'price'       => 15,
             ]);
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerB,
+                'customer_id' => $customerB,
                 'currency_id' => $currencyB,
                 'price'       => 10,
             ]);
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerB,
+                'customer_id' => $customerB,
                 'currency_id' => null,
                 'price'       => 10,
             ]);
@@ -180,6 +191,7 @@ class ContractsAggregatedTest extends TestCase {
             Document::factory()->create([
                 'type_id'     => $type,
                 'reseller_id' => $resellerA,
+                'customer_id' => $customerA,
                 'currency_id' => $currencyC,
                 'price'       => 1000,
             ]);
@@ -187,6 +199,7 @@ class ContractsAggregatedTest extends TestCase {
             // Wrong type
             Document::factory()->create([
                 'reseller_id' => $resellerA,
+                'customer_id' => $customerA,
                 'currency_id' => $currencyA,
                 'price'       => 10,
             ]);
@@ -211,6 +224,7 @@ class ContractsAggregatedTest extends TestCase {
                 ->create([
                     'type_id'     => $type,
                     'reseller_id' => $resellerA,
+                    'customer_id' => $customerA,
                     'currency_id' => $currencyA,
                     'price'       => 5,
                 ]);

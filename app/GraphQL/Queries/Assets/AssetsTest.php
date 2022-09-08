@@ -51,7 +51,7 @@ class AssetsTest extends TestCase {
      * @param OrganizationFactory                                  $orgFactory
      * @param UserFactory                                          $userFactory
      * @param SettingsFactory                                      $settingsFactory
-     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
+     * @param Closure(static, ?Organization, ?User): array<string, mixed>|null $customerFactory
      */
     public function testQuery(
         Response $expected,
@@ -61,22 +61,19 @@ class AssetsTest extends TestCase {
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $org);
+        $org   = $this->setOrganization($orgFactory);
+        $user  = $this->setUser($userFactory, $org);
+        $where = $customerFactory
+            ? $customerFactory($this, $org, $user)
+            : null;
 
         $this->setSettings($settingsFactory);
-
-        $customerId = 'wrong';
-
-        if ($customerFactory) {
-            $customerId = $customerFactory($this, $org, $user)->getKey();
-        }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                query assets($customer_id: ID!) {
-                    assets(where:{ customer_id: { equal: $customer_id } }) {
+                query assets($where: SearchByConditionAssetsQuery) {
+                    assets(where: $where) {
                         id
                         oem_id
                         product_id
@@ -114,6 +111,38 @@ class AssetsTest extends TestCase {
                             name
                             assets_count
                             locations_count
+                            locations {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
+                            }
+                            contacts_count
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            changed_at
+                            synced_at
+                        }
+                        reseller_id
+                        reseller {
+                            id
+                            name
+                            customers_count
+                            locations_count
+                            assets_count
                             locations {
                                 location_id
                                 location {
@@ -267,7 +296,7 @@ class AssetsTest extends TestCase {
                         changed_at
                         synced_at
                     }
-                    assetsAggregated(where:{ customer_id: { equal: $customer_id } }) {
+                    assetsAggregated(where: $where) {
                         count
                         groups(groupBy: {product_id: asc}) {
                             key
@@ -278,7 +307,7 @@ class AssetsTest extends TestCase {
                         }
                     }
                 }
-            ', ['customer_id' => $customerId])
+            ', ['where' => $where])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -299,8 +328,8 @@ class AssetsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('assets'),
                         [],
-                        static function (TestCase $test, Organization $organization): Customer {
-                            return Customer::factory()->create();
+                        static function (): array {
+                            return [];
                         },
                     ],
                 ]),
@@ -321,7 +350,7 @@ class AssetsTest extends TestCase {
                                     'product_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'location_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'type_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                    'customer_id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'customer_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'serial_number'       => '#PRODUCT_SERIAL_323',
                                     'nickname'            => 'nickname123',
                                     'contacts_count'      => 1,
@@ -358,10 +387,10 @@ class AssetsTest extends TestCase {
                                         'longitude' => -2.26318359,
                                     ],
                                     'customer'            => [
-                                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'locations'       => [
                                             [
                                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -377,7 +406,7 @@ class AssetsTest extends TestCase {
                                                 'types'       => [],
                                             ],
                                         ],
-                                        'contacts_count'  => 1,
+                                        'contacts_count'  => 0,
                                         'contacts'        => [
                                             [
                                                 'name'        => 'contact1',
@@ -388,13 +417,40 @@ class AssetsTest extends TestCase {
                                         'changed_at'      => '2021-10-19T10:15:00+00:00',
                                         'synced_at'       => '2021-10-19T10:25:00+00:00',
                                     ],
+                                    'reseller_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'reseller'            => [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'name'            => 'reseller1',
+                                        'customers_count' => 0,
+                                        'locations_count' => 0,
+                                        'assets_count'    => 0,
+                                        'locations'       => [
+                                            [
+                                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                'location'    => [
+                                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                    'state'     => 'state1',
+                                                    'postcode'  => '19911',
+                                                    'line_one'  => 'line_one_data',
+                                                    'line_two'  => 'line_two_data',
+                                                    'latitude'  => 47.91634204,
+                                                    'longitude' => -2.26318359,
+                                                ],
+                                                'types'       => [],
+                                            ],
+                                        ],
+                                        'contacts_count'  => 0,
+                                        'contacts'        => [],
+                                        'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                        'synced_at'       => '2021-10-19T10:25:00+00:00',
+                                    ],
                                     'warranty_end'        => '2022-01-01',
                                     'warranty_changed_at' => '2021-10-19T10:25:00+00:00',
                                     'warranties'          => [
                                         [
                                             'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                             'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                            'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                            'customer_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                             'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                             'start'         => '2021-01-01',
                                             'end'           => '2022-01-01',
@@ -415,10 +471,10 @@ class AssetsTest extends TestCase {
                                                 'sku'    => 'SKU#123',
                                             ],
                                             'customer'      => [
-                                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'name'            => 'name aaa',
                                                 'assets_count'    => 0,
-                                                'locations_count' => 1,
+                                                'locations_count' => 0,
                                                 'locations'       => [
                                                     [
                                                         'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -434,7 +490,7 @@ class AssetsTest extends TestCase {
                                                         'types'       => [],
                                                     ],
                                                 ],
-                                                'contacts_count'  => 1,
+                                                'contacts_count'  => 0,
                                                 'contacts'        => [
                                                     [
                                                         'name'        => 'contact1',
@@ -449,13 +505,13 @@ class AssetsTest extends TestCase {
                                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'name'            => 'reseller1',
                                                 'customers_count' => 0,
-                                                'locations_count' => 1,
+                                                'locations_count' => 0,
                                                 'assets_count'    => 0,
                                                 'locations'       => [
                                                     [
-                                                        'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                         'location'    => [
-                                                            'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                             'state'     => 'state1',
                                                             'postcode'  => '19911',
                                                             'line_one'  => 'line_one_data',
@@ -525,7 +581,7 @@ class AssetsTest extends TestCase {
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): Customer {
+                        static function (TestCase $test, Organization $org): array {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -548,6 +604,31 @@ class AssetsTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'              => $org,
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 0,
+                                'contacts_count'  => 0,
+                                'assets_count'    => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
+                            ]);
+                            $customer = Customer::factory()
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->create([
+                                    'id'              => $org,
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'contacts_count'  => 0,
+                                    'locations_count' => 0,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
+                                ]);
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -557,45 +638,22 @@ class AssetsTest extends TestCase {
                                 'latitude'  => '47.91634204',
                                 'longitude' => '-2.26318359',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id'              => $organization,
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'contacts_count'  => 0,
-                                'assets_count'    => 0,
-                                'changed_at'      => '2021-10-19 10:15:00',
-                                'synced_at'       => '2021-10-19 10:25:00',
-                            ]);
-
-                            $location->resellers()->attach($reseller);
-
-                            $customer = Customer::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'assets_count'    => 0,
-                                    'contacts_count'  => 1,
-                                    'locations_count' => 1,
-                                    'changed_at'      => '2021-10-19 10:15:00',
-                                    'synced_at'       => '2021-10-19 10:25:00',
-                                ]);
 
                             ResellerCustomer::factory()->create([
-                                'customer_id' => $customer,
                                 'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                            ]);
+
+                            ResellerLocation::factory()->create([
+                                'reseller_id' => $reseller,
+                                'location_id' => $location,
                             ]);
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
                                 'location_id' => $location,
                             ]);
 
-                            // Location belongs to
+                            // Location belongs to Asset
                             $assetLocation = Location::factory()->create([
                                 'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                 'state'     => 'state1',
@@ -606,12 +664,8 @@ class AssetsTest extends TestCase {
                                 'longitude' => '-2.26318359',
                             ]);
 
-                            ResellerLocation::factory()->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $assetLocation,
-                            ]);
-
                             $assetLocation->resellers()->attach($reseller);
+                            $assetLocation->customers()->attach($customer);
 
                             // Service Group/Level
                             $serviceGroup = ServiceGroup::factory()->create([
@@ -633,7 +687,7 @@ class AssetsTest extends TestCase {
                             $documentType = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ]);
-                            $document     = Document::factory()->create([
+                            $document     = Document::factory()->ownedBy($org)->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'type_id'     => $documentType,
                                 'reseller_id' => $reseller,
@@ -659,6 +713,7 @@ class AssetsTest extends TestCase {
                             $asset = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
+                                ->for($reseller)
                                 ->for($customer)
                                 ->for($type)
                                 ->for($assetLocation)
@@ -678,7 +733,6 @@ class AssetsTest extends TestCase {
                                 ])
                                 ->create([
                                     'id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'reseller_id'         => $reseller,
                                     'serial_number'       => '#PRODUCT_SERIAL_323',
                                     'nickname'            => 'nickname123',
                                     'warranty_end'        => '2022-01-01',
@@ -705,9 +759,12 @@ class AssetsTest extends TestCase {
 
                             Asset::factory()->create([
                                 'reseller_id' => $reseller,
+                                'customer_id' => $customer,
                             ]);
 
-                            return $customer;
+                            return [
+                                'id' => ['equal' => $asset->getKey()],
+                            ];
                         },
                     ],
                 ]),

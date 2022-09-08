@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Customer;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Customer;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\User;
 use App\Services\DataLoader\Jobs\CustomerSync;
 use Closure;
@@ -13,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -55,14 +54,7 @@ class SyncTest extends TestCase {
         if ($prepare) {
             $id = $prepare($this, $org, $user);
         } elseif ($org) {
-            $reseller = Reseller::factory()->create([
-                'id' => $org->getKey(),
-            ]);
-            $customer = Customer::factory()->create([
-                'id' => $id,
-            ]);
-
-            $reseller->customers()->attach($customer);
+            $id = Customer::factory()->ownedBy($org)->create()->getKey();
         } else {
             // empty
         }
@@ -94,7 +86,7 @@ class SyncTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('customer'),
+            new AuthOrgResellerDataProvider('customer'),
             new OrgUserDataProvider('customer', [
                 'customers-sync',
             ]),
@@ -107,13 +99,8 @@ class SyncTest extends TestCase {
                             'warranty' => true,
                         ]),
                     ),
-                    static function (TestCase $test, Organization $organization, User $user): string {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $customer = Customer::factory()->create();
-
-                        $reseller->customers()->attach($customer);
+                    static function (TestCase $test, Organization $org): string {
+                        $customer = Customer::factory()->ownedBy($org)->create();
 
                         $test->override(
                             CustomerSync::class,

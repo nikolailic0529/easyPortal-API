@@ -19,6 +19,10 @@ enum CachedMode {
     Threshold
 }
 
+enum OrganizationType {
+    Reseller
+}
+
 enum SearchByTypeFlag {
     yes
 }
@@ -3730,6 +3734,12 @@ input SearchByConditionOrganizationsQuery {
     """
     Property condition.
     """
+    type: SearchByEnumOrganizationType
+    @searchByProperty
+
+    """
+    Property condition.
+    """
     website_url: SearchByScalarUrlOrNull
     @searchByProperty
 }
@@ -4248,6 +4258,35 @@ input SearchByConditionUsersQuery {
     """
     not: SearchByConditionUsersQuery
     @searchByOperatorNot
+}
+
+"""
+Available operators for `enum OrganizationType` (only one operator allowed at a time).
+"""
+input SearchByEnumOrganizationType {
+    """
+    Equal (`=`).
+    """
+    equal: OrganizationType
+    @searchByOperatorEqual
+
+    """
+    Within a set of values.
+    """
+    in: [OrganizationType!]
+    @searchByOperatorIn
+
+    """
+    Not Equal (`!=`).
+    """
+    notEqual: OrganizationType
+    @searchByOperatorNotEqual
+
+    """
+    Outside a set of values.
+    """
+    notIn: [OrganizationType!]
+    @searchByOperatorNotIn
 }
 
 """
@@ -7062,6 +7101,7 @@ type Asset {
     status: Status
     @relation
 
+    status_id: ID
     synced_at: DateTime!
 
     tags: [Tag!]!
@@ -7979,14 +8019,15 @@ implements
 
 type CustomerChangeRequestMutation {
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["requests-customer-change"])> User must be authenticated and have any of these permissions.
     """
     create(
         input: MessageInput!
     ): CustomerChangeRequestCreatePayload!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["requests-customer-change"]
     )
@@ -7997,24 +8038,26 @@ type CustomerChangeRequestMutation {
 
 type CustomerMutation {
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe> User must be authenticated.
     """
     changeRequest: CustomerChangeRequestMutation
-    @authOrg
+    @authOrgReseller
     @authMe
     @mutation(
         relation: "changeRequests"
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-sync"])> User must be authenticated and have any of these permissions.
     """
     sync: CustomerSyncPayload
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-sync"]
     )
@@ -8696,12 +8739,13 @@ type Map {
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customers: [MapPoint!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -8927,7 +8971,8 @@ type Mutation {
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe> User must be authenticated.
     """
@@ -8935,7 +8980,7 @@ type Mutation {
         id: ID
         @eq
     ): CustomerMutation
-    @authOrg
+    @authOrgReseller
     @authMe
     @mutation(
         model: "App\\Models\\Customer"
@@ -9528,6 +9573,7 @@ type Org {
     )
 
     timezone: String
+    type: OrganizationType!
     website_url: Url
 }
 
@@ -9889,6 +9935,7 @@ type Organization {
     )
 
     timezone: String
+    type: OrganizationType!
 
     """
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -10698,7 +10745,8 @@ type Query {
     """
     Customer.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10706,7 +10754,7 @@ type Query {
         id: ID!
         @eq
     ): Customer
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10715,7 +10763,8 @@ type Query {
     """
     List of all possible customer location types.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10723,7 +10772,7 @@ type Query {
         where: SearchByConditionCustomerLocationTypesQuery
         @searchBy
     ): [Type!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10735,7 +10784,8 @@ type Query {
     """
     List of all possible customer statuses.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10743,7 +10793,7 @@ type Query {
         where: SearchByConditionCustomerStatusesQuery
         @searchBy
     ): [Status!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10755,7 +10805,8 @@ type Query {
     """
     List of Customers.
 
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10781,14 +10832,15 @@ type Query {
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): [Customer!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10796,7 +10848,7 @@ type Query {
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): CustomersAggregated
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -10805,7 +10857,8 @@ type Query {
     )
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10831,14 +10884,15 @@ type Query {
         search: SearchString!
         @search
     ): [Customer!]!
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
     @paginated
 
     """
-    @require <authOrg> Authenticated user must be a member of the current organization.
+    @require <authOrgReseller> Authenticated user must be a member of the current organization, and
+    the organization must be a Reseller (or a root organization).
 
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
@@ -10846,7 +10900,7 @@ type Query {
         search: SearchString!
         @search
     ): CustomersSearchAggregated
-    @authOrg
+    @authOrgReseller
     @authMe(
         permissions: ["customers-view"]
     )
@@ -12342,6 +12396,15 @@ repeatable on
 Authenticated user must be a member of the current organization.
 """
 directive @authOrg
+on
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+Authenticated user must be a member of the current organization, and
+the organization must be a Reseller (or a root organization).
+"""
+directive @authOrgReseller
 on
     | FIELD_DEFINITION
     | OBJECT

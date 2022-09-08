@@ -3,6 +3,7 @@
 namespace App\Services\Organization\Listeners;
 
 use App\Events\Subscriber;
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer\Normalizer;
@@ -82,8 +83,9 @@ class OrganizationUpdater implements Subscriber {
                 $organization->restore();
             }
         } else {
-            $organization     = new Organization();
-            $organization->id = $reseller->getKey();
+            $organization       = new Organization();
+            $organization->id   = $reseller->getKey();
+            $organization->type = OrganizationType::reseller();
         }
 
         // Update

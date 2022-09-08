@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\Providers\NullProvider;
-use Tests\Providers\Organizations\OrganizationProvider;
+use Tests\Providers\Organizations\ResellerOrganizationProvider;
 use Tests\Providers\Users\RootUserProvider;
 
 /**
@@ -17,14 +17,14 @@ use Tests\Providers\Users\RootUserProvider;
 class AuthOrgDataProvider extends ArrayDataProvider {
     public function __construct(string $root, string $id = null) {
         parent::__construct([
-            'no organization is not allowed' => [
+            'organization=null is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new NullProvider(),
                 new RootUserProvider(),
             ],
-            'normal organization is allowed' => [
+            'organization=reseller is allowed' => [
                 new UnknownValue(),
-                new OrganizationProvider($id),
+                new ResellerOrganizationProvider($id),
             ],
         ]);
     }

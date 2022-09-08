@@ -3,8 +3,10 @@
 namespace App\Services\Organization\Testing\Database;
 
 use App\Models\Customer;
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Services\Organization\Eloquent\OwnedByCustomer;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByScope;
@@ -12,10 +14,11 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use LogicException;
+
 use function count;
 
 /**
- * @template TModel of \Illuminate\Database\Eloquent\Model
+ * @template TModel of Model
  *
  * @mixin Factory
  */
@@ -44,10 +47,22 @@ trait OwnedBy {
 
         if ($model instanceof OwnedByOrganization) {
             $owner = $org;
-        } elseif ($model instanceof OwnedByReseller) {
-            $owner = $this->getOwner(Reseller::class, $org);
         } else {
-            // empty
+            switch ($org->type) {
+                case OrganizationType::reseller():
+                    if ($model instanceof OwnedByReseller) {
+                        $owner = $this->getOwner(Reseller::class, $org);
+                    }
+                    break;
+                case OrganizationType::customer():
+                    if ($model instanceof OwnedByCustomer) {
+                        $owner = $this->getOwner(Customer::class, $org);
+                    }
+                    break;
+                default:
+                    // empty
+                    break;
+            }
         }
 
         if ($owner === null) {

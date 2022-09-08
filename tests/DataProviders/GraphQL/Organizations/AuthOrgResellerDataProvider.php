@@ -1,20 +1,26 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\DataProviders\Http\Organizations;
+namespace Tests\DataProviders\GraphQL\Organizations;
 
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
+use App\GraphQL\Directives\Definitions\AuthOrgResellerDirective;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\Providers\NullProvider;
 use Tests\Providers\Organizations\ResellerOrganizationProvider;
+use Tests\Providers\Users\RootUserProvider;
 
-class AuthOrgDataProvider extends ArrayDataProvider {
-    public function __construct(string $id = null) {
+/**
+ * @see AuthOrgResellerDirective
+ */
+class AuthOrgResellerDataProvider extends ArrayDataProvider {
+    public function __construct(string $root, string $id = null) {
         parent::__construct([
             'organization=null is not allowed' => [
-                new ExpectedFinal(new Unauthorized()),
+                new ExpectedFinal(new GraphQLUnauthorized($root)),
                 new NullProvider(),
+                new RootUserProvider(),
             ],
             'organization=reseller is allowed' => [
                 new UnknownValue(),

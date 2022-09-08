@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries\Contracts;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
@@ -174,9 +173,6 @@ class ContractEntriesAggregatedTest extends TestCase {
             $type          = Type::factory()->create([
                 'id' => 'c0cce0e0-0719-4dbd-ab09-98c0cab8f120',
             ]);
-            $reseller      = Reseller::factory()->create([
-                'id' => $org,
-            ]);
             $serviceGroupA = ServiceGroup::factory()->create([
                 'id'   => 'b3fb4b06-e10e-4075-9ab2-4ccf83ae9536',
                 'sku'  => 'SKU#A',
@@ -187,9 +183,8 @@ class ContractEntriesAggregatedTest extends TestCase {
                 'sku'  => 'SKU#B',
                 'name' => 'B',
             ]);
-            $document      = Document::factory()->create([
-                'reseller_id' => $reseller,
-                'type_id'     => $type,
+            $document      = Document::factory()->ownedBy($org)->create([
+                'type_id' => $type,
             ]);
 
             DocumentEntry::factory()->create([
@@ -304,9 +299,6 @@ class ContractEntriesAggregatedTest extends TestCase {
             $type          = Type::factory()->create([
                 'id' => 'c0cce0e0-0719-4dbd-ab09-98c0cab8f120',
             ]);
-            $reseller      = Reseller::factory()->create([
-                'id' => $org,
-            ]);
             $serviceLevelA = ServiceLevel::factory()->create([
                 'id'   => 'b3fb4b06-e10e-4075-9ab2-4ccf83ae9536',
                 'sku'  => 'SKU#A',
@@ -317,9 +309,8 @@ class ContractEntriesAggregatedTest extends TestCase {
                 'sku'  => 'SKU#B',
                 'name' => 'B',
             ]);
-            $document      = Document::factory()->create([
-                'reseller_id' => $reseller,
-                'type_id'     => $type,
+            $document      = Document::factory()->ownedBy($org)->create([
+                'type_id' => $type,
             ]);
 
             DocumentEntry::factory()->create([

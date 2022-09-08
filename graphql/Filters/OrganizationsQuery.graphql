@@ -1,5 +1,6 @@
 input OrganizationsQuery {
     id: ID!
+    type: OrganizationType!
     name: String!
     website_url: Url
     email: Email

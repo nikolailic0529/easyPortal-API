@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Asset;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\User;
 use App\Services\DataLoader\Jobs\AssetSync;
 use Closure;
@@ -55,11 +54,8 @@ class SyncTest extends TestCase {
         if ($prepare) {
             $id = $prepare($this, $org, $user);
         } elseif ($org) {
-            Asset::factory()->create([
-                'id'          => $id,
-                'reseller_id' => Reseller::factory()->create([
-                    'id' => $org->getKey(),
-                ]),
+            Asset::factory()->ownedBy($org)->create([
+                'id' => $id,
             ]);
         } else {
             // empty
@@ -104,12 +100,7 @@ class SyncTest extends TestCase {
                         ]),
                     ),
                     static function (self $test, Organization $organization): string {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $asset    = Asset::factory()->create([
-                            'reseller_id' => $reseller,
-                        ]);
+                        $asset = Asset::factory()->ownedBy($organization)->create();
 
                         $test->override(AssetSync::class, static function (MockInterface $mock) use ($asset): void {
                             $mock->makePartial();

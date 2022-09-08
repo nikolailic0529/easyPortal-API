@@ -2,6 +2,7 @@
 
 namespace App\Services\Organization;
 
+use App\Models\Enums\OrganizationType;
 use App\Models\Organization;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\Exceptions\UnknownOrganization;
@@ -32,6 +33,10 @@ abstract class OrganizationProvider implements HasLocalePreference, HasTimezoneP
 
     public function isRoot(): bool {
         return false;
+    }
+
+    public function getType(): OrganizationType {
+        return $this->get()->type;
     }
 
     public function preferredLocale(): ?string {

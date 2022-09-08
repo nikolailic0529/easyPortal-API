@@ -197,9 +197,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "54f7dd6b-5234-4760-947d-c95e10751e18",
+            "Reseller",
             "Schiller-Graham",
             "2022-02-02 00:00:12",
             "2022-02-02 00:00:12"
@@ -387,9 +388,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "bd0eec0c-4d48-4840-9ce0-237316c727e1",
+            "Reseller",
             "Carroll Group",
             "2022-02-02 00:00:28",
             "2022-02-02 00:00:28"
@@ -569,9 +571,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0917f385-4b97-4313-b255-043ad94683a7",
+            "Reseller",
             "Goodwin, Littel and Kuphal",
             "2022-02-02 00:00:43",
             "2022-02-02 00:00:43"
@@ -711,9 +714,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d152bb2f-deae-4106-aac2-6d1aa1517232",
+            "Reseller",
             "Gleason Group",
             "2022-02-02 00:00:55",
             "2022-02-02 00:00:55"
@@ -861,9 +865,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "6a3f5b75-5dc9-4517-aa18-a410644d33fb",
+            "Reseller",
             "Swaniawski, Pagac and Towne",
             "2022-02-02 00:01:08",
             "2022-02-02 00:01:08"
@@ -1069,9 +1074,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "d5306966-ab8b-4893-bc85-d7722998b900",
+            "Reseller",
             "Tromp-Ullrich",
             "2022-02-02 00:01:25",
             "2022-02-02 00:01:25"
@@ -1243,9 +1249,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "a77f6f96-9c33-4e08-9838-ea291d572138",
+            "Reseller",
             "Runolfsdottir-Roob",
             "2022-02-02 00:01:40",
             "2022-02-02 00:01:40"
@@ -1393,9 +1400,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "3c01bf74-b2b8-437d-8492-75a061282101",
+            "Reseller",
             "Dickens, Considine and Reichert",
             "2022-02-02 00:01:53",
             "2022-02-02 00:01:53"
@@ -1567,9 +1575,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "2d1c8169-8f80-41bd-8d37-e10936d25546",
+            "Reseller",
             "Orn-Gibson",
             "2022-02-02 00:02:08",
             "2022-02-02 00:02:08"
@@ -1741,9 +1750,10 @@
         ]
     },
     {
-        "query": "insert into `organizations` (`id`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "query": "insert into `organizations` (`id`, `type`, `name`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "c017d376-0055-42a9-80d8-ac90cef3f0c5",
+            "Reseller",
             "Rice LLC",
             "2022-02-02 00:02:23",
             "2022-02-02 00:02:23"
