@@ -2,12 +2,11 @@
 
 namespace App\Utils\Eloquent;
 
+use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\Eloquent\ModelHelper as LaraAspModelHelper;
 
 /**
- * @template TModel of Model
- *
- * @extends LaraAspModelHelper<TModel>
+ * @extends LaraAspModelHelper<Model>
  */
 class ModelHelper extends LaraAspModelHelper {
     // empty
