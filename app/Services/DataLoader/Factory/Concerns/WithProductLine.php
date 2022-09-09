@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\ProductLine;
+use App\Models\Data\ProductLine;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\ProductLineResolver;

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\InputTranslationText;

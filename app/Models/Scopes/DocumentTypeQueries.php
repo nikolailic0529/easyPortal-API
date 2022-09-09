@@ -12,7 +12,7 @@ use function app;
  *
  * @mixin Model
  *
- * @template TModel of \App\Models\Document|\App\Models\Type
+ * @template TModel of \App\Models\Document|\App\Models\Data\Type
  *
  * @method Builder<TModel> queryContracts()
  * @method Builder<TModel> queryDocuments()

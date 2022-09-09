@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Data\Oem;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasFiles;
 use App\Models\Relations\HasOemNullable;

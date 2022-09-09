@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries\Map;
 
 use App\GraphQL\Directives\Directives\Cached\ParentValue;
 use App\Models\Asset;
-use App\Models\Location;
+use App\Models\Data\Location;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Expression;

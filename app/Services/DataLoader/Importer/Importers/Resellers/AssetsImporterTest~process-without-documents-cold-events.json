@@ -6,7 +6,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": {
                 "00302c3d-c45a-47f1-a1cb-3168e215bad3": "00302c3d-c45a-47f1-a1cb-3168e215bad3",
                 "0035c89e-0670-41c5-ab94-cca7b94570e3": "0035c89e-0670-41c5-ab94-cca7b94570e3",
@@ -23,7 +23,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": {
                 "00a1c5a6-c861-43e4-90ca-2ca113fbb7ca": "00a1c5a6-c861-43e4-90ca-2ca113fbb7ca",
                 "00b0bf1f-43c3-4a9c-9765-64d867caa48a": "00b0bf1f-43c3-4a9c-9765-64d867caa48a",
@@ -40,7 +40,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": {
                 "010b1ed1-e871-4a26-9474-41dcd094e37d": "010b1ed1-e871-4a26-9474-41dcd094e37d",
                 "01201e25-a4de-4186-a988-2c583786e7ba": "01201e25-a4de-4186-a988-2c583786e7ba",
@@ -57,7 +57,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": {
                 "01418a52-d035-4202-bcce-f750ce3ac059": "01418a52-d035-4202-bcce-f750ce3ac059",
                 "01487898-b607-456c-b4b8-cabd2b5b02cd": "01487898-b607-456c-b4b8-cabd2b5b02cd",
@@ -81,7 +81,7 @@
                 "412e9b0e-95e8-474a-a8e1-4f526886eb55": "412e9b0e-95e8-474a-a8e1-4f526886eb55"
             },
             "App\\Models\\Document": [],
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "2fa7c9a8-3dd2-5e22-8073-42fd33157451": "2fa7c9a8-3dd2-5e22-8073-42fd33157451",
                 "5a7eb8be-0240-5a14-a128-86acb6965218": "5a7eb8be-0240-5a14-a128-86acb6965218",
                 "8a7d5085-4545-5e8d-bfbd-497d486234e5": "8a7d5085-4545-5e8d-bfbd-497d486234e5",

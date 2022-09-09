@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use App\Models\OemGroup;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Normalizer\Normalizer;

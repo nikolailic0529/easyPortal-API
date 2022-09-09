@@ -12,7 +12,7 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "5aa0a4b1-bced-5673-97e3-59163887bf9e": "5aa0a4b1-bced-5673-97e3-59163887bf9e",
                 "591ed88c-0c38-5768-a0e0-a121d945ec5e": "591ed88c-0c38-5768-a0e0-a121d945ec5e",
                 "c66f0b10-fd90-55cd-b281-86bbadb09c15": "c66f0b10-fd90-55cd-b281-86bbadb09c15",
@@ -35,7 +35,7 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "6473071e-dbcd-5557-901b-0774a2148ca0": "6473071e-dbcd-5557-901b-0774a2148ca0",
                 "10116d6d-f04b-5b60-8674-640e94d3133c": "10116d6d-f04b-5b60-8674-640e94d3133c",
                 "2ae4ffe0-f42e-5074-a85b-82986bf7e81c": "2ae4ffe0-f42e-5074-a85b-82986bf7e81c",

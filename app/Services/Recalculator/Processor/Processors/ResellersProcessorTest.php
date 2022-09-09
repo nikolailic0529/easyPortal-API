@@ -4,13 +4,13 @@ namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Location;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
-use App\Models\Type;
 use App\Services\Recalculator\Events\ModelsRecalculated;
 use App\Services\Recalculator\Testing\Helper;
 use Illuminate\Contracts\Debug\ExceptionHandler;

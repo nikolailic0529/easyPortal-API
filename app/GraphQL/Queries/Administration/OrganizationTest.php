@@ -3,8 +3,8 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\Models\ChangeRequest;
-use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Data\Currency;
 use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
 use App\Models\Organization;

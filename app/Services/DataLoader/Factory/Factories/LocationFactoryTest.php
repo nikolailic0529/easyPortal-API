@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Factory\Factories;
 
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Location as LocationModel;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Location as LocationModel;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolver\Resolvers\CountryResolver;

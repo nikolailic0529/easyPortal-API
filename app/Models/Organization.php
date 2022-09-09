@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Audits\Audit;
+use App\Models\Data\Currency;
 use App\Models\Enums\OrganizationType;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasCurrency;

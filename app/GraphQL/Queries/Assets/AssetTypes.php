@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
-use App\Models\Type;
+use App\Models\Data\Type;
 use Illuminate\Database\Eloquent\Builder;
 
 class AssetTypes {

@@ -4,12 +4,12 @@ namespace Database\Factories;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Location;
-use App\Models\Oem;
-use App\Models\Product;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Reseller;
-use App\Models\Status;
-use App\Models\Type;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;

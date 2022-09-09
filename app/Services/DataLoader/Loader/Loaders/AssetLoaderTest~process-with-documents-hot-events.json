@@ -6,7 +6,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": {
                 "00000b7e-e7dc-49ee-8294-e4708b2435e4": "00000b7e-e7dc-49ee-8294-e4708b2435e4"
             }

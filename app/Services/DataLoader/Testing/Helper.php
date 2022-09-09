@@ -3,16 +3,15 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Models\Asset;
-use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Status;
+use App\Models\Data\Type as TypeModel;
 use App\Models\Document as DocumentModel;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
-use App\Models\Status;
-use App\Models\Tag;
-use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\AssetFinder as AssetFinderContract;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
@@ -93,7 +92,7 @@ trait Helper {
         $tags = [];
 
         foreach ($model->tags ?? [] as $tag) {
-            /** @var Tag $tag */
+            /** @var \App\Models\Data\Tag $tag */
             $tags["{$tag->name}"] = [
                 'name' => $tag->name,
             ];
@@ -130,7 +129,7 @@ trait Helper {
 
         if ($coverages) {
             foreach ($coverages as $coverage) {
-                /** @var Coverage $coverage */
+                /** @var \App\Models\Data\Coverage $coverage */
 
                 $result["{$coverage->key}"] = [
                     'key'  => $coverage->key,

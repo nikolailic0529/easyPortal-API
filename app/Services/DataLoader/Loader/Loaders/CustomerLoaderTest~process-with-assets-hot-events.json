@@ -8,7 +8,7 @@
                 "03ee438b-b478-4b4b-86bd-a495f3ab2880": "03ee438b-b478-4b4b-86bd-a495f3ab2880"
             },
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

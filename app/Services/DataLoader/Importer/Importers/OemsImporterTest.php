@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Models\Oem;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\I18n\Storages\AppTranslations;
 use App\Utils\Eloquent\Model;

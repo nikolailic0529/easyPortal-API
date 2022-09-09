@@ -2,7 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Tag;
+use App\Models\Data\Tag;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;

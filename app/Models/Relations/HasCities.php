@@ -2,7 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\City;
+use App\Models\Data\City;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

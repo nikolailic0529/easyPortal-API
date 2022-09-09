@@ -2446,7 +2446,7 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Tag\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Tag\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Asset\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Tag\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Tag\\> given\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -2521,16 +2521,6 @@ parameters:
 			path: app/Models/ChangeRequest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\City\\:\\:country\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/City.php
-
-		-
-			message: "#^Method App\\\\Models\\\\City\\:\\:customers\\(\\) return type with generic class Staudenmeir\\\\EloquentHasManyDeep\\\\HasManyDeep does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/City.php
-
-		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
 			count: 1
 			path: app/Models/Contact.php
@@ -2546,64 +2536,9 @@ parameters:
 			path: app/Models/Contact.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Contact\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Type\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Contact\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
 			count: 1
 			path: app/Models/Contact.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Country\\:\\:customers\\(\\) return type with generic class Staudenmeir\\\\EloquentHasManyDeep\\\\HasManyDeep does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Country.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Country\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Country.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Country\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Country.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Country\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Country.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Coverage\\:\\:assets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Coverage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Coverage\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Coverage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Coverage\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Coverage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Coverage\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Coverage.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Currency\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Currency.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Currency\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Currency.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Currency\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Currency.php
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
@@ -2651,7 +2586,7 @@ parameters:
 			path: app/Models/Customer.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Customer\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
 			count: 1
 			path: app/Models/Customer.php
 
@@ -2676,7 +2611,7 @@ parameters:
 			path: app/Models/CustomerLocation.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\CustomerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Type\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\CustomerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
 			count: 1
 			path: app/Models/CustomerLocation.php
 
@@ -2694,6 +2629,181 @@ parameters:
 			message: "#^PHPDoc tag @var for variable \\$model contains unresolvable type\\.$#"
 			count: 1
 			path: app/Models/CustomerTest.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\City\\:\\:customers\\(\\) return type with generic class Staudenmeir\\\\EloquentHasManyDeep\\\\HasManyDeep does not specify its types\\: TRelatedModel$#"
+			count: 1
+			path: app/Models/Data/City.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Country\\:\\:customers\\(\\) return type with generic class Staudenmeir\\\\EloquentHasManyDeep\\\\HasManyDeep does not specify its types\\: TRelatedModel$#"
+			count: 1
+			path: app/Models/Data/Country.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Country\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Country.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Country\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Country.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Country\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Country.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Coverage\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Coverage.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Coverage\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Coverage.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Coverage\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Coverage.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Currency\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Currency.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Currency\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Currency.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Currency\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Currency.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Language\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Language.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Language\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Language.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Language\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Language.php
+
+		-
+			message: "#^Anonymous function should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Location.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Data\\\\Location\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/Data/Location.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
+			count: 2
+			path: app/Models/Data/Location.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Oem\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Oem.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Oem\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Oem.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Oem\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Oem.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Data\\\\Product\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			count: 1
+			path: app/Models/Data/Product.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceGroup\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/ServiceGroup.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceGroup\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/ServiceGroup.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceGroup\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/ServiceGroup.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceLevel\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/ServiceLevel.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceLevel\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/ServiceLevel.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\ServiceLevel\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/ServiceLevel.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Status\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Status.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Status\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Status.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Status\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Status.php
+
+		-
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			count: 2
+			path: app/Models/Data/Status.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Type\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: app/Models/Data/Type.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Type\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app/Models/Data/Type.php
+
+		-
+			message: "#^Method App\\\\Models\\\\Data\\\\Type\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
+			count: 2
+			path: app/Models/Data/Type.php
+
+		-
+			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
+			count: 2
+			path: app/Models/Data/Type.php
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Distributor\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
@@ -2761,7 +2871,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Document\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -2784,46 +2894,6 @@ parameters:
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Invitation\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Invitation.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Language\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Language.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Language\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Language.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Language\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Language.php
-
-		-
-			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:city\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Location.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Location\\:\\:country\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Location.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Location\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Location.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
-			count: 2
-			path: app/Models/Location.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:performInsert\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
@@ -2876,21 +2946,6 @@ parameters:
 			path: app/Models/NoteTest.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Oem\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Oem.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Oem\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Oem.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Oem\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Oem.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Organization\\:\\:audits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -2939,11 +2994,6 @@ parameters:
 			message: "#^Method App\\\\Models\\\\Permission\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
 			count: 2
 			path: app/Models/Permission.php
-
-		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Product\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
-			count: 1
-			path: app/Models/Product.php
 
 		-
 			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<\\$this\\(App\\\\Models\\\\QuoteRequest\\)\\> and Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany will always evaluate to true\\.$#"
@@ -3036,7 +3086,7 @@ parameters:
 			path: app/Models/Reseller.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\Reseller\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Status\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> given\\.$#"
 			count: 1
 			path: app/Models/Reseller.php
 
@@ -3061,7 +3111,7 @@ parameters:
 			path: app/Models/ResellerLocation.php
 
 		-
-			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\ResellerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Type\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\ResellerLocation\\:\\:syncBelongsToMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\Model\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\>, array\\<App\\\\Models\\\\Data\\\\Type\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Type\\> given\\.$#"
 			count: 1
 			path: app/Models/ResellerLocation.php
 
@@ -3091,119 +3141,24 @@ parameters:
 			path: app/Models/Role.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeContractScope\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeContractScope.php
 
 		-
-			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\>\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeQuoteType.php
 
 		-
-			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Document\\|App\\\\Models\\\\Type\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
+			message: "#^Parameter \\#2 \\$model \\(TModel of App\\\\Models\\\\Data\\\\Type\\|App\\\\Models\\\\Document\\) of method App\\\\Models\\\\Scopes\\\\DocumentTypeQuoteType\\:\\:apply\\(\\) should be contravariant with parameter \\$model \\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"
 			count: 1
 			path: app/Models/Scopes/DocumentTypeQuoteType.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/ServiceGroup.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ServiceGroup.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/ServiceGroup.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceGroup\\:\\:levels\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/ServiceGroup.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/ServiceLevel.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/ServiceLevel.php
-
-		-
-			message: "#^Method App\\\\Models\\\\ServiceLevel\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/ServiceLevel.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:contracts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:customers\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Status\\:\\:quotes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Status.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
-			count: 2
-			path: app/Models/Status.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Tag\\:\\:assets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Tag.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:getTranslatableProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: app/Models/Type.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Type\\:\\:getTranslatedProperty\\(\\) should return string but returns mixed\\.$#"
-			count: 2
-			path: app/Models/Type.php
-
-		-
-			message: "#^Parameter \\#1 \\$column of method Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\:\\:where\\(\\) expects array\\<int\\|string, mixed\\>\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: void\\)\\|\\(Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Document\\>\\)\\|Illuminate\\\\Database\\\\Query\\\\Expression\\|string, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<App\\\\Models\\\\Document\\> given\\.$#"
-			count: 2
-			path: app/Models/Type.php
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
@@ -3581,7 +3536,7 @@ parameters:
 			path: app/Services/DataLoader/Exceptions/ImportError.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
@@ -3621,7 +3576,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Factory/Concerns/WithContactsTest.php
 
@@ -3666,7 +3621,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithKpiTest.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Factory/Concerns/WithLocationsTest.php
 
@@ -3701,7 +3656,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Concerns/WithResellerTest.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Status will always evaluate to true\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with App\\\\Models\\\\Data\\\\Status will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithStatusTest.php
 
@@ -3711,7 +3666,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/DependentModelFactory.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -3721,7 +3676,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\AssetWarranty\\:\\:\\$serviceLevels \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\ServiceLevel\\>\\) does not accept array\\<int, App\\\\Models\\\\ServiceLevel\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\AssetWarranty\\:\\:\\$serviceLevels \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\ServiceLevel\\>\\) does not accept array\\<int, App\\\\Models\\\\Data\\\\ServiceLevel\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactory.php
 
@@ -3736,17 +3691,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$key on App\\\\Models\\\\Status\\|null\\.$#"
+			message: "#^Cannot access property \\$key on App\\\\Models\\\\Data\\\\Status\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$key on App\\\\Models\\\\Type\\|null\\.$#"
+			message: "#^Cannot access property \\$key on App\\\\Models\\\\Data\\\\Type\\|null\\.$#"
 			count: 4
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$sku on App\\\\Models\\\\ServiceGroup\\|null\\.$#"
+			message: "#^Cannot access property \\$sku on App\\\\Models\\\\Data\\\\ServiceGroup\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
@@ -3841,7 +3796,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Customer\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactory.php
 
@@ -3901,7 +3856,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
-			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
+			message: "#^Access to an undefined property M of App\\\\Models\\\\Contact\\|App\\\\Models\\\\CustomerLocation\\|App\\\\Models\\\\Data\\\\Location\\|App\\\\Models\\\\ResellerLocation\\:\\:\\$types\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactory.php
 
@@ -3996,12 +3951,12 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CityFactory given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CityFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\CountryFactory given\\.$#"
+			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCountry\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CountryFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
@@ -4016,7 +3971,7 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Status\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
 
@@ -4071,7 +4026,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
@@ -4131,7 +4086,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
@@ -4311,7 +4266,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Location\\|array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
 
@@ -5131,12 +5086,12 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
@@ -6146,7 +6101,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessor.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) does not accept array\\{App\\\\Models\\\\Status\\}\\.$#"
+			message: "#^Property App\\\\Models\\\\Document\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\{App\\\\Models\\\\Data\\\\Status\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/AssetsProcessorTest.php
 
@@ -6171,7 +6126,7 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/LocationsChunkData.php
 
 		-
-			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$items of class App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsChunkData constructor expects array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
@@ -6181,12 +6136,12 @@ parameters:
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$customersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationCustomer\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
 		-
-			message: "#^Property App\\\\Models\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationReseller\\>\\.$#"
+			message: "#^Property App\\\\Models\\\\Data\\\\Location\\:\\:\\$resellersPivots \\(Illuminate\\\\Support\\\\Collection\\<string, TPivot of App\\\\Utils\\\\Eloquent\\\\Pivot\\>\\) does not accept array\\<int\\|string, App\\\\Models\\\\LocationReseller\\>\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/Processors/LocationsProcessor.php
 
@@ -6231,7 +6186,7 @@ parameters:
 			path: app/Services/Recalculator/Queue/Jobs/CustomersRecalculator.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\LocationsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Location, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
+			message: "#^Method App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\LocationsRecalculator\\:\\:makeProcessor\\(\\) should return App\\\\Utils\\\\Processor\\\\EloquentProcessor\\<App\\\\Models\\\\Data\\\\Location, null, App\\\\Utils\\\\Processor\\\\EloquentState\\<App\\\\Models\\\\Data\\\\Location\\>\\> but returns App\\\\Services\\\\Recalculator\\\\Processor\\\\Processors\\\\LocationsProcessor\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Queue/Jobs/LocationsRecalculator.php
 
@@ -6281,12 +6236,12 @@ parameters:
 			path: app/Services/Recalculator/Queue/Tasks/Recalculate.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$processors \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Processor\\\\Processor\\<Illuminate\\\\Database\\\\Eloquent\\\\Model, App\\\\Services\\\\Recalculator\\\\Processor\\\\ChunkData\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, App\\\\Utils\\\\Processor\\\\EloquentState\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\AssetsProcessor', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\ResellersProcessor', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\CustomersProcessor', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Processor\\\\\\\\Processors\\\\\\\\LocationsProcessor'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 
 		-
-			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\Recalculator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\AssetsRecalculator', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\ResellersRecalculator', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\CustomersRecalculator', App\\\\Models\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\LocationsRecalculator'\\}\\.$#"
+			message: "#^Static property App\\\\Services\\\\Recalculator\\\\Service\\:\\:\\$recalculable \\(array\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<App\\\\Services\\\\Recalculator\\\\Queue\\\\Jobs\\\\Recalculator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\>\\) does not accept default value of type array\\{App\\\\Models\\\\Asset\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\AssetsRecalculator', App\\\\Models\\\\Reseller\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\ResellersRecalculator', App\\\\Models\\\\Customer\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\CustomersRecalculator', App\\\\Models\\\\Data\\\\Location\\: 'App\\\\\\\\Services\\\\\\\\Recalculator\\\\\\\\Queue\\\\\\\\Jobs\\\\\\\\LocationsRecalculator'\\}\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Service.php
 
@@ -6521,7 +6476,7 @@ parameters:
 			path: app/Services/Search/Eloquent/Searchable.php
 
 		-
-			message: "#^Call to an undefined method App\\\\Models\\\\ServiceGroup\\:\\:toSearchableArray\\(\\)\\.$#"
+			message: "#^Call to an undefined method App\\\\Models\\\\Data\\\\ServiceGroup\\:\\:toSearchableArray\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Eloquent/SearchableImplTest.php
 
@@ -7111,12 +7066,12 @@ parameters:
 			path: app/Services/Settings/Types/BooleanType.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should return Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentStatus.php
 
 		-
-			message: "#^Return type \\(Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Status\\>\\) of method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should be compatible with return type \\(array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\) of method App\\\\Services\\\\Settings\\\\Types\\\\Type\\:\\:getValues\\(\\)$#"
+			message: "#^Return type \\(Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) of method App\\\\Services\\\\Settings\\\\Types\\\\DocumentStatus\\:\\:getValues\\(\\) should be compatible with return type \\(array\\|Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\) of method App\\\\Services\\\\Settings\\\\Types\\\\Type\\:\\:getValues\\(\\)$#"
 			count: 1
 			path: app/Services/Settings/Types/DocumentStatus.php
 
@@ -7696,29 +7651,9 @@ parameters:
 			path: database/factories/ChangeRequestFactory.php
 
 		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CityFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\City\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\City\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/CityFactory.php
-
-		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ContactFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Contact\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Contact\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/ContactFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CountryFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Country\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Country\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/CountryFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CoverageFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Coverage\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Coverage\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/CoverageFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CurrencyFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Currency\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Currency\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/CurrencyFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Customer\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Customer\\>\\:\\:\\$model\\.$#"
@@ -7729,6 +7664,91 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerLocationFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\CustomerLocation\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\CustomerLocation\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/CustomerLocationFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\CityFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\City\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\City\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/CityFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\CountryFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Country\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Country\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/CountryFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\CoverageFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Coverage\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Coverage\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/CoverageFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\CurrencyFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Currency\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Currency\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/CurrencyFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\LanguageFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Language\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Language\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/LanguageFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Location\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/LocationFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\OemFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Oem\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Oem\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/OemFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\ProductFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Product\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Product\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/ProductFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\ProductGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\ProductGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\ProductGroup\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/ProductGroupFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\ProductLineFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\ProductLine\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\ProductLine\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/ProductLineFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\PspFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Psp\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Psp\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/PspFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\ServiceGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\ServiceGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\ServiceGroup\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/ServiceGroupFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\ServiceLevelFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\ServiceLevel\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\ServiceLevel\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/ServiceLevelFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\StatusFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Status\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Status\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/StatusFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\TagFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Tag\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Tag\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/TagFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\TeamFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Team\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Team\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/TeamFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\TypeFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\Type\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\Type\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/Data/TypeFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\DistributorFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Distributor\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Distributor\\>\\:\\:\\$model\\.$#"
@@ -7761,16 +7781,6 @@ parameters:
 			path: database/factories/KpiFactory.php
 
 		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\LanguageFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Language\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Language\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/LanguageFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\LocationFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Location\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Location\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/LocationFactory.php
-
-		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Logs\\\\AnalyzeAssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Logs\\\\AnalyzeAsset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Logs\\\\AnalyzeAsset\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/Logs/AnalyzeAssetFactory.php
@@ -7784,11 +7794,6 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\NoteFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Note\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Note\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/NoteFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\OemFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Oem\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Oem\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/OemFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\OemGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\OemGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\OemGroup\\>\\:\\:\\$model\\.$#"
@@ -7814,26 +7819,6 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\PermissionFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Permission\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Permission\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/PermissionFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Product\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Product\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/ProductFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductGroup\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/ProductGroupFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ProductLineFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ProductLine\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ProductLine\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/ProductLineFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\PspFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Psp\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Psp\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/PspFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\QuoteRequestAssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\QuoteRequestAsset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\QuoteRequestAsset\\>\\:\\:\\$model\\.$#"
@@ -7874,36 +7859,6 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\RolePermissionFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\RolePermission\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\RolePermission\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/RolePermissionFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ServiceGroupFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ServiceGroup\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ServiceGroup\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/ServiceGroupFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ServiceLevelFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ServiceLevel\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ServiceLevel\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/ServiceLevelFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\StatusFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Status\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Status\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/StatusFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\TagFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Tag\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Tag\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/TagFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\TeamFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Team\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Team\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/TeamFactory.php
-
-		-
-			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\TypeFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Type\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Type\\>\\:\\:\\$model\\.$#"
-			count: 1
-			path: database/factories/TypeFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\UserFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\User\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\User\\>\\:\\:\\$model\\.$#"

@@ -11,7 +11,7 @@
             "App\\Models\\Reseller": [],
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

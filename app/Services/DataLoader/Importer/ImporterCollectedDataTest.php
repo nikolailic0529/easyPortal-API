@@ -4,9 +4,9 @@ namespace App\Services\DataLoader\Importer;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Location;
 use App\Models\Distributor;
 use App\Models\Document;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Services\DataLoader\Collector\Data;
 use Tests\TestCase;

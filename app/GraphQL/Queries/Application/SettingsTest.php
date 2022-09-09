@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Models\Status as StatusModel;
-use App\Models\Type as TypeModel;
+use App\Models\Data\Status as StatusModel;
+use App\Models\Data\Type as TypeModel;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;

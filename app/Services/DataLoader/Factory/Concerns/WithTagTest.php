@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Tag;
+use App\Models\Data\Tag;
 use App\Services\DataLoader\Factory\DependentModelFactory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TagResolver;

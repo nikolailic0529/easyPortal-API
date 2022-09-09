@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\City;
-use App\Models\Country;
-use App\Models\Location;
+use App\Models\Data\City;
+use App\Models\Data\Country;
+use App\Models\Data\Location;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;

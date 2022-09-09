@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Importer\Importers;
 
-use App\Models\Oem;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\CellType;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\HeaderCell;
 use App\Services\DataLoader\Importer\Importers\OemsImporter\ParsedRow;

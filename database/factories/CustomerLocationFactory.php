@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;

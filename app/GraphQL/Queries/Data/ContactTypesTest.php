@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Data;
 
 use App\Models\Contact;
-use App\Models\Type;
+use App\Models\Data\Type;
 use Closure;
 use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

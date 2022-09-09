@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Tag;
+use App\Models\Data\Tag;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery;

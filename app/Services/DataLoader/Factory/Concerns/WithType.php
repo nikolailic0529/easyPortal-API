@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Type;
+use App\Models\Data\Type;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\TypeResolver;

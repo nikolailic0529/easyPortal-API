@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Data\Currency;
+use App\Models\Data\Language;
+use App\Models\Data\Oem;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCurrency;

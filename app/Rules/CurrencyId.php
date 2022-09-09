@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Currency;
+use App\Models\Data\Currency;
 use Illuminate\Contracts\Validation\Rule;
 
 use function trans;

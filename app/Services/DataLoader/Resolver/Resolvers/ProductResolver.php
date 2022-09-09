@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Oem;
-use App\Models\Product;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;

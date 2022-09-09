@@ -2,7 +2,7 @@
 
 namespace App\Models\Scopes;
 
-use App\Models\Type;
+use App\Models\Data\Type;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\Scope as SearchScope;
 use Illuminate\Contracts\Config\Repository;
@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Scope as EloquentScope;
 use function in_array;
 
 /**
- * @see \App\Models\Type
+ * @see \App\Models\Data\Type
  * @see \App\Models\Document
  *
- * @template TModel of \App\Models\Document|\App\Models\Type
+ * @template TModel of \App\Models\Document|\App\Models\Data\Type
  *
  * @implements SearchScope<TModel>
  */

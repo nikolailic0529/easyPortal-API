@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\ServiceLevel;
 use App\Models\Relations\HasAsset;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;

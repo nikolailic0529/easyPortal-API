@@ -3,9 +3,9 @@
 namespace Tests\Data\Services\DataLoader\Loaders;
 
 use App\Models\Asset;
+use App\Models\Data\Oem;
+use App\Models\Data\Type;
 use App\Models\Document;
-use App\Models\Oem;
-use App\Models\Type;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;

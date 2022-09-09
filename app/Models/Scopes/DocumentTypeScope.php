@@ -2,8 +2,8 @@
 
 namespace App\Models\Scopes;
 
+use App\Models\Data\Type;
 use App\Models\Document;
-use App\Models\Type;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Contracts\ScopeWithMetadata;
 use App\Services\Search\Properties\Uuid;
@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use function array_merge;
 
 /**
- * @template TModel of \App\Models\Document|\App\Models\Type
+ * @template TModel of \App\Models\Document|\App\Models\Data\Type
  *
  * @extends DisableableScope<TModel>
  * @implements ScopeWithMetadata<TModel>

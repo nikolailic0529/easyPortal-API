@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\ProductGroup;
+use App\Models\Data\ProductGroup;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Oem;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Services\DataLoader\Importer\Importers\OemsImporter;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;

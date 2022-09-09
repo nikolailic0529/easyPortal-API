@@ -3,10 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
-use App\Models\Oem;
+use App\Models\Data\Oem;
+use App\Models\Data\Type;
 use App\Models\Organization;
 use App\Models\QuoteRequest;
-use App\Models\Type;
 use App\Models\User;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;

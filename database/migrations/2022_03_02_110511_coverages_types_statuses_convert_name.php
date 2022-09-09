@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-use App\Models\Coverage;
-use App\Models\Status;
-use App\Models\Type;
+use App\Models\Data\Coverage;
+use App\Models\Data\Status;
+use App\Models\Data\Type;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Illuminate\Database\Migrations\Migration;
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Product;
 use Tests\TestCase;
 use Tests\WithoutGlobalScopes;
 

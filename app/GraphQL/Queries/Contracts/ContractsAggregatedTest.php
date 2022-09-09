@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
-use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Data\Currency;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

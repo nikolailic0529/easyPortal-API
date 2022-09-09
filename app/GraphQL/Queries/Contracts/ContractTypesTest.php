@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
+use App\Models\Data\Type;
 use App\Models\Document;
-use App\Models\Type;
 use Closure;
 use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;

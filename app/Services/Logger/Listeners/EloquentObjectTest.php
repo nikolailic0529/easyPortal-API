@@ -2,7 +2,7 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Models\Status;
+use App\Models\Data\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Date;

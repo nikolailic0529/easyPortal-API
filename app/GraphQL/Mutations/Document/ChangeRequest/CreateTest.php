@@ -4,9 +4,9 @@ namespace App\GraphQL\Mutations\Document\ChangeRequest;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Mail\RequestChange;
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
-use App\Models\Type;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;

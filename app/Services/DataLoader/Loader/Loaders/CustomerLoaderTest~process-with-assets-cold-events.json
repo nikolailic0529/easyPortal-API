@@ -14,7 +14,7 @@
             "App\\Models\\Document": {
                 "e711207a-5311-400d-951a-688429703e8d": "e711207a-5311-400d-951a-688429703e8d"
             },
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "ea851f94-2570-558c-a187-5ce87d26152c": "ea851f94-2570-558c-a187-5ce87d26152c",
                 "888887ec-37cb-519f-81ec-df715e6ec360": "888887ec-37cb-519f-81ec-df715e6ec360"
             },
@@ -48,7 +48,7 @@
             "App\\Models\\Document": {
                 "ef9bbb19-5dd9-4222-a739-97659a654468": "ef9bbb19-5dd9-4222-a739-97659a654468"
             },
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "0a872c01-f844-590a-a819-942bfa09a5d2": "0a872c01-f844-590a-a819-942bfa09a5d2",
                 "46010aff-3f3f-5d3c-9f84-2558bdab3904": "46010aff-3f3f-5d3c-9f84-2558bdab3904"
             },
@@ -66,7 +66,7 @@
                 "03ee438b-b478-4b4b-86bd-a495f3ab2880": "03ee438b-b478-4b4b-86bd-a495f3ab2880"
             },
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

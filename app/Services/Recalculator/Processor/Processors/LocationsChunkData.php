@@ -3,7 +3,7 @@
 namespace App\Services\Recalculator\Processor\Processors;
 
 use App\Models\CustomerLocation;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Models\ResellerLocation;
 use App\Services\Recalculator\Processor\ChunkData;
 use stdClass;

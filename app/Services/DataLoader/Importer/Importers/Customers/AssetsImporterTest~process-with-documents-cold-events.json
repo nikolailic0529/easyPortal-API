@@ -16,7 +16,7 @@
                 "35c8836a-df8e-4064-a079-1b66e3e520a3": "35c8836a-df8e-4064-a079-1b66e3e520a3",
                 "13a73961-05bc-4cac-99c5-0c405cad757a": "13a73961-05bc-4cac-99c5-0c405cad757a"
             },
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "0a872c01-f844-590a-a819-942bfa09a5d2": "0a872c01-f844-590a-a819-942bfa09a5d2",
                 "ec553a82-56f4-5e32-a673-7374f0ab0def": "ec553a82-56f4-5e32-a673-7374f0ab0def"
             },

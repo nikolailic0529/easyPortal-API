@@ -2,9 +2,9 @@
 
 namespace App\Services\Search\Eloquent;
 
-use App\Models\Oem;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
+use App\Models\Data\Oem;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Contracts\ScopeWithMetadata;

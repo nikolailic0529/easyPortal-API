@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Data\Team;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
-use App\Models\Team;
 use App\Models\User;
 use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;

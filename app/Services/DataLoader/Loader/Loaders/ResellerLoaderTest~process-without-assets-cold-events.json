@@ -8,7 +8,7 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "93c66dfd-656e-56ac-b974-7b5df52bae04": "93c66dfd-656e-56ac-b974-7b5df52bae04"
             },
             "App\\Models\\Asset": []
@@ -23,7 +23,7 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Language;
+use App\Models\Data\Language;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;

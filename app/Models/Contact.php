@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Type;
 use App\Models\Relations\HasAssetsOwners;
 use App\Models\Relations\HasCustomersOwners;
 use App\Models\Relations\HasTypes;

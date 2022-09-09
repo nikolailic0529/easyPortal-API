@@ -14,7 +14,7 @@
             "App\\Models\\Document": {
                 "f7873540-59c2-4019-9522-5e7b299257b1": "f7873540-59c2-4019-9522-5e7b299257b1"
             },
-            "App\\Models\\Location": {
+            "App\\Models\\Data\\Location": {
                 "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12": "16995a0f-8bd3-57aa-aa7a-30d48cf1ef12"
             },
             "App\\Models\\Asset": {
@@ -35,7 +35,7 @@
             },
             "App\\Models\\Customer": [],
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

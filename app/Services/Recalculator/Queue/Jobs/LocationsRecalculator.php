@@ -2,7 +2,7 @@
 
 namespace App\Services\Recalculator\Queue\Jobs;
 
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Services\Recalculator\Processor\Processors\LocationsProcessor;
 use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Contracts\Container\Container;

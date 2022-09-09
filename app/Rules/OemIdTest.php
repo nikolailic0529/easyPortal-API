@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;

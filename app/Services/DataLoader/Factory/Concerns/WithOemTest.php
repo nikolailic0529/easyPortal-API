@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use App\Services\DataLoader\Factory\Factory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\OemResolver;

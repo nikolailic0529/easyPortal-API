@@ -2,10 +2,10 @@
 
 namespace App\Rules;
 
+use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\Type;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Status;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomers;

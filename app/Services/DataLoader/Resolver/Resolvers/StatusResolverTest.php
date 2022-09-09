@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\Status;
+use App\Models\Data\Status;
 use App\Utils\Eloquent\Model;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;

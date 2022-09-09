@@ -3,8 +3,8 @@
 namespace App\GraphQL\Queries\Resellers;
 
 use App\Models\Customer;
+use App\Models\Data\Location;
 use App\Models\Kpi;
-use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;

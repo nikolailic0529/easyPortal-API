@@ -2,8 +2,8 @@
 
 namespace App\Services\Settings\Types;
 
+use App\Models\Data\Status;
 use App\Models\Document;
-use App\Models\Status;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;

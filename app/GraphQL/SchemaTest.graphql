@@ -11698,7 +11698,7 @@ type Query {
         permissions: ["assets-view"]
     )
     @all(
-        model: "App\\Models\\Coverage"
+        model: "App\\Models\\Data\\Coverage"
     )
     @cached
 
@@ -12736,7 +12736,7 @@ type Query {
     @authOrg
     @authMe
     @aggregated(
-        model: "App\\Models\\Product"
+        model: "App\\Models\\Data\\Product"
     )
 
     """

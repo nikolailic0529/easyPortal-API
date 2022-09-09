@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Data\Location;
+use App\Models\Data\Type;
 use App\Models\Relations\HasLocation;
 use App\Models\Relations\HasReseller;
 use App\Models\Relations\HasTypes;

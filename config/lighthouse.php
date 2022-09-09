@@ -180,7 +180,10 @@ return [
     */
 
     'namespaces'                         => [
-        'models'        => ['App\\Models'],
+        'models'        => [
+            'App\\Models',
+            'App\\Models\\Data',
+        ],
         'queries'       => 'App\\GraphQL\\Queries',
         'mutations'     => 'App\\GraphQL\\Mutations',
         'subscriptions' => 'App\\GraphQL\\Subscriptions',

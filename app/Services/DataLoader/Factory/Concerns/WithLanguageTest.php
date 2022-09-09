@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory\Concerns;
 
-use App\Models\Language;
+use App\Models\Data\Language;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolvers\LanguageResolver;

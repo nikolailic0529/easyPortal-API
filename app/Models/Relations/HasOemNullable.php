@@ -2,7 +2,7 @@
 
 namespace App\Models\Relations;
 
-use App\Models\Oem;
+use App\Models\Data\Oem;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

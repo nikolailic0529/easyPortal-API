@@ -2,6 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Data\Coverage;
+use App\Models\Data\Location;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
+use App\Models\Data\Status;
+use App\Models\Data\Tag;
+use App\Models\Data\Type;
 use App\Models\Relations\HasChangeRequests;
 use App\Models\Relations\HasContacts;
 use App\Models\Relations\HasCustomerNullable;

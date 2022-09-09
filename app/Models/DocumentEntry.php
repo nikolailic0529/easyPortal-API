@@ -2,6 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Data\Currency;
+use App\Models\Data\Language;
+use App\Models\Data\Product;
+use App\Models\Data\ProductGroup;
+use App\Models\Data\ProductLine;
+use App\Models\Data\Psp;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
+use App\Models\Data\Type;
 use App\Models\Relations\HasAssetNullable;
 use App\Models\Relations\HasCurrency;
 use App\Models\Relations\HasDocument;

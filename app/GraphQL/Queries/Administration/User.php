@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries\Administration;
 
+use App\Models\Data\Status;
 use App\Models\Invitation;
 use App\Models\OrganizationUser;
-use App\Models\Status;
 use App\Models\User as UserModel;
 use App\Services\Organization\CurrentOrganization;
 

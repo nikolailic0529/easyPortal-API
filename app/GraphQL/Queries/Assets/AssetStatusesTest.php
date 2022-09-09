@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
-use App\Models\Status;
+use App\Models\Data\Status;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

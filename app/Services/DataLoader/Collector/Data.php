@@ -4,9 +4,9 @@ namespace App\Services\DataLoader\Collector;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Data\Location;
 use App\Models\Distributor;
 use App\Models\Document;
-use App\Models\Location;
 use App\Models\Reseller;
 use App\Services\DataLoader\Schema\CompanyKpis as SchemaCompanyKpis;
 use App\Services\DataLoader\Schema\Document as SchemaDocument;

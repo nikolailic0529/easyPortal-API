@@ -3,13 +3,13 @@
 namespace App\GraphQL\Queries\Administration;
 
 use App\GraphQL\Queries\Administration\User as UserQuery;
+use App\Models\Data\Status;
+use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
-use App\Models\Status;
-use App\Models\Team;
 use App\Models\User;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Closure;

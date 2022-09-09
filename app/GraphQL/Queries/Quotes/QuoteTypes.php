@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Quotes;
 
+use App\Models\Data\Type;
 use App\Models\Document;
-use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 
 class QuoteTypes {

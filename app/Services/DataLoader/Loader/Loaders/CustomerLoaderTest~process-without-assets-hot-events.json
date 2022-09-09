@@ -8,7 +8,7 @@
                 "04e2ec4e-9bb1-47c7-98f0-6096cd178974": "04e2ec4e-9bb1-47c7-98f0-6096cd178974"
             },
             "App\\Models\\Document": [],
-            "App\\Models\\Location": [],
+            "App\\Models\\Data\\Location": [],
             "App\\Models\\Asset": []
         }
     }

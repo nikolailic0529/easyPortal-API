@@ -3,9 +3,9 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\GraphQL\Directives\Directives\Aggregated\BuilderValue;
+use App\Models\Data\ServiceGroup;
+use App\Models\Data\ServiceLevel;
 use App\Models\Document;
-use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;

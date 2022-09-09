@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factory;
 
-use App\Models\Status;
+use App\Models\Data\Status;
 use App\Services\DataLoader\Factory\Concerns\WithContacts;
 use App\Services\DataLoader\Factory\Concerns\WithLocations;
 use App\Services\DataLoader\Factory\Concerns\WithStatus;

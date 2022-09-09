@@ -3,7 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Asset;
-use App\Models\Location;
+use App\Models\Data\Location;
 use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;

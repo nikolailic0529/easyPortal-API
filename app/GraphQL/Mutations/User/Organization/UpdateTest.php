@@ -3,11 +3,11 @@
 namespace App\GraphQL\Mutations\User\Organization;
 
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
+use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
-use App\Models\Team;
 use App\Models\User;
 use App\Services\Keycloak\Client\Client;
 use App\Services\Keycloak\Client\Types\User as KeycloakUser;

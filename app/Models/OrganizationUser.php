@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Data\Team;
 use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasRole;
 use App\Models\Relations\HasTeam;

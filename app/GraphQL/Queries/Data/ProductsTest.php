@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries\Data;
 
-use App\Models\Oem;
-use App\Models\Product;
+use App\Models\Data\Oem;
+use App\Models\Data\Product;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;

@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
-use App\Models\Status;
+use App\Models\Data\Status;
 use Illuminate\Database\Eloquent\Builder;
 
 class CustomerStatuses {

@@ -3,8 +3,8 @@
 namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
+use App\Models\Data\Type;
 use App\Models\Organization;
-use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;

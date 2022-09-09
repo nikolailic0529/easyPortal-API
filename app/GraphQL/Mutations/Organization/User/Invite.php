@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Mutations\Organization\User;
 
+use App\Models\Data\Team;
 use App\Models\Enums\UserType;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\OrganizationUser;
 use App\Models\Role;
-use App\Models\Team;
 use App\Models\User;
 use App\Notifications\OrganizationUserInvitation;
 use App\Services\Auth\Auth;

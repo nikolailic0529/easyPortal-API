@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Factory\Concerns;
 
 use App\Models\Customer;
 use App\Models\CustomerLocation;
-use App\Models\Location as LocationModel;
+use App\Models\Data\Location as LocationModel;
 use App\Models\Reseller;
 use App\Models\ResellerLocation;
 use App\Services\DataLoader\Exceptions\FailedToProcessLocation;

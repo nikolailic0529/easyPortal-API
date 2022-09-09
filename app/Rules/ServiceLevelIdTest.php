@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\ServiceLevel;
+use App\Models\Data\ServiceLevel;
 use Closure;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Support\Facades\Date;

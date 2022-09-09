@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
-use App\Models\City;
-use App\Models\Country;
+use App\Models\Data\City;
+use App\Models\Data\Country;
 use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;
