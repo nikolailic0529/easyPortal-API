@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Imports resellers.
  *
- * @extends ImporterCronJob<\App\Services\DataLoader\Importer\Importers\Resellers\Importer>
+ * @extends ImporterCronJob<Importer>
  */
 class ResellersImporterCronJob extends ImporterCronJob {
     public function displayName(): string {

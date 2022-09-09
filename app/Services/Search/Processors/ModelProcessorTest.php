@@ -208,9 +208,9 @@ class ModelProcessorTest extends TestCase {
      *
      * @dataProvider dataProviderCreateIndex
      *
-     * @param SearchIndexes                                      $expected
-     * @param class-string<\App\Utils\Eloquent\Model&Searchable> $model
-     * @param array<string, string|null>                         $indexes
+     * @param SearchIndexes                  $expected
+     * @param class-string<Model&Searchable> $model
+     * @param array<string, string|null>     $indexes
      */
     public function testCreateIndex(array $expected, string $model, array $indexes): void {
         // Mock

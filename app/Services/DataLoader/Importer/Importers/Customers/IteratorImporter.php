@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Customers;
 
+use App\Models\Customer;
 use App\Services\DataLoader\Importer\Concerns\WithIterator;
 use App\Services\DataLoader\Schema\Company;
 use App\Utils\Processor\State;
@@ -11,7 +12,7 @@ use App\Utils\Processor\State;
  */
 class IteratorImporter extends BaseImporter {
     /**
-     * @use WithIterator<\App\Models\Customer, Company, BaseImporterState>
+     * @use WithIterator<Customer, Company, BaseImporterState>
      */
     use WithIterator;
 

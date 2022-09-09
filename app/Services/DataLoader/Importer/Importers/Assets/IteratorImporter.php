@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Assets;
 
+use App\Models\Asset;
 use App\Services\DataLoader\Importer\Concerns\WithIterator;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\Processor\State;
@@ -11,7 +12,7 @@ use App\Utils\Processor\State;
  */
 class IteratorImporter extends BaseImporter {
     /**
-     * @use WithIterator<\App\Models\Asset, ViewAsset, BaseImporterState>
+     * @use WithIterator<Asset, ViewAsset, BaseImporterState>
      */
     use WithIterator;
 

@@ -11,6 +11,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 
 use function array_map;
 
@@ -21,7 +22,7 @@ use function array_map;
  */
 class FulltextsProcessor extends CompositeProcessor {
     /**
-     * @use WithModels<\Illuminate\Database\Eloquent\Model>
+     * @use WithModels<Model>
      */
     use WithModels;
 

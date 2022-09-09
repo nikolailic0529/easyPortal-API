@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\Processors;
 
+use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Processors\Concerns\WithModels;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeProcessor;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Model;
 
 use function array_map;
 
@@ -19,7 +21,7 @@ use function array_map;
  */
 class ModelsProcessor extends CompositeProcessor {
     /**
-     * @use WithModels<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
+     * @use WithModels<Model&Searchable>>
      */
     use WithModels;
 

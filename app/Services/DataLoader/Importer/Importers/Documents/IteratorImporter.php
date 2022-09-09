@@ -2,8 +2,9 @@
 
 namespace App\Services\DataLoader\Importer\Importers\Documents;
 
+use App\Models\Document;
 use App\Services\DataLoader\Importer\Concerns\WithIterator;
-use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\Document as DataLoaderDocument;
 use App\Utils\Processor\State;
 
 /**
@@ -11,14 +12,14 @@ use App\Utils\Processor\State;
  */
 class IteratorImporter extends BaseImporter {
     /**
-     * @use WithIterator<\App\Models\Document, Document, BaseImporterState>
+     * @use WithIterator<Document, DataLoaderDocument, BaseImporterState>
      */
     use WithIterator;
 
     /**
      * @param BaseImporterState $state
      *
-     * @return Document|null
+     * @return DataLoaderDocument|null
      */
     protected function getItem(State $state, string $item): mixed {
         return $this->getClient()->getDocumentById($item);

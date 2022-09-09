@@ -3,10 +3,11 @@
 namespace App\Services\Recalculator\Queue\Tasks;
 
 use App\Services\Queue\Concerns\WithModelKeys;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelsRecalculate extends Recalculate {
     /**
-     * @use WithModelKeys<\Illuminate\Database\Eloquent\Model>
+     * @use WithModelKeys<Model>
      */
     use WithModelKeys;
 

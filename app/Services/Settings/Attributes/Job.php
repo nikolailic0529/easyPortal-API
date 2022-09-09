@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings\Attributes;
 
+use App\Services\Queue\Job as QueueJob;
 use Attribute;
 
 /**
@@ -10,7 +11,7 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
 class Job extends Setting {
     /**
-     * @param class-string<\App\Services\Queue\Job> $class
+     * @param class-string<QueueJob> $class
      */
     public function __construct(
         protected string $class,

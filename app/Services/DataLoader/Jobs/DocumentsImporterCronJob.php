@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Imports documents.
  *
- * @extends ImporterCronJob<\App\Services\DataLoader\Importer\Importers\Documents\Importer>
+ * @extends ImporterCronJob<Importer>
  */
 class DocumentsImporterCronJob extends ImporterCronJob {
     public function displayName(): string {
