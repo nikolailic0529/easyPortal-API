@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Type.
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Collection<int, Asset>            $assets
  * @property-read Collection<int, Contact>          $contacts
  * @property-read Collection<int, Document>         $contracts
- * @property-read Collection<int, Customer>         $customers
  * @property-read Collection<int, CustomerLocation> $customerLocations
  * @property-read Collection<int, Location>         $locations
  * @property-read Collection<int, Document>         $quotes
@@ -96,10 +94,5 @@ class Type extends PolymorphicModel implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
-    }
-
-    #[CascadeDelete(false)]
-    public function customers(): HasMany {
-        return $this->hasMany(Customer::class);
     }
 }
