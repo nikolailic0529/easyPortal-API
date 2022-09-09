@@ -12,9 +12,8 @@ use function app;
  * @mixin Model
  */
 trait CascadeDeletes {
-    protected static function bootCascadeDeletes(): void {
-        static::deleting(static function (Model $model): void {
-            app()->make(CascadeProcessor::class)->delete($model);
-        });
+    public function delete(): bool {
+        return app()->make(CascadeProcessor::class)->delete($this)
+            && parent::delete();
     }
 }

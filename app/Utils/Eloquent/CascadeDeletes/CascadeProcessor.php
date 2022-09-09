@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
+use LogicException;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -20,14 +21,16 @@ use function reset;
 use function sprintf;
 
 class CascadeProcessor {
-    public function delete(Model $model): void {
+    public function delete(Model $model): bool {
         foreach ($this->getRelations($model) as $name => $relation) {
-            $this->runDelete($model, $name, $relation);
+            $this->run($model, $name, $relation);
         }
+
+        return true;
     }
 
     /**
-     * @return array<Relation>
+     * @return array<Relation<Model>>
      */
     protected function getRelations(Model $model): array {
         $helper    = new ModelHelper($model);
@@ -76,25 +79,28 @@ class CascadeProcessor {
         return $attribute;
     }
 
-    protected function runDelete(Model $model, string $name, Relation $relation): void {
+    /**
+     * @param Relation<Model> $relation
+     */
+    protected function run(Model $model, string $name, Relation $relation): void {
         GlobalScopes::callWithoutAll(function () use ($model, $name, $relation): void {
             foreach ($this->getRelatedObjects($model, $name, $relation) as $object) {
-                if ($object instanceof Model) {
-                    if (property_exists($object, 'forceDeleting')) {
-                        $object->forceDeleting = property_exists($model, 'forceDeleting')
-                            ? $model->forceDeleting
-                            : false;
-                    }
+                if (property_exists($object, 'forceDeleting')) {
+                    $object->forceDeleting = property_exists($model, 'forceDeleting')
+                        ? $model->forceDeleting
+                        : false;
+                }
 
-                    if (!$object->delete()) {
-                        throw new Exception('Unknown error while deleting children.');
-                    }
+                if (!$object->delete()) {
+                    throw new LogicException('Unknown error while deleting children.');
                 }
             }
         });
     }
 
     /**
+     * @param Relation<Model> $relation
+     *
      * @return array<Model>
      */
     protected function getRelatedObjects(Model $model, string $name, Relation $relation): array {
@@ -119,6 +125,9 @@ class CascadeProcessor {
         return $values;
     }
 
+    /**
+     * @param Relation<Model> $relation
+     */
     protected function isBelongsToMany(Model $model, string $name, Relation $relation): bool {
         return $relation instanceof BelongsToMany && (!$relation instanceof MorphToMany);
     }

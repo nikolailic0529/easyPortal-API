@@ -43,7 +43,7 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn($relations);
         $processor
-            ->shouldReceive('runDelete')
+            ->shouldReceive('run')
             ->times(count($relations))
             ->andReturns();
 
@@ -132,9 +132,9 @@ class CascadeProcessorTest extends TestCase {
     }
 
     /**
-     * @covers ::runDelete
+     * @covers ::run
      */
-    public function testRunDelete(): void {
+    public function testRun(): void {
         $relation = Mockery::mock(Relation::class);
 
         $model = Mockery::mock(Model::class);
@@ -157,7 +157,7 @@ class CascadeProcessorTest extends TestCase {
             ->once()
             ->andReturn([$child]);
 
-        $processor->runDelete($model, 'relation', $relation);
+        $processor->run($model, 'relation', $relation);
     }
 
     /**

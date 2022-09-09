@@ -7216,32 +7216,7 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
 
 		-
-			message: "#^Instanceof between Illuminate\\\\Database\\\\Eloquent\\\\Model and Illuminate\\\\Database\\\\Eloquent\\\\Model will always evaluate to true\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:getRelatedObjects\\(\\) has parameter \\$relation with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
 			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:getRelatedObjects\\(\\) should return array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:getRelations\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:isBelongsToMany\\(\\) has parameter \\$relation with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:runDelete\\(\\) has parameter \\$relation with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation but does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
 
@@ -7256,27 +7231,7 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:110\\:\\:getRelations\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
 			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:118\\:\\:relationWithoutAttribute\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:167\\:\\:getRelatedObjects\\(\\) has parameter \\$relation with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:206\\:\\:getRelatedObjects\\(\\) has parameter \\$relation with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation but does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:59\\:\\:getRelations\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\Relation does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
