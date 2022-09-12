@@ -1036,9 +1036,10 @@ class AssetTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
-                                    'message'    => null,
-                                    'created_at' => Date::now(),
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                    'message'     => null,
+                                    'customer_id' => $customer,
+                                    'created_at'  => Date::now(),
                                 ]);
                             // Change Requests
                             ChangeRequest::factory()

@@ -89,9 +89,10 @@ abstract class TestCase extends BaseTestCase {
             State::reset();
         });
 
-        // Some tests may use custom UUIDs, we need to reset it
-        $this->beforeApplicationDestroyed(static function (): void {
-            Str::createUuidsNormally();
+        // Some tests may use custom UUIDs/Dates, we need to reset it
+        $this->beforeApplicationDestroyed(function (): void {
+            $this->resetUuidFactory();
+            $this->resetDateFactory();
         });
 
         // We cache AST for all tests because AST generation takes ~80% of the time.
