@@ -12,6 +12,7 @@ use App\Models\Relations\HasLocations;
 use App\Models\Relations\HasStatuses;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -20,6 +21,7 @@ use Database\Factories\ResellerFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Reseller.
@@ -91,17 +93,39 @@ class Reseller extends Model implements OwnedByReseller {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
+    /**
+     * @private required to delete {@see LocationReseller} records.
+     *
+     * @return HasMany<LocationReseller>
+     */
+    #[CascadeDelete(true)]
+    public function locationResellerPivots(): HasMany {
+        return $this->hasMany(LocationReseller::class);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="HasStatuses">
+    // =========================================================================
     protected function getStatusesPivot(): Pivot {
         return new ResellerStatus();
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasCustomers">
+    // =========================================================================
     protected function getCustomersPivot(): Pivot {
         return new ResellerCustomer();
     }
+    // </editor-fold>
 
+    // <editor-fold desc="HasLocations">
+    // =========================================================================
     protected function getLocationsModel(): Model {
         return new ResellerLocation();
     }
+    // </editor-fold>
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
