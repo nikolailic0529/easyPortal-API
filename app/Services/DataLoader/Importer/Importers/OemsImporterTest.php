@@ -253,7 +253,7 @@ class OemsImporterTest extends TestCase {
      */
     public function testProcessNoEnglish(): void {
         // Pretest
-        $this->assertModelsCount([
+        self::assertModelsCount([
             Oem::class          => 0,
             ServiceGroup::class => 0,
             ServiceLevel::class => 0,

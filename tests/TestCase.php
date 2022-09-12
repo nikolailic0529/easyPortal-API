@@ -5,7 +5,6 @@ namespace Tests;
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Settings\Storage;
-use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\GlobalScopes\State;
 use Closure;
 use DateTimeInterface;
@@ -13,7 +12,6 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
@@ -61,6 +59,7 @@ abstract class TestCase extends BaseTestCase {
     use FakeDisks;
     use WithTempFile;
     use WithEvents;
+    use WithModels;
     use WithDeprecations;
 
     /**
@@ -145,21 +144,6 @@ abstract class TestCase extends BaseTestCase {
         }
 
         $this->databaseRefreshTestDatabase();
-    }
-
-    /**
-     * @param array<class-string<Model>,int> $expected
-     */
-    protected function assertModelsCount(array $expected): void {
-        $actual = [];
-
-        foreach ($expected as $model => $count) {
-            $actual[$model] = GlobalScopes::callWithoutAll(static function () use ($model): int {
-                return $model::query()->count();
-            });
-        }
-
-        self::assertEquals($expected, $actual);
     }
 
     protected function assertCommandDescription(string $command, string $expected = '.txt'): void {
