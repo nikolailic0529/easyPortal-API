@@ -2,6 +2,7 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
+use App\Utils\Eloquent\Contracts\DataModel;
 use App\Utils\Eloquent\Pivot;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
+use LogicException;
 use Mockery;
 use Tests\TestCase;
 
@@ -50,6 +52,18 @@ class CascadeProcessorTest extends TestCase {
         $processor->delete($model);
 
         self::assertTrue(true);
+    }
+
+    /**
+     * @covers ::delete
+     */
+    public function testDeleteDataModel(): void {
+        self::expectException(LogicException::class);
+
+        $model     = Mockery::mock(Model::class, DataModel::class);
+        $processor = new CascadeProcessor();
+
+        $processor->delete($model);
     }
 
     /**

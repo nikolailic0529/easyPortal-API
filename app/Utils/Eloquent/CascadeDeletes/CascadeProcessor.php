@@ -2,9 +2,9 @@
 
 namespace App\Utils\Eloquent\CascadeDeletes;
 
+use App\Utils\Eloquent\Contracts\DataModel;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Eloquent\ModelHelper;
-use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -22,6 +22,13 @@ use function sprintf;
 
 class CascadeProcessor {
     public function delete(Model $model): bool {
+        if ($model instanceof DataModel) {
+            throw new LogicException(sprintf(
+                'DataModel `%s` cannot be deleted.',
+                $model::class,
+            ));
+        }
+
         foreach ($this->getRelations($model) as $name => $relation) {
             $this->run($model, $name, $relation);
         }
@@ -59,7 +66,7 @@ class CascadeProcessor {
                     $relations[$name] = $helper->getRelation($name);
                 }
             } else {
-                throw new Exception(sprintf(
+                throw new LogicException(sprintf(
                     'Relation `%s::%s()` must have `%s` attribute.',
                     $model::class,
                     $name,

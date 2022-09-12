@@ -7186,37 +7186,37 @@ parameters:
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:118\\:\\:relationWithoutAttribute\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:132\\:\\:relationWithoutAttribute\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationProtected\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationProtected\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationWithTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationWithTypehintIgnored\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithTypehintIgnored\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:67\\:\\:relationWithoutTypehint\\(\\) has no return type specified\\.$#"
+			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithoutTypehint\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
