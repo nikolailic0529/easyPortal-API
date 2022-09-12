@@ -5,6 +5,4 @@ input ContactsQuery {
     phone_number: PhoneNumber
     phone_valid: Boolean
     types: TypesQuery
-    assets: AssetsQuery
-    customers: CompaniesQuery
 }

@@ -2901,18 +2901,6 @@ input SearchByConditionContactsQuery {
     @searchByOperatorAnyOf
 
     """
-    Relationship condition.
-    """
-    assets: SearchByComplexRelationAssetsQuery
-    @searchByOperatorRelation
-
-    """
-    Relationship condition.
-    """
-    customers: SearchByComplexRelationCompaniesQuery
-    @searchByOperatorRelation
-
-    """
     Property condition.
     """
     email: SearchByScalarEmailOrNull
