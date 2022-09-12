@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Database\Factories\AssetCoverageFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * Asset Coverage.
@@ -15,11 +17,14 @@ use Illuminate\Database\Eloquent\Builder;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
+ * @method static AssetCoverageFactory factory(...$parameters)
  * @method static Builder|AssetCoverage newModelQuery()
  * @method static Builder|AssetCoverage newQuery()
  * @method static Builder|AssetCoverage query()
  */
 class AssetCoverage extends Pivot {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

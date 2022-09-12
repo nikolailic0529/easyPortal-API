@@ -7631,14 +7631,29 @@ parameters:
 			path: config/session.php
 
 		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\AssetCoverageFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\AssetCoverage\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\AssetCoverage\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/AssetCoverageFactory.php
+
+		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\AssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Asset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Asset\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/AssetFactory.php
 
 		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\AssetTagFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\AssetTag\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\AssetTag\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/AssetTagFactory.php
+
+		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\AssetWarrantyFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\AssetWarranty\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\AssetWarranty\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/AssetWarrantyFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\AssetWarrantyServiceLevelFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\AssetWarrantyServiceLevel\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\AssetWarrantyServiceLevel\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/AssetWarrantyServiceLevelFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Audits\\\\AuditFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Audits\\\\Audit\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Audits\\\\Audit\\>\\:\\:\\$model\\.$#"
@@ -7656,6 +7671,11 @@ parameters:
 			path: database/factories/ContactFactory.php
 
 		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ContactTypeFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ContactType\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ContactType\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ContactTypeFactory.php
+
+		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Customer\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Customer\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/CustomerFactory.php
@@ -7664,6 +7684,16 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerLocationFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\CustomerLocation\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\CustomerLocation\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/CustomerLocationFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerLocationTypeFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\CustomerLocationType\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\CustomerLocationType\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/CustomerLocationTypeFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\CustomerStatusFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\CustomerStatus\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\CustomerStatus\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/CustomerStatusFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Data\\\\CityFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Data\\\\City\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Data\\\\City\\>\\:\\:\\$model\\.$#"
@@ -7766,6 +7796,11 @@ parameters:
 			path: database/factories/DocumentFactory.php
 
 		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\DocumentStatusFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\DocumentStatus\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\DocumentStatus\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/DocumentStatusFactory.php
+
+		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\FileFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\File\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\File\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/FileFactory.php
@@ -7779,6 +7814,16 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\KpiFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Kpi\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Kpi\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/KpiFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\LocationCustomerFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\LocationCustomer\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\LocationCustomer\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/LocationCustomerFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\LocationResellerFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\LocationReseller\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\LocationReseller\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/LocationResellerFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\Logs\\\\AnalyzeAssetFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Logs\\\\AnalyzeAsset\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Logs\\\\AnalyzeAsset\\>\\:\\:\\$model\\.$#"
@@ -7849,6 +7894,16 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ResellerLocationFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ResellerLocation\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ResellerLocation\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/ResellerLocationFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ResellerLocationTypeFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ResellerLocationType\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ResellerLocationType\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ResellerLocationTypeFactory.php
+
+		-
+			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\ResellerStatusFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\ResellerStatus\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\ResellerStatus\\>\\:\\:\\$model\\.$#"
+			count: 1
+			path: database/factories/ResellerStatusFactory.php
 
 		-
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\RoleFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\Role\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\Role\\>\\:\\:\\$model\\.$#"

@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Database\Factories\DocumentStatusFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * DocumentStatusю
@@ -15,11 +17,14 @@ use Illuminate\Database\Eloquent\Builder;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
+ * @method static DocumentStatusFactory factory(...$parameters)
  * @method static Builder|DocumentStatus newModelQuery()
  * @method static Builder|DocumentStatus newQuery()
  * @method static Builder|DocumentStatus query()
  */
 class DocumentStatus extends Pivot {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

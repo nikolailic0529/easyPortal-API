@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\Utils\Eloquent\Pivot;
 use Carbon\CarbonImmutable;
+use Database\Factories\ResellerStatusFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\ResellerStatus
@@ -15,11 +17,14 @@ use Illuminate\Database\Eloquent\Builder;
  * @property CarbonImmutable      $created_at
  * @property CarbonImmutable      $updated_at
  * @property CarbonImmutable|null $deleted_at
+ * @method static ResellerStatusFactory factory(...$parameters)
  * @method static Builder|ResellerStatus newModelQuery()
  * @method static Builder|ResellerStatus newQuery()
  * @method static Builder|ResellerStatus query()
  */
 class ResellerStatus extends Pivot {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
