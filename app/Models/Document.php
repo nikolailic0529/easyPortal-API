@@ -14,7 +14,6 @@ use App\Models\Relations\HasCustomerNullable;
 use App\Models\Relations\HasLanguage;
 use App\Models\Relations\HasOemNullable;
 use App\Models\Relations\HasResellerNullable;
-use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasStatuses;
 use App\Models\Relations\HasTypeNullable;
 use App\Models\Scopes\DocumentStatusScope;
@@ -102,7 +101,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
     use HasOemNullable;
     use HasTypeNullable;
     use HasStatuses;
-    use HasServiceGroup;
     use HasResellerNullable;
     use HasCustomerNullable;
     use HasCurrency;

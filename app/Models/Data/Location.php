@@ -104,8 +104,8 @@ class Location extends Model implements DataModel {
         $this->country()->associate($country);
     }
 
-    public function setCityAttribute(City $country): void {
-        $this->city()->associate($country);
+    public function setCityAttribute(City $city): void {
+        $this->city()->associate($city);
     }
 
     protected function getResellersPivot(): Pivot {

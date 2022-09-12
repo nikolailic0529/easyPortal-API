@@ -2976,7 +2976,7 @@ parameters:
 			path: app/Models/Organization.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\OrganizationUser\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
+			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\OrganizationUser\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Pivot\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/OrganizationUser.php
 

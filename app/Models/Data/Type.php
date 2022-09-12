@@ -15,7 +15,7 @@ use App\Models\Scopes\DocumentTypeQueries;
 use App\Services\I18n\Contracts\Translatable;
 use App\Services\I18n\Eloquent\TranslateProperties;
 use App\Utils\Eloquent\Contracts\DataModel;
-use App\Utils\Eloquent\PolymorphicModel;
+use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\Data\TypeFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -44,7 +44,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method static Builder|Type newQuery()
  * @method static Builder|Type query()
  */
-class Type extends PolymorphicModel implements DataModel, Translatable {
+class Type extends Model implements DataModel, Translatable {
     use HasFactory;
     use TranslateProperties;
     use HasAssets;
