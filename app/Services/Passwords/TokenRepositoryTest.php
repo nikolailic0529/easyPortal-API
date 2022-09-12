@@ -2,7 +2,6 @@
 
 namespace App\Services\Passwords;
 
-
 use App\Models\PasswordReset;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Hashing\Hasher;

@@ -10,7 +10,6 @@ use App\Services\DataLoader\Testing\Helper;
 use App\Utils\Eloquent\Model;
 use Tests\TestCase;
 
-
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factory\CompanyFactory

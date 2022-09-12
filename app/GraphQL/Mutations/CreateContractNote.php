@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 
-
 class CreateContractNote {
     public function __construct(
         protected AuthManager $auth,

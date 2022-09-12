@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Data\Type;
 use App\Models\ResellerLocation;
 use App\Models\ResellerLocationType;
-use App\Models\Data\Type;
 use App\Utils\Eloquent\Testing\Database\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;

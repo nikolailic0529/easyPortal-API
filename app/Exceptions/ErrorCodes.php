@@ -2,14 +2,15 @@
 
 namespace App\Exceptions;
 
+// @phpcs:disable Generic.Files.LineLength.TooLong
+
 use App\Exceptions\Exceptions\FailedToSendMail as AppFailedToSendMail;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\InvalidContext as GraphQLInvalidContext;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound as GraphQLObjectNotFound;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException as GraphQLResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationExpired as GraphQLSignUpByInviteInvitationExpired;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationNotFound as GraphQLSignUpByInviteInvitationNotFound;
-use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOrganizationNotFound
-    as GraphQLSignUpByInviteInvitationOrganizationNotFound;
+use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOrganizationNotFound as GraphQLSignUpByInviteInvitationOrganizationNotFound;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationOutdated as GraphQLSignUpByInviteInvitationOutdated;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUsed as GraphQLSignUpByInviteInvitationUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvitationUserNotFound as GraphQLSignUpByInviteInvitationUserNotFound;
@@ -17,8 +18,7 @@ use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUp
 use App\GraphQL\Mutations\Oem\Hpe\ImportImportFailed as GraphQLOemHpeImportImportFailed;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
 use App\GraphQL\Mutations\Org\Role\DeleteImpossibleAssignedToUsers as GraphQLDeleteImpossibleAssignedToUsers;
-use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled
-    as GraphQLInviteImpossibleKeycloakUserDisabled;
+use App\GraphQL\Mutations\Organization\User\InviteImpossibleKeycloakUserDisabled as GraphQLInviteImpossibleKeycloakUserDisabled;
 use App\Http\Controllers\Export\GraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
 use App\Http\Controllers\Export\HeadersUnknownFunction as HttpExportHeadersUnknownFunction;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;

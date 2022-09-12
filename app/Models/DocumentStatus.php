@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * DocumentStatusю
+ * DocumentStatus.
  *
  * @property string               $id
  * @property string               $document_id

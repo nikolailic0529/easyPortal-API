@@ -5,7 +5,6 @@
 use Database\Seeders\TeamSeeder;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
-
 class TeamsSeed extends RawDataMigration {
     protected function runRawUp(): void {
         $this->getContainer()->make(TeamSeeder::class)->run();

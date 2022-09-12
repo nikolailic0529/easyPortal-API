@@ -6,7 +6,6 @@ use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 
-
 /**
  * @template TItem
  *
