@@ -52,7 +52,6 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setUpdate(true)
             ->setObjectId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithDocuments::CHUNK)
@@ -83,7 +82,6 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setUpdate(true)
             ->setObjectId(CustomerAssetsImporterDataWithDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithDocuments::CHUNK)
@@ -128,7 +126,6 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setUpdate(true)
             ->setObjectId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithoutDocuments::CHUNK)
@@ -159,7 +156,6 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setUpdate(true)
             ->setObjectId(CustomerAssetsImporterDataWithoutDocuments::CUSTOMER)
             ->setWithDocuments(CustomerAssetsImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(CustomerAssetsImporterDataWithoutDocuments::CHUNK)

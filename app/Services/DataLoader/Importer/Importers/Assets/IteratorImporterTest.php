@@ -52,7 +52,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(AssetsIteratorImporterDataWithDocuments::getIterator())
             ->setWithDocuments(AssetsIteratorImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithDocuments::CHUNK)
@@ -83,7 +82,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(AssetsIteratorImporterDataWithDocuments::getIterator())
             ->setWithDocuments(AssetsIteratorImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithDocuments::CHUNK)
@@ -128,7 +126,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(AssetsIteratorImporterDataWithoutDocuments::getIterator())
             ->setWithDocuments(AssetsIteratorImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithoutDocuments::CHUNK)
@@ -159,7 +156,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(AssetsIteratorImporterDataWithoutDocuments::getIterator())
             ->setWithDocuments(AssetsIteratorImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithoutDocuments::CHUNK)

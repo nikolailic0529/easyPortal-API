@@ -32,7 +32,6 @@ use function array_merge;
  * @extends IteratorProcessor<TItem, TChunkData, TState>
  */
 abstract class Importer extends IteratorProcessor implements Isolated {
-    private bool                   $update        = true;
     private ?ImporterCollectedData $collectedData = null;
     private Collector              $collector;
 
@@ -70,16 +69,6 @@ abstract class Importer extends IteratorProcessor implements Isolated {
 
     protected function getFrom(): ?DateTimeInterface {
         return null;
-    }
-
-    public function isUpdate(): bool {
-        return $this->update;
-    }
-
-    public function setUpdate(bool $update): static {
-        $this->update = $update;
-
-        return $this;
     }
     // </editor-fold>
 
@@ -119,12 +108,8 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         // Import
         /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
         if ($this->resolver->get($item->id)) {
-            if ($state->update) {
-                $this->factory->create($item);
-                $state->updated++;
-            } else {
-                $state->ignored++;
-            }
+            $this->factory->create($item);
+            $state->updated++;
         } else {
             $this->factory->create($item);
             $state->created++;
@@ -214,8 +199,7 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'from'   => $this->getFrom(),
-            'update' => $this->isUpdate(),
+            'from' => $this->getFrom(),
         ]);
     }
     // </editor-fold>

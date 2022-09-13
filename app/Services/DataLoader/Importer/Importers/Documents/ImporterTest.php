@@ -49,7 +49,6 @@ class ImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(Importer::class)
-            ->setUpdate(true)
             ->setLimit(DocumentsImporterData::LIMIT)
             ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)
@@ -73,7 +72,6 @@ class ImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(Importer::class)
-            ->setUpdate(true)
             ->setLimit(DocumentsImporterData::LIMIT)
             ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)

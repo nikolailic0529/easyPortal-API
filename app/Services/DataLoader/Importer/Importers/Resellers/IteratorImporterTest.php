@@ -51,7 +51,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(ResellersIteratorImporterData::getIterator())
             ->setChunkSize(ResellersIteratorImporterData::CHUNK)
             ->setLimit(ResellersIteratorImporterData::LIMIT)
@@ -81,7 +80,6 @@ class IteratorImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setUpdate(true)
             ->setIterator(ResellersIteratorImporterData::getIterator())
             ->setChunkSize(ResellersIteratorImporterData::CHUNK)
             ->setLimit(ResellersIteratorImporterData::LIMIT)
