@@ -2941,11 +2941,6 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Cannot call method exists\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/Models/NoteTest.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Organization\\:\\:audits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -7164,61 +7159,6 @@ parameters:
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:orderBy\\(\\)\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Callbacks/OrderByKey.php
-
-		-
-			message: "#^Anonymous function should return Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null but returns mixed\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Eloquent\\\\CascadeDeletes\\\\CascadeProcessor\\:\\:getRelatedObjects\\(\\) should return array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\: Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessor.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:132\\:\\:relationWithoutAttribute\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationProtected\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithTypehintIgnored\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithUnionTypehint\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
-
-		-
-			message: "#^Method class@anonymous/app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest\\.php\\:81\\:\\:relationWithoutTypehint\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: app/Utils/Eloquent/CascadeDeletes/CascadeProcessorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\) of method App\\\\Utils\\\\Eloquent\\\\GlobalScopes\\\\DisableableScope\\:\\:apply\\(\\) should be contravariant with parameter \\$builder \\(Illuminate\\\\Database\\\\Eloquent\\\\Builder\\) of method Illuminate\\\\Database\\\\Eloquent\\\\Scope\\:\\:apply\\(\\)$#"

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Data\City;
 use App\Models\Data\Status;
 use App\Models\Relations\HasAssets;
 use App\Models\Relations\HasContacts;
@@ -10,11 +9,9 @@ use App\Models\Relations\HasCustomers;
 use App\Models\Relations\HasDocuments;
 use App\Models\Relations\HasKpi;
 use App\Models\Relations\HasLocations;
-use App\Models\Relations\HasOrganization;
 use App\Models\Relations\HasStatuses;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -24,7 +21,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Reseller.
@@ -103,7 +99,6 @@ class Reseller extends Model implements OwnedByReseller {
      *
      * @return BelongsTo<Organization, self>
      */
-    #[CascadeDelete(true)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class, $this->getKeyName());
     }

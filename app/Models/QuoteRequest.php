@@ -14,7 +14,6 @@ use App\Models\Relations\HasUser;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -91,7 +90,6 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         return $this->qualifyColumn('organization_id');
     }
 
-    #[CascadeDelete(true)]
     public function assets(): HasMany {
         return $this->hasMany(QuoteRequestAsset::class, 'request_id');
     }
@@ -106,7 +104,6 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     /**
      * @return HasMany<QuoteRequestDocument>
      */
-    #[CascadeDelete(true)]
     public function documents(): HasMany {
         return $this->hasMany(QuoteRequestDocument::class, 'request_id');
     }
@@ -118,7 +115,6 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         $this->syncHasMany('documents', $documents);
     }
 
-    #[CascadeDelete(true)]
     public function contact(): MorphOne {
         return $this->morphOne(Contact::class, 'object');
     }

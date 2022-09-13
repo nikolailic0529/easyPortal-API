@@ -10,7 +10,6 @@ use App\Models\Relations\HasCurrency;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\I18n\Eloquent\TranslatedString;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\OrganizationFactory;
@@ -129,22 +128,18 @@ class Organization extends Model implements
     /**
      * @return MorphTo<Reseller, Organization>
      */
-    #[CascadeDelete(false)]
     public function company(): MorphTo {
         return $this->morphTo(null, 'type', 'id');
     }
 
-    #[CascadeDelete(true)]
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
     }
 
-    #[CascadeDelete(false)]
     public function audits(): HasMany {
         return $this->hasMany(Audit::class);
     }
 
-    #[CascadeDelete(false)]
     public function users(): HasManyThrough {
         return $this->hasManyThrough(
             User::class,
@@ -156,7 +151,6 @@ class Organization extends Model implements
         );
     }
 
-    #[CascadeDelete(true)]
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

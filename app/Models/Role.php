@@ -7,7 +7,6 @@ use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -48,7 +47,6 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
      */
     protected $table = 'roles';
 
-    #[CascadeDelete(false)]
     public function users(): BelongsToMany {
         $pivot = new OrganizationUser();
 
@@ -59,7 +57,6 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
             ->withTimestamps();
     }
 
-    #[CascadeDelete(true)]
     public function permissions(): BelongsToMany {
         $pivot = new RolePermission();
 

@@ -5,7 +5,6 @@ namespace App\Models\Relations;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Data\Location;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
@@ -13,7 +12,6 @@ use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
  * @mixin Model
  */
 trait HasCustomersThroughLocations {
-    #[CascadeDelete(false)]
     public function customers(): HasManyDeep {
         return $this->hasManyDeep(
             Customer::class,

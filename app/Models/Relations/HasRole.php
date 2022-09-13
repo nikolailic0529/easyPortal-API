@@ -3,7 +3,6 @@
 namespace App\Models\Relations;
 
 use App\Models\Role;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,7 +13,6 @@ trait HasRole {
     /**
      * @return BelongsTo<Role, self>
      */
-    #[CascadeDelete(false)]
     public function role(): BelongsTo {
         return $this->belongsTo(Role::class);
     }
