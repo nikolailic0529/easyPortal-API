@@ -23,11 +23,11 @@ class DistributorResolver extends Resolver implements SingletonPersistent {
     }
 
     protected function getPreloadedItems(): Collection {
-        return Distributor::query()->get();
+        return Distributor::withTrashed()->get();
     }
 
     protected function getFindQuery(): ?Builder {
-        return Distributor::query();
+        return Distributor::withTrashed();
     }
 
     /**

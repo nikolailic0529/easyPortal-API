@@ -1,10 +1,10 @@
 [
     {
-        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors`",
         "bindings": []
     },
     {
-        "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?)) and `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors` where ((`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?) or (`distributors`.`id` = ?))",
         "bindings": [
             "0920a7cb-3cf1-4a7d-bd84-f255cb753dec",
             "1af1c44e-8112-4e72-9654-b11c705e9372",

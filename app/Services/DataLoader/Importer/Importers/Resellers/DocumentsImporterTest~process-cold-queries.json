@@ -128,7 +128,7 @@
         "bindings": []
     },
     {
-        "query": "select `distributors`.* from `distributors` where `distributors`.`deleted_at` is null",
+        "query": "select `distributors`.* from `distributors`",
         "bindings": []
     },
     {

@@ -91,4 +91,34 @@ class DistributorLoaderTest extends TestCase {
 
         unset($events);
     }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessTrashed(): void {
+        // Generate
+        $this->generateData(DistributorLoaderData::class);
+
+        // Prepare
+        $distributor = Distributor::factory()->create([
+            'id' => DistributorLoaderData::DISTRIBUTOR,
+        ]);
+
+        self::assertTrue($distributor->delete());
+        self::assertTrue($distributor->trashed());
+
+        // Pretest
+        self::assertModelsCount([
+            Distributor::class => 0,
+        ]);
+
+        // Test
+        $this->app->make(DistributorLoader::class)
+            ->setObjectId(DistributorLoaderData::DISTRIBUTOR)
+            ->start();
+
+        self::assertModelsCount([
+            Distributor::class => 1,
+        ]);
+    }
 }

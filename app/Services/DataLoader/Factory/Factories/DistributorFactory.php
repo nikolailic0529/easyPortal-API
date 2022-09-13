@@ -63,7 +63,11 @@ class DistributorFactory extends ModelFactory {
             $distributor->changed_at = $normalizer->datetime($company->updatedAt);
             $distributor->synced_at  = Date::now();
 
-            $distributor->save();
+            if ($distributor->trashed()) {
+                $distributor->restore();
+            } else {
+                $distributor->save();
+            }
 
             return $distributor;
         });
