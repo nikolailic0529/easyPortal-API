@@ -257,7 +257,11 @@ class AssetFactory extends ModelFactory {
             }
 
             // Save
-            $model->save();
+            if ($model->trashed()) {
+                $model->restore();
+            } else {
+                $model->save();
+            }
 
             // Cleanup
             unset($model->warranties);

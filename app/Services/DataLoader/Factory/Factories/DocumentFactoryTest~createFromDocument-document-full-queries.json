@@ -29,7 +29,7 @@
     "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "insert into `document_statuses` (`status_id`, `document_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
-    "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+    "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
     "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
     "insert into `resellers` (`id`, `kpi_id`, `name`, `customers_count`, `locations_count`, `assets_count`, `statuses_count`, `changed_at`, `synced_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `oems` (`id`, `key`, `name`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?)",

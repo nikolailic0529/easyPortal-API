@@ -180,7 +180,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "2affbdde-3482-413f-b5be-9d53750b1bf6",
             "67f15e28-9a40-4b17-bee7-21016133371f",
@@ -385,7 +385,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "40903c2a-3261-4370-bce2-3cefbfb302fd",
             "4588d734-3f35-41de-aa43-56e977dce94a",
@@ -571,7 +571,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "1455dd8d-4f0c-4482-9f5a-d709bcefe8ac",
             "a9761e72-c6f7-4bd6-b3f6-8b6198bcae6e"
@@ -718,7 +718,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "3613bc73-d248-4152-963e-256f709d4bfa",
             "d05149aa-2643-4261-b96b-b35117513b18",
@@ -925,7 +925,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "655c92a0-5e10-4352-9c0b-c76c617c476d"
         ]
@@ -1134,7 +1134,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "722c2289-8a51-4945-9253-09068bd2960d",
             "08561eab-cde5-4f75-8f29-fb2fcef147fe"
@@ -1320,7 +1320,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "badaad57-bac0-45fe-aa6e-c39adfa2cd50",
             "485f0b56-5163-425d-a793-55ec5bd6a24f",
@@ -1528,7 +1528,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "d890d218-4629-4f8f-9a19-b41354c914d9"
         ]
@@ -1636,7 +1636,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "68737368-967b-4edc-b7f4-25f280d710da"
         ]
@@ -1720,7 +1720,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "3a320000-4f4d-49f0-97f7-41e0865b36a4",
             "c65d7e34-c4e6-4591-b951-512652c2581b"
@@ -2018,7 +2018,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "af4cbeb2-34b5-4a7a-94a5-f01d6e4a8150"
         ]
@@ -2121,7 +2121,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "ea056c9e-21b7-48e6-8a13-3d4eb7b23d0d",
             "3ebbbadf-979a-4fc7-8446-a66b3761a308",
@@ -2316,7 +2316,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "7131f694-23b8-42bb-a1c8-c51f51e093e1",
             "1e2e8f5b-2bdc-4b6f-a963-122335417513",
@@ -2504,7 +2504,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "832a235b-20c3-43f0-aeff-8ea054ad6eb4",
             "24f2b15f-1467-41f5-8625-2853c331fe39",
@@ -2693,7 +2693,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "0fc2bd88-7afb-4256-bb2e-267d6de4d8c8",
             "a9214296-e8ad-47cc-9caf-9a14858b3f72",
@@ -2973,7 +2973,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "f8f0df6f-282b-4858-b68f-40ce43c9e08e",
             "f30f487a-5223-4b31-9873-714ec3a8c5e6",
@@ -3179,7 +3179,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "f8f0df6f-282b-4858-b68f-40ce43c9e08e",
             "e7ec0b4b-3696-4b4d-b296-7cb145a5add4",
@@ -3365,7 +3365,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "f1af7d31-890a-4494-92ef-70e180b0fc05",
             "160f2c8e-f605-4f43-afda-277c4c5c740d",
@@ -3552,7 +3552,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "2559c259-161f-4469-966e-c0c8301f554e"
         ]
@@ -3655,7 +3655,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "ecbe04c5-b74d-41e5-b54b-b1717cdbdcda",
             "20b15a78-27c9-4885-866e-5fa123c29ad5"
@@ -3885,7 +3885,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "3797cbbf-5736-4ecd-9b66-82683143f843",
             "3fb43025-c1b4-402e-9efa-502501f56772",
@@ -4080,7 +4080,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "15f529ce-e7ec-4c67-b4a6-efa19d31301e",
             "3214e980-4568-4a93-89b4-606adb49f0d5",
@@ -4269,7 +4269,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "446dbb0c-cae6-449d-930b-fae2c0811746",
             "63ce16e8-a506-4501-8de5-cbf43ce64880"
@@ -4471,7 +4471,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "655c92a0-5e10-4352-9c0b-c76c617c476d"
         ]
@@ -4581,7 +4581,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
             "3610f421-5f0d-4a24-86fb-c968883feb51",
             "d42ca42c-fa37-4f0d-8ad8-69e6303a4efe",

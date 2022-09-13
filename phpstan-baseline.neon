@@ -3676,48 +3676,8 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Cannot access property \\$end on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$key on App\\\\Models\\\\Data\\\\Status\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$key on App\\\\Models\\\\Data\\\\Type\\|null\\.$#"
-			count: 4
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$sku on App\\\\Models\\\\Data\\\\ServiceGroup\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot access property \\$start on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Cannot call method forceFill\\(\\) on App\\\\Models\\\\AssetWarranty\\|null\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot call method format\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 4
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Customer\\|null\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|null\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
@@ -3752,12 +3712,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 11
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<string\\>\\|null given\\.$#"
-			count: 4
+			count: 12
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-

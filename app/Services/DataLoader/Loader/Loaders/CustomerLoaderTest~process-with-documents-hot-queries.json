@@ -202,7 +202,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921"
         ]
@@ -242,7 +242,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921"
         ]
@@ -282,7 +282,7 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "c1197a7f-7d6d-4e61-8c2e-f9ea27497921"
         ]

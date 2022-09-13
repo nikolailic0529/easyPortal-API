@@ -29,6 +29,11 @@ class AssetResolverTest extends TestCase {
         $a = Asset::factory()->create();
         $b = Asset::factory()->create();
 
+        $b->delete();
+
+        self::assertTrue($b->delete());
+        self::assertTrue($b->trashed());
+
         // Run
         $provider = $this->app->make(AssetResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);

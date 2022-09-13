@@ -164,4 +164,35 @@ class AssetLoaderTest extends TestCase {
 
         unset($events);
     }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessTrashed(): void {
+        // Generate
+        $this->generateData(AssetLoaderDataWithoutDocuments::class);
+
+        // Prepare
+        $asset = Asset::factory()->create([
+            'id' => AssetLoaderDataWithoutDocuments::ASSET,
+        ]);
+
+        self::assertTrue($asset->delete());
+        self::assertTrue($asset->trashed());
+
+        // Pretest
+        self::assertModelsCount([
+            Asset::class => 0,
+        ]);
+
+        // Test
+        $this->app->make(AssetLoader::class)
+            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
+            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
+            ->start();
+
+        self::assertModelsCount([
+            Asset::class => 1,
+        ]);
+    }
 }
