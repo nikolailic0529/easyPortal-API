@@ -7,12 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Asset
+ * @coversDefaultClass \App\Models\Role
  */
-class AssetTest extends TestCase {
+class RoleTest extends TestCase {
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
-        $model  = $models['asset'] ?? null;
+        $model  = $models['organizationRole'] ?? null;
 
         self::assertNotNull($model);
         self::assertModelHasAllRelations($model);
@@ -44,14 +44,14 @@ class AssetTest extends TestCase {
                 'locationReseller'              => false,
                 'locationCustomer'              => false,
                 'organization'                  => false,
-                'organizationRole'              => false,
-                'organizationRolePermission'    => false,
-                'organizationUser'              => false,
-                'organizationChangeRequest'     => false,
-                'organizationChangeRequestFile' => false,
+                'organizationRole'              => true,
+                'organizationRolePermission'    => true,
                 'user'                          => false,
                 'userSearch'                    => false,
                 'userInvitation'                => false,
+                'organizationUser'              => false,
+                'organizationChangeRequest'     => false,
+                'organizationChangeRequestFile' => false,
                 'reseller'                      => false,
                 'resellerKpi'                   => false,
                 'resellerCustomerKpi'           => false,
@@ -73,15 +73,15 @@ class AssetTest extends TestCase {
                 'customerChangeRequest'         => false,
                 'customerChangeRequestFile'     => false,
                 'audit'                         => false,
-                'asset'                         => true,
-                'assetContact'                  => true,
-                'assetContactType'              => true,
-                'assetCoverage'                 => true,
-                'assetTag'                      => true,
-                'assetChangeRequest'            => true,
-                'assetChangeRequestFile'        => true,
-                'assetWarranty'                 => true,
-                'assetWarrantyServiceLevel'     => true,
+                'asset'                         => false,
+                'assetContact'                  => false,
+                'assetContactType'              => false,
+                'assetCoverage'                 => false,
+                'assetTag'                      => false,
+                'assetChangeRequest'            => false,
+                'assetChangeRequestFile'        => false,
+                'assetWarranty'                 => false,
+                'assetWarrantyServiceLevel'     => false,
                 'quoteRequest'                  => false,
                 'quoteRequestAsset'             => false,
                 'quoteRequestContact'           => false,

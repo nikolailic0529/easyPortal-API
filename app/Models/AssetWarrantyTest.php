@@ -7,12 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Asset
+ * @coversDefaultClass \App\Models\AssetWarranty
  */
-class AssetTest extends TestCase {
+class AssetWarrantyTest extends TestCase {
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
-        $model  = $models['asset'] ?? null;
+        $model  = $models['assetWarranty'] ?? null;
 
         self::assertNotNull($model);
         self::assertModelHasAllRelations($model);
@@ -73,13 +73,13 @@ class AssetTest extends TestCase {
                 'customerChangeRequest'         => false,
                 'customerChangeRequestFile'     => false,
                 'audit'                         => false,
-                'asset'                         => true,
-                'assetContact'                  => true,
-                'assetContactType'              => true,
-                'assetCoverage'                 => true,
-                'assetTag'                      => true,
-                'assetChangeRequest'            => true,
-                'assetChangeRequestFile'        => true,
+                'asset'                         => false,
+                'assetContact'                  => false,
+                'assetContactType'              => false,
+                'assetCoverage'                 => false,
+                'assetTag'                      => false,
+                'assetChangeRequest'            => false,
+                'assetChangeRequestFile'        => false,
                 'assetWarranty'                 => true,
                 'assetWarrantyServiceLevel'     => true,
                 'quoteRequest'                  => false,

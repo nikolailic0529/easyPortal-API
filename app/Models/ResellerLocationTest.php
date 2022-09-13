@@ -7,12 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Asset
+ * @coversDefaultClass \App\Models\ResellerLocation
  */
-class AssetTest extends TestCase {
+class ResellerLocationTest extends TestCase {
     public function testDelete(): void {
         $models = (new ModelsProvider())($this);
-        $model  = $models['asset'] ?? null;
+        $model  = $models['resellerLocation'] ?? null;
 
         self::assertNotNull($model);
         self::assertModelHasAllRelations($model);
@@ -46,20 +46,20 @@ class AssetTest extends TestCase {
                 'organization'                  => false,
                 'organizationRole'              => false,
                 'organizationRolePermission'    => false,
-                'organizationUser'              => false,
-                'organizationChangeRequest'     => false,
-                'organizationChangeRequestFile' => false,
                 'user'                          => false,
                 'userSearch'                    => false,
                 'userInvitation'                => false,
+                'organizationUser'              => false,
+                'organizationChangeRequest'     => false,
+                'organizationChangeRequestFile' => false,
                 'reseller'                      => false,
                 'resellerKpi'                   => false,
                 'resellerCustomerKpi'           => false,
                 'resellerContact'               => false,
                 'resellerContactType'           => false,
                 'resellerStatus'                => false,
-                'resellerLocation'              => false,
-                'resellerLocationType'          => false,
+                'resellerLocation'              => true,
+                'resellerLocationType'          => true,
                 'resellerChangeRequest'         => false,
                 'resellerChangeRequestFile'     => false,
                 'resellerCustomer'              => false,
@@ -73,15 +73,15 @@ class AssetTest extends TestCase {
                 'customerChangeRequest'         => false,
                 'customerChangeRequestFile'     => false,
                 'audit'                         => false,
-                'asset'                         => true,
-                'assetContact'                  => true,
-                'assetContactType'              => true,
-                'assetCoverage'                 => true,
-                'assetTag'                      => true,
-                'assetChangeRequest'            => true,
-                'assetChangeRequestFile'        => true,
-                'assetWarranty'                 => true,
-                'assetWarrantyServiceLevel'     => true,
+                'asset'                         => false,
+                'assetContact'                  => false,
+                'assetContactType'              => false,
+                'assetCoverage'                 => false,
+                'assetTag'                      => false,
+                'assetChangeRequest'            => false,
+                'assetChangeRequestFile'        => false,
+                'assetWarranty'                 => false,
+                'assetWarrantyServiceLevel'     => false,
                 'quoteRequest'                  => false,
                 'quoteRequestAsset'             => false,
                 'quoteRequestContact'           => false,
