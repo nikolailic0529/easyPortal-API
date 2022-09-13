@@ -2896,6 +2896,11 @@ parameters:
 			path: app/Models/Invitation.php
 
 		-
+			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:newModelQuery\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
+			count: 1
+			path: app/Models/Logs/Model.php
+
+		-
 			message: "#^Method App\\\\Models\\\\Logs\\\\Model\\:\\:performInsert\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/Models/Logs/Model.php
@@ -3462,16 +3467,6 @@ parameters:
 
 		-
 			message: "#^Offset 'index' on array\\{first\\: mixed, index\\: int, invalid\\: int, last\\: mixed\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Parameter \\#2 \\$lastId of method App\\\\Services\\\\DataLoader\\\\Commands\\\\AssetsAnalyze\\:\\:getIterator\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
-
-		-
-			message: "#^Part \\$lastId \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
@@ -4629,16 +4624,6 @@ parameters:
 			message: "#^Cannot call method once\\(\\) on mixed\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\AnalyzeAssetResolver\\:\\:get\\(\\) has parameter \\$factory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/Resolvers/AnalyzeAssetResolverTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$array of function array_keys expects array, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
