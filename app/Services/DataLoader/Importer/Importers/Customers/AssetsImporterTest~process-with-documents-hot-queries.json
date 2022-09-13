@@ -104,7 +104,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "019a3b56-b701-4599-8452-2cf9f1f54b26"
         ]

@@ -81,7 +81,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "8e57be47-2088-48c7-9342-0a2c64293248"
         ]
@@ -283,7 +283,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "8e57be47-2088-48c7-9342-0a2c64293248"
         ]
@@ -461,7 +461,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "8e57be47-2088-48c7-9342-0a2c64293248"
         ]
@@ -639,7 +639,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "8e57be47-2088-48c7-9342-0a2c64293248"
         ]
@@ -817,7 +817,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "8e57be47-2088-48c7-9342-0a2c64293248"
         ]

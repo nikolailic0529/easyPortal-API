@@ -29,6 +29,9 @@ class CustomerResolverTest extends TestCase {
         $a = Customer::factory()->create();
         $b = Customer::factory()->create();
 
+        self::assertTrue($b->delete());
+        self::assertTrue($b->trashed());
+
         // Run
         $provider = $this->app->make(CustomerResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);

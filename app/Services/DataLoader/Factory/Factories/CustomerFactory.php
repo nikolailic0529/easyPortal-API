@@ -106,7 +106,11 @@ class CustomerFactory extends CompanyFactory {
             $customer->synced_at       = Date::now();
             $customer->resellersPivots = $this->resellers($customer, $company->companyResellerKpis);
 
-            $customer->save();
+            if ($customer->trashed()) {
+                $customer->restore();
+            } else {
+                $customer->save();
+            }
 
             return $customer;
         });

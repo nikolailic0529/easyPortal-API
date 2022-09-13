@@ -21,7 +21,7 @@ class CustomerResolver extends Resolver {
     }
 
     protected function getFindQuery(): ?Builder {
-        return Customer::query();
+        return Customer::withTrashed();
     }
 
     /**

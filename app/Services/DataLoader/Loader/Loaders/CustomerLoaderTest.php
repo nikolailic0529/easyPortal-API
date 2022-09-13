@@ -55,7 +55,7 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
@@ -84,7 +84,7 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
@@ -127,7 +127,7 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
@@ -156,7 +156,7 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-hot-queries.json', $queries);
@@ -238,5 +238,37 @@ class CustomerLoaderTest extends TestCase {
         $queries->flush();
 
         unset($events);
+    }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessTrashed(): void {
+        // Generate
+        $this->generateData(CustomerLoaderDataWithoutAssets::class);
+
+        // Prepare
+        $customer = Customer::factory()->create([
+            'id' => CustomerLoaderDataWithoutAssets::CUSTOMER,
+        ]);
+
+        self::assertTrue($customer->delete());
+        self::assertTrue($customer->trashed());
+
+        // Pretest
+        self::assertModelsCount([
+            Customer::class => 0,
+        ]);
+
+        // Test
+        $this->app->make(CustomerLoader::class)
+            ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
+            ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
+            ->start();
+
+        self::assertModelsCount([
+            Customer::class => 1,
+        ]);
     }
 }

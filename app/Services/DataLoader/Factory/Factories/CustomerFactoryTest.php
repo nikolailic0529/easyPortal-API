@@ -290,6 +290,32 @@ class CustomerFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::create
+     * @covers ::createFromCompany
+     */
+    public function testCreateFromCompanyTrashed(): void {
+        // Mock
+        $this->overrideResellerFinder();
+
+        // Prepare
+        $factory = $this->app->make(CustomerFactory::class);
+        $json    = $this->getTestData()->json('~customer-full.json');
+        $company = new Company($json);
+        $model   = Customer::factory()->create([
+            'id' => $company->id,
+        ]);
+
+        self::assertTrue($model->delete());
+        self::assertTrue($model->trashed());
+
+        // Test
+        $created = $factory->create($company);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
+    }
+
+    /**
      * @covers ::resellers
      */
     public function testResellers(): void {
@@ -354,7 +380,7 @@ class CustomerFactoryTest extends TestCase {
         $kpiC     = Kpi::query()
             ->whereKeyNot($kpiA->getKey())
             ->whereKeyNot($kpiB->getKey())
-            ->first();
+            ->firstOrFail();
         $actual   = $actual
             ->map(static function (ResellerCustomer $customer): array {
                 return [

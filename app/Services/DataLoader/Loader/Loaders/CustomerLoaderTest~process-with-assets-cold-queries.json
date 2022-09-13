@@ -1,6 +1,6 @@
 [
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "03ee438b-b478-4b4b-86bd-a495f3ab2880"
         ]
@@ -125,7 +125,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "03ee438b-b478-4b4b-86bd-a495f3ab2880"
         ]
@@ -1902,7 +1902,7 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?)) and `customers`.`deleted_at` is null",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
         ]
