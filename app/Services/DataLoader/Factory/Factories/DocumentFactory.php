@@ -291,7 +291,8 @@ class DocumentFactory extends ModelFactory {
                 $model->entries_count = 0;
             }
 
-            // We cannot save document if assets doesn't exist
+            // We cannot save Document if asset doesn't exist.
+            // We cannot restore Document because Asset may have outdated data.
             if ($object->asset->exists) {
                 $model->save();
             }
@@ -372,7 +373,11 @@ class DocumentFactory extends ModelFactory {
             $model->statuses    = $this->documentStatuses($model, $document);
 
             // Save
-            $model->save();
+            if ($model->trashed()) {
+                $model->restore();
+            } else {
+                $model->save();
+            }
 
             // Return
             return $model;

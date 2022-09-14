@@ -143,7 +143,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "e711207a-5311-400d-951a-688429703e8d"
         ]
@@ -1920,7 +1920,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "ef9bbb19-5dd9-4222-a739-97659a654468"
         ]

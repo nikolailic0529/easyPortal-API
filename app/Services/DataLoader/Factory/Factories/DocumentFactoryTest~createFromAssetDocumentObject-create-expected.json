@@ -1,5 +1,5 @@
 [
-    "select `documents`.* from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+    "select `documents`.* from `documents` where (`documents`.`id` = ?) limit 1",
     "select `oems`.* from `oems` where `oems`.`deleted_at` is null",
     "insert into `oems` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
     "select `oem_groups`.* from `oem_groups` where (`key` = ? and `name` = ? and `oem_id` = ?) and `oem_groups`.`deleted_at` is null limit 1",

@@ -1,6 +1,6 @@
 [
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
@@ -641,7 +641,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
@@ -812,7 +812,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]
@@ -991,7 +991,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "00122a07-53e5-4c70-ba6b-bf51fcdd6695"
         ]

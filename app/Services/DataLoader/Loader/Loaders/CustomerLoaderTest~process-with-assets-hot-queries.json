@@ -255,7 +255,7 @@
         ]
     },
     {
-        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+        "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "e711207a-5311-400d-951a-688429703e8d"
         ]

@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Document;
+use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +15,7 @@ use Illuminate\Support\Collection;
  */
 class DocumentResolver extends Resolver {
     /**
-     * @param Closure(\App\Services\DataLoader\Normalizer\Normalizer=): Document|null $factory
+     * @param Closure(Normalizer=): Document|null $factory
      *
      * @return ($factory is null ? Document|null : Document)
      */
@@ -34,6 +35,6 @@ class DocumentResolver extends Resolver {
     }
 
     protected function getFindQuery(): ?Builder {
-        return Document::query();
+        return Document::withTrashed();
     }
 }

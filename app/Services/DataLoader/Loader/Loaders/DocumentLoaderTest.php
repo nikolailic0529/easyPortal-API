@@ -91,4 +91,34 @@ class DocumentLoaderTest extends TestCase {
 
         unset($events);
     }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessTrashed(): void {
+        // Generate
+        $this->generateData(DocumentLoaderData::class);
+
+        // Prepare
+        $document = Document::factory()->create([
+            'id' => DocumentLoaderData::DOCUMENT,
+        ]);
+
+        self::assertTrue($document->delete());
+        self::assertTrue($document->trashed());
+
+        // Pretest
+        self::assertModelsCount([
+            Document::class => 0,
+        ]);
+
+        // Test
+        $this->app->make(DocumentLoader::class)
+            ->setObjectId(DocumentLoaderData::DOCUMENT)
+            ->start();
+
+        self::assertModelsCount([
+            Document::class => 1,
+        ]);
+    }
 }

@@ -250,6 +250,38 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObjectTrashed(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~asset-document-full.json');
+        $asset    = new ViewAsset($json);
+        $model    = Asset::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object   = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+        ]);
+        $document = DocumentModel::factory()->create([
+            'id' => $object->document->document->id ?? null,
+        ]);
+
+        self::assertTrue($document->delete());
+        self::assertTrue($document->trashed());
+
+        // Test
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        self::assertNotNull($created);
+        self::assertTrue($created->trashed());
+    }
+
+    /**
      * @covers ::isEntryEqualDocumentEntry
      */
     public function testIsEntryEqualDocumentEntry(): void {
@@ -1144,6 +1176,31 @@ class DocumentFactoryTest extends TestCase {
 
         self::assertNotNull($created);
         self::assertNull($created->type_id);
+    }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentTrashed(): void {
+        // Mock
+        $this->overrideFinders();
+
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~createFromDocument-document-type-null.json');
+        $object   = new Document($json);
+        $document = DocumentModel::factory()->create([
+            'id' => $object->id,
+        ]);
+
+        self::assertTrue($document->delete());
+        self::assertTrue($document->trashed());
+
+        // Test
+        $created = $factory->createFromDocument($object);
+
+        self::assertNotNull($created);
+        self::assertFalse($created->trashed());
     }
     // </editor-fold>
 

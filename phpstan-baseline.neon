@@ -3847,12 +3847,12 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Document constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 4
+			count: 5
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 6
+			count: 7
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
 		-
