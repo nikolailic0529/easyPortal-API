@@ -1,5 +1,5 @@
 [
-    "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+    "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) limit 1",
     "select `statuses`.* from `statuses` where `statuses`.`deleted_at` is null",
     "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
     "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",

@@ -911,7 +911,7 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
         ]
@@ -2856,7 +2856,7 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "0fd07b17-3314-40b5-ac32-7189051f773b"
         ]
@@ -3710,7 +3710,7 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
         ]

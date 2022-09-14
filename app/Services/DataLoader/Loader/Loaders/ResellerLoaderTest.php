@@ -239,4 +239,36 @@ class ResellerLoaderTest extends TestCase {
 
         unset($events);
     }
+
+    /**
+     * @covers ::process
+     */
+    public function testProcessTrashed(): void {
+        // Generate
+        $this->generateData(ResellerLoaderDataWithoutAssets::class);
+
+        // Prepare
+        $reseller = Reseller::factory()->create([
+            'id' => ResellerLoaderDataWithoutAssets::RESELLER,
+        ]);
+
+        self::assertTrue($reseller->delete());
+        self::assertTrue($reseller->trashed());
+
+        // Pretest
+        self::assertModelsCount([
+            Reseller::class => 0,
+        ]);
+
+        // Test
+        $this->app->make(ResellerLoader::class)
+            ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
+            ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
+            ->setWithAssetsDocuments(ResellerLoaderDataWithoutAssets::DOCUMENTS)
+            ->start();
+
+        self::assertModelsCount([
+            Reseller::class => 1,
+        ]);
+    }
 }

@@ -11,7 +11,7 @@
     "select `products`.* from `products` where `products`.`deleted_at` is null",
     "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
     "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
-    "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) and `resellers`.`deleted_at` is null limit 1",
+    "select `resellers`.* from `resellers` where (`resellers`.`id` = ?) limit 1",
     "insert into `resellers` (`id`, `kpi_id`, `name`, `customers_count`, `locations_count`, `assets_count`, `statuses_count`, `changed_at`, `synced_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "select `customers`.* from `customers` where (`customers`.`id` = ?) limit 1",
     "insert into `customers` (`id`, `name`, `kpi_id`, `assets_count`, `quotes_count`, `contracts_count`, `locations_count`, `contacts_count`, `statuses_count`, `changed_at`, `synced_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
