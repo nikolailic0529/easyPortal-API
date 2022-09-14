@@ -13,7 +13,7 @@ use function is_array;
  */
 class RecursiveJsonObjectIterator extends ArrayIterator implements RecursiveIterator {
     /**
-     * @param JsonObject|array<JsonObject>|array<array-key, mixed> $object
+     * @param JsonObject|array<JsonObject>|array<mixed> $object
      */
     public function __construct(JsonObject|array $object) {
         parent::__construct($object instanceof JsonObject ? [$object] : $object);

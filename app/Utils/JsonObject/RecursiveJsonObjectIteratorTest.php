@@ -3,6 +3,7 @@
 namespace App\Utils\JsonObject;
 
 use RecursiveIteratorIterator;
+use stdClass;
 use Tests\TestCase;
 
 /**
@@ -55,6 +56,13 @@ class RecursiveJsonObjectIteratorTest extends TestCase {
                 $a,
             ],
         ]);
+        $c = new class($a) extends stdClass {
+            public function __construct(
+                public mixed $c,
+            ) {
+                // empty
+            }
+        };
 
         return [
             'mixed'             => [
@@ -98,6 +106,17 @@ class RecursiveJsonObjectIteratorTest extends TestCase {
                 ],
                 [
                     ['a', $a],
+                ],
+            ],
+            'array<object>'     => [
+                [
+                    [
+                        'key'   => 0,
+                        'value' => $c,
+                    ],
+                ],
+                [
+                    $c,
                 ],
             ],
             'JsonObject'        => [
