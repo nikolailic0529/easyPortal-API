@@ -7,15 +7,21 @@ use App\Models\Document as DocumentModel;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Testing\Data\Client as DataClient;
+use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use App\Utils\Iterators\Contracts\ObjectIterator;
+use App\Utils\Iterators\ObjectsIterator;
 use Closure;
 use Faker\Generator;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 use Symfony\Component\Filesystem\Filesystem;
 
+use function array_combine;
+use function is_string;
 use function json_encode;
 use function ksort;
 use function mb_stripos;
@@ -145,6 +151,11 @@ abstract class Data {
             $owner = (new DocumentModel())->getMorphClass();
 
             foreach ((array) $context[ClientDumpContext::TYPES] as $key) {
+                // Valid?
+                if (!is_string($key)) {
+                    continue;
+                }
+
                 // Create
                 $key  = $this->normalizer->string($key);
                 $type = TypeModel::query()->where('object_type', '=', $owner)->where('key', '=', $key)->first();
@@ -203,6 +214,34 @@ abstract class Data {
         } finally {
             unset($this->app[Client::class]);
         }
+    }
+
+    /**
+     * @template T of \App\Utils\Eloquent\Model
+     *
+     * @param class-string<T> $model
+     * @param array<string>   $keys
+     *
+     * @return ObjectIterator<T|string>
+     */
+    protected static function getModelsIterator(string $model, array $keys): ObjectIterator {
+        $data   = array_combine($keys, $keys);
+        $models = GlobalScopes::callWithoutAll(static function () use ($model, $keys): Collection {
+            $model  = new $model();
+            $models = $model::query()
+                ->whereIn($model->getKeyName(), $keys)
+                ->get();
+
+            return $models;
+        });
+
+        foreach ($models as $m) {
+            $data[$m->getKey()] = $m;
+        }
+
+        return new ObjectsIterator(
+            $data,
+        );
     }
 
     /**

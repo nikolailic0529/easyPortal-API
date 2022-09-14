@@ -27,7 +27,7 @@ class IteratorImporterTest extends TestCase {
     /**
      * @covers ::process
      */
-    public function testProcessWithDocuments(): void {
+    public function testProcess(): void {
         // Generate
         $this->generateData(DistributorsIteratorImporterData::class);
 
@@ -37,7 +37,7 @@ class IteratorImporterTest extends TestCase {
 
         // Pretest
         self::assertModelsCount([
-            Distributor::class   => 0,
+            Distributor::class   => 1,
             Reseller::class      => 0,
             Customer::class      => 0,
             Asset::class         => 0,
@@ -47,11 +47,12 @@ class IteratorImporterTest extends TestCase {
         ]);
 
         // Test (cold)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = DistributorsIteratorImporterData::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(DistributorsIteratorImporterData::getIterator())
+            ->setIterator($iterator)
             ->setChunkSize(DistributorsIteratorImporterData::CHUNK)
             ->setLimit(DistributorsIteratorImporterData::LIMIT)
             ->start();
@@ -71,16 +72,15 @@ class IteratorImporterTest extends TestCase {
             $events->dispatched(DataImported::class),
         );
 
-        $queries->flush();
-
         unset($events);
 
         // Test (hot)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = DistributorsIteratorImporterData::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(DistributorsIteratorImporterData::getIterator())
+            ->setIterator($iterator)
             ->setChunkSize(DistributorsIteratorImporterData::CHUNK)
             ->setLimit(DistributorsIteratorImporterData::LIMIT)
             ->start();
@@ -90,8 +90,6 @@ class IteratorImporterTest extends TestCase {
             '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
-
-        $queries->flush();
 
         unset($events);
     }

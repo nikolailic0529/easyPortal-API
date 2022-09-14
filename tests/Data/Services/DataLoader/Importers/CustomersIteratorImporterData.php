@@ -7,13 +7,6 @@ use App\Services\DataLoader\Importer\Importers\Customers\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Iterators\ObjectsIterator;
-
-use function array_fill_keys;
-use function array_flip;
-use function array_rand;
-use function count;
-use function round;
 
 class CustomersIteratorImporterData extends Data {
     public const CUSTOMERS = [
@@ -52,24 +45,22 @@ class CustomersIteratorImporterData extends Data {
     }
 
     /**
+     * @inheritDoc
+     */
+    public function restore(string $path, array $context): bool {
+        $result = parent::restore($path, $context);
+
+        Customer::factory()->create([
+            'id' => '00000000-0000-0000-0000-000000000000',
+        ]);
+
+        return $result;
+    }
+
+    /**
      * @return ObjectIterator<Customer|string>
      */
     public static function getIterator(): ObjectIterator {
-        $customers = static::CUSTOMERS;
-        $models    = array_fill_keys(
-            (array) array_rand(array_flip($customers), (int) round(count($customers) / 2)),
-            true,
-        );
-        $model     = new Customer();
-
-        foreach ($customers as $key => $id) {
-            $customers[$key] = isset($models[$id])
-                ? (clone $model)->forceFill([$model->getKeyName() => $id])
-                : $id;
-        }
-
-        return new ObjectsIterator(
-            $customers,
-        );
+        return static::getModelsIterator(Customer::class, static::CUSTOMERS);
     }
 }

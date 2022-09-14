@@ -41,18 +41,19 @@ class IteratorImporterTest extends TestCase {
             Distributor::class   => 2,
             Reseller::class      => 4,
             Customer::class      => 10,
-            Asset::class         => 0,
+            Asset::class         => 1,
             AssetWarranty::class => 0,
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
 
         // Test (cold)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = AssetsIteratorImporterDataWithDocuments::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(AssetsIteratorImporterDataWithDocuments::getIterator())
+            ->setIterator($iterator)
             ->setWithDocuments(AssetsIteratorImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithDocuments::CHUNK)
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
@@ -73,16 +74,15 @@ class IteratorImporterTest extends TestCase {
             $events->dispatched(DataImported::class),
         );
 
-        $queries->flush();
-
         unset($events);
 
         // Test (hot)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = AssetsIteratorImporterDataWithDocuments::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(AssetsIteratorImporterDataWithDocuments::getIterator())
+            ->setIterator($iterator)
             ->setWithDocuments(AssetsIteratorImporterDataWithDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithDocuments::CHUNK)
             ->setLimit(AssetsIteratorImporterDataWithDocuments::LIMIT)
@@ -93,8 +93,6 @@ class IteratorImporterTest extends TestCase {
             '~process-with-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
-
-        $queries->flush();
 
         unset($events);
     }
@@ -115,18 +113,19 @@ class IteratorImporterTest extends TestCase {
             Distributor::class   => 0,
             Reseller::class      => 6,
             Customer::class      => 10,
-            Asset::class         => 0,
+            Asset::class         => 1,
             AssetWarranty::class => 0,
             Document::class      => 0,
             DocumentEntry::class => 0,
         ]);
 
         // Test (cold)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = AssetsIteratorImporterDataWithoutDocuments::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(AssetsIteratorImporterDataWithoutDocuments::getIterator())
+            ->setIterator($iterator)
             ->setWithDocuments(AssetsIteratorImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithoutDocuments::CHUNK)
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
@@ -147,16 +146,15 @@ class IteratorImporterTest extends TestCase {
             $events->dispatched(DataImported::class),
         );
 
-        $queries->flush();
-
         unset($events);
 
         // Test (hot)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = AssetsIteratorImporterDataWithoutDocuments::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(AssetsIteratorImporterDataWithoutDocuments::getIterator())
+            ->setIterator($iterator)
             ->setWithDocuments(AssetsIteratorImporterDataWithoutDocuments::DOCUMENTS)
             ->setChunkSize(AssetsIteratorImporterDataWithoutDocuments::CHUNK)
             ->setLimit(AssetsIteratorImporterDataWithoutDocuments::LIMIT)
@@ -167,8 +165,6 @@ class IteratorImporterTest extends TestCase {
             '~process-without-documents-hot-events.json',
             $events->dispatched(DataImported::class),
         );
-
-        $queries->flush();
 
         unset($events);
     }

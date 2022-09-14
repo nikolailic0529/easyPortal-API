@@ -6,13 +6,6 @@ use App\Models\Asset;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Iterators\ObjectsIterator;
-
-use function array_fill_keys;
-use function array_flip;
-use function array_rand;
-use function count;
-use function round;
 
 class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
     public const DOCUMENTS = false;
@@ -44,21 +37,29 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
     }
 
     /**
+     * @inheritDoc
+     */
+    public function restore(string $path, array $context): bool {
+        $result = parent::restore($path, $context);
+
+        Asset::factory()->create([
+            'id'          => '00000000-0000-0000-0000-000000000000',
+            'reseller_id' => null,
+            'customer_id' => null,
+            'oem_id'      => null,
+            'type_id'     => null,
+            'product_id'  => null,
+            'location_id' => null,
+            'status_id'   => null,
+        ]);
+
+        return $result;
+    }
+
+    /**
      * @return ObjectIterator<Asset|string>
      */
     public static function getIterator(): ObjectIterator {
-        $assets = static::ASSETS;
-        $models = array_fill_keys((array) array_rand(array_flip($assets), (int) round(count($assets) / 2)), true);
-        $model  = new Asset();
-
-        foreach ($assets as $key => $id) {
-            $assets[$key] = isset($models[$id])
-                ? (clone $model)->forceFill([$model->getKeyName() => $id])
-                : $id;
-        }
-
-        return new ObjectsIterator(
-            $assets,
-        );
+        return static::getModelsIterator(Asset::class, static::ASSETS);
     }
 }

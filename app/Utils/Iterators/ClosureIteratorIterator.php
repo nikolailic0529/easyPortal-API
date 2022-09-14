@@ -19,8 +19,8 @@ use function count;
  */
 class ClosureIteratorIterator extends ObjectIteratorIterator {
     /**
-     * @param ObjectIterator<TValue> $internalIterator
-     * @param Closure(TValue): TItem $converter
+     * @param ObjectIterator<TValue>  $internalIterator
+     * @param Closure(TValue): ?TItem $converter
      */
     public function __construct(
         ObjectIterator $internalIterator,
@@ -32,7 +32,7 @@ class ClosureIteratorIterator extends ObjectIteratorIterator {
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     /**
-     * @return Closure(TValue): TItem
+     * @return Closure(TValue): ?TItem
      */
     protected function getConverter(): Closure {
         return $this->converter;

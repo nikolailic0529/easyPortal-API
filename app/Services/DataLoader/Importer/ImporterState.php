@@ -11,4 +11,5 @@ class ImporterState extends State {
     public int                $updated = 0;
     public int                $created = 0;
     public int                $ignored = 0;
+    public int                $deleted = 0;
 }

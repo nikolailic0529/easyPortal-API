@@ -6,13 +6,6 @@ use App\Models\Document;
 use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Iterators\ObjectsIterator;
-
-use function array_fill_keys;
-use function array_flip;
-use function array_rand;
-use function count;
-use function round;
 
 class DocumentsIteratorImporterData extends DocumentsData {
     public const DOCUMENTS = [
@@ -42,24 +35,24 @@ class DocumentsIteratorImporterData extends DocumentsData {
     }
 
     /**
+     * @inheritDoc
+     */
+    public function restore(string $path, array $context): bool {
+        $result = parent::restore($path, $context);
+
+        Document::factory()->create([
+            'id'          => '00000000-0000-0000-0000-000000000000',
+            'reseller_id' => null,
+            'customer_id' => null,
+        ]);
+
+        return $result;
+    }
+
+    /**
      * @return ObjectIterator<Document|string>
      */
     public static function getIterator(): ObjectIterator {
-        $documents = static::DOCUMENTS;
-        $models    = array_fill_keys(
-            (array) array_rand(array_flip($documents), (int) round(count($documents) / 2)),
-            true,
-        );
-        $model     = new Document();
-
-        foreach ($documents as $key => $id) {
-            $documents[$key] = isset($models[$id])
-                ? (clone $model)->forceFill([$model->getKeyName() => $id])
-                : $id;
-        }
-
-        return new ObjectsIterator(
-            $documents,
-        );
+        return static::getModelsIterator(Document::class, static::DOCUMENTS);
     }
 }

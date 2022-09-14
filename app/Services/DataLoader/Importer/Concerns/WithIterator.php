@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Importer\Concerns;
 
+use App\Services\DataLoader\Importer\ModelObject;
+use App\Services\DataLoader\Schema\Type;
 use App\Utils\Eloquent\Model;
 use App\Utils\Iterators\ClosureIteratorIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\State;
-
-use function is_object;
 
 /**
  * @template TModel of Model
@@ -41,9 +41,12 @@ trait WithIterator {
     protected function getIterator(State $state): ObjectIterator {
         return new ClosureIteratorIterator(
             $this->iterator,
-            function (Model|string $model) use ($state): mixed {
-                $item = is_object($model) ? $model->getKey() : $model;
+            function (Model|string $model) use ($state): Type|null {
+                $item = $model instanceof Model ? $model->getKey() : $model;
                 $item = $this->getItem($state, $item);
+                $item = $item === null && $model instanceof Model
+                    ? new ModelObject(['model' => $model])
+                    : $item;
 
                 return $item;
             },

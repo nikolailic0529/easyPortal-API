@@ -44,5 +44,18 @@
             },
             "App\\Models\\Asset": []
         }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": []
+        }
     }
 ]

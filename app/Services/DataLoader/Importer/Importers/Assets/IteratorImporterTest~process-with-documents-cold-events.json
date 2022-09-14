@@ -41,16 +41,8 @@
     {
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
-            "App\\Models\\Distributor": {
-                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372",
-                "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f"
-            },
-            "App\\Models\\Reseller": {
-                "77ec115b-9723-4582-ad45-2b3a83286b1f": "77ec115b-9723-4582-ad45-2b3a83286b1f",
-                "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-                "0fd07b17-3314-40b5-ac32-7189051f773b": "0fd07b17-3314-40b5-ac32-7189051f773b",
-                "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
-            },
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": [],
             "App\\Models\\Customer": {
                 "033bcf58-0dcd-42b6-8765-51b5815b747f": "033bcf58-0dcd-42b6-8765-51b5815b747f",
                 "0c8e4738-9851-438b-acbb-a680be9bafea": "0c8e4738-9851-438b-acbb-a680be9bafea",
@@ -83,6 +75,27 @@
                 "3a010157-00fa-4110-87d9-cee7a5ba8482": "3a010157-00fa-4110-87d9-cee7a5ba8482",
                 "5d62ee0b-ebdf-4a76-bcab-60078f6eba32": "5d62ee0b-ebdf-4a76-bcab-60078f6eba32",
                 "b01ad503-d3f7-47d7-96ce-c0d37a9e3307": "b01ad503-d3f7-47d7-96ce-c0d37a9e3307"
+            }
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": {
+                "1af1c44e-8112-4e72-9654-b11c705e9372": "1af1c44e-8112-4e72-9654-b11c705e9372",
+                "a985a692-c063-499a-ab2f-0a2adef86a3f": "a985a692-c063-499a-ab2f-0a2adef86a3f"
+            },
+            "App\\Models\\Reseller": {
+                "77ec115b-9723-4582-ad45-2b3a83286b1f": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                "0fd07b17-3314-40b5-ac32-7189051f773b": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": {
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
             }
         }
     }

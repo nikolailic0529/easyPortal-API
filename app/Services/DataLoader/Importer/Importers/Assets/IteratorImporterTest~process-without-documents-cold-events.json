@@ -78,5 +78,18 @@
                 "acdf826c-6d18-4c99-a5c7-f0c8258e7305": "acdf826c-6d18-4c99-a5c7-f0c8258e7305"
             }
         }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": [],
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": {
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
+            }
+        }
     }
 ]

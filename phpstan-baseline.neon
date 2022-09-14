@@ -3986,7 +3986,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\|null, App\\\\Models\\\\Asset\\|string\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset, App\\\\Models\\\\Asset\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
 
@@ -4061,7 +4061,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Customer\\|string\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Customer\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
 
@@ -4096,7 +4096,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Distributor\\|string\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Distributor\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
 
@@ -4136,7 +4136,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\|null, App\\\\Models\\\\Document\\|string\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Document, App\\\\Models\\\\Document\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
 
@@ -4241,7 +4241,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\|null, App\\\\Models\\\\Reseller\\|string\\>\\.$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Reseller\\|string\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
 
@@ -5006,8 +5006,8 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Parameter \\#1 \\$haystack of function mb_stripos expects string, string\\|null given\\.$#"
-			count: 2
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data\\:\\:getModelsIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<string\\|T of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\>\\.$#"
+			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
@@ -5017,16 +5017,6 @@ parameters:
 
 		-
 			message: "#^Part \\$context\\[\\\\App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDumpContext\\:\\:OEMS\\] \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Type\\:\\:\\$key \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
-			message: "#^Property App\\\\Models\\\\Data\\\\Type\\:\\:\\$name \\(string\\) does not accept string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
@@ -7804,31 +7794,6 @@ parameters:
 			message: "#^PHPDoc type class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> of property Database\\\\Factories\\\\UserSearchFactory\\:\\:\\$model is not the same as PHPDoc type class\\-string\\<App\\\\Models\\\\UserSearch\\> of overridden property Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\<App\\\\Models\\\\UserSearch\\>\\:\\:\\$model\\.$#"
 			count: 1
 			path: database/factories/UserSearchFactory.php
-
-		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\AssetsIteratorImporterDataWithoutDocuments\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/AssetsIteratorImporterDataWithoutDocuments.php
-
-		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\CustomersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/CustomersIteratorImporterData.php
-
-		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DistributorsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/DistributorsIteratorImporterData.php
-
-		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\DocumentsIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/DocumentsIteratorImporterData.php
-
-		-
-			message: "#^Method Tests\\\\Data\\\\Services\\\\DataLoader\\\\Importers\\\\ResellersIteratorImporterData\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: tests/Data/Services/DataLoader/Importers/ResellersIteratorImporterData.php
 
 		-
 			message: "#^Constructor of class Tests\\\\DataProviders\\\\GraphQL\\\\Organizations\\\\OrgRootDataProvider has an unused parameter \\$root\\.$#"

@@ -70,6 +70,20 @@ abstract class Importer extends IteratorProcessor implements Isolated {
     protected function getFrom(): ?DateTimeInterface {
         return null;
     }
+
+    /**
+     * @return Resolver<TModel>
+     */
+    protected function getResolver(): Resolver {
+        return $this->resolver;
+    }
+
+    /**
+     * @return ModelFactory<TModel>
+     */
+    protected function getFactory(): ModelFactory {
+        return $this->factory;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Import">
@@ -98,6 +112,14 @@ abstract class Importer extends IteratorProcessor implements Isolated {
      * @param TState $state
      */
     protected function process(State $state, mixed $data, mixed $item): void {
+        // Model?
+        if ($item instanceof ModelObject) {
+            $item->model->delete();
+            $state->deleted++;
+
+            return;
+        }
+
         // Id?
         if (!$item instanceof TypeWithId) {
             $state->ignored++;
@@ -107,11 +129,11 @@ abstract class Importer extends IteratorProcessor implements Isolated {
 
         // Import
         /** @phpstan-ignore-next-line todo(DataLoader): would be good to use interface */
-        if ($this->resolver->get($item->id)) {
-            $this->factory->create($item);
+        if ($this->getResolver()->get($item->id)) {
+            $this->getFactory()->create($item);
             $state->updated++;
         } else {
-            $this->factory->create($item);
+            $this->getFactory()->create($item);
             $state->created++;
         }
     }

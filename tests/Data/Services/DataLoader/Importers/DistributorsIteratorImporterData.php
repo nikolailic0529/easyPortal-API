@@ -6,13 +6,6 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Importer\Importers\Distributors\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
-use App\Utils\Iterators\ObjectsIterator;
-
-use function array_fill_keys;
-use function array_flip;
-use function array_rand;
-use function count;
-use function round;
 
 class DistributorsIteratorImporterData extends Data {
     public const DISTRIBUTORS = [
@@ -36,24 +29,22 @@ class DistributorsIteratorImporterData extends Data {
     }
 
     /**
+     * @inheritDoc
+     */
+    public function restore(string $path, array $context): bool {
+        $result = parent::restore($path, $context);
+
+        Distributor::factory()->create([
+            'id' => '00000000-0000-0000-0000-000000000000',
+        ]);
+
+        return $result;
+    }
+
+    /**
      * @return ObjectIterator<Distributor|string>
      */
     public static function getIterator(): ObjectIterator {
-        $distributors = static::DISTRIBUTORS;
-        $models       = array_fill_keys(
-            (array) array_rand(array_flip($distributors), (int) round(count($distributors) / 2)),
-            true,
-        );
-        $model        = new Distributor();
-
-        foreach ($distributors as $key => $id) {
-            $distributors[$key] = isset($models[$id])
-                ? (clone $model)->forceFill([$model->getKeyName() => $id])
-                : $id;
-        }
-
-        return new ObjectsIterator(
-            $distributors,
-        );
+        return static::getModelsIterator(Distributor::class, static::DISTRIBUTORS);
     }
 }

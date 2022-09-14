@@ -38,7 +38,7 @@ class IteratorImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 0,
-            Reseller::class      => 0,
+            Reseller::class      => 1,
             Customer::class      => 0,
             Asset::class         => 0,
             AssetWarranty::class => 0,
@@ -47,11 +47,12 @@ class IteratorImporterTest extends TestCase {
         ]);
 
         // Test (cold)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = ResellersIteratorImporterData::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(ResellersIteratorImporterData::getIterator())
+            ->setIterator($iterator)
             ->setChunkSize(ResellersIteratorImporterData::CHUNK)
             ->setLimit(ResellersIteratorImporterData::LIMIT)
             ->start();
@@ -71,16 +72,15 @@ class IteratorImporterTest extends TestCase {
             $events->dispatched(DataImported::class),
         );
 
-        $queries->flush();
-
         unset($events);
 
         // Test (hot)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
+        $iterator = ResellersIteratorImporterData::getIterator();
+        $queries  = $this->getQueryLog()->flush();
+        $events   = Event::fake(DataImported::class);
 
         $this->app->make(IteratorImporter::class)
-            ->setIterator(ResellersIteratorImporterData::getIterator())
+            ->setIterator($iterator)
             ->setChunkSize(ResellersIteratorImporterData::CHUNK)
             ->setLimit(ResellersIteratorImporterData::LIMIT)
             ->start();
@@ -90,8 +90,6 @@ class IteratorImporterTest extends TestCase {
             '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
-
-        $queries->flush();
 
         unset($events);
     }
