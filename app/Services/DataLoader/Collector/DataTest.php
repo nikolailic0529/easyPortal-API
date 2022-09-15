@@ -138,6 +138,50 @@ class DataTest extends TestCase {
     }
 
     /**
+     * @covers ::collectObjectDeletion
+     */
+    public function testCollectObjectDeletionModel(): void {
+        $model = Mockery::mock(Model::class);
+        $data  = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->never();
+        $data
+            ->shouldReceive('collect')
+            ->with($model)
+            ->twice();
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectDeletion($model);
+        $data->collectObjectDeletion($model);
+
+        self::assertTrue($data->isDirty());
+    }
+
+    /**
+     * @covers ::collectObjectDeletion
+     */
+    public function testCollectObjectDeletionObject(): void {
+        $object = new stdClass();
+        $data   = Mockery::mock(Data::class);
+        $data->shouldAllowMockingProtectedMethods();
+        $data->makePartial();
+        $data
+            ->shouldReceive('isModelChanged')
+            ->never();
+
+        self::assertFalse($data->isDirty());
+
+        $data->collectObjectDeletion($object);
+        $data->collectObjectDeletion($object);
+
+        self::assertFalse($data->isDirty());
+    }
+
+    /**
      * @covers ::addAll
      */
     public function testAddAll(): void {

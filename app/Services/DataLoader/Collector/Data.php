@@ -156,6 +156,14 @@ class Data {
         return $this->collect($object);
     }
 
+    public function collectObjectDeletion(object $object): static {
+        if (!$this->dirty) {
+            $this->dirty = $object instanceof Model;
+        }
+
+        return $this->collect($object);
+    }
+
     public function isEmpty(): bool {
         return Arr::first($this->data, static fn(array $data) => !!$data) === null;
     }
