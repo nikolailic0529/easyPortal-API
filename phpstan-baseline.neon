@@ -3956,17 +3956,17 @@ parameters:
 			path: app/Services/DataLoader/Factory/ModelFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
@@ -4021,12 +4021,12 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
@@ -4116,7 +4116,7 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
 
@@ -4201,12 +4201,12 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
 
@@ -4551,7 +4551,12 @@ parameters:
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model and null will always evaluate to true\\.$#"
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects array\\<\\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), \\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Resolver/Resolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects array\\<\\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), \\(TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\)\\|null\\>\\|TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, Illuminate\\\\Support\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php
 
