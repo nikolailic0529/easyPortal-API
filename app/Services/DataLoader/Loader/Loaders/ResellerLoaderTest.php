@@ -114,7 +114,7 @@ class ResellerLoaderTest extends TestCase {
             Distributor::class   => 2,
             Reseller::class      => 2,
             Customer::class      => 2,
-            Asset::class         => 1,
+            Asset::class         => 2,
             AssetWarranty::class => 0,
             Document::class      => 0,
             DocumentEntry::class => 0,
@@ -188,7 +188,7 @@ class ResellerLoaderTest extends TestCase {
             Customer::class      => 2,
             Asset::class         => 8,
             AssetWarranty::class => 22,
-            Document::class      => 4,
+            Document::class      => 5,
             DocumentEntry::class => 0,
         ]);
 

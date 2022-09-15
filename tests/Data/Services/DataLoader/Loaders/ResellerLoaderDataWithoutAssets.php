@@ -6,6 +6,8 @@ use App\Models\Asset;
 use App\Models\Data\Oem;
 use App\Models\Data\Type;
 use App\Models\Document;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
+use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -33,6 +35,15 @@ class ResellerLoaderDataWithoutAssets extends AssetsData {
             ];
 
             if (static::ASSET) {
+                try {
+                    $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
+                        'id'          => '00000000-0000-0000-0000-000000000000',
+                        '--documents' => true,
+                    ]));
+                } catch (AssetNotFound) {
+                    // expected, we just need a dump
+                }
+
                 $results[] = $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
                     'id'          => static::ASSET,
                     '--documents' => true,
@@ -40,6 +51,14 @@ class ResellerLoaderDataWithoutAssets extends AssetsData {
             }
 
             if (static::DOCUMENT) {
+                try {
+                    $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
+                        'id' => '00000000-0000-0000-0000-000000000000',
+                    ]));
+                } catch (DocumentNotFound) {
+                    // expected, we just need a dump
+                }
+
                 $results[] = $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
                     'id' => static::DOCUMENT,
                 ]));
@@ -56,26 +75,49 @@ class ResellerLoaderDataWithoutAssets extends AssetsData {
         $result = parent::restore($path, $context);
 
         GlobalScopes::callWithoutAll(static function (): void {
-            if (static::ASSET && !Asset::query()->whereKey(static::ASSET)->exists()) {
+            if (static::ASSET) {
                 Asset::factory()->create([
-                    'id'          => static::ASSET,
+                    'id'          => '00000000-0000-0000-0000-000000000000',
                     'reseller_id' => static::RESELLER,
                     'customer_id' => null,
+                    'oem_id'      => null,
+                    'type_id'     => null,
+                    'product_id'  => null,
                     'location_id' => null,
                     'status_id'   => null,
-                    'type_id'     => null,
-                    'oem_id'      => Oem::query()->first(),
                 ]);
+
+                if (!Asset::query()->whereKey(static::ASSET)->exists()) {
+                    Asset::factory()->create([
+                        'id'          => static::ASSET,
+                        'reseller_id' => static::RESELLER,
+                        'customer_id' => null,
+                        'location_id' => null,
+                        'status_id'   => null,
+                        'type_id'     => null,
+                        'oem_id'      => Oem::query()->first(),
+                    ]);
+                }
             }
 
-            if (static::DOCUMENT && !Document::query()->whereKey(static::DOCUMENT)->exists()) {
+            if (static::DOCUMENT) {
                 Document::factory()->create([
-                    'id'          => static::DOCUMENT,
+                    'id'          => '00000000-0000-0000-0000-000000000000',
+                    'oem_id'      => null,
+                    'type_id'     => null,
                     'reseller_id' => static::RESELLER,
                     'customer_id' => null,
-                    'type_id'     => Type::query()->first(),
-                    'oem_id'      => Oem::query()->first(),
                 ]);
+
+                if (!Document::query()->whereKey(static::DOCUMENT)->exists()) {
+                    Document::factory()->create([
+                        'id'          => static::DOCUMENT,
+                        'reseller_id' => static::RESELLER,
+                        'customer_id' => null,
+                        'type_id'     => Type::query()->first(),
+                        'oem_id'      => Oem::query()->first(),
+                    ]);
+                }
             }
         });
 

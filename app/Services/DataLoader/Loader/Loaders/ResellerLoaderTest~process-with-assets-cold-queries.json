@@ -5547,20 +5547,23 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "803d34bd-1977-4743-b39e-ae8309296284"
         ]
     },
     {
-        "query": "select `asset_warranties`.* from `asset_warranties` where `asset_warranties`.`asset_id` in (?) and `asset_warranties`.`deleted_at` is null",
+        "query": "select `asset_warranties`.* from `asset_warranties` where `asset_warranties`.`asset_id` in (?, ?) and `asset_warranties`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "803d34bd-1977-4743-b39e-ae8309296284"
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "803d34bd-1977-4743-b39e-ae8309296284",
             "Asset"
         ]
@@ -5570,8 +5573,9 @@
         "bindings": []
     },
     {
-        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`deleted_at` is null and `asset_tags`.`asset_id` in (?) and `tags`.`deleted_at` is null",
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`deleted_at` is null and `asset_tags`.`asset_id` in (?, ?) and `tags`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "803d34bd-1977-4743-b39e-ae8309296284"
         ]
     },
@@ -5582,20 +5586,23 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
+        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?))",
         "bindings": [
+            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
             "77ec115b-9723-4582-ad45-2b3a83286b1f"
         ]
     },
     {
-        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?) and `reseller_locations`.`deleted_at` is null",
+        "query": "select `reseller_locations`.* from `reseller_locations` where `reseller_locations`.`reseller_id` in (?, ?) and `reseller_locations`.`deleted_at` is null",
         "bindings": [
+            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2",
             "77ec115b-9723-4582-ad45-2b3a83286b1f"
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
+            "6f0afd36-df2a-5d6c-818b-49095e4ffde1",
             "e61ed796-d98b-525d-a422-6ae25969cb43"
         ]
     },
@@ -5624,6 +5631,14 @@
         ]
     },
     {
+        "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:25:47",
+            "2022-02-02 00:25:47",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0",
@@ -5639,8 +5654,8 @@
             null,
             "HPE 480GB SATA 6G MU SFF SC DS SSD",
             "94711148-6932-5410-9bd2-062268ae1aaf",
-            "2022-02-02 00:25:47",
-            "2022-02-02 00:25:47"
+            "2022-02-02 00:25:49",
+            "2022-02-02 00:25:49"
         ]
     },
     {
@@ -5662,8 +5677,8 @@
             null,
             true,
             "9e626221-6a33-52d9-b190-407caf29bff6",
-            "2022-02-02 00:25:49",
-            "2022-02-02 00:25:49"
+            "2022-02-02 00:25:51",
+            "2022-02-02 00:25:51"
         ]
     },
     {
@@ -5680,8 +5695,8 @@
             "EndUser Contact",
             "End User Contact",
             "ab6d04dc-f878-5737-89f3-8b75b97e3271",
-            "2022-02-02 00:25:50",
-            "2022-02-02 00:25:50"
+            "2022-02-02 00:25:52",
+            "2022-02-02 00:25:52"
         ]
     },
     {
@@ -5704,8 +5719,8 @@
             "isadore66@swaniawski.org",
             true,
             "4cd309b2-1e7d-53b1-a467-ab6a54cf78cd",
-            "2022-02-02 00:25:51",
-            "2022-02-02 00:25:51"
+            "2022-02-02 00:25:53",
+            "2022-02-02 00:25:53"
         ]
     },
     {
@@ -5722,8 +5737,8 @@
             "Distributor Contact",
             "Distributor Contact",
             "dc27ae73-8bee-5641-8007-dbeca39610bf",
-            "2022-02-02 00:25:52",
-            "2022-02-02 00:25:52"
+            "2022-02-02 00:25:54",
+            "2022-02-02 00:25:54"
         ]
     },
     {
@@ -5746,8 +5761,8 @@
             "prohaska.holly@hotmail.com",
             true,
             "ea35de0b-7307-529a-89a1-d8177c406473",
-            "2022-02-02 00:25:53",
-            "2022-02-02 00:25:53"
+            "2022-02-02 00:25:55",
+            "2022-02-02 00:25:55"
         ]
     },
     {
@@ -5764,8 +5779,8 @@
             "Reseller Contact",
             "Reseller Contact",
             "5026468a-bb34-538a-b01b-25496f04f1ad",
-            "2022-02-02 00:25:54",
-            "2022-02-02 00:25:54"
+            "2022-02-02 00:25:56",
+            "2022-02-02 00:25:56"
         ]
     },
     {
@@ -5811,8 +5826,8 @@
             "EUR",
             "EUR",
             "98fe168e-74d4-5c4f-9fa3-0a8154ca0099",
-            "2022-02-02 00:26:05",
-            "2022-02-02 00:26:05"
+            "2022-02-02 00:26:07",
+            "2022-02-02 00:26:07"
         ]
     },
     {
@@ -5829,8 +5844,8 @@
             "Hardware System Contact",
             "Hardware System Contact",
             "97d1fa61-8437-5243-a7c6-0a45d07e3ee7",
-            "2022-02-02 00:26:09",
-            "2022-02-02 00:26:09"
+            "2022-02-02 00:26:11",
+            "2022-02-02 00:26:11"
         ]
     },
     {
@@ -5847,8 +5862,8 @@
             "Software System Contact",
             "Software System Contact",
             "ac02c55f-88ba-5c55-9ae5-f374cea9f602",
-            "2022-02-02 00:26:10",
-            "2022-02-02 00:26:10"
+            "2022-02-02 00:26:12",
+            "2022-02-02 00:26:12"
         ]
     },
     {
@@ -5865,8 +5880,8 @@
             "System Manager Contact",
             "System Manager Contact",
             "3ba79674-dc29-5935-a443-a5206238fe42",
-            "2022-02-02 00:26:11",
-            "2022-02-02 00:26:11"
+            "2022-02-02 00:26:13",
+            "2022-02-02 00:26:13"
         ]
     },
     {
@@ -5888,11 +5903,11 @@
             "1013dd30-44f0-3598-ad15-99be06eafdf2",
             "2022-06-03 13:27:26",
             4,
-            "2022-02-02 00:26:12",
+            "2022-02-02 00:26:14",
             0,
             0,
-            "2022-02-02 00:26:13",
-            "2022-02-02 00:26:13"
+            "2022-02-02 00:26:15",
+            "2022-02-02 00:26:15"
         ]
     },
     {
@@ -5905,28 +5920,28 @@
             null,
             true,
             "db1d4041-0d5f-5301-8ce4-2f8b2758058b",
-            "2022-02-02 00:26:14",
-            "2022-02-02 00:26:14"
+            "2022-02-02 00:26:16",
+            "2022-02-02 00:26:16"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "db1d4041-0d5f-5301-8ce4-2f8b2758058b",
-            "2022-02-02 00:26:15",
+            "2022-02-02 00:26:17",
             "b66e0c05-2d11-5cdc-8f52-9d0a92048538",
             "ab6d04dc-f878-5737-89f3-8b75b97e3271",
-            "2022-02-02 00:26:15",
+            "2022-02-02 00:26:17",
             "db1d4041-0d5f-5301-8ce4-2f8b2758058b",
-            "2022-02-02 00:26:16",
+            "2022-02-02 00:26:18",
             "6392cf5e-2dab-5153-b24c-9e4e43eefdc0",
             "97d1fa61-8437-5243-a7c6-0a45d07e3ee7",
-            "2022-02-02 00:26:16",
+            "2022-02-02 00:26:18",
             "db1d4041-0d5f-5301-8ce4-2f8b2758058b",
-            "2022-02-02 00:26:17",
+            "2022-02-02 00:26:19",
             "c9a0028f-111b-5c4e-ac70-b73591e0c79c",
             "ac02c55f-88ba-5c55-9ae5-f374cea9f602",
-            "2022-02-02 00:26:17"
+            "2022-02-02 00:26:19"
         ]
     },
     {
@@ -5939,8 +5954,8 @@
             "isadore66@swaniawski.org",
             true,
             "8b8a0767-76a0-5024-b47b-6d994792bdca",
-            "2022-02-02 00:26:18",
-            "2022-02-02 00:26:18"
+            "2022-02-02 00:26:20",
+            "2022-02-02 00:26:20"
         ]
     },
     {
@@ -5949,8 +5964,8 @@
             "dc27ae73-8bee-5641-8007-dbeca39610bf",
             "8b8a0767-76a0-5024-b47b-6d994792bdca",
             "2ee6707c-87bf-5cf1-b9bf-153919811888",
-            "2022-02-02 00:26:19",
-            "2022-02-02 00:26:19"
+            "2022-02-02 00:26:21",
+            "2022-02-02 00:26:21"
         ]
     },
     {
@@ -5963,8 +5978,8 @@
             "prohaska.holly@hotmail.com",
             true,
             "0c1fd997-e246-5783-b9d4-9d20255b7d47",
-            "2022-02-02 00:26:20",
-            "2022-02-02 00:26:20"
+            "2022-02-02 00:26:22",
+            "2022-02-02 00:26:22"
         ]
     },
     {
@@ -5973,8 +5988,8 @@
             "5026468a-bb34-538a-b01b-25496f04f1ad",
             "0c1fd997-e246-5783-b9d4-9d20255b7d47",
             "19ba39fb-14b5-5e9d-a171-9f31ed1272fc",
-            "2022-02-02 00:26:21",
-            "2022-02-02 00:26:21"
+            "2022-02-02 00:26:23",
+            "2022-02-02 00:26:23"
         ]
     },
     {
@@ -5987,8 +6002,8 @@
             "bailey.ozella@collins.com",
             true,
             "b4344954-7205-5f99-80b1-31ef0770a63e",
-            "2022-02-02 00:26:22",
-            "2022-02-02 00:26:22"
+            "2022-02-02 00:26:24",
+            "2022-02-02 00:26:24"
         ]
     },
     {
@@ -5997,8 +6012,8 @@
             "3ba79674-dc29-5935-a443-a5206238fe42",
             "b4344954-7205-5f99-80b1-31ef0770a63e",
             "710719be-57d7-520e-98ac-84555ba2aa55",
-            "2022-02-02 00:26:23",
-            "2022-02-02 00:26:23"
+            "2022-02-02 00:26:25",
+            "2022-02-02 00:26:25"
         ]
     },
     {
@@ -6022,8 +6037,8 @@
             3,
             2,
             "2022-09-03 01:08:32",
-            "2022-02-02 00:25:55",
-            "2022-02-02 00:26:33",
+            "2022-02-02 00:25:57",
+            "2022-02-02 00:26:35",
             "803d34bd-1977-4743-b39e-ae8309296284"
         ]
     },
@@ -6031,20 +6046,20 @@
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "9e626221-6a33-52d9-b190-407caf29bff6",
-            "2022-02-02 00:27:01",
+            "2022-02-02 00:27:03",
             "08d749d1-f1ae-58a0-89ec-fd35683956bd",
             "ab6d04dc-f878-5737-89f3-8b75b97e3271",
-            "2022-02-02 00:27:01",
+            "2022-02-02 00:27:03",
             "4cd309b2-1e7d-53b1-a467-ab6a54cf78cd",
-            "2022-02-02 00:27:02",
+            "2022-02-02 00:27:04",
             "ff1245dd-428d-529a-8429-4b03d30010fd",
             "dc27ae73-8bee-5641-8007-dbeca39610bf",
-            "2022-02-02 00:27:02",
+            "2022-02-02 00:27:04",
             "ea35de0b-7307-529a-89a1-d8177c406473",
-            "2022-02-02 00:27:03",
+            "2022-02-02 00:27:05",
             "987063cc-6350-5cc6-aad6-f5764bfabe67",
             "5026468a-bb34-538a-b01b-25496f04f1ad",
-            "2022-02-02 00:27:03"
+            "2022-02-02 00:27:05"
         ]
     },
     {
@@ -6052,21 +6067,21 @@
         "bindings": [
             "803d34bd-1977-4743-b39e-ae8309296284",
             "14d18484-64f0-51a9-875f-58d8386cdc6e",
-            "2022-02-02 00:27:04",
+            "2022-02-02 00:27:06",
             "c1a7ee7e-e1d8-505a-b958-3268ac41a841",
-            "2022-02-02 00:27:04",
+            "2022-02-02 00:27:06",
             "803d34bd-1977-4743-b39e-ae8309296284",
             "3ba4c5f2-e5cd-5965-a134-1885f0f7b577",
-            "2022-02-02 00:27:05",
+            "2022-02-02 00:27:07",
             "05d79b92-cc73-516b-af07-46776f533e44",
-            "2022-02-02 00:27:05"
+            "2022-02-02 00:27:07"
         ]
     },
     {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "803d34bd-1977-4743-b39e-ae8309296284",
-            "2022-02-02 00:27:06",
+            "2022-02-02 00:27:08",
             null,
             "H7J34AC-HPE Foundation Care 24x7 SVC",
             null,
@@ -6078,9 +6093,9 @@
             "2018-10-25 00:00:00",
             "c6884308-c689-5596-8b93-6e85fd3cb8e4",
             "053c9432-56a0-57e4-9d6b-64d83525b826",
-            "2022-02-02 00:27:06",
+            "2022-02-02 00:27:08",
             "803d34bd-1977-4743-b39e-ae8309296284",
-            "2022-02-02 00:27:07",
+            "2022-02-02 00:27:09",
             null,
             "HA155BW-Wty: HPE Parts Exchange Support",
             null,
@@ -6092,7 +6107,7 @@
             "2018-10-17 00:00:00",
             "59fd9897-f77a-55bb-b83e-22e40f93c112",
             "24887de2-db5b-5df6-95d5-fc8f32823b90",
-            "2022-02-02 00:27:07"
+            "2022-02-02 00:27:09"
         ]
     }
 ]

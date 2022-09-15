@@ -42,6 +42,8 @@ class DocumentsIteratorImporterData extends DocumentsData {
 
         Document::factory()->create([
             'id'          => '00000000-0000-0000-0000-000000000000',
+            'oem_id'      => null,
+            'type_id'     => null,
             'reseller_id' => null,
             'customer_id' => null,
         ]);

@@ -1849,20 +1849,23 @@
         ]
     },
     {
-        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
+        "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?))",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]
     },
     {
-        "query": "select `asset_warranties`.* from `asset_warranties` where `asset_warranties`.`asset_id` in (?) and `asset_warranties`.`deleted_at` is null",
+        "query": "select `asset_warranties`.* from `asset_warranties` where `asset_warranties`.`asset_id` in (?, ?) and `asset_warranties`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]
     },
     {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
             "Asset"
         ]
@@ -1872,8 +1875,9 @@
         "bindings": []
     },
     {
-        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`deleted_at` is null and `asset_tags`.`asset_id` in (?) and `tags`.`deleted_at` is null",
+        "query": "select `tags`.*, `asset_tags`.`asset_id` as `pivot_asset_id`, `asset_tags`.`tag_id` as `pivot_tag_id`, `asset_tags`.`created_at` as `pivot_created_at`, `asset_tags`.`updated_at` as `pivot_updated_at` from `tags` inner join `asset_tags` on `tags`.`id` = `asset_tags`.`tag_id` where `asset_tags`.`deleted_at` is null and `asset_tags`.`asset_id` in (?, ?) and `tags`.`deleted_at` is null",
         "bindings": [
+            "00000000-0000-0000-0000-000000000000",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]
     },
@@ -1902,27 +1906,38 @@
         ]
     },
     {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
+        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?) or (`customers`.`id` = ?))",
         "bindings": [
+            "03ee438b-b478-4b4b-86bd-a495f3ab2880",
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
         ]
     },
     {
-        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?) and `customer_locations`.`deleted_at` is null",
+        "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` in (?, ?) and `customer_locations`.`deleted_at` is null",
         "bindings": [
+            "03ee438b-b478-4b4b-86bd-a495f3ab2880",
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
         ]
     },
     {
-        "query": "select `locations`.* from `locations` where `locations`.`id` in (?) and `locations`.`deleted_at` is null",
+        "query": "select `locations`.* from `locations` where `locations`.`id` in (?, ?) and `locations`.`deleted_at` is null",
         "bindings": [
-            "46010aff-3f3f-5d3c-9f84-2558bdab3904"
+            "46010aff-3f3f-5d3c-9f84-2558bdab3904",
+            "888887ec-37cb-519f-81ec-df715e6ec360"
         ]
     },
     {
         "query": "select `documents`.* from `documents` where ((`documents`.`id` = ?))",
         "bindings": [
             "ef9bbb19-5dd9-4222-a739-97659a654468"
+        ]
+    },
+    {
+        "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
+        "bindings": [
+            "2022-02-02 00:04:04",
+            "2022-02-02 00:04:04",
+            "00000000-0000-0000-0000-000000000000"
         ]
     },
     {
@@ -1941,8 +1956,8 @@
             null,
             "HPE Eth 10Gb 2p 562FLR-T Adptr",
             "a7cf8e66-b817-5eea-a4f7-ef9752d39d4e",
-            "2022-02-02 00:04:04",
-            "2022-02-02 00:04:04"
+            "2022-02-02 00:04:06",
+            "2022-02-02 00:04:06"
         ]
     },
     {
@@ -1964,8 +1979,8 @@
             null,
             true,
             "d76478c9-fd20-592e-9fd3-e1989fc0d672",
-            "2022-02-02 00:04:06",
-            "2022-02-02 00:04:06"
+            "2022-02-02 00:04:08",
+            "2022-02-02 00:04:08"
         ]
     },
     {
@@ -1988,8 +2003,8 @@
             "chackett@yahoo.com",
             true,
             "ed600a4c-447a-5d69-aeeb-a893ac930300",
-            "2022-02-02 00:04:07",
-            "2022-02-02 00:04:07"
+            "2022-02-02 00:04:09",
+            "2022-02-02 00:04:09"
         ]
     },
     {
@@ -2024,8 +2039,8 @@
             "Active",
             "Active",
             "5748903e-558d-5d3f-9f68-f76c071ce4ef",
-            "2022-02-02 00:04:12",
-            "2022-02-02 00:04:12"
+            "2022-02-02 00:04:14",
+            "2022-02-02 00:04:14"
         ]
     },
     {
@@ -2042,8 +2057,8 @@
             "FactoryWarranty",
             "Factory Warranty",
             "653711d5-3e14-5429-9277-da1be06f7e2f",
-            "2022-02-02 00:04:15",
-            "2022-02-02 00:04:15"
+            "2022-02-02 00:04:17",
+            "2022-02-02 00:04:17"
         ]
     },
     {
@@ -2060,8 +2075,8 @@
             "Expired",
             "Expired",
             "16642bf8-3f59-5bd1-a4d1-168a08c25093",
-            "2022-02-02 00:04:16",
-            "2022-02-02 00:04:16"
+            "2022-02-02 00:04:18",
+            "2022-02-02 00:04:18"
         ]
     },
     {
@@ -2090,11 +2105,11 @@
             "6dca14bf-2413-312d-8b31-259a5cb75699",
             "2022-06-03 13:27:26",
             3,
-            "2022-02-02 00:04:24",
+            "2022-02-02 00:04:26",
             0,
             0,
-            "2022-02-02 00:04:25",
-            "2022-02-02 00:04:25"
+            "2022-02-02 00:04:27",
+            "2022-02-02 00:04:27"
         ]
     },
     {
@@ -2107,28 +2122,28 @@
             null,
             true,
             "92f0646f-b83d-5e2c-9c3a-735619630bfb",
-            "2022-02-02 00:04:26",
-            "2022-02-02 00:04:26"
+            "2022-02-02 00:04:28",
+            "2022-02-02 00:04:28"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "92f0646f-b83d-5e2c-9c3a-735619630bfb",
-            "2022-02-02 00:04:27",
+            "2022-02-02 00:04:29",
             "22c94254-74cf-5223-9294-8cb839e70174",
             "c5a4510a-2da6-52df-80e5-acace57432fe",
-            "2022-02-02 00:04:27",
+            "2022-02-02 00:04:29",
             "92f0646f-b83d-5e2c-9c3a-735619630bfb",
-            "2022-02-02 00:04:28",
+            "2022-02-02 00:04:30",
             "96dfde5e-6198-51e8-8df1-e723b080c2df",
             "ecbc0724-ace8-5481-8090-effdde8032cc",
-            "2022-02-02 00:04:28",
+            "2022-02-02 00:04:30",
             "92f0646f-b83d-5e2c-9c3a-735619630bfb",
-            "2022-02-02 00:04:29",
+            "2022-02-02 00:04:31",
             "7cee6c3d-d943-5e8b-8f90-2539218b9a6a",
             "9093c09e-92d9-5496-847f-3198115560da",
-            "2022-02-02 00:04:29"
+            "2022-02-02 00:04:31"
         ]
     },
     {
@@ -2141,8 +2156,8 @@
             "chackett@yahoo.com",
             true,
             "c3c91166-ef5b-5103-b5b6-1734bd65fbbc",
-            "2022-02-02 00:04:30",
-            "2022-02-02 00:04:30"
+            "2022-02-02 00:04:32",
+            "2022-02-02 00:04:32"
         ]
     },
     {
@@ -2151,8 +2166,8 @@
             "dea4b75e-50fc-5804-8a77-16c73bb6e474",
             "c3c91166-ef5b-5103-b5b6-1734bd65fbbc",
             "499e349e-57a8-5a76-9c0f-2b5c9a38ddd4",
-            "2022-02-02 00:04:31",
-            "2022-02-02 00:04:31"
+            "2022-02-02 00:04:33",
+            "2022-02-02 00:04:33"
         ]
     },
     {
@@ -2165,8 +2180,8 @@
             null,
             true,
             "01a2cea7-ecdd-53aa-bd6b-b42290b47537",
-            "2022-02-02 00:04:32",
-            "2022-02-02 00:04:32"
+            "2022-02-02 00:04:34",
+            "2022-02-02 00:04:34"
         ]
     },
     {
@@ -2175,8 +2190,8 @@
             "f804a2b0-597a-5fe3-a5b0-b23ff9d68adc",
             "01a2cea7-ecdd-53aa-bd6b-b42290b47537",
             "73b84cf4-6426-5ef9-a710-2a57586c0a3f",
-            "2022-02-02 00:04:33",
-            "2022-02-02 00:04:33"
+            "2022-02-02 00:04:35",
+            "2022-02-02 00:04:35"
         ]
     },
     {
@@ -2200,8 +2215,8 @@
             2,
             2,
             "2022-09-02 17:36:50",
-            "2022-02-02 00:04:08",
-            "2022-02-02 00:04:43",
+            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:45",
             "150b5f59-abf7-4f1c-97db-8cf06797de26"
         ]
     },
@@ -2209,15 +2224,15 @@
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "d76478c9-fd20-592e-9fd3-e1989fc0d672",
-            "2022-02-02 00:05:11",
+            "2022-02-02 00:05:13",
             "addc9030-0cf9-5652-ae0e-9e4f4e61a3c1",
             "c5a4510a-2da6-52df-80e5-acace57432fe",
-            "2022-02-02 00:05:11",
+            "2022-02-02 00:05:13",
             "ed600a4c-447a-5d69-aeeb-a893ac930300",
-            "2022-02-02 00:05:12",
+            "2022-02-02 00:05:14",
             "f42bbd19-c305-555b-8c31-2d4c27e01767",
             "dea4b75e-50fc-5804-8a77-16c73bb6e474",
-            "2022-02-02 00:05:12"
+            "2022-02-02 00:05:14"
         ]
     },
     {
@@ -2225,21 +2240,21 @@
         "bindings": [
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
             "ca207bcf-ef8a-59f7-b9a4-de619ff720b2",
-            "2022-02-02 00:05:13",
+            "2022-02-02 00:05:15",
             "002f365e-dd62-5b4e-9269-666845e5af64",
-            "2022-02-02 00:05:13",
+            "2022-02-02 00:05:15",
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
             "72a3bc57-9110-5502-a1fe-79c99596cfac",
-            "2022-02-02 00:05:14",
+            "2022-02-02 00:05:16",
             "35914598-35b6-54f4-960b-bcb283a800d3",
-            "2022-02-02 00:05:14"
+            "2022-02-02 00:05:16"
         ]
     },
     {
         "query": "insert into `asset_warranties` (`asset_id`, `created_at`, `customer_id`, `description`, `document_id`, `document_number`, `end`, `id`, `reseller_id`, `service_group_id`, `start`, `status_id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
-            "2022-02-02 00:05:15",
+            "2022-02-02 00:05:17",
             null,
             "H7J33AC-HPE Foundation Care NBD wDMR SVC",
             null,
@@ -2251,9 +2266,9 @@
             "2019-04-15 00:00:00",
             "5748903e-558d-5d3f-9f68-f76c071ce4ef",
             "528b3f81-c203-5f07-8e95-88a43b2a279a",
-            "2022-02-02 00:05:15",
+            "2022-02-02 00:05:17",
             "150b5f59-abf7-4f1c-97db-8cf06797de26",
-            "2022-02-02 00:05:16",
+            "2022-02-02 00:05:18",
             null,
             "HA360AW-Wty: HPE HW Replacement Support",
             null,
@@ -2265,7 +2280,7 @@
             "2018-04-07 00:00:00",
             "16642bf8-3f59-5bd1-a4d1-168a08c25093",
             "653711d5-3e14-5429-9277-da1be06f7e2f",
-            "2022-02-02 00:05:16"
+            "2022-02-02 00:05:18"
         ]
     }
 ]
