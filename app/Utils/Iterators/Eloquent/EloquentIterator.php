@@ -5,6 +5,7 @@ namespace App\Utils\Iterators\Eloquent;
 use App\Utils\Iterators\Concerns\ChunkSize;
 use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\Subjects;
+use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use Closure;
 use Generator;
@@ -17,7 +18,7 @@ use LastDragon_ru\LaraASP\Eloquent\Iterators\IteratorImpl;
  *
  * @implements ObjectIterator<TModel>
  */
-class EloquentIterator implements ObjectIterator {
+class EloquentIterator implements ObjectIterator, MixedIterator {
     /**
      * @phpstan-use Subjects<TModel>
      */

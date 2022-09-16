@@ -7,6 +7,7 @@ use App\Utils\Iterators\Concerns\InitialState;
 use App\Utils\Iterators\Concerns\PropertiesProxy;
 use App\Utils\Iterators\Concerns\Subjects;
 use App\Utils\Iterators\Contracts\Errorable;
+use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\ObjectIteratorIteratorError;
 use Iterator;
@@ -20,14 +21,14 @@ use function count;
  *
  * @implements ObjectIterator<TItem>
  */
-abstract class ObjectIteratorIterator implements ObjectIterator, Errorable {
+abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, Errorable {
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\PropertiesProxy<TValue>
+     * @phpstan-use PropertiesProxy<TValue>
      */
     use PropertiesProxy;
 
     /**
-     * @phpstan-use \App\Utils\Iterators\Concerns\InitialState<TItem>
+     * @phpstan-use InitialState<TItem>
      */
     use InitialState;
 

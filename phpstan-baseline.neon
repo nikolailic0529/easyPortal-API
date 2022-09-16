@@ -2191,11 +2191,6 @@ parameters:
 			path: app/Http/Controllers/Export/ExportController.php
 
 		-
-			message: "#^Method App\\\\Http\\\\Controllers\\\\Export\\\\ExportController\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<array\\<string, mixed\\>\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed\\>\\.$#"
-			count: 1
-			path: app/Http/Controllers/Export/ExportController.php
-
-		-
 			message: "#^Parameter \\#1 \\$array of function reset expects array\\|object, mixed given\\.$#"
 			count: 1
 			path: app/Http/Controllers/Export/ExportController.php
@@ -3986,11 +3981,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset, App\\\\Models\\\\Asset\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporter.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
@@ -4061,11 +4051,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Customer\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporter.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
@@ -4094,11 +4079,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Distributor\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporter.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -4134,11 +4114,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Document\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Document, App\\\\Models\\\\Document\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporter.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -4241,11 +4216,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\DataLoader\\\\Schema\\\\Company\\> but returns App\\\\Utils\\\\Iterators\\\\ClosureIteratorIterator\\<App\\\\Services\\\\DataLoader\\\\Importer\\\\ModelObject\\|App\\\\Services\\\\DataLoader\\\\Schema\\\\Company, App\\\\Models\\\\Reseller\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporter.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
@@ -4259,16 +4229,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/AssetSync.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/DocumentSync.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
@@ -4306,16 +4266,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
 			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getAssetsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
@@ -4334,11 +4284,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedDocuments\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -4361,11 +4306,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Customer\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
@@ -4379,11 +4319,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -4401,11 +4336,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Document\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
@@ -4419,11 +4349,6 @@ parameters:
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
 		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
@@ -4926,11 +4851,6 @@ parameters:
 			path: app/Services/DataLoader/Testing/Data/Data.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\Data\\:\\:getModelsIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<string\\|T of App\\\\Utils\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\|string\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Testing/Data/Data.php
-
-		-
 			message: "#^Parameter \\#1 \\$map of method App\\\\Services\\\\DataLoader\\\\Testing\\\\Data\\\\ClientDataCleaner\\:\\:setDefaultMap\\(\\) expects array\\<string, string\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Testing/Data/Data.php
@@ -5187,11 +5107,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getRoles\\(\\) should return array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\> but returns array\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\Role\\>\\|null\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Client/Client.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Keycloak\\\\Client\\\\Client\\:\\:getUsersIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Services\\\\Keycloak\\\\Client\\\\Types\\\\User\\> but returns App\\\\Utils\\\\Iterators\\\\OffsetBasedObjectIterator\\<mixed\\>\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Client/Client.php
 
@@ -7121,36 +7036,6 @@ parameters:
 			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:162 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:192 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:215 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:238 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$converter of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:162 constructor expects Closure\\(mixed\\)\\: mixed, Closure\\(int\\)\\: int\\<min, 2\\>\\|int\\<4, max\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$converter of class class@anonymous/app/Utils/Iterators/ClosureIteratorIteratorTest\\.php\\:192 constructor expects Closure\\(mixed\\)\\: mixed, Closure\\(int\\)\\: int\\<min, 2\\>\\|int\\<4, max\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ClosureIteratorIteratorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$ of closure expects array\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/Eloquent/EloquentIterator.php
@@ -7202,16 +7087,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(mixed\\)\\: mixed\\)\\|null, Closure\\(int\\)\\: int\\<min, 40\\>\\|int\\<60, max\\>\\|null given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ObjectIteratorIteratorTest\\.php\\:23 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
-			count: 1
-			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$internalIterator of class class@anonymous/app/Utils/Iterators/ObjectIteratorIteratorTest\\.php\\:90 constructor expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<mixed\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<int\\> given\\.$#"
 			count: 1
 			path: app/Utils/Iterators/ObjectIteratorIteratorTest.php
 
@@ -7302,11 +7177,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:count\\(\\)\\.$#"
-			count: 1
-			path: app/Utils/Processor/EloquentProcessor.php
-
-		-
-			message: "#^Method App\\\\Utils\\\\Processor\\\\EloquentProcessor\\:\\:getIterator\\(\\) should return App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Utils\\\\Iterators\\\\Eloquent\\\\EloquentIterator\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|App\\\\Utils\\\\Iterators\\\\Eloquent\\\\ModelsIterator\\<TItem of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Utils/Processor/EloquentProcessor.php
 
