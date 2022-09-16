@@ -21,8 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @mixin Loader
  */
 trait WithAssets {
-    protected bool $withAssets          = false;
-    protected bool $withAssetsDocuments = false;
+    protected bool $withAssets = false;
 
     abstract protected function getContainer(): Container;
 
@@ -32,16 +31,6 @@ trait WithAssets {
 
     public function setWithAssets(bool $withAssets): static {
         $this->withAssets = $withAssets;
-
-        return $this;
-    }
-
-    public function isWithAssetsDocuments(): bool {
-        return $this->isWithAssets() && $this->withAssetsDocuments;
-    }
-
-    public function setWithAssetsDocuments(bool $withAssetsDocuments): static {
-        $this->withAssetsDocuments = $withAssetsDocuments;
 
         return $this;
     }
@@ -61,8 +50,7 @@ trait WithAssets {
                     return $this
                         ->getAssetsImporter($state)
                         ->setObjectId($state->objectId)
-                        ->setFrom($state->from)
-                        ->setWithDocuments($state->withAssetsDocuments);
+                        ->setFrom($state->from);
                 },
             ),
             new CompositeOperation(
@@ -77,8 +65,7 @@ trait WithAssets {
                     $processor = $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator($iterator)
-                        ->setWithDocuments($state->withAssetsDocuments);
+                        ->setIterator($iterator);
 
                     return $processor;
                 },

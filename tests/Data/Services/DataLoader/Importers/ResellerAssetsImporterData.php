@@ -2,18 +2,17 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\Customers\AssetsImporter;
+use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 
-class CustomerAssetsImporterDataWithoutDocuments extends AssetsData {
-    public const CUSTOMER  = '8e57be47-2088-48c7-9342-0a2c64293248';
-    public const DOCUMENTS = false;
+class ResellerAssetsImporterData extends AssetsData {
+    public const RESELLER  = '27faa47d-ab2a-4755-b36b-729114c056d2';
+    public const DOCUMENTS = true;
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(AssetsImporter::class)
-                ->setObjectId(static::CUSTOMER)
-                ->setWithDocuments(static::DOCUMENTS)
+                ->setObjectId(static::RESELLER)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();

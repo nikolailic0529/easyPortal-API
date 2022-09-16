@@ -12,8 +12,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
-use Tests\Data\Services\DataLoader\Importers\ResellerAssetsImporterDataWithDocuments;
-use Tests\Data\Services\DataLoader\Importers\ResellerAssetsImporterDataWithoutDocuments;
+use Tests\Data\Services\DataLoader\Importers\ResellerAssetsImporterData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -28,9 +27,9 @@ class AssetsImporterTest extends TestCase {
     /**
      * @covers ::process
      */
-    public function testProcessWithDocuments(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(ResellerAssetsImporterDataWithDocuments::class);
+        $this->generateData(ResellerAssetsImporterData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -52,13 +51,12 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setObjectId(ResellerAssetsImporterDataWithDocuments::RESELLER)
-            ->setWithDocuments(ResellerAssetsImporterDataWithDocuments::DOCUMENTS)
-            ->setChunkSize(ResellerAssetsImporterDataWithDocuments::CHUNK)
-            ->setLimit(ResellerAssetsImporterDataWithDocuments::LIMIT)
+            ->setObjectId(ResellerAssetsImporterData::RESELLER)
+            ->setChunkSize(ResellerAssetsImporterData::CHUNK)
+            ->setLimit(ResellerAssetsImporterData::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -69,7 +67,7 @@ class AssetsImporterTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-cold-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -82,89 +80,14 @@ class AssetsImporterTest extends TestCase {
         $events  = Event::fake(DataImported::class);
 
         $this->app->make(AssetsImporter::class)
-            ->setObjectId(ResellerAssetsImporterDataWithDocuments::RESELLER)
-            ->setWithDocuments(ResellerAssetsImporterDataWithDocuments::DOCUMENTS)
-            ->setChunkSize(ResellerAssetsImporterDataWithDocuments::CHUNK)
-            ->setLimit(ResellerAssetsImporterDataWithDocuments::LIMIT)
+            ->setObjectId(ResellerAssetsImporterData::RESELLER)
+            ->setChunkSize(ResellerAssetsImporterData::CHUNK)
+            ->setLimit(ResellerAssetsImporterData::LIMIT)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-hot-queries.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-hot-events.json',
-            $events->dispatched(DataImported::class),
-        );
-
-        $queries->flush();
-
-        unset($events);
-    }
-
-    /**
-     * @coversNothing
-     */
-    public function testProcessWithoutDocuments(): void {
-        // Generate
-        $this->generateData(ResellerAssetsImporterDataWithoutDocuments::class);
-
-        // Setup
-        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
-        $this->overrideUuidFactory('a7c1572d-a628-46ad-9b4c-966151e444df');
-
-        // Pretest
-        self::assertModelsCount([
-            Distributor::class   => 0,
-            Reseller::class      => 1,
-            Customer::class      => 4,
-            Asset::class         => 0,
-            AssetWarranty::class => 0,
-            Document::class      => 0,
-            DocumentEntry::class => 0,
-        ]);
-
-        // Test (cold)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
-
-        $this->app->make(AssetsImporter::class)
-            ->setObjectId(ResellerAssetsImporterDataWithoutDocuments::RESELLER)
-            ->setWithDocuments(ResellerAssetsImporterDataWithoutDocuments::DOCUMENTS)
-            ->setChunkSize(ResellerAssetsImporterDataWithoutDocuments::CHUNK)
-            ->setLimit(ResellerAssetsImporterDataWithoutDocuments::LIMIT)
-            ->start();
-
-        self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
-        self::assertModelsCount([
-            Distributor::class   => 0,
-            Reseller::class      => 1,
-            Customer::class      => 4,
-            Asset::class         => 25,
-            AssetWarranty::class => 0,
-            Document::class      => 0,
-            DocumentEntry::class => 0,
-        ]);
-        self::assertDispatchedEventsEquals(
-            '~process-without-documents-cold-events.json',
-            $events->dispatched(DataImported::class),
-        );
-
-        $queries->flush();
-
-        unset($events);
-
-        // Test (hot)
-        $queries = $this->getQueryLog();
-        $events  = Event::fake(DataImported::class);
-
-        $this->app->make(AssetsImporter::class)
-            ->setObjectId(ResellerAssetsImporterDataWithoutDocuments::RESELLER)
-            ->setWithDocuments(ResellerAssetsImporterDataWithoutDocuments::DOCUMENTS)
-            ->setChunkSize(ResellerAssetsImporterDataWithoutDocuments::CHUNK)
-            ->setLimit(ResellerAssetsImporterDataWithoutDocuments::LIMIT)
-            ->start();
-
-        self::assertQueryLogEquals('~process-without-documents-hot-queries.json', $queries);
-        self::assertDispatchedEventsEquals(
-            '~process-without-documents-hot-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 

@@ -6,5 +6,4 @@ use App\Services\DataLoader\Loader\LoaderState;
 
 class AssetLoaderState extends LoaderState {
     public bool $withWarrantyCheck = false;
-    public bool $withDocuments     = false;
 }

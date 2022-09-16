@@ -62,7 +62,6 @@ class DocumentSync extends Sync {
                 $result   = $container
                     ->make(IteratorImporter::class)
                     ->setIterator($iterator)
-                    ->setWithDocuments(true)
                     ->start();
             }
         } catch (Exception $exception) {

@@ -55,7 +55,6 @@ class ResellerLoaderTest extends TestCase {
         $this->app->make(ResellerLoader::class)
             ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
             ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderDataWithoutAssets::ASSETS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
@@ -84,7 +83,6 @@ class ResellerLoaderTest extends TestCase {
         $this->app->make(ResellerLoader::class)
             ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
             ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderDataWithoutAssets::ASSETS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
@@ -127,7 +125,6 @@ class ResellerLoaderTest extends TestCase {
         $this->app->make(ResellerLoader::class)
             ->setObjectId(ResellerLoaderDataWithAssets::RESELLER)
             ->setWithAssets(ResellerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderDataWithAssets::ASSETS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
@@ -156,7 +153,6 @@ class ResellerLoaderTest extends TestCase {
         $this->app->make(ResellerLoader::class)
             ->setObjectId(ResellerLoaderDataWithAssets::RESELLER)
             ->setWithAssets(ResellerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderDataWithAssets::ASSETS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-hot-queries.json', $queries);
@@ -264,7 +260,6 @@ class ResellerLoaderTest extends TestCase {
         $this->app->make(ResellerLoader::class)
             ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
             ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(ResellerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertModelsCount([

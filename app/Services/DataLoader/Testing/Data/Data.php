@@ -141,8 +141,7 @@ abstract class Data {
             foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
                 $result = $result
                     && $this->kernel->call('ep:data-loader-asset-update', [
-                        'id'          => $asset,
-                        '--documents' => true,
+                        'id' => $asset,
                     ]) === Command::SUCCESS;
             }
         }

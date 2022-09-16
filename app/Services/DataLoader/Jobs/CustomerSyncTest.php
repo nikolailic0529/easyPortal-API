@@ -50,11 +50,6 @@ class CustomerSyncTest extends TestCase {
                 ->once()
                 ->andReturnSelf();
             $mock
-                ->shouldReceive('setWithAssetsDocuments')
-                ->with(true)
-                ->once()
-                ->andReturnSelf();
-            $mock
                 ->shouldReceive('setWithWarrantyCheck')
                 ->with(false)
                 ->once()
@@ -145,11 +140,6 @@ class CustomerSyncTest extends TestCase {
             $mock
                 ->shouldReceive('setWithAssets')
                 ->with(false)
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithAssetsDocuments')
-                ->with(true)
                 ->once()
                 ->andReturnSelf();
             $mock

@@ -51,7 +51,6 @@ class CustomerSync extends Sync {
                 ->setObjectId($this->getObjectId())
                 ->setWithDocuments(true)
                 ->setWithAssets($assets)
-                ->setWithAssetsDocuments(true)
                 ->setWithWarrantyCheck(false)
                 ->start();
         } catch (Exception $exception) {

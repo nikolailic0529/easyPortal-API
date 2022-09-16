@@ -45,11 +45,6 @@ class AssetSyncTest extends TestCase {
                 ->once()
                 ->andReturnSelf();
             $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
-                ->once()
-                ->andReturnSelf();
-            $mock
                 ->shouldReceive('start')
                 ->once()
                 ->andReturn(true);
@@ -91,11 +86,6 @@ class AssetSyncTest extends TestCase {
         $this->override(IteratorImporter::class, static function (MockInterface $mock) use ($exception): void {
             $mock
                 ->shouldReceive('setIterator')
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
                 ->once()
                 ->andReturnSelf();
             $mock
@@ -172,11 +162,6 @@ class AssetSyncTest extends TestCase {
         $this->override(IteratorImporter::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('setIterator')
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
                 ->once()
                 ->andReturnSelf();
             $mock

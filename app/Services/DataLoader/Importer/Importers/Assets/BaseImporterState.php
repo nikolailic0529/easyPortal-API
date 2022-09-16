@@ -5,5 +5,5 @@ namespace App\Services\DataLoader\Importer\Importers\Assets;
 use App\Services\DataLoader\Importer\ImporterState;
 
 class BaseImporterState extends ImporterState {
-    public bool $withDocuments = true;
+    // empty
 }

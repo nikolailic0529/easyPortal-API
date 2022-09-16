@@ -12,8 +12,6 @@ Options:
       --chunk[=CHUNK]      chunk size
       --warranty-check     run warranty check before update
       --no-warranty-check  do not run warranty check before update (default)
-  -d, --documents          Load asset documents (and warranties) (default)
-  -D, --no-documents       Skip asset documents
   -h, --help               Display help for the given command. When no command is given display help for the list command
   -q, --quiet              Do not output any message
   -V, --version            Display this application version

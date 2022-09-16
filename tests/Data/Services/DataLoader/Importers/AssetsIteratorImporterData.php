@@ -7,19 +7,18 @@ use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 
-class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
-    public const DOCUMENTS = false;
-    public const ASSETS    = [
-        'f8c66877-b503-457a-a978-e6d4e1237628',
-        '299ba28d-d7f8-4b08-803c-643d7d3d4829',
-        '7859879b-5a3e-40f2-bb06-2ec0cf61de76',
-        'e3c2178a-2bbb-4cb8-8929-9b6411930ea4',
-        '35ccd425-0a25-4178-ad23-b53f5cb391bd',
-        '7b549172-dbb5-4065-836a-125a4d1be428',
-        '0687f0ee-4729-432b-8422-60917635742d',
-        '0260d0b8-30cc-4a12-a123-3b103804d77b',
-        '9d48cd6d-1ab4-44ef-974b-24f43d58b18c',
-        'acdf826c-6d18-4c99-a5c7-f0c8258e7305',
+class AssetsIteratorImporterData extends AssetsData {
+    public const ASSETS = [
+        '2f5dcdae-ed5a-4a87-a9b1-417819b638e4',
+        'b9b64396-7d9a-4c4c-bfb3-7c7f0e342ec6',
+        'fa66f78b-0580-4ca4-8c81-06d2d2f25cf5',
+        '91fe9f38-1137-424e-bde7-90bd367ee016',
+        'cf82deb8-e098-4f15-98bd-fe890cbc89cf',
+        'f5135d55-81fd-40e7-9bb5-a227f5516b87',
+        '16425fd0-0107-4a3f-a294-d27a5802abfa',
+        '3a010157-00fa-4110-87d9-cee7a5ba8482',
+        '5d62ee0b-ebdf-4a76-bcab-60078f6eba32',
+        'b01ad503-d3f7-47d7-96ce-c0d37a9e3307',
         '00000000-0000-0000-0000-000000000000',
     ];
 
@@ -27,7 +26,6 @@ class AssetsIteratorImporterDataWithoutDocuments extends AssetsData {
         return $this->dumpClientResponses($path, function (): bool {
             $this->app->make(IteratorImporter::class)
                 ->setIterator(static::getIterator())
-                ->setWithDocuments(static::DOCUMENTS)
                 ->setChunkSize(static::CHUNK)
                 ->setLimit(static::LIMIT)
                 ->start();

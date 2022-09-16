@@ -306,23 +306,6 @@ class Client {
             query getAssets(\$id: String!) {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            [
-                'id' => $id,
-            ],
-            $this->getAssetRetriever(),
-        );
-    }
-
-    public function getAssetByIdWithDocuments(string $id): ?ViewAsset {
-        return $this->get(
-            'getAssets',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query getAssets(\$id: String!) {
-                getAssets(args: [{key: "id", value: \$id}]) {
-                    {$this->getAssetPropertiesGraphQL()}
                     {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
             }
@@ -368,34 +351,6 @@ class Client {
      * @return ObjectIterator<ViewAsset>
      */
     public function getAssetsByCustomerId(
-        string $id,
-        DateTimeInterface $from = null,
-        int $limit = null,
-        string $lastId = null,
-    ): ObjectIterator {
-        return $this->getLastIdBasedIterator(
-            'getAssetsByCustomerId',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            [
-                'id'   => $id,
-                'from' => $this->datetime($from),
-            ],
-            $this->getAssetRetriever(),
-            $limit,
-            $lastId,
-        );
-    }
-
-    /**
-     * @return ObjectIterator<ViewAsset>
-     */
-    public function getAssetsByCustomerIdWithDocuments(
         string $id,
         DateTimeInterface $from = null,
         int $limit = null,
@@ -454,34 +409,6 @@ class Client {
             query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
                 getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                     {$this->getAssetPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            [
-                'id'   => $id,
-                'from' => $this->datetime($from),
-            ],
-            $this->getAssetRetriever(),
-            $limit,
-            $lastId,
-        );
-    }
-
-    /**
-     * @return ObjectIterator<ViewAsset>
-     */
-    public function getAssetsByResellerIdWithDocuments(
-        string $id,
-        DateTimeInterface $from = null,
-        int $limit = null,
-        string $lastId = null,
-    ): ObjectIterator {
-        return $this->getLastIdBasedIterator(
-            'getAssetsByResellerId',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$id: String!, \$limit: Int, \$lastId: String, \$from: String) {
-                getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
                     {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
             }
@@ -500,32 +427,6 @@ class Client {
      * @return ObjectIterator<ViewAsset>
      */
     public function getAssets(
-        DateTimeInterface $from = null,
-        int $limit = null,
-        string $lastId = null,
-    ): ObjectIterator {
-        return $this->getLastIdBasedIterator(
-            'getAssets',
-            /** @lang GraphQL */ <<<GRAPHQL
-            query items(\$limit: Int, \$lastId: String, \$from: String) {
-                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                    {$this->getAssetPropertiesGraphQL()}
-                }
-            }
-            GRAPHQL,
-            [
-                'from' => $this->datetime($from),
-            ],
-            $this->getAssetRetriever(),
-            $limit,
-            $lastId,
-        );
-    }
-
-    /**
-     * @return ObjectIterator<ViewAsset>
-     */
-    public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,

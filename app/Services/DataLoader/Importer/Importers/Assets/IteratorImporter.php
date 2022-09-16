@@ -22,8 +22,6 @@ class IteratorImporter extends BaseImporter {
      * @return ViewAsset|null
      */
     protected function getItem(State $state, string $item): mixed {
-        return $state->withDocuments
-            ? $this->getClient()->getAssetByIdWithDocuments($item)
-            : $this->getClient()->getAssetById($item);
+        return $this->getClient()->getAssetById($item);
     }
 }

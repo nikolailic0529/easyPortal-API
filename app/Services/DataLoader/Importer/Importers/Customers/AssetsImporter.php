@@ -20,9 +20,7 @@ class AssetsImporter extends BaseImporter {
     // <editor-fold desc="Importer">
     // =========================================================================
     protected function getIterator(State $state): ObjectIterator {
-        return $state->withDocuments
-            ? $this->getClient()->getAssetsByCustomerIdWithDocuments($state->customerId, $state->from)
-            : $this->getClient()->getAssetsByCustomerId($state->customerId, $state->from);
+        return $this->getClient()->getAssetsByCustomerId($state->customerId, $state->from);
     }
 
     protected function getTotal(State $state): ?int {

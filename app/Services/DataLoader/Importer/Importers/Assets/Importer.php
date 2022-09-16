@@ -13,9 +13,7 @@ class Importer extends BaseImporter {
     use WithFrom;
 
     protected function getIterator(State $state): ObjectIterator {
-        return $state->withDocuments
-            ? $this->getClient()->getAssetsWithDocuments($state->from)
-            : $this->getClient()->getAssets($state->from);
+        return $this->getClient()->getAssets($state->from);
     }
 
     protected function getTotal(State $state): ?int {

@@ -12,8 +12,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
-use Tests\Data\Services\DataLoader\Loaders\AssetLoaderDataWithDocuments;
-use Tests\Data\Services\DataLoader\Loaders\AssetLoaderDataWithoutDocuments;
+use Tests\Data\Services\DataLoader\Loaders\AssetLoaderData;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -26,81 +25,11 @@ class AssetLoaderTest extends TestCase {
     use Helper;
 
     /**
-     * @covers ::process
-     */
-    public function testProcessWithoutDocuments(): void {
-        // Generate
-        $this->generateData(AssetLoaderDataWithoutDocuments::class);
-
-        // Setup
-        $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
-        $this->overrideUuidFactory('d9de1374-a2c9-42c3-b00f-cdcf486180b1');
-
-        // Pretest
-        self::assertModelsCount([
-            Distributor::class   => 0,
-            Reseller::class      => 1,
-            Customer::class      => 1,
-            Asset::class         => 0,
-            AssetWarranty::class => 0,
-            Document::class      => 0,
-            DocumentEntry::class => 0,
-        ]);
-
-        // Test (cold)
-        $events  = Event::fake(DataImported::class);
-        $queries = $this->getQueryLog();
-
-        $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
-            ->start();
-
-        self::assertQueryLogEquals('~process-without-documents-cold-queries.json', $queries);
-        self::assertModelsCount([
-            Distributor::class   => 0,
-            Reseller::class      => 1,
-            Customer::class      => 1,
-            Asset::class         => 1,
-            AssetWarranty::class => 0,
-            Document::class      => 0,
-            DocumentEntry::class => 0,
-        ]);
-        self::assertDispatchedEventsEquals(
-            '~process-without-documents-cold-events.json',
-            $events->dispatched(DataImported::class),
-        );
-
-        $queries->flush();
-
-        unset($events);
-
-        // Test (hot)
-        $events  = Event::fake(DataImported::class);
-        $queries = $this->getQueryLog();
-
-        $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
-            ->start();
-
-        self::assertQueryLogEquals('~process-without-documents-hot-queries.json', $queries);
-        self::assertDispatchedEventsEquals(
-            '~process-without-documents-hot-events.json',
-            $events->dispatched(DataImported::class),
-        );
-
-        $queries->flush();
-
-        unset($events);
-    }
-
-    /**
      * @covers ::handle
      */
-    public function testProcessWithDocuments(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(AssetLoaderDataWithDocuments::class);
+        $this->generateData(AssetLoaderData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -122,11 +51,10 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderDataWithDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderData::ASSET)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-cold-queries.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 1,
             Reseller::class      => 1,
@@ -137,7 +65,7 @@ class AssetLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-cold-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -150,13 +78,12 @@ class AssetLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderDataWithDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderDataWithDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderData::ASSET)
             ->start();
 
-        self::assertQueryLogEquals('~process-with-documents-hot-queries.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-with-documents-hot-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -170,11 +97,11 @@ class AssetLoaderTest extends TestCase {
      */
     public function testProcessTrashed(): void {
         // Generate
-        $this->generateData(AssetLoaderDataWithoutDocuments::class);
+        $this->generateData(AssetLoaderData::class);
 
         // Prepare
         $asset = Asset::factory()->create([
-            'id' => AssetLoaderDataWithoutDocuments::ASSET,
+            'id' => AssetLoaderData::ASSET,
         ]);
 
         self::assertTrue($asset->delete());
@@ -187,8 +114,7 @@ class AssetLoaderTest extends TestCase {
 
         // Test
         $this->app->make(AssetLoader::class)
-            ->setObjectId(AssetLoaderDataWithoutDocuments::ASSET)
-            ->setWithDocuments(AssetLoaderDataWithoutDocuments::DOCUMENTS)
+            ->setObjectId(AssetLoaderData::ASSET)
             ->start();
 
         self::assertModelsCount([

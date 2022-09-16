@@ -9,7 +9,6 @@ use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Loader\CallbackLoader;
-use App\Services\DataLoader\Loader\Concerns\WithDocuments;
 use App\Services\DataLoader\Loader\Concerns\WithWarrantyCheck;
 use App\Services\DataLoader\Loader\Loader;
 use App\Utils\Iterators\ObjectsIterator;
@@ -27,7 +26,6 @@ use function array_merge;
  * @extends Loader<AssetLoaderState>
  */
 class AssetLoader extends Loader {
-    use WithDocuments;
     use WithWarrantyCheck;
 
     // <editor-fold desc="Loader">
@@ -63,7 +61,6 @@ class AssetLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setWithDocuments($state->withDocuments)
                         ->setIterator(new ObjectsIterator(
                             [$state->objectId],
                         ));
@@ -103,7 +100,6 @@ class AssetLoader extends Loader {
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
             'withWarrantyCheck' => $this->isWithWarrantyCheck(),
-            'withDocuments'     => $this->isWithDocuments(),
         ]);
     }
     // </editor-fold>

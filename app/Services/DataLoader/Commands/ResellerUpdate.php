@@ -21,8 +21,6 @@ class ResellerUpdate extends ObjectUpdate {
             '{--A|no-assets : Skip assets (default)}',
             '{--d|documents : Load documents}',
             '{--D|no-documents : Skip documents (default)}',
-            '{--assets-documents : Load assets documents to calculate extended warranty, required --assets (default)}',
-            '{--no-assets-documents : Skip assets documents}',
         ]);
     }
 
@@ -30,7 +28,6 @@ class ResellerUpdate extends ObjectUpdate {
         $loader = $loader
             ->setFrom($this->getDateTimeOption('from'))
             ->setWithAssets($this->getBoolOption('assets', false))
-            ->setWithAssetsDocuments($this->getBoolOption('assets-documents', true))
             ->setWithDocuments($this->getBoolOption('documents', false));
 
         return $this->process($formatter, $loader);

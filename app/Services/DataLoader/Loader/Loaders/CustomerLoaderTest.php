@@ -55,7 +55,6 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
@@ -84,7 +83,6 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
@@ -127,7 +125,6 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-cold-queries.json', $queries);
@@ -156,7 +153,6 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithAssets::DOCUMENTS)
             ->start();
 
         self::assertQueryLogEquals('~process-with-assets-hot-queries.json', $queries);
@@ -264,7 +260,6 @@ class CustomerLoaderTest extends TestCase {
         $this->app->make(CustomerLoader::class)
             ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
             ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
-            ->setWithAssetsDocuments(CustomerLoaderDataWithoutAssets::DOCUMENTS)
             ->start();
 
         self::assertModelsCount([

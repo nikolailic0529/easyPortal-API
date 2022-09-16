@@ -28,29 +28,12 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\Processor\State;
 use Illuminate\Database\Eloquent\Collection;
 
-use function array_merge;
-
 /**
  * @template TState of BaseImporterState
  *
  * @extends Importer<ViewAsset, ImporterChunkData, TState, Asset>
  */
 abstract class BaseImporter extends Importer {
-    private bool $withDocuments = true;
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    public function isWithDocuments(): bool {
-        return $this->withDocuments;
-    }
-
-    public function setWithDocuments(bool $withDocuments): static {
-        $this->withDocuments = $withDocuments;
-
-        return $this;
-    }
-    // </editor-fold>
-
     // <editor-fold desc="Importer">
     // =========================================================================
     protected function register(): void {
@@ -103,13 +86,11 @@ abstract class BaseImporter extends Importer {
                 $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
             });
 
-        if ($state->withDocuments) {
-            $container
-                ->make(DocumentResolver::class)
-                ->prefetch($data->get(Document::class), static function (Collection $documents): void {
-                    $documents->loadMissing('statuses');
-                });
-        }
+        $container
+            ->make(DocumentResolver::class)
+            ->prefetch($data->get(Document::class), static function (Collection $documents): void {
+                $documents->loadMissing('statuses');
+            });
 
         return $data;
     }
@@ -123,12 +104,9 @@ abstract class BaseImporter extends Importer {
 
     protected function makeFactory(State $state): ModelFactory {
         $factory = $this->getContainer()->make(AssetFactory::class);
-
-        if ($state->withDocuments) {
-            $factory->setDocumentFactory(
-                $this->getContainer()->make(DocumentFactory::class),
-            );
-        }
+        $factory = $factory->setDocumentFactory(
+            $this->getContainer()->make(DocumentFactory::class),
+        );
 
         return $factory;
     }
@@ -145,15 +123,6 @@ abstract class BaseImporter extends Importer {
      */
     protected function restoreState(array $state): State {
         return new BaseImporterState($state);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function defaultState(array $state): array {
-        return array_merge(parent::defaultState($state), [
-            'withDocuments' => $this->isWithDocuments(),
-        ]);
     }
     // </editor-fold>
 }

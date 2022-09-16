@@ -45,11 +45,6 @@ class DocumentSyncTest extends TestCase {
                 ->once()
                 ->andReturnSelf();
             $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
-                ->once()
-                ->andReturnSelf();
-            $mock
                 ->shouldReceive('start')
                 ->once()
                 ->andReturn(true);
@@ -96,11 +91,6 @@ class DocumentSyncTest extends TestCase {
             $mock->makePartial();
             $mock
                 ->shouldReceive('setIterator')
-                ->once()
-                ->andReturnSelf();
-            $mock
-                ->shouldReceive('setWithDocuments')
-                ->with(true)
                 ->once()
                 ->andReturnSelf();
             $mock

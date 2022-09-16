@@ -38,9 +38,8 @@ abstract class CompanyLoader extends Loader {
      */
     protected function defaultState(array $state): array {
         return array_merge(parent::defaultState($state), [
-            'withAssets'          => $this->isWithAssets(),
-            'withAssetsDocuments' => $this->isWithAssetsDocuments(),
-            'withDocuments'       => $this->isWithDocuments(),
+            'withAssets'    => $this->isWithAssets(),
+            'withDocuments' => $this->isWithDocuments(),
         ]);
     }
     // </editor-fold>

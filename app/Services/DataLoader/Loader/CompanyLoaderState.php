@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Loader;
 
 class CompanyLoaderState extends LoaderState {
-    public bool $withAssets          = false;
-    public bool $withAssetsDocuments = false;
-    public bool $withDocuments       = false;
+    public bool $withAssets    = false;
+    public bool $withDocuments = false;
 }

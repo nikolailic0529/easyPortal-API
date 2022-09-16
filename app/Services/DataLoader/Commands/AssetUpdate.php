@@ -18,15 +18,12 @@ class AssetUpdate extends ObjectUpdate {
         return array_merge(parent::getCommandSignature($signature), [
             '{--warranty-check : run warranty check before update}',
             '{--no-warranty-check : do not run warranty check before update (default)}',
-            '{--d|documents : Load asset documents (and warranties) (default)}',
-            '{--D|no-documents : Skip asset documents}',
         ]);
     }
 
     public function __invoke(Formatter $formatter, AssetLoader $loader): int {
         $loader = $loader
-            ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false))
-            ->setWithDocuments($this->getBoolOption('documents', true));
+            ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false));
 
         return $this->process($formatter, $loader);
     }
