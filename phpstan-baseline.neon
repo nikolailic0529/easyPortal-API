@@ -4336,42 +4336,7 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporter\\|App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporter\\|App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Asset\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporter given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/AssetLoader.php
 
@@ -4401,21 +4366,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporter given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader\\|App\\\\Utils\\\\Processor\\\\EmptyProcessor given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
@@ -4432,16 +4382,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Distributor\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporter given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DistributorLoader.php
 
@@ -4466,16 +4406,6 @@ parameters:
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporter given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\LoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoader.php
-
-		-
 			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
@@ -4492,16 +4422,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter\\:\\:setIterator\\(\\) expects App\\\\Utils\\\\Iterators\\\\Contracts\\\\ObjectIterator\\<App\\\\Models\\\\Reseller\\|string\\>, App\\\\Utils\\\\Iterators\\\\ObjectsIterator\\<string\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporter given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\)\\: App\\\\Services\\\\DataLoader\\\\Loader\\\\CallbackLoader given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/ResellerLoader.php
 
@@ -5396,11 +5316,6 @@ parameters:
 			path: app/Services/Keycloak/Importer/UsersImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$processor of class App\\\\Services\\\\Keycloak\\\\Exceptions\\\\FailedToImportUserConflictType constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, class@anonymous/app/Services/Keycloak/Importer/UsersImporterTest\\.php\\:458 given\\.$#"
-			count: 1
-			path: app/Services/Keycloak/Importer/UsersImporterTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Keycloak\\\\Jobs\\\\Cron\\\\UsersSynchronizer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Keycloak/Jobs/Cron/UsersSynchronizer.php
@@ -5863,16 +5778,6 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$chunk of method App\\\\Utils\\\\Iterators\\\\Contracts\\\\Chunkable\\:\\:setChunkSize\\(\\) expects int\\|null, mixed given\\.$#"
 			count: 3
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
-			count: 1
-			path: app/Services/Queue/Concerns/ProcessorJobTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$processor of class class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73 constructor expects App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, App\\\\Services\\\\Queue\\\\Concerns\\\\ProcessorJobTest__Processor&Mockery\\\\MockInterface given\\.$#"
-			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
@@ -6616,11 +6521,6 @@ parameters:
 			path: app/Services/Search/Processors/FulltextsProcessor.php
 
 		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Utils\\\\Processor\\\\CompositeState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(\\)\\: App\\\\Services\\\\Search\\\\Processors\\\\FulltextProcessor given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/FulltextsProcessor.php
-
-		-
 			message: "#^Call to an undefined method App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:trashed\\(\\)\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelProcessor.php
@@ -6782,11 +6682,6 @@ parameters:
 
 		-
 			message: "#^Method App\\\\Services\\\\Search\\\\Processors\\\\ModelsProcessor\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\Search\\\\Processors\\\\ModelsProcessorState\\>\\> but returns array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Utils\\\\Processor\\\\CompositeState\\>\\>\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelsProcessor.php
-
-		-
-			message: "#^Parameter \\#2 \\$factory of class App\\\\Utils\\\\Processor\\\\CompositeOperation constructor expects Closure\\(App\\\\Utils\\\\Processor\\\\CompositeState\\)\\: App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\<mixed, mixed, App\\\\Utils\\\\Processor\\\\State\\>, Closure\\(\\)\\: App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor given\\.$#"
 			count: 1
 			path: app/Services/Search/Processors/ModelsProcessor.php
 
