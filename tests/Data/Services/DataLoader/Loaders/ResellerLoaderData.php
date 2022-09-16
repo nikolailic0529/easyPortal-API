@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
 
 use function array_sum;
 
-class ResellerLoaderDataWithoutAssets extends AssetsData {
+class ResellerLoaderData extends AssetsData {
     use CommandOptions;
 
     public const RESELLER  = 'c0d99925-8b3b-47d8-9db2-9d3a5f5520a2';

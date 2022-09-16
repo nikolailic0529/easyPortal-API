@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Loaders;
 
-class CustomerLoaderDataWithAssets extends CustomerLoaderDataWithoutAssets {
+class CustomerLoaderDataWithAssets extends CustomerLoaderData {
     public const CUSTOMER  = '03ee438b-b478-4b4b-86bd-a495f3ab2880';
     public const ASSETS    = true;
     public const DOCUMENTS = true;

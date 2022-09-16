@@ -12,9 +12,9 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
+use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderData;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithDocuments;
-use Tests\Data\Services\DataLoader\Loaders\CustomerLoaderDataWithoutAssets;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -29,9 +29,9 @@ class CustomerLoaderTest extends TestCase {
     /**
      * @covers ::process
      */
-    public function testProcessWithoutAssets(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(CustomerLoaderDataWithoutAssets::class);
+        $this->generateData(CustomerLoaderData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -53,11 +53,11 @@ class CustomerLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(CustomerLoader::class)
-            ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
-            ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(CustomerLoaderData::CUSTOMER)
+            ->setWithAssets(CustomerLoaderData::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 0,
@@ -68,7 +68,7 @@ class CustomerLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-cold-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -81,13 +81,13 @@ class CustomerLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(CustomerLoader::class)
-            ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
-            ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(CustomerLoaderData::CUSTOMER)
+            ->setWithAssets(CustomerLoaderData::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-hot-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -241,11 +241,11 @@ class CustomerLoaderTest extends TestCase {
      */
     public function testProcessTrashed(): void {
         // Generate
-        $this->generateData(CustomerLoaderDataWithoutAssets::class);
+        $this->generateData(CustomerLoaderData::class);
 
         // Prepare
         $customer = Customer::factory()->create([
-            'id' => CustomerLoaderDataWithoutAssets::CUSTOMER,
+            'id' => CustomerLoaderData::CUSTOMER,
         ]);
 
         self::assertTrue($customer->delete());
@@ -258,8 +258,8 @@ class CustomerLoaderTest extends TestCase {
 
         // Test
         $this->app->make(CustomerLoader::class)
-            ->setObjectId(CustomerLoaderDataWithoutAssets::CUSTOMER)
-            ->setWithAssets(CustomerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(CustomerLoaderData::CUSTOMER)
+            ->setWithAssets(CustomerLoaderData::ASSETS)
             ->start();
 
         self::assertModelsCount([

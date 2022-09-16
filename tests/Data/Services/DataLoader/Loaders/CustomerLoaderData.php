@@ -15,7 +15,7 @@ use Illuminate\Console\Command;
 
 use function array_sum;
 
-class CustomerLoaderDataWithoutAssets extends AssetsData {
+class CustomerLoaderData extends AssetsData {
     use CommandOptions;
 
     public const CUSTOMER  = '04e2ec4e-9bb1-47c7-98f0-6096cd178974';

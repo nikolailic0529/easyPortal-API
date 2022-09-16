@@ -12,9 +12,9 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\DataImported;
 use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Event;
+use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderData;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderDataWithAssets;
 use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderDataWithDocuments;
-use Tests\Data\Services\DataLoader\Loaders\ResellerLoaderDataWithoutAssets;
 use Tests\TestCase;
 use Tests\WithQueryLogs;
 
@@ -29,9 +29,9 @@ class ResellerLoaderTest extends TestCase {
     /**
      * @covers ::process
      */
-    public function testProcessWithoutAssets(): void {
+    public function testProcess(): void {
         // Generate
-        $this->generateData(ResellerLoaderDataWithoutAssets::class);
+        $this->generateData(ResellerLoaderData::class);
 
         // Setup
         $this->overrideDateFactory('2022-02-02T00:00:00.000+00:00');
@@ -53,11 +53,11 @@ class ResellerLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(ResellerLoader::class)
-            ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
-            ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(ResellerLoaderData::RESELLER)
+            ->setWithAssets(ResellerLoaderData::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-cold-queries.json', $queries);
+        self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
             Distributor::class   => 0,
             Reseller::class      => 1,
@@ -68,7 +68,7 @@ class ResellerLoaderTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-cold-events.json',
+            '~process-cold-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -81,13 +81,13 @@ class ResellerLoaderTest extends TestCase {
         $queries = $this->getQueryLog();
 
         $this->app->make(ResellerLoader::class)
-            ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
-            ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(ResellerLoaderData::RESELLER)
+            ->setWithAssets(ResellerLoaderData::ASSETS)
             ->start();
 
-        self::assertQueryLogEquals('~process-without-assets-hot-queries.json', $queries);
+        self::assertQueryLogEquals('~process-hot-queries.json', $queries);
         self::assertDispatchedEventsEquals(
-            '~process-without-assets-hot-events.json',
+            '~process-hot-events.json',
             $events->dispatched(DataImported::class),
         );
 
@@ -241,11 +241,11 @@ class ResellerLoaderTest extends TestCase {
      */
     public function testProcessTrashed(): void {
         // Generate
-        $this->generateData(ResellerLoaderDataWithoutAssets::class);
+        $this->generateData(ResellerLoaderData::class);
 
         // Prepare
         $reseller = Reseller::factory()->create([
-            'id' => ResellerLoaderDataWithoutAssets::RESELLER,
+            'id' => ResellerLoaderData::RESELLER,
         ]);
 
         self::assertTrue($reseller->delete());
@@ -258,8 +258,8 @@ class ResellerLoaderTest extends TestCase {
 
         // Test
         $this->app->make(ResellerLoader::class)
-            ->setObjectId(ResellerLoaderDataWithoutAssets::RESELLER)
-            ->setWithAssets(ResellerLoaderDataWithoutAssets::ASSETS)
+            ->setObjectId(ResellerLoaderData::RESELLER)
+            ->setWithAssets(ResellerLoaderData::ASSETS)
             ->start();
 
         self::assertModelsCount([
