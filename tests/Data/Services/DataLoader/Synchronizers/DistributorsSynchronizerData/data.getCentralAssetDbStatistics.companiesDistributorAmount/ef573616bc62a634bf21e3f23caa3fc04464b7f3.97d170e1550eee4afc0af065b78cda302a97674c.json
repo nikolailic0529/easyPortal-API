@@ -1,0 +1,12 @@
+{
+    "selector": "data.getCentralAssetDbStatistics.companiesDistributorAmount",
+    "query": "query {\n    getCentralAssetDbStatistics {\n        companiesDistributorAmount\n    }\n}",
+    "variables": [],
+    "response": {
+        "data": {
+            "getCentralAssetDbStatistics": {
+                "companiesDistributorAmount": 4
+            }
+        }
+    }
+}
