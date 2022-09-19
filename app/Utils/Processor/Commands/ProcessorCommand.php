@@ -196,15 +196,12 @@ abstract class ProcessorCommand extends Command {
         ];
 
         // Limit & Offset
-        // (for `CompositeProcessor` they are mean not what the end-user think)
-        if (!is_a($processor, CompositeProcessor::class, true)) {
-            if (is_a($processor, Limitable::class, true)) {
-                $signature[] = '{--limit= : Maximum number of ${objects} to process}';
-            }
+        if (is_a($processor, Limitable::class, true)) {
+            $signature[] = '{--limit= : Maximum number of ${objects} to process}';
+        }
 
-            if (is_a($processor, Offsetable::class, true)) {
-                $signature[] = '{--offset= : Start processing from given offset}';
-            }
+        if (is_a($processor, Offsetable::class, true)) {
+            $signature[] = '{--offset= : Start processing from given offset}';
         }
 
         // Eloquent?
