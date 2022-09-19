@@ -3466,11 +3466,6 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Call to an undefined method TProcessor of App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer\\:\\:setFrom\\(\\)\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Commands/ObjectsImport.php
-
-		-
 			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/OemsImport.php

@@ -3,16 +3,16 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Commands\AssetsAnalyze;
-use App\Services\DataLoader\Commands\AssetsImport;
+use App\Services\DataLoader\Commands\AssetsSync;
 use App\Services\DataLoader\Commands\AssetUpdate;
-use App\Services\DataLoader\Commands\CustomersImport;
+use App\Services\DataLoader\Commands\CustomersSync;
 use App\Services\DataLoader\Commands\CustomerUpdate;
-use App\Services\DataLoader\Commands\DistributorsImport;
+use App\Services\DataLoader\Commands\DistributorsSync;
 use App\Services\DataLoader\Commands\DistributorUpdate;
-use App\Services\DataLoader\Commands\DocumentsImport;
+use App\Services\DataLoader\Commands\DocumentsSync;
 use App\Services\DataLoader\Commands\DocumentUpdate;
 use App\Services\DataLoader\Commands\OemsImport;
-use App\Services\DataLoader\Commands\ResellersImport;
+use App\Services\DataLoader\Commands\ResellersSync;
 use App\Services\DataLoader\Commands\ResellerUpdate;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -34,11 +34,11 @@ class Provider extends ServiceProvider {
 
     public function boot(): void {
         $this->bootCommands(
-            DistributorsImport::class,
-            ResellersImport::class,
-            CustomersImport::class,
-            DocumentsImport::class,
-            AssetsImport::class,
+            DistributorsSync::class,
+            ResellersSync::class,
+            CustomersSync::class,
+            DocumentsSync::class,
+            AssetsSync::class,
             OemsImport::class,
             DistributorUpdate::class,
             ResellerUpdate::class,
