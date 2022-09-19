@@ -16,9 +16,9 @@ class CustomerUpdate extends ObjectUpdate {
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
-            '{--from= : start processing from given DateTime/DateInterval}',
-            '{--warranty-check : run warranty check before update}',
-            '{--no-warranty-check : do not run warranty check before update (default)}',
+            '{--from= : Start processing from given DateTime/DateInterval}',
+            '{--warranty-check : Run warranty check before update}',
+            '{--no-warranty-check : Do not run warranty check before update (default)}',
             '{--a|assets : Load assets}',
             '{--A|no-assets : Skip assets (default)}',
             '{--d|documents : Load documents}',

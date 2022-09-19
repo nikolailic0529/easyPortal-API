@@ -187,25 +187,32 @@ abstract class ProcessorCommand extends Command {
     }
 
     private function getDefaultCommandSignature(): string {
+        // Default
         $processor = $this->getProcessorClass();
         $signature = [
             '${command}',
-            '{--state= : initial state, allows to continue processing (overwrites other options except `--chunk`)}',
-            '{--chunk= : chunk size}',
+            '{--state= : Initial state, allows to continue processing (overwrites other options except `--chunk`)}',
+            '{--chunk= : Chunk size}',
         ];
 
-        if (is_a($processor, Limitable::class, true)) {
-            $signature[] = '{--limit= : max ${objects} to process}';
+        // Limit & Offset
+        // (for `CompositeProcessor` they are mean not what the end-user think)
+        if (!is_a($processor, CompositeProcessor::class, true)) {
+            if (is_a($processor, Limitable::class, true)) {
+                $signature[] = '{--limit= : Maximum number of ${objects} to process}';
+            }
+
+            if (is_a($processor, Offsetable::class, true)) {
+                $signature[] = '{--offset= : Start processing from given offset}';
+            }
         }
 
-        if (is_a($processor, Offsetable::class, true)) {
-            $signature[] = '{--offset= : start processing from given offset}';
-        }
-
+        // Eloquent?
         if (is_a($processor, EloquentProcessor::class, true)) {
-            $signature[] = '{id?* : process only these ${objects} (if empty all ${objects} will be processed)}';
+            $signature[] = '{id?* : Process only these ${objects} (if empty all ${objects} will be processed)}';
         }
 
+        // Return
         return implode("\n", $this->getCommandSignature($signature));
     }
 

@@ -19,7 +19,7 @@ abstract class ObjectsImport extends ProcessorCommand {
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
-            '{--from= : start processing from given DateTime/DateInterval}',
+            '{--from= : Start processing from given DateTime/DateInterval}',
         ]);
     }
 

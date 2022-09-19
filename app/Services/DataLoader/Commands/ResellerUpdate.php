@@ -16,7 +16,7 @@ class ResellerUpdate extends ObjectUpdate {
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
-            '{--from= : start processing from given DateTime/DateInterval}',
+            '{--from= : Start processing from given DateTime/DateInterval}',
             '{--a|assets : Load assets}',
             '{--A|no-assets : Skip assets (default)}',
             '{--d|documents : Load documents}',

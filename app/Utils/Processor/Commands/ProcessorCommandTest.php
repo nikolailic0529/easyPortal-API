@@ -6,6 +6,8 @@ use App\Services\I18n\Formatter;
 use App\Utils\Iterators\Contracts\Limitable;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Contracts\Offsetable;
+use App\Utils\Processor\CompositeProcessor;
+use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\Contracts\StateStore;
 use App\Utils\Processor\EloquentProcessor;
@@ -355,8 +357,8 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]  chunk size
+                      --state[=STATE]  Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  Chunk size
 
                 HELP,
                 ProcessorCommand__ProcessorProcess::class,
@@ -370,9 +372,9 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-limitable-process [options]
 
                 Options:
-                      --state[=STATE]  initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]  chunk size
-                      --limit[=LIMIT]  max ProcessorLimitable to process
+                      --state[=STATE]  Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  Chunk size
+                      --limit[=LIMIT]  Maximum number of ProcessorLimitable to process
 
                 HELP,
                 ProcessorCommand__ProcessorLimitableProcess::class,
@@ -386,9 +388,9 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-processor-offsetable-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__ProcessorOffsetableProcess::class,
@@ -402,10 +404,10 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-iterator-processor-process [options]
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --limit[=LIMIT]    max IteratorProcessor to process
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --limit[=LIMIT]    Maximum number of IteratorProcessor to process
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__IteratorProcessorProcess::class,
@@ -419,16 +421,31 @@ class ProcessorCommandTest extends TestCase {
                   ep:test-eloquent-processor-process [options] [--] [<id>...]
 
                 Arguments:
-                  id                     process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
+                  id                     Process only these EloquentProcessor (if empty all EloquentProcessor will be processed)
 
                 Options:
-                      --state[=STATE]    initial state, allows to continue processing (overwrites other options except `--chunk`)
-                      --chunk[=CHUNK]    chunk size
-                      --limit[=LIMIT]    max EloquentProcessor to process
-                      --offset[=OFFSET]  start processing from given offset
+                      --state[=STATE]    Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]    Chunk size
+                      --limit[=LIMIT]    Maximum number of EloquentProcessor to process
+                      --offset[=OFFSET]  Start processing from given offset
 
                 HELP,
                 ProcessorCommand__EloquentProcessorProcess::class,
+            ],
+            ProcessorCommand__CompositeProcessorProcess::class  => [
+                <<<'HELP'
+                Description:
+                  Process CompositeProcessor.
+
+                Usage:
+                  ep:test-composite-processor-process [options]
+
+                Options:
+                      --state[=STATE]  Initial state, allows to continue processing (overwrites other options except `--chunk`)
+                      --chunk[=CHUNK]  Chunk size
+
+                HELP,
+                ProcessorCommand__CompositeProcessorProcess::class,
             ],
             // @phpcs:enable
         ];
@@ -529,6 +546,31 @@ class ProcessorCommand__EloquentProcessor extends EloquentProcessor {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
+        throw new Exception('should not be called');
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ *
+ * @extends CompositeProcessor<CompositeState>
+ */
+class ProcessorCommand__CompositeProcessor extends CompositeProcessor {
+    /**
+     * @inheritdoc
+     */
+    protected function getOperations(CompositeState $state): array {
+        return [];
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ProcessorCommand__CompositeProcessorProcess extends ProcessorCommand__Command {
+    public function __invoke(ProcessorCommand__CompositeProcessor $processor): int {
         throw new Exception('should not be called');
     }
 }

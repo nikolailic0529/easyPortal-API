@@ -38,7 +38,7 @@ class FulltextIndexesRebuild extends ProcessorCommand {
      */
     protected function getCommandSignature(array $signature): array {
         return (new Collection(array_merge(parent::getCommandSignature($signature), [
-            '{model?* : model(s) to rebuild (default all)}',
+            '{model?* : Model(s) to rebuild (default "all")}',
         ])))
             ->filter(static function (string $option): bool {
                 return !str_contains($option, 'id?*');

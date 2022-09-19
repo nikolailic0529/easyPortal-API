@@ -8,11 +8,11 @@ Arguments:
   id                       Customer ID
 
 Options:
-      --state[=STATE]      initial state, allows to continue processing (overwrites other options except `--chunk`)
-      --chunk[=CHUNK]      chunk size
-      --from[=FROM]        start processing from given DateTime/DateInterval
-      --warranty-check     run warranty check before update
-      --no-warranty-check  do not run warranty check before update (default)
+      --state[=STATE]      Initial state, allows to continue processing (overwrites other options except `--chunk`)
+      --chunk[=CHUNK]      Chunk size
+      --from[=FROM]        Start processing from given DateTime/DateInterval
+      --warranty-check     Run warranty check before update
+      --no-warranty-check  Do not run warranty check before update (default)
   -a, --assets             Load assets
   -A, --no-assets          Skip assets (default)
   -d, --documents          Load documents
