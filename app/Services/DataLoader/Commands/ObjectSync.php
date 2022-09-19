@@ -13,7 +13,7 @@ use function array_merge;
  *
  * @extends ProcessorCommand<TProcessor>
  */
-abstract class ObjectUpdate extends ProcessorCommand {
+abstract class ObjectSync extends ProcessorCommand {
     /**
      * @inheritDoc
      */

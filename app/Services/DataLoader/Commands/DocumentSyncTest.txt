@@ -1,8 +1,8 @@
 Description:
-  Update Document.
+  Sync Document.
 
 Usage:
-  ep:data-loader-document-update [options] [--] <id>
+  ep:data-loader-document-sync [options] [--] <id>
 
 Arguments:
   id                    Document ID

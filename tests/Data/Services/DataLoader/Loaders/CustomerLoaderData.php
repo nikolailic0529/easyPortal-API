@@ -27,7 +27,7 @@ class CustomerLoaderData extends AssetsData {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
             $results = [
-                $this->kernel->call('ep:data-loader-customer-update', $this->getOptions([
+                $this->kernel->call('ep:data-loader-customer-sync', $this->getOptions([
                     'id'          => static::CUSTOMER,
                     '--documents' => static::DOCUMENTS,
                     '--assets'    => static::ASSETS,
@@ -36,7 +36,7 @@ class CustomerLoaderData extends AssetsData {
 
             if (static::ASSET) {
                 try {
-                    $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
+                    $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
                         'id'          => '00000000-0000-0000-0000-000000000000',
                         '--documents' => true,
                     ]));
@@ -44,7 +44,7 @@ class CustomerLoaderData extends AssetsData {
                     // expected, we just need a dump
                 }
 
-                $results[] = $this->kernel->call('ep:data-loader-asset-update', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
                     'id'          => static::ASSET,
                     '--documents' => true,
                 ]));
@@ -52,14 +52,14 @@ class CustomerLoaderData extends AssetsData {
 
             if (static::DOCUMENT) {
                 try {
-                    $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
+                    $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
                         'id' => '00000000-0000-0000-0000-000000000000',
                     ]));
                 } catch (DocumentNotFound) {
                     // expected, we just need a dump
                 }
 
-                $results[] = $this->kernel->call('ep:data-loader-document-update', $this->getOptions([
+                $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
                     'id' => static::DOCUMENT,
                 ]));
             }

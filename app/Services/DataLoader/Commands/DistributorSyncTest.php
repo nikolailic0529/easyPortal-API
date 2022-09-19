@@ -6,13 +6,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\DistributorUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Commands\DistributorSync
  */
-class DistributorUpdateTest extends TestCase {
+class DistributorSyncTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testCommand(): void {
-        self::assertCommandDescription('ep:data-loader-distributor-update');
+        self::assertCommandDescription('ep:data-loader-distributor-sync');
     }
 }

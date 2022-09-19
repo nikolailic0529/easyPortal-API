@@ -1,8 +1,8 @@
 Description:
-  Update Customer.
+  Sync Customer.
 
 Usage:
-  ep:data-loader-customer-update [options] [--] <id>
+  ep:data-loader-customer-sync [options] [--] <id>
 
 Arguments:
   id                       Customer ID

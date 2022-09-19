@@ -17,7 +17,7 @@ class DistributorsSynchronizerData extends Data {
             $success = $result === Command::SUCCESS;
 
             try {
-                $this->kernel->call('ep:data-loader-distributor-update', [
+                $this->kernel->call('ep:data-loader-distributor-sync', [
                     'id' => '00000000-0000-0000-0000-000000000000',
                 ]);
             } catch (DistributorNotFound) {

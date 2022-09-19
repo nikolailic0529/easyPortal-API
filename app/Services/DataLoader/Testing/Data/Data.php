@@ -113,7 +113,7 @@ abstract class Data {
         if ($context[ClientDumpContext::DISTRIBUTORS] ?? null) {
             foreach ((array) $context[ClientDumpContext::DISTRIBUTORS] as $distributor) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-distributor-update', [
+                    && $this->kernel->call('ep:data-loader-distributor-sync', [
                         'id' => $distributor,
                     ]) === Command::SUCCESS;
             }
@@ -122,7 +122,7 @@ abstract class Data {
         if ($context[ClientDumpContext::RESELLERS] ?? null) {
             foreach ((array) $context[ClientDumpContext::RESELLERS] as $reseller) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-reseller-update', [
+                    && $this->kernel->call('ep:data-loader-reseller-sync', [
                         'id' => $reseller,
                     ]) === Command::SUCCESS;
             }
@@ -131,7 +131,7 @@ abstract class Data {
         if ($context[ClientDumpContext::CUSTOMERS] ?? null) {
             foreach ((array) $context[ClientDumpContext::CUSTOMERS] as $customer) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-customer-update', [
+                    && $this->kernel->call('ep:data-loader-customer-sync', [
                         'id' => $customer,
                     ]) === Command::SUCCESS;
             }
@@ -140,7 +140,7 @@ abstract class Data {
         if ($context[ClientDumpContext::ASSETS] ?? null) {
             foreach ((array) $context[ClientDumpContext::ASSETS] as $asset) {
                 $result = $result
-                    && $this->kernel->call('ep:data-loader-asset-update', [
+                    && $this->kernel->call('ep:data-loader-asset-sync', [
                         'id' => $asset,
                     ]) === Command::SUCCESS;
             }

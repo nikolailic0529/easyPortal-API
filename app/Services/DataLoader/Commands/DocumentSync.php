@@ -6,9 +6,9 @@ use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
 use App\Services\I18n\Formatter;
 
 /**
- * @extends ObjectUpdate<DocumentLoader>
+ * @extends ObjectSync<DocumentLoader>
  */
-class DocumentUpdate extends ObjectUpdate {
+class DocumentSync extends ObjectSync {
     public function __invoke(Formatter $formatter, DocumentLoader $loader): int {
         return $this->process($formatter, $loader);
     }

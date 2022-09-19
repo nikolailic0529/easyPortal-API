@@ -1,8 +1,8 @@
 Description:
-  Update Asset.
+  Sync Asset.
 
 Usage:
-  ep:data-loader-asset-update [options] [--] <id>
+  ep:data-loader-asset-sync [options] [--] <id>
 
 Arguments:
   id                       Asset ID

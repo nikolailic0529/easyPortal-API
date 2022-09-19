@@ -6,9 +6,9 @@ use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
 use App\Services\I18n\Formatter;
 
 /**
- * @extends ObjectUpdate<DistributorLoader>
+ * @extends ObjectSync<DistributorLoader>
  */
-class DistributorUpdate extends ObjectUpdate {
+class DistributorSync extends ObjectSync {
     public function __invoke(Formatter $formatter, DistributorLoader $loader): int {
         return $this->process($formatter, $loader);
     }

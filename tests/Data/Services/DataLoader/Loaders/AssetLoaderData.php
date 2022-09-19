@@ -10,7 +10,7 @@ class AssetLoaderData extends AssetsData {
 
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-asset-update', [
+            $result  = $this->kernel->call('ep:data-loader-asset-sync', [
                 'id' => static::ASSET,
             ]);
             $success = $result === Command::SUCCESS;

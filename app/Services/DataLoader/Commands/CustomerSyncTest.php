@@ -6,13 +6,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\ResellerUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Commands\CustomerSync
  */
-class ResellerUpdateTest extends TestCase {
+class CustomerSyncTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testCommand(): void {
-        self::assertCommandDescription('ep:data-loader-reseller-update');
+        self::assertCommandDescription('ep:data-loader-customer-sync');
     }
 }

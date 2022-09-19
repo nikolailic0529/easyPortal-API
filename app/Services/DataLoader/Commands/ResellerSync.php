@@ -2,23 +2,21 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
+use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
 use App\Services\I18n\Formatter;
 
 use function array_merge;
 
 /**
- * @extends ObjectUpdate<CustomerLoader>
+ * @extends ObjectSync<ResellerLoader>
  */
-class CustomerUpdate extends ObjectUpdate {
+class ResellerSync extends ObjectSync {
     /**
      * @inheritDoc
      */
     protected function getCommandSignature(array $signature): array {
         return array_merge(parent::getCommandSignature($signature), [
             '{--from= : Start processing from given DateTime/DateInterval}',
-            '{--warranty-check : Run warranty check before update}',
-            '{--no-warranty-check : Do not run warranty check before update (default)}',
             '{--a|assets : Load assets}',
             '{--A|no-assets : Skip assets (default)}',
             '{--d|documents : Load documents}',
@@ -26,10 +24,9 @@ class CustomerUpdate extends ObjectUpdate {
         ]);
     }
 
-    public function __invoke(Formatter $formatter, CustomerLoader $loader): int {
+    public function __invoke(Formatter $formatter, ResellerLoader $loader): int {
         $loader = $loader
             ->setFrom($this->getDateTimeOption('from'))
-            ->setWithWarrantyCheck($this->getBoolOption('warranty-check', false))
             ->setWithAssets($this->getBoolOption('assets', false))
             ->setWithDocuments($this->getBoolOption('documents', false));
 

@@ -6,13 +6,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Commands\AssetUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Commands\AssetSync
  */
-class AssetUpdateTest extends TestCase {
+class AssetSyncTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testCommand(): void {
-        self::assertCommandDescription('ep:data-loader-asset-update');
+        self::assertCommandDescription('ep:data-loader-asset-sync');
     }
 }

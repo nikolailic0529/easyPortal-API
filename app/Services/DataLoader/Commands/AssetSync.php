@@ -8,9 +8,9 @@ use App\Services\I18n\Formatter;
 use function array_merge;
 
 /**
- * @extends ObjectUpdate<AssetLoader>
+ * @extends ObjectSync<AssetLoader>
  */
-class AssetUpdate extends ObjectUpdate {
+class AssetSync extends ObjectSync {
     /**
      * @inheritDoc
      */
