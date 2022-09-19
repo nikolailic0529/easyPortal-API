@@ -38,6 +38,7 @@ use function file_put_contents;
 use function implode;
 use function is_array;
 use function pathinfo;
+use function trim;
 
 use const PATHINFO_EXTENSION;
 
@@ -148,14 +149,17 @@ abstract class TestCase extends BaseTestCase {
     }
 
     protected function assertCommandDescription(string $command, string $expected = '.txt'): void {
-        $buffer = new BufferedOutput();
-        $kernel = $this->app->make(Kernel::class);
-        $format = pathinfo($expected, PATHINFO_EXTENSION);
-        $result = $kernel->call('help', ['command_name' => $command, '--format' => $format], $buffer);
-        $actual = $buffer->fetch();
-        $data   = $this->getTestData();
+        $data    = $this->getTestData();
+        $buffer  = new BufferedOutput();
+        $kernel  = $this->app->make(Kernel::class);
+        $format  = pathinfo($expected, PATHINFO_EXTENSION);
+        $result  = $kernel->call('help', ['command_name' => $command, '--format' => $format], $buffer);
+        $actual  = $buffer->fetch();
+        $content = $data->file($expected)->isFile()
+            ? trim($data->content($expected))
+            : null;
 
-        if ($data->content($expected) === '') {
+        if (!$content) {
             self::assertNotFalse(file_put_contents($data->path($expected), $actual));
         }
 
