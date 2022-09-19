@@ -102,9 +102,7 @@ class Settings {
         // Save
         if ($updated) {
             $this->saveSettings($updated);
-
-            $this->app->make(ConfigUpdate::class)->dispatch();
-            $this->dispatcher->dispatch(new SettingsUpdated());
+            $this->notify();
         }
 
         // Return
@@ -322,5 +320,10 @@ class Settings {
      */
     protected function getStore(): string {
         return Constants::class;
+    }
+
+    protected function notify(): void {
+        $this->app->make(ConfigUpdate::class)->dispatch();
+        $this->dispatcher->dispatch(new SettingsUpdated());
     }
 }
