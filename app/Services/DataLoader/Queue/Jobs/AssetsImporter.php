@@ -2,17 +2,16 @@
 
 namespace App\Services\DataLoader\Queue\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\Assets\Importer;
-use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
+use App\Services\DataLoader\Synchronizer\Synchronizers\AssetsSynchronizer;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends ImporterJob<Importer>
+ * @extends Importer<AssetsSynchronizer>
  */
-class AssetsImporter extends ImporterJob {
+class AssetsImporter extends Importer {
     public function displayName(): string {
         return 'ep-data-loader-assets-importer';
     }
@@ -23,13 +22,12 @@ class AssetsImporter extends ImporterJob {
     public function getQueueConfig(): array {
         return [
                 'settings' => [
-                    'chunk'  => Constants::EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK,
-                    'expire' => null,
+                    'chunk' => Constants::EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK,
                 ],
             ] + parent::getQueueConfig();
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(Importer::class);
+        return $container->make(AssetsSynchronizer::class);
     }
 }

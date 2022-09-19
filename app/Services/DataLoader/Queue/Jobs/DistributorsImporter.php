@@ -2,19 +2,16 @@
 
 namespace App\Services\DataLoader\Queue\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\Distributors\Importer;
-use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
+use App\Services\DataLoader\Synchronizer\Synchronizers\DistributorsSynchronizer;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * Imports distributors.
- *
- * @extends ImporterJob<Importer>
+ * @extends Importer<DistributorsSynchronizer>
  */
-class DistributorsImporter extends ImporterJob {
+class DistributorsImporter extends Importer {
     public function displayName(): string {
         return 'ep-data-loader-distributors-importer';
     }
@@ -32,6 +29,6 @@ class DistributorsImporter extends ImporterJob {
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(Importer::class);
+        return $container->make(DistributorsSynchronizer::class);
     }
 }

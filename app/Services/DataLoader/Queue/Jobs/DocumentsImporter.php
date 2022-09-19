@@ -2,17 +2,16 @@
 
 namespace App\Services\DataLoader\Queue\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\Documents\Importer;
-use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
+use App\Services\DataLoader\Synchronizer\Synchronizers\DocumentsSynchronizer;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @extends ImporterJob<Importer>
+ * @extends Importer<DocumentsSynchronizer>
  */
-class DocumentsImporter extends ImporterJob {
+class DocumentsImporter extends Importer {
     public function displayName(): string {
         return 'ep-data-loader-documents-importer';
     }
@@ -23,13 +22,12 @@ class DocumentsImporter extends ImporterJob {
     public function getQueueConfig(): array {
         return [
                 'settings' => [
-                    'chunk'  => Constants::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK,
-                    'expire' => null,
+                    'chunk' => Constants::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK,
                 ],
             ] + parent::getQueueConfig();
     }
 
     protected function makeProcessor(Container $container, QueueableConfig $config): Processor {
-        return $container->make(Importer::class);
+        return $container->make(DocumentsSynchronizer::class);
     }
 }

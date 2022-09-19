@@ -7,17 +7,14 @@ use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\CronJob;
 use App\Utils\Processor\Contracts\Processor;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * Base Importer job.
- *
- * @template TImporter of \App\Services\DataLoader\Importer\Importer
+ * @template TSynchronizer of \App\Services\DataLoader\Synchronizer\Synchronizer
  */
 abstract class Importer extends CronJob implements Progressable {
     /**
-     * @phpstan-use ProcessorJob<TImporter>
+     * @phpstan-use ProcessorJob<TSynchronizer>
      */
     use ProcessorJob {
         getProcessor as private createProcessor;
@@ -29,22 +26,20 @@ abstract class Importer extends CronJob implements Progressable {
     public function getQueueConfig(): array {
         return [
                 'settings' => [
-                    'chunk'  => null,
-                    'expire' => null,
+                    'chunk' => null,
                 ],
             ] + parent::getQueueConfig();
     }
 
     /**
-     * @return TImporter
+     * @return TSynchronizer
      */
     protected function getProcessor(Container $container, QueueableConfig $config): Processor {
-        $expire    = $config->setting('expire');
-        $from      = $expire ? Date::now()->sub($expire) : null;
-        $processor = $this
+        return $this
             ->createProcessor($container, $config)
-            ->setFrom($from);
-
-        return $processor;
+            ->setFrom(null)
+            ->setWithOutdated(true)
+            ->setOutdatedLimit(null)
+            ->setOutdatedExpire(null);
     }
 }
