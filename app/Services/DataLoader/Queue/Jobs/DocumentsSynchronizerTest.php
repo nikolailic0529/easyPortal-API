@@ -6,13 +6,13 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Queue\Jobs\CustomersUpdater
+ * @coversDefaultClass \App\Services\DataLoader\Queue\Jobs\DocumentsSynchronizer
  */
-class CustomersUpdaterTest extends TestCase {
+class DocumentsSynchronizerTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        self::assertCronableRegistered(CustomersUpdater::class);
+        self::assertCronableRegistered(DocumentsSynchronizer::class);
     }
 }

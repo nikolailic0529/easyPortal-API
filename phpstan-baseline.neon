@@ -3981,6 +3981,36 @@ parameters:
 			path: app/Services/DataLoader/Queue/Jobs/Importer.php
 
 		-
+			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
+			message: "#^Cannot cast mixed to int\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Synchronizer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Synchronizer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
+			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
+			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Queue/Jobs/Synchronizer.php
+
+		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:getCache\\(\\) should return App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/Resolver.php

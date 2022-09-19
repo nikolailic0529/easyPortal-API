@@ -15,15 +15,15 @@ use App\Services\DataLoader\Commands\OemsImport;
 use App\Services\DataLoader\Commands\ResellersSync;
 use App\Services\DataLoader\Commands\ResellerSync;
 use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
-use App\Services\DataLoader\Queue\Jobs\AssetsUpdater;
+use App\Services\DataLoader\Queue\Jobs\AssetsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
-use App\Services\DataLoader\Queue\Jobs\CustomersUpdater;
+use App\Services\DataLoader\Queue\Jobs\CustomersSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\DistributorsImporter;
-use App\Services\DataLoader\Queue\Jobs\DistributorsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DistributorsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\DocumentsImporter;
-use App\Services\DataLoader\Queue\Jobs\DocumentsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DocumentsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\ResellersImporter;
-use App\Services\DataLoader\Queue\Jobs\ResellersUpdater;
+use App\Services\DataLoader\Queue\Jobs\ResellersSynchronizer;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
@@ -49,15 +49,15 @@ class Provider extends ServiceProvider {
         );
         $this->bootSchedule(
             DistributorsImporter::class,
-            DistributorsUpdater::class,
+            DistributorsSynchronizer::class,
             ResellersImporter::class,
-            ResellersUpdater::class,
+            ResellersSynchronizer::class,
             CustomersImporter::class,
-            CustomersUpdater::class,
+            CustomersSynchronizer::class,
             DocumentsImporter::class,
-            DocumentsUpdater::class,
+            DocumentsSynchronizer::class,
             AssetsImporter::class,
-            AssetsUpdater::class,
+            AssetsSynchronizer::class,
         );
     }
 }

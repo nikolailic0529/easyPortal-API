@@ -5,15 +5,15 @@ namespace Config;
 use App\CacheStores;
 use App\Queues;
 use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
-use App\Services\DataLoader\Queue\Jobs\AssetsUpdater;
+use App\Services\DataLoader\Queue\Jobs\AssetsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
-use App\Services\DataLoader\Queue\Jobs\CustomersUpdater;
+use App\Services\DataLoader\Queue\Jobs\CustomersSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\DistributorsImporter;
-use App\Services\DataLoader\Queue\Jobs\DistributorsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DistributorsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\DocumentsImporter;
-use App\Services\DataLoader\Queue\Jobs\DocumentsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DocumentsSynchronizer;
 use App\Services\DataLoader\Queue\Jobs\ResellersImporter;
-use App\Services\DataLoader\Queue\Jobs\ResellersUpdater;
+use App\Services\DataLoader\Queue\Jobs\ResellersSynchronizer;
 use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;
 use App\Services\Keycloak\Jobs\Cron\UsersSynchronizer;
 use App\Services\Logger\Logger;
@@ -37,6 +37,7 @@ use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
+use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DateTime;
 use App\Services\Settings\Types\DocumentStatus;
@@ -1059,62 +1060,86 @@ interface Constants {
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_RESELLERS_UPDATER">
+    // <editor-fold desc="EP_DATA_LOADER_RESELLERS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(ResellersUpdater::class, 'enabled')]
+    #[Service(ResellersSynchronizer::class, 'enabled')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(ResellersUpdater::class, 'cron')]
+    #[Service(ResellersSynchronizer::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_CRON = '15 0 * * *';
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_CRON = '15 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(ResellersUpdater::class, 'queue')]
+    #[Service(ResellersSynchronizer::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(ResellersUpdater::class, 'timeout')]
+    #[Service(ResellersSynchronizer::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TIMEOUT;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_TIMEOUT = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(ResellersUpdater::class, 'tries')]
+    #[Service(ResellersSynchronizer::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_TRIES = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TRIES;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_TRIES = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(ResellersUpdater::class, 'settings.chunk')]
+    #[Service(ResellersSynchronizer::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_CHUNK = self::EP_DATA_LOADER_CHUNK;
 
     /**
      * Expiration interval.
      */
-    #[Service(ResellersUpdater::class, 'settings.expire')]
+    #[Service(ResellersSynchronizer::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = 'PT24H';
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_EXPIRE = 'PT24H';
+
+    /**
+     * Process outdated Resellers?
+     */
+    #[Service(ResellersSynchronizer::class, 'settings.outdated')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED = false;
+
+    /**
+     * Maximum number of outdated Resellers to process.
+     */
+    #[Service(ResellersSynchronizer::class, 'settings.outdated_limit')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+
+    /**
+     * DateTime/DateInterval when Reseller become outdated.
+     */
+    #[Service(ResellersSynchronizer::class, 'settings.outdated_expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_IMPORTER">
@@ -1167,62 +1192,86 @@ interface Constants {
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_UPDATER">
+    // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(CustomersUpdater::class, 'enabled')]
+    #[Service(CustomersSynchronizer::class, 'enabled')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(CustomersUpdater::class, 'cron')]
+    #[Service(CustomersSynchronizer::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CRON = '30 0 * * *';
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_CRON = '30 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(CustomersUpdater::class, 'queue')]
+    #[Service(CustomersSynchronizer::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(CustomersUpdater::class, 'timeout')]
+    #[Service(CustomersSynchronizer::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_TIMEOUT = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(CustomersUpdater::class, 'tries')]
+    #[Service(CustomersSynchronizer::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TRIES = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TRIES;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_TRIES = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(CustomersUpdater::class, 'settings.chunk')]
+    #[Service(CustomersSynchronizer::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_CHUNK = self::EP_DATA_LOADER_CHUNK;
 
     /**
      * Expiration interval.
      */
-    #[Service(CustomersUpdater::class, 'settings.expire')]
+    #[Service(CustomersSynchronizer::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_EXPIRE = 'PT24H';
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_EXPIRE = 'PT24H';
+
+    /**
+     * Process outdated Customers?
+     */
+    #[Service(CustomersSynchronizer::class, 'settings.outdated')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED = false;
+
+    /**
+     * Maximum number of outdated Customers to process.
+     */
+    #[Service(CustomersSynchronizer::class, 'settings.outdated_limit')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+
+    /**
+     * DateTime/DateInterval when Customer become outdated.
+     */
+    #[Service(CustomersSynchronizer::class, 'settings.outdated_expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_ASSETS_IMPORTER">
@@ -1273,60 +1322,84 @@ interface Constants {
     public const EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK = 500;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_ASSETS_UPDATER">
+    // <editor-fold desc="EP_DATA_LOADER_ASSETS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(AssetsUpdater::class, 'enabled')]
+    #[Service(AssetsSynchronizer::class, 'enabled')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(AssetsUpdater::class, 'cron')]
+    #[Service(AssetsSynchronizer::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_CRON = '0 1 * * *';
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_CRON = '0 1 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(AssetsUpdater::class, 'queue')]
+    #[Service(AssetsSynchronizer::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(AssetsUpdater::class, 'timeout')]
+    #[Service(AssetsSynchronizer::class, 'timeout')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_TIMEOUT = self::EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(AssetsUpdater::class, 'tries')]
+    #[Service(AssetsSynchronizer::class, 'tries')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_TRIES = self::EP_DATA_LOADER_ASSETS_IMPORTER_TRIES;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_TRIES = self::EP_DATA_LOADER_ASSETS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(AssetsUpdater::class, 'settings.chunk')]
+    #[Service(AssetsSynchronizer::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_CHUNK = 500;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_CHUNK = 500;
 
     /**
      * Expiration interval.
      */
-    #[Service(AssetsUpdater::class, 'settings.expire')]
+    #[Service(AssetsSynchronizer::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_EXPIRE = 'PT24H';
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_EXPIRE = 'PT24H';
+
+    /**
+     * Process outdated Assets?
+     */
+    #[Service(AssetsSynchronizer::class, 'settings.outdated')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED = false;
+
+    /**
+     * Maximum number of outdated Assets to process.
+     */
+    #[Service(AssetsSynchronizer::class, 'settings.outdated_limit')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+
+    /**
+     * DateTime/DateInterval when Asset become outdated.
+     */
+    #[Service(AssetsSynchronizer::class, 'settings.outdated_expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_IMPORTER">
@@ -1379,62 +1452,86 @@ interface Constants {
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_UPDATER">
+    // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(DistributorsUpdater::class, 'enabled')]
+    #[Service(DistributorsSynchronizer::class, 'enabled')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(DistributorsUpdater::class, 'cron')]
+    #[Service(DistributorsSynchronizer::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(DistributorsUpdater::class, 'queue')]
+    #[Service(DistributorsSynchronizer::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_QUEUE = Queues::DATA_LOADER;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DistributorsUpdater::class, 'timeout')]
+    #[Service(DistributorsSynchronizer::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TIMEOUT;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_TIMEOUT = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DistributorsUpdater::class, 'tries')]
+    #[Service(DistributorsSynchronizer::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TRIES = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TRIES;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_TRIES = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(DistributorsUpdater::class, 'settings.chunk')]
+    #[Service(DistributorsSynchronizer::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_CHUNK = self::EP_DATA_LOADER_CHUNK;
 
     /**
      * Expiration interval.
      */
-    #[Service(DistributorsUpdater::class, 'settings.expire')]
+    #[Service(DistributorsSynchronizer::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE = 'PT24H';
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_EXPIRE = 'PT24H';
+
+    /**
+     * Process outdated Distributors?
+     */
+    #[Service(DistributorsSynchronizer::class, 'settings.outdated')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_OUTDATED = false;
+
+    /**
+     * Maximum number of outdated Distributors to process.
+     */
+    #[Service(DistributorsSynchronizer::class, 'settings.outdated_limit')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+
+    /**
+     * DateTime/DateInterval when Distributor become outdated.
+     */
+    #[Service(DistributorsSynchronizer::class, 'settings.outdated_expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_IMPORTER">
@@ -1485,60 +1582,84 @@ interface Constants {
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 100;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_UPDATER">
+    // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
      */
-    #[Service(DocumentsUpdater::class, 'enabled')]
+    #[Service(DocumentsSynchronizer::class, 'enabled')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(DocumentsUpdater::class, 'cron')]
+    #[Service(DocumentsSynchronizer::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CRON = '0 2 * * *';
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_CRON = '0 2 * * *';
 
     /**
      * Queue name.
      */
-    #[Service(DocumentsUpdater::class, 'queue')]
+    #[Service(DocumentsSynchronizer::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_QUEUE = Queues::DATA_LOADER;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DocumentsUpdater::class, 'timeout')]
+    #[Service(DocumentsSynchronizer::class, 'timeout')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_TIMEOUT = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DocumentsUpdater::class, 'tries')]
+    #[Service(DocumentsSynchronizer::class, 'tries')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TRIES = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_TRIES = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(DocumentsUpdater::class, 'settings.chunk')]
+    #[Service(DocumentsSynchronizer::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CHUNK = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_CHUNK = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK;
 
     /**
      * Expiration interval.
      */
-    #[Service(DocumentsUpdater::class, 'settings.expire')]
+    #[Service(DocumentsSynchronizer::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_UPDATER_EXPIRE = 'PT24H';
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_EXPIRE = 'PT24H';
+
+    /**
+     * Process outdated Documents?
+     */
+    #[Service(DocumentsSynchronizer::class, 'settings.outdated')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED = false;
+
+    /**
+     * Maximum number of outdated Documents to process.
+     */
+    #[Service(DocumentsSynchronizer::class, 'settings.outdated_limit')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+
+    /**
+     * DateTime/DateInterval when Document become outdated.
+     */
+    #[Service(DocumentsSynchronizer::class, 'settings.outdated_expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
     // </editor-fold>
     // </editor-fold>
 
