@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use App\Services\Queue\Concerns\ProcessorJob;
 use App\Services\Queue\Contracts\Progressable;
@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
  *
  * @template TImporter of \App\Services\DataLoader\Importer\Importer
  */
-abstract class ImporterCronJob extends CronJob implements Progressable {
+abstract class Importer extends CronJob implements Progressable {
     /**
      * @phpstan-use ProcessorJob<TImporter>
      */

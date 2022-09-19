@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Customer;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Jobs\CustomerSync;
+use App\Services\DataLoader\Queue\Tasks\CustomerSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {

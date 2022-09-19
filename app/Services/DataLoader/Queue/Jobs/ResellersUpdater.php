@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use Config\Constants;
 
 /**
  * Search for outdated resellers and update it.
  */
-class ResellersUpdaterCronJob extends ResellersImporterCronJob {
+class ResellersUpdater extends ResellersImporter {
     public function displayName(): string {
         return 'ep-data-loader-resellers-updater';
     }

@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use Config\Constants;
 
 /**
  * Search for outdated distributors and update it.
  */
-class DistributorsUpdaterCronJob extends DistributorsImporterCronJob {
+class DistributorsUpdater extends DistributorsImporter {
     public function displayName(): string {
         return 'ep-data-loader-distributors-updater';
     }

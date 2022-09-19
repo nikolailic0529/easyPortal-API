@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;

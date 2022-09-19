@@ -4,16 +4,16 @@ namespace Config;
 
 use App\CacheStores;
 use App\Queues;
-use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
-use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
-use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
-use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
+use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
+use App\Services\DataLoader\Queue\Jobs\AssetsUpdater;
+use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
+use App\Services\DataLoader\Queue\Jobs\CustomersUpdater;
+use App\Services\DataLoader\Queue\Jobs\DistributorsImporter;
+use App\Services\DataLoader\Queue\Jobs\DistributorsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DocumentsImporter;
+use App\Services\DataLoader\Queue\Jobs\DocumentsUpdater;
+use App\Services\DataLoader\Queue\Jobs\ResellersImporter;
+use App\Services\DataLoader\Queue\Jobs\ResellersUpdater;
 use App\Services\Keycloak\Jobs\Cron\PermissionsSynchronizer;
 use App\Services\Keycloak\Jobs\Cron\UsersSynchronizer;
 use App\Services\Logger\Logger;
@@ -1014,14 +1014,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(ResellersImporterCronJob::class, 'enabled')]
+    #[Service(ResellersImporter::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(ResellersImporterCronJob::class, 'cron')]
+    #[Service(ResellersImporter::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_CRON = '0 0 * * *';
@@ -1029,7 +1029,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(ResellersImporterCronJob::class, 'queue')]
+    #[Service(ResellersImporter::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
@@ -1037,7 +1037,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(ResellersImporterCronJob::class, 'timeout')]
+    #[Service(ResellersImporter::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_TIMEOUT = 1 * 60 * 60;
@@ -1045,7 +1045,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(ResellersImporterCronJob::class, 'tries')]
+    #[Service(ResellersImporter::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_TRIES = 1;
@@ -1053,7 +1053,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(ResellersImporterCronJob::class, 'settings.chunk')]
+    #[Service(ResellersImporter::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1064,14 +1064,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(ResellersUpdaterCronJob::class, 'enabled')]
+    #[Service(ResellersUpdater::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'cron')]
+    #[Service(ResellersUpdater::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_CRON = '15 0 * * *';
@@ -1079,7 +1079,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'queue')]
+    #[Service(ResellersUpdater::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER;
@@ -1087,7 +1087,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'timeout')]
+    #[Service(ResellersUpdater::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TIMEOUT;
@@ -1095,7 +1095,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'tries')]
+    #[Service(ResellersUpdater::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_TRIES = self::EP_DATA_LOADER_RESELLERS_IMPORTER_TRIES;
@@ -1103,7 +1103,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'settings.chunk')]
+    #[Service(ResellersUpdater::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1111,7 +1111,7 @@ interface Constants {
     /**
      * Expiration interval.
      */
-    #[Service(ResellersUpdaterCronJob::class, 'settings.expire')]
+    #[Service(ResellersUpdater::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = 'PT24H';
@@ -1122,14 +1122,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(CustomersImporterCronJob::class, 'enabled')]
+    #[Service(CustomersImporter::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(CustomersImporterCronJob::class, 'cron')]
+    #[Service(CustomersImporter::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CRON = '0 0 * * *';
@@ -1137,7 +1137,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(CustomersImporterCronJob::class, 'queue')]
+    #[Service(CustomersImporter::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
@@ -1145,7 +1145,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(CustomersImporterCronJob::class, 'timeout')]
+    #[Service(CustomersImporter::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT = 6 * 60 * 60;
@@ -1153,7 +1153,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(CustomersImporterCronJob::class, 'tries')]
+    #[Service(CustomersImporter::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_TRIES = 4;
@@ -1161,7 +1161,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(CustomersImporterCronJob::class, 'settings.chunk')]
+    #[Service(CustomersImporter::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1172,14 +1172,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(CustomersUpdaterCronJob::class, 'enabled')]
+    #[Service(CustomersUpdater::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'cron')]
+    #[Service(CustomersUpdater::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CRON = '30 0 * * *';
@@ -1187,7 +1187,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'queue')]
+    #[Service(CustomersUpdater::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER;
@@ -1195,7 +1195,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'timeout')]
+    #[Service(CustomersUpdater::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TIMEOUT;
@@ -1203,7 +1203,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'tries')]
+    #[Service(CustomersUpdater::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_TRIES = self::EP_DATA_LOADER_CUSTOMERS_IMPORTER_TRIES;
@@ -1211,7 +1211,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'settings.chunk')]
+    #[Service(CustomersUpdater::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1219,7 +1219,7 @@ interface Constants {
     /**
      * Expiration interval.
      */
-    #[Service(CustomersUpdaterCronJob::class, 'settings.expire')]
+    #[Service(CustomersUpdater::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_EXPIRE = 'PT24H';
@@ -1230,14 +1230,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(AssetsImporterCronJob::class, 'enabled')]
+    #[Service(AssetsImporter::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(AssetsImporterCronJob::class, 'cron')]
+    #[Service(AssetsImporter::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_CRON = '0 0 * * *';
@@ -1245,7 +1245,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(AssetsImporterCronJob::class, 'queue')]
+    #[Service(AssetsImporter::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER;
@@ -1253,21 +1253,21 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(AssetsImporterCronJob::class, 'timeout')]
+    #[Service(AssetsImporter::class, 'timeout')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT = 24 * 60 * 60;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(AssetsImporterCronJob::class, 'tries')]
+    #[Service(AssetsImporter::class, 'tries')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_TRIES = 14;
 
     /**
      * Chunk size.
      */
-    #[Service(AssetsImporterCronJob::class, 'settings.chunk')]
+    #[Service(AssetsImporter::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK = 500;
@@ -1278,14 +1278,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(AssetsUpdaterCronJob::class, 'enabled')]
+    #[Service(AssetsUpdater::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'cron')]
+    #[Service(AssetsUpdater::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_ASSETS_UPDATER_CRON = '0 1 * * *';
@@ -1293,7 +1293,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'queue')]
+    #[Service(AssetsUpdater::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER;
@@ -1301,21 +1301,21 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'timeout')]
+    #[Service(AssetsUpdater::class, 'timeout')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'tries')]
+    #[Service(AssetsUpdater::class, 'tries')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_UPDATER_TRIES = self::EP_DATA_LOADER_ASSETS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'settings.chunk')]
+    #[Service(AssetsUpdater::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_ASSETS_UPDATER_CHUNK = 500;
@@ -1323,7 +1323,7 @@ interface Constants {
     /**
      * Expiration interval.
      */
-    #[Service(AssetsUpdaterCronJob::class, 'settings.expire')]
+    #[Service(AssetsUpdater::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_ASSETS_UPDATER_EXPIRE = 'PT24H';
@@ -1334,14 +1334,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(DistributorsImporterCronJob::class, 'enabled')]
+    #[Service(DistributorsImporter::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(DistributorsImporterCronJob::class, 'cron')]
+    #[Service(DistributorsImporter::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_CRON = '0 0 * * *';
@@ -1349,7 +1349,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(DistributorsImporterCronJob::class, 'queue')]
+    #[Service(DistributorsImporter::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_QUEUE = Queues::DATA_LOADER;
@@ -1357,7 +1357,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DistributorsImporterCronJob::class, 'timeout')]
+    #[Service(DistributorsImporter::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TIMEOUT = 1 * 60 * 60;
@@ -1365,7 +1365,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DistributorsImporterCronJob::class, 'tries')]
+    #[Service(DistributorsImporter::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TRIES = 1;
@@ -1373,7 +1373,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(DistributorsImporterCronJob::class, 'settings.chunk')]
+    #[Service(DistributorsImporter::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1384,14 +1384,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'enabled')]
+    #[Service(DistributorsUpdater::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'cron')]
+    #[Service(DistributorsUpdater::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CRON = '0 0 * * *';
@@ -1399,7 +1399,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'queue')]
+    #[Service(DistributorsUpdater::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_QUEUE = Queues::DATA_LOADER;
@@ -1407,7 +1407,7 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'timeout')]
+    #[Service(DistributorsUpdater::class, 'timeout')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TIMEOUT;
@@ -1415,7 +1415,7 @@ interface Constants {
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'tries')]
+    #[Service(DistributorsUpdater::class, 'tries')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_TRIES = self::EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_TRIES;
@@ -1423,7 +1423,7 @@ interface Constants {
     /**
      * Chunk size.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'settings.chunk')]
+    #[Service(DistributorsUpdater::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
@@ -1431,7 +1431,7 @@ interface Constants {
     /**
      * Expiration interval.
      */
-    #[Service(DistributorsUpdaterCronJob::class, 'settings.expire')]
+    #[Service(DistributorsUpdater::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE = 'PT24H';
@@ -1442,14 +1442,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(DocumentsImporterCronJob::class, 'enabled')]
+    #[Service(DocumentsImporter::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_ENABLED = false;
 
     /**
      * Cron expression.
      */
-    #[Service(DocumentsImporterCronJob::class, 'cron')]
+    #[Service(DocumentsImporter::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CRON = '0 0 * * *';
@@ -1457,7 +1457,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(DocumentsImporterCronJob::class, 'queue')]
+    #[Service(DocumentsImporter::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_QUEUE = Queues::DATA_LOADER;
@@ -1465,21 +1465,21 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DocumentsImporterCronJob::class, 'timeout')]
+    #[Service(DocumentsImporter::class, 'timeout')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT = 24 * 60 * 60;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DocumentsImporterCronJob::class, 'tries')]
+    #[Service(DocumentsImporter::class, 'tries')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES = 7;
 
     /**
      * Chunk size.
      */
-    #[Service(DocumentsImporterCronJob::class, 'settings.chunk')]
+    #[Service(DocumentsImporter::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK = 100;
@@ -1490,14 +1490,14 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'enabled')]
+    #[Service(DocumentsUpdater::class, 'enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'cron')]
+    #[Service(DocumentsUpdater::class, 'cron')]
     #[Group('data_loader')]
     #[Type(CronExpression::class)]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CRON = '0 2 * * *';
@@ -1505,7 +1505,7 @@ interface Constants {
     /**
      * Queue name.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'queue')]
+    #[Service(DocumentsUpdater::class, 'queue')]
     #[Group('data_loader')]
     #[Internal]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_QUEUE = Queues::DATA_LOADER;
@@ -1513,21 +1513,21 @@ interface Constants {
     /**
      * Number of seconds the job can run.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'timeout')]
+    #[Service(DocumentsUpdater::class, 'timeout')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TIMEOUT = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TIMEOUT;
 
     /**
      * Number of times the job may be attempted.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'tries')]
+    #[Service(DocumentsUpdater::class, 'tries')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_TRIES = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_TRIES;
 
     /**
      * Chunk size.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'settings.chunk')]
+    #[Service(DocumentsUpdater::class, 'settings.chunk')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_CHUNK = self::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK;
@@ -1535,7 +1535,7 @@ interface Constants {
     /**
      * Expiration interval.
      */
-    #[Service(DocumentsUpdaterCronJob::class, 'settings.expire')]
+    #[Service(DocumentsUpdater::class, 'settings.expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_DOCUMENTS_UPDATER_EXPIRE = 'PT24H';

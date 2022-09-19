@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Document;
 use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\DocumentSync
+ * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\DocumentSync
  */
 class DocumentSyncTest extends TestCase {
     // <editor-fold desc="Tests">

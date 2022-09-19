@@ -1,19 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use App\Services\DataLoader\Importer\Importers\Assets\Importer;
+use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * Imports assets.
- *
- * @extends ImporterCronJob<Importer>
+ * @extends ImporterJob<Importer>
  */
-class AssetsImporterCronJob extends ImporterCronJob {
+class AssetsImporter extends ImporterJob {
     public function displayName(): string {
         return 'ep-data-loader-assets-importer';
     }

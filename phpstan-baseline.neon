@@ -3901,31 +3901,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
 
 		-
-			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ImporterCronJob\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Jobs\\\\ImporterCronJob\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
-			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Jobs/ImporterCronJob.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
@@ -3979,6 +3954,31 @@ parameters:
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
+
+		-
+			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Importer.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Importer\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Importer.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Queue\\\\Jobs\\\\Importer\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Importer.php
+
+		-
+			message: "#^Parameter \\#1 \\$abstract of method Illuminate\\\\Contracts\\\\Container\\\\Container\\:\\:make\\(\\) expects string, class\\-string\\<App\\\\Services\\\\Service\\>\\|null given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Importer.php
+
+		-
+			message: "#^Parameter \\#1 \\$unit of method Carbon\\\\CarbonImmutable\\:\\:sub\\(\\) expects Carbon\\\\CarbonConverterInterface\\|Closure\\|DateInterval\\|string, mixed given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Queue/Jobs/Importer.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\:\\:getCache\\(\\) should return App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\|null\\.$#"

@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use Config\Constants;
 
 /**
  * Search for outdated customers and update it.
  */
-class CustomersUpdaterCronJob extends CustomersImporterCronJob {
+class CustomersUpdater extends CustomersImporter {
     public function displayName(): string {
         return 'ep-data-loader-customers-updater';
     }

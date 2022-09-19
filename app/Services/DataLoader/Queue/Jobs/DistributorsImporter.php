@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use App\Services\DataLoader\Importer\Importers\Distributors\Importer;
+use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
@@ -11,9 +12,9 @@ use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 /**
  * Imports distributors.
  *
- * @extends ImporterCronJob<Importer>
+ * @extends ImporterJob<Importer>
  */
-class DistributorsImporterCronJob extends ImporterCronJob {
+class DistributorsImporter extends ImporterJob {
     public function displayName(): string {
         return 'ep-data-loader-distributors-importer';
     }

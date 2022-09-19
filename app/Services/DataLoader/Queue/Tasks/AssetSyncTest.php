@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
@@ -15,7 +15,7 @@ use function iterator_to_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\AssetSync
+ * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\AssetSync
  */
 class AssetSyncTest extends TestCase {
     // <editor-fold desc="Tests">

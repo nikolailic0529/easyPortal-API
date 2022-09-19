@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use Config\Constants;
 
 /**
  * Search for outdated documents and update it.
  */
-class DocumentsUpdaterCronJob extends DocumentsImporterCronJob {
+class DocumentsUpdater extends DocumentsImporter {
     public function displayName(): string {
         return 'ep-data-loader-documents-updater';
     }

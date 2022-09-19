@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
 use Config\Constants;
 
 /**
  * Search for outdated assets and update it.
  */
-class AssetsUpdaterCronJob extends AssetsImporterCronJob {
+class AssetsUpdater extends AssetsImporter {
     public function displayName(): string {
         return 'ep-data-loader-assets-updater';
     }

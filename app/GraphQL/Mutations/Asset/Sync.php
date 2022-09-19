@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\Asset;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Jobs\AssetSync;
+use App\Services\DataLoader\Queue\Tasks\AssetSync;
 use Illuminate\Contracts\Container\Container;
 
 class Sync {

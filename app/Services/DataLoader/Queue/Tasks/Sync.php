@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Services\Queue\Job;
 use App\Utils\Console\CommandOptions;

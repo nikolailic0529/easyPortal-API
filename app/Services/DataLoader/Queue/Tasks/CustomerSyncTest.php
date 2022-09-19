@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomerSync
+ * @coversDefaultClass \App\Services\DataLoader\Queue\Tasks\CustomerSync
  */
 class CustomerSyncTest extends TestCase {
     // <editor-fold desc="Tests">

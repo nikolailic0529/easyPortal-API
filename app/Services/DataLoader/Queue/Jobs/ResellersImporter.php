@@ -1,21 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Jobs;
+namespace App\Services\DataLoader\Queue\Jobs;
 
-use App\Services\DataLoader\Importer\Importers\Documents\Importer;
+use App\Services\DataLoader\Importer\Importers\Resellers\Importer;
+use App\Services\DataLoader\Queue\Jobs\Importer as ImporterJob;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * Imports documents.
- *
- * @extends ImporterCronJob<Importer>
+ * @extends ImporterJob<Importer>
  */
-class DocumentsImporterCronJob extends ImporterCronJob {
+class ResellersImporter extends ImporterJob {
     public function displayName(): string {
-        return 'ep-data-loader-documents-importer';
+        return 'ep-data-loader-resellers-importer';
     }
 
     /**
@@ -24,7 +23,7 @@ class DocumentsImporterCronJob extends ImporterCronJob {
     public function getQueueConfig(): array {
         return [
                 'settings' => [
-                    'chunk'  => Constants::EP_DATA_LOADER_DOCUMENTS_IMPORTER_CHUNK,
+                    'chunk'  => Constants::EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK,
                     'expire' => null,
                 ],
             ] + parent::getQueueConfig();

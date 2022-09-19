@@ -8,7 +8,7 @@ use App\Models\Data\Type;
 use App\Models\Document;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\DataLoader\Jobs\DocumentSync;
+use App\Services\DataLoader\Queue\Tasks\DocumentSync;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

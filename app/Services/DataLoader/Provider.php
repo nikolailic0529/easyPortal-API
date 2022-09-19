@@ -14,16 +14,16 @@ use App\Services\DataLoader\Commands\DocumentSync;
 use App\Services\DataLoader\Commands\OemsImport;
 use App\Services\DataLoader\Commands\ResellersSync;
 use App\Services\DataLoader\Commands\ResellerSync;
-use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
-use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
-use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
-use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsImporterCronJob;
-use App\Services\DataLoader\Jobs\DocumentsUpdaterCronJob;
-use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
-use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
+use App\Services\DataLoader\Queue\Jobs\AssetsImporter;
+use App\Services\DataLoader\Queue\Jobs\AssetsUpdater;
+use App\Services\DataLoader\Queue\Jobs\CustomersImporter;
+use App\Services\DataLoader\Queue\Jobs\CustomersUpdater;
+use App\Services\DataLoader\Queue\Jobs\DistributorsImporter;
+use App\Services\DataLoader\Queue\Jobs\DistributorsUpdater;
+use App\Services\DataLoader\Queue\Jobs\DocumentsImporter;
+use App\Services\DataLoader\Queue\Jobs\DocumentsUpdater;
+use App\Services\DataLoader\Queue\Jobs\ResellersImporter;
+use App\Services\DataLoader\Queue\Jobs\ResellersUpdater;
 use Illuminate\Support\ServiceProvider;
 use LastDragon_ru\LaraASP\Core\Concerns\ProviderWithCommands;
 use LastDragon_ru\LaraASP\Queue\Concerns\ProviderWithSchedule;
@@ -48,16 +48,16 @@ class Provider extends ServiceProvider {
             AssetsAnalyze::class,
         );
         $this->bootSchedule(
-            DistributorsImporterCronJob::class,
-            DistributorsUpdaterCronJob::class,
-            ResellersImporterCronJob::class,
-            ResellersUpdaterCronJob::class,
-            CustomersImporterCronJob::class,
-            CustomersUpdaterCronJob::class,
-            DocumentsImporterCronJob::class,
-            DocumentsUpdaterCronJob::class,
-            AssetsImporterCronJob::class,
-            AssetsUpdaterCronJob::class,
+            DistributorsImporter::class,
+            DistributorsUpdater::class,
+            ResellersImporter::class,
+            ResellersUpdater::class,
+            CustomersImporter::class,
+            CustomersUpdater::class,
+            DocumentsImporter::class,
+            DocumentsUpdater::class,
+            AssetsImporter::class,
+            AssetsUpdater::class,
         );
     }
 }
