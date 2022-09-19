@@ -7181,32 +7181,7 @@ parameters:
 			path: tests/GraphQL/JsonFragmentPaginatedSchema.php
 
 		-
-			message: "#^Method Tests\\\\Helpers\\\\ClassMap\\:\\:get\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
-			count: 1
-			path: tests/Helpers/ClassMap.php
-
-		-
-			message: "#^Method Tests\\\\Helpers\\\\ClassMap\\:\\:get\\(\\) should return Illuminate\\\\Support\\\\Collection\\<class\\-string, ReflectionClass\\> but returns Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\|ReflectionClass\\>\\.$#"
-			count: 1
-			path: tests/Helpers/ClassMap.php
-
-		-
-			message: "#^Method Tests\\\\Helpers\\\\ClassMap\\:\\:load\\(\\) should return array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns array\\<class\\-string, ReflectionClass\\>\\.$#"
-			count: 1
-			path: tests/Helpers/ClassMap.php
-
-		-
-			message: "#^Property Tests\\\\Helpers\\\\ClassMap\\:\\:\\$classes with generic class ReflectionClass does not specify its types\\: T$#"
-			count: 1
-			path: tests/Helpers/ClassMap.php
-
-		-
-			message: "#^Static property Tests\\\\Helpers\\\\ClassMap\\:\\:\\$classes \\(array\\<class\\-string, ReflectionClass\\>\\) does not accept array\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\|ReflectionClass\\>\\.$#"
-			count: 1
-			path: tests/Helpers/ClassMap.php
-
-		-
-			message: "#^Method Tests\\\\Helpers\\\\Models\\:\\:get\\(\\) should return Illuminate\\\\Support\\\\Collection\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, ReflectionClass\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\> but returns Illuminate\\\\Support\\\\Collection\\<class\\-string, ReflectionClass\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\.$#"
+			message: "#^Method Tests\\\\Helpers\\\\Models\\:\\:get\\(\\) should return Illuminate\\\\Support\\\\Collection\\<class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, ReflectionClass\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\> but returns Illuminate\\\\Support\\\\Collection\\<class\\-string\\<object\\>, ReflectionClass\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\.$#"
 			count: 1
 			path: tests/Helpers/Models.php
 
