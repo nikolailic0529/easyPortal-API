@@ -7,7 +7,7 @@ use DateTimeInterface;
 
 class SynchronizerState extends CompositeState {
     public DateTimeInterface  $started;
-    public ?DateTimeInterface $from          = null;
+    public ?DateTimeInterface $from           = null;
     public bool               $withOutdated   = true;
     public ?DateTimeInterface $outdatedExpire = null;
     public ?int               $outdatedLimit  = null;

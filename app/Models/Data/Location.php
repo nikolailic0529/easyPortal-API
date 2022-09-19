@@ -30,8 +30,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                         $state
  * @property string                         $line_one
  * @property string                         $line_two
- * @property string|float|null              $latitude
- * @property string|float|null              $longitude
+ * @property string|null                    $latitude
+ * @property string|null                    $longitude
  * @property string|null                    $geohash
  * @property int                            $customers_count
  * @property int                            $assets_count

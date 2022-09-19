@@ -3531,21 +3531,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/CompanyFactory.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\CompanyFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/CompanyFactoryTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Concerns\\\\WithAssetTest\\:\\:testAssetAssetNotFound\\(\\) has parameter \\$objectFactory with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Concerns/WithAssetTest.php
@@ -3681,21 +3666,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\AssetFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: array, Closure\\(App\\\\Models\\\\AssetWarranty\\)\\: array given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/AssetFactoryTest.php
@@ -3751,39 +3721,9 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\CustomerFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 6
 			path: app/Services/DataLoader/Factory/Factories/CustomerFactoryTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DistributorFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DistributorFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -3807,21 +3747,6 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$distributorId on App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewDocument\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\DocumentFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/DocumentFactoryTest.php
 
@@ -3871,21 +3796,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactory.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\LocationFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$state of method Database\\\\Factories\\\\Data\\\\LocationFactory\\:\\:hasCity\\(\\) expects array\\<string, mixed\\>\\|\\(callable\\(array\\<string, mixed\\>, Illuminate\\\\Database\\\\Eloquent\\\\Model\\|null\\)\\: array\\<string, mixed\\>\\), Database\\\\Factories\\\\Data\\\\CityFactory given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
@@ -3896,34 +3806,9 @@ parameters:
 			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
 
 		-
-			message: "#^Parameter \\#7 \\$latitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:422\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
-			message: "#^Parameter \\#8 \\$longitude of method class@anonymous/app/Services/DataLoader/Factory/Factories/LocationFactoryTest\\.php\\:422\\:\\:location\\(\\) expects string\\|null, float\\|string\\|null given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Factory/Factories/LocationFactoryTest.php
-
-		-
 			message: "#^Property App\\\\Models\\\\Reseller\\:\\:\\$statuses \\(Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, App\\\\Models\\\\Data\\\\Status\\>\\) does not accept array\\<App\\\\Models\\\\Data\\\\Status\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Factory/Factories/ResellerFactory.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Factory\\\\Factories\\\\ResellerFactoryTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Factory/Factories/ResellerFactoryTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of class App\\\\Services\\\\DataLoader\\\\Schema\\\\Company constructor expects array\\<string, mixed\\>, array\\|bool\\|float\\|int\\|string\\|null given\\.$#"
@@ -3966,51 +3851,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/ImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Assets\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/IteratorImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\AssetsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/AssetsImporterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
@@ -4021,114 +3861,9 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\DocumentsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/DocumentsImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/ImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Customers\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/IteratorImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/ImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Distributors\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Distributors/IteratorImporterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/ImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Documents\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Documents/IteratorImporterTest.php
 
 		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:registerEvents\\(\\) return type has no signature specified for callable\\.$#"
@@ -4161,21 +3896,6 @@ parameters:
 			path: app/Services/DataLoader/Importer/Importers/OemsImporterTest.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\AssetsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/AssetsImporterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
@@ -4184,51 +3904,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\DocumentsImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/DocumentsImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\ImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/ImporterTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\Resellers\\\\IteratorImporterTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/IteratorImporterTest.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"
@@ -4286,84 +3961,9 @@ parameters:
 			path: app/Services/DataLoader/Loader/CompanyLoader.php
 
 		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\AssetLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/AssetLoaderTest.php
-
-		-
 			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoaderTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DistributorLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DistributorLoaderTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\DocumentLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/DocumentLoaderTest.php
-
-		-
-			message: "#^Instanceof between App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset and App\\\\Services\\\\DataLoader\\\\Schema\\\\ViewAsset will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:latitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\ResellerLoaderTest\\:\\:longitude\\(\\) should return string\\|null but returns float\\|string\\|null\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/ResellerLoaderTest.php
 
 		-
 			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|false\\.$#"

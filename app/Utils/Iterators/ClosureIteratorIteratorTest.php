@@ -2,7 +2,6 @@
 
 namespace App\Utils\Iterators;
 
-use App\Utils\Cast;
 use App\Utils\Iterators\Contracts\IteratorFatalError;
 use App\Utils\Iterators\Exceptions\BrokenIteratorDetected;
 use Closure;

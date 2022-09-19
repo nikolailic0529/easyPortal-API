@@ -43,14 +43,14 @@ use function is_null;
 trait Helper {
     // <editor-fold desc="General">
     // =========================================================================
-    protected function latitude(string|float|null $latitude): ?string {
+    protected function latitude(string|null $latitude): ?string {
         $model           = new Location();
         $model->latitude = $latitude;
 
         return $model->latitude;
     }
 
-    protected function longitude(string|float|null $longitude): ?string {
+    protected function longitude(string|null $longitude): ?string {
         $model            = new Location();
         $model->longitude = $longitude;
 
@@ -199,10 +199,8 @@ trait Helper {
             $persons = (array) $object->contactPersons;
         } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
-        } elseif ($object instanceof ViewAsset) {
-            $persons = (array) $object->latestContactPersons;
         } else {
-            // empty
+            $persons = (array) $object->latestContactPersons;
         }
 
         foreach ($persons as $person) {
@@ -321,8 +319,8 @@ trait Helper {
             'line_one'    => $location->line_one,
             'line_two'    => $location->line_two,
             'types'       => [],
-            'latitude'    => $location->latitude,
-            'longitude'   => $location->longitude,
+            'latitude'    => $this->latitude($location->latitude),
+            'longitude'   => $this->longitude($location->longitude),
         ];
     }
     //</editor-fold>

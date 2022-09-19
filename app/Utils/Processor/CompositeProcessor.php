@@ -57,7 +57,7 @@ abstract class CompositeProcessor extends Processor {
 
         $result = $processor
             ->setStore($store)
-            ->setChunkSize(parent::getChunkSize())
+            ->setChunkSize($this->getChunkSize())
             ->onInit($synchronize)
             ->onChange(function (State $current) use ($processor, $state, $synchronize): void {
                 $this->saveState($state);
