@@ -7411,11 +7411,17 @@ type ApplicationJob {
 }
 
 type ApplicationJobProgress {
+    created: Int
     current: Boolean
+    deleted: Int
+    failed: Int
+    ignored: Int
     name: String
     operations: [ApplicationJobProgress!]
+    processed: Int
+    success: Int
     total: Int
-    value: Int
+    updated: Int
 }
 
 type ApplicationJobState {

@@ -10,6 +10,7 @@ use App\Services\Queue\Contracts\NamedJob;
 use App\Services\Queue\Contracts\Progressable;
 use App\Services\Queue\Contracts\Stoppable;
 use App\Services\Queue\Tags\Stop;
+use App\Utils\Processor\State;
 use Generator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -466,7 +467,7 @@ class QueueTest extends TestCase {
      */
     public function testGetProgress(): void {
         $job          = Mockery::mock(BaseJob::class);
-        $progress     = new Progress(null, 2, 1, null, null);
+        $progress     = new Progress(new State(['total' => 2, 'processed' => 1]), null, null);
         $progressable = Mockery::mock(BaseJob::class, Progressable::class);
         $progressable
             ->shouldReceive('getProgressCallback')

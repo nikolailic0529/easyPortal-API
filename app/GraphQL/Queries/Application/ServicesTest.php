@@ -17,6 +17,7 @@ use App\Services\Settings\Environment\Configuration;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
+use App\Utils\Processor\State;
 use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
@@ -146,12 +147,24 @@ class ServicesTest extends TestCase {
                             progress {
                                 name
                                 total
-                                value
+                                processed
+                                success
+                                failed
+                                updated
+                                created
+                                ignored
+                                deleted
                                 current
                                 operations {
                                     name
                                     total
-                                    value
+                                    processed
+                                    success
+                                    failed
+                                    updated
+                                    created
+                                    ignored
+                                    deleted
                                     current
                                     operations {
                                         name
@@ -223,21 +236,39 @@ class ServicesTest extends TestCase {
                                 ],
                                 'progress'     => [
                                     'name'       => null,
-                                    'total'      => 100,
-                                    'value'      => 25,
+                                    'total'      => 2,
+                                    'processed'  => 1,
+                                    'success'    => 1,
+                                    'failed'     => 1,
+                                    'updated'    => null,
+                                    'created'    => null,
+                                    'ignored'    => null,
+                                    'deleted'    => null,
                                     'current'    => null,
                                     'operations' => [
                                         [
                                             'name'       => 'A',
-                                            'total'      => null,
-                                            'value'      => null,
+                                            'total'      => 100,
+                                            'processed'  => 25,
+                                            'success'    => 20,
+                                            'failed'     => 5,
+                                            'updated'    => null,
+                                            'created'    => null,
+                                            'ignored'    => null,
+                                            'deleted'    => null,
                                             'current'    => false,
                                             'operations' => null,
                                         ],
                                         [
                                             'name'       => 'B',
                                             'total'      => null,
-                                            'value'      => null,
+                                            'processed'  => null,
+                                            'success'    => null,
+                                            'failed'     => null,
+                                            'updated'    => null,
+                                            'created'    => null,
+                                            'ignored'    => null,
+                                            'deleted'    => null,
                                             'current'    => true,
                                             'operations' => null,
                                         ],
@@ -352,10 +383,25 @@ class ServicesTest_ServiceB extends CronJob implements Progressable {
 
     public function getProgressCallback(): callable {
         return static function (): Progress {
-            return new Progress(null, 100, 25, null, [
-                new Progress('A', null, null, false, null),
-                new Progress('B', null, null, true, null),
+            $state    = new State([
+                'total'     => 2,
+                'processed' => 1,
+                'success'   => 1,
+                'failed'    => 1,
             ]);
+            $stateA   = new State([
+                'total'     => 100,
+                'processed' => 25,
+                'success'   => 20,
+                'failed'    => 5,
+            ]);
+            $stateB   = null;
+            $progress = new Progress($state, null, null, [
+                new Progress($stateA, 'A', false, null),
+                new Progress($stateB, 'B', true, null),
+            ]);
+
+            return $progress;
         };
     }
 

@@ -1736,7 +1736,7 @@ parameters:
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
 		-
-			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:68\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
+			message: "#^Method class@anonymous/app/GraphQL/Queries/Application/ServicesTest\\.php\\:69\\:\\:getStore\\(\\) should return class\\-string but returns string\\.$#"
 			count: 1
 			path: app/GraphQL/Queries/Application/ServicesTest.php
 
@@ -5346,6 +5346,11 @@ parameters:
 			path: app/Services/Queue/PingerTest.php
 
 		-
+			message: "#^Variable property access on App\\\\Utils\\\\Processor\\\\State\\.$#"
+			count: 2
+			path: app/Services/Queue/Progress.php
+
+		-
 			message: "#^Cannot access offset 'pushedAt' on mixed\\.$#"
 			count: 1
 			path: app/Services/Queue/Queue.php
@@ -5406,17 +5411,17 @@ parameters:
 			path: app/Services/Queue/Queue.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:199\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:200\\:\\:getStatesFromHorizon\\(\\) expects Illuminate\\\\Support\\\\Collection\\<string, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:320\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:321\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:399\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$jobs of method class@anonymous/app/Services/Queue/QueueTest\\.php\\:400\\:\\:getStatesFromLogs\\(\\) expects Illuminate\\\\Support\\\\Collection\\<int, LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job\\>, Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Services\\\\Queue\\\\Contracts\\\\Stoppable&LastDragon_ru\\\\LaraASP\\\\Queue\\\\Queueables\\\\Job&Mockery\\\\MockInterface\\> given\\.$#"
 			count: 1
 			path: app/Services/Queue/QueueTest.php
 

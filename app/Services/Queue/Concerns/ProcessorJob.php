@@ -64,16 +64,18 @@ trait ProcessorJob {
                 if ($state instanceof CompositeState && $processor instanceof CompositeProcessor) {
                     foreach ($processor->getOperationsState($state) as $key => $operation) {
                         $operations[$key] = new Progress(
+                            $operation['state'],
                             $operation['name'],
-                            $operation['state']->total ?? null,
-                            $operation['state']->processed ?? null,
                             $operation['current'],
                             null,
                         );
                     }
                 }
 
-                $progress = new Progress(null, $state->total, $state->processed, null, $operations);
+                $progress = new Progress(
+                    state     : $state,
+                    operations: $operations,
+                );
             }
 
             return $progress;

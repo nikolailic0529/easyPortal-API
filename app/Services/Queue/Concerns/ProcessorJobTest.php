@@ -184,7 +184,14 @@ class ProcessorJobTest extends TestCase {
     public function testGetProgressCallback(): void {
         $total     = $this->faker->randomNumber();
         $processed = $this->faker->randomNumber();
-        $state     = new State(['total' => $total, 'processed' => $processed]);
+        $success   = $this->faker->randomNumber();
+        $failed    = $this->faker->randomNumber();
+        $state     = new State([
+            'total'     => $total,
+            'processed' => $processed,
+            'success'   => $success,
+            'failed'    => $failed,
+        ]);
         $processor = Mockery::mock(IteratorProcessor::class);
         $processor
             ->shouldReceive('getState')
@@ -200,7 +207,7 @@ class ProcessorJobTest extends TestCase {
             ->andReturn($processor);
 
         self::assertEquals(
-            new Progress(null, $total, $processed, null, null),
+            new Progress($state),
             ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }
@@ -211,7 +218,16 @@ class ProcessorJobTest extends TestCase {
     public function testGetProgressCallbackCompositeProcessor(): void {
         $total     = $this->faker->randomNumber();
         $processed = $this->faker->randomNumber();
-        $state     = new CompositeState(['total' => $total, 'processed' => $processed]);
+        $success   = $this->faker->randomNumber();
+        $failed    = $this->faker->randomNumber();
+        $state     = new CompositeState([
+            'total'     => $total,
+            'processed' => $processed,
+            'success'   => $success,
+            'failed'    => $failed,
+        ]);
+        $stateA    = null;
+        $stateB    = new State(['total' => $total, 'processed' => $processed]);
         $processor = Mockery::mock(CompositeProcessor::class);
         $processor->shouldAllowMockingProtectedMethods();
         $processor->makePartial();
@@ -225,12 +241,12 @@ class ProcessorJobTest extends TestCase {
             ->andReturn([
                 [
                     'name'    => 'A',
-                    'state'   => null,
+                    'state'   => $stateA,
                     'current' => false,
                 ],
                 [
                     'name'    => 'B',
-                    'state'   => new State(['total' => $total, 'processed' => $processed]),
+                    'state'   => $stateB,
                     'current' => true,
                 ],
             ]);
@@ -244,9 +260,9 @@ class ProcessorJobTest extends TestCase {
             ->andReturn($processor);
 
         self::assertEquals(
-            new Progress(null, $total, $processed, null, [
-                new Progress('A', null, null, false, null),
-                new Progress('B', $total, $processed, true, null),
+            new Progress($state, null, null, [
+                new Progress($stateA, 'A', false, null),
+                new Progress($stateB, 'B', true, null),
             ]),
             ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
