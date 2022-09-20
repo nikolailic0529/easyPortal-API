@@ -15,11 +15,11 @@ class CompositeStore implements StateStore {
      * @inheritDoc
      */
     public function get(): ?array {
-        return $this->state->operations[$this->state->index] ?? null;
+        return $this->state->operations[$this->getKey()] ?? null;
     }
 
     public function save(State $state): State {
-        $this->state->operations[$this->state->index] = $state->toArray();
+        $this->state->operations[$this->getKey()] = $state->toArray();
 
         return $state;
     }
@@ -28,5 +28,9 @@ class CompositeStore implements StateStore {
         // We do not reset state here because information can be useful.
 
         return true;
+    }
+
+    protected function getKey(): int {
+        return $this->state->index;
     }
 }
