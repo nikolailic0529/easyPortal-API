@@ -6,7 +6,6 @@ type ApplicationJobProgress {
     failed: Int
     updated: Int
     created: Int
-    ignored: Int
     deleted: Int
     current: Boolean
     operations: [ApplicationJobProgress!]

@@ -152,7 +152,6 @@ class ServicesTest extends TestCase {
                                 failed
                                 updated
                                 created
-                                ignored
                                 deleted
                                 current
                                 operations {
@@ -163,7 +162,6 @@ class ServicesTest extends TestCase {
                                     failed
                                     updated
                                     created
-                                    ignored
                                     deleted
                                     current
                                     operations {
@@ -242,7 +240,6 @@ class ServicesTest extends TestCase {
                                     'failed'     => 1,
                                     'updated'    => null,
                                     'created'    => null,
-                                    'ignored'    => null,
                                     'deleted'    => null,
                                     'current'    => null,
                                     'operations' => [
@@ -254,7 +251,6 @@ class ServicesTest extends TestCase {
                                             'failed'     => 5,
                                             'updated'    => null,
                                             'created'    => null,
-                                            'ignored'    => null,
                                             'deleted'    => null,
                                             'current'    => false,
                                             'operations' => null,
@@ -267,7 +263,6 @@ class ServicesTest extends TestCase {
                                             'failed'     => null,
                                             'updated'    => null,
                                             'created'    => null,
-                                            'ignored'    => null,
                                             'deleted'    => null,
                                             'current'    => true,
                                             'operations' => null,

@@ -7415,7 +7415,6 @@ type ApplicationJobProgress {
     current: Boolean
     deleted: Int
     failed: Int
-    ignored: Int
     name: String
     operations: [ApplicationJobProgress!]
     processed: Int

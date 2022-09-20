@@ -12,7 +12,6 @@ use App\Services\DataLoader\Importer\Finders\AssetLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\CustomerLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\DistributorLoaderFinder;
 use App\Services\DataLoader\Importer\Finders\ResellerLoaderFinder;
-use App\Services\DataLoader\Importer\ImporterState;
 use App\Services\DataLoader\Loader\Concerns\WithLoaderState;
 use App\Utils\Processor\CompositeProcessor;
 use Closure;
@@ -63,8 +62,7 @@ abstract class Loader extends CompositeProcessor implements Isolated {
         return function (LoaderState $state, bool $result): void {
             if ($result) {
                 $current = $state->getCurrentOperationState();
-                $result  = ($current instanceof ImporterState && $current->ignored === 0)
-                    && $current->processed !== 0;
+                $result  = $current && $current->processed !== 0;
             }
 
             if (!$result) {

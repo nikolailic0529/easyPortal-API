@@ -39,10 +39,8 @@ class ImporterTest extends TestCase {
         self::assertEquals(
             [
                 'from'      => null,
-                'update'    => true,
                 'updated'   => 0,
                 'created'   => 0,
-                'ignored'   => 0,
                 'deleted'   => 1,
                 'offset'    => null,
                 'index'     => 0,
@@ -60,40 +58,6 @@ class ImporterTest extends TestCase {
      * @covers ::process
      */
     public function testProcessType(): void {
-        $data     = new Data();
-        $state    = new ImporterState();
-        $importer = Mockery::mock(Importer::class);
-        $importer->shouldAllowMockingProtectedMethods();
-        $importer->makePartial();
-
-        $importer->process($state, $data, new class() extends Type {
-            // empty
-        });
-
-        self::assertEquals(
-            [
-                'from'      => null,
-                'update'    => true,
-                'updated'   => 0,
-                'created'   => 0,
-                'ignored'   => 1,
-                'deleted'   => 0,
-                'offset'    => null,
-                'index'     => 0,
-                'limit'     => null,
-                'total'     => null,
-                'processed' => 0,
-                'success'   => 0,
-                'failed'    => 0,
-            ],
-            $state->toArray(),
-        );
-    }
-
-    /**
-     * @covers ::process
-     */
-    public function testProcessTypeWithId(): void {
         // Prepare
         $id       = $this->faker->uuid();
         $data     = new Data();
@@ -133,10 +97,8 @@ class ImporterTest extends TestCase {
         self::assertEquals(
             [
                 'from'      => null,
-                'update'    => true,
                 'updated'   => 0,
                 'created'   => 1,
-                'ignored'   => 0,
                 'deleted'   => 0,
                 'offset'    => null,
                 'index'     => 0,
@@ -163,10 +125,8 @@ class ImporterTest extends TestCase {
         self::assertEquals(
             [
                 'from'      => null,
-                'update'    => true,
                 'updated'   => 1,
                 'created'   => 0,
-                'ignored'   => 0,
                 'deleted'   => 0,
                 'offset'    => null,
                 'index'     => 0,

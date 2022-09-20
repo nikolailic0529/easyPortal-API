@@ -11,7 +11,6 @@ use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Exceptions\ImportError;
 use App\Services\DataLoader\Factory\ModelFactory;
 use App\Services\DataLoader\Resolver\Resolver;
-use App\Services\DataLoader\Schema\TypeWithId;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
@@ -24,7 +23,7 @@ use Throwable;
 use function array_merge;
 
 /**
- * @template TItem of \App\Services\DataLoader\Schema\Type
+ * @template TItem of (\App\Services\DataLoader\Schema\Type&\App\Services\DataLoader\Schema\TypeWithId)|ModelObject
  * @template TChunkData of \App\Services\DataLoader\Collector\Data
  * @template TState of \App\Services\DataLoader\Importer\ImporterState
  * @template TModel of \App\Utils\Eloquent\Model
@@ -116,13 +115,6 @@ abstract class Importer extends IteratorProcessor implements Isolated {
         if ($item instanceof ModelObject) {
             $item->model->delete();
             $state->deleted++;
-
-            return;
-        }
-
-        // Id?
-        if (!$item instanceof TypeWithId) {
-            $state->ignored++;
 
             return;
         }
