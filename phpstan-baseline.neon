@@ -6386,16 +6386,6 @@ parameters:
 			path: app/Services/Settings/SettingTest.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
-			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
-			count: 1
-			path: app/Services/Settings/Settings.php
-
-		-
 			message: "#^Parameter \\#2 \\$value of method App\\\\Services\\\\Settings\\\\Settings\\:\\:parseValue\\(\\) expects string\\|null, mixed given\\.$#"
 			count: 1
 			path: app/Services/Settings/Settings.php
