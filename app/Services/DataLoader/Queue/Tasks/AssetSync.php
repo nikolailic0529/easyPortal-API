@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporter;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Iterators\ObjectsIterator;
 use Exception;

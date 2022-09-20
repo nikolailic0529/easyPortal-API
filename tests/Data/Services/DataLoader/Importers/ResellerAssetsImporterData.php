@@ -2,7 +2,7 @@
 
 namespace Tests\Data\Services\DataLoader\Importers;
 
-use App\Services\DataLoader\Importer\Importers\Resellers\AssetsImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 
 class ResellerAssetsImporterData extends AssetsData {

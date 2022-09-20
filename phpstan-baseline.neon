@@ -3466,7 +3466,7 @@ parameters:
 			path: app/Services/DataLoader/Commands/AssetsAnalyze.php
 
 		-
-			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, array\\|bool\\|string\\|null given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Commands/OemsImport.php
 
@@ -3506,12 +3506,12 @@ parameters:
 			path: app/Services/DataLoader/Container/ContainerTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\FailedToImportObject\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/FailedToImportObject.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ImportError\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Exceptions\\\\ImportError\\:\\:__construct\\(\\) has parameter \\$importer with generic class App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importer but does not specify its types\\: TItem, TChunkData, TState, TModel$#"
 			count: 1
 			path: app/Services/DataLoader/Exceptions/ImportError.php
 
@@ -3831,111 +3831,6 @@ parameters:
 			path: app/Services/DataLoader/Factory/ModelFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Customers/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 3
-			path: app/Services/DataLoader/Importer/Importers/Documents/BaseImporter.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:registerEvents\\(\\) return type has no signature specified for callable\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Offset 'oem\\.key'\\|'serviceGroup\\.name'\\|'serviceGroup\\.sku'\\|'serviceLevel\\.sku' on array\\{serviceLevel\\.description\\: App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\\\CellType\\} on left side of \\?\\? does not exist\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects array\\<int\\>\\|PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\CellAddress\\|string, mixed given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: array given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/OemsImporterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, SplFileInfo given\\.$#"
-			count: 2
-			path: app/Services/DataLoader/Importer/Importers/OemsImporterTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Importer/Importers/Resellers/BaseImporter.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\:\\:getDocumentsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getAssetsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getDocumentsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedAssets\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedDocuments\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/CompanyLoader.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Loader/Loaders/CustomerLoader.php
-
-		-
 			message: "#^Cannot call method startOfDay\\(\\) on Carbon\\\\CarbonImmutable\\|false\\.$#"
 			count: 2
 			path: app/Services/DataLoader/Normalizer/Normalizers/DateTimeNormalizer.php
@@ -3954,6 +3849,111 @@ parameters:
 			message: "#^Cannot cast mixed to string\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 3
+			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Customers/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Customers/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 3
+			path: app/Services/DataLoader/Processors/Importer/Importers/Documents/BaseImporter.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:registerEvents\\(\\) return type has no signature specified for callable\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporter.php
+
+		-
+			message: "#^Offset 'oem\\.key'\\|'serviceGroup\\.name'\\|'serviceGroup\\.sku'\\|'serviceLevel\\.sku' on array\\{serviceLevel\\.description\\: App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importers\\\\OemsImporter\\\\CellType\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$coordinate of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCell\\(\\) expects array\\<int\\>\\|PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\CellAddress\\|string, mixed given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$range of static method PhpOffice\\\\PhpSpreadsheet\\\\Cell\\\\Coordinate\\:\\:splitRange\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: array, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: array given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$filePath of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Importer\\\\Importers\\\\OemsImporter\\:\\:import\\(\\) expects string\\|Symfony\\\\Component\\\\HttpFoundation\\\\File\\\\UploadedFile\\|null, SplFileInfo given\\.$#"
+			count: 2
+			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporterTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Resellers/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Resellers/BaseImporter.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\:\\:getAssetsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\:\\:getDocumentsOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns array\\{App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\}\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getAssetsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getDocumentsImporter\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedAssets\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$state of method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoader\\<TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\:\\:getMissedDocuments\\(\\) expects TState of App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState, App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/CompanyLoader.php
+
+		-
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoader\\:\\:getOperations\\(\\) should return array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\> but returns non\\-empty\\-array\\<int, App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\CompanyLoaderState\\>\\|App\\\\Utils\\\\Processor\\\\CompositeOperation\\<App\\\\Services\\\\DataLoader\\\\Processors\\\\Loader\\\\Loaders\\\\CustomerLoaderState\\>\\>\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Loader/Loaders/CustomerLoader.php
 
 		-
 			message: "#^Call to an undefined method App\\\\Utils\\\\Processor\\\\Contracts\\\\Processor\\:\\:setFrom\\(\\)\\.$#"

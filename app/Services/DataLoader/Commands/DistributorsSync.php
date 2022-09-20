@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Synchronizer\Synchronizers\DistributorsSynchronizer;
+use App\Services\DataLoader\Processors\Synchronizer\Synchronizers\DistributorsSynchronizer;
 use App\Services\I18n\Formatter;
 
 /**

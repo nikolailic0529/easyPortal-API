@@ -9,7 +9,7 @@ use App\Utils\Processor\Contracts\Processor;
 use function array_merge;
 
 /**
- * @template TProcessor of \App\Services\DataLoader\Loader\Loader
+ * @template TProcessor of \App\Services\DataLoader\Processors\Loader\Loader
  *
  * @extends ProcessorCommand<TProcessor>
  */

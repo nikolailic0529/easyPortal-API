@@ -10,7 +10,7 @@ use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @template TSynchronizer of \App\Services\DataLoader\Synchronizer\Synchronizer
+ * @template TSynchronizer of \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
  */
 abstract class Importer extends CronJob implements Progressable {
     /**

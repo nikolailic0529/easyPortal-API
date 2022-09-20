@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Document;
-use App\Services\DataLoader\Importer\Importers\Assets\IteratorImporter;
-use App\Services\DataLoader\Loader\Loaders\DocumentLoader;
+use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporter;
+use App\Services\DataLoader\Processors\Loader\Loaders\DocumentLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use App\Utils\Iterators\Eloquent\EloquentIterator;
 use Exception;

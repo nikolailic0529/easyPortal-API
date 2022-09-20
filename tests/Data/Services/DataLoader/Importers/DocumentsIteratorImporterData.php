@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Document;
-use App\Services\DataLoader\Importer\Importers\Documents\IteratorImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Documents\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\DocumentsData;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 

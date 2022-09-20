@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Queue\Tasks;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Loader\Loaders\CustomerLoader;
+use App\Services\DataLoader\Processors\Loader\Loaders\CustomerLoader;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;

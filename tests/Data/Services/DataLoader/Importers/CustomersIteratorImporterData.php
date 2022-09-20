@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Importer\Importers\Customers\IteratorImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Customers\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\ClientDumpContext;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Loader\Loaders\DistributorLoader;
+use App\Services\DataLoader\Processors\Loader\Loaders\DistributorLoader;
 use App\Services\I18n\Formatter;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations\Oem\Hpe;
 
-use App\Services\DataLoader\Importer\Importers\OemsImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter;
 use Illuminate\Http\UploadedFile;
 use Maatwebsite\Excel\Exceptions\LaravelExcelException;
 

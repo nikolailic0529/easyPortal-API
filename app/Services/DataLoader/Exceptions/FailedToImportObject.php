@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
-use App\Services\DataLoader\Importer\Importer;
-use App\Services\DataLoader\Importer\ModelObject;
+use App\Services\DataLoader\Processors\Importer\Importer;
+use App\Services\DataLoader\Processors\Importer\ModelObject;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use Throwable;

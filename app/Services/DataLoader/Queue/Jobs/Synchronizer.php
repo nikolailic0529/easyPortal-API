@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
- * @template TSynchronizer of \App\Services\DataLoader\Synchronizer\Synchronizer
+ * @template TSynchronizer of \App\Services\DataLoader\Processors\Synchronizer\Synchronizer
  */
 abstract class Synchronizer extends CronJob implements Progressable {
     /**

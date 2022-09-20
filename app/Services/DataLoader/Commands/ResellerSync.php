@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Loader\Loaders\ResellerLoader;
+use App\Services\DataLoader\Processors\Loader\Loaders\ResellerLoader;
 use App\Services\I18n\Formatter;
 
 use function array_merge;

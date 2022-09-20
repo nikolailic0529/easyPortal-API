@@ -3,7 +3,7 @@
 namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Importer\Importers\Distributors\IteratorImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorImporter;
 use App\Services\DataLoader\Testing\Data\Data;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 

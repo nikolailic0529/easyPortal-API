@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Exceptions\Contracts\GenericException;
-use App\Services\DataLoader\Importer\Importer;
+use App\Services\DataLoader\Processors\Importer\Importer;
 use App\Services\DataLoader\ServiceException;
 use Throwable;
 

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Queue\Jobs;
 
-use App\Services\DataLoader\Synchronizer\Synchronizers\ResellersSynchronizer;
+use App\Services\DataLoader\Processors\Synchronizer\Synchronizers\ResellersSynchronizer;
 use App\Utils\Processor\Contracts\Processor;
 use Config\Constants;
 use Illuminate\Contracts\Container\Container;

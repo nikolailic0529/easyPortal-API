@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
-use App\Services\DataLoader\Importer\Importers\OemsImporter;
+use App\Services\DataLoader\Processors\Importer\Importers\OemsImporter;
 use Illuminate\Contracts\Console\Kernel;
 use Mockery\MockInterface;
 use Tests\TestCase;
