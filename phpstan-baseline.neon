@@ -5286,22 +5286,22 @@ parameters:
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:140\\:\\:getProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:138\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:140\\:\\:getResetProgressCallback\\(\\) return type has no signature specified for callable\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:75\\:\\:getProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: App\\\\Services\\\\Queue\\\\Progress\\|null\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 
 		-
-			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:73\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
+			message: "#^Method class@anonymous/app/Services/Queue/Concerns/ProcessorJobTest\\.php\\:75\\:\\:getResetProgressCallback\\(\\) should return callable\\(\\.\\.\\.mixed\\)\\: bool but returns Closure\\(Illuminate\\\\Contracts\\\\Container\\\\Container, LastDragon_ru\\\\LaraASP\\\\Queue\\\\QueueableConfigurator\\)\\: true\\.$#"
 			count: 1
 			path: app/Services/Queue/Concerns/ProcessorJobTest.php
 

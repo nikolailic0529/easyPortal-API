@@ -1,4 +1,7 @@
 type ApplicationJobProgress {
+    name: String
     total: Int
-    value: Int!
+    value: Int
+    current: Boolean
+    operations: [ApplicationJobProgress!]
 }

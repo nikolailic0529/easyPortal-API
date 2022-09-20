@@ -7411,8 +7411,11 @@ type ApplicationJob {
 }
 
 type ApplicationJobProgress {
+    current: Boolean
+    name: String
+    operations: [ApplicationJobProgress!]
     total: Int
-    value: Int!
+    value: Int
 }
 
 type ApplicationJobState {

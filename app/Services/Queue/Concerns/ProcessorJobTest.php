@@ -11,6 +11,8 @@ use App\Services\Queue\Progress;
 use App\Services\Service;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\ObjectsIterator;
+use App\Utils\Processor\CompositeProcessor;
+use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\IteratorProcessor;
 use App\Utils\Processor\State;
@@ -198,7 +200,54 @@ class ProcessorJobTest extends TestCase {
             ->andReturn($processor);
 
         self::assertEquals(
-            new Progress($total, $processed),
+            new Progress(null, $total, $processed, null, null),
+            ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
+        );
+    }
+
+    /**
+     * @covers ::getProgressCallback
+     */
+    public function testGetProgressCallbackCompositeProcessor(): void {
+        $total     = $this->faker->randomNumber();
+        $processed = $this->faker->randomNumber();
+        $state     = new CompositeState(['total' => $total, 'processed' => $processed]);
+        $processor = Mockery::mock(CompositeProcessor::class);
+        $processor->shouldAllowMockingProtectedMethods();
+        $processor->makePartial();
+        $processor
+            ->shouldReceive('getState')
+            ->once()
+            ->andReturn($state);
+        $processor
+            ->shouldReceive('getOperationsState')
+            ->once()
+            ->andReturn([
+                [
+                    'name'    => 'A',
+                    'state'   => null,
+                    'current' => false,
+                ],
+                [
+                    'name'    => 'B',
+                    'state'   => new State(['total' => $total, 'processed' => $processed]),
+                    'current' => true,
+                ],
+            ]);
+
+        $job = Mockery::mock(ProcessorJobTest__ProcessorJob::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+        $job
+            ->shouldReceive('getProcessor')
+            ->once()
+            ->andReturn($processor);
+
+        self::assertEquals(
+            new Progress(null, $total, $processed, null, [
+                new Progress('A', null, null, false, null),
+                new Progress('B', $total, $processed, true, null),
+            ]),
             ($job->getProgressCallback())($this->app, $this->app->make(QueueableConfigurator::class)),
         );
     }

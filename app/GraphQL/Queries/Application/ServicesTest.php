@@ -144,8 +144,19 @@ class ServicesTest extends TestCase {
                                 running_at
                             }
                             progress {
+                                name
                                 total
                                 value
+                                current
+                                operations {
+                                    name
+                                    total
+                                    value
+                                    current
+                                    operations {
+                                        name
+                                    }
+                                }
                             }
                         }
                     }
@@ -211,8 +222,26 @@ class ServicesTest extends TestCase {
                                     'running_at' => null,
                                 ],
                                 'progress'     => [
-                                    'total' => 100,
-                                    'value' => 25,
+                                    'name'       => null,
+                                    'total'      => 100,
+                                    'value'      => 25,
+                                    'current'    => null,
+                                    'operations' => [
+                                        [
+                                            'name'       => 'A',
+                                            'total'      => null,
+                                            'value'      => null,
+                                            'current'    => false,
+                                            'operations' => null,
+                                        ],
+                                        [
+                                            'name'       => 'B',
+                                            'total'      => null,
+                                            'value'      => null,
+                                            'current'    => true,
+                                            'operations' => null,
+                                        ],
+                                    ],
                                 ],
                             ],
                         ],
@@ -323,7 +352,10 @@ class ServicesTest_ServiceB extends CronJob implements Progressable {
 
     public function getProgressCallback(): callable {
         return static function (): Progress {
-            return new Progress(100, 25);
+            return new Progress(null, 100, 25, null, [
+                new Progress('A', null, null, false, null),
+                new Progress('B', null, null, true, null),
+            ]);
         };
     }
 

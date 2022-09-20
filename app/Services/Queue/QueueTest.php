@@ -466,7 +466,7 @@ class QueueTest extends TestCase {
      */
     public function testGetProgress(): void {
         $job          = Mockery::mock(BaseJob::class);
-        $progress     = new Progress(2, 1);
+        $progress     = new Progress(null, 2, 1, null, null);
         $progressable = Mockery::mock(BaseJob::class, Progressable::class);
         $progressable
             ->shouldReceive('getProgressCallback')
