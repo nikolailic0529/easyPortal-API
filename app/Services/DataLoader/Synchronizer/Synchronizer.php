@@ -95,13 +95,13 @@ abstract class Synchronizer extends CompositeProcessor implements Isolated {
     protected function getOperations(CompositeState $state): array {
         return [
             new CompositeOperation(
-                'Update objects',
+                'Sync objects',
                 function (SynchronizerState $state): Processor {
                     return $this->getProcessor($state);
                 },
             ),
             new CompositeOperation(
-                'Update outdated objects',
+                'Sync outdated objects',
                 function (SynchronizerState $state): Processor {
                     if (!$state->withOutdated) {
                         return $this->getContainer()->make(EmptyProcessor::class);
