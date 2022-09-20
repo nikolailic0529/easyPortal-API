@@ -4,7 +4,7 @@ type ChangeRequest {
     updated_at: DateTime!
     deleted_at: DateTime
     user_id: ID!
-    user: User! @relation
+    user: User @relation
     subject: String!
     message: String!
     from: String!

@@ -8341,7 +8341,7 @@ implements
     """
     Organization who send the Invite.
     """
-    org: Org!
+    org: Org
 
     result: Boolean!
 
@@ -8367,7 +8367,7 @@ type ChangeRequest {
     to: [String!]!
     updated_at: DateTime!
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
@@ -10695,7 +10695,7 @@ type Note {
     pinned: Boolean!
     updated_at: DateTime!
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
@@ -13329,14 +13329,14 @@ type QuoteRequest {
     type_custom: String
     type_id: ID
 
-    user: User!
+    user: User
     @relation
 
     user_id: ID!
 }
 
 type QuoteRequestAsset {
-    asset: Asset!
+    asset: Asset
     @relation
 
     asset_id: ID!
@@ -13363,7 +13363,7 @@ implements
 }
 
 type QuoteRequestDocument {
-    document: Document!
+    document: Document
     @relation
 
     document_id: ID!

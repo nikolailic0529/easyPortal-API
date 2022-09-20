@@ -6,6 +6,6 @@ type Note {
     updated_at: DateTime!
     deleted_at: DateTime
     user_id: ID!
-    user: User! @relation
+    user: User @relation
     files: [File!]! @relation
 }

@@ -1,7 +1,7 @@
 type QuoteRequest {
     id: ID!
     user_id: ID!
-    user: User! @relation
+    user: User @relation
     customer_custom: String
     customer_id: ID
     customer: Customer @relation
