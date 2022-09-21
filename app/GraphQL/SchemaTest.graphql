@@ -11623,6 +11623,54 @@ type Query {
     )
 
     """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    resellers(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseCompaniesSort!]
+        @sortBy
+
+        where: SearchByConditionCompaniesQuery
+        @searchBy
+    ): [Reseller!]!
+    @authOrgRoot
+    @authMe
+    @paginated
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    resellersAggregated(
+        where: SearchByConditionCompaniesQuery
+        @searchBy
+    ): ResellersAggregated
+    @authOrgRoot
+    @authMe
+    @aggregated(
+        model: "App\\Models\\Reseller"
+    )
+
+    """
     List of all shared roles.
 
     @require <authOrgRoot> Authenticated user must be a member of the current organization, and
@@ -12215,6 +12263,57 @@ implements
     @relation
 
     synced_at: DateTime!
+}
+
+"""
+Aggregated data for `type Reseller`.
+"""
+type ResellersAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type ResetApplicationServicePayload {
