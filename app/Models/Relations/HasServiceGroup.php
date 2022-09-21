@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Data\ServiceGroup;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,6 +14,7 @@ trait HasServiceGroup {
     /**
      * @return BelongsTo<ServiceGroup, self>
      */
+    #[CascadeDelete(false)]
     public function serviceGroup(): BelongsTo {
         return $this->belongsTo(ServiceGroup::class);
     }

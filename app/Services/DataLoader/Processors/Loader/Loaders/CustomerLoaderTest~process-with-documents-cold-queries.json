@@ -634,6 +634,38 @@
         ]
     },
     {
+        "query": "select `document_entries`.* from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `notes`.* from `notes` where `notes`.`document_id` = ? and `notes`.`document_id` is not null and `notes`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `contacts`.* from `contacts` where `contacts`.`object_type` = ? and `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "Document",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
+        "query": "select `change_requests`.* from `change_requests` where `change_requests`.`object_type` = ? and `change_requests`.`object_id` = ? and `change_requests`.`object_id` is not null and `change_requests`.`deleted_at` is null",
+        "bindings": [
+            "Document",
+            "00000000-0000-0000-0000-000000000000"
+        ]
+    },
+    {
         "query": "update `documents` set `deleted_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:03:12",

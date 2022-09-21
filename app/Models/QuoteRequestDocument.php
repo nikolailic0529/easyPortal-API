@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Relations\HasDocument;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
@@ -40,6 +41,7 @@ class QuoteRequestDocument extends Model {
     /**
      * @return BelongsTo<QuoteRequestDuration, self>
      */
+    #[CascadeDelete(false)]
     public function duration(): BelongsTo {
         return $this->belongsTo(QuoteRequestDuration::class, 'duration_id');
     }
@@ -47,6 +49,7 @@ class QuoteRequestDocument extends Model {
     /**
      * @return BelongsTo<QuoteRequest, self>
      */
+    #[CascadeDelete(false)]
     public function request(): BelongsTo {
         return $this->belongsTo(QuoteRequest::class, 'request_id');
     }

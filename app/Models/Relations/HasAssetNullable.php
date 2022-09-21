@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Asset;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,6 +14,7 @@ trait HasAssetNullable {
     /**
      * @return BelongsTo<Asset, self>
      */
+    #[CascadeDelete(false)]
     public function asset(): BelongsTo {
         return $this->belongsTo(Asset::class);
     }

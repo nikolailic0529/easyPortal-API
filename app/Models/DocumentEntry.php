@@ -18,6 +18,7 @@ use App\Models\Relations\HasLanguage;
 use App\Models\Relations\HasProduct;
 use App\Models\Relations\HasServiceGroup;
 use App\Models\Relations\HasServiceLevel;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\DocumentEntryFactory;
@@ -113,6 +114,7 @@ class DocumentEntry extends Model {
     /**
      * @return BelongsTo<Type, self>
      */
+    #[CascadeDelete(false)]
     public function assetType(): BelongsTo {
         return $this->belongsTo(Type::class);
     }
@@ -132,6 +134,7 @@ class DocumentEntry extends Model {
     /**
      * @return BelongsTo<ProductLine, self>
      */
+    #[CascadeDelete(false)]
     public function productLine(): BelongsTo {
         return $this->belongsTo(ProductLine::class);
     }
@@ -143,6 +146,7 @@ class DocumentEntry extends Model {
     /**
      * @return BelongsTo<ProductGroup, self>
      */
+    #[CascadeDelete(false)]
     public function productGroup(): BelongsTo {
         return $this->belongsTo(ProductGroup::class);
     }
@@ -154,6 +158,7 @@ class DocumentEntry extends Model {
     /**
      * @return BelongsTo<Psp, self>
      */
+    #[CascadeDelete(false)]
     public function psp(): BelongsTo {
         return $this->belongsTo(Psp::class);
     }

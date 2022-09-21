@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\File;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\User;
@@ -62,6 +63,13 @@ class DeleteContractNoteTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             self::assertEquals($exists, $note->exists());
+            self::assertEquals(
+                $exists,
+                File::query()
+                    ->where('object_id', '=', $note->getKey())
+                    ->where('object_type', '=', $note->getMorphClass())
+                    ->exists(),
+            );
         }
     }
     // </editor-fold>

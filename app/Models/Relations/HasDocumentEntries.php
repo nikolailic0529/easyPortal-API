@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\DocumentEntry;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -16,6 +17,7 @@ trait HasDocumentEntries {
     /**
      * @return HasMany<DocumentEntry>
      */
+    #[CascadeDelete(false)]
     public function documentEntries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }

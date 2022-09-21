@@ -4,6 +4,7 @@ namespace App\Models\Relations;
 
 use App\Models\Customer;
 use App\Services\Organization\Eloquent\OwnedByScope;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,6 +15,7 @@ trait HasCustomerNullable {
     /**
      * @return BelongsTo<Customer, self>
      */
+    #[CascadeDelete(false)]
     public function customer(): BelongsTo {
         return $this
             ->belongsTo(Customer::class)

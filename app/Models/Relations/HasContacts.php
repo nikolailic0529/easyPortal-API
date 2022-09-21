@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Contact;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncMorphMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -21,6 +22,7 @@ trait HasContacts {
     /**
      * @return MorphMany<Contact>
      */
+    #[CascadeDelete(true)]
     public function contacts(): MorphMany {
         return $this->morphMany(Contact::class, 'object');
     }

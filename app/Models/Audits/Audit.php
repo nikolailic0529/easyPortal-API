@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Carbon\CarbonImmutable;
 use Database\Factories\Audits\AuditFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -57,11 +58,13 @@ class Audit extends Model implements OwnedByOrganization {
      */
     protected $casts = self::CASTS;
 
+    #[CascadeDelete(false)]
     public function user(): BelongsTo {
         // Relation between 2 table on 2 different db
         return $this->setConnection((new User())->getConnectionName())->belongsTo(User::class);
     }
 
+    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         // Relation between 2 table on 2 different db
         return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);

@@ -2,6 +2,7 @@
 
 namespace App\Utils\Eloquent;
 
+use App\Utils\Eloquent\CascadeDeletes\CascadeDeletes;
 use App\Utils\Eloquent\Concerns\HideGeneratedAttributes;
 use App\Utils\Eloquent\Concerns\QualifiedModelQuery;
 use App\Utils\Eloquent\Concerns\SoftDeletes;
@@ -19,6 +20,7 @@ trait ModelTraits {
     use SmartSave;
     use UuidAsPrimaryKey;
     use SoftDeletes;
+    use CascadeDeletes;
     use HasRelationships;
     use HideGeneratedAttributes;
     use QualifiedModelQuery;

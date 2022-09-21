@@ -29,6 +29,7 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -141,6 +142,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
+    #[CascadeDelete(true)]
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -166,6 +168,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
                 ->count();
     }
 
+    #[CascadeDelete(false)]
     public function distributor(): BelongsTo {
         return $this->belongsTo(Distributor::class);
     }
@@ -174,6 +177,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
         $this->distributor()->associate($distributor);
     }
 
+    #[CascadeDelete(false)]
     public function oemGroup(): BelongsTo {
         return $this->belongsTo(OemGroup::class);
     }
@@ -182,10 +186,12 @@ class Document extends Model implements OwnedByReseller, Searchable {
         $this->oemGroup()->associate($group);
     }
 
+    #[CascadeDelete(true)]
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }
 
+    #[CascadeDelete(false)]
     public function assets(): HasManyThrough {
         return $this->hasManyThrough(
             Asset::class,

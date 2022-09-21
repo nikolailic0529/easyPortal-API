@@ -5,6 +5,7 @@ namespace App\Services\Logger\Models;
 use App\Services\Logger\Models\Casts\Statistics;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use Carbon\CarbonImmutable;
 use Database\Factories\Logs\LogFactory;
 use Illuminate\Database\Eloquent\Builder;
@@ -65,6 +66,7 @@ class Log extends Model {
      */
     protected $casts = self::CASTS;
 
+    #[CascadeDelete(false)]
     public function parent(): BelongsTo {
         return $this->belongsTo(self::class);
     }
@@ -73,6 +75,7 @@ class Log extends Model {
         $this->parent()->associate($parent);
     }
 
+    #[CascadeDelete(true)]
     public function children(): HasMany {
         return $this->hasMany(self::class, 'parent_id');
     }

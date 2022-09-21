@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Document;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,6 +16,7 @@ trait HasDocument {
     /**
      * @return BelongsTo<Document, self>
      */
+    #[CascadeDelete(false)]
     public function document(): BelongsTo {
         return $this->belongsTo(Document::class);
     }

@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Data\ServiceLevel;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,6 +14,7 @@ trait HasServiceLevel {
     /**
      * @return BelongsTo<ServiceLevel, self>
      */
+    #[CascadeDelete(false)]
     public function serviceLevel(): BelongsTo {
         return $this->belongsTo(ServiceLevel::class);
     }

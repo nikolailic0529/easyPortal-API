@@ -16,6 +16,7 @@ use App\Models\Relations\HasTypeNullable;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Organization\Eloquent\OwnedByResellerImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -94,6 +95,7 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
         $this->document()->associate($document);
     }
 
+    #[CascadeDelete(true)]
     public function serviceLevels(): BelongsToMany {
         $pivot = new AssetWarrantyServiceLevel();
 

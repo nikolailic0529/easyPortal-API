@@ -3,6 +3,7 @@
 namespace App\Models\Relations;
 
 use App\Models\Data\Oem;
+use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,6 +14,7 @@ trait HasOemNullable {
     /**
      * @return BelongsTo<Oem, self>
      */
+    #[CascadeDelete(false)]
     public function oem(): BelongsTo {
         return $this->belongsTo(Oem::class);
     }
