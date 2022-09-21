@@ -15,6 +15,7 @@ input DocumentEntriesQuery {
     service_level_id: ID
     serviceLevel: ServiceLevelsQuery
     currency_id: ID
+    currency: CurrenciesQuery
     monthly_list_price: Float
     monthly_retail_price: Float
     oem_said: String

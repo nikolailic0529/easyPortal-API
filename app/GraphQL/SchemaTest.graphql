@@ -230,6 +230,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     Relationship clause.
     """
+    asset: [SortByClauseAssetsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Relationship clause.
+    """
     assetType: [SortByClauseTypesSort!]
     @aggregatedGroupByOperatorRelation
 
@@ -244,6 +250,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     asset_type_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    currency: [SortByClauseCurrenciesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -3073,6 +3085,12 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    currency: SearchByComplexRelationCurrenciesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     currency_id: SearchByScalarIDOrNull
@@ -5779,13 +5797,37 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    asset: SortByClauseAssetsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     assetType: SortByClauseTypesSort
     @sortByProperty
 
     """
     Property clause.
     """
+    asset_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     asset_type_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    currency: SortByClauseCurrenciesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    currency_id: SortByTypeDirection
     @sortByOperatorProperty
 
     """
