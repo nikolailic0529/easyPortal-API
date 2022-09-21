@@ -224,6 +224,17 @@ input AggregatedGroupByClauseCompaniesQuery {
 }
 
 """
+Group clause for `input DistributorsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseDistributorsQuery {
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input DocumentEntriesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentEntriesQuery {
@@ -8344,6 +8355,57 @@ type Distributor {
     name: String!
 }
 
+"""
+Aggregated data for `type Distributor`.
+"""
+type DistributorsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseDistributorsQuery!
+        @aggregatedGroupBy(
+            order: "DistributorsSort"
+            where: "DistributorsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseDistributorsQuery!
+        @aggregatedGroupBy(
+            order: "DistributorsSort"
+            where: "DistributorsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type Document {
     assets_count: Int
     changed_at: DateTime
@@ -11084,6 +11146,56 @@ type Query {
     )
     @aggregated(
         model: "App\\Models\\Customer"
+    )
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    distributors(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDistributorsSort!]
+        @sortBy
+
+        where: SearchByConditionDistributorsQuery
+        @searchBy
+    ): [Distributor!]!
+    @authOrg
+    @authMe(
+        permissions: ["assets-view", "contracts-view", "quotes-view"]
+    )
+    @paginated
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    distributorsAggregated(
+        where: SearchByConditionDistributorsQuery
+        @searchBy
+    ): DistributorsAggregated
+    @authOrg
+    @authMe(
+        permissions: ["assets-view", "contracts-view", "quotes-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Distributor"
     )
 
     """
