@@ -455,9 +455,27 @@ input AggregatedGroupByClauseDocumentsQuery {
     @aggregatedGroupByOperatorRelation
 
     """
+    Relationship clause.
+    """
+    oemGroup: [SortByClauseOemGroupsQuery!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    oem_group_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    oem_said: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
@@ -1557,6 +1575,35 @@ input SearchByComplexRelationLocationsQuery {
     Additional conditions.
     """
     where: SearchByConditionLocationsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input OemGroupsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationOemGroupsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionOemGroupsQuery
 }
 
 """
@@ -3325,9 +3372,27 @@ input SearchByConditionDocumentsQuery {
     @searchByOperatorRelation
 
     """
+    Relationship condition.
+    """
+    oemGroup: SearchByComplexRelationOemGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    oem_group_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    oem_said: SearchByScalarStringOrNull
     @searchByProperty
 
     """
@@ -3648,6 +3713,47 @@ input SearchByConditionNotesQuery {
     """
     user_id: SearchByScalarID
     @searchByProperty
+}
+
+"""
+Available conditions for `input OemGroupsQuery` (only one property allowed at a time).
+"""
+input SearchByConditionOemGroupsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionOemGroupsQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionOemGroupsQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionOemGroupsQuery
+    @searchByOperatorNot
 }
 
 """
@@ -5974,6 +6080,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oemGroup: SortByClauseOemGroupsQuery
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     price: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6097,6 +6209,29 @@ input SortByClauseNotesSort {
     Property clause.
     """
     user_id: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input OemGroupsQuery (only one property allowed at a time).
+"""
+input SortByClauseOemGroupsQuery {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -8282,6 +8417,7 @@ type Document {
     oemGroup: OemGroup
     @relation
 
+    oem_group_id: ID
     oem_id: ID
     oem_said: String
 

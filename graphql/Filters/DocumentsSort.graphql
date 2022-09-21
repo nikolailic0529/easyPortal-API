@@ -10,4 +10,5 @@ input DocumentsSort {
     distributor: DistributorsSort
     reseller: CompaniesSort
     customer: CompaniesSort
+    oemGroup: OemGroupsQuery
 }

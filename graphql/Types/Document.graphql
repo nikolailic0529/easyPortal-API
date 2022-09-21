@@ -20,6 +20,7 @@ type Document {
     customer: Customer @relation
     oem: Oem @relation
     oem_said: String
+    oem_group_id: ID
     oemGroup: OemGroup @relation
     reseller_id: ID
     reseller: Reseller @relation

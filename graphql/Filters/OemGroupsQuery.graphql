@@ -1,0 +1,5 @@
+input OemGroupsQuery {
+    id: ID!
+    key: String!
+    name: String!
+}
