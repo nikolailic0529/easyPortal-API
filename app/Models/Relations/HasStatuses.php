@@ -23,7 +23,7 @@ trait HasStatuses {
     /**
      * @return BelongsToMany<Status>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function statuses(): BelongsToMany {
         $pivot = $this->getStatusesPivot();
 

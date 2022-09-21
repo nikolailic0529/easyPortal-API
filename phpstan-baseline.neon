@@ -2346,57 +2346,12 @@ parameters:
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:changeRequest\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOne does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:contractWarranties\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:contracts\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:coverages\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:documents\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:getWarrantyEnd\\(\\) should return Carbon\\\\CarbonImmutable\\|null but returns mixed\\.$#"
 			count: 1
 			path: app/Models/Asset.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:location\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:quoteRequest\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasOneThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:quotes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Asset\\:\\:setCoveragesAttribute\\(\\) has parameter \\$coverages with generic class Illuminate\\\\Support\\\\Collection but does not specify its types\\: TKey, TValue$#"
-			count: 1
-			path: app/Models/Asset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Asset\\:\\:warranties\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Asset.php
 
@@ -2474,16 +2429,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\),Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:map\\(\\) expects callable\\(Illuminate\\\\Database\\\\Eloquent\\\\Model, \\(int\\|string\\)\\)\\: App\\\\Utils\\\\Eloquent\\\\Model, Closure\\(App\\\\Utils\\\\Eloquent\\\\Model\\)\\: App\\\\Utils\\\\Eloquent\\\\Model given\\.$#"
 			count: 1
 			path: app/Models/AssetWarranty.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Audits\\\\Audit\\:\\:organization\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Audits/Audit.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Audits\\\\Audit\\:\\:user\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Audits/Audit.php
 
 		-
 			message: "#^Method App\\\\Models\\\\Audits\\\\Model\\:\\:performInsert\\(\\) has parameter \\$query with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
@@ -2816,27 +2761,7 @@ parameters:
 			path: app/Models/Document.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:assets\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:distributor\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
 			message: "#^Method App\\\\Models\\\\Document\\:\\:entries\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:notes\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Document.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Document\\:\\:oemGroup\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Models/Document.php
 
@@ -2879,11 +2804,6 @@ parameters:
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\DocumentEntry\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/DocumentEntry.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Invitation\\:\\:sender\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/Invitation.php
 
 		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Invitation\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
@@ -2941,26 +2861,6 @@ parameters:
 			path: app/Models/Note.php
 
 		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:audits\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:organizationUsers\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:roles\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Organization\\:\\:users\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasManyThrough does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Organization.php
-
-		-
 			message: "#^PHPDoc type array\\<string\\> of property App\\\\Models\\\\Organization\\:\\:\\$casts is not the same as PHPDoc type array of overridden property App\\\\Utils\\\\Eloquent\\\\Model\\:\\:\\$casts\\.$#"
 			count: 1
 			path: app/Models/Organization.php
@@ -3014,21 +2914,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$objects of method App\\\\Models\\\\QuoteRequest\\:\\:syncMorphMany\\(\\) expects array\\<App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\PolymorphicModel\\>, array\\<App\\\\Models\\\\File\\>\\|Illuminate\\\\Support\\\\Collection\\<int, App\\\\Models\\\\File\\> given\\.$#"
 			count: 1
 			path: app/Models/QuoteRequest.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:duration\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestAsset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:request\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestAsset.php
-
-		-
-			message: "#^Method App\\\\Models\\\\QuoteRequestAsset\\:\\:serviceLevel\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
-			count: 1
-			path: app/Models/QuoteRequestAsset.php
 
 		-
 			message: "#^Method App\\\\Models\\\\QuoteRequestDuration\\:\\:getDefaultTranslations\\(\\) should return array\\<string, string\\> but returns array\\<int\\|string, mixed\\>\\.$#"
@@ -3112,16 +2997,6 @@ parameters:
 
 		-
 			message: "#^Anonymous function should return string but returns mixed\\.$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:permissions\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Models/Role.php
-
-		-
-			message: "#^Method App\\\\Models\\\\Role\\:\\:users\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsToMany does not specify its types\\: TRelatedModel$#"
 			count: 1
 			path: app/Models/Role.php
 
@@ -5096,17 +4971,7 @@ parameters:
 			path: app/Services/Logger/Models/Casts/Statistics.php
 
 		-
-			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Log\\:\\:children\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany does not specify its types\\: TRelatedModel$#"
-			count: 1
-			path: app/Services/Logger/Models/Log.php
-
-		-
 			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Log\\:\\:newFactory\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory does not specify its types\\: TModel$#"
-			count: 1
-			path: app/Services/Logger/Models/Log.php
-
-		-
-			message: "#^Method App\\\\Services\\\\Logger\\\\Models\\\\Log\\:\\:parent\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo does not specify its types\\: TRelatedModel, TChildModel$#"
 			count: 1
 			path: app/Services/Logger/Models/Log.php
 

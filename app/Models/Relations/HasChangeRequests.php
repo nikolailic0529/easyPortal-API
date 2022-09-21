@@ -17,7 +17,7 @@ trait HasChangeRequests {
     /**
      * @return MorphMany<ChangeRequest>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function changeRequests(): MorphMany {
         return $this->morphMany(ChangeRequest::class, 'object');
     }

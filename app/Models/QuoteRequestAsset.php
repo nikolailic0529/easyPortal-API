@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Models\Data\ServiceLevel;
 use App\Models\Relations\HasAsset;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\QuoteRequestAssetFactory;
@@ -44,17 +43,23 @@ class QuoteRequestAsset extends Model {
      */
     protected $table = 'quote_request_assets';
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<QuoteRequestDuration,self>
+     */
     public function duration(): BelongsTo {
         return $this->belongsTo(QuoteRequestDuration::class, 'duration_id');
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<ServiceLevel, self>
+     */
     public function serviceLevel(): BelongsTo {
         return $this->belongsTo(ServiceLevel::class);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<QuoteRequest, self>
+     */
     public function request(): BelongsTo {
         return $this->belongsTo(QuoteRequest::class, 'request_id');
     }

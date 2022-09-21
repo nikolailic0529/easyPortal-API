@@ -187,7 +187,6 @@ class User extends Model implements
     /**
      * @return HasMany<UserSearch>
      */
-    #[CascadeDelete(false)]
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
     }
@@ -195,7 +194,6 @@ class User extends Model implements
     /**
      * @return BelongsTo<Organization, User>
      */
-    #[CascadeDelete(false)]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class);
     }
@@ -207,7 +205,6 @@ class User extends Model implements
     /**
      * @return HasMany<Invitation>
      */
-    #[CascadeDelete(false)]
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
     }
@@ -215,7 +212,7 @@ class User extends Model implements
     /**
      * @return HasMany<OrganizationUser>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

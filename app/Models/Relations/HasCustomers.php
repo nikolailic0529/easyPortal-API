@@ -30,7 +30,6 @@ trait HasCustomers {
     /**
      * @return BelongsToMany<Customer>
      */
-    #[CascadeDelete(false)]
     public function customers(): BelongsToMany {
         $pivot = $this->getCustomersPivot();
 
@@ -44,7 +43,7 @@ trait HasCustomers {
     /**
      * @return HasMany<TPivot>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function customersPivots(): HasMany {
         $customers = $this->customers();
         $relation  = $this->hasMany(

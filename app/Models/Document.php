@@ -142,7 +142,7 @@ class Document extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -168,7 +168,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
                 ->count();
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<Distributor, self>
+     */
     public function distributor(): BelongsTo {
         return $this->belongsTo(Distributor::class);
     }
@@ -177,7 +179,9 @@ class Document extends Model implements OwnedByReseller, Searchable {
         $this->distributor()->associate($distributor);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsTo<OemGroup, self>
+     */
     public function oemGroup(): BelongsTo {
         return $this->belongsTo(OemGroup::class);
     }
@@ -186,12 +190,17 @@ class Document extends Model implements OwnedByReseller, Searchable {
         $this->oemGroup()->associate($group);
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return HasMany<Note>
+     */
+    #[CascadeDelete]
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasManyThrough<Asset>
+     */
     public function assets(): HasManyThrough {
         return $this->hasManyThrough(
             Asset::class,

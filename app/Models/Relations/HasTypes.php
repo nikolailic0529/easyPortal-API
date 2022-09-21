@@ -19,7 +19,7 @@ trait HasTypes {
     /**
      * @return BelongsToMany<Type>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function types(): BelongsToMany {
         $pivot = $this->getTypesPivot();
 

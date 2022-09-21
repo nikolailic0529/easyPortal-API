@@ -95,7 +95,7 @@ class AssetWarranty extends Model implements OwnedByReseller, OwnedByShared {
         $this->document()->associate($document);
     }
 
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function serviceLevels(): BelongsToMany {
         $pivot = new AssetWarrantyServiceLevel();
 

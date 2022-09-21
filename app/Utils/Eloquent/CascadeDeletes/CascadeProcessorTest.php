@@ -89,7 +89,7 @@ class CascadeProcessorTest extends TestCase {
             /**
              * @return BelongsTo<Model, self>
              */
-            #[CascadeDelete(true)]
+            #[CascadeDelete]
             public function relationWithTypehint(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -97,7 +97,6 @@ class CascadeProcessorTest extends TestCase {
             /**
              * @return BelongsTo<Model, self>
              */
-            #[CascadeDelete(false)]
             public function relationWithTypehintIgnored(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -105,7 +104,7 @@ class CascadeProcessorTest extends TestCase {
             /**
              * @return BelongsTo<Model, self>
              */
-            #[CascadeDelete(true)]
+            #[CascadeDelete]
             protected function relationProtected(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -113,7 +112,7 @@ class CascadeProcessorTest extends TestCase {
             /**
              * @return BelongsTo<Model, self>|HasOne<Model>
              */
-            #[CascadeDelete(true)]
+            #[CascadeDelete]
             public function relationWithUnionTypehint(): BelongsTo|HasOne {
                 return Mockery::mock(BelongsTo::class);
             }

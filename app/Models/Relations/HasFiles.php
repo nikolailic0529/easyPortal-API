@@ -18,7 +18,7 @@ trait HasFiles {
     /**
      * @return MorphMany<File>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function files(): MorphMany {
         return $this->morphMany(File::class, 'object');
     }

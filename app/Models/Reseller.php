@@ -100,7 +100,7 @@ class Reseller extends Model implements OwnedByReseller {
      *
      * @return BelongsTo<Organization, self>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function organization(): BelongsTo {
         return $this->belongsTo(Organization::class, $this->getKeyName());
     }

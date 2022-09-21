@@ -19,7 +19,7 @@ trait HasTags {
     /**
      * @return BelongsToMany<Tag>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function tags(): BelongsToMany {
         $pivot = $this->getTagsPivot();
 

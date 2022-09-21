@@ -14,7 +14,7 @@ trait HasCities {
     /**
      * @return HasMany<City>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function cities(): HasMany {
         return $this->hasMany(City::class);
     }

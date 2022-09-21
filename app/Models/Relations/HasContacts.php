@@ -22,7 +22,7 @@ trait HasContacts {
     /**
      * @return MorphMany<Contact>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function contacts(): MorphMany {
         return $this->morphMany(Contact::class, 'object');
     }

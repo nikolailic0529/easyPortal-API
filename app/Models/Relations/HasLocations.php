@@ -26,7 +26,7 @@ trait HasLocations {
     /**
      * @return HasMany<TPivot>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function locations(): HasMany {
         return $this->hasMany(
             $this->getLocationsModel()::class,
@@ -45,7 +45,6 @@ trait HasLocations {
     /**
      * @return HasOne<TPivot>
      */
-    #[CascadeDelete(false)]
     public function headquarter(): HasOne {
         $type = (array) app()->make(Repository::class)->get('ep.headquarter_type');
 

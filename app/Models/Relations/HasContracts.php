@@ -3,7 +3,6 @@
 namespace App\Models\Relations;
 
 use App\Models\Document;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,7 +17,6 @@ trait HasContracts {
     /**
      * @return HasMany<Document>|HasManyThrough<Document>
      */
-    #[CascadeDelete(false)]
     public function contracts(): HasMany|HasManyThrough {
         return $this
             ->documents()

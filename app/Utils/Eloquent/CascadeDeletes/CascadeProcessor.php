@@ -17,7 +17,6 @@ use ReflectionMethod;
 use function array_filter;
 use function array_map;
 use function property_exists;
-use function reset;
 use function sprintf;
 
 class CascadeProcessor {
@@ -59,24 +58,12 @@ class CascadeProcessor {
             }
 
             // Attribute?
-            $attribute = $this->getAttribute($method);
-
-            if ($attribute) {
-                if ($attribute->isDelete()) {
-                    $relations[$name] = $helper->getRelation($name);
-                }
+            if ($method->getAttributes(CascadeDelete::class)) {
+                $relations[$name] = $helper->getRelation($name);
             }
         }
 
         return $relations;
-    }
-
-    protected function getAttribute(ReflectionMethod $method): ?CascadeDelete {
-        $attributes = $method->getAttributes(CascadeDelete::class);
-        $attribute  = reset($attributes) ?: null;
-        $attribute  = $attribute?->newInstance();
-
-        return $attribute;
     }
 
     /**

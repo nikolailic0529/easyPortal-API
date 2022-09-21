@@ -6,13 +6,7 @@ use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class CascadeDelete {
-    public function __construct(
-        protected bool $delete,
-    ) {
+    public function __construct() {
         // empty
-    }
-
-    public function isDelete(): bool {
-        return $this->delete;
     }
 }

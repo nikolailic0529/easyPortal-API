@@ -28,7 +28,6 @@ trait HasResellers {
     /**
      * @return BelongsToMany<Reseller>
      */
-    #[CascadeDelete(false)]
     public function resellers(): BelongsToMany {
         $pivot = $this->getResellersPivot();
 
@@ -47,7 +46,7 @@ trait HasResellers {
     /**
      * @return HasMany<TPivot>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function resellersPivots(): HasMany {
         $resellers = $this->resellers();
         $relation  = $this->hasMany(

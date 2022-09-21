@@ -91,7 +91,7 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         return $this->qualifyColumn('organization_id');
     }
 
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function assets(): HasMany {
         return $this->hasMany(QuoteRequestAsset::class, 'request_id');
     }
@@ -106,7 +106,7 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
     /**
      * @return HasMany<QuoteRequestDocument>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function documents(): HasMany {
         return $this->hasMany(QuoteRequestDocument::class, 'request_id');
     }
@@ -118,7 +118,7 @@ class QuoteRequest extends Model implements OwnedByOrganization, Auditable {
         $this->syncHasMany('documents', $documents);
     }
 
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function contact(): MorphOne {
         return $this->morphOne(Contact::class, 'object');
     }

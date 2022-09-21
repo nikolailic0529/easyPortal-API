@@ -48,7 +48,9 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
      */
     protected $table = 'roles';
 
-    #[CascadeDelete(false)]
+    /**
+     * @return BelongsToMany<User>
+     */
     public function users(): BelongsToMany {
         $pivot = new OrganizationUser();
 
@@ -59,7 +61,10 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
             ->withTimestamps();
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return BelongsToMany<Permission>
+     */
+    #[CascadeDelete]
     public function permissions(): BelongsToMany {
         $pivot = new RolePermission();
 

@@ -129,22 +129,28 @@ class Organization extends Model implements
     /**
      * @return MorphTo<Reseller, Organization>
      */
-    #[CascadeDelete(false)]
     public function company(): MorphTo {
         return $this->morphTo(null, 'type', 'id');
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return HasMany<Role>
+     */
+    #[CascadeDelete]
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasMany<Audit>
+     */
     public function audits(): HasMany {
         return $this->hasMany(Audit::class);
     }
 
-    #[CascadeDelete(false)]
+    /**
+     * @return HasManyThrough<User>
+     */
     public function users(): HasManyThrough {
         return $this->hasManyThrough(
             User::class,
@@ -156,7 +162,10 @@ class Organization extends Model implements
         );
     }
 
-    #[CascadeDelete(true)]
+    /**
+     * @return HasMany<OrganizationUser>
+     */
+    #[CascadeDelete]
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

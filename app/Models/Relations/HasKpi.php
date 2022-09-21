@@ -14,7 +14,7 @@ trait HasKpi {
     /**
      * @return BelongsTo<Kpi, self>
      */
-    #[CascadeDelete(true)]
+    #[CascadeDelete]
     public function kpi(): BelongsTo {
         return $this->belongsTo(Kpi::class);
     }
