@@ -21,10 +21,14 @@ input DocumentEntriesSort {
     productLine: ProductLinesSort
     product_group_id: ID
     productGroup: ProductGroupsSort
+    asset_id: ID
+    asset: AssetsSort
     asset_type_id: ID
     assetType: TypesSort
     language_id: ID
     language: LanguagesSort
     psp_id: ID
     psp: PspsSort
+    currency_id: ID
+    currency: CurrenciesSort
 }

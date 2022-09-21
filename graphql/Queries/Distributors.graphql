@@ -1,0 +1,9 @@
+extend type Query {
+    distributors(
+        where: DistributorsQuery @searchBy
+        order: DistributorsSort @sortBy
+    ): [Distributor!]!
+    @authOrg
+    @authMe(permissions: ["assets-view", "contracts-view", "quotes-view"])
+    @paginated
+}

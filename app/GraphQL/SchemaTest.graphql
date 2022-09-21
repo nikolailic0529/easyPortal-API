@@ -224,9 +224,26 @@ input AggregatedGroupByClauseCompaniesQuery {
 }
 
 """
+Group clause for `input DistributorsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseDistributorsQuery {
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input DocumentEntriesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDocumentEntriesQuery {
+    """
+    Relationship clause.
+    """
+    asset: [SortByClauseAssetsSort!]
+    @aggregatedGroupByOperatorRelation
+
     """
     Relationship clause.
     """
@@ -244,6 +261,12 @@ input AggregatedGroupByClauseDocumentEntriesQuery {
     """
     asset_type_id: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    currency: [SortByClauseCurrenciesSort!]
+    @aggregatedGroupByOperatorRelation
 
     """
     Property clause.
@@ -455,9 +478,27 @@ input AggregatedGroupByClauseDocumentsQuery {
     @aggregatedGroupByOperatorRelation
 
     """
+    Relationship clause.
+    """
+    oemGroup: [SortByClauseOemGroupsQuery!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    oem_group_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
     Property clause.
     """
     oem_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    oem_said: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 
     """
@@ -1557,6 +1598,35 @@ input SearchByComplexRelationLocationsQuery {
     Additional conditions.
     """
     where: SearchByConditionLocationsQuery
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for `input OemGroupsQuery`.
+
+See also:
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationOemGroupsQuery {
+    """
+    Count conditions.
+    """
+    count: SearchByScalarInt
+
+    """
+    Alias for `count: {greaterThanOrEqual: 1}`. Will be ignored if `count` used.
+    """
+    exists: Boolean
+
+    """
+    Alias for `count: {lessThan: 1}`. Will be ignored if `count` used.
+    """
+    notExists: Boolean! = false
+
+    """
+    Additional conditions.
+    """
+    where: SearchByConditionOemGroupsQuery
 }
 
 """
@@ -3026,6 +3096,12 @@ input SearchByConditionDocumentEntriesQuery {
     @searchByProperty
 
     """
+    Relationship condition.
+    """
+    currency: SearchByComplexRelationCurrenciesQuery
+    @searchByOperatorRelation
+
+    """
     Property condition.
     """
     currency_id: SearchByScalarIDOrNull
@@ -3325,9 +3401,27 @@ input SearchByConditionDocumentsQuery {
     @searchByOperatorRelation
 
     """
+    Relationship condition.
+    """
+    oemGroup: SearchByComplexRelationOemGroupsQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    oem_group_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
     Property condition.
     """
     oem_id: SearchByScalarIDOrNull
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    oem_said: SearchByScalarStringOrNull
     @searchByProperty
 
     """
@@ -3648,6 +3742,47 @@ input SearchByConditionNotesQuery {
     """
     user_id: SearchByScalarID
     @searchByProperty
+}
+
+"""
+Available conditions for `input OemGroupsQuery` (only one property allowed at a time).
+"""
+input SearchByConditionOemGroupsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionOemGroupsQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionOemGroupsQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    key: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    name: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionOemGroupsQuery
+    @searchByOperatorNot
 }
 
 """
@@ -5673,13 +5808,37 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    asset: SortByClauseAssetsSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     assetType: SortByClauseTypesSort
     @sortByProperty
 
     """
     Property clause.
     """
+    asset_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     asset_type_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    currency: SortByClauseCurrenciesSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    currency_id: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -5974,6 +6133,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    oemGroup: SortByClauseOemGroupsQuery
+    @sortByProperty
+
+    """
+    Property clause.
+    """
     price: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6097,6 +6262,29 @@ input SortByClauseNotesSort {
     Property clause.
     """
     user_id: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
+Sort clause for input OemGroupsQuery (only one property allowed at a time).
+"""
+input SortByClauseOemGroupsQuery {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -8167,6 +8355,57 @@ type Distributor {
     name: String!
 }
 
+"""
+Aggregated data for `type Distributor`.
+"""
+type DistributorsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseDistributorsQuery!
+        @aggregatedGroupBy(
+            order: "DistributorsSort"
+            where: "DistributorsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseDistributorsQuery!
+        @aggregatedGroupBy(
+            order: "DistributorsSort"
+            where: "DistributorsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type Document {
     assets_count: Int
     changed_at: DateTime
@@ -8282,6 +8521,7 @@ type Document {
     oemGroup: OemGroup
     @relation
 
+    oem_group_id: ID
     oem_id: ID
     oem_said: String
 
@@ -10909,6 +11149,56 @@ type Query {
     )
 
     """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    distributors(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseDistributorsSort!]
+        @sortBy
+
+        where: SearchByConditionDistributorsQuery
+        @searchBy
+    ): [Distributor!]!
+    @authOrg
+    @authMe(
+        permissions: ["assets-view", "contracts-view", "quotes-view"]
+    )
+    @paginated
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
+    """
+    distributorsAggregated(
+        where: SearchByConditionDistributorsQuery
+        @searchBy
+    ): DistributorsAggregated
+    @authOrg
+    @authMe(
+        permissions: ["assets-view", "contracts-view", "quotes-view"]
+    )
+    @aggregated(
+        model: "App\\Models\\Distributor"
+    )
+
+    """
     List of all languages.
 
     @require <authOrg> Authenticated user must be a member of the current organization.
@@ -11330,6 +11620,54 @@ type Query {
     )
     @aggregated(
         model: "App\\Models\\Document"
+    )
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    resellers(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseCompaniesSort!]
+        @sortBy
+
+        where: SearchByConditionCompaniesQuery
+        @searchBy
+    ): [Reseller!]!
+    @authOrgRoot
+    @authMe
+    @paginated
+
+    """
+    @require <authOrgRoot> Authenticated user must be a member of the current organization, and
+    the organization must be a root organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    resellersAggregated(
+        where: SearchByConditionCompaniesQuery
+        @searchBy
+    ): ResellersAggregated
+    @authOrgRoot
+    @authMe
+    @aggregated(
+        model: "App\\Models\\Reseller"
     )
 
     """
@@ -11925,6 +12263,57 @@ implements
     @relation
 
     synced_at: DateTime!
+}
+
+"""
+Aggregated data for `type Reseller`.
+"""
+type ResellersAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCompaniesQuery!
+        @aggregatedGroupBy(
+            order: "CompaniesSort"
+            where: "CompaniesQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type ResetApplicationServicePayload {
