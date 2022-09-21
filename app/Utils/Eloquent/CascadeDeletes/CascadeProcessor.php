@@ -65,13 +65,6 @@ class CascadeProcessor {
                 if ($attribute->isDelete()) {
                     $relations[$name] = $helper->getRelation($name);
                 }
-            } else {
-                throw new LogicException(sprintf(
-                    'Relation `%s::%s()` must have `%s` attribute.',
-                    $model::class,
-                    $name,
-                    CascadeDelete::class,
-                ));
             }
         }
 

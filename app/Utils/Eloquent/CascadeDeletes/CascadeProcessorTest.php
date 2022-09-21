@@ -16,7 +16,6 @@ use Tests\TestCase;
 
 use function array_keys;
 use function count;
-use function sprintf;
 
 /**
  * @internal
@@ -80,28 +79,40 @@ class CascadeProcessorTest extends TestCase {
         };
         $model     = new class() extends Model {
             /**
-             * @noinspection PhpMissingReturnTypeInspection
+             * @phpstan-ignore-next-line
              * @inheritDoc
              */
             public function relationWithoutTypehint() {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            /**
+             * @return BelongsTo<Model, self>
+             */
             #[CascadeDelete(true)]
             public function relationWithTypehint(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            /**
+             * @return BelongsTo<Model, self>
+             */
             #[CascadeDelete(false)]
             public function relationWithTypehintIgnored(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            /**
+             * @return BelongsTo<Model, self>
+             */
             #[CascadeDelete(true)]
             protected function relationProtected(): BelongsTo {
                 return Mockery::mock(BelongsTo::class);
             }
 
+            /**
+             * @return BelongsTo<Model, self>|HasOne<Model>
+             */
             #[CascadeDelete(true)]
             public function relationWithUnionTypehint(): BelongsTo|HasOne {
                 return Mockery::mock(BelongsTo::class);
@@ -115,34 +126,6 @@ class CascadeProcessorTest extends TestCase {
             ],
             array_keys($processor->getRelations($model)),
         );
-    }
-
-    /**
-     * @covers ::getRelations
-     */
-    public function testGetRelationsNoAttribute(): void {
-        $processor = new class() extends CascadeProcessor {
-            /**
-             * @inheritDoc
-             */
-            public function getRelations(Model $model): array {
-                return parent::getRelations($model);
-            }
-        };
-        $model     = new class() extends Model {
-            public function relationWithoutAttribute(): BelongsTo {
-                return Mockery::mock(BelongsTo::class);
-            }
-        };
-
-        self::expectErrorMessage(sprintf(
-            'Relation `%s::%s()` must have `%s` attribute.',
-            $model::class,
-            'relationWithoutAttribute',
-            CascadeDelete::class,
-        ));
-
-        $processor->getRelations($model);
     }
 
     /**
