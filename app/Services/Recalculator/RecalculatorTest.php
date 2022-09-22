@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Services\Recalculator\Queue\Tasks\ModelRecalculate;
 use App\Services\Recalculator\Queue\Tasks\ModelsRecalculate;
 use Illuminate\Support\Facades\Queue;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -18,7 +19,8 @@ class RecalculatorTest extends TestCase {
      */
     public function testDispatchModel(): void {
         $model   = Customer::factory()->make();
-        $indexer = new class($this->app) extends Recalculator {
+        $service = Mockery::mock(Service::class);
+        $indexer = new class($this->app, $service) extends Recalculator {
             public function dispatchModel(string $model, int|string $key): void {
                 parent::dispatchModel($model, $key);
             }
@@ -41,7 +43,8 @@ class RecalculatorTest extends TestCase {
     public function testDispatchModels(): void {
         $modelA  = Customer::factory()->make();
         $modelB  = Customer::factory()->make();
-        $indexer = new class($this->app) extends Recalculator {
+        $service = Mockery::mock(Service::class);
+        $indexer = new class($this->app, $service) extends Recalculator {
             /**
              * @inheritDoc
              */
