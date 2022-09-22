@@ -45,7 +45,7 @@ class RoleTest extends TestCase {
                 'locationCustomer'              => false,
                 'organization'                  => false,
                 'organizationRole'              => true,
-                'organizationRolePermission'    => true,
+                'organizationRolePermission'    => false,
                 'user'                          => false,
                 'userSearch'                    => false,
                 'userInvitation'                => false,

@@ -10,7 +10,6 @@ use App\Services\Auth\Contracts\Rootable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Services\Organization\HasOrganization;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -212,7 +211,6 @@ class User extends Model implements
     /**
      * @return HasMany<OrganizationUser>
      */
-    #[CascadeDelete]
     public function organizations(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

@@ -59,7 +59,7 @@ class ResellerLocationTest extends TestCase {
                 'resellerContactType'           => false,
                 'resellerStatus'                => false,
                 'resellerLocation'              => true,
-                'resellerLocationType'          => true,
+                'resellerLocationType'          => false,
                 'resellerChangeRequest'         => false,
                 'resellerChangeRequestFile'     => false,
                 'resellerCustomer'              => false,

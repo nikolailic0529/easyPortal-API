@@ -3,7 +3,6 @@
 namespace App\Models\Relations;
 
 use App\Models\Kpi;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -14,7 +13,6 @@ trait HasKpi {
     /**
      * @return BelongsTo<Kpi, self>
      */
-    #[CascadeDelete]
     public function kpi(): BelongsTo {
         return $this->belongsTo(Kpi::class);
     }

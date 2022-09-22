@@ -10,7 +10,6 @@ use App\Models\Relations\HasCurrency;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\I18n\Contracts\HasTimezonePreference;
 use App\Services\I18n\Eloquent\TranslatedString;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
 use Database\Factories\OrganizationFactory;
@@ -136,7 +135,6 @@ class Organization extends Model implements
     /**
      * @return HasMany<Role>
      */
-    #[CascadeDelete]
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
     }
@@ -165,7 +163,6 @@ class Organization extends Model implements
     /**
      * @return HasMany<OrganizationUser>
      */
-    #[CascadeDelete]
     public function organizationUsers(): HasMany {
         return $this->hasMany(OrganizationUser::class);
     }

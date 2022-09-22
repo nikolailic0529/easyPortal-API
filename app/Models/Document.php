@@ -29,7 +29,6 @@ use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Date;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -142,7 +141,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
 
     // <editor-fold desc="Relations">
     // =========================================================================
-    #[CascadeDelete]
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -193,7 +191,6 @@ class Document extends Model implements OwnedByReseller, Searchable {
     /**
      * @return HasMany<Note>
      */
-    #[CascadeDelete]
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }

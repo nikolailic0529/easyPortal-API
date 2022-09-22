@@ -7,7 +7,6 @@ use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByOrganizationImpl;
 use App\Services\Organization\Eloquent\OwnedByShared;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncBelongsToMany;
 use App\Utils\Eloquent\Model;
 use Carbon\CarbonImmutable;
@@ -64,7 +63,6 @@ class Role extends Model implements OwnedByOrganization, Auditable, OwnedByShare
     /**
      * @return BelongsToMany<Permission>
      */
-    #[CascadeDelete]
     public function permissions(): BelongsToMany {
         $pivot = new RolePermission();
 

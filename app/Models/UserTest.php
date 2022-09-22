@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Services\Organization\Eloquent\OwnedByScope;
 use App\Utils\Eloquent\Callbacks\GetKey;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
+use Tests\Providers\ModelsProvider;
 use Tests\TestCase;
 
 /**
@@ -31,69 +32,102 @@ class UserTest extends TestCase {
      * @covers ::delete
      */
     public function testDelete(): void {
-        // Disable unwanted scopes
-        GlobalScopes::setDisabled(
-            OwnedByScope::class,
-            true,
+        $models = (new ModelsProvider())($this);
+        $model  = $models['user'] ?? null;
+
+        self::assertNotNull($model);
+        self::assertModelHasAllRelations($model);
+
+        $model->delete();
+
+        self::assertModelsTrashed(
+            [
+                'distributor'                   => false,
+                'type'                          => false,
+                'status'                        => false,
+                'coverage'                      => false,
+                'country'                       => false,
+                'city'                          => false,
+                'currency'                      => false,
+                'language'                      => false,
+                'permission'                    => false,
+                'psp'                           => false,
+                'tag'                           => false,
+                'team'                          => false,
+                'oem'                           => false,
+                'product'                       => false,
+                'productLine'                   => false,
+                'productGroup'                  => false,
+                'serviceGroup'                  => false,
+                'serviceLevel'                  => false,
+                'oemGroup'                      => false,
+                'location'                      => false,
+                'locationReseller'              => false,
+                'locationCustomer'              => false,
+                'organization'                  => false,
+                'organizationRole'              => false,
+                'organizationRolePermission'    => false,
+                'organizationUser'              => false,
+                'organizationChangeRequest'     => false,
+                'organizationChangeRequestFile' => false,
+                'user'                          => true,
+                'userSearch'                    => false,
+                'userInvitation'                => false,
+                'reseller'                      => false,
+                'resellerKpi'                   => false,
+                'resellerCustomerKpi'           => false,
+                'resellerContact'               => false,
+                'resellerContactType'           => false,
+                'resellerStatus'                => false,
+                'resellerLocation'              => false,
+                'resellerLocationType'          => false,
+                'resellerChangeRequest'         => false,
+                'resellerChangeRequestFile'     => false,
+                'resellerCustomer'              => false,
+                'customer'                      => false,
+                'customerKpi'                   => false,
+                'customerContact'               => false,
+                'customerContactType'           => false,
+                'customerStatus'                => false,
+                'customerLocation'              => false,
+                'customerLocationType'          => false,
+                'customerChangeRequest'         => false,
+                'customerChangeRequestFile'     => false,
+                'audit'                         => false,
+                'asset'                         => false,
+                'assetContact'                  => false,
+                'assetContactType'              => false,
+                'assetCoverage'                 => false,
+                'assetTag'                      => false,
+                'assetChangeRequest'            => false,
+                'assetChangeRequestFile'        => false,
+                'assetWarranty'                 => false,
+                'assetWarrantyServiceLevel'     => false,
+                'quoteRequest'                  => false,
+                'quoteRequestAsset'             => false,
+                'quoteRequestContact'           => false,
+                'quoteRequestDuration'          => false,
+                'contract'                      => false,
+                'contractStatus'                => false,
+                'contractEntry'                 => false,
+                'contractContact'               => false,
+                'contractContactType'           => false,
+                'contractChangeRequest'         => false,
+                'contractChangeRequestFile'     => false,
+                'contractNote'                  => false,
+                'contractNoteFile'              => false,
+                'quote'                         => false,
+                'quoteStatus'                   => false,
+                'quoteEntry'                    => false,
+                'quoteContact'                  => false,
+                'quoteContactType'              => false,
+                'quoteChangeRequest'            => false,
+                'quoteChangeRequestFile'        => false,
+                'quoteNote'                     => false,
+                'quoteNoteFile'                 => false,
+            ],
+            $models,
         );
-
-        // Create
-        $orgA = Organization::factory()->create();
-        $orgB = Organization::factory()->create();
-        $user = User::factory()->create([
-            'organization_id' => $orgA,
-        ]);
-
-        UserSearch::factory()->create([
-            'user_id' => $user,
-        ]);
-
-        Invitation::factory()->create([
-            'user_id'         => $user,
-            'organization_id' => $orgA,
-        ]);
-
-        OrganizationUser::factory()->create([
-            'user_id'         => $user,
-            'organization_id' => $orgA,
-        ]);
-        OrganizationUser::factory()->create([
-            'user_id'         => $user,
-            'organization_id' => $orgB,
-        ]);
-
-        Note::factory()->create([
-            'user_id' => $user,
-        ]);
-
-        ChangeRequest::factory()->create([
-            'user_id' => $user,
-        ]);
-
-        // Pretest
-        self::assertModelsCount([
-            User::class             => 2,
-            UserSearch::class       => 1,
-            Invitation::class       => 1,
-            Organization::class     => 2,
-            OrganizationUser::class => 2,
-            Note::class             => 1,
-            ChangeRequest::class    => 1,
-        ]);
-
-        // Run
-        $user->delete();
-
-        // Test
-        self::assertModelsCount([
-            User::class             => 1,
-            UserSearch::class       => 1,
-            Invitation::class       => 1,
-            Organization::class     => 2,
-            OrganizationUser::class => 0,
-            Note::class             => 1,
-            ChangeRequest::class    => 1,
-        ]);
     }
 
     /**

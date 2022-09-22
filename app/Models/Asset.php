@@ -24,7 +24,6 @@ use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\SearchableImpl;
 use App\Services\Search\Properties\Relation;
 use App\Services\Search\Properties\Text;
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use App\Utils\Eloquent\Pivot;
@@ -141,7 +140,6 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     /**
      * @return HasMany<AssetWarranty>
      */
-    #[CascadeDelete]
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
     }
@@ -216,7 +214,6 @@ class Asset extends Model implements OwnedByReseller, Searchable {
     /**
      * @return BelongsToMany<Coverage>
      */
-    #[CascadeDelete]
     public function coverages(): BelongsToMany {
         $pivot = new AssetCoverage();
 

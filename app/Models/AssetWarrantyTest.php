@@ -81,7 +81,7 @@ class AssetWarrantyTest extends TestCase {
                 'assetChangeRequest'            => false,
                 'assetChangeRequestFile'        => false,
                 'assetWarranty'                 => true,
-                'assetWarrantyServiceLevel'     => true,
+                'assetWarrantyServiceLevel'     => false,
                 'quoteRequest'                  => false,
                 'quoteRequestAsset'             => false,
                 'quoteRequestContact'           => false,

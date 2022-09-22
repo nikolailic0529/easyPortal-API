@@ -2,7 +2,6 @@
 
 namespace App\Models\Relations;
 
-use App\Utils\Eloquent\CascadeDeletes\CascadeDelete;
 use App\Utils\Eloquent\Concerns\SyncHasMany;
 use App\Utils\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
@@ -26,7 +25,6 @@ trait HasLocations {
     /**
      * @return HasMany<TPivot>
      */
-    #[CascadeDelete]
     public function locations(): HasMany {
         return $this->hasMany(
             $this->getLocationsModel()::class,
