@@ -49,7 +49,10 @@ abstract class BaseImporter extends Importer {
         $this->getContainer()
             ->make(DocumentResolver::class)
             ->prefetch($data->get(Document::class), static function (Collection $documents) use ($contacts): void {
-                $documents->loadMissing('contacts');
+                $documents->loadMissing([
+                    'contacts',
+                    'statuses',
+                ]);
 
                 $contacts->put($documents->pluck('contacts')->flatten());
             });

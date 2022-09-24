@@ -21,6 +21,16 @@
         ]
     },
     {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "05a153c5-251c-413b-92dd-0cd27d6ed8fd",
+            "07a09563-d1fe-4f0f-a286-115dc2742178",
+            "083145d4-b350-49cd-9844-d3998c411ce5",
+            "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a",
+            "0c8324bb-600d-488b-9b53-35ee6849ff59"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?))",
         "bindings": [
             "77ec115b-9723-4582-ad45-2b3a83286b1f",
@@ -170,12 +180,6 @@
         "bindings": []
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:09:34",
@@ -208,12 +212,6 @@
             "2022-02-02 00:10:09",
             "2022-02-02 00:10:12",
             "0aa9d168-1ccd-4ffd-a680-02a04d3e4b9a"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0c8324bb-600d-488b-9b53-35ee6849ff59"
         ]
     },
     {
@@ -253,12 +251,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "05a153c5-251c-413b-92dd-0cd27d6ed8fd"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:11:36",
@@ -292,12 +284,6 @@
             "2022-02-02 00:12:11",
             "2022-02-02 00:12:14",
             "05a153c5-251c-413b-92dd-0cd27d6ed8fd"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "083145d4-b350-49cd-9844-d3998c411ce5"
         ]
     },
     {
@@ -335,12 +321,6 @@
             "2022-02-02 00:13:12",
             "2022-02-02 00:13:15",
             "083145d4-b350-49cd-9844-d3998c411ce5"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "07a09563-d1fe-4f0f-a286-115dc2742178"
         ]
     },
     {
@@ -399,6 +379,16 @@
             "0c890540-172e-41ea-b1f3-f91a899437b5",
             "0d2169e6-94b7-49ee-8560-80673d7009bf",
             "Document"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`deleted_at` is null and `document_statuses`.`document_id` in (?, ?, ?, ?, ?) and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "013db1c0-c4b2-4f3a-830b-58de8b40ccc8",
+            "0821f5a6-95f1-493f-a527-c62a45ca1e13",
+            "0a38d611-f78f-48e4-a861-8d56afaa8154",
+            "0c890540-172e-41ea-b1f3-f91a899437b5",
+            "0d2169e6-94b7-49ee-8560-80673d7009bf"
         ]
     },
     {
@@ -515,12 +505,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0d2169e6-94b7-49ee-8560-80673d7009bf"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:14:39",
@@ -555,12 +539,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0c890540-172e-41ea-b1f3-f91a899437b5"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:15:50",
@@ -592,12 +570,6 @@
             "2022-02-02 00:16:31",
             "2022-02-02 00:16:34",
             "0c890540-172e-41ea-b1f3-f91a899437b5"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0821f5a6-95f1-493f-a527-c62a45ca1e13"
         ]
     },
     {
@@ -643,12 +615,6 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0a38d611-f78f-48e4-a861-8d56afaa8154"
-        ]
-    },
-    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:18:12",
@@ -690,12 +656,6 @@
             "f60f0e4a-be3b-3516-aee6-a23d62840659",
             "",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `document_statuses`.`document_id` as `pivot_document_id`, `document_statuses`.`status_id` as `pivot_status_id`, `document_statuses`.`created_at` as `pivot_created_at`, `document_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `document_statuses` on `statuses`.`id` = `document_statuses`.`status_id` where `document_statuses`.`document_id` = ? and `document_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "013db1c0-c4b2-4f3a-830b-58de8b40ccc8"
         ]
     },
     {
