@@ -7,6 +7,7 @@ use App\Services\Recalculator\Commands\CustomersRecalculate;
 use App\Services\Recalculator\Commands\LocationsRecalculate;
 use App\Services\Recalculator\Commands\ResellersRecalculate;
 use App\Services\Recalculator\Listeners\DataImportedListener;
+use App\Services\Recalculator\Listeners\DocumentDeleted;
 use App\Services\Recalculator\Queue\Jobs\AssetsRecalculator;
 use App\Services\Recalculator\Queue\Jobs\CustomersRecalculator;
 use App\Services\Recalculator\Queue\Jobs\LocationsRecalculator;
@@ -29,6 +30,7 @@ class Provider extends ServiceProvider {
     protected function registerListeners(): void {
         $this->booting(static function (Dispatcher $dispatcher): void {
             $dispatcher->subscribe(DataImportedListener::class);
+            $dispatcher->subscribe(DocumentDeleted::class);
         });
     }
 

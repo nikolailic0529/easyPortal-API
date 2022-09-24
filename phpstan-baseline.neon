@@ -5326,6 +5326,11 @@ parameters:
 			path: app/Services/Recalculator/Exceptions/RecalculateError.php
 
 		-
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\Queue\\\\Utils\\\\Dispatcher\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:dispatch\\(\\) expects array\\{model\\: class\\-string\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, keys\\: array\\<int\\|string\\>\\}\\|Illuminate\\\\Database\\\\Eloquent\\\\Model\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, array\\{model\\: class\\-string\\<App\\\\Models\\\\Asset\\>&literal\\-string, keys\\: array\\<int, mixed\\>\\} given\\.$#"
+			count: 1
+			path: app/Services/Recalculator/Listeners/DocumentDeleted.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\),mixed\\>\\:\\:map\\(\\) expects callable\\(mixed, \\(int\\|string\\)\\)\\: int\\|string, App\\\\Utils\\\\Eloquent\\\\Callbacks\\\\GetKey given\\.$#"
 			count: 1
 			path: app/Services/Recalculator/Processor/ChunkData.php
