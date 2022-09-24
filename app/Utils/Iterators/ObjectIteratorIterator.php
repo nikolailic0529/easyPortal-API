@@ -10,7 +10,9 @@ use App\Utils\Iterators\Contracts\Errorable;
 use App\Utils\Iterators\Contracts\MixedIterator;
 use App\Utils\Iterators\Contracts\ObjectIterator;
 use App\Utils\Iterators\Exceptions\ObjectIteratorIteratorError;
+use Closure;
 use Iterator;
+use LastDragon_ru\LaraASP\Core\Observer\Dispatcher;
 use Throwable;
 
 use function count;
@@ -48,6 +50,11 @@ abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, 
     }
 
     /**
+     * @var Dispatcher<array<TValue>>
+     */
+    private Dispatcher $onPrepareChunkDispatcher;
+
+    /**
      * @param ObjectIterator<TValue> $internalIterator
      */
     public function __construct(
@@ -80,7 +87,7 @@ abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, 
             $this->init();
 
             foreach ($this->getChunks() as $chunk) {
-                $chunk = $this->chunkConvert($chunk);
+                $chunk = $this->chunkConvert($this->prepareChunk($chunk));
 
                 $this->chunkLoaded($chunk);
 
@@ -136,8 +143,52 @@ abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, 
     public function __clone(): void {
         $this->__cloneSubjects();
         $this->__cloneErrorableSubjects();
+
+        if (isset($this->onPrepareChunkDispatcher)) {
+            $this->onPrepareChunkDispatcher = clone $this->onPrepareChunkDispatcher;
+        }
     }
     //</editor-fold>
+
+    // <editor-fold desc="Subjects">
+    // =========================================================================
+    /**
+     * @param Closure(array<TValue>): void|null $closure `null` removes all observers
+     */
+    public function onPrepareChunk(?Closure $closure): static {
+        if ($closure) {
+            $this->getOnPrepareChunkDispatcher()->attach($closure);
+        } else {
+            $this->getOnPrepareChunkDispatcher()->reset();
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Dispatcher<array<TValue>>
+     */
+    private function getOnPrepareChunkDispatcher(): Dispatcher {
+        if (!isset($this->onPrepareChunkDispatcher)) {
+            $this->onPrepareChunkDispatcher = new Dispatcher();
+        }
+
+        return $this->onPrepareChunkDispatcher;
+    }
+
+    /**
+     * @template C of array<TValue>
+     *
+     * @param C $chunk
+     *
+     * @return C
+     */
+    protected function prepareChunk(array $chunk): array {
+        $this->getOnPrepareChunkDispatcher()->notify($chunk);
+
+        return $chunk;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Abstract">
     // =========================================================================
