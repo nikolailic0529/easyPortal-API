@@ -28,27 +28,29 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data      = $this->makeData($items);
-        $contacts  = $this->getContainer()->make(ContactResolver::class);
-        $locations = $this->getContainer()->make(LocationResolver::class);
+        // Prepare
+        $data              = $this->makeData($items);
+        $contactsResolver  = $this->getContainer()->make(ContactResolver::class);
+        $locationsResolver = $this->getContainer()->make(LocationResolver::class);
 
-        $this->getContainer()
+        // Resellers
+        $resellers = $this->getContainer()
             ->make(ResellerResolver::class)
-            ->prefetch(
-                $data->get(Reseller::class),
-                static function (Collection $resellers) use ($locations, $contacts): void {
-                    $resellers->loadMissing('locations.location');
-                    $resellers->loadMissing('locations.types');
-                    $resellers->loadMissing('contacts');
-                    $resellers->loadMissing('kpi');
+            ->prefetch($data->get(Reseller::class))
+            ->getResolved();
 
-                    $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-                    $contacts->put($resellers->pluck('contacts')->flatten());
-                },
-            );
+        $resellers->loadMissing('locations.location');
+        $resellers->loadMissing('locations.types');
+        $resellers->loadMissing('contacts');
+        $resellers->loadMissing('kpi');
 
-        (new Collection($contacts->getResolved()))->loadMissing('types');
+        $locationsResolver->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
+        $contactsResolver->add($resellers->pluck('contacts')->flatten());
 
+        // Other
+        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
+
+        // Return
         return $data;
     }
 

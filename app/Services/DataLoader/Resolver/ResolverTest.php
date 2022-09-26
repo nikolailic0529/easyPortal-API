@@ -13,7 +13,6 @@ use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use Illuminate\Support\Collection;
 use LogicException;
 use Mockery;
 use Tests\TestCase;
@@ -251,7 +250,7 @@ class ResolverTest extends TestCase {
      * @covers ::getResolved
      */
     public function testGetResolved(): void {
-        $items = new Collection();
+        $items = new EloquentCollection();
         $cache = Mockery::mock(Cache::class);
         $cache
             ->shouldReceive('getAll')

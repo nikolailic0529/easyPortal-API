@@ -26,7 +26,6 @@ use App\Services\DataLoader\Resolver\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolver\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Utils\Processor\State;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @template TState of BaseImporterState
@@ -46,52 +45,57 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data      = $this->makeData($items);
-        $container = $this->getContainer();
-        $documents = $container->make(DocumentResolver::class);
-        $locations = $container->make(LocationResolver::class);
-        $contacts  = $container->make(ContactResolver::class);
+        // Prepare
+        $data              = $this->makeData($items);
+        $container         = $this->getContainer();
+        $documentsResolver = $container->make(DocumentResolver::class);
+        $locationsResolver = $container->make(LocationResolver::class);
+        $contactsResolver  = $container->make(ContactResolver::class);
 
-        $container
+        // Assets
+        $assets = $container
             ->make(AssetResolver::class)
-            ->prefetch(
-                $data->get(Asset::class),
-                static function (Collection $assets) use ($documents, $locations, $contacts): void {
-                    $assets->loadMissing('warranties.serviceLevels');
-                    $assets->loadMissing('warranties.document.statuses');
-                    $assets->loadMissing('contacts.types');
-                    $assets->loadMissing('location');
-                    $assets->loadMissing('tags');
-                    $assets->loadMissing('oem');
+            ->prefetch($data->get(Asset::class))
+            ->getResolved();
 
-                    $documents->put($assets->pluck('warranties')->flatten()->pluck('document')->flatten());
-                    $locations->put($assets->pluck('locations')->flatten());
-                    $contacts->put($assets->pluck('contacts')->flatten());
-                },
-            );
+        $assets->loadMissing('warranties.serviceLevels');
+        $assets->loadMissing('warranties.document.statuses');
+        $assets->loadMissing('contacts.types');
+        $assets->loadMissing('location');
+        $assets->loadMissing('tags');
+        $assets->loadMissing('oem');
 
-        $container
+        $documentsResolver->add($assets->pluck('warranties')->flatten()->pluck('document')->flatten());
+        $locationsResolver->add($assets->pluck('locations')->flatten());
+        $contactsResolver->add($assets->pluck('contacts')->flatten());
+
+        // Resellers
+        $resellers = $container
             ->make(ResellerResolver::class)
-            ->prefetch($data->get(Reseller::class), static function (Collection $resellers) use ($locations): void {
-                $resellers->loadMissing('locations.location');
+            ->prefetch($data->get(Reseller::class))
+            ->getResolved();
 
-                $locations->put($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
-            });
+        $resellers->loadMissing('locations.location');
+        $locationsResolver->add($resellers->pluck('locations')->flatten()->pluck('location')->flatten());
 
-        $container
+        // Customers
+        $customers = $container
             ->make(CustomerResolver::class)
-            ->prefetch($data->get(Customer::class), static function (Collection $customers) use ($locations): void {
-                $customers->loadMissing('locations.location');
+            ->prefetch($data->get(Customer::class))
+            ->getResolved();
 
-                $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-            });
+        $customers->loadMissing('locations.location');
+        $locationsResolver->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
 
-        $container
+        // Resellers
+        $documents = $container
             ->make(DocumentResolver::class)
-            ->prefetch($data->get(Document::class), static function (Collection $documents): void {
-                $documents->loadMissing('statuses');
-            });
+            ->prefetch($data->get(Document::class))
+            ->getResolved();
 
+        $documents->loadMissing('statuses');
+
+        // Return
         return $data;
     }
 

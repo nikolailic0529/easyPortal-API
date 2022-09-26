@@ -43,38 +43,47 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data     = $this->makeData($items);
-        $contacts = $this->getContainer()->make(ContactResolver::class);
+        // Prepare
+        $data             = $this->makeData($items);
+        $contactsResolver = $this->getContainer()->make(ContactResolver::class);
 
-        $this->getContainer()
+        // Documents
+        $documents = $this->getContainer()
             ->make(DocumentResolver::class)
-            ->prefetch($data->get(Document::class), static function (Collection $documents) use ($contacts): void {
-                $documents->loadMissing([
-                    'contacts',
-                    'statuses',
-                ]);
+            ->prefetch($data->get(Document::class))
+            ->getResolved();
 
-                $contacts->put($documents->pluck('contacts')->flatten());
-            });
+        $documents->loadMissing([
+            'contacts',
+            'statuses',
+        ]);
 
-        $this->getContainer()
+        $contactsResolver->add($documents->pluck('contacts')->flatten());
+
+        // Resellers
+        $resellers = $this->getContainer()
             ->make(ResellerResolver::class)
-            ->prefetch($data->get(Reseller::class), static function (Collection $resellers) use ($contacts): void {
-                $resellers->loadMissing('contacts');
+            ->prefetch($data->get(Reseller::class))
+            ->getResolved();
 
-                $contacts->put($resellers->pluck('contacts')->flatten());
-            });
+        $resellers->loadMissing('contacts');
 
-        $this->getContainer()
+        $contactsResolver->add($resellers->pluck('contacts')->flatten());
+
+        // Customers
+        $customers = $this->getContainer()
             ->make(CustomerResolver::class)
-            ->prefetch($data->get(Customer::class), static function (Collection $customers) use ($contacts): void {
-                $customers->loadMissing('contacts');
+            ->prefetch($data->get(Customer::class))
+            ->getResolved();
 
-                $contacts->put($customers->pluck('contacts')->flatten());
-            });
+        $customers->loadMissing('contacts');
 
-        (new Collection($contacts->getResolved()))->loadMissing('types');
+        $contactsResolver->add($customers->pluck('contacts')->flatten());
 
+        // Other
+        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
+
+        // Return
         return $data;
     }
 

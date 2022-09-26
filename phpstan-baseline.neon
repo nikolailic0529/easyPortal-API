@@ -3181,58 +3181,23 @@ parameters:
 			path: app/Services/Auth/AuthTest.php
 
 		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:__construct\\(\\) has parameter \\$retrievers with generic interface App\\\\Services\\\\DataLoader\\\\Cache\\\\KeyRetriever but does not specify its types\\: TModel$#"
+			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:getAll\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<int, TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
-			message: "#^Parameter \\#2 \\$value of method Illuminate\\\\Support\\\\Collection\\<string,TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:put\\(\\) expects TModel of Illuminate\\\\Database\\\\Eloquent\\\\Model, null given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
-			message: "#^Property App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\:\\:\\$retrievers with generic interface App\\\\Services\\\\DataLoader\\\\Cache\\\\KeyRetriever does not specify its types\\: TModel$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/Cache.php
-
-		-
-			message: "#^Cannot call method getAttribute\\(\\) on App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 4
-			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
 			message: "#^Cannot call method getAttribute\\(\\) on mixed\\.$#"
-			count: 5
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Utils\\\\Eloquent\\\\Model\\|null\\.$#"
-			count: 2
+			count: 1
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on mixed\\.$#"
-			count: 5
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Method App\\\\Services\\\\DataLoader\\\\Cache\\\\CacheTest\\:\\:cache\\(\\) should return App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<App\\\\Utils\\\\Eloquent\\\\Model\\> but returns App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$expected of static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) contains unresolvable type\\.$#"
 			count: 1
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Cache\\\\Cache\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\:\\:putAll\\(\\) expects Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Support\\\\Collection\\<int, App\\\\Utils\\\\Eloquent\\\\Model\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Cache/CacheTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function mb_strtoupper expects string, mixed given\\.$#"
-			count: 2
 			path: app/Services/DataLoader/Cache/CacheTest.php
 
 		-
@@ -3726,32 +3691,32 @@ parameters:
 			path: app/Services/DataLoader/Normalizer/Normalizers/TextNormalizer.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\DocumentResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Document\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Document\\|array\\<App\\\\Models\\\\Document\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Document\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			count: 1
+			path: app/Services/DataLoader/Processors/Importer/Importers/Assets/BaseImporter.php
+
+		-
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Customers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Customers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 3
 			path: app/Services/DataLoader/Processors/Importer/Importers/Documents/BaseImporter.php
 
@@ -3786,12 +3751,12 @@ parameters:
 			path: app/Services/DataLoader/Processors/Importer/Importers/OemsImporterTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\ContactResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Contact\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Contact\\|array\\<App\\\\Models\\\\Contact\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Contact\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Resellers/BaseImporter.php
 
 		-
-			message: "#^Parameter \\#1 \\$object of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolvers\\\\LocationResolver\\:\\:put\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$models of method App\\\\Services\\\\DataLoader\\\\Resolver\\\\Resolver\\<App\\\\Models\\\\Data\\\\Location\\>\\:\\:add\\(\\) expects App\\\\Models\\\\Data\\\\Location\\|array\\<App\\\\Models\\\\Data\\\\Location\\|null\\>\\|Illuminate\\\\Support\\\\Collection\\<\\(int\\|string\\), App\\\\Models\\\\Data\\\\Location\\|null\\>, Illuminate\\\\Support\\\\Collection\\<int, mixed\\> given\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Processors/Importer/Importers/Resellers/BaseImporter.php
 
@@ -3907,11 +3872,6 @@ parameters:
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with Illuminate\\\\Database\\\\Eloquent\\\\Model will always evaluate to true\\.$#"
-			count: 1
-			path: app/Services/DataLoader/Resolver/ResolverTest.php
-
-		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with Illuminate\\\\Support\\\\Collection\\<\\*NEVER\\*, \\*NEVER\\*\\> and Illuminate\\\\Support\\\\Collection\\<int, Illuminate\\\\Database\\\\Eloquent\\\\Model\\> will always evaluate to false\\.$#"
 			count: 1
 			path: app/Services/DataLoader/Resolver/ResolverTest.php
 

@@ -47,9 +47,9 @@ abstract class Resolver implements Singleton, KeyRetriever {
     }
 
     /**
-     * @return Collection<int, TModel>
+     * @return EloquentCollection<int, TModel>
      */
-    public function getResolved(): Collection {
+    public function getResolved(): EloquentCollection {
         return $this->getCache()->getAll();
     }
 
@@ -107,6 +107,25 @@ abstract class Resolver implements Singleton, KeyRetriever {
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
         })->first();
+    }
+
+    /**
+     * @param Collection<array-key, ?TModel>|array<?TModel>|TModel $models
+     */
+    public function add(Collection|array|Model $models): static {
+        if ($models instanceof Model) {
+            $models = [$models];
+        }
+
+        $cache = $this->getCache();
+
+        foreach ($models as $model) {
+            if ($model && $cache->get($this->getKey($model)) === null) {
+                $this->put($model);
+            }
+        }
+
+        return $this;
     }
 
     /**

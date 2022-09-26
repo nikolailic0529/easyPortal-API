@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -15,16 +16,16 @@ class Cache {
     protected const NULL_RETRIEVER = self::class;
 
     /**
-     * @var array<Collection<string, TModel>>
+     * @var array<Collection<string, ?TModel>>
      */
     protected array $items;
     /**
-     * @var array<KeyRetriever>
+     * @var array<KeyRetriever<TModel>>
      */
     protected array $retrievers;
 
     /**
-     * @param array<KeyRetriever> $retrievers
+     * @param array<KeyRetriever<TModel>> $retrievers
      */
     public function __construct(array $retrievers) {
         $this->retrievers = $retrievers;
@@ -140,9 +141,9 @@ class Cache {
     }
 
     /**
-     * @return Collection<int, TModel>
+     * @return EloquentCollection<int, TModel>
      */
-    public function getAll(): Collection {
+    public function getAll(): EloquentCollection {
         $all = [];
 
         foreach ($this->items as $key => $items) {
@@ -156,6 +157,6 @@ class Cache {
             }
         }
 
-        return new Collection(array_values($all));
+        return new EloquentCollection(array_values($all));
     }
 }

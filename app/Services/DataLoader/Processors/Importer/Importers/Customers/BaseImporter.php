@@ -32,32 +32,37 @@ abstract class BaseImporter extends Importer {
      * @inheritDoc
      */
     protected function prefetch(State $state, array $items): mixed {
-        $data      = $this->makeData($items);
-        $contacts  = $this->getContainer()->make(ContactResolver::class);
-        $locations = $this->getContainer()->make(LocationResolver::class);
+        // Prepare
+        $data              = $this->makeData($items);
+        $contactsResolver  = $this->getContainer()->make(ContactResolver::class);
+        $locationsResolver = $this->getContainer()->make(LocationResolver::class);
 
-        $this->getContainer()
+        // Customers
+        $customers = $this->getContainer()
             ->make(CustomerResolver::class)
             ->prefetch(
                 $data->get(Customer::class),
-                static function (Collection $customers) use ($locations, $contacts): void {
-                    $customers->loadMissing('locations.location');
-                    $customers->loadMissing('locations.types');
-                    $customers->loadMissing('contacts');
-                    $customers->loadMissing('kpi');
-                    $customers->loadMissing('resellersPivots.kpi');
+            )
+            ->getResolved();
 
-                    $locations->put($customers->pluck('locations')->flatten()->pluck('location')->flatten());
-                    $contacts->put($customers->pluck('contacts')->flatten());
-                },
-            );
+        $customers->loadMissing('locations.location');
+        $customers->loadMissing('locations.types');
+        $customers->loadMissing('contacts');
+        $customers->loadMissing('kpi');
+        $customers->loadMissing('resellersPivots.kpi');
 
+        $locationsResolver->add($customers->pluck('locations')->flatten()->pluck('location')->flatten());
+        $contactsResolver->add($customers->pluck('contacts')->flatten());
+
+        // Resellers
         $this->getContainer()
             ->make(ResellerResolver::class)
             ->prefetch($data->get(Reseller::class));
 
-        (new Collection($contacts->getResolved()))->loadMissing('types');
+        // Other
+        (new Collection($contactsResolver->getResolved()))->loadMissing('types');
 
+        // Return
         return $data;
     }
 

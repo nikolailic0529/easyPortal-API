@@ -11,7 +11,6 @@ use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -35,10 +34,6 @@ class LocationResolver extends Resolver {
             $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
             $factory,
         );
-    }
-
-    public function put(Model|Collection|array $object): void {
-        parent::put($object);
     }
 
     protected function getFindQuery(): ?Builder {

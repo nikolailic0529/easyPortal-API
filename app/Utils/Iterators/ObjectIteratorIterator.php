@@ -87,13 +87,14 @@ abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, 
             $this->init();
 
             foreach ($this->getChunks() as $chunk) {
-                $chunk = $this->chunkConvert($this->prepareChunk($chunk));
+                $items = $this->chunkConvert($chunk);
 
-                $this->chunkLoaded($chunk);
+                $this->chunkLoaded($items);
+                $this->chunkPrepared($chunk, $items);
 
-                yield from $chunk;
+                yield from $items;
 
-                $this->chunkProcessed($chunk);
+                $this->chunkProcessed($items);
             }
         } finally {
             $this->finish();
@@ -179,12 +180,15 @@ abstract class ObjectIteratorIterator implements ObjectIterator, MixedIterator, 
     /**
      * @template C of array<TValue>
      *
-     * @param C $chunk
+     * @param C            $chunk
+     * @param array<TItem> $items
      *
      * @return C
      */
-    protected function prepareChunk(array $chunk): array {
-        $this->getOnPrepareChunkDispatcher()->notify($chunk);
+    protected function chunkPrepared(array $chunk, array $items): array {
+        if ($chunk && $items) {
+            $this->getOnPrepareChunkDispatcher()->notify($chunk);
+        }
 
         return $chunk;
     }
