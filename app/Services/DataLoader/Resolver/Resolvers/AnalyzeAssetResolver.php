@@ -21,13 +21,6 @@ class AnalyzeAssetResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
-    }
-
     protected function getFindQuery(): ?Builder {
         return AnalyzeAsset::query();
     }

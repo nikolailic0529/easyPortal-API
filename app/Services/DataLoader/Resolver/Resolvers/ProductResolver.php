@@ -26,13 +26,6 @@ class ProductResolver extends Resolver implements SingletonPersistent {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
-    }
-
     protected function getPreloadedItems(): Collection {
         return Product::query()->get();
     }

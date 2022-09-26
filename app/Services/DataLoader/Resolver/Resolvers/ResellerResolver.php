@@ -24,11 +24,4 @@ class ResellerResolver extends Resolver {
     protected function getFindQuery(): ?Builder {
         return Reseller::withTrashed();
     }
-
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
-    }
 }

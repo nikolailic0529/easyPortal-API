@@ -191,7 +191,7 @@ class ResolverTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $resolver = Mockery::mock(ResolverTest_Resolver::class, [$normalizer, $collector]);
+        $resolver = Mockery::mock(Resolver::class, [$normalizer, $collector]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -232,7 +232,7 @@ class ResolverTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetchNoFindQuery(): void {
-        $resolver = Mockery::mock(ResolverTest_Resolver::class);
+        $resolver = Mockery::mock(Resolver::class);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -290,25 +290,5 @@ class ResolverTest extends TestCase {
             ->andReturn($cache);
 
         $resolver->reset();
-    }
-}
-
-// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
-// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
-
-/**
- * @internal
- * @noinspection PhpMultipleClassesDeclarationsInOneFile
- *
- * @extends Resolver<Model>
- */
-class ResolverTest_Resolver extends Resolver {
-    // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
-
-    /**
-     * @inheritdoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
     }
 }

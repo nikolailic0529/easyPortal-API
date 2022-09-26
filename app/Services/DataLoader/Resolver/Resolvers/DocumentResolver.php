@@ -27,13 +27,6 @@ class DocumentResolver extends Resolver {
         parent::put($object);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function prefetch(array $keys, Closure|null $callback = null): static {
-        return parent::prefetch($keys, $callback);
-    }
-
     protected function getFindQuery(): ?Builder {
         return Document::withTrashed();
     }
