@@ -1228,6 +1228,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "expired",

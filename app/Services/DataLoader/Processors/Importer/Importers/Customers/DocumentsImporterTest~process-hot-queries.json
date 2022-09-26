@@ -388,6 +388,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:14:48",

@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Resolver\Resolvers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use App\Services\DataLoader\Resolver\Resolver;
 use Closure;
@@ -13,7 +12,7 @@ use Illuminate\Support\Collection;
 /**
  * @extends Resolver<Distributor>
  */
-class DistributorResolver extends Resolver implements SingletonPersistent {
+class DistributorResolver extends Resolver {
     /**
      * @param Closure(Normalizer=): Distributor|null $factory
      *

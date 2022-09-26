@@ -76,6 +76,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "update `distributors` set `deleted_at` = ?, `distributors`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-09-16 00:00:14",

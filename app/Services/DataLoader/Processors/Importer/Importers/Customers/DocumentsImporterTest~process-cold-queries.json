@@ -1151,6 +1151,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "update `documents` set `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             1,

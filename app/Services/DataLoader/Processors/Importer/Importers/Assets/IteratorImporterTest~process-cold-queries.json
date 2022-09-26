@@ -2222,6 +2222,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e241c8c6-5a8c-49c2-9714-bfec047b8ae2",

@@ -5831,6 +5831,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "select `types`.* from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
         "bindings": [
             "hardware system contact",

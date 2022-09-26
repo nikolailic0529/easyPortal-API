@@ -441,6 +441,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-02-02 00:30:05",
@@ -735,6 +739,10 @@
             "",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
@@ -1039,6 +1047,10 @@
             "d22d6f88-1e07-5ffc-a6ba-4aa383913a21",
             "f5e029e2-78e6-5e85-a9e6-243094a67a5a"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
@@ -1355,6 +1367,10 @@
             "",
             "4e41a5c3-9089-5987-acdf-f3fbbed278e0"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",

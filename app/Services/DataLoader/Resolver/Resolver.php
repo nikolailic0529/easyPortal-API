@@ -7,6 +7,7 @@ use App\Services\DataLoader\Cache\Key;
 use App\Services\DataLoader\Cache\KeyRetriever;
 use App\Services\DataLoader\Collector\Collector;
 use App\Services\DataLoader\Container\Singleton;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use App\Services\DataLoader\Normalizer\Normalizer;
 use Closure;
@@ -201,7 +202,10 @@ abstract class Resolver implements Singleton, KeyRetriever {
                 }
             }
         } else {
-            $this->collector->collect($object);
+            if (!($this instanceof SingletonPersistent)) {
+                $this->collector->collect($object);
+            }
+
             $cache->put($object);
         }
     }

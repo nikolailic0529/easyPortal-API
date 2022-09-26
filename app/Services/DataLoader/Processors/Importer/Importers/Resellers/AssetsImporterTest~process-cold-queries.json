@@ -1645,6 +1645,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "b2312283-6c80-4ffb-99c4-375dbbb57e41",
@@ -2753,6 +2757,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "e600b22d-0922-4e2c-852d-3d99a134c1fe",
@@ -3745,6 +3753,10 @@
             "043a0480-dbda-5fb1-96ac-959cae421c20",
             "2022-02-02 00:07:59"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -5001,6 +5013,10 @@
             "043a0480-dbda-5fb1-96ac-959cae421c20",
             "2022-02-02 00:10:56"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "insert into `documents` (`id`, `oem_id`, `oem_group_id`, `oem_said`, `type_id`, `reseller_id`, `customer_id`, `currency_id`, `language_id`, `distributor_id`, `start`, `end`, `price`, `number`, `changed_at`, `contacts_count`, `synced_at`, `assets_count`, `entries_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

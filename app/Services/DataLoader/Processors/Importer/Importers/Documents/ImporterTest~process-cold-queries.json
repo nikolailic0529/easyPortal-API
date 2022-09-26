@@ -1257,6 +1257,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "update `documents` set `oem_group_id` = ?, `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "ddda9ae5-051b-5cbe-9760-85294ca27102",
@@ -2315,6 +2319,10 @@
             "2022-02-02 00:09:32",
             "2022-02-02 00:09:32"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `oem_group_id` = ?, `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
@@ -3419,6 +3427,10 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
+    },
+    {
         "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
         "bindings": [
             "expires_in_90_days",
@@ -4462,6 +4474,10 @@
             "fb8debbc-3893-5a17-8a5e-7385e904ac6a",
             "fc0c7aca-eb8d-5f3a-9e8e-80463ed15400"
         ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors`",
+        "bindings": []
     },
     {
         "query": "update `documents` set `statuses_count` = ?, `synced_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
