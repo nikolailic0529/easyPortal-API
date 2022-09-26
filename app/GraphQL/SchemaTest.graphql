@@ -544,6 +544,23 @@ input AggregatedGroupByClauseNotesQuery {
 }
 
 """
+Group clause for `input OemGroupsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseOemGroupsQuery {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input OrganizationsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseOrganizationsQuery {
@@ -6289,6 +6306,29 @@ input SortByClauseOemGroupsQuery {
 }
 
 """
+Sort clause for input OemGroupsSort (only one property allowed at a time).
+"""
+input SortByClauseOemGroupsSort {
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    key: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    name: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
 Sort clause for input OemsSort (only one property allowed at a time).
 """
 input SortByClauseOemsSort {
@@ -9729,6 +9769,57 @@ type OemGroup {
     name: String!
 }
 
+"""
+Aggregated data for `type OemGroup`.
+"""
+type OemGroupsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseOemGroupsQuery!
+        @aggregatedGroupBy(
+            order: "OemGroupsSort"
+            where: "OemGroupsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseOemGroupsQuery!
+        @aggregatedGroupBy(
+            order: "OemGroupsSort"
+            where: "OemGroupsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type OemHpeImportPayload
 implements
     & Payload
@@ -11275,6 +11366,52 @@ type Query {
     me: Me
     @field(
         resolver: "App\\GraphQL\\Queries\\Me"
+    )
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    oemGroups(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseOemGroupsSort!]
+        @sortBy
+
+        where: SearchByConditionOemGroupsQuery
+        @searchBy
+    ): [OemGroup!]!
+    @authOrg
+    @authMe
+    @paginated
+
+    """
+    @require <authOrg> Authenticated user must be a member of the current organization.
+
+    @require <authMe> User must be authenticated.
+    """
+    oemGroupsAggregated(
+        where: SearchByConditionOemGroupsQuery
+        @searchBy
+    ): OemGroupsAggregated
+    @authOrg
+    @authMe
+    @aggregated(
+        model: "App\\Models\\OemGroup"
     )
 
     """

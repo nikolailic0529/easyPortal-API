@@ -99,4 +99,12 @@ extend type Query {
     @authOrg
     @authMe
     @paginated
+
+    oemGroups(
+        where: OemGroupsQuery @searchBy
+        order: OemGroupsSort @sortBy
+    ): [OemGroup!]!
+    @authOrg
+    @authMe
+    @paginated
 }
