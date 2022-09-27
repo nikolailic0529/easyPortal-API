@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Koss LLC",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148573860",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19194482225",
+                            "name": "Mrs. Myriam Labadie Sr.",
+                            "mail": "douglas.manuel@jast.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17402748730",
+                            "name": "Keagan Lindgren",
+                            "mail": "letitia.kub@braun.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19365545989",
+                            "name": "Juston Kshlerin II",
+                            "mail": "michel.gislason@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13374672458",
+                            "name": "Edyth Gusikowski",
+                            "mail": "kschmitt@howell.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16672695569",
+                            "name": "Connor Predovic",
+                            "mail": "chasity.weber@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16616564470",
+                            "name": "Florence Anderson",
+                            "mail": "beatty.judson@vandervort.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17698587369",
+                            "name": "Mariela Tromp",
+                            "mail": "stiedemann.broderick@bradtke.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13239245997",
+                            "name": "Kelvin Schuster",
+                            "mail": "danial.krajcik@johnson.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13084209486",
+                            "name": "Mr. Dalton Stamm",
+                            "mail": "berenice78@gleason.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Florine Senger V",
+                            "mail": "marielle.mosciski@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13208120814",
+                            "name": "Brooke Wiegand DVM",
+                            "mail": "abraham64@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15128008252",
+                            "name": "Hanna Orn",
+                            "mail": "ikemmer@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16033034284",
+                            "name": "Reina Wyman",
+                            "mail": "cartwright.savanna@windler.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18434689513",
+                            "name": "Bart Jast I",
+                            "mail": "bo.spinka@crona.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13647634694",
+                            "name": "Palma Stroman",
+                            "mail": "klegros@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Aliza Bailey",
+                            "mail": "douglas.manuel@jast.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12623616144",
+                            "name": "Olga Carter",
+                            "mail": "shoppe@beatty.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "25264",
+                            "address": "70902 Sabrina Junctions",
+                            "city": "Lydamouth",
+                            "locationType": null,
+                            "country": "Lesotho",
+                            "latitude": "16.371043",
+                            "longitude": "-5.392406",
+                            "countryCode": "TD"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 14006,
+                        "activeAssets": 49,
+                        "activeAssetsPercentage": 0.34985006425817505,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 378,
+                        "activeContractTotalAmount": 845808.1099999996,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 57,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 378,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

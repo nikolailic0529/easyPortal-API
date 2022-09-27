@@ -1,0 +1,208 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "name": "Krajcik, West and Dibbert",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148157794",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17859995135",
+                            "name": "Madelynn Von",
+                            "mail": "zackery.durgan@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14699461332",
+                            "name": "Mrs. Gladyce Cruickshank DDS",
+                            "mail": "lgreen@schaden.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17859995135",
+                            "name": "Dr. Logan Rau PhD",
+                            "mail": "kip.lang@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Florine Senger V",
+                            "mail": "daugherty.leora@huels.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18729982096",
+                            "name": "Prof. Darian Kutch DVM",
+                            "mail": "autumn61@turcotte.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15679163119",
+                            "name": "Diamond Keebler",
+                            "mail": "wmaggio@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12767056186",
+                            "name": "Anya Kautzer",
+                            "mail": "mallory.lemke@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19203058614",
+                            "name": "Destany Rice I",
+                            "mail": "corwin.jay@cartwright.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19722606045",
+                            "name": "Carolyne Kshlerin",
+                            "mail": "kiehn.king@champlin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18782903282",
+                            "name": "Micaela Murazik",
+                            "mail": "tmacejkovic@green.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13414340643",
+                            "name": "Dr. Cesar Schinner DDS",
+                            "mail": "rkuvalis@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12405956161",
+                            "name": "Zaria Mayert",
+                            "mail": "ruecker.king@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19348724350",
+                            "name": "Rupert Borer",
+                            "mail": "xbraun@koch.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "47281",
+                            "address": "255 Treutel Manors Suite 188",
+                            "city": "Deckowhaven",
+                            "locationType": null,
+                            "country": "Lesotho",
+                            "latitude": "59.840338",
+                            "longitude": "-100.596589",
+                            "countryCode": "TD"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#1876BD",
+                        "secondaryColor": "#F19167",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://willms.org/explicabo-aspernatur-vitae-tempore-et-ut-quo.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Et neque accusantium culpa sit ut deserunt."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Et neque accusantium culpa sit ut deserunt."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Rem quia sed rem ut quo est."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Rem quia sed rem ut quo est."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 12703,
+                        "activeAssets": 19,
+                        "activeAssetsPercentage": 0.14957096748799498,
+                        "activeCustomers": 113,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 242,
+                        "activeContractTotalAmount": 1188029.3000000003,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 27,
+                        "activeQuotes": 68,
+                        "activeQuotesTotalAmount": 311534.86,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 68,
+                        "expiredContracts": 242,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

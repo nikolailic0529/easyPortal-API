@@ -1,0 +1,126 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "6974b5ee-0cb7-4121-9f8f-1995322b540d"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "6974b5ee-0cb7-4121-9f8f-1995322b540d",
+                    "name": "Kemmer-Kub",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148017638",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Florine Senger V",
+                            "mail": "barbara.baumbach@monahan.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15414254221",
+                            "name": "Charles Roob III",
+                            "mail": "clara.sipes@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14238181861",
+                            "name": "Cecilia Beier",
+                            "mail": "dsawayn@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12602812507",
+                            "name": "Rosalia Reinger",
+                            "mail": "florida78@marvin.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13514484966",
+                            "name": "Florine Senger V",
+                            "mail": "adaline37@ruecker.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12546217810",
+                            "name": "Florine Senger V",
+                            "mail": "elijah.gibson@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17634493724",
+                            "name": "Waylon Gislason",
+                            "mail": "tdavis@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13055227215",
+                            "name": "Dr. Mohammed Zboncak IV",
+                            "mail": "hermina.braun@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Oceane Muller III",
+                            "mail": "caesar67@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Mervin Beier",
+                            "mail": "xlangworth@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "46921",
+                            "address": "889 Wilkinson Lodge Apt. 930",
+                            "city": "Estellastad",
+                            "locationType": null,
+                            "country": "Iraq",
+                            "latitude": "-31.043494",
+                            "longitude": "91.415821",
+                            "countryCode": "JP"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3252,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 0.03075030750307503,
+                        "activeCustomers": 46,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 45,
+                        "activeContractTotalAmount": 110206.62,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 2,
+                        "activeQuotes": 18,
+                        "activeQuotesTotalAmount": 112949.29000000001,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 18,
+                        "expiredContracts": 45,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

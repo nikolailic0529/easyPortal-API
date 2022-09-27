@@ -1,0 +1,136 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2",
+                    "name": "Marks, Hettinger and Mosciski",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148927737",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17869176440",
+                            "name": "Wilford Weber Jr.",
+                            "mail": "adalberto17@yahoo.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "34000",
+                            "address": "6591 Gutkowski Underpass Suite 428",
+                            "city": "Lake Jazlynshire",
+                            "locationType": null,
+                            "country": "Iraq",
+                            "latitude": "24.605312",
+                            "longitude": "146.427759",
+                            "countryCode": "JP"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#484c4e",
+                        "secondaryColor": "#f7de49",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "http://cummings.com/dolorem-explicabo-dolorem-rem-est-pariatur.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Quo ad corrupti dolorem laboriosam et."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Quo ad corrupti dolorem laboriosam et."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Deleniti animi assumenda voluptate molestias nesciunt modi quis numquam."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Et et quo inventore dicta et."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Et et quo inventore dicta et."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nostrum id ullam blanditiis qui dolorem porro sunt."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Rem quia sed rem ut quo est."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Rem quia sed rem ut quo est."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 1758,
+                        "activeAssets": 52,
+                        "activeAssetsPercentage": 2.9579067121729237,
+                        "activeCustomers": 26,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 38,
+                        "activeContractTotalAmount": 87320.90999999997,
+                        "newActiveContracts": 1,
+                        "expiringContracts": 9,
+                        "activeQuotes": 23,
+                        "activeQuotesTotalAmount": 290970.43000000017,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 1,
+                        "expiredQuotes": 23,
+                        "expiredContracts": 38,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}
