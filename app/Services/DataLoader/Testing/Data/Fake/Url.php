@@ -2,8 +2,8 @@
 
 namespace App\Services\DataLoader\Testing\Data\Fake;
 
-class ImageUrl extends Value {
+class Url extends Value {
     public function __invoke(): string {
-        return $this->faker->imageUrl();
+        return $this->faker->url();
     }
 }
