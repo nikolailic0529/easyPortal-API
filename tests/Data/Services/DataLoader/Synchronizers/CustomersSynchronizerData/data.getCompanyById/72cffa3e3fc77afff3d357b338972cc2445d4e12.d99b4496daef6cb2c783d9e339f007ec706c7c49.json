@@ -1,0 +1,150 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0fd07b17-3314-40b5-ac32-7189051f773b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                    "name": "Ratke, McLaughlin and Yost",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662157011025",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18303109647",
+                            "name": "Kim Kutch MD",
+                            "mail": "gleason.george@koepp.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18303109647",
+                            "name": "Kim Kutch MD",
+                            "mail": "rchamplin@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18303109647",
+                            "name": "Joaquin Abernathy DVM",
+                            "mail": "gleason.george@koepp.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "07595",
+                            "address": "576 Ebba Wall Apt. 153",
+                            "city": "Katelynnside",
+                            "locationType": null,
+                            "country": "Ecuador",
+                            "latitude": "6.221217",
+                            "longitude": "97.506822",
+                            "countryCode": "LA"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#24303e",
+                        "secondaryColor": "#38b5aa",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "https://hartmann.com/vitae-autem-impedit-enim-aliquid.html",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Et minus ullam cupiditate iusto praesentium ipsum praesentium adipisci."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Et minus ullam cupiditate iusto praesentium ipsum praesentium adipisci."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Nam modi magni repudiandae fugiat quo."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Nam modi magni repudiandae fugiat quo."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Ut in deleniti porro voluptatum tempora esse saepe qui."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Ut in deleniti porro voluptatum tempora esse saepe qui."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Harum soluta possimus quis placeat voluptatem in doloribus."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Harum soluta possimus quis placeat voluptatem in doloribus."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Harum soluta possimus quis placeat voluptatem in doloribus."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Harum soluta possimus quis placeat voluptatem in doloribus."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Culpa blanditiis fugiat velit quia."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Culpa blanditiis fugiat velit quia."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 15780,
+                        "activeAssets": 77,
+                        "activeAssetsPercentage": 0.4879594423320659,
+                        "activeCustomers": 147,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 217,
+                        "activeContractTotalAmount": 343609.47,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 25,
+                        "activeQuotes": 48,
+                        "activeQuotesTotalAmount": 360512.47,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 48,
+                        "expiredContracts": 217,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": [
+                        "ACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}
