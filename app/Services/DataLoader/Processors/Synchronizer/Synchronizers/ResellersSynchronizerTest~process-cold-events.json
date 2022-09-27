@@ -1,0 +1,130 @@
+[
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "003b32d8-2216-4550-ae14-f18ab482e3c7": "003b32d8-2216-4550-ae14-f18ab482e3c7",
+                "0048aae2-ac36-4ab5-a667-c74c3c72b50b": "0048aae2-ac36-4ab5-a667-c74c3c72b50b",
+                "0059c2eb-e149-4858-94eb-e4ae3525e37e": "0059c2eb-e149-4858-94eb-e4ae3525e37e",
+                "005a0ef4-d12a-4d72-93d7-da042004eeb6": "005a0ef4-d12a-4d72-93d7-da042004eeb6",
+                "008a65ba-701e-44a7-8923-8d228c97bf7e": "008a65ba-701e-44a7-8923-8d228c97bf7e"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": {
+                "61ac6dc8-47c4-52d6-a2a3-ba40103a6d03": "61ac6dc8-47c4-52d6-a2a3-ba40103a6d03",
+                "9dfc8ef8-d243-5d3c-9c7f-bc5ca7471cb8": "9dfc8ef8-d243-5d3c-9c7f-bc5ca7471cb8",
+                "915ba5d4-33b6-5b3b-ad3f-a79e9051c22b": "915ba5d4-33b6-5b3b-ad3f-a79e9051c22b",
+                "63a055e9-94fb-592e-8479-1e2f5b7590ec": "63a055e9-94fb-592e-8479-1e2f5b7590ec",
+                "da9859c8-9b46-5a32-a148-b6578d1b8135": "da9859c8-9b46-5a32-a148-b6578d1b8135"
+            },
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "009e19b8-90e1-4a0a-bd2b-d68f9af5db90": "009e19b8-90e1-4a0a-bd2b-d68f9af5db90",
+                "009f8d61-de1c-4cbc-a158-4c3b855889cd": "009f8d61-de1c-4cbc-a158-4c3b855889cd",
+                "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83": "00ab758b-3c8d-4ce7-8d59-1b96f49dbf83",
+                "00b36fdb-7835-40d5-b942-686d764e9baa": "00b36fdb-7835-40d5-b942-686d764e9baa",
+                "00b8d679-b5fc-49f3-b4de-167ad2f34e93": "00b8d679-b5fc-49f3-b4de-167ad2f34e93"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": {
+                "fc110b1c-b598-5344-934f-ddc58a8f9a58": "fc110b1c-b598-5344-934f-ddc58a8f9a58",
+                "0caee280-037d-56d9-b59d-54c7dc92dc96": "0caee280-037d-56d9-b59d-54c7dc92dc96",
+                "d8697595-784a-53c2-9910-5f23d5cd19ff": "d8697595-784a-53c2-9910-5f23d5cd19ff",
+                "3fb083cd-1751-56bd-a5d7-5842dd60c9e8": "3fb083cd-1751-56bd-a5d7-5842dd60c9e8",
+                "51516550-9a2d-5c38-8e76-473661e9f925": "51516550-9a2d-5c38-8e76-473661e9f925"
+            },
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "00da719b-7d05-4dd1-addb-8946051f3f89": "00da719b-7d05-4dd1-addb-8946051f3f89",
+                "00ea64b4-c5a2-4afc-b902-ba5962a9ba1d": "00ea64b4-c5a2-4afc-b902-ba5962a9ba1d",
+                "00f45edc-c98a-4a92-a472-8335d829100e": "00f45edc-c98a-4a92-a472-8335d829100e",
+                "00f64498-4aa3-49e9-bfcd-6054d95e0f0d": "00f64498-4aa3-49e9-bfcd-6054d95e0f0d",
+                "0114bd6e-ebe7-4cc1-b47f-ccdd5e4b77c6": "0114bd6e-ebe7-4cc1-b47f-ccdd5e4b77c6"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": {
+                "144f3670-09e5-5ff9-b6ae-823c1b5e6b35": "144f3670-09e5-5ff9-b6ae-823c1b5e6b35",
+                "ee7959f4-11d0-5b7f-b2e2-192356aaceef": "ee7959f4-11d0-5b7f-b2e2-192356aaceef",
+                "0cf1493a-8d20-595b-a56a-6b38591670fe": "0cf1493a-8d20-595b-a56a-6b38591670fe",
+                "ef6d4aef-6a66-5329-8338-48d8b7db4292": "ef6d4aef-6a66-5329-8338-48d8b7db4292",
+                "2abd79b6-a948-503d-b725-03b8fe0bbdba": "2abd79b6-a948-503d-b725-03b8fe0bbdba"
+            },
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "0123d583-0e8c-41ca-bd5a-f0682dbb538e": "0123d583-0e8c-41ca-bd5a-f0682dbb538e",
+                "012701e7-e4d8-46c5-9074-93ee69f0d02d": "012701e7-e4d8-46c5-9074-93ee69f0d02d",
+                "013638be-54c1-41d3-bcc0-f2d3dc855a7f": "013638be-54c1-41d3-bcc0-f2d3dc855a7f",
+                "0145ea46-012f-45d2-8440-71bdaa79fea5": "0145ea46-012f-45d2-8440-71bdaa79fea5",
+                "0152510c-9f5a-4503-ac90-f460bf984f11": "0152510c-9f5a-4503-ac90-f460bf984f11"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": {
+                "77d57bcc-9159-52c7-9b7b-6b8ef6e868e3": "77d57bcc-9159-52c7-9b7b-6b8ef6e868e3",
+                "34855786-d246-5629-b4c7-ff9a003b7476": "34855786-d246-5629-b4c7-ff9a003b7476",
+                "87bb0655-a613-5470-b105-a167d9311282": "87bb0655-a613-5470-b105-a167d9311282",
+                "e2435451-a305-5558-9593-d5f199ff3031": "e2435451-a305-5558-9593-d5f199ff3031",
+                "78d3d898-0566-5781-9510-4a708248ae25": "78d3d898-0566-5781-9510-4a708248ae25"
+            },
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "01577398-c7d4-490a-b1aa-85053bb36bb6": "01577398-c7d4-490a-b1aa-85053bb36bb6",
+                "0163199f-31d8-4514-ab3c-569f28009637": "0163199f-31d8-4514-ab3c-569f28009637",
+                "01827078-e639-431c-8ff9-493c8240704c": "01827078-e639-431c-8ff9-493c8240704c",
+                "01840600-a3ee-421f-a959-299cf6ddfabf": "01840600-a3ee-421f-a959-299cf6ddfabf",
+                "018a1f3b-3ed2-43dc-97aa-0be915d9d57b": "018a1f3b-3ed2-43dc-97aa-0be915d9d57b"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": {
+                "98e3ee4a-3b73-5f99-b2e2-9b892f09434a": "98e3ee4a-3b73-5f99-b2e2-9b892f09434a",
+                "f58ec1f7-70a7-5dc1-9397-8fae6e72fb5b": "f58ec1f7-70a7-5dc1-9397-8fae6e72fb5b",
+                "e3c922f0-caea-58a3-89c6-72dc231adb1d": "e3c922f0-caea-58a3-89c6-72dc231adb1d",
+                "234f9970-6668-5891-8b97-b1bfcfdcb038": "234f9970-6668-5891-8b97-b1bfcfdcb038",
+                "89540cb8-1099-571a-a82a-1fb91aa40b84": "89540cb8-1099-571a-a82a-1fb91aa40b84"
+            },
+            "App\\Models\\Asset": []
+        }
+    },
+    {
+        "event": "App\\Services\\DataLoader\\Events\\DataImported",
+        "data": {
+            "App\\Models\\Distributor": [],
+            "App\\Models\\Reseller": {
+                "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
+            },
+            "App\\Models\\Customer": [],
+            "App\\Models\\Document": [],
+            "App\\Models\\Data\\Location": [],
+            "App\\Models\\Asset": []
+        }
+    }
+]
