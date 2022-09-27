@@ -4,9 +4,11 @@ namespace App\Services\DataLoader\Testing\Data;
 
 use App\Services\DataLoader\Client\Client as BaseClient;
 use App\Services\DataLoader\Testing\Concerns\WithData;
+use App\Services\DataLoader\Testing\Concerns\WithLimit;
 use SplFileInfo;
 
 class Client extends BaseClient {
+    use WithLimit;
     use WithData;
 
     private ?string            $path    = null;

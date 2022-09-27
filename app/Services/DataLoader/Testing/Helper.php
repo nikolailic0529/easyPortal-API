@@ -427,7 +427,9 @@ trait Helper {
         $this->overrideUuidFactory('fbce8f60-847f-4ecb-9ba7-898bbda41dd2');
 
         $this->override(Client::class, function () use ($data): Client {
-            return $this->app->make(FakeClient::class)->setData($data);
+            return $this->app->make(FakeClient::class)
+                ->setLimit($data::LIMIT)
+                ->setData($data);
         });
 
         // Restore

@@ -203,6 +203,7 @@ abstract class Data {
         $this->app->bind(Client::class, function () use ($path, $cleaner): Client {
             return $this->app->make(DataClient::class)
                 ->setCleaner($cleaner)
+                ->setLimit(static::LIMIT)
                 ->setData(static::class)
                 ->setPath($path);
         });
