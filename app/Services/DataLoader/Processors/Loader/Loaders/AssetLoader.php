@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Processors\Importer\Importers\Assets\IteratorImporter;
 use App\Services\DataLoader\Processors\Loader\CallbackLoader;
 use App\Services\DataLoader\Processors\Loader\Concerns\WithWarrantyCheck;
@@ -17,7 +16,6 @@ use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
-use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 
 use function array_merge;
@@ -30,10 +28,6 @@ class AssetLoader extends Loader {
 
     // <editor-fold desc="Loader">
     // =========================================================================
-    protected function getModelNotFoundException(string $id): Exception {
-        return new AssetNotFound($id);
-    }
-
     /**
      * @inheritDoc
      */
@@ -61,11 +55,10 @@ class AssetLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator(new ObjectsIterator(
-                            [$state->objectId],
-                        ));
+                        ->setIterator(new ObjectsIterator([
+                            Asset::query()->whereKey($state->objectId)->first() ?? $state->objectId,
+                        ]));
                 },
-                $this->getModelNotFoundHandler(),
             ),
             new CompositeOperation(
                 'Recalculate',

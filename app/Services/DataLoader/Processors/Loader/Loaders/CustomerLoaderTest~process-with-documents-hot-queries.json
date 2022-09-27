@@ -1,5 +1,11 @@
 [
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "004d6d19-4a7d-4216-8bd5-55dbfb038e09"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09"

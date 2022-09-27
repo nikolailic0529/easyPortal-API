@@ -105,6 +105,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+        ]
+    },
+    {
         "query": "select `types`.* from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -1100,6 +1106,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "e42b0534-878d-4d43-90ec-d9c1cef59b70"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "e42b0534-878d-4d43-90ec-d9c1cef59b70"
@@ -1777,6 +1789,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "9f51cfec-ad89-4d8e-ba36-633cfa0dc14d"
@@ -2003,6 +2021,12 @@
     },
     {
         "query": "select `distributors`.* from `distributors` where (`distributors`.`id` = ?) limit 1",
+        "bindings": [
+            "1af1c44e-8112-4e72-9654-b11c705e9372"
+        ]
+    },
+    {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`id` = ? and `distributors`.`deleted_at` is null limit 1",
         "bindings": [
             "1af1c44e-8112-4e72-9654-b11c705e9372"
         ]
@@ -2435,6 +2459,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
@@ -2848,6 +2878,12 @@
         "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "ebe27e11-d579-4b5a-9d7a-9cf020770999"
         ]
     },
     {
@@ -3496,6 +3532,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "0fd07b17-3314-40b5-ac32-7189051f773b"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "0fd07b17-3314-40b5-ac32-7189051f773b"
@@ -3761,6 +3803,12 @@
         "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "0fd07b17-3314-40b5-ac32-7189051f773b"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "0501ec0a-652e-4276-81fa-8e651a098b18"
         ]
     },
     {
@@ -4169,6 +4217,12 @@
         ]
     },
     {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`id` = ? and `distributors`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a985a692-c063-499a-ab2f-0a2adef86a3f"
+        ]
+    },
+    {
         "query": "select `distributors`.* from `distributors`",
         "bindings": []
     },
@@ -4565,6 +4619,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
@@ -4738,6 +4798,12 @@
         "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "c0d99925-8b3b-47d8-9db2-9d3a5f5520a2"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f00d6934-1faa-4e3f-9de9-7f63eb6695a8"
         ]
     },
     {
@@ -5394,6 +5460,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "bcbc5086-501e-4c1b-ac49-4a969408353d"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "bcbc5086-501e-4c1b-ac49-4a969408353d"
@@ -5957,6 +6029,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "fc43a19f-45b7-41b6-92e3-6fd2b1200286"
+        ]
+    },
+    {
         "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "fc43a19f-45b7-41b6-92e3-6fd2b1200286"
@@ -6455,6 +6533,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "6974b5ee-0cb7-4121-9f8f-1995322b540d"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "6974b5ee-0cb7-4121-9f8f-1995322b540d"
@@ -6831,6 +6915,12 @@
         "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "6974b5ee-0cb7-4121-9f8f-1995322b540d"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "43a3e79c-d9f3-4cfd-be5d-edcf133e8f83"
         ]
     },
     {
@@ -7361,6 +7451,12 @@
             "c970c8ea-b676-52dd-9cca-765b3c98fd89",
             "2022-09-27 00:11:09",
             "2022-09-27 00:11:09"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "45e609ab-3a89-429e-9462-16db018a7fde"
         ]
     },
     {
@@ -7910,6 +8006,12 @@
             "ad22bcac-1017-5954-9dcc-43646db401ad",
             "2022-09-27 00:12:02",
             "2022-09-27 00:12:02"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "59d71dc6-ecd0-45de-b11f-794cbde72f2b"
         ]
     },
     {
@@ -8579,6 +8681,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "888848ed-fdc8-42c6-b932-15a6f2400b45"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "888848ed-fdc8-42c6-b932-15a6f2400b45"
@@ -9232,6 +9340,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "76eee954-e2a5-4ca9-b87d-a4aadedde9fd"
+        ]
+    },
+    {
         "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "76eee954-e2a5-4ca9-b87d-a4aadedde9fd"
@@ -9797,6 +9911,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "594184e7-24d4-4614-8db4-fe132adb86f4"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "594184e7-24d4-4614-8db4-fe132adb86f4"
@@ -10296,6 +10416,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "5a2421d6-ff79-4777-a090-fd0af98ff5f9"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "5a2421d6-ff79-4777-a090-fd0af98ff5f9"
@@ -10712,6 +10838,12 @@
             "48d38c05-a5de-5a0d-93b8-59bbb309e2a6",
             "2022-09-27 00:16:29",
             "2022-09-27 00:16:29"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "164093f3-c8fe-43d6-8580-46558eb6665f"
         ]
     },
     {
@@ -11267,6 +11399,12 @@
             "bd75d9af-edee-5129-816c-353aae2866d4",
             "2022-09-27 00:17:23",
             "2022-09-27 00:17:23"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "0bf4be29-41e0-4877-a35e-5d8d08f0b618"
         ]
     },
     {
@@ -12664,6 +12802,12 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d4d40692-3385-4423-b580-04b645b9c163"
+        ]
+    },
+    {
         "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
         "bindings": [
             "d4d40692-3385-4423-b580-04b645b9c163"
@@ -13360,6 +13504,12 @@
             "89f086de-e74d-5074-9b77-0362dfa06ae8",
             "2022-09-27 00:20:28",
             "2022-09-27 00:20:28"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d07000c8-54a2-425f-8c9e-48f3bac378d3"
         ]
     },
     {
@@ -14078,6 +14228,12 @@
         ]
     },
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "77ec115b-9723-4582-ad45-2b3a83286b1f"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "77ec115b-9723-4582-ad45-2b3a83286b1f"
@@ -14542,6 +14698,18 @@
         ]
     },
     {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "11795862-5654-4f6d-bf4a-da0361b515ed"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "11795862-5654-4f6d-bf4a-da0361b515ed"
+        ]
+    },
+    {
         "query": "select `products`.* from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
         "bindings": [
             "2318341e-7603-5c2d-a64b-9c912c9314ea",
@@ -14557,8 +14725,14 @@
             null,
             "HPE 400GB SAS 12G MU SFF SC DS SSD",
             "aa925674-7039-5393-876c-e42bcd5b8a68",
-            "2022-09-27 00:22:22",
-            "2022-09-27 00:22:22"
+            "2022-09-27 00:22:23",
+            "2022-09-27 00:22:23"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a2a32196-e319-4d35-a821-5e00fbc6feb2"
         ]
     },
     {
@@ -14593,8 +14767,8 @@
             "Damienborough",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "265c8fd9-9e93-561d-b329-18583cda1f7f",
-            "2022-09-27 00:22:25",
-            "2022-09-27 00:22:25"
+            "2022-09-27 00:22:26",
+            "2022-09-27 00:22:26"
         ]
     },
     {
@@ -14619,8 +14793,8 @@
             "-123.096447",
             "3r03qy7gsuhm",
             "caa3c6ba-8a06-55a7-90f1-a522f575eb54",
-            "2022-09-27 00:22:26",
-            "2022-09-27 00:22:26"
+            "2022-09-27 00:22:27",
+            "2022-09-27 00:22:27"
         ]
     },
     {
@@ -14653,8 +14827,8 @@
             0.0,
             0.0,
             "0f4e46e5-ca1c-5205-8bfc-7973b415e383",
-            "2022-09-27 00:22:27",
-            "2022-09-27 00:22:27"
+            "2022-09-27 00:22:28",
+            "2022-09-27 00:22:28"
         ]
     },
     {
@@ -14693,8 +14867,8 @@
             0.0,
             0.0,
             "49db2a91-4ad1-50c6-a860-f3468734ac73",
-            "2022-09-27 00:22:29",
-            "2022-09-27 00:22:29"
+            "2022-09-27 00:22:30",
+            "2022-09-27 00:22:30"
         ]
     },
     {
@@ -14707,9 +14881,9 @@
             5,
             1,
             "0f4e46e5-ca1c-5205-8bfc-7973b415e383",
-            "2022-09-27 00:22:28",
-            "2022-09-27 00:22:31",
-            "2022-09-27 00:22:31"
+            "2022-09-27 00:22:29",
+            "2022-09-27 00:22:32",
+            "2022-09-27 00:22:32"
         ]
     },
     {
@@ -14718,8 +14892,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "a2a32196-e319-4d35-a821-5e00fbc6feb2",
             "3106c8c3-a816-55b5-8cd9-d4e9ce2516b8",
-            "2022-09-27 00:22:32",
-            "2022-09-27 00:22:32"
+            "2022-09-27 00:22:33",
+            "2022-09-27 00:22:33"
         ]
     },
     {
@@ -14732,8 +14906,8 @@
             null,
             true,
             "9bf98eb7-8aa0-54b1-a6e2-d0e055ee7017",
-            "2022-09-27 00:22:33",
-            "2022-09-27 00:22:33"
+            "2022-09-27 00:22:34",
+            "2022-09-27 00:22:34"
         ]
     },
     {
@@ -14742,8 +14916,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "9bf98eb7-8aa0-54b1-a6e2-d0e055ee7017",
             "ff86dc7a-5751-5318-8969-9ec0f17ba97e",
-            "2022-09-27 00:22:34",
-            "2022-09-27 00:22:34"
+            "2022-09-27 00:22:35",
+            "2022-09-27 00:22:35"
         ]
     },
     {
@@ -14756,8 +14930,8 @@
             null,
             true,
             "529bdedf-6261-5f9f-a327-d71ca4823907",
-            "2022-09-27 00:22:35",
-            "2022-09-27 00:22:35"
+            "2022-09-27 00:22:36",
+            "2022-09-27 00:22:36"
         ]
     },
     {
@@ -14766,8 +14940,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "529bdedf-6261-5f9f-a327-d71ca4823907",
             "244da719-9c8d-50d7-8cb9-56abfbd99dc8",
-            "2022-09-27 00:22:36",
-            "2022-09-27 00:22:36"
+            "2022-09-27 00:22:37",
+            "2022-09-27 00:22:37"
         ]
     },
     {
@@ -14780,8 +14954,8 @@
             null,
             null,
             "c93367a0-99d1-5c58-a37f-709866f4b721",
-            "2022-09-27 00:22:37",
-            "2022-09-27 00:22:37"
+            "2022-09-27 00:22:38",
+            "2022-09-27 00:22:38"
         ]
     },
     {
@@ -14790,8 +14964,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c93367a0-99d1-5c58-a37f-709866f4b721",
             "9d24154a-df15-5394-923c-bb006dac302b",
-            "2022-09-27 00:22:38",
-            "2022-09-27 00:22:38"
+            "2022-09-27 00:22:39",
+            "2022-09-27 00:22:39"
         ]
     },
     {
@@ -14804,8 +14978,8 @@
             null,
             null,
             "03b9c53f-f284-5803-abd2-55adb768426c",
-            "2022-09-27 00:22:39",
-            "2022-09-27 00:22:39"
+            "2022-09-27 00:22:40",
+            "2022-09-27 00:22:40"
         ]
     },
     {
@@ -14814,8 +14988,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "03b9c53f-f284-5803-abd2-55adb768426c",
             "d0922083-3a61-5fa6-9581-0a92cb04d6d6",
-            "2022-09-27 00:22:40",
-            "2022-09-27 00:22:40"
+            "2022-09-27 00:22:41",
+            "2022-09-27 00:22:41"
         ]
     },
     {
@@ -14828,8 +15002,8 @@
             null,
             true,
             "8984f02f-5adf-53d5-8ac8-8fd1b176152a",
-            "2022-09-27 00:22:41",
-            "2022-09-27 00:22:41"
+            "2022-09-27 00:22:42",
+            "2022-09-27 00:22:42"
         ]
     },
     {
@@ -14838,8 +15012,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "8984f02f-5adf-53d5-8ac8-8fd1b176152a",
             "daf3d91b-420e-5be7-9f0a-b11408dfc4f7",
-            "2022-09-27 00:22:42",
-            "2022-09-27 00:22:42"
+            "2022-09-27 00:22:43",
+            "2022-09-27 00:22:43"
         ]
     },
     {
@@ -14848,19 +15022,19 @@
             "a2a32196-e319-4d35-a821-5e00fbc6feb2",
             "caa3c6ba-8a06-55a7-90f1-a522f575eb54",
             "c710be6e-8c21-569a-8937-e4cfcec373fe",
-            "2022-09-27 00:22:43",
-            "2022-09-27 00:22:43"
+            "2022-09-27 00:22:44",
+            "2022-09-27 00:22:44"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:22:30",
+            "2022-09-27 00:22:31",
             "a2a32196-e319-4d35-a821-5e00fbc6feb2",
             "068f48ad-8b0d-5bf8-afe2-b06a73f1b21a",
             "49db2a91-4ad1-50c6-a860-f3468734ac73",
             "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "2022-09-27 00:22:30"
+            "2022-09-27 00:22:31"
         ]
     },
     {
@@ -14883,8 +15057,8 @@
             "Damienborough",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "5c5ac388-2350-561d-93af-c9e394366d98",
-            "2022-09-27 00:22:46",
-            "2022-09-27 00:22:46"
+            "2022-09-27 00:22:47",
+            "2022-09-27 00:22:47"
         ]
     },
     {
@@ -14909,8 +15083,8 @@
             null,
             null,
             "c2f19aa7-fa7d-5f5d-832e-79ff935a31ec",
-            "2022-09-27 00:22:47",
-            "2022-09-27 00:22:47"
+            "2022-09-27 00:22:48",
+            "2022-09-27 00:22:48"
         ]
     },
     {
@@ -14929,9 +15103,9 @@
             "80",
             3,
             1,
-            "2022-09-27 00:22:49",
             "2022-09-27 00:22:50",
-            "2022-09-27 00:22:50"
+            "2022-09-27 00:22:51",
+            "2022-09-27 00:22:51"
         ]
     },
     {
@@ -14944,8 +15118,8 @@
             null,
             true,
             "b25477b9-8dc3-58a3-826d-0c282a388f8d",
-            "2022-09-27 00:22:51",
-            "2022-09-27 00:22:51"
+            "2022-09-27 00:22:52",
+            "2022-09-27 00:22:52"
         ]
     },
     {
@@ -14954,8 +15128,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "b25477b9-8dc3-58a3-826d-0c282a388f8d",
             "e261df17-ceb7-5496-86cb-38e753dcf0b7",
-            "2022-09-27 00:22:52",
-            "2022-09-27 00:22:52"
+            "2022-09-27 00:22:53",
+            "2022-09-27 00:22:53"
         ]
     },
     {
@@ -14968,8 +15142,8 @@
             "zcollier@hotmail.com",
             true,
             "ceb38ce6-4d5c-5b01-83fd-dd1d0285f36a",
-            "2022-09-27 00:22:53",
-            "2022-09-27 00:22:53"
+            "2022-09-27 00:22:54",
+            "2022-09-27 00:22:54"
         ]
     },
     {
@@ -14978,8 +15152,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "ceb38ce6-4d5c-5b01-83fd-dd1d0285f36a",
             "2a906a71-e755-5a7b-bacc-bcddb06084a2",
-            "2022-09-27 00:22:54",
-            "2022-09-27 00:22:54"
+            "2022-09-27 00:22:55",
+            "2022-09-27 00:22:55"
         ]
     },
     {
@@ -14992,8 +15166,8 @@
             "rkuvalis@yahoo.com",
             true,
             "e5c40377-b18d-5590-b548-ab85f4f4275b",
-            "2022-09-27 00:22:55",
-            "2022-09-27 00:22:55"
+            "2022-09-27 00:22:56",
+            "2022-09-27 00:22:56"
         ]
     },
     {
@@ -15002,8 +15176,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "e5c40377-b18d-5590-b548-ab85f4f4275b",
             "7da3600d-0751-5114-9a6c-4df1ba0be2e0",
-            "2022-09-27 00:22:56",
-            "2022-09-27 00:22:56"
+            "2022-09-27 00:22:57",
+            "2022-09-27 00:22:57"
         ]
     },
     {
@@ -15012,8 +15186,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "0009de52-4eaf-49a8-9135-4326dc9df8cb",
             "7f103a01-8eda-59d1-bc5e-2c6ac9e55c06",
-            "2022-09-27 00:22:57",
-            "2022-09-27 00:22:57"
+            "2022-09-27 00:22:58",
+            "2022-09-27 00:22:58"
         ]
     },
     {
@@ -15035,11 +15209,11 @@
             "15c03df3-210b-305a-9def-062953c57856",
             "2022-06-03 13:27:26",
             4,
-            "2022-09-27 00:23:01",
-            0,
-            0,
             "2022-09-27 00:23:02",
-            "2022-09-27 00:23:02"
+            0,
+            0,
+            "2022-09-27 00:23:03",
+            "2022-09-27 00:23:03"
         ]
     },
     {
@@ -15052,28 +15226,28 @@
             null,
             true,
             "b8f47c12-8585-53ad-8ac2-e5bc275c8bc1",
-            "2022-09-27 00:23:03",
-            "2022-09-27 00:23:03"
+            "2022-09-27 00:23:04",
+            "2022-09-27 00:23:04"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "b8f47c12-8585-53ad-8ac2-e5bc275c8bc1",
-            "2022-09-27 00:23:04",
+            "2022-09-27 00:23:05",
             "9cdd1f47-4d64-52f3-8c28-70e9c4489b51",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:23:04",
-            "b8f47c12-8585-53ad-8ac2-e5bc275c8bc1",
-            "2022-09-27 00:23:05",
-            "4e36a48b-fcde-5ca3-8f72-b1a5bc5c5c9d",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:23:05",
             "b8f47c12-8585-53ad-8ac2-e5bc275c8bc1",
             "2022-09-27 00:23:06",
+            "4e36a48b-fcde-5ca3-8f72-b1a5bc5c5c9d",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:23:06",
+            "b8f47c12-8585-53ad-8ac2-e5bc275c8bc1",
+            "2022-09-27 00:23:07",
             "4c33e895-4d40-549b-af8f-e867b650978a",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:23:06"
+            "2022-09-27 00:23:07"
         ]
     },
     {
@@ -15086,8 +15260,8 @@
             "zcollier@hotmail.com",
             true,
             "978fe5d7-4292-552b-a60f-8f4ef0f54d33",
-            "2022-09-27 00:23:07",
-            "2022-09-27 00:23:07"
+            "2022-09-27 00:23:08",
+            "2022-09-27 00:23:08"
         ]
     },
     {
@@ -15096,8 +15270,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "978fe5d7-4292-552b-a60f-8f4ef0f54d33",
             "d8da9ebb-1638-56a0-9fdc-c375da8da95c",
-            "2022-09-27 00:23:08",
-            "2022-09-27 00:23:08"
+            "2022-09-27 00:23:09",
+            "2022-09-27 00:23:09"
         ]
     },
     {
@@ -15110,8 +15284,8 @@
             "rkuvalis@yahoo.com",
             true,
             "ce3c93d2-07bc-5e77-af4a-5dbf0e99beb6",
-            "2022-09-27 00:23:09",
-            "2022-09-27 00:23:09"
+            "2022-09-27 00:23:10",
+            "2022-09-27 00:23:10"
         ]
     },
     {
@@ -15120,8 +15294,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "ce3c93d2-07bc-5e77-af4a-5dbf0e99beb6",
             "5dc43222-7451-51be-b9fd-2562da9a7370",
-            "2022-09-27 00:23:10",
-            "2022-09-27 00:23:10"
+            "2022-09-27 00:23:11",
+            "2022-09-27 00:23:11"
         ]
     },
     {
@@ -15134,8 +15308,8 @@
             null,
             true,
             "411f7ca3-8c25-5068-a767-ae936fb92c0a",
-            "2022-09-27 00:23:11",
-            "2022-09-27 00:23:11"
+            "2022-09-27 00:23:12",
+            "2022-09-27 00:23:12"
         ]
     },
     {
@@ -15144,8 +15318,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "411f7ca3-8c25-5068-a767-ae936fb92c0a",
             "d8ee5ee4-9a42-5c6d-8a4e-b47387a4e606",
-            "2022-09-27 00:23:12",
-            "2022-09-27 00:23:12"
+            "2022-09-27 00:23:13",
+            "2022-09-27 00:23:13"
         ]
     },
     {
@@ -15158,7 +15332,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:23:13",
+            "2022-09-27 00:23:14",
             "0009de52-4eaf-49a8-9135-4326dc9df8cb"
         ]
     },
@@ -15178,8 +15352,14 @@
             null,
             "HP 3PAR 8000 480GB SAS cMLC SFF SSD",
             "461590a5-76b7-5b55-a199-9b550b9eb192",
-            "2022-09-27 00:23:21",
-            "2022-09-27 00:23:21"
+            "2022-09-27 00:23:22",
+            "2022-09-27 00:23:22"
+        ]
+    },
+    {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
         ]
     },
     {
@@ -15208,8 +15388,8 @@
             "Lydamouth",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "e01659db-cbd7-53f8-9123-4c390b8f683f",
-            "2022-09-27 00:23:24",
-            "2022-09-27 00:23:24"
+            "2022-09-27 00:23:25",
+            "2022-09-27 00:23:25"
         ]
     },
     {
@@ -15234,8 +15414,8 @@
             "-5.392406",
             "efujjk325zde",
             "97999c27-1926-556a-a0ba-e32adf3edeee",
-            "2022-09-27 00:23:25",
-            "2022-09-27 00:23:25"
+            "2022-09-27 00:23:26",
+            "2022-09-27 00:23:26"
         ]
     },
     {
@@ -15268,8 +15448,8 @@
             0.0,
             0.0,
             "e432b8a9-11d0-5cdb-a2d3-e56a77226305",
-            "2022-09-27 00:23:26",
-            "2022-09-27 00:23:26"
+            "2022-09-27 00:23:27",
+            "2022-09-27 00:23:27"
         ]
     },
     {
@@ -15282,11 +15462,11 @@
             17,
             1,
             "e432b8a9-11d0-5cdb-a2d3-e56a77226305",
-            "2022-09-27 00:23:27",
-            0,
-            0,
             "2022-09-27 00:23:28",
-            "2022-09-27 00:23:28"
+            0,
+            0,
+            "2022-09-27 00:23:29",
+            "2022-09-27 00:23:29"
         ]
     },
     {
@@ -15299,8 +15479,8 @@
             "douglas.manuel@jast.com",
             true,
             "8c93ac1a-e9f3-5f73-a71a-9632de91b830",
-            "2022-09-27 00:23:29",
-            "2022-09-27 00:23:29"
+            "2022-09-27 00:23:30",
+            "2022-09-27 00:23:30"
         ]
     },
     {
@@ -15309,8 +15489,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "8c93ac1a-e9f3-5f73-a71a-9632de91b830",
             "bb3b5d23-22a1-5c66-b26b-b24b99666b1f",
-            "2022-09-27 00:23:30",
-            "2022-09-27 00:23:30"
+            "2022-09-27 00:23:31",
+            "2022-09-27 00:23:31"
         ]
     },
     {
@@ -15323,8 +15503,8 @@
             "letitia.kub@braun.net",
             true,
             "dfe8d907-9e9e-50d0-9bab-7d6d279213ef",
-            "2022-09-27 00:23:31",
-            "2022-09-27 00:23:31"
+            "2022-09-27 00:23:32",
+            "2022-09-27 00:23:32"
         ]
     },
     {
@@ -15333,8 +15513,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "dfe8d907-9e9e-50d0-9bab-7d6d279213ef",
             "b1467154-eefb-5083-b84d-ae6595f03030",
-            "2022-09-27 00:23:32",
-            "2022-09-27 00:23:32"
+            "2022-09-27 00:23:33",
+            "2022-09-27 00:23:33"
         ]
     },
     {
@@ -15347,8 +15527,8 @@
             "michel.gislason@gmail.com",
             true,
             "f5ceaa7e-a838-58e2-9cad-dd9ad33304f0",
-            "2022-09-27 00:23:33",
-            "2022-09-27 00:23:33"
+            "2022-09-27 00:23:34",
+            "2022-09-27 00:23:34"
         ]
     },
     {
@@ -15357,8 +15537,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "f5ceaa7e-a838-58e2-9cad-dd9ad33304f0",
             "1117b1e3-4714-5442-9fdc-70d336c2f92e",
-            "2022-09-27 00:23:34",
-            "2022-09-27 00:23:34"
+            "2022-09-27 00:23:35",
+            "2022-09-27 00:23:35"
         ]
     },
     {
@@ -15371,8 +15551,8 @@
             "kschmitt@howell.net",
             true,
             "aea18e63-1cbf-5be3-b1b2-fa48bda4ae93",
-            "2022-09-27 00:23:35",
-            "2022-09-27 00:23:35"
+            "2022-09-27 00:23:36",
+            "2022-09-27 00:23:36"
         ]
     },
     {
@@ -15381,8 +15561,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "aea18e63-1cbf-5be3-b1b2-fa48bda4ae93",
             "05f6c567-62a2-5627-be99-eafb27d85991",
-            "2022-09-27 00:23:36",
-            "2022-09-27 00:23:36"
+            "2022-09-27 00:23:37",
+            "2022-09-27 00:23:37"
         ]
     },
     {
@@ -15395,8 +15575,8 @@
             "chasity.weber@hotmail.com",
             true,
             "eb1289e6-3bf8-5073-86af-c3ea4f841f52",
-            "2022-09-27 00:23:37",
-            "2022-09-27 00:23:37"
+            "2022-09-27 00:23:38",
+            "2022-09-27 00:23:38"
         ]
     },
     {
@@ -15405,8 +15585,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "eb1289e6-3bf8-5073-86af-c3ea4f841f52",
             "e2032570-7b0c-5a12-ada1-58164ccbfa50",
-            "2022-09-27 00:23:38",
-            "2022-09-27 00:23:38"
+            "2022-09-27 00:23:39",
+            "2022-09-27 00:23:39"
         ]
     },
     {
@@ -15419,8 +15599,8 @@
             "beatty.judson@vandervort.biz",
             true,
             "079e97d5-2609-5fae-943d-422792264232",
-            "2022-09-27 00:23:39",
-            "2022-09-27 00:23:39"
+            "2022-09-27 00:23:40",
+            "2022-09-27 00:23:40"
         ]
     },
     {
@@ -15429,8 +15609,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "079e97d5-2609-5fae-943d-422792264232",
             "4e76cbc3-af3c-5979-8978-b91b5cc0ac1a",
-            "2022-09-27 00:23:40",
-            "2022-09-27 00:23:40"
+            "2022-09-27 00:23:41",
+            "2022-09-27 00:23:41"
         ]
     },
     {
@@ -15443,8 +15623,8 @@
             "stiedemann.broderick@bradtke.com",
             true,
             "c6147e89-6374-5c04-a3cf-eca74268b4e8",
-            "2022-09-27 00:23:41",
-            "2022-09-27 00:23:41"
+            "2022-09-27 00:23:42",
+            "2022-09-27 00:23:42"
         ]
     },
     {
@@ -15453,8 +15633,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c6147e89-6374-5c04-a3cf-eca74268b4e8",
             "7dca8264-df72-580d-b113-15516da303fb",
-            "2022-09-27 00:23:42",
-            "2022-09-27 00:23:42"
+            "2022-09-27 00:23:43",
+            "2022-09-27 00:23:43"
         ]
     },
     {
@@ -15467,8 +15647,8 @@
             "danial.krajcik@johnson.net",
             true,
             "acf0e58b-5dc7-59e8-9db8-e55609fb0ee3",
-            "2022-09-27 00:23:43",
-            "2022-09-27 00:23:43"
+            "2022-09-27 00:23:44",
+            "2022-09-27 00:23:44"
         ]
     },
     {
@@ -15477,8 +15657,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "acf0e58b-5dc7-59e8-9db8-e55609fb0ee3",
             "7bb89694-0145-570a-a2f8-abe890c9d425",
-            "2022-09-27 00:23:44",
-            "2022-09-27 00:23:44"
+            "2022-09-27 00:23:45",
+            "2022-09-27 00:23:45"
         ]
     },
     {
@@ -15491,8 +15671,8 @@
             "berenice78@gleason.org",
             true,
             "946ffd35-bda0-5d5d-a3e9-5e226de3c948",
-            "2022-09-27 00:23:45",
-            "2022-09-27 00:23:45"
+            "2022-09-27 00:23:46",
+            "2022-09-27 00:23:46"
         ]
     },
     {
@@ -15501,8 +15681,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "946ffd35-bda0-5d5d-a3e9-5e226de3c948",
             "e6a4548a-b4d4-5ce7-bb3a-6489cd525270",
-            "2022-09-27 00:23:46",
-            "2022-09-27 00:23:46"
+            "2022-09-27 00:23:47",
+            "2022-09-27 00:23:47"
         ]
     },
     {
@@ -15515,8 +15695,8 @@
             "marielle.mosciski@hotmail.com",
             null,
             "90f44626-1220-5716-97ba-75a3bba91a71",
-            "2022-09-27 00:23:47",
-            "2022-09-27 00:23:47"
+            "2022-09-27 00:23:48",
+            "2022-09-27 00:23:48"
         ]
     },
     {
@@ -15525,8 +15705,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "90f44626-1220-5716-97ba-75a3bba91a71",
             "7c92eaf9-e068-57fc-8a4b-b57144abd528",
-            "2022-09-27 00:23:48",
-            "2022-09-27 00:23:48"
+            "2022-09-27 00:23:49",
+            "2022-09-27 00:23:49"
         ]
     },
     {
@@ -15539,8 +15719,8 @@
             "abraham64@yahoo.com",
             true,
             "8f9afa18-f3e5-581f-8e98-b86fedc3c0e8",
-            "2022-09-27 00:23:49",
-            "2022-09-27 00:23:49"
+            "2022-09-27 00:23:50",
+            "2022-09-27 00:23:50"
         ]
     },
     {
@@ -15549,8 +15729,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "8f9afa18-f3e5-581f-8e98-b86fedc3c0e8",
             "b3687512-a07d-5916-9c55-2eb5a2bf85e8",
-            "2022-09-27 00:23:50",
-            "2022-09-27 00:23:50"
+            "2022-09-27 00:23:51",
+            "2022-09-27 00:23:51"
         ]
     },
     {
@@ -15563,8 +15743,8 @@
             "ikemmer@yahoo.com",
             true,
             "dcb7a05c-0770-5c79-9ee5-baa3e5a2771a",
-            "2022-09-27 00:23:51",
-            "2022-09-27 00:23:51"
+            "2022-09-27 00:23:52",
+            "2022-09-27 00:23:52"
         ]
     },
     {
@@ -15573,8 +15753,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "dcb7a05c-0770-5c79-9ee5-baa3e5a2771a",
             "2c747416-5ddf-53e7-9582-65213f419efb",
-            "2022-09-27 00:23:52",
-            "2022-09-27 00:23:52"
+            "2022-09-27 00:23:53",
+            "2022-09-27 00:23:53"
         ]
     },
     {
@@ -15587,8 +15767,8 @@
             "cartwright.savanna@windler.com",
             true,
             "01065b8c-e33c-5348-8215-e5ad4c561187",
-            "2022-09-27 00:23:53",
-            "2022-09-27 00:23:53"
+            "2022-09-27 00:23:54",
+            "2022-09-27 00:23:54"
         ]
     },
     {
@@ -15597,8 +15777,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "01065b8c-e33c-5348-8215-e5ad4c561187",
             "0ba12f94-32ce-5549-ae68-383053044525",
-            "2022-09-27 00:23:54",
-            "2022-09-27 00:23:54"
+            "2022-09-27 00:23:55",
+            "2022-09-27 00:23:55"
         ]
     },
     {
@@ -15611,8 +15791,8 @@
             "bo.spinka@crona.com",
             true,
             "4c77dc68-ed9a-5478-9eb8-d23877606df8",
-            "2022-09-27 00:23:55",
-            "2022-09-27 00:23:55"
+            "2022-09-27 00:23:56",
+            "2022-09-27 00:23:56"
         ]
     },
     {
@@ -15621,8 +15801,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "4c77dc68-ed9a-5478-9eb8-d23877606df8",
             "88880446-5efc-59d9-bf1b-a565f281a080",
-            "2022-09-27 00:23:56",
-            "2022-09-27 00:23:56"
+            "2022-09-27 00:23:57",
+            "2022-09-27 00:23:57"
         ]
     },
     {
@@ -15635,8 +15815,8 @@
             "klegros@yahoo.com",
             true,
             "155875a8-da89-5fba-bca1-f515177d6856",
-            "2022-09-27 00:23:57",
-            "2022-09-27 00:23:57"
+            "2022-09-27 00:23:58",
+            "2022-09-27 00:23:58"
         ]
     },
     {
@@ -15645,8 +15825,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "155875a8-da89-5fba-bca1-f515177d6856",
             "e8d0ff9a-338f-5f2a-9bb0-b7dbed7b32b4",
-            "2022-09-27 00:23:58",
-            "2022-09-27 00:23:58"
+            "2022-09-27 00:23:59",
+            "2022-09-27 00:23:59"
         ]
     },
     {
@@ -15659,8 +15839,8 @@
             "douglas.manuel@jast.com",
             null,
             "5ae24edc-f377-547d-8a06-cd3ffbf9a0fe",
-            "2022-09-27 00:23:59",
-            "2022-09-27 00:23:59"
+            "2022-09-27 00:24:00",
+            "2022-09-27 00:24:00"
         ]
     },
     {
@@ -15669,8 +15849,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "5ae24edc-f377-547d-8a06-cd3ffbf9a0fe",
             "64473a05-1a70-56d5-9bfe-7527d2912ede",
-            "2022-09-27 00:24:00",
-            "2022-09-27 00:24:00"
+            "2022-09-27 00:24:01",
+            "2022-09-27 00:24:01"
         ]
     },
     {
@@ -15683,8 +15863,8 @@
             "shoppe@beatty.com",
             true,
             "1151f0f4-28f9-5236-9480-f132519ea292",
-            "2022-09-27 00:24:01",
-            "2022-09-27 00:24:01"
+            "2022-09-27 00:24:02",
+            "2022-09-27 00:24:02"
         ]
     },
     {
@@ -15693,8 +15873,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "1151f0f4-28f9-5236-9480-f132519ea292",
             "23a06e5e-28b8-53d7-8780-9473095784ca",
-            "2022-09-27 00:24:02",
-            "2022-09-27 00:24:02"
+            "2022-09-27 00:24:03",
+            "2022-09-27 00:24:03"
         ]
     },
     {
@@ -15703,8 +15883,8 @@
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "97999c27-1926-556a-a0ba-e32adf3edeee",
             "4f0e382b-392d-5046-9a4f-bafeb52f5e31",
-            "2022-09-27 00:24:03",
-            "2022-09-27 00:24:03"
+            "2022-09-27 00:24:04",
+            "2022-09-27 00:24:04"
         ]
     },
     {
@@ -15719,14 +15899,20 @@
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
             "Reseller",
             "Koss LLC",
-            "2022-09-27 00:24:04",
-            "2022-09-27 00:24:04"
+            "2022-09-27 00:24:05",
+            "2022-09-27 00:24:05"
         ]
     },
     {
         "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
         "bindings": [
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a4390aca-ea05-402c-8f33-a2b6b3b9318c"
         ]
     },
     {
@@ -15761,8 +15947,8 @@
             "Lake Savannahtown",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "00f2ef89-e77f-516c-aae8-5167bc64ca27",
-            "2022-09-27 00:24:11",
-            "2022-09-27 00:24:11"
+            "2022-09-27 00:24:12",
+            "2022-09-27 00:24:12"
         ]
     },
     {
@@ -15787,8 +15973,8 @@
             "-43.812767",
             "e48vgh8x8s9j",
             "c3d9099f-0ea6-5da3-8ca7-56340f9f4471",
-            "2022-09-27 00:24:12",
-            "2022-09-27 00:24:12"
+            "2022-09-27 00:24:13",
+            "2022-09-27 00:24:13"
         ]
     },
     {
@@ -15821,8 +16007,8 @@
             0.0,
             0.0,
             "a63aa820-9165-5e5c-8b01-d7592b7b03d9",
-            "2022-09-27 00:24:13",
-            "2022-09-27 00:24:13"
+            "2022-09-27 00:24:14",
+            "2022-09-27 00:24:14"
         ]
     },
     {
@@ -15861,8 +16047,8 @@
             0.0,
             0.0,
             "96c855fe-71c1-51a6-abec-89316399ffd3",
-            "2022-09-27 00:24:15",
-            "2022-09-27 00:24:15"
+            "2022-09-27 00:24:16",
+            "2022-09-27 00:24:16"
         ]
     },
     {
@@ -15875,9 +16061,9 @@
             4,
             1,
             "a63aa820-9165-5e5c-8b01-d7592b7b03d9",
-            "2022-09-27 00:24:14",
-            "2022-09-27 00:24:17",
-            "2022-09-27 00:24:17"
+            "2022-09-27 00:24:15",
+            "2022-09-27 00:24:18",
+            "2022-09-27 00:24:18"
         ]
     },
     {
@@ -15886,8 +16072,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
             "721c3f8b-ffc7-5df6-aa60-8e21ab693d6e",
-            "2022-09-27 00:24:18",
-            "2022-09-27 00:24:18"
+            "2022-09-27 00:24:19",
+            "2022-09-27 00:24:19"
         ]
     },
     {
@@ -15900,8 +16086,8 @@
             null,
             true,
             "9d847c2f-d512-5c6f-862e-3397c92bc29e",
-            "2022-09-27 00:24:19",
-            "2022-09-27 00:24:19"
+            "2022-09-27 00:24:20",
+            "2022-09-27 00:24:20"
         ]
     },
     {
@@ -15910,8 +16096,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "9d847c2f-d512-5c6f-862e-3397c92bc29e",
             "23695537-6b25-54b7-99e2-f95fa49c9807",
-            "2022-09-27 00:24:20",
-            "2022-09-27 00:24:20"
+            "2022-09-27 00:24:21",
+            "2022-09-27 00:24:21"
         ]
     },
     {
@@ -15924,8 +16110,8 @@
             null,
             true,
             "dee22d36-dd0d-5b4b-aa77-afad60704007",
-            "2022-09-27 00:24:21",
-            "2022-09-27 00:24:21"
+            "2022-09-27 00:24:22",
+            "2022-09-27 00:24:22"
         ]
     },
     {
@@ -15934,8 +16120,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "dee22d36-dd0d-5b4b-aa77-afad60704007",
             "94a6f43b-6844-561a-8b10-2e96f885fee4",
-            "2022-09-27 00:24:22",
-            "2022-09-27 00:24:22"
+            "2022-09-27 00:24:23",
+            "2022-09-27 00:24:23"
         ]
     },
     {
@@ -15948,8 +16134,8 @@
             null,
             true,
             "675a8b19-6eb1-5444-b2c8-5cb4bd34ef91",
-            "2022-09-27 00:24:23",
-            "2022-09-27 00:24:23"
+            "2022-09-27 00:24:24",
+            "2022-09-27 00:24:24"
         ]
     },
     {
@@ -15958,8 +16144,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "675a8b19-6eb1-5444-b2c8-5cb4bd34ef91",
             "e589324a-1f7a-5985-a6d6-1e3289a2dcdd",
-            "2022-09-27 00:24:24",
-            "2022-09-27 00:24:24"
+            "2022-09-27 00:24:25",
+            "2022-09-27 00:24:25"
         ]
     },
     {
@@ -15972,8 +16158,8 @@
             "alana83@dietrich.com",
             true,
             "0e01dce6-2e06-5376-bae5-5613467474cd",
-            "2022-09-27 00:24:25",
-            "2022-09-27 00:24:25"
+            "2022-09-27 00:24:26",
+            "2022-09-27 00:24:26"
         ]
     },
     {
@@ -15982,8 +16168,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "0e01dce6-2e06-5376-bae5-5613467474cd",
             "4bc1fa2d-ffb3-5d04-a2c2-e24eec610e65",
-            "2022-09-27 00:24:26",
-            "2022-09-27 00:24:26"
+            "2022-09-27 00:24:27",
+            "2022-09-27 00:24:27"
         ]
     },
     {
@@ -15992,19 +16178,19 @@
             "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
             "c3d9099f-0ea6-5da3-8ca7-56340f9f4471",
             "c51063d9-ac29-5969-ae21-c344a95379b2",
-            "2022-09-27 00:24:27",
-            "2022-09-27 00:24:27"
+            "2022-09-27 00:24:28",
+            "2022-09-27 00:24:28"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:24:16",
+            "2022-09-27 00:24:17",
             "a4390aca-ea05-402c-8f33-a2b6b3b9318c",
             "672a4216-5b49-54c2-b85a-b0f41a274846",
             "96c855fe-71c1-51a6-abec-89316399ffd3",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "2022-09-27 00:24:16"
+            "2022-09-27 00:24:17"
         ]
     },
     {
@@ -16027,8 +16213,8 @@
             "Hauckstad",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "e7b4f635-1254-5cea-8978-6a73d304443d",
-            "2022-09-27 00:24:30",
-            "2022-09-27 00:24:30"
+            "2022-09-27 00:24:31",
+            "2022-09-27 00:24:31"
         ]
     },
     {
@@ -16053,8 +16239,8 @@
             null,
             null,
             "0f639be5-113c-59e2-9e21-51b5feb351a4",
-            "2022-09-27 00:24:31",
-            "2022-09-27 00:24:31"
+            "2022-09-27 00:24:32",
+            "2022-09-27 00:24:32"
         ]
     },
     {
@@ -16073,9 +16259,9 @@
             "80",
             3,
             1,
-            "2022-09-27 00:24:33",
             "2022-09-27 00:24:34",
-            "2022-09-27 00:24:34"
+            "2022-09-27 00:24:35",
+            "2022-09-27 00:24:35"
         ]
     },
     {
@@ -16088,8 +16274,8 @@
             null,
             true,
             "d31354da-fd8e-5d8b-bdaf-be425153f2c0",
-            "2022-09-27 00:24:35",
-            "2022-09-27 00:24:35"
+            "2022-09-27 00:24:36",
+            "2022-09-27 00:24:36"
         ]
     },
     {
@@ -16098,8 +16284,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "d31354da-fd8e-5d8b-bdaf-be425153f2c0",
             "8ddec870-8a64-5cea-915a-af00c8b5c5bf",
-            "2022-09-27 00:24:36",
-            "2022-09-27 00:24:36"
+            "2022-09-27 00:24:37",
+            "2022-09-27 00:24:37"
         ]
     },
     {
@@ -16112,8 +16298,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "f798d47a-b5a9-51aa-b2e6-8055e7bf047a",
-            "2022-09-27 00:24:37",
-            "2022-09-27 00:24:37"
+            "2022-09-27 00:24:38",
+            "2022-09-27 00:24:38"
         ]
     },
     {
@@ -16122,8 +16308,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "f798d47a-b5a9-51aa-b2e6-8055e7bf047a",
             "72e10f8b-11dd-5439-8774-9c2a96fa4c08",
-            "2022-09-27 00:24:38",
-            "2022-09-27 00:24:38"
+            "2022-09-27 00:24:39",
+            "2022-09-27 00:24:39"
         ]
     },
     {
@@ -16136,8 +16322,8 @@
             "abraham64@yahoo.com",
             true,
             "59cb1314-4367-5de6-96d6-a8c2fec6c2ac",
-            "2022-09-27 00:24:39",
-            "2022-09-27 00:24:39"
+            "2022-09-27 00:24:40",
+            "2022-09-27 00:24:40"
         ]
     },
     {
@@ -16146,8 +16332,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "59cb1314-4367-5de6-96d6-a8c2fec6c2ac",
             "c2a1cfec-cfc9-5630-8b7e-fffa014fea2d",
-            "2022-09-27 00:24:40",
-            "2022-09-27 00:24:40"
+            "2022-09-27 00:24:41",
+            "2022-09-27 00:24:41"
         ]
     },
     {
@@ -16156,8 +16342,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000a6be5-be43-4291-b0b3-a560814bdfdf",
             "ecd99fa9-22e3-5eda-93cf-f297d203e27d",
-            "2022-09-27 00:24:41",
-            "2022-09-27 00:24:41"
+            "2022-09-27 00:24:42",
+            "2022-09-27 00:24:42"
         ]
     },
     {
@@ -16179,11 +16365,11 @@
             "49b8d833-7e4c-315b-8739-71c27392d9f6",
             "2022-06-03 13:27:26",
             4,
-            "2022-09-27 00:24:45",
-            0,
-            0,
             "2022-09-27 00:24:46",
-            "2022-09-27 00:24:46"
+            0,
+            0,
+            "2022-09-27 00:24:47",
+            "2022-09-27 00:24:47"
         ]
     },
     {
@@ -16196,28 +16382,28 @@
             null,
             true,
             "9f5c8e59-aec9-5876-a569-ae39dd845c3f",
-            "2022-09-27 00:24:47",
-            "2022-09-27 00:24:47"
+            "2022-09-27 00:24:48",
+            "2022-09-27 00:24:48"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "9f5c8e59-aec9-5876-a569-ae39dd845c3f",
-            "2022-09-27 00:24:48",
+            "2022-09-27 00:24:49",
             "d0d85ee3-0b17-5bce-bc49-e1dae29fdeb6",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:24:48",
-            "9f5c8e59-aec9-5876-a569-ae39dd845c3f",
-            "2022-09-27 00:24:49",
-            "5aa13b98-f2f9-5deb-beb7-22ec9c084cd5",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:24:49",
             "9f5c8e59-aec9-5876-a569-ae39dd845c3f",
             "2022-09-27 00:24:50",
+            "5aa13b98-f2f9-5deb-beb7-22ec9c084cd5",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:24:50",
+            "9f5c8e59-aec9-5876-a569-ae39dd845c3f",
+            "2022-09-27 00:24:51",
             "9668c3cb-87d1-57d2-904a-758f02640289",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:24:50"
+            "2022-09-27 00:24:51"
         ]
     },
     {
@@ -16230,8 +16416,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "a25c4c04-0c18-5e25-8007-bdc6c4431f3a",
-            "2022-09-27 00:24:51",
-            "2022-09-27 00:24:51"
+            "2022-09-27 00:24:52",
+            "2022-09-27 00:24:52"
         ]
     },
     {
@@ -16240,8 +16426,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "a25c4c04-0c18-5e25-8007-bdc6c4431f3a",
             "e824683e-2d9e-565a-87d5-645915ed9f89",
-            "2022-09-27 00:24:52",
-            "2022-09-27 00:24:52"
+            "2022-09-27 00:24:53",
+            "2022-09-27 00:24:53"
         ]
     },
     {
@@ -16254,8 +16440,8 @@
             "abraham64@yahoo.com",
             true,
             "5849ccb3-e5f0-54c5-ad45-c76c45b81224",
-            "2022-09-27 00:24:53",
-            "2022-09-27 00:24:53"
+            "2022-09-27 00:24:54",
+            "2022-09-27 00:24:54"
         ]
     },
     {
@@ -16264,8 +16450,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "5849ccb3-e5f0-54c5-ad45-c76c45b81224",
             "ae8dc572-6df3-5a51-93c0-641ae1e8b644",
-            "2022-09-27 00:24:54",
-            "2022-09-27 00:24:54"
+            "2022-09-27 00:24:55",
+            "2022-09-27 00:24:55"
         ]
     },
     {
@@ -16278,8 +16464,8 @@
             null,
             true,
             "6af76691-2cb9-570c-a4c9-4e646f41b4d3",
-            "2022-09-27 00:24:55",
-            "2022-09-27 00:24:55"
+            "2022-09-27 00:24:56",
+            "2022-09-27 00:24:56"
         ]
     },
     {
@@ -16288,8 +16474,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "6af76691-2cb9-570c-a4c9-4e646f41b4d3",
             "2a5a0cc5-02c2-5fb0-9748-f9e3c3544981",
-            "2022-09-27 00:24:56",
-            "2022-09-27 00:24:56"
+            "2022-09-27 00:24:57",
+            "2022-09-27 00:24:57"
         ]
     },
     {
@@ -16302,7 +16488,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:24:57",
+            "2022-09-27 00:24:58",
             "000a6be5-be43-4291-b0b3-a560814bdfdf"
         ]
     },
@@ -16312,8 +16498,8 @@
             "Aruba",
             "Aruba",
             "e0d9b8b1-4ad4-5b6f-8c65-d00f4f71c19b",
-            "2022-09-27 00:25:05",
-            "2022-09-27 00:25:05"
+            "2022-09-27 00:25:06",
+            "2022-09-27 00:25:06"
         ]
     },
     {
@@ -16332,8 +16518,14 @@
             null,
             "Aruba Cntrlr RFProtect 4 AP Lic E-LTU",
             "f07d7050-9070-5b8b-80c6-77f7c958b3fc",
-            "2022-09-27 00:25:06",
-            "2022-09-27 00:25:06"
+            "2022-09-27 00:25:07",
+            "2022-09-27 00:25:07"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "113876e1-d07b-4e47-b64d-78bbe29dd1e2"
         ]
     },
     {
@@ -16368,8 +16560,8 @@
             "Millerchester",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "7c54ba68-6356-5129-a2c1-69a1aa8f2eeb",
-            "2022-09-27 00:25:09",
-            "2022-09-27 00:25:09"
+            "2022-09-27 00:25:10",
+            "2022-09-27 00:25:10"
         ]
     },
     {
@@ -16394,8 +16586,8 @@
             "-15.397775",
             "7wv43tg9vvfz",
             "bc0ca40c-2b28-5625-8b10-c9fabdc7601c",
-            "2022-09-27 00:25:10",
-            "2022-09-27 00:25:10"
+            "2022-09-27 00:25:11",
+            "2022-09-27 00:25:11"
         ]
     },
     {
@@ -16428,8 +16620,8 @@
             0.0,
             0.0,
             "d897f231-69d0-5827-83ec-dde36571f3cf",
-            "2022-09-27 00:25:11",
-            "2022-09-27 00:25:11"
+            "2022-09-27 00:25:12",
+            "2022-09-27 00:25:12"
         ]
     },
     {
@@ -16468,8 +16660,8 @@
             0.0,
             0.0,
             "e830f4e6-cbac-5a9a-8c06-59f96168c231",
-            "2022-09-27 00:25:13",
-            "2022-09-27 00:25:13"
+            "2022-09-27 00:25:14",
+            "2022-09-27 00:25:14"
         ]
     },
     {
@@ -16482,9 +16674,9 @@
             1,
             1,
             "d897f231-69d0-5827-83ec-dde36571f3cf",
-            "2022-09-27 00:25:12",
-            "2022-09-27 00:25:15",
-            "2022-09-27 00:25:15"
+            "2022-09-27 00:25:13",
+            "2022-09-27 00:25:16",
+            "2022-09-27 00:25:16"
         ]
     },
     {
@@ -16493,8 +16685,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
             "769a306d-ed2d-5862-80a8-bc25daf34b08",
-            "2022-09-27 00:25:16",
-            "2022-09-27 00:25:16"
+            "2022-09-27 00:25:17",
+            "2022-09-27 00:25:17"
         ]
     },
     {
@@ -16507,8 +16699,8 @@
             null,
             true,
             "313fc495-4718-5549-b7d8-e807f340c9b4",
-            "2022-09-27 00:25:17",
-            "2022-09-27 00:25:17"
+            "2022-09-27 00:25:18",
+            "2022-09-27 00:25:18"
         ]
     },
     {
@@ -16517,8 +16709,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "313fc495-4718-5549-b7d8-e807f340c9b4",
             "b13b0775-5a75-575c-909c-9a914f2635ab",
-            "2022-09-27 00:25:18",
-            "2022-09-27 00:25:18"
+            "2022-09-27 00:25:19",
+            "2022-09-27 00:25:19"
         ]
     },
     {
@@ -16527,19 +16719,19 @@
             "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
             "bc0ca40c-2b28-5625-8b10-c9fabdc7601c",
             "f641998a-9bf1-583f-b6be-98fdedb4f2fe",
-            "2022-09-27 00:25:19",
-            "2022-09-27 00:25:19"
+            "2022-09-27 00:25:20",
+            "2022-09-27 00:25:20"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:25:14",
+            "2022-09-27 00:25:15",
             "113876e1-d07b-4e47-b64d-78bbe29dd1e2",
             "f2dc8456-8471-5c60-b1fd-177f97fff888",
             "e830f4e6-cbac-5a9a-8c06-59f96168c231",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "2022-09-27 00:25:14"
+            "2022-09-27 00:25:15"
         ]
     },
     {
@@ -16562,8 +16754,8 @@
             "Millerchester",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "ec7c8154-3908-5022-829d-8b387fe83814",
-            "2022-09-27 00:25:22",
-            "2022-09-27 00:25:22"
+            "2022-09-27 00:25:23",
+            "2022-09-27 00:25:23"
         ]
     },
     {
@@ -16588,8 +16780,8 @@
             null,
             null,
             "d3ca6da0-229f-54c6-97ea-19f1b6a7ba28",
-            "2022-09-27 00:25:23",
-            "2022-09-27 00:25:23"
+            "2022-09-27 00:25:24",
+            "2022-09-27 00:25:24"
         ]
     },
     {
@@ -16608,9 +16800,9 @@
             "80",
             2,
             1,
-            "2022-09-27 00:25:25",
             "2022-09-27 00:25:26",
-            "2022-09-27 00:25:26"
+            "2022-09-27 00:25:27",
+            "2022-09-27 00:25:27"
         ]
     },
     {
@@ -16623,8 +16815,8 @@
             "bradtke.nasir@gibson.com",
             true,
             "1fda3c6e-f0c9-5981-945d-bc1ef04eb213",
-            "2022-09-27 00:25:27",
-            "2022-09-27 00:25:27"
+            "2022-09-27 00:25:28",
+            "2022-09-27 00:25:28"
         ]
     },
     {
@@ -16633,8 +16825,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "1fda3c6e-f0c9-5981-945d-bc1ef04eb213",
             "71b36864-114f-5a4d-991e-67398c6814c6",
-            "2022-09-27 00:25:28",
-            "2022-09-27 00:25:28"
+            "2022-09-27 00:25:29",
+            "2022-09-27 00:25:29"
         ]
     },
     {
@@ -16647,8 +16839,8 @@
             "caesar.farrell@gmail.com",
             true,
             "56c2a43d-e42e-536d-8ba5-9b79fafdfa10",
-            "2022-09-27 00:25:29",
-            "2022-09-27 00:25:29"
+            "2022-09-27 00:25:30",
+            "2022-09-27 00:25:30"
         ]
     },
     {
@@ -16657,8 +16849,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "56c2a43d-e42e-536d-8ba5-9b79fafdfa10",
             "caa38ec9-d833-56a7-81b8-ae12a9dcc942",
-            "2022-09-27 00:25:30",
-            "2022-09-27 00:25:30"
+            "2022-09-27 00:25:31",
+            "2022-09-27 00:25:31"
         ]
     },
     {
@@ -16667,8 +16859,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000b9596-d41b-4ddc-86ac-72738c1bda40",
             "950b7338-7922-58ab-bf05-f1f431ced809",
-            "2022-09-27 00:25:31",
-            "2022-09-27 00:25:31"
+            "2022-09-27 00:25:32",
+            "2022-09-27 00:25:32"
         ]
     },
     {
@@ -16690,11 +16882,11 @@
             "70644ee9-ade3-3d95-8852-cdb0980f4d81",
             "2022-06-24 00:01:38",
             2,
-            "2022-09-27 00:25:35",
-            0,
-            0,
             "2022-09-27 00:25:36",
-            "2022-09-27 00:25:36"
+            0,
+            0,
+            "2022-09-27 00:25:37",
+            "2022-09-27 00:25:37"
         ]
     },
     {
@@ -16707,28 +16899,28 @@
             null,
             true,
             "125a246f-82e4-5a5f-b5c4-97083b78d760",
-            "2022-09-27 00:25:37",
-            "2022-09-27 00:25:37"
+            "2022-09-27 00:25:38",
+            "2022-09-27 00:25:38"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "125a246f-82e4-5a5f-b5c4-97083b78d760",
-            "2022-09-27 00:25:38",
+            "2022-09-27 00:25:39",
             "2e638d49-f216-5da7-91b2-12ee157a8758",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:25:38",
-            "125a246f-82e4-5a5f-b5c4-97083b78d760",
-            "2022-09-27 00:25:39",
-            "75fecacb-8b9d-5314-b049-772f25b39fef",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:25:39",
             "125a246f-82e4-5a5f-b5c4-97083b78d760",
             "2022-09-27 00:25:40",
+            "75fecacb-8b9d-5314-b049-772f25b39fef",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:25:40",
+            "125a246f-82e4-5a5f-b5c4-97083b78d760",
+            "2022-09-27 00:25:41",
             "c74cc9a4-4bca-5dd0-8afa-fd77ce0bda0f",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:25:40"
+            "2022-09-27 00:25:41"
         ]
     },
     {
@@ -16741,8 +16933,8 @@
             "zcollier@hotmail.com",
             true,
             "c69dc389-60a2-51bb-a0d2-6a06e8acc5b6",
-            "2022-09-27 00:25:41",
-            "2022-09-27 00:25:41"
+            "2022-09-27 00:25:42",
+            "2022-09-27 00:25:42"
         ]
     },
     {
@@ -16751,8 +16943,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "c69dc389-60a2-51bb-a0d2-6a06e8acc5b6",
             "e4fd9b57-fe49-5126-a8b7-812ea76dd6c7",
-            "2022-09-27 00:25:42",
-            "2022-09-27 00:25:42"
+            "2022-09-27 00:25:43",
+            "2022-09-27 00:25:43"
         ]
     },
     {
@@ -16774,11 +16966,11 @@
             "9bd515b2-199a-3173-a873-b2f3e79bbb1e",
             "2022-06-03 13:27:26",
             3,
-            "2022-09-27 00:25:46",
-            0,
-            0,
             "2022-09-27 00:25:47",
-            "2022-09-27 00:25:47"
+            0,
+            0,
+            "2022-09-27 00:25:48",
+            "2022-09-27 00:25:48"
         ]
     },
     {
@@ -16791,8 +16983,8 @@
             "bradtke.nasir@gibson.com",
             true,
             "375b4a0f-0bd1-5bc1-937a-4384e28b4cf9",
-            "2022-09-27 00:25:48",
-            "2022-09-27 00:25:48"
+            "2022-09-27 00:25:49",
+            "2022-09-27 00:25:49"
         ]
     },
     {
@@ -16801,8 +16993,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "375b4a0f-0bd1-5bc1-937a-4384e28b4cf9",
             "62e4ceef-1021-5e7c-97aa-757abe6b6d2b",
-            "2022-09-27 00:25:49",
-            "2022-09-27 00:25:49"
+            "2022-09-27 00:25:50",
+            "2022-09-27 00:25:50"
         ]
     },
     {
@@ -16815,8 +17007,8 @@
             "caesar.farrell@gmail.com",
             true,
             "e1102e68-3f20-5f6f-9fc1-1d59a0177181",
-            "2022-09-27 00:25:50",
-            "2022-09-27 00:25:50"
+            "2022-09-27 00:25:51",
+            "2022-09-27 00:25:51"
         ]
     },
     {
@@ -16825,8 +17017,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "e1102e68-3f20-5f6f-9fc1-1d59a0177181",
             "af6c0b5c-e51a-5a0d-b80f-b9ea04dff46d",
-            "2022-09-27 00:25:51",
-            "2022-09-27 00:25:51"
+            "2022-09-27 00:25:52",
+            "2022-09-27 00:25:52"
         ]
     },
     {
@@ -16839,23 +17031,23 @@
             null,
             true,
             "b31bd497-5bf0-523e-8310-ffa4ef883940",
-            "2022-09-27 00:25:52",
-            "2022-09-27 00:25:52"
+            "2022-09-27 00:25:53",
+            "2022-09-27 00:25:53"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "b31bd497-5bf0-523e-8310-ffa4ef883940",
-            "2022-09-27 00:25:53",
+            "2022-09-27 00:25:54",
             "888b78a6-cc3a-521f-a71e-8405b7f0b601",
             "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
-            "2022-09-27 00:25:53",
-            "b31bd497-5bf0-523e-8310-ffa4ef883940",
             "2022-09-27 00:25:54",
+            "b31bd497-5bf0-523e-8310-ffa4ef883940",
+            "2022-09-27 00:25:55",
             "fe0360ad-76d5-51b1-8ba8-ee8ab6418791",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:25:54"
+            "2022-09-27 00:25:55"
         ]
     },
     {
@@ -16877,11 +17069,11 @@
             "9bfa43d4-59a4-3f15-9c01-648c2c54c675",
             "2022-06-03 16:00:11",
             2,
-            "2022-09-27 00:25:58",
-            0,
-            0,
             "2022-09-27 00:25:59",
-            "2022-09-27 00:25:59"
+            0,
+            0,
+            "2022-09-27 00:26:00",
+            "2022-09-27 00:26:00"
         ]
     },
     {
@@ -16894,8 +17086,8 @@
             "caesar.farrell@gmail.com",
             true,
             "5aaa0e83-39cb-52a7-a343-7c54340dd0d3",
-            "2022-09-27 00:26:00",
-            "2022-09-27 00:26:00"
+            "2022-09-27 00:26:01",
+            "2022-09-27 00:26:01"
         ]
     },
     {
@@ -16904,8 +17096,8 @@
             "20061df3-7039-563a-9c3f-2dd2bed08533",
             "5aaa0e83-39cb-52a7-a343-7c54340dd0d3",
             "cfdf824b-4b08-594f-8338-67a1a5a75c0e",
-            "2022-09-27 00:26:01",
-            "2022-09-27 00:26:01"
+            "2022-09-27 00:26:02",
+            "2022-09-27 00:26:02"
         ]
     },
     {
@@ -16918,8 +17110,8 @@
             "bradtke.nasir@gibson.com",
             true,
             "fe34891a-ed07-5f71-9036-02338b46a056",
-            "2022-09-27 00:26:02",
-            "2022-09-27 00:26:02"
+            "2022-09-27 00:26:03",
+            "2022-09-27 00:26:03"
         ]
     },
     {
@@ -16928,8 +17120,8 @@
             "abca597c-e7c1-5455-9e26-227e8fa0c328",
             "fe34891a-ed07-5f71-9036-02338b46a056",
             "09a1d481-f33d-5239-b8f4-e049216da3af",
-            "2022-09-27 00:26:03",
-            "2022-09-27 00:26:03"
+            "2022-09-27 00:26:04",
+            "2022-09-27 00:26:04"
         ]
     },
     {
@@ -16944,7 +17136,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:26:04",
+            "2022-09-27 00:26:05",
             "000b9596-d41b-4ddc-86ac-72738c1bda40"
         ]
     },
@@ -17022,8 +17214,14 @@
             null,
             "HPE DL380 Gen10 5115 Xeon-G FIO Kit",
             "e9dcd7b5-c94c-5d24-84cd-b5e4edbb8e6b",
-            "2022-09-27 00:26:12",
-            "2022-09-27 00:26:12"
+            "2022-09-27 00:26:13",
+            "2022-09-27 00:26:13"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297"
         ]
     },
     {
@@ -17054,8 +17252,8 @@
             "-161.519945",
             "0mmhhs0vbqpy",
             "4a61aaf6-093a-51b8-8235-f32083f986df",
-            "2022-09-27 00:26:15",
-            "2022-09-27 00:26:15"
+            "2022-09-27 00:26:16",
+            "2022-09-27 00:26:16"
         ]
     },
     {
@@ -17088,8 +17286,8 @@
             0.0,
             0.0,
             "63bbeaec-d37e-5471-a693-6c5316d9503d",
-            "2022-09-27 00:26:16",
-            "2022-09-27 00:26:16"
+            "2022-09-27 00:26:17",
+            "2022-09-27 00:26:17"
         ]
     },
     {
@@ -17128,8 +17326,8 @@
             0.0,
             0.0,
             "8ae4acd4-f9e5-5fd7-ab9d-e86504ef125a",
-            "2022-09-27 00:26:18",
-            "2022-09-27 00:26:18"
+            "2022-09-27 00:26:19",
+            "2022-09-27 00:26:19"
         ]
     },
     {
@@ -17142,9 +17340,9 @@
             21,
             1,
             "63bbeaec-d37e-5471-a693-6c5316d9503d",
-            "2022-09-27 00:26:17",
-            "2022-09-27 00:26:20",
-            "2022-09-27 00:26:20"
+            "2022-09-27 00:26:18",
+            "2022-09-27 00:26:21",
+            "2022-09-27 00:26:21"
         ]
     },
     {
@@ -17153,8 +17351,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297",
             "a6f33c34-f774-571a-a07a-c0e088aa868f",
-            "2022-09-27 00:26:21",
-            "2022-09-27 00:26:21"
+            "2022-09-27 00:26:22",
+            "2022-09-27 00:26:22"
         ]
     },
     {
@@ -17167,8 +17365,8 @@
             null,
             true,
             "2c7e1455-9793-5c3b-8258-322dedb00b64",
-            "2022-09-27 00:26:22",
-            "2022-09-27 00:26:22"
+            "2022-09-27 00:26:23",
+            "2022-09-27 00:26:23"
         ]
     },
     {
@@ -17177,8 +17375,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "2c7e1455-9793-5c3b-8258-322dedb00b64",
             "94ae4453-a0c3-5765-87c7-ec923f405d51",
-            "2022-09-27 00:26:23",
-            "2022-09-27 00:26:23"
+            "2022-09-27 00:26:24",
+            "2022-09-27 00:26:24"
         ]
     },
     {
@@ -17191,8 +17389,8 @@
             null,
             true,
             "f7cc095a-8ec6-5e8a-817e-7ea0b702db92",
-            "2022-09-27 00:26:24",
-            "2022-09-27 00:26:24"
+            "2022-09-27 00:26:25",
+            "2022-09-27 00:26:25"
         ]
     },
     {
@@ -17201,8 +17399,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "f7cc095a-8ec6-5e8a-817e-7ea0b702db92",
             "e389e589-eccf-56fd-b4c1-46f13a1c0ed6",
-            "2022-09-27 00:26:25",
-            "2022-09-27 00:26:25"
+            "2022-09-27 00:26:26",
+            "2022-09-27 00:26:26"
         ]
     },
     {
@@ -17215,8 +17413,8 @@
             null,
             true,
             "b7270a05-95e4-51b4-ae27-d0707492012f",
-            "2022-09-27 00:26:26",
-            "2022-09-27 00:26:26"
+            "2022-09-27 00:26:27",
+            "2022-09-27 00:26:27"
         ]
     },
     {
@@ -17225,8 +17423,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "b7270a05-95e4-51b4-ae27-d0707492012f",
             "d019ef8e-79eb-5bbb-a699-67587c116e43",
-            "2022-09-27 00:26:27",
-            "2022-09-27 00:26:27"
+            "2022-09-27 00:26:28",
+            "2022-09-27 00:26:28"
         ]
     },
     {
@@ -17239,8 +17437,8 @@
             null,
             true,
             "74f5e5d3-0f1f-544d-8d0f-f318c1ec7529",
-            "2022-09-27 00:26:28",
-            "2022-09-27 00:26:28"
+            "2022-09-27 00:26:29",
+            "2022-09-27 00:26:29"
         ]
     },
     {
@@ -17249,8 +17447,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "74f5e5d3-0f1f-544d-8d0f-f318c1ec7529",
             "8271dfbb-9830-5357-809c-25601dd76626",
-            "2022-09-27 00:26:29",
-            "2022-09-27 00:26:29"
+            "2022-09-27 00:26:30",
+            "2022-09-27 00:26:30"
         ]
     },
     {
@@ -17263,8 +17461,8 @@
             null,
             true,
             "150f63e0-9f00-59f2-8219-cc621a0e0ed1",
-            "2022-09-27 00:26:30",
-            "2022-09-27 00:26:30"
+            "2022-09-27 00:26:31",
+            "2022-09-27 00:26:31"
         ]
     },
     {
@@ -17273,8 +17471,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "150f63e0-9f00-59f2-8219-cc621a0e0ed1",
             "f33c5ff1-de24-552f-891a-0fa8ff33e83e",
-            "2022-09-27 00:26:31",
-            "2022-09-27 00:26:31"
+            "2022-09-27 00:26:32",
+            "2022-09-27 00:26:32"
         ]
     },
     {
@@ -17287,8 +17485,8 @@
             null,
             true,
             "be78c7a0-bf19-53e4-9f30-7c07857a3778",
-            "2022-09-27 00:26:32",
-            "2022-09-27 00:26:32"
+            "2022-09-27 00:26:33",
+            "2022-09-27 00:26:33"
         ]
     },
     {
@@ -17297,8 +17495,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "be78c7a0-bf19-53e4-9f30-7c07857a3778",
             "45282b60-7847-5ecb-b5f0-69f1ef55c436",
-            "2022-09-27 00:26:33",
-            "2022-09-27 00:26:33"
+            "2022-09-27 00:26:34",
+            "2022-09-27 00:26:34"
         ]
     },
     {
@@ -17311,8 +17509,8 @@
             null,
             true,
             "c916bfb3-daf3-56f1-a954-ca532e031b78",
-            "2022-09-27 00:26:34",
-            "2022-09-27 00:26:34"
+            "2022-09-27 00:26:35",
+            "2022-09-27 00:26:35"
         ]
     },
     {
@@ -17321,8 +17519,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c916bfb3-daf3-56f1-a954-ca532e031b78",
             "c27b5e6b-e405-5a11-ba4d-ce5ed9bfe17f",
-            "2022-09-27 00:26:35",
-            "2022-09-27 00:26:35"
+            "2022-09-27 00:26:36",
+            "2022-09-27 00:26:36"
         ]
     },
     {
@@ -17335,8 +17533,8 @@
             null,
             true,
             "edacc42f-59fc-5962-9e52-79329b68d235",
-            "2022-09-27 00:26:36",
-            "2022-09-27 00:26:36"
+            "2022-09-27 00:26:37",
+            "2022-09-27 00:26:37"
         ]
     },
     {
@@ -17345,8 +17543,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "edacc42f-59fc-5962-9e52-79329b68d235",
             "75602e18-4092-57e2-a911-92c8ffd556e3",
-            "2022-09-27 00:26:37",
-            "2022-09-27 00:26:37"
+            "2022-09-27 00:26:38",
+            "2022-09-27 00:26:38"
         ]
     },
     {
@@ -17359,8 +17557,8 @@
             null,
             null,
             "ac698a58-81e9-5040-8edd-3619a5889064",
-            "2022-09-27 00:26:38",
-            "2022-09-27 00:26:38"
+            "2022-09-27 00:26:39",
+            "2022-09-27 00:26:39"
         ]
     },
     {
@@ -17369,8 +17567,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "ac698a58-81e9-5040-8edd-3619a5889064",
             "9a3b79e6-9ce7-54c0-9fe8-8339be2d6f21",
-            "2022-09-27 00:26:39",
-            "2022-09-27 00:26:39"
+            "2022-09-27 00:26:40",
+            "2022-09-27 00:26:40"
         ]
     },
     {
@@ -17383,8 +17581,8 @@
             null,
             null,
             "609ab34a-da1e-5e0e-805f-0de50e887791",
-            "2022-09-27 00:26:40",
-            "2022-09-27 00:26:40"
+            "2022-09-27 00:26:41",
+            "2022-09-27 00:26:41"
         ]
     },
     {
@@ -17393,8 +17591,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "609ab34a-da1e-5e0e-805f-0de50e887791",
             "015eda37-0dd2-5f85-9134-0f3b090ce14c",
-            "2022-09-27 00:26:41",
-            "2022-09-27 00:26:41"
+            "2022-09-27 00:26:42",
+            "2022-09-27 00:26:42"
         ]
     },
     {
@@ -17407,8 +17605,8 @@
             null,
             true,
             "d8e90e23-a960-543d-840e-24999ac8bd87",
-            "2022-09-27 00:26:42",
-            "2022-09-27 00:26:42"
+            "2022-09-27 00:26:43",
+            "2022-09-27 00:26:43"
         ]
     },
     {
@@ -17417,8 +17615,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "d8e90e23-a960-543d-840e-24999ac8bd87",
             "4163a6fc-67c2-518b-992c-87e9fa6d27a4",
-            "2022-09-27 00:26:43",
-            "2022-09-27 00:26:43"
+            "2022-09-27 00:26:44",
+            "2022-09-27 00:26:44"
         ]
     },
     {
@@ -17431,8 +17629,8 @@
             null,
             true,
             "75e92e21-8001-54b6-abef-77c7abae84fb",
-            "2022-09-27 00:26:44",
-            "2022-09-27 00:26:44"
+            "2022-09-27 00:26:45",
+            "2022-09-27 00:26:45"
         ]
     },
     {
@@ -17441,8 +17639,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "75e92e21-8001-54b6-abef-77c7abae84fb",
             "8dedecce-0133-5667-8fc2-0fd7d815f255",
-            "2022-09-27 00:26:45",
-            "2022-09-27 00:26:45"
+            "2022-09-27 00:26:46",
+            "2022-09-27 00:26:46"
         ]
     },
     {
@@ -17455,8 +17653,8 @@
             null,
             true,
             "c681aece-a271-5439-b69d-bf1ab721403d",
-            "2022-09-27 00:26:46",
-            "2022-09-27 00:26:46"
+            "2022-09-27 00:26:47",
+            "2022-09-27 00:26:47"
         ]
     },
     {
@@ -17465,8 +17663,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c681aece-a271-5439-b69d-bf1ab721403d",
             "eaf25aec-8e59-58d2-a3ae-1d26022729ec",
-            "2022-09-27 00:26:47",
-            "2022-09-27 00:26:47"
+            "2022-09-27 00:26:48",
+            "2022-09-27 00:26:48"
         ]
     },
     {
@@ -17479,8 +17677,8 @@
             null,
             null,
             "c7dc3aa6-8fa4-5cb5-bd32-98f09d01c1c6",
-            "2022-09-27 00:26:48",
-            "2022-09-27 00:26:48"
+            "2022-09-27 00:26:49",
+            "2022-09-27 00:26:49"
         ]
     },
     {
@@ -17489,8 +17687,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c7dc3aa6-8fa4-5cb5-bd32-98f09d01c1c6",
             "b6f5f56b-b584-5ebe-9428-d44b0aa2dc5f",
-            "2022-09-27 00:26:49",
-            "2022-09-27 00:26:49"
+            "2022-09-27 00:26:50",
+            "2022-09-27 00:26:50"
         ]
     },
     {
@@ -17503,8 +17701,8 @@
             null,
             null,
             "d7e9cd29-2c3f-5667-80db-92f3ab4b6eab",
-            "2022-09-27 00:26:50",
-            "2022-09-27 00:26:50"
+            "2022-09-27 00:26:51",
+            "2022-09-27 00:26:51"
         ]
     },
     {
@@ -17513,8 +17711,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "d7e9cd29-2c3f-5667-80db-92f3ab4b6eab",
             "5b22b894-de57-5983-8944-f63921c65651",
-            "2022-09-27 00:26:51",
-            "2022-09-27 00:26:51"
+            "2022-09-27 00:26:52",
+            "2022-09-27 00:26:52"
         ]
     },
     {
@@ -17527,8 +17725,8 @@
             null,
             true,
             "672097d9-8f22-555b-b515-13d751582cf7",
-            "2022-09-27 00:26:52",
-            "2022-09-27 00:26:52"
+            "2022-09-27 00:26:53",
+            "2022-09-27 00:26:53"
         ]
     },
     {
@@ -17537,8 +17735,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "672097d9-8f22-555b-b515-13d751582cf7",
             "40063aee-4745-55be-99d0-ddef9fcaef76",
-            "2022-09-27 00:26:53",
-            "2022-09-27 00:26:53"
+            "2022-09-27 00:26:54",
+            "2022-09-27 00:26:54"
         ]
     },
     {
@@ -17551,8 +17749,8 @@
             null,
             true,
             "caaad5fe-4041-5294-ba64-7d7ad1c8ca2d",
-            "2022-09-27 00:26:54",
-            "2022-09-27 00:26:54"
+            "2022-09-27 00:26:55",
+            "2022-09-27 00:26:55"
         ]
     },
     {
@@ -17561,8 +17759,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "caaad5fe-4041-5294-ba64-7d7ad1c8ca2d",
             "c1243884-3ca3-5853-9847-0d644c07c22b",
-            "2022-09-27 00:26:55",
-            "2022-09-27 00:26:55"
+            "2022-09-27 00:26:56",
+            "2022-09-27 00:26:56"
         ]
     },
     {
@@ -17575,8 +17773,8 @@
             null,
             true,
             "14607a55-c85d-518f-be65-895f4ae5aa26",
-            "2022-09-27 00:26:56",
-            "2022-09-27 00:26:56"
+            "2022-09-27 00:26:57",
+            "2022-09-27 00:26:57"
         ]
     },
     {
@@ -17585,8 +17783,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "14607a55-c85d-518f-be65-895f4ae5aa26",
             "1180342c-01d7-573e-aab3-a0e4b2ae7df8",
-            "2022-09-27 00:26:57",
-            "2022-09-27 00:26:57"
+            "2022-09-27 00:26:58",
+            "2022-09-27 00:26:58"
         ]
     },
     {
@@ -17599,8 +17797,8 @@
             null,
             true,
             "8611b1fe-0a84-5107-b6d5-cdf51646073d",
-            "2022-09-27 00:26:58",
-            "2022-09-27 00:26:58"
+            "2022-09-27 00:26:59",
+            "2022-09-27 00:26:59"
         ]
     },
     {
@@ -17609,8 +17807,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "8611b1fe-0a84-5107-b6d5-cdf51646073d",
             "75c84bc7-c226-512c-99e3-ce6d6a9fae68",
-            "2022-09-27 00:26:59",
-            "2022-09-27 00:26:59"
+            "2022-09-27 00:27:00",
+            "2022-09-27 00:27:00"
         ]
     },
     {
@@ -17623,8 +17821,8 @@
             null,
             null,
             "fd9cdea0-99ea-5700-9a0d-7a07dcca6d42",
-            "2022-09-27 00:27:00",
-            "2022-09-27 00:27:00"
+            "2022-09-27 00:27:01",
+            "2022-09-27 00:27:01"
         ]
     },
     {
@@ -17633,8 +17831,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "fd9cdea0-99ea-5700-9a0d-7a07dcca6d42",
             "4dc1f7b7-bace-5725-8bec-89fa01d88b87",
-            "2022-09-27 00:27:01",
-            "2022-09-27 00:27:01"
+            "2022-09-27 00:27:02",
+            "2022-09-27 00:27:02"
         ]
     },
     {
@@ -17647,8 +17845,8 @@
             null,
             null,
             "79a61da7-95a4-578b-8665-8978c92985e3",
-            "2022-09-27 00:27:02",
-            "2022-09-27 00:27:02"
+            "2022-09-27 00:27:03",
+            "2022-09-27 00:27:03"
         ]
     },
     {
@@ -17657,8 +17855,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "79a61da7-95a4-578b-8665-8978c92985e3",
             "ed43d9a4-f583-5af9-8a38-03ac6b546191",
-            "2022-09-27 00:27:03",
-            "2022-09-27 00:27:03"
+            "2022-09-27 00:27:04",
+            "2022-09-27 00:27:04"
         ]
     },
     {
@@ -17667,19 +17865,19 @@
             "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297",
             "4a61aaf6-093a-51b8-8235-f32083f986df",
             "52c3fd2f-b267-5099-9a94-15ff6fc26cba",
-            "2022-09-27 00:27:04",
-            "2022-09-27 00:27:04"
+            "2022-09-27 00:27:05",
+            "2022-09-27 00:27:05"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:26:19",
+            "2022-09-27 00:26:20",
             "d4dbcdd4-e50a-43e2-b1ba-aa35f7eff297",
             "846666ff-c8ab-57d7-9588-ebb2cac3914c",
             "8ae4acd4-f9e5-5fd7-ab9d-e86504ef125a",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "2022-09-27 00:26:19"
+            "2022-09-27 00:26:20"
         ]
     },
     {
@@ -17710,8 +17908,8 @@
             null,
             null,
             "23bd0b1d-a1ff-5b1c-bb69-2fb92a7fc8d0",
-            "2022-09-27 00:27:07",
-            "2022-09-27 00:27:07"
+            "2022-09-27 00:27:08",
+            "2022-09-27 00:27:08"
         ]
     },
     {
@@ -17730,9 +17928,9 @@
             "20",
             2,
             1,
-            "2022-09-27 00:27:09",
             "2022-09-27 00:27:10",
-            "2022-09-27 00:27:10"
+            "2022-09-27 00:27:11",
+            "2022-09-27 00:27:11"
         ]
     },
     {
@@ -17745,8 +17943,8 @@
             null,
             true,
             "c136e25d-f5cb-5bbb-8367-acd64d3621fc",
-            "2022-09-27 00:27:11",
-            "2022-09-27 00:27:11"
+            "2022-09-27 00:27:12",
+            "2022-09-27 00:27:12"
         ]
     },
     {
@@ -17755,8 +17953,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "c136e25d-f5cb-5bbb-8367-acd64d3621fc",
             "29edb32b-9e47-53ac-8e91-f66b0cdb4cf2",
-            "2022-09-27 00:27:12",
-            "2022-09-27 00:27:12"
+            "2022-09-27 00:27:13",
+            "2022-09-27 00:27:13"
         ]
     },
     {
@@ -17769,8 +17967,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "73a7f6e5-3931-5b8c-b5f3-9afc881b0324",
-            "2022-09-27 00:27:13",
-            "2022-09-27 00:27:13"
+            "2022-09-27 00:27:14",
+            "2022-09-27 00:27:14"
         ]
     },
     {
@@ -17779,8 +17977,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "73a7f6e5-3931-5b8c-b5f3-9afc881b0324",
             "eafe0da4-748f-518d-bf20-839c23799136",
-            "2022-09-27 00:27:14",
-            "2022-09-27 00:27:14"
+            "2022-09-27 00:27:15",
+            "2022-09-27 00:27:15"
         ]
     },
     {
@@ -17789,8 +17987,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000bc0c4-1c03-4aa2-80b5-266b1a32988e",
             "df929f9b-a29c-544e-9233-da9c6a559841",
-            "2022-09-27 00:27:15",
-            "2022-09-27 00:27:15"
+            "2022-09-27 00:27:16",
+            "2022-09-27 00:27:16"
         ]
     },
     {
@@ -17816,11 +18014,11 @@
             "8114cecb-f271-330a-abb2-f131adf965fa",
             "2022-06-03 13:27:26",
             3,
-            "2022-09-27 00:27:19",
-            0,
-            0,
             "2022-09-27 00:27:20",
-            "2022-09-27 00:27:20"
+            0,
+            0,
+            "2022-09-27 00:27:21",
+            "2022-09-27 00:27:21"
         ]
     },
     {
@@ -17833,28 +18031,28 @@
             null,
             true,
             "a3f97f87-c385-573e-8469-15f8480d9150",
-            "2022-09-27 00:27:21",
-            "2022-09-27 00:27:21"
+            "2022-09-27 00:27:22",
+            "2022-09-27 00:27:22"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "a3f97f87-c385-573e-8469-15f8480d9150",
-            "2022-09-27 00:27:22",
+            "2022-09-27 00:27:23",
             "caebf0a5-8f6c-5d61-997e-57298523bb78",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:27:22",
-            "a3f97f87-c385-573e-8469-15f8480d9150",
-            "2022-09-27 00:27:23",
-            "cb7cc81d-2c11-57dc-a6ca-ae7c4f404d3f",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:27:23",
             "a3f97f87-c385-573e-8469-15f8480d9150",
             "2022-09-27 00:27:24",
+            "cb7cc81d-2c11-57dc-a6ca-ae7c4f404d3f",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:27:24",
+            "a3f97f87-c385-573e-8469-15f8480d9150",
+            "2022-09-27 00:27:25",
             "70b0a060-1e89-5308-8ea5-6a3db3c79b92",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:27:24"
+            "2022-09-27 00:27:25"
         ]
     },
     {
@@ -17867,8 +18065,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "dc2c4526-ab94-5e03-8477-590473184055",
-            "2022-09-27 00:27:25",
-            "2022-09-27 00:27:25"
+            "2022-09-27 00:27:26",
+            "2022-09-27 00:27:26"
         ]
     },
     {
@@ -17877,8 +18075,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "dc2c4526-ab94-5e03-8477-590473184055",
             "f0f9db99-0bc3-5b96-b8ff-c5600b4c9d9c",
-            "2022-09-27 00:27:26",
-            "2022-09-27 00:27:26"
+            "2022-09-27 00:27:27",
+            "2022-09-27 00:27:27"
         ]
     },
     {
@@ -17891,8 +18089,8 @@
             null,
             true,
             "efddeb17-f25e-5583-85a4-b643e8e1c49e",
-            "2022-09-27 00:27:27",
-            "2022-09-27 00:27:27"
+            "2022-09-27 00:27:28",
+            "2022-09-27 00:27:28"
         ]
     },
     {
@@ -17901,8 +18099,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "efddeb17-f25e-5583-85a4-b643e8e1c49e",
             "fd90e9ae-28a6-5b88-b86f-006609d8f1ba",
-            "2022-09-27 00:27:28",
-            "2022-09-27 00:27:28"
+            "2022-09-27 00:27:29",
+            "2022-09-27 00:27:29"
         ]
     },
     {
@@ -17915,7 +18113,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:27:29",
+            "2022-09-27 00:27:30",
             "000bc0c4-1c03-4aa2-80b5-266b1a32988e"
         ]
     },
@@ -17935,8 +18133,14 @@
             null,
             "HPE 3PAR 8000 6TB+SW 7.2K LFF HDD",
             "2b42b005-593d-514f-828e-327bb31f76b7",
-            "2022-09-27 00:27:37",
-            "2022-09-27 00:27:37"
+            "2022-09-27 00:27:38",
+            "2022-09-27 00:27:38"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "22de9c32-f3da-4f15-9646-e25b9e0df4e9"
         ]
     },
     {
@@ -17971,8 +18175,8 @@
             "Nelliefurt",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "7eb735e8-313d-5fdd-a7af-3791d7f60709",
-            "2022-09-27 00:27:40",
-            "2022-09-27 00:27:40"
+            "2022-09-27 00:27:41",
+            "2022-09-27 00:27:41"
         ]
     },
     {
@@ -17997,8 +18201,8 @@
             "118.232373",
             "nxuhf7n0typ5",
             "fc79e65c-4593-51da-bab1-0e76678b209b",
-            "2022-09-27 00:27:41",
-            "2022-09-27 00:27:41"
+            "2022-09-27 00:27:42",
+            "2022-09-27 00:27:42"
         ]
     },
     {
@@ -18031,8 +18235,8 @@
             0.0,
             0.0,
             "3f522758-ea4c-597d-8e98-ae862e239058",
-            "2022-09-27 00:27:42",
-            "2022-09-27 00:27:42"
+            "2022-09-27 00:27:43",
+            "2022-09-27 00:27:43"
         ]
     },
     {
@@ -18071,8 +18275,8 @@
             0.0,
             0.0,
             "4696d179-ba7b-5f38-99e3-86b8567862f7",
-            "2022-09-27 00:27:44",
-            "2022-09-27 00:27:44"
+            "2022-09-27 00:27:45",
+            "2022-09-27 00:27:45"
         ]
     },
     {
@@ -18085,9 +18289,9 @@
             9,
             1,
             "3f522758-ea4c-597d-8e98-ae862e239058",
-            "2022-09-27 00:27:43",
-            "2022-09-27 00:27:46",
-            "2022-09-27 00:27:46"
+            "2022-09-27 00:27:44",
+            "2022-09-27 00:27:47",
+            "2022-09-27 00:27:47"
         ]
     },
     {
@@ -18096,8 +18300,8 @@
             "8de43172-0df6-5cae-b04f-26712c2ef59b",
             "22de9c32-f3da-4f15-9646-e25b9e0df4e9",
             "66a382d1-78cd-542c-b28a-f25094a5930d",
-            "2022-09-27 00:27:47",
-            "2022-09-27 00:27:47"
+            "2022-09-27 00:27:48",
+            "2022-09-27 00:27:48"
         ]
     },
     {
@@ -18110,8 +18314,8 @@
             null,
             true,
             "6998af49-7f1d-5d39-b09a-6958f4abcb46",
-            "2022-09-27 00:27:48",
-            "2022-09-27 00:27:48"
+            "2022-09-27 00:27:49",
+            "2022-09-27 00:27:49"
         ]
     },
     {
@@ -18120,8 +18324,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "6998af49-7f1d-5d39-b09a-6958f4abcb46",
             "78de6fc3-ed74-589c-9103-4a19787f128b",
-            "2022-09-27 00:27:49",
-            "2022-09-27 00:27:49"
+            "2022-09-27 00:27:50",
+            "2022-09-27 00:27:50"
         ]
     },
     {
@@ -18134,8 +18338,8 @@
             null,
             true,
             "a5a7d1b9-85df-5438-9584-6f6eb83b1ea8",
-            "2022-09-27 00:27:50",
-            "2022-09-27 00:27:50"
+            "2022-09-27 00:27:51",
+            "2022-09-27 00:27:51"
         ]
     },
     {
@@ -18144,8 +18348,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "a5a7d1b9-85df-5438-9584-6f6eb83b1ea8",
             "77ca918e-ae2b-57f1-885b-948a1086c429",
-            "2022-09-27 00:27:51",
-            "2022-09-27 00:27:51"
+            "2022-09-27 00:27:52",
+            "2022-09-27 00:27:52"
         ]
     },
     {
@@ -18158,8 +18362,8 @@
             null,
             true,
             "9af1ebaa-68a7-5004-8f5b-0bb7c1f23f36",
-            "2022-09-27 00:27:52",
-            "2022-09-27 00:27:52"
+            "2022-09-27 00:27:53",
+            "2022-09-27 00:27:53"
         ]
     },
     {
@@ -18168,8 +18372,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "9af1ebaa-68a7-5004-8f5b-0bb7c1f23f36",
             "f5feb84b-7eca-5294-ac6b-2b4765ae8bfd",
-            "2022-09-27 00:27:53",
-            "2022-09-27 00:27:53"
+            "2022-09-27 00:27:54",
+            "2022-09-27 00:27:54"
         ]
     },
     {
@@ -18182,8 +18386,8 @@
             null,
             true,
             "57f2980d-bc18-5991-bae6-d34527f71f0c",
-            "2022-09-27 00:27:54",
-            "2022-09-27 00:27:54"
+            "2022-09-27 00:27:55",
+            "2022-09-27 00:27:55"
         ]
     },
     {
@@ -18192,8 +18396,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "57f2980d-bc18-5991-bae6-d34527f71f0c",
             "eb980375-0d60-5a93-bb4b-fe0f439184a5",
-            "2022-09-27 00:27:55",
-            "2022-09-27 00:27:55"
+            "2022-09-27 00:27:56",
+            "2022-09-27 00:27:56"
         ]
     },
     {
@@ -18206,8 +18410,8 @@
             null,
             true,
             "2710c6ba-6670-526d-ada1-e1cd03526469",
-            "2022-09-27 00:27:56",
-            "2022-09-27 00:27:56"
+            "2022-09-27 00:27:57",
+            "2022-09-27 00:27:57"
         ]
     },
     {
@@ -18216,8 +18420,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "2710c6ba-6670-526d-ada1-e1cd03526469",
             "38fa5749-9bb9-5ff5-a09c-9512b6084fa8",
-            "2022-09-27 00:27:57",
-            "2022-09-27 00:27:57"
+            "2022-09-27 00:27:58",
+            "2022-09-27 00:27:58"
         ]
     },
     {
@@ -18230,8 +18434,8 @@
             null,
             null,
             "5dcf9390-16f1-5ffd-87ff-cfd1fb639b39",
-            "2022-09-27 00:27:58",
-            "2022-09-27 00:27:58"
+            "2022-09-27 00:27:59",
+            "2022-09-27 00:27:59"
         ]
     },
     {
@@ -18240,8 +18444,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "5dcf9390-16f1-5ffd-87ff-cfd1fb639b39",
             "9e4a34be-8db9-5274-9a39-d0db0de69d1e",
-            "2022-09-27 00:27:59",
-            "2022-09-27 00:27:59"
+            "2022-09-27 00:28:00",
+            "2022-09-27 00:28:00"
         ]
     },
     {
@@ -18254,8 +18458,8 @@
             null,
             null,
             "dc8d5714-25b4-52bf-ac81-f3e2474e977b",
-            "2022-09-27 00:28:00",
-            "2022-09-27 00:28:00"
+            "2022-09-27 00:28:01",
+            "2022-09-27 00:28:01"
         ]
     },
     {
@@ -18264,8 +18468,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "dc8d5714-25b4-52bf-ac81-f3e2474e977b",
             "4989be3c-0b36-5fcd-8cca-e7daf02ef7de",
-            "2022-09-27 00:28:01",
-            "2022-09-27 00:28:01"
+            "2022-09-27 00:28:02",
+            "2022-09-27 00:28:02"
         ]
     },
     {
@@ -18278,8 +18482,8 @@
             null,
             null,
             "c9393fb3-922d-526d-a7ef-e027f1761ed6",
-            "2022-09-27 00:28:02",
-            "2022-09-27 00:28:02"
+            "2022-09-27 00:28:03",
+            "2022-09-27 00:28:03"
         ]
     },
     {
@@ -18288,8 +18492,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "c9393fb3-922d-526d-a7ef-e027f1761ed6",
             "9862fb5e-0c9a-5644-989a-b384465dcb77",
-            "2022-09-27 00:28:03",
-            "2022-09-27 00:28:03"
+            "2022-09-27 00:28:04",
+            "2022-09-27 00:28:04"
         ]
     },
     {
@@ -18302,8 +18506,8 @@
             null,
             null,
             "ff7f9803-cb7d-5e8a-a67c-e960193fcb8d",
-            "2022-09-27 00:28:04",
-            "2022-09-27 00:28:04"
+            "2022-09-27 00:28:05",
+            "2022-09-27 00:28:05"
         ]
     },
     {
@@ -18312,8 +18516,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "ff7f9803-cb7d-5e8a-a67c-e960193fcb8d",
             "78541339-093f-57c7-8a2a-9a7a43ccddae",
-            "2022-09-27 00:28:05",
-            "2022-09-27 00:28:05"
+            "2022-09-27 00:28:06",
+            "2022-09-27 00:28:06"
         ]
     },
     {
@@ -18322,19 +18526,19 @@
             "22de9c32-f3da-4f15-9646-e25b9e0df4e9",
             "fc79e65c-4593-51da-bab1-0e76678b209b",
             "96771169-f59b-5320-a7f5-556b25c683ee",
-            "2022-09-27 00:28:06",
-            "2022-09-27 00:28:06"
+            "2022-09-27 00:28:07",
+            "2022-09-27 00:28:07"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:27:45",
+            "2022-09-27 00:27:46",
             "22de9c32-f3da-4f15-9646-e25b9e0df4e9",
             "2a06bcb0-5441-5abf-9ab8-971dc43e54e0",
             "4696d179-ba7b-5f38-99e3-86b8567862f7",
             "77ec115b-9723-4582-ad45-2b3a83286b1f",
-            "2022-09-27 00:27:45"
+            "2022-09-27 00:27:46"
         ]
     },
     {
@@ -18357,8 +18561,8 @@
             "Nelliefurt",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "11c2a657-025b-5958-aaae-c559a5472bb2",
-            "2022-09-27 00:28:09",
-            "2022-09-27 00:28:09"
+            "2022-09-27 00:28:10",
+            "2022-09-27 00:28:10"
         ]
     },
     {
@@ -18383,8 +18587,8 @@
             null,
             null,
             "abcee434-8bc6-5aa5-a4eb-632590e2d01d",
-            "2022-09-27 00:28:10",
-            "2022-09-27 00:28:10"
+            "2022-09-27 00:28:11",
+            "2022-09-27 00:28:11"
         ]
     },
     {
@@ -18403,9 +18607,9 @@
             "80",
             3,
             1,
-            "2022-09-27 00:28:12",
             "2022-09-27 00:28:13",
-            "2022-09-27 00:28:13"
+            "2022-09-27 00:28:14",
+            "2022-09-27 00:28:14"
         ]
     },
     {
@@ -18418,8 +18622,8 @@
             null,
             true,
             "f5ba4293-9bb8-547b-b27b-ede9182f1e7a",
-            "2022-09-27 00:28:14",
-            "2022-09-27 00:28:14"
+            "2022-09-27 00:28:15",
+            "2022-09-27 00:28:15"
         ]
     },
     {
@@ -18428,8 +18632,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "f5ba4293-9bb8-547b-b27b-ede9182f1e7a",
             "6831733a-40a5-5dda-8528-41633fee4f17",
-            "2022-09-27 00:28:15",
-            "2022-09-27 00:28:15"
+            "2022-09-27 00:28:16",
+            "2022-09-27 00:28:16"
         ]
     },
     {
@@ -18442,8 +18646,8 @@
             "zcollier@hotmail.com",
             true,
             "7b0d8f36-7137-5cb2-94f4-2fff25bfd256",
-            "2022-09-27 00:28:16",
-            "2022-09-27 00:28:16"
+            "2022-09-27 00:28:17",
+            "2022-09-27 00:28:17"
         ]
     },
     {
@@ -18452,8 +18656,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "7b0d8f36-7137-5cb2-94f4-2fff25bfd256",
             "723c5d72-8f60-54a2-aa15-1f44c7905c4a",
-            "2022-09-27 00:28:17",
-            "2022-09-27 00:28:17"
+            "2022-09-27 00:28:18",
+            "2022-09-27 00:28:18"
         ]
     },
     {
@@ -18466,8 +18670,8 @@
             "autumn61@turcotte.com",
             true,
             "a81eb713-da1f-5e28-a65f-f825cf98e73c",
-            "2022-09-27 00:28:18",
-            "2022-09-27 00:28:18"
+            "2022-09-27 00:28:19",
+            "2022-09-27 00:28:19"
         ]
     },
     {
@@ -18476,8 +18680,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "a81eb713-da1f-5e28-a65f-f825cf98e73c",
             "6bca4da2-a022-517b-968a-178da502a9a4",
-            "2022-09-27 00:28:19",
-            "2022-09-27 00:28:19"
+            "2022-09-27 00:28:20",
+            "2022-09-27 00:28:20"
         ]
     },
     {
@@ -18486,8 +18690,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000d3120-f11f-44f1-9071-4b9d8b5593fd",
             "82d62e59-dabf-54bb-8575-06903269d274",
-            "2022-09-27 00:28:20",
-            "2022-09-27 00:28:20"
+            "2022-09-27 00:28:21",
+            "2022-09-27 00:28:21"
         ]
     },
     {
@@ -18509,11 +18713,11 @@
             "2a8674f5-802e-39ae-920c-ee6cb5ee65a3",
             "2022-06-03 13:27:26",
             3,
-            "2022-09-27 00:28:24",
-            0,
-            0,
             "2022-09-27 00:28:25",
-            "2022-09-27 00:28:25"
+            0,
+            0,
+            "2022-09-27 00:28:26",
+            "2022-09-27 00:28:26"
         ]
     },
     {
@@ -18526,33 +18730,33 @@
             null,
             true,
             "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
-            "2022-09-27 00:28:26",
-            "2022-09-27 00:28:26"
+            "2022-09-27 00:28:27",
+            "2022-09-27 00:28:27"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
-            "2022-09-27 00:28:27",
+            "2022-09-27 00:28:28",
             "08318daf-df2e-5c09-8daa-543cfeb8194a",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:28:27",
-            "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
-            "2022-09-27 00:28:28",
-            "aaca7d5c-3a2f-5bde-83f0-2f3a476531ea",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:28:28",
             "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
             "2022-09-27 00:28:29",
-            "d01582be-a427-510a-8efb-08a7727e6294",
-            "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
+            "aaca7d5c-3a2f-5bde-83f0-2f3a476531ea",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:28:29",
             "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
             "2022-09-27 00:28:30",
+            "d01582be-a427-510a-8efb-08a7727e6294",
+            "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
+            "2022-09-27 00:28:30",
+            "aa92ccd5-ae16-5be8-8dc7-b9f21203f351",
+            "2022-09-27 00:28:31",
             "a959cfd4-1724-5a95-9450-984c935edf29",
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
-            "2022-09-27 00:28:30"
+            "2022-09-27 00:28:31"
         ]
     },
     {
@@ -18565,8 +18769,8 @@
             "zcollier@hotmail.com",
             true,
             "9a7fa2f5-3b12-5d1b-9c02-c4d85e0030c0",
-            "2022-09-27 00:28:31",
-            "2022-09-27 00:28:31"
+            "2022-09-27 00:28:32",
+            "2022-09-27 00:28:32"
         ]
     },
     {
@@ -18575,8 +18779,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "9a7fa2f5-3b12-5d1b-9c02-c4d85e0030c0",
             "7774ffe3-32b9-5583-aefc-b01bde0e5fae",
-            "2022-09-27 00:28:32",
-            "2022-09-27 00:28:32"
+            "2022-09-27 00:28:33",
+            "2022-09-27 00:28:33"
         ]
     },
     {
@@ -18589,8 +18793,8 @@
             "rkuvalis@yahoo.com",
             true,
             "dfd58707-4e3c-5c38-ad54-0593d0f50496",
-            "2022-09-27 00:28:33",
-            "2022-09-27 00:28:33"
+            "2022-09-27 00:28:34",
+            "2022-09-27 00:28:34"
         ]
     },
     {
@@ -18599,8 +18803,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "dfd58707-4e3c-5c38-ad54-0593d0f50496",
             "7c2f8de4-fcd3-59bb-88a6-c0034144a1bf",
-            "2022-09-27 00:28:34",
-            "2022-09-27 00:28:34"
+            "2022-09-27 00:28:35",
+            "2022-09-27 00:28:35"
         ]
     },
     {
@@ -18622,11 +18826,11 @@
             "4516eeef-808b-3fa7-ac26-c3375f1c837f",
             "2022-06-03 13:27:26",
             3,
-            "2022-09-27 00:28:38",
-            0,
-            0,
             "2022-09-27 00:28:39",
-            "2022-09-27 00:28:39"
+            0,
+            0,
+            "2022-09-27 00:28:40",
+            "2022-09-27 00:28:40"
         ]
     },
     {
@@ -18639,33 +18843,33 @@
             null,
             true,
             "b7e7277e-619b-5535-99d8-14a205d78204",
-            "2022-09-27 00:28:40",
-            "2022-09-27 00:28:40"
+            "2022-09-27 00:28:41",
+            "2022-09-27 00:28:41"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "b7e7277e-619b-5535-99d8-14a205d78204",
-            "2022-09-27 00:28:41",
+            "2022-09-27 00:28:42",
             "9e688ca0-9375-581b-8924-d970c7d215f9",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:28:41",
-            "b7e7277e-619b-5535-99d8-14a205d78204",
-            "2022-09-27 00:28:42",
-            "fc9c51ac-b6fd-52ad-ba81-6e045ecd077c",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:28:42",
             "b7e7277e-619b-5535-99d8-14a205d78204",
             "2022-09-27 00:28:43",
-            "38c29632-51d0-59c3-baa9-98758d011456",
-            "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
+            "fc9c51ac-b6fd-52ad-ba81-6e045ecd077c",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:28:43",
             "b7e7277e-619b-5535-99d8-14a205d78204",
             "2022-09-27 00:28:44",
+            "38c29632-51d0-59c3-baa9-98758d011456",
+            "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
+            "2022-09-27 00:28:44",
+            "b7e7277e-619b-5535-99d8-14a205d78204",
+            "2022-09-27 00:28:45",
             "abfe557f-b495-57be-8e86-5c5cec57176b",
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
-            "2022-09-27 00:28:44"
+            "2022-09-27 00:28:45"
         ]
     },
     {
@@ -18678,8 +18882,8 @@
             "zcollier@hotmail.com",
             true,
             "4c92077f-9688-5e92-adef-3c921a647391",
-            "2022-09-27 00:28:45",
-            "2022-09-27 00:28:45"
+            "2022-09-27 00:28:46",
+            "2022-09-27 00:28:46"
         ]
     },
     {
@@ -18688,8 +18892,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "4c92077f-9688-5e92-adef-3c921a647391",
             "b6ab8ab9-8f3c-53ac-8e6a-5fbb04d98467",
-            "2022-09-27 00:28:46",
-            "2022-09-27 00:28:46"
+            "2022-09-27 00:28:47",
+            "2022-09-27 00:28:47"
         ]
     },
     {
@@ -18702,8 +18906,8 @@
             "autumn61@turcotte.com",
             true,
             "b8ba03cb-eba0-5e46-9d43-32dbe1f0f31d",
-            "2022-09-27 00:28:47",
-            "2022-09-27 00:28:47"
+            "2022-09-27 00:28:48",
+            "2022-09-27 00:28:48"
         ]
     },
     {
@@ -18712,8 +18916,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "b8ba03cb-eba0-5e46-9d43-32dbe1f0f31d",
             "f82304d8-d5db-58ee-a39f-6e3b047b95a8",
-            "2022-09-27 00:28:48",
-            "2022-09-27 00:28:48"
+            "2022-09-27 00:28:49",
+            "2022-09-27 00:28:49"
         ]
     },
     {
@@ -18727,7 +18931,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:28:49",
+            "2022-09-27 00:28:50",
             "000d3120-f11f-44f1-9071-4b9d8b5593fd"
         ]
     },
@@ -18747,8 +18951,14 @@
             null,
             "HP 3PAR 8200 Replication Ste Drv E-LTU",
             "6e264912-f279-55b5-8ac2-a90b04dacc43",
-            "2022-09-27 00:28:57",
-            "2022-09-27 00:28:57"
+            "2022-09-27 00:28:58",
+            "2022-09-27 00:28:58"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a46afc79-df1d-4ed7-b152-374d6b57b106"
         ]
     },
     {
@@ -18791,8 +19001,8 @@
             "85.736993",
             "tfsbqgxubwzw",
             "4e261006-c98a-533b-83e0-d108ca8f6db7",
-            "2022-09-27 00:29:00",
-            "2022-09-27 00:29:00"
+            "2022-09-27 00:29:01",
+            "2022-09-27 00:29:01"
         ]
     },
     {
@@ -18825,8 +19035,8 @@
             0.0,
             0.0,
             "889742e0-cdd0-58e5-bc6a-07883f56a472",
-            "2022-09-27 00:29:01",
-            "2022-09-27 00:29:01"
+            "2022-09-27 00:29:02",
+            "2022-09-27 00:29:02"
         ]
     },
     {
@@ -18865,8 +19075,8 @@
             0.0,
             0.0,
             "0776e3c1-6294-525d-8897-f4a7b3b6da21",
-            "2022-09-27 00:29:03",
-            "2022-09-27 00:29:03"
+            "2022-09-27 00:29:04",
+            "2022-09-27 00:29:04"
         ]
     },
     {
@@ -18879,9 +19089,9 @@
             3,
             1,
             "889742e0-cdd0-58e5-bc6a-07883f56a472",
-            "2022-09-27 00:29:02",
-            "2022-09-27 00:29:05",
-            "2022-09-27 00:29:05"
+            "2022-09-27 00:29:03",
+            "2022-09-27 00:29:06",
+            "2022-09-27 00:29:06"
         ]
     },
     {
@@ -18890,8 +19100,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "a46afc79-df1d-4ed7-b152-374d6b57b106",
             "2c0986d5-ab01-56bd-8972-cfd89974dda7",
-            "2022-09-27 00:29:06",
-            "2022-09-27 00:29:06"
+            "2022-09-27 00:29:07",
+            "2022-09-27 00:29:07"
         ]
     },
     {
@@ -18904,8 +19114,8 @@
             null,
             null,
             "d1919d37-38fa-5564-a7af-e14d2d2a4056",
-            "2022-09-27 00:29:07",
-            "2022-09-27 00:29:07"
+            "2022-09-27 00:29:08",
+            "2022-09-27 00:29:08"
         ]
     },
     {
@@ -18914,8 +19124,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "d1919d37-38fa-5564-a7af-e14d2d2a4056",
             "dec08b8b-d31b-575a-9fd0-12ad0bdbc493",
-            "2022-09-27 00:29:08",
-            "2022-09-27 00:29:08"
+            "2022-09-27 00:29:09",
+            "2022-09-27 00:29:09"
         ]
     },
     {
@@ -18928,8 +19138,8 @@
             null,
             true,
             "cee0c1bb-6339-56a2-acbd-f42bd9d45237",
-            "2022-09-27 00:29:09",
-            "2022-09-27 00:29:09"
+            "2022-09-27 00:29:10",
+            "2022-09-27 00:29:10"
         ]
     },
     {
@@ -18938,8 +19148,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "cee0c1bb-6339-56a2-acbd-f42bd9d45237",
             "c577d709-8a2c-5819-95ac-ab73df3078b0",
-            "2022-09-27 00:29:10",
-            "2022-09-27 00:29:10"
+            "2022-09-27 00:29:11",
+            "2022-09-27 00:29:11"
         ]
     },
     {
@@ -18952,8 +19162,8 @@
             null,
             null,
             "6909170f-a579-5f16-b059-42e309bc2d7a",
-            "2022-09-27 00:29:11",
-            "2022-09-27 00:29:11"
+            "2022-09-27 00:29:12",
+            "2022-09-27 00:29:12"
         ]
     },
     {
@@ -18962,8 +19172,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "6909170f-a579-5f16-b059-42e309bc2d7a",
             "9534e648-e2d2-5f11-9fb4-42eddce59eb5",
-            "2022-09-27 00:29:12",
-            "2022-09-27 00:29:12"
+            "2022-09-27 00:29:13",
+            "2022-09-27 00:29:13"
         ]
     },
     {
@@ -18972,19 +19182,19 @@
             "a46afc79-df1d-4ed7-b152-374d6b57b106",
             "4e261006-c98a-533b-83e0-d108ca8f6db7",
             "8d0f43c6-54a1-50c2-986b-3a5c8437e6d8",
-            "2022-09-27 00:29:13",
-            "2022-09-27 00:29:13"
+            "2022-09-27 00:29:14",
+            "2022-09-27 00:29:14"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:29:04",
+            "2022-09-27 00:29:05",
             "a46afc79-df1d-4ed7-b152-374d6b57b106",
             "d3dc4bc5-3999-5df1-965e-1a725eff8e64",
             "0776e3c1-6294-525d-8897-f4a7b3b6da21",
             "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
-            "2022-09-27 00:29:04"
+            "2022-09-27 00:29:05"
         ]
     },
     {
@@ -19015,8 +19225,8 @@
             null,
             null,
             "68dc7292-8c47-54f0-8ed9-03edca35c5fe",
-            "2022-09-27 00:29:16",
-            "2022-09-27 00:29:16"
+            "2022-09-27 00:29:17",
+            "2022-09-27 00:29:17"
         ]
     },
     {
@@ -19035,9 +19245,9 @@
             "20",
             3,
             1,
-            "2022-09-27 00:29:18",
             "2022-09-27 00:29:19",
-            "2022-09-27 00:29:19"
+            "2022-09-27 00:29:20",
+            "2022-09-27 00:29:20"
         ]
     },
     {
@@ -19050,8 +19260,8 @@
             null,
             true,
             "b4f6c8ea-f294-5de9-9d7e-3514ef3c76f2",
-            "2022-09-27 00:29:20",
-            "2022-09-27 00:29:20"
+            "2022-09-27 00:29:21",
+            "2022-09-27 00:29:21"
         ]
     },
     {
@@ -19060,8 +19270,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "b4f6c8ea-f294-5de9-9d7e-3514ef3c76f2",
             "966d91ef-0884-543b-845c-ae374e45386e",
-            "2022-09-27 00:29:21",
-            "2022-09-27 00:29:21"
+            "2022-09-27 00:29:22",
+            "2022-09-27 00:29:22"
         ]
     },
     {
@@ -19074,8 +19284,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "4a3310bf-781c-53e7-9790-2eda6f16aa61",
-            "2022-09-27 00:29:22",
-            "2022-09-27 00:29:22"
+            "2022-09-27 00:29:23",
+            "2022-09-27 00:29:23"
         ]
     },
     {
@@ -19084,8 +19294,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "4a3310bf-781c-53e7-9790-2eda6f16aa61",
             "c6bdcc67-a6d0-5e4f-80df-27c2bbe52aaf",
-            "2022-09-27 00:29:23",
-            "2022-09-27 00:29:23"
+            "2022-09-27 00:29:24",
+            "2022-09-27 00:29:24"
         ]
     },
     {
@@ -19098,8 +19308,8 @@
             "alanis.ryan@fahey.com",
             true,
             "d25a3ceb-3b51-5104-82f0-1d117046a332",
-            "2022-09-27 00:29:24",
-            "2022-09-27 00:29:24"
+            "2022-09-27 00:29:25",
+            "2022-09-27 00:29:25"
         ]
     },
     {
@@ -19108,8 +19318,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "d25a3ceb-3b51-5104-82f0-1d117046a332",
             "23bb741c-992b-592a-8883-6e4ef5db13a0",
-            "2022-09-27 00:29:25",
-            "2022-09-27 00:29:25"
+            "2022-09-27 00:29:26",
+            "2022-09-27 00:29:26"
         ]
     },
     {
@@ -19118,8 +19328,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000e293c-5022-4f56-af50-a7a4f61e6e7f",
             "2436c98c-39bd-5e39-8e00-31b110a6fab5",
-            "2022-09-27 00:29:26",
-            "2022-09-27 00:29:26"
+            "2022-09-27 00:29:27",
+            "2022-09-27 00:29:27"
         ]
     },
     {
@@ -19141,11 +19351,11 @@
             "0fe15212-d14e-3d09-a5a3-142b4d096790",
             "2022-06-03 13:27:26",
             4,
-            "2022-09-27 00:29:30",
-            0,
-            0,
             "2022-09-27 00:29:31",
-            "2022-09-27 00:29:31"
+            0,
+            0,
+            "2022-09-27 00:29:32",
+            "2022-09-27 00:29:32"
         ]
     },
     {
@@ -19158,28 +19368,28 @@
             null,
             true,
             "dcd6e184-a287-55ce-b60d-545608228c83",
-            "2022-09-27 00:29:32",
-            "2022-09-27 00:29:32"
+            "2022-09-27 00:29:33",
+            "2022-09-27 00:29:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "dcd6e184-a287-55ce-b60d-545608228c83",
-            "2022-09-27 00:29:33",
+            "2022-09-27 00:29:34",
             "ec485a77-7ba2-56b2-ac73-2df67ec2e589",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:29:33",
-            "dcd6e184-a287-55ce-b60d-545608228c83",
-            "2022-09-27 00:29:34",
-            "4a8ce9fe-1ecc-514d-9219-0c5d190fd531",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:29:34",
             "dcd6e184-a287-55ce-b60d-545608228c83",
             "2022-09-27 00:29:35",
+            "4a8ce9fe-1ecc-514d-9219-0c5d190fd531",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:29:35",
+            "dcd6e184-a287-55ce-b60d-545608228c83",
+            "2022-09-27 00:29:36",
             "db6956cb-9edc-5d5d-84f5-1181482738e2",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:29:35"
+            "2022-09-27 00:29:36"
         ]
     },
     {
@@ -19192,8 +19402,8 @@
             "josiah.schmidt@gmail.com",
             true,
             "8ef5fa12-7d57-568f-87d9-90d6c5a6e4ea",
-            "2022-09-27 00:29:36",
-            "2022-09-27 00:29:36"
+            "2022-09-27 00:29:37",
+            "2022-09-27 00:29:37"
         ]
     },
     {
@@ -19202,8 +19412,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "8ef5fa12-7d57-568f-87d9-90d6c5a6e4ea",
             "5e020c79-fef1-5a35-8590-da8a4a2cc3c0",
-            "2022-09-27 00:29:37",
-            "2022-09-27 00:29:37"
+            "2022-09-27 00:29:38",
+            "2022-09-27 00:29:38"
         ]
     },
     {
@@ -19216,8 +19426,8 @@
             "alanis.ryan@fahey.com",
             true,
             "2b11785f-67b7-5a15-b0a4-730342499abe",
-            "2022-09-27 00:29:38",
-            "2022-09-27 00:29:38"
+            "2022-09-27 00:29:39",
+            "2022-09-27 00:29:39"
         ]
     },
     {
@@ -19226,8 +19436,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "2b11785f-67b7-5a15-b0a4-730342499abe",
             "53e57539-d89b-5d67-a52c-3ef885733ce7",
-            "2022-09-27 00:29:39",
-            "2022-09-27 00:29:39"
+            "2022-09-27 00:29:40",
+            "2022-09-27 00:29:40"
         ]
     },
     {
@@ -19240,8 +19450,8 @@
             null,
             null,
             "97c57955-eb55-5272-a21d-2bb63ee6ce43",
-            "2022-09-27 00:29:40",
-            "2022-09-27 00:29:40"
+            "2022-09-27 00:29:41",
+            "2022-09-27 00:29:41"
         ]
     },
     {
@@ -19250,8 +19460,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "97c57955-eb55-5272-a21d-2bb63ee6ce43",
             "3dec9962-3572-537b-b405-63984cc26e90",
-            "2022-09-27 00:29:41",
-            "2022-09-27 00:29:41"
+            "2022-09-27 00:29:42",
+            "2022-09-27 00:29:42"
         ]
     },
     {
@@ -19264,7 +19474,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:29:42",
+            "2022-09-27 00:29:43",
             "000e293c-5022-4f56-af50-a7a4f61e6e7f"
         ]
     },
@@ -19284,8 +19494,14 @@
             null,
             "HPE BL460c Gen9 E5-2690v4 Kit",
             "09f5a61a-fe2d-544a-ba56-16393dde80df",
-            "2022-09-27 00:29:50",
-            "2022-09-27 00:29:50"
+            "2022-09-27 00:29:51",
+            "2022-09-27 00:29:51"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "982e95de-6963-4065-a315-4ef9eb6565c0"
         ]
     },
     {
@@ -19320,8 +19536,8 @@
             "Lake Sterling",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "5825b973-7cf3-562e-a917-167f8f81c142",
-            "2022-09-27 00:29:53",
-            "2022-09-27 00:29:53"
+            "2022-09-27 00:29:54",
+            "2022-09-27 00:29:54"
         ]
     },
     {
@@ -19346,8 +19562,8 @@
             "-124.153734",
             "3jxtwzf5br4h",
             "9799b6a8-c0f2-5c19-b587-2347020f1fa1",
-            "2022-09-27 00:29:54",
-            "2022-09-27 00:29:54"
+            "2022-09-27 00:29:55",
+            "2022-09-27 00:29:55"
         ]
     },
     {
@@ -19380,8 +19596,8 @@
             0.0,
             0.0,
             "1d4ef28f-bd2b-5b31-a2ec-346fac9c1c9f",
-            "2022-09-27 00:29:55",
-            "2022-09-27 00:29:55"
+            "2022-09-27 00:29:56",
+            "2022-09-27 00:29:56"
         ]
     },
     {
@@ -19420,8 +19636,8 @@
             0.0,
             0.0,
             "93e0dcb9-c0c6-525d-8f41-feb94135c12f",
-            "2022-09-27 00:29:57",
-            "2022-09-27 00:29:57"
+            "2022-09-27 00:29:58",
+            "2022-09-27 00:29:58"
         ]
     },
     {
@@ -19434,9 +19650,9 @@
             5,
             1,
             "1d4ef28f-bd2b-5b31-a2ec-346fac9c1c9f",
-            "2022-09-27 00:29:56",
-            "2022-09-27 00:29:59",
-            "2022-09-27 00:29:59"
+            "2022-09-27 00:29:57",
+            "2022-09-27 00:30:00",
+            "2022-09-27 00:30:00"
         ]
     },
     {
@@ -19445,8 +19661,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "982e95de-6963-4065-a315-4ef9eb6565c0",
             "5e391bb8-85b1-58b5-9bc9-ca0f9724b00a",
-            "2022-09-27 00:30:00",
-            "2022-09-27 00:30:00"
+            "2022-09-27 00:30:01",
+            "2022-09-27 00:30:01"
         ]
     },
     {
@@ -19459,8 +19675,8 @@
             null,
             true,
             "111526a0-f86d-5b24-8c72-54e9710c41ae",
-            "2022-09-27 00:30:01",
-            "2022-09-27 00:30:01"
+            "2022-09-27 00:30:02",
+            "2022-09-27 00:30:02"
         ]
     },
     {
@@ -19469,8 +19685,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "111526a0-f86d-5b24-8c72-54e9710c41ae",
             "3c3cecda-d2b3-5c4b-861d-3b5810362717",
-            "2022-09-27 00:30:02",
-            "2022-09-27 00:30:02"
+            "2022-09-27 00:30:03",
+            "2022-09-27 00:30:03"
         ]
     },
     {
@@ -19483,8 +19699,8 @@
             null,
             true,
             "05522a21-890d-54ea-bcea-f9640d7504ea",
-            "2022-09-27 00:30:03",
-            "2022-09-27 00:30:03"
+            "2022-09-27 00:30:04",
+            "2022-09-27 00:30:04"
         ]
     },
     {
@@ -19493,8 +19709,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "05522a21-890d-54ea-bcea-f9640d7504ea",
             "28333fef-692f-5836-aebd-4e5911bc1f60",
-            "2022-09-27 00:30:04",
-            "2022-09-27 00:30:04"
+            "2022-09-27 00:30:05",
+            "2022-09-27 00:30:05"
         ]
     },
     {
@@ -19507,8 +19723,8 @@
             null,
             true,
             "7a910f19-27ec-51da-90a1-293404719dee",
-            "2022-09-27 00:30:05",
-            "2022-09-27 00:30:05"
+            "2022-09-27 00:30:06",
+            "2022-09-27 00:30:06"
         ]
     },
     {
@@ -19517,8 +19733,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "7a910f19-27ec-51da-90a1-293404719dee",
             "af87d541-d469-52e2-8efc-76ca37a7d69b",
-            "2022-09-27 00:30:06",
-            "2022-09-27 00:30:06"
+            "2022-09-27 00:30:07",
+            "2022-09-27 00:30:07"
         ]
     },
     {
@@ -19531,8 +19747,8 @@
             null,
             true,
             "087d7093-5572-5c8b-adbf-1bf01521f5d4",
-            "2022-09-27 00:30:07",
-            "2022-09-27 00:30:07"
+            "2022-09-27 00:30:08",
+            "2022-09-27 00:30:08"
         ]
     },
     {
@@ -19541,8 +19757,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "087d7093-5572-5c8b-adbf-1bf01521f5d4",
             "192d6ea1-8760-5205-b9fc-48e5fe200675",
-            "2022-09-27 00:30:08",
-            "2022-09-27 00:30:08"
+            "2022-09-27 00:30:09",
+            "2022-09-27 00:30:09"
         ]
     },
     {
@@ -19555,8 +19771,8 @@
             null,
             true,
             "811e9e67-25ed-5406-9552-f16280fe8f47",
-            "2022-09-27 00:30:09",
-            "2022-09-27 00:30:09"
+            "2022-09-27 00:30:10",
+            "2022-09-27 00:30:10"
         ]
     },
     {
@@ -19565,8 +19781,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "811e9e67-25ed-5406-9552-f16280fe8f47",
             "08059822-c029-5d45-9e7c-142067ddb78a",
-            "2022-09-27 00:30:10",
-            "2022-09-27 00:30:10"
+            "2022-09-27 00:30:11",
+            "2022-09-27 00:30:11"
         ]
     },
     {
@@ -19575,19 +19791,19 @@
             "982e95de-6963-4065-a315-4ef9eb6565c0",
             "9799b6a8-c0f2-5c19-b587-2347020f1fa1",
             "32ba6aa3-7a4c-5d86-b09b-3aaa441f3548",
-            "2022-09-27 00:30:11",
-            "2022-09-27 00:30:11"
+            "2022-09-27 00:30:12",
+            "2022-09-27 00:30:12"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:29:58",
+            "2022-09-27 00:29:59",
             "982e95de-6963-4065-a315-4ef9eb6565c0",
             "14dc7c68-3d34-5743-b97f-89b4b5b3dd04",
             "93e0dcb9-c0c6-525d-8f41-feb94135c12f",
             "a9233c9c-4634-493a-9f12-bef4d1cf3c5e",
-            "2022-09-27 00:29:58"
+            "2022-09-27 00:29:59"
         ]
     },
     {
@@ -19610,8 +19826,8 @@
             "East Rosemouth",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "717946fa-50f8-5de6-bd52-ace72103dd0b",
-            "2022-09-27 00:30:14",
-            "2022-09-27 00:30:14"
+            "2022-09-27 00:30:15",
+            "2022-09-27 00:30:15"
         ]
     },
     {
@@ -19636,8 +19852,8 @@
             null,
             null,
             "21004eb8-9a2b-5933-9772-d531504d3921",
-            "2022-09-27 00:30:15",
-            "2022-09-27 00:30:15"
+            "2022-09-27 00:30:16",
+            "2022-09-27 00:30:16"
         ]
     },
     {
@@ -19656,9 +19872,9 @@
             "80",
             3,
             1,
-            "2022-09-27 00:30:17",
             "2022-09-27 00:30:18",
-            "2022-09-27 00:30:18"
+            "2022-09-27 00:30:19",
+            "2022-09-27 00:30:19"
         ]
     },
     {
@@ -19671,8 +19887,8 @@
             null,
             true,
             "ae41dee1-524d-590a-bfcc-4ab1b85df60c",
-            "2022-09-27 00:30:19",
-            "2022-09-27 00:30:19"
+            "2022-09-27 00:30:20",
+            "2022-09-27 00:30:20"
         ]
     },
     {
@@ -19681,8 +19897,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "ae41dee1-524d-590a-bfcc-4ab1b85df60c",
             "e53f41bd-a1c3-585e-9de6-c97a010ef06a",
-            "2022-09-27 00:30:20",
-            "2022-09-27 00:30:20"
+            "2022-09-27 00:30:21",
+            "2022-09-27 00:30:21"
         ]
     },
     {
@@ -19695,8 +19911,8 @@
             "zcollier@hotmail.com",
             true,
             "05efc209-be2a-57ce-9489-c717cbae95de",
-            "2022-09-27 00:30:21",
-            "2022-09-27 00:30:21"
+            "2022-09-27 00:30:22",
+            "2022-09-27 00:30:22"
         ]
     },
     {
@@ -19705,8 +19921,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "05efc209-be2a-57ce-9489-c717cbae95de",
             "9d494133-fed7-590d-891b-88f3ccc95d95",
-            "2022-09-27 00:30:22",
-            "2022-09-27 00:30:22"
+            "2022-09-27 00:30:23",
+            "2022-09-27 00:30:23"
         ]
     },
     {
@@ -19719,8 +19935,8 @@
             "michaela36@gmail.com",
             true,
             "8198a4f2-63ea-5f17-8829-a970af80aad3",
-            "2022-09-27 00:30:23",
-            "2022-09-27 00:30:23"
+            "2022-09-27 00:30:24",
+            "2022-09-27 00:30:24"
         ]
     },
     {
@@ -19729,8 +19945,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "8198a4f2-63ea-5f17-8829-a970af80aad3",
             "9f940f62-47a6-58ea-91fc-7e7cc5b360d8",
-            "2022-09-27 00:30:24",
-            "2022-09-27 00:30:24"
+            "2022-09-27 00:30:25",
+            "2022-09-27 00:30:25"
         ]
     },
     {
@@ -19739,8 +19955,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000e3abe-1f5c-40c4-84ba-469bf049cfc9",
             "9a7cb933-c108-54b3-9fed-000eb77689e4",
-            "2022-09-27 00:30:25",
-            "2022-09-27 00:30:25"
+            "2022-09-27 00:30:26",
+            "2022-09-27 00:30:26"
         ]
     },
     {
@@ -19762,11 +19978,11 @@
             "47f2d0a3-cfa6-3a15-a6e2-9b07154bb6c3",
             "2022-06-03 13:27:26",
             4,
-            "2022-09-27 00:30:29",
-            0,
-            0,
             "2022-09-27 00:30:30",
-            "2022-09-27 00:30:30"
+            0,
+            0,
+            "2022-09-27 00:30:31",
+            "2022-09-27 00:30:31"
         ]
     },
     {
@@ -19779,28 +19995,28 @@
             null,
             true,
             "7cb3c111-157d-512e-8d03-ef7ccdfd8ccc",
-            "2022-09-27 00:30:31",
-            "2022-09-27 00:30:31"
+            "2022-09-27 00:30:32",
+            "2022-09-27 00:30:32"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "7cb3c111-157d-512e-8d03-ef7ccdfd8ccc",
-            "2022-09-27 00:30:32",
+            "2022-09-27 00:30:33",
             "bb7c16a2-09cf-5894-be75-5c447f828db8",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:30:32",
-            "7cb3c111-157d-512e-8d03-ef7ccdfd8ccc",
-            "2022-09-27 00:30:33",
-            "faea574c-78af-54fe-9037-ca9089134f59",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:30:33",
             "7cb3c111-157d-512e-8d03-ef7ccdfd8ccc",
             "2022-09-27 00:30:34",
+            "faea574c-78af-54fe-9037-ca9089134f59",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:30:34",
+            "7cb3c111-157d-512e-8d03-ef7ccdfd8ccc",
+            "2022-09-27 00:30:35",
             "ec71eba0-60f6-5bfc-8326-dde079973910",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:30:34"
+            "2022-09-27 00:30:35"
         ]
     },
     {
@@ -19813,8 +20029,8 @@
             "zcollier@hotmail.com",
             true,
             "e77cbf1a-8868-5c37-80df-11208b95ff2a",
-            "2022-09-27 00:30:35",
-            "2022-09-27 00:30:35"
+            "2022-09-27 00:30:36",
+            "2022-09-27 00:30:36"
         ]
     },
     {
@@ -19823,8 +20039,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "e77cbf1a-8868-5c37-80df-11208b95ff2a",
             "f0a7adf5-0722-5f89-8732-a4b0d995719b",
-            "2022-09-27 00:30:36",
-            "2022-09-27 00:30:36"
+            "2022-09-27 00:30:37",
+            "2022-09-27 00:30:37"
         ]
     },
     {
@@ -19837,8 +20053,8 @@
             "michaela36@gmail.com",
             true,
             "11c4b02d-bf96-5810-b0db-1f9eb1410934",
-            "2022-09-27 00:30:37",
-            "2022-09-27 00:30:37"
+            "2022-09-27 00:30:38",
+            "2022-09-27 00:30:38"
         ]
     },
     {
@@ -19847,8 +20063,8 @@
             "4431ff6b-a085-52e7-8ff0-743883e53a5f",
             "11c4b02d-bf96-5810-b0db-1f9eb1410934",
             "af5770f2-154a-5e44-866a-09bff8fdc05d",
-            "2022-09-27 00:30:38",
-            "2022-09-27 00:30:38"
+            "2022-09-27 00:30:39",
+            "2022-09-27 00:30:39"
         ]
     },
     {
@@ -19861,8 +20077,8 @@
             null,
             true,
             "d72c3eb3-d472-5991-b1ac-cab1ab7f62d5",
-            "2022-09-27 00:30:39",
-            "2022-09-27 00:30:39"
+            "2022-09-27 00:30:40",
+            "2022-09-27 00:30:40"
         ]
     },
     {
@@ -19871,8 +20087,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "d72c3eb3-d472-5991-b1ac-cab1ab7f62d5",
             "9c9c818c-b2cd-584a-8b97-fb43631da867",
-            "2022-09-27 00:30:40",
-            "2022-09-27 00:30:40"
+            "2022-09-27 00:30:41",
+            "2022-09-27 00:30:41"
         ]
     },
     {
@@ -19885,7 +20101,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:30:41",
+            "2022-09-27 00:30:42",
             "000e3abe-1f5c-40c4-84ba-469bf049cfc9"
         ]
     },
@@ -19905,8 +20121,14 @@
             null,
             "",
             "65e8308f-5a6e-5924-8940-a0ea67d79fd6",
-            "2022-09-27 00:30:49",
-            "2022-09-27 00:30:49"
+            "2022-09-27 00:30:50",
+            "2022-09-27 00:30:50"
+        ]
+    },
+    {
+        "query": "select `customers`.* from `customers` where `customers`.`id` = ? and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "b34a93c8-cc76-4346-bdf0-9d67bdb943d1"
         ]
     },
     {
@@ -19941,8 +20163,8 @@
             "Lake Nakia",
             "1daac5fc-4f18-5993-8c82-44265160b0f5",
             "b8db6460-b8f6-58e6-9d6e-df86ad488c75",
-            "2022-09-27 00:30:52",
-            "2022-09-27 00:30:52"
+            "2022-09-27 00:30:53",
+            "2022-09-27 00:30:53"
         ]
     },
     {
@@ -19967,8 +20189,8 @@
             "-19.828358",
             "7e3usgcmmv89",
             "eb818525-20fa-559a-b41c-420f88f8faa4",
-            "2022-09-27 00:30:53",
-            "2022-09-27 00:30:53"
+            "2022-09-27 00:30:54",
+            "2022-09-27 00:30:54"
         ]
     },
     {
@@ -20001,8 +20223,8 @@
             0.0,
             0.0,
             "b31487e6-a6d5-578a-ae0c-68a5fc8f3dd0",
-            "2022-09-27 00:30:54",
-            "2022-09-27 00:30:54"
+            "2022-09-27 00:30:55",
+            "2022-09-27 00:30:55"
         ]
     },
     {
@@ -20041,8 +20263,8 @@
             0.0,
             0.0,
             "ae7040c3-665c-574b-9a8d-4624588e74a0",
-            "2022-09-27 00:30:56",
-            "2022-09-27 00:30:56"
+            "2022-09-27 00:30:57",
+            "2022-09-27 00:30:57"
         ]
     },
     {
@@ -20055,9 +20277,9 @@
             7,
             1,
             "b31487e6-a6d5-578a-ae0c-68a5fc8f3dd0",
-            "2022-09-27 00:30:55",
-            "2022-09-27 00:30:58",
-            "2022-09-27 00:30:58"
+            "2022-09-27 00:30:56",
+            "2022-09-27 00:30:59",
+            "2022-09-27 00:30:59"
         ]
     },
     {
@@ -20066,8 +20288,8 @@
             "a3eb0983-45cd-5770-bd83-dfb58e0cfe17",
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
             "31d90045-c8ac-5483-8ee8-67981f5f9d9f",
-            "2022-09-27 00:30:59",
-            "2022-09-27 00:30:59"
+            "2022-09-27 00:31:00",
+            "2022-09-27 00:31:00"
         ]
     },
     {
@@ -20080,8 +20302,8 @@
             null,
             null,
             "bcf42643-e29c-55aa-a32b-7aed47e2f223",
-            "2022-09-27 00:31:00",
-            "2022-09-27 00:31:00"
+            "2022-09-27 00:31:01",
+            "2022-09-27 00:31:01"
         ]
     },
     {
@@ -20090,8 +20312,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "bcf42643-e29c-55aa-a32b-7aed47e2f223",
             "2a945954-0acf-53b6-be6f-fa142bfbb886",
-            "2022-09-27 00:31:01",
-            "2022-09-27 00:31:01"
+            "2022-09-27 00:31:02",
+            "2022-09-27 00:31:02"
         ]
     },
     {
@@ -20104,8 +20326,8 @@
             null,
             true,
             "e8375831-0935-5628-a7d4-ea43fdf3532c",
-            "2022-09-27 00:31:02",
-            "2022-09-27 00:31:02"
+            "2022-09-27 00:31:03",
+            "2022-09-27 00:31:03"
         ]
     },
     {
@@ -20114,8 +20336,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "e8375831-0935-5628-a7d4-ea43fdf3532c",
             "efeb4d60-e2f2-58b2-9c79-a2ccccdb4993",
-            "2022-09-27 00:31:03",
-            "2022-09-27 00:31:03"
+            "2022-09-27 00:31:04",
+            "2022-09-27 00:31:04"
         ]
     },
     {
@@ -20128,8 +20350,8 @@
             null,
             true,
             "82d3c185-5c64-5405-8d21-d0124461c511",
-            "2022-09-27 00:31:04",
-            "2022-09-27 00:31:04"
+            "2022-09-27 00:31:05",
+            "2022-09-27 00:31:05"
         ]
     },
     {
@@ -20138,8 +20360,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "82d3c185-5c64-5405-8d21-d0124461c511",
             "970eeb1a-4723-588d-9cbb-289a3a1f5c42",
-            "2022-09-27 00:31:05",
-            "2022-09-27 00:31:05"
+            "2022-09-27 00:31:06",
+            "2022-09-27 00:31:06"
         ]
     },
     {
@@ -20152,8 +20374,8 @@
             null,
             true,
             "1a8b8929-e52b-58cd-8f9c-5a7846030613",
-            "2022-09-27 00:31:06",
-            "2022-09-27 00:31:06"
+            "2022-09-27 00:31:07",
+            "2022-09-27 00:31:07"
         ]
     },
     {
@@ -20162,8 +20384,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "1a8b8929-e52b-58cd-8f9c-5a7846030613",
             "96e73f03-d289-53e5-b122-684c141e2f5c",
-            "2022-09-27 00:31:07",
-            "2022-09-27 00:31:07"
+            "2022-09-27 00:31:08",
+            "2022-09-27 00:31:08"
         ]
     },
     {
@@ -20176,8 +20398,8 @@
             null,
             null,
             "b6967069-94c9-5e46-b244-d3f4a50e29b4",
-            "2022-09-27 00:31:08",
-            "2022-09-27 00:31:08"
+            "2022-09-27 00:31:09",
+            "2022-09-27 00:31:09"
         ]
     },
     {
@@ -20186,8 +20408,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "b6967069-94c9-5e46-b244-d3f4a50e29b4",
             "a2dc1d11-f8a1-5c22-96b6-3a8ac600fc54",
-            "2022-09-27 00:31:09",
-            "2022-09-27 00:31:09"
+            "2022-09-27 00:31:10",
+            "2022-09-27 00:31:10"
         ]
     },
     {
@@ -20200,8 +20422,8 @@
             "jerald97@yahoo.com",
             true,
             "d78d2a5b-c61c-5112-bbab-b60b3282063f",
-            "2022-09-27 00:31:10",
-            "2022-09-27 00:31:10"
+            "2022-09-27 00:31:11",
+            "2022-09-27 00:31:11"
         ]
     },
     {
@@ -20210,8 +20432,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "d78d2a5b-c61c-5112-bbab-b60b3282063f",
             "d5598d21-8c2c-58df-a050-f517b7d25d33",
-            "2022-09-27 00:31:11",
-            "2022-09-27 00:31:11"
+            "2022-09-27 00:31:12",
+            "2022-09-27 00:31:12"
         ]
     },
     {
@@ -20224,8 +20446,8 @@
             null,
             true,
             "25ff2532-cfc4-5358-bda9-26794da34827",
-            "2022-09-27 00:31:12",
-            "2022-09-27 00:31:12"
+            "2022-09-27 00:31:13",
+            "2022-09-27 00:31:13"
         ]
     },
     {
@@ -20234,8 +20456,8 @@
             "6a185c00-1295-55ad-bf4d-8fb432fa5b0b",
             "25ff2532-cfc4-5358-bda9-26794da34827",
             "8f1b37fe-b82a-5b8a-94e1-c0ceedff0692",
-            "2022-09-27 00:31:13",
-            "2022-09-27 00:31:13"
+            "2022-09-27 00:31:14",
+            "2022-09-27 00:31:14"
         ]
     },
     {
@@ -20244,19 +20466,19 @@
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
             "eb818525-20fa-559a-b41c-420f88f8faa4",
             "d12de580-d4ea-518d-bc31-d8c46395b8ff",
-            "2022-09-27 00:31:14",
-            "2022-09-27 00:31:14"
+            "2022-09-27 00:31:15",
+            "2022-09-27 00:31:15"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-09-27 00:30:57",
+            "2022-09-27 00:30:58",
             "b34a93c8-cc76-4346-bdf0-9d67bdb943d1",
             "751aeb11-5f8a-541a-9654-46a1de8b404a",
             "ae7040c3-665c-574b-9a8d-4624588e74a0",
             "594184e7-24d4-4614-8db4-fe132adb86f4",
-            "2022-09-27 00:30:57"
+            "2022-09-27 00:30:58"
         ]
     },
     {
@@ -20279,8 +20501,8 @@
             "Lake Nakia",
             "9c853559-b86e-53e9-a2f3-b749bd748630",
             "a4bdc069-0fb3-53dd-90b1-aefe1a6ee8eb",
-            "2022-09-27 00:31:17",
-            "2022-09-27 00:31:17"
+            "2022-09-27 00:31:18",
+            "2022-09-27 00:31:18"
         ]
     },
     {
@@ -20305,8 +20527,8 @@
             null,
             null,
             "4b26f25a-7347-5313-a890-2fad7384ce36",
-            "2022-09-27 00:31:18",
-            "2022-09-27 00:31:18"
+            "2022-09-27 00:31:19",
+            "2022-09-27 00:31:19"
         ]
     },
     {
@@ -20325,9 +20547,9 @@
             "20",
             2,
             1,
-            "2022-09-27 00:31:20",
             "2022-09-27 00:31:21",
-            "2022-09-27 00:31:21"
+            "2022-09-27 00:31:22",
+            "2022-09-27 00:31:22"
         ]
     },
     {
@@ -20340,8 +20562,8 @@
             null,
             true,
             "03a7b86a-3dc8-57f1-85a6-9cf02dab4bb4",
-            "2022-09-27 00:31:22",
-            "2022-09-27 00:31:22"
+            "2022-09-27 00:31:23",
+            "2022-09-27 00:31:23"
         ]
     },
     {
@@ -20350,8 +20572,8 @@
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
             "03a7b86a-3dc8-57f1-85a6-9cf02dab4bb4",
             "c6750ec3-17be-5ef3-be2e-5ed456eda46e",
-            "2022-09-27 00:31:23",
-            "2022-09-27 00:31:23"
+            "2022-09-27 00:31:24",
+            "2022-09-27 00:31:24"
         ]
     },
     {
@@ -20364,8 +20586,8 @@
             "bradtke.nasir@gibson.com",
             true,
             "bcef5bb2-5374-505e-9b30-0a7d0dc0e08f",
-            "2022-09-27 00:31:24",
-            "2022-09-27 00:31:24"
+            "2022-09-27 00:31:25",
+            "2022-09-27 00:31:25"
         ]
     },
     {
@@ -20374,8 +20596,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "bcef5bb2-5374-505e-9b30-0a7d0dc0e08f",
             "b22801f7-314e-57ab-ac64-f5efa5d93e89",
-            "2022-09-27 00:31:25",
-            "2022-09-27 00:31:25"
+            "2022-09-27 00:31:26",
+            "2022-09-27 00:31:26"
         ]
     },
     {
@@ -20384,8 +20606,8 @@
             "e5b58abb-fbd1-5a06-8400-40b4c4022f1e",
             "000e5f8a-604f-472c-a87e-a753829e97cf",
             "c52aa0e2-38ba-521a-869a-371bd07f3023",
-            "2022-09-27 00:31:26",
-            "2022-09-27 00:31:26"
+            "2022-09-27 00:31:27",
+            "2022-09-27 00:31:27"
         ]
     },
     {
@@ -20407,11 +20629,11 @@
             "4c0a1960-574e-3a3b-87aa-bd7150282bbe",
             "2022-06-03 13:27:26",
             3,
-            "2022-09-27 00:31:30",
-            0,
-            0,
             "2022-09-27 00:31:31",
-            "2022-09-27 00:31:31"
+            0,
+            0,
+            "2022-09-27 00:31:32",
+            "2022-09-27 00:31:32"
         ]
     },
     {
@@ -20424,28 +20646,28 @@
             null,
             true,
             "eb356294-55bc-5341-9485-e47f9b5717ee",
-            "2022-09-27 00:31:32",
-            "2022-09-27 00:31:32"
+            "2022-09-27 00:31:33",
+            "2022-09-27 00:31:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
             "eb356294-55bc-5341-9485-e47f9b5717ee",
-            "2022-09-27 00:31:33",
+            "2022-09-27 00:31:34",
             "0a4875e3-835d-5d41-83d8-f04509608eee",
             "ab8cfc31-5347-51ec-b381-b5c15f98d5a1",
-            "2022-09-27 00:31:33",
-            "eb356294-55bc-5341-9485-e47f9b5717ee",
-            "2022-09-27 00:31:34",
-            "21acbdfe-d32c-5e41-bf64-743b0e3f0fda",
-            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
             "2022-09-27 00:31:34",
             "eb356294-55bc-5341-9485-e47f9b5717ee",
             "2022-09-27 00:31:35",
+            "21acbdfe-d32c-5e41-bf64-743b0e3f0fda",
+            "3d2adb87-5192-5ab4-b5e6-e2e28f91e11c",
+            "2022-09-27 00:31:35",
+            "eb356294-55bc-5341-9485-e47f9b5717ee",
+            "2022-09-27 00:31:36",
             "42d58d13-a1d9-5d44-98d7-9738367492b3",
             "e87e517d-1a0c-5e7d-8f8c-f56989383ca6",
-            "2022-09-27 00:31:35"
+            "2022-09-27 00:31:36"
         ]
     },
     {
@@ -20458,8 +20680,8 @@
             "bradtke.nasir@gibson.com",
             true,
             "493f79c0-01d4-59e4-94c3-1e0390b60496",
-            "2022-09-27 00:31:36",
-            "2022-09-27 00:31:36"
+            "2022-09-27 00:31:37",
+            "2022-09-27 00:31:37"
         ]
     },
     {
@@ -20468,8 +20690,8 @@
             "ea21bcb4-f952-53f6-8e7b-cfd226f0cd1c",
             "493f79c0-01d4-59e4-94c3-1e0390b60496",
             "05e19f83-a6d3-5705-be4f-d440f70574dc",
-            "2022-09-27 00:31:37",
-            "2022-09-27 00:31:37"
+            "2022-09-27 00:31:38",
+            "2022-09-27 00:31:38"
         ]
     },
     {
@@ -20482,8 +20704,8 @@
             null,
             true,
             "5446c082-38ed-5617-b9ad-ebd34bf280d7",
-            "2022-09-27 00:31:38",
-            "2022-09-27 00:31:38"
+            "2022-09-27 00:31:39",
+            "2022-09-27 00:31:39"
         ]
     },
     {
@@ -20492,8 +20714,8 @@
             "1937db4a-ca94-5571-aa8d-fd2136d2199a",
             "5446c082-38ed-5617-b9ad-ebd34bf280d7",
             "c95a9710-a846-59f3-836e-ec8f71883982",
-            "2022-09-27 00:31:39",
-            "2022-09-27 00:31:39"
+            "2022-09-27 00:31:40",
+            "2022-09-27 00:31:40"
         ]
     },
     {
@@ -20506,7 +20728,7 @@
         "query": "update `assets` set `warranty_end` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
             null,
-            "2022-09-27 00:31:40",
+            "2022-09-27 00:31:41",
             "000e5f8a-604f-472c-a87e-a753829e97cf"
         ]
     },
@@ -20565,8 +20787,8 @@
     {
         "query": "update `assets` set `deleted_at` = ?, `assets`.`updated_at` = ? where `id` = ?",
         "bindings": [
-            "2022-09-27 00:31:48",
-            "2022-09-27 00:31:48",
+            "2022-09-27 00:31:49",
+            "2022-09-27 00:31:49",
             "00000000-0000-0000-0000-000000000000"
         ]
     }

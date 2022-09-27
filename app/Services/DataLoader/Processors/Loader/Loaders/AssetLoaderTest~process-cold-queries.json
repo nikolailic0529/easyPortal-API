@@ -1,5 +1,11 @@
 [
     {
+        "query": "select `assets`.* from `assets` where `assets`.`id` = ? and `assets`.`deleted_at` is null limit 1",
+        "bindings": [
+            "00000b7e-e7dc-49ee-8294-e4708b2435e4"
+        ]
+    },
+    {
         "query": "select `assets`.* from `assets` where ((`assets`.`id` = ?))",
         "bindings": [
             "00000b7e-e7dc-49ee-8294-e4708b2435e4"

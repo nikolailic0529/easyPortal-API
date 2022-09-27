@@ -8,7 +8,6 @@ use App\Models\Document;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Processors\Importer\Importers\Customers\AssetsImporter;
 use App\Services\DataLoader\Processors\Importer\Importers\Customers\DocumentsImporter;
 use App\Services\DataLoader\Processors\Importer\Importers\Customers\IteratorImporter;
@@ -22,7 +21,6 @@ use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
 use App\Utils\Processor\EmptyProcessor;
 use App\Utils\Processor\State;
-use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -36,10 +34,6 @@ class CustomerLoader extends CompanyLoader {
 
     // <editor-fold desc="Loader">
     // =========================================================================
-    protected function getModelNotFoundException(string $id): Exception {
-        return new CustomerNotFound($id);
-    }
-
     /**
      * @inheritDoc
      */
@@ -67,11 +61,10 @@ class CustomerLoader extends CompanyLoader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator(new ObjectsIterator(
-                            [$state->objectId],
-                        ));
+                        ->setIterator(new ObjectsIterator([
+                            Customer::query()->whereKey($state->objectId)->first() ?? $state->objectId,
+                        ]));
                 },
-                $this->getModelNotFoundHandler(),
             ),
             ...$this->getAssetsOperations(),
             ...$this->getDocumentsOperations(),

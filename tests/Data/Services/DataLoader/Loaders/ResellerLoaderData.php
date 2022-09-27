@@ -6,8 +6,6 @@ use App\Models\Asset;
 use App\Models\Data\Oem;
 use App\Models\Data\Type;
 use App\Models\Document;
-use App\Services\DataLoader\Exceptions\AssetNotFound;
-use App\Services\DataLoader\Exceptions\DocumentNotFound;
 use App\Services\DataLoader\Testing\Data\AssetsData;
 use App\Utils\Console\CommandOptions;
 use App\Utils\Eloquent\GlobalScopes\GlobalScopes;
@@ -35,28 +33,18 @@ class ResellerLoaderData extends AssetsData {
             ];
 
             if (static::ASSET) {
-                try {
-                    $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
-                        'id' => '00000000-0000-0000-0000-000000000000',
-                    ]));
-                } catch (AssetNotFound) {
-                    // expected, we just need a dump
-                }
-
+                $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
+                    'id' => '00000000-0000-0000-0000-000000000000',
+                ]));
                 $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
                     'id' => static::ASSET,
                 ]));
             }
 
             if (static::DOCUMENT) {
-                try {
-                    $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
-                        'id' => '00000000-0000-0000-0000-000000000000',
-                    ]));
-                } catch (DocumentNotFound) {
-                    // expected, we just need a dump
-                }
-
+                $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
+                    'id' => '00000000-0000-0000-0000-000000000000',
+                ]));
                 $results[] = $this->kernel->call('ep:data-loader-document-sync', $this->getOptions([
                     'id' => static::DOCUMENT,
                 ]));

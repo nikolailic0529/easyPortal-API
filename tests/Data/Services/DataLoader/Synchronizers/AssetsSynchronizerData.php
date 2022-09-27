@@ -3,7 +3,6 @@
 namespace Tests\Data\Services\DataLoader\Synchronizers;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
 
@@ -17,15 +16,10 @@ class AssetsSynchronizerData extends Data {
                     '--chunk'       => static::CHUNK,
                     '--no-outdated' => true,
                 ]),
-            ];
-
-            try {
                 $this->kernel->call('ep:data-loader-asset-sync', [
                     'id' => '00000000-0000-0000-0000-000000000000',
-                ]);
-            } catch (AssetNotFound) {
-                // expected, we just need a dump
-            }
+                ]),
+            ];
 
             return array_sum($results) === Command::SUCCESS;
         });

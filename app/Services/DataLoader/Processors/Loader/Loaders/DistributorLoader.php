@@ -6,7 +6,6 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Processors\Importer\Importers\Distributors\IteratorImporter;
 use App\Services\DataLoader\Processors\Loader\CallbackLoader;
 use App\Services\DataLoader\Processors\Loader\Loader;
@@ -15,17 +14,12 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
-use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 
 /**
  * @extends Loader<LoaderState>
  */
 class DistributorLoader extends Loader {
-    protected function getModelNotFoundException(string $id): Exception {
-        return new DistributorNotFound($id);
-    }
-
     /**
      * @inheritDoc
      */
@@ -37,11 +31,10 @@ class DistributorLoader extends Loader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator(new ObjectsIterator(
-                            [$state->objectId],
-                        ));
+                        ->setIterator(new ObjectsIterator([
+                            Distributor::query()->whereKey($state->objectId)->first() ?? $state->objectId,
+                        ]));
                 },
-                $this->getModelNotFoundHandler(),
             ),
             new CompositeOperation(
                 'Recalculate',

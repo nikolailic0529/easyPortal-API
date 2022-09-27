@@ -1,5 +1,11 @@
 [
     {
+        "query": "select `resellers`.* from `resellers` where `resellers`.`id` = ? and `resellers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"
+        ]
+    },
+    {
         "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
         "bindings": [
             "22d7dbf2-977a-49d8-8e4c-cacdaae616b2"

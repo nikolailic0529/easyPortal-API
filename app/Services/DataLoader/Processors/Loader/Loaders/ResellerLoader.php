@@ -8,7 +8,6 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Collector\Data;
 use App\Services\DataLoader\Events\DataImported;
-use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Processors\Importer\Importers\Resellers\AssetsImporter;
 use App\Services\DataLoader\Processors\Importer\Importers\Resellers\DocumentsImporter;
 use App\Services\DataLoader\Processors\Importer\Importers\Resellers\IteratorImporter;
@@ -19,7 +18,6 @@ use App\Utils\Iterators\ObjectsIterator;
 use App\Utils\Processor\CompositeOperation;
 use App\Utils\Processor\CompositeState;
 use App\Utils\Processor\Contracts\Processor;
-use Exception;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -29,10 +27,6 @@ use Illuminate\Database\Eloquent\Builder;
 class ResellerLoader extends CompanyLoader {
     // <editor-fold desc="Loader">
     // =========================================================================
-    protected function getModelNotFoundException(string $id): Exception {
-        return new ResellerNotFound($id);
-    }
-
     /**
      * @inheritDoc
      */
@@ -44,11 +38,10 @@ class ResellerLoader extends CompanyLoader {
                     return $this
                         ->getContainer()
                         ->make(IteratorImporter::class)
-                        ->setIterator(new ObjectsIterator(
-                            [$state->objectId],
-                        ));
+                        ->setIterator(new ObjectsIterator([
+                            Reseller::query()->whereKey($state->objectId)->first() ?? $state->objectId,
+                        ]));
                 },
-                $this->getModelNotFoundHandler(),
             ),
             ...$this->getAssetsOperations(),
             ...$this->getDocumentsOperations(),

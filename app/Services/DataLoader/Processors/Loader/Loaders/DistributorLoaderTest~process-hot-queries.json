@@ -1,5 +1,11 @@
 [
     {
+        "query": "select `distributors`.* from `distributors` where `distributors`.`id` = ? and `distributors`.`deleted_at` is null limit 1",
+        "bindings": [
+            "1af1c44e-8112-4e72-9654-b11c705e9372"
+        ]
+    },
+    {
         "query": "select `distributors`.* from `distributors`",
         "bindings": []
     },

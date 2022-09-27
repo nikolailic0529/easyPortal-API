@@ -3,27 +3,24 @@
 namespace Tests\Data\Services\DataLoader\Synchronizers;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
+
+use function array_sum;
 
 class DistributorsSynchronizerData extends Data {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-distributors-sync', [
-                '--chunk' => static::CHUNK,
-            ]);
-            $success = $result === Command::SUCCESS;
-
-            try {
+            $results = [
+                $this->kernel->call('ep:data-loader-distributors-sync', [
+                    '--chunk' => static::CHUNK,
+                ]),
                 $this->kernel->call('ep:data-loader-distributor-sync', [
                     'id' => '00000000-0000-0000-0000-000000000000',
-                ]);
-            } catch (DistributorNotFound) {
-                // expected, we just need a dump
-            }
+                ]),
+            ];
 
-            return $success;
+            return array_sum($results) === Command::SUCCESS;
         });
     }
 
