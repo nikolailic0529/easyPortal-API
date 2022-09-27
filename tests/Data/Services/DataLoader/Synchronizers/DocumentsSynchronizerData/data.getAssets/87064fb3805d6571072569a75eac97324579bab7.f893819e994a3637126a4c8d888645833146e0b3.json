@@ -1,0 +1,419 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "3959a6ba-1651-4f88-8650-2ad725902365"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "3959a6ba-1651-4f88-8650-2ad725902365",
+                    "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                    "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                    "serialNumber": "135f8df4-56cd-3112-8364-7bb447d00362",
+                    "assetSkuDescription": "HPE DL380 Gen10 8SFF CTO Server",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "868703-B21",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "80801",
+                    "city": "Dimitritown",
+                    "address": "35056 Joey Run Apt. 052",
+                    "address2": null,
+                    "country": "Nicaragua",
+                    "latitude": "-40.235868",
+                    "longitude": "-72.028993",
+                    "countryCode": "JO",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662147120697",
+                    "assetCoverage": [
+                        "ARCHIVED",
+                        "CONFLICT"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HPE DL380 Gen10 8SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                            "document": {
+                                "id": "00ca6e1c-8049-4d28-8138-104dc2849bcb",
+                                "type": "Contract",
+                                "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                                "startDate": "2021-08-21",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2500.6800000000003",
+                                "languageCode": null,
+                                "updatedAt": "1657233029079",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "26804eb7-bbe9-332b-90cf-ca350335885e",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12144688139",
+                                        "name": "Hans Pfeffer",
+                                        "mail": "clifford42@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19515651869",
+                                        "name": "Valentina Stoltenberg DVM",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE DL380 Gen10 8SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                            "document": {
+                                "id": "00ca6e1c-8049-4d28-8138-104dc2849bcb",
+                                "type": "Contract",
+                                "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                                "startDate": "2021-08-21",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2500.6800000000003",
+                                "languageCode": null,
+                                "updatedAt": "1657233029079",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "26804eb7-bbe9-332b-90cf-ca350335885e",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12144688139",
+                                        "name": "Hans Pfeffer",
+                                        "mail": "clifford42@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19515651869",
+                                        "name": "Valentina Stoltenberg DVM",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HL935AC",
+                            "serviceLevelSkuDescription": "HPE Collaborative Remote Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "1d031bd4-443c-3ec0-a9a2-7e203837887a",
+                            "document": {
+                                "id": "51621f0d-16bb-474e-b0b1-f013614fb2f3",
+                                "type": "Quote renewal",
+                                "documentNumber": "1d031bd4-443c-3ec0-a9a2-7e203837887a",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1656416604807",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12144688139",
+                                        "name": "Hans Pfeffer",
+                                        "mail": "clifford42@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18388221795",
+                                        "name": "Jarrell Pfeffer",
+                                        "mail": "frami.marquise@carroll.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13322142309",
+                                        "name": "Valentina Stoltenberg DVM",
+                                        "mail": "sgreen@konopelski.net",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE Hardware Maintenance Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "1d031bd4-443c-3ec0-a9a2-7e203837887a",
+                            "document": {
+                                "id": "51621f0d-16bb-474e-b0b1-f013614fb2f3",
+                                "type": "Quote renewal",
+                                "documentNumber": "1d031bd4-443c-3ec0-a9a2-7e203837887a",
+                                "startDate": "2022-09-01",
+                                "endDate": "2023-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "0",
+                                "languageCode": null,
+                                "updatedAt": "1656416604807",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12144688139",
+                                        "name": "Hans Pfeffer",
+                                        "mail": "clifford42@yahoo.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18388221795",
+                                        "name": "Jarrell Pfeffer",
+                                        "mail": "frami.marquise@carroll.org",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+13322142309",
+                                        "name": "Valentina Stoltenberg DVM",
+                                        "mail": "sgreen@konopelski.net",
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HA151AC",
+                            "serviceLevelSkuDescription": "HPE DL380 Gen10 8SFF CTO Server",
+                            "serviceFullDescription": null,
+                            "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                            "document": {
+                                "id": "00ca6e1c-8049-4d28-8138-104dc2849bcb",
+                                "type": "Contract",
+                                "documentNumber": "cb308dd8-18bb-3ef3-b368-5e9023040bed",
+                                "startDate": "2021-08-21",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "2500.6800000000003",
+                                "languageCode": null,
+                                "updatedAt": "1657233029079",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "26804eb7-bbe9-332b-90cf-ca350335885e",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+18286440797",
+                                        "name": "Mr. Coleman Kilback III",
+                                        "mail": "abrekke@gmail.com",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12144688139",
+                                        "name": "Hans Pfeffer",
+                                        "mail": "clifford42@yahoo.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12563310062",
+                                        "name": "Oren Hegmann II",
+                                        "mail": null,
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19515651869",
+                                        "name": "Valentina Stoltenberg DVM",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44",
+                                "customerId": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9f6b1030-5d5d-4f0b-b743-2ef69eaf4a44"
+                            },
+                            "customer": {
+                                "id": "2ea19e60-bd2d-4c94-a723-4aa95dba74f2"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+12563310062",
+                            "name": "Oren Hegmann II",
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+18286440797",
+                            "name": "Mr. Coleman Kilback III",
+                            "mail": "abrekke@gmail.com",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+12144688139",
+                            "name": "Hans Pfeffer",
+                            "mail": "clifford42@yahoo.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "COVERED",
+                        "coverageStatusUpdatedAt": "1662147120697",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2018-08-21",
+                                "coverageEndDate": "2023-08-31",
+                                "type": "Contract",
+                                "status": "Active",
+                                "description": "H7J32AC-HPE Foundation Care NBD SVC",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2018-08-13",
+                                "coverageEndDate": "2021-09-11",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "HA151AW-Wty: HPE HW Maintenance Onsite Support, HA158AW-Wty: HPE Support for Initial Setup",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

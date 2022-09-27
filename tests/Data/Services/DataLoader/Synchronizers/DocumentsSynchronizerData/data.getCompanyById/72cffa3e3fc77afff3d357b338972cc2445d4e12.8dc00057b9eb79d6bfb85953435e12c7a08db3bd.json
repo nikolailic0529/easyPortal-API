@@ -1,0 +1,168 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "name": "Dach, Lang and Jaskolski",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148573860",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15804627668",
+                            "name": "Nikita Kihn",
+                            "mail": "kolby.crooks@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15599751676",
+                            "name": "Taylor Schiller",
+                            "mail": "afton.kuphal@stiedemann.org",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18313254767",
+                            "name": "Woodrow Johns",
+                            "mail": "nicolas.horacio@herman.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18599441847",
+                            "name": "Jaydon Conroy",
+                            "mail": "axel28@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12816893161",
+                            "name": "Garnet Witting",
+                            "mail": "ardella63@bartoletti.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13183339140",
+                            "name": "Mrs. Rachael Beatty MD",
+                            "mail": "tturner@oreilly.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14253892350",
+                            "name": "Dina Haley MD",
+                            "mail": "hollis48@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16829442349",
+                            "name": "Morton Lemke",
+                            "mail": "lavina09@pouros.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19305571954",
+                            "name": "Camron Monahan",
+                            "mail": "bailey.norris@lebsack.info",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tanner Mann",
+                            "mail": "rahul87@bahringer.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17143437274",
+                            "name": "Jarred Adams",
+                            "mail": "nicole08@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17574168732",
+                            "name": "Elliot Macejkovic",
+                            "mail": "jailyn91@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13363851812",
+                            "name": "Jacky Haley",
+                            "mail": "agnes.anderson@mcdermott.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18548968776",
+                            "name": "Eusebio Gleason III",
+                            "mail": "ankunding.adella@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19414007957",
+                            "name": "Justyn Hills",
+                            "mail": "mallie.bins@schamberger.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Alexie Ziemann",
+                            "mail": "kolby.crooks@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18566237880",
+                            "name": "Ms. Myrtis Berge PhD",
+                            "mail": "wtromp@hotmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "70533-2574",
+                            "address": "11846 Turner Circles",
+                            "city": "West Richmond",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "5.130375",
+                            "longitude": "-29.98307",
+                            "countryCode": "JO"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 14006,
+                        "activeAssets": 49,
+                        "activeAssetsPercentage": 0.34985006425817505,
+                        "activeCustomers": 200,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 378,
+                        "activeContractTotalAmount": 845808.1099999996,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 57,
+                        "activeQuotes": 130,
+                        "activeQuotesTotalAmount": 607884.0800000003,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 130,
+                        "expiredContracts": 378,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

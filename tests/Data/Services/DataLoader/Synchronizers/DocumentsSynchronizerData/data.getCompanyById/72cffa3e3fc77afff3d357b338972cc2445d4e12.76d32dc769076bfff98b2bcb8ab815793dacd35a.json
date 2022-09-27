@@ -1,0 +1,208 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    useDefaultFavIcon\n    mainHeadingText {\n        language_code\n        text\n    }\n    underlineText {\n        language_code\n        text\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "77ec115b-9723-4582-ad45-2b3a83286b1f"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "77ec115b-9723-4582-ad45-2b3a83286b1f",
+                    "name": "Sporer and Sons",
+                    "companyType": "RESELLER",
+                    "updatedAt": "1662148157794",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12135991364",
+                            "name": "Barry Lockman",
+                            "mail": "stone09@brown.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14242787560",
+                            "name": "Chasity Raynor",
+                            "mail": "willms.stephany@little.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12135991364",
+                            "name": "Lacey Nienow",
+                            "mail": "chauncey.hodkiewicz@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Tanner Mann",
+                            "mail": "elna64@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15027123234",
+                            "name": "Kendall Corwin",
+                            "mail": "mlowe@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18144637994",
+                            "name": "Woodrow Emmerich",
+                            "mail": "kylee.stanton@larson.biz",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15598392931",
+                            "name": "Prof. Aubrey Swift II",
+                            "mail": "rbotsford@rohan.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14124396646",
+                            "name": "Bailey Hayes II",
+                            "mail": "volkman.fanny@lang.net",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16308685129",
+                            "name": "Federico Bradtke",
+                            "mail": "kerluke.nicholaus@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13477162298",
+                            "name": "Bernadette Mertz",
+                            "mail": "emil.douglas@gmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18189964745",
+                            "name": "Miss Lynn Daniel",
+                            "mail": "brody60@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13108446438",
+                            "name": "Dr. Garret Rau",
+                            "mail": "kamren.kozey@yahoo.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15755635805",
+                            "name": "Dr. Anastacio Lemke III",
+                            "mail": "bgibson@gmail.com",
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "77513-6541",
+                            "address": "38835 Predovic Gateway Apt. 975",
+                            "city": "Hansenborough",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-3.552802",
+                            "longitude": "139.244821",
+                            "countryCode": "JO"
+                        }
+                    ],
+                    "brandingData": {
+                        "mainColor": "#1876BD",
+                        "secondaryColor": "#F19167",
+                        "defaultMainColor": null,
+                        "secondaryColorDefault": null,
+                        "defaultLogoUrl": null,
+                        "favIconUrl": null,
+                        "useDefaultFavIcon": null,
+                        "resellerAnalyticsCode": null,
+                        "brandingMode": null,
+                        "mainImageOnTheRight": null,
+                        "logoUrl": "http://www.vandervort.com/",
+                        "mainHeadingText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Officiis ut occaecati ratione sit ea."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Eum veritatis qui laborum magni deserunt eos."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Eum veritatis qui laborum magni deserunt eos."
+                            }
+                        ],
+                        "underlineText": [
+                            {
+                                "language_code": "en_GB",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "en",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "fr_FR",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "fr",
+                                "text": "Commodi architecto eius voluptatem sed dolore."
+                            },
+                            {
+                                "language_code": "de_DE",
+                                "text": "Voluptas est ut autem doloribus et quaerat."
+                            },
+                            {
+                                "language_code": "de",
+                                "text": "Voluptas est ut autem doloribus et quaerat."
+                            }
+                        ]
+                    },
+                    "companyKpis": {
+                        "totalAssets": 12703,
+                        "activeAssets": 19,
+                        "activeAssetsPercentage": 0.14957096748799498,
+                        "activeCustomers": 113,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 242,
+                        "activeContractTotalAmount": 1188029.3000000003,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 27,
+                        "activeQuotes": 68,
+                        "activeQuotesTotalAmount": 311534.86,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 2,
+                        "expiredQuotes": 68,
+                        "expiredContracts": 242,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

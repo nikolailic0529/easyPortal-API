@@ -1,0 +1,12 @@
+{
+    "selector": "data.getCentralAssetDbStatistics.documentsAmount",
+    "query": "query {\n    getCentralAssetDbStatistics {\n        documentsAmount\n    }\n}",
+    "variables": [],
+    "response": {
+        "data": {
+            "getCentralAssetDbStatistics": {
+                "documentsAmount": 3504
+            }
+        }
+    }
+}
