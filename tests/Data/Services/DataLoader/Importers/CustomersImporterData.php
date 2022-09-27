@@ -9,8 +9,7 @@ use Illuminate\Console\Command;
 class CustomersImporterData extends Data {
     protected function generateData(string $path): bool {
         return $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-customers-import', [
-                '--limit' => static::LIMIT,
+            $result  = $this->kernel->call('ep:data-loader-customers-sync', [
                 '--chunk' => static::CHUNK,
             ]);
             $success = $result === Command::SUCCESS;

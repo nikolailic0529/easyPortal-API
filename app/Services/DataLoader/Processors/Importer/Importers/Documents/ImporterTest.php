@@ -37,10 +37,10 @@ class ImporterTest extends TestCase {
         // Pretest
         self::assertModelsCount([
             Distributor::class   => 2,
-            Reseller::class      => 8,
+            Reseller::class      => 6,
             Customer::class      => 25,
-            Asset::class         => 77,
-            Document::class      => 47,
+            Asset::class         => 87,
+            Document::class      => 57,
             DocumentEntry::class => 0,
         ]);
 
@@ -50,13 +50,12 @@ class ImporterTest extends TestCase {
 
         $this->app->make(Importer::class)
             ->setLimit(DocumentsImporterData::LIMIT)
-            ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 
         self::assertQueryLogEquals('~process-cold-queries.json', $queries);
         self::assertModelsCount([
-            Document::class => 47,
+            Document::class => 57,
         ]);
         self::assertDispatchedEventsEquals(
             '~process-cold-events.json',
@@ -73,7 +72,6 @@ class ImporterTest extends TestCase {
 
         $this->app->make(Importer::class)
             ->setLimit(DocumentsImporterData::LIMIT)
-            ->setOffset(DocumentsImporterData::OFFSET)
             ->setChunkSize(DocumentsImporterData::CHUNK)
             ->start();
 

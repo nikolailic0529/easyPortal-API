@@ -4566,12 +4566,8 @@
         "event": "App\\Services\\DataLoader\\Events\\DataImported",
         "data": {
             "App\\Models\\Distributor": [],
-            "App\\Models\\Reseller": {
-                "372eb221-6f64-36fd-98e1-a08d3c534261": "372eb221-6f64-36fd-98e1-a08d3c534261"
-            },
-            "App\\Models\\Customer": {
-                "21824b77-7668-3bdf-a524-d6a97faf4b92": "21824b77-7668-3bdf-a524-d6a97faf4b92"
-            },
+            "App\\Models\\Reseller": [],
+            "App\\Models\\Customer": [],
             "App\\Models\\Document": {
                 "00000000-0000-0000-0000-000000000000": "00000000-0000-0000-0000-000000000000"
             },

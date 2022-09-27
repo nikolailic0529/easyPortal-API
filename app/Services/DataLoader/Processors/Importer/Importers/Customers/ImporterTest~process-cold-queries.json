@@ -138,7 +138,7 @@
         "bindings": [
             "00002e93-1d51-4a96-bd73-08ca080ac4c0",
             "Ernser-Pfeffer",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             3,
             1,
@@ -335,7 +335,7 @@
         "bindings": [
             "0006e2e1-8c6d-4ec6-b8b6-bbd2cae09dfa",
             "Windler, Stehr and Kulas",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -508,7 +508,7 @@
         "bindings": [
             "000777a8-c78b-466e-8e8b-b4b791aa8453",
             "Collier-Hagenes",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -571,7 +571,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "patiencemouth"
         ]
     },
@@ -580,7 +580,7 @@
         "bindings": [
             "Patiencemouth",
             "Patiencemouth",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "a5a93043-86f1-5be7-a71b-e5e4ca1eacc6",
             "2022-02-02 00:00:39",
             "2022-02-02 00:00:39"
@@ -590,7 +590,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a5a93043-86f1-5be7-a71b-e5e4ca1eacc6",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "4995 russel place",
             "31970-5606"
         ]
@@ -598,7 +598,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "a5a93043-86f1-5be7-a71b-e5e4ca1eacc6",
             "31970-5606",
             "",
@@ -657,7 +657,7 @@
         "bindings": [
             "0007b259-060f-4e74-addf-5c41c35fddcd",
             "Wiegand, Batz and Hessel",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -846,7 +846,7 @@
         "bindings": [
             "0008c6ba-9fe5-45fc-9804-7e47aeb222e0",
             "Leffler, Turcotte and Jerde",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -1011,7 +1011,7 @@
         "bindings": [
             "0009dcab-3bf6-44d4-9dc0-6c4ba6041aed",
             "Volkman and Sons",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -1184,7 +1184,7 @@
         "bindings": [
             "000a64d2-4eb9-496d-b148-587a536b3cc6",
             "Christiansen, Gaylord and Hermann",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             3,
             1,
@@ -1381,7 +1381,7 @@
         "bindings": [
             "000a7db5-fa32-44a6-a10f-a6b4a24af90d",
             "Hahn and Sons",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -1554,7 +1554,7 @@
         "bindings": [
             "000f95d9-6a43-4246-8265-3246f912f1d3",
             "Wiza PLC",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -1761,7 +1761,7 @@
         "bindings": [
             "0010b7b1-c283-4dab-92d4-45036299f35e",
             "Ledner-Kiehn",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -1931,7 +1931,7 @@
         "bindings": [
             "0012fff3-042f-4778-a41c-3c8c37d6f04f",
             "Heller, Dickinson and Hegmann",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             4,
             1,
@@ -2152,7 +2152,7 @@
         "bindings": [
             "00167526-0153-4f94-9ae3-19c5638d48c5",
             "Quigley Ltd",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             5,
             1,
@@ -2397,7 +2397,7 @@
         "bindings": [
             "001e09a7-089c-4af0-8e90-0982a721f611",
             "Hintz-Schultz",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             4,
             1,
@@ -2532,7 +2532,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "o'keefeland"
         ]
     },
@@ -2541,7 +2541,7 @@
         "bindings": [
             "O'Keefeland",
             "O'Keefeland",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "47737140-e352-5a0f-b0e0-87d6ddbdd485",
             "2022-02-02 00:02:55",
             "2022-02-02 00:02:55"
@@ -2551,7 +2551,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "47737140-e352-5a0f-b0e0-87d6ddbdd485",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "310 kovacek grove apt. 185",
             "47037-9290"
         ]
@@ -2559,7 +2559,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "47737140-e352-5a0f-b0e0-87d6ddbdd485",
             "47037-9290",
             "",
@@ -2618,7 +2618,7 @@
         "bindings": [
             "0021e047-9177-4603-ab91-747a705c2621",
             "Wilkinson LLC",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -2767,7 +2767,7 @@
         "bindings": [
             "0024ae29-3230-472e-8d8d-639a91b83898",
             "Leffler Ltd",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
@@ -2956,7 +2956,7 @@
         "bindings": [
             "0035d237-126d-4261-8a6d-43b959ae97a4",
             "Smitham-Auer",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -3087,7 +3087,7 @@
         "bindings": [
             "0036993f-f08b-4bf2-8f4d-9214280374c3",
             "Kertzmann Ltd",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -3150,7 +3150,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "port luzmouth"
         ]
     },
@@ -3159,7 +3159,7 @@
         "bindings": [
             "Port Luzmouth",
             "Port Luzmouth",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "3d810b93-06f6-5308-a8f0-7f5eb9b216ae",
             "2022-02-02 00:03:36",
             "2022-02-02 00:03:36"
@@ -3169,7 +3169,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "3d810b93-06f6-5308-a8f0-7f5eb9b216ae",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "694 justus pines",
             "80476-9187"
         ]
@@ -3177,7 +3177,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "3d810b93-06f6-5308-a8f0-7f5eb9b216ae",
             "80476-9187",
             "",
@@ -3236,7 +3236,7 @@
         "bindings": [
             "003bc70b-f740-4c1f-85f0-8003b3fd42e0",
             "Lynch Inc",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
@@ -3299,7 +3299,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "rosemariehaven"
         ]
     },
@@ -3308,7 +3308,7 @@
         "bindings": [
             "Rosemariehaven",
             "Rosemariehaven",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "c14a7570-ecae-5414-b0c6-c92af68222ca",
             "2022-02-02 00:03:46",
             "2022-02-02 00:03:46"
@@ -3318,7 +3318,7 @@
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "c14a7570-ecae-5414-b0c6-c92af68222ca",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "893 bruce plains apt. 380",
             "97028-4860"
         ]
@@ -3326,7 +3326,7 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "c14a7570-ecae-5414-b0c6-c92af68222ca",
             "97028-4860",
             "",
@@ -3385,7 +3385,7 @@
         "bindings": [
             "003c88f4-8523-4d02-8025-4101caddafa8",
             "Von, Pfannerstill and Hermann",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             3,
             1,
@@ -3488,24 +3488,6 @@
         ]
     },
     {
-        "query": "select `statuses`.* from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
-        "bindings": [
-            "active",
-            "customer"
-        ]
-    },
-    {
-        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-        "bindings": [
-            "Customer",
-            "ACTIVE",
-            "Active",
-            "befd7445-b046-5044-aa2b-786047974f73",
-            "2022-02-02 00:04:00",
-            "2022-02-02 00:04:00"
-        ]
-    },
-    {
         "query": "select `customer_locations`.* from `customer_locations` where `customer_locations`.`customer_id` = ? and `customer_locations`.`customer_id` is not null and `customer_locations`.`deleted_at` is null",
         "bindings": [
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb"
@@ -3514,7 +3496,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "west margretberg"
         ]
     },
@@ -3523,17 +3505,17 @@
         "bindings": [
             "West Margretberg",
             "West Margretberg",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "680154ff-58f7-5aa5-8290-cd4ba14943d6",
-            "2022-02-02 00:04:01",
-            "2022-02-02 00:04:01"
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
+            "befd7445-b046-5044-aa2b-786047974f73",
+            "2022-02-02 00:04:00",
+            "2022-02-02 00:04:00"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "680154ff-58f7-5aa5-8290-cd4ba14943d6",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "befd7445-b046-5044-aa2b-786047974f73",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "33574 amely grove apt. 022",
             "18356"
         ]
@@ -3541,8 +3523,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "680154ff-58f7-5aa5-8290-cd4ba14943d6",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
+            "befd7445-b046-5044-aa2b-786047974f73",
             "18356",
             "",
             "33574 Amely Grove Apt. 022",
@@ -3550,17 +3532,17 @@
             "-67.283135",
             "-76.956737",
             "4k130z3z649f",
-            "79c68bdd-a460-5cc1-be2f-e2f446859e96",
-            "2022-02-02 00:04:02",
-            "2022-02-02 00:04:02"
+            "680154ff-58f7-5aa5-8290-cd4ba14943d6",
+            "2022-02-02 00:04:01",
+            "2022-02-02 00:04:01"
         ]
     },
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             49,
-            49,
-            100.0,
+            0,
+            0.0,
             0,
             0,
             0,
@@ -3584,9 +3566,9 @@
             0,
             0.0,
             0.0,
-            "9c9bfa7b-2500-5726-a355-2ef1998e8bfd",
-            "2022-02-02 00:04:03",
-            "2022-02-02 00:04:03"
+            "a78ff328-cfe5-5058-9279-f4acf98ba7c9",
+            "2022-02-02 00:04:02",
+            "2022-02-02 00:04:02"
         ]
     },
     {
@@ -3599,8 +3581,8 @@
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             49,
-            49,
-            100.0,
+            0,
+            0.0,
             0,
             0,
             0,
@@ -3624,9 +3606,9 @@
             0,
             0.0,
             0.0,
-            "6a115fc0-6ba9-5254-98fe-4d5287e6d5dc",
-            "2022-02-02 00:04:05",
-            "2022-02-02 00:04:05"
+            "9c9bfa7b-2500-5726-a355-2ef1998e8bfd",
+            "2022-02-02 00:04:04",
+            "2022-02-02 00:04:04"
         ]
     },
     {
@@ -3634,24 +3616,24 @@
         "bindings": [
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
             "Streich Group",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
-            "9c9bfa7b-2500-5726-a355-2ef1998e8bfd",
-            "2022-02-02 00:04:04",
-            "2022-02-02 00:04:07",
-            "2022-02-02 00:04:07"
+            "a78ff328-cfe5-5058-9279-f4acf98ba7c9",
+            "2022-02-02 00:04:03",
+            "2022-02-02 00:04:06",
+            "2022-02-02 00:04:06"
         ]
     },
     {
         "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "befd7445-b046-5044-aa2b-786047974f73",
+            "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
-            "d532d1a8-61d5-5236-90e7-136f05a17d62",
-            "2022-02-02 00:04:08",
-            "2022-02-02 00:04:08"
+            "6a115fc0-6ba9-5254-98fe-4d5287e6d5dc",
+            "2022-02-02 00:04:07",
+            "2022-02-02 00:04:07"
         ]
     },
     {
@@ -3663,40 +3645,40 @@
             "+12039023229",
             null,
             true,
-            "43a81af6-fc2d-516d-b226-09d10721a478",
-            "2022-02-02 00:04:09",
-            "2022-02-02 00:04:09"
+            "d532d1a8-61d5-5236-90e7-136f05a17d62",
+            "2022-02-02 00:04:08",
+            "2022-02-02 00:04:08"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "d532d1a8-61d5-5236-90e7-136f05a17d62",
             "43a81af6-fc2d-516d-b226-09d10721a478",
-            "9d58ca4b-9e89-538a-b628-63ddd67656fd",
-            "2022-02-02 00:04:10",
-            "2022-02-02 00:04:10"
+            "2022-02-02 00:04:09",
+            "2022-02-02 00:04:09"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
+            "680154ff-58f7-5aa5-8290-cd4ba14943d6",
             "79c68bdd-a460-5cc1-be2f-e2f446859e96",
-            "a78ff328-cfe5-5058-9279-f4acf98ba7c9",
-            "2022-02-02 00:04:11",
-            "2022-02-02 00:04:11"
+            "2022-02-02 00:04:10",
+            "2022-02-02 00:04:10"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-02-02 00:04:06",
+            "2022-02-02 00:04:05",
             "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
-            "1e3db8d0-a652-588b-8715-fd8cc0cde5f7",
-            "6a115fc0-6ba9-5254-98fe-4d5287e6d5dc",
+            "9d58ca4b-9e89-538a-b628-63ddd67656fd",
+            "9c9bfa7b-2500-5726-a355-2ef1998e8bfd",
             "0fd07b17-3314-40b5-ac32-7189051f773b",
-            "2022-02-02 00:04:06"
+            "2022-02-02 00:04:05"
         ]
     },
     {
@@ -3734,15 +3716,15 @@
             "Lake Cheyenne",
             "Lake Cheyenne",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "55523983-d006-5508-bc3b-2387f663e6e1",
-            "2022-02-02 00:04:14",
-            "2022-02-02 00:04:14"
+            "1e3db8d0-a652-588b-8715-fd8cc0cde5f7",
+            "2022-02-02 00:04:13",
+            "2022-02-02 00:04:13"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "55523983-d006-5508-bc3b-2387f663e6e1",
+            "1e3db8d0-a652-588b-8715-fd8cc0cde5f7",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
             "538 viva heights",
             "69868"
@@ -3752,7 +3734,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "55523983-d006-5508-bc3b-2387f663e6e1",
+            "1e3db8d0-a652-588b-8715-fd8cc0cde5f7",
             "69868",
             "",
             "538 Viva Heights",
@@ -3760,9 +3742,9 @@
             "-81.922892",
             "-152.462569",
             "097tfwkhsdhc",
-            "67ae9349-1a9a-58cf-be1a-985cc3ee8e82",
-            "2022-02-02 00:04:15",
-            "2022-02-02 00:04:15"
+            "55523983-d006-5508-bc3b-2387f663e6e1",
+            "2022-02-02 00:04:14",
+            "2022-02-02 00:04:14"
         ]
     },
     {
@@ -3794,9 +3776,9 @@
             0,
             0.0,
             0.0,
-            "caa50d56-c4dd-5ed4-a110-128b09549fb4",
-            "2022-02-02 00:04:16",
-            "2022-02-02 00:04:16"
+            "908268de-6258-5751-895e-f43de40a8165",
+            "2022-02-02 00:04:15",
+            "2022-02-02 00:04:15"
         ]
     },
     {
@@ -3810,14 +3792,14 @@
         "bindings": [
             "004ab855-1d4f-4e0e-949d-e2de2d543349",
             "Marvin Group",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
-            "caa50d56-c4dd-5ed4-a110-128b09549fb4",
+            "908268de-6258-5751-895e-f43de40a8165",
+            "2022-02-02 00:04:16",
             "2022-02-02 00:04:17",
-            "2022-02-02 00:04:18",
-            "2022-02-02 00:04:18"
+            "2022-02-02 00:04:17"
         ]
     },
     {
@@ -3825,9 +3807,9 @@
         "bindings": [
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "004ab855-1d4f-4e0e-949d-e2de2d543349",
-            "2448e040-cf6b-5a81-9af8-3cd999b0af1c",
-            "2022-02-02 00:04:19",
-            "2022-02-02 00:04:19"
+            "caa50d56-c4dd-5ed4-a110-128b09549fb4",
+            "2022-02-02 00:04:18",
+            "2022-02-02 00:04:18"
         ]
     },
     {
@@ -3839,29 +3821,29 @@
             "+15319201982",
             "owintheiser@kertzmann.com",
             true,
-            "128b933f-ee11-5278-af40-e01993dc2134",
-            "2022-02-02 00:04:20",
-            "2022-02-02 00:04:20"
+            "2448e040-cf6b-5a81-9af8-3cd999b0af1c",
+            "2022-02-02 00:04:19",
+            "2022-02-02 00:04:19"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "2448e040-cf6b-5a81-9af8-3cd999b0af1c",
             "128b933f-ee11-5278-af40-e01993dc2134",
-            "31505b97-5700-5fe9-b3c6-00269cc7f6f8",
-            "2022-02-02 00:04:21",
-            "2022-02-02 00:04:21"
+            "2022-02-02 00:04:20",
+            "2022-02-02 00:04:20"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "004ab855-1d4f-4e0e-949d-e2de2d543349",
+            "55523983-d006-5508-bc3b-2387f663e6e1",
             "67ae9349-1a9a-58cf-be1a-985cc3ee8e82",
-            "908268de-6258-5751-895e-f43de40a8165",
-            "2022-02-02 00:04:22",
-            "2022-02-02 00:04:22"
+            "2022-02-02 00:04:21",
+            "2022-02-02 00:04:21"
         ]
     },
     {
@@ -3883,15 +3865,15 @@
             "Lake Cassandre",
             "Lake Cassandre",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "23e5a141-822c-533e-b3e3-daca22cd1b53",
-            "2022-02-02 00:04:24",
-            "2022-02-02 00:04:24"
+            "31505b97-5700-5fe9-b3c6-00269cc7f6f8",
+            "2022-02-02 00:04:23",
+            "2022-02-02 00:04:23"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "23e5a141-822c-533e-b3e3-daca22cd1b53",
+            "31505b97-5700-5fe9-b3c6-00269cc7f6f8",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
             "8841 pagac way",
             "59484"
@@ -3901,7 +3883,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "23e5a141-822c-533e-b3e3-daca22cd1b53",
+            "31505b97-5700-5fe9-b3c6-00269cc7f6f8",
             "59484",
             "",
             "8841 Pagac Way",
@@ -3909,17 +3891,17 @@
             "-83.92539",
             "-82.668532",
             "41j4wcfe5t6u",
-            "dfc367c2-4e08-51ee-8c64-7958a71ec7d7",
-            "2022-02-02 00:04:25",
-            "2022-02-02 00:04:25"
+            "23e5a141-822c-533e-b3e3-daca22cd1b53",
+            "2022-02-02 00:04:24",
+            "2022-02-02 00:04:24"
         ]
     },
     {
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
-            1,
-            100.0,
+            0,
+            0.0,
             0,
             0,
             0,
@@ -3943,9 +3925,9 @@
             0,
             0.0,
             0.0,
-            "537a58fc-e58e-5d88-9a67-c1d4836e53e8",
-            "2022-02-02 00:04:26",
-            "2022-02-02 00:04:26"
+            "7487054c-59d2-576f-91a9-7a07ac335952",
+            "2022-02-02 00:04:25",
+            "2022-02-02 00:04:25"
         ]
     },
     {
@@ -3958,8 +3940,8 @@
         "query": "insert into `kpis` (`assets_total`, `assets_active`, `assets_active_percent`, `assets_active_on_contract`, `assets_active_on_warranty`, `assets_active_exposed`, `customers_active`, `customers_active_new`, `contracts_active`, `contracts_active_amount`, `contracts_active_new`, `contracts_expiring`, `contracts_expired`, `quotes_active`, `quotes_active_amount`, `quotes_active_new`, `quotes_expiring`, `quotes_expired`, `quotes_ordered`, `quotes_accepted`, `quotes_requested`, `quotes_received`, `quotes_rejected`, `quotes_awaiting`, `service_revenue_total_amount`, `service_revenue_total_amount_change`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             1,
-            1,
-            100.0,
+            0,
+            0.0,
             0,
             0,
             0,
@@ -3983,9 +3965,9 @@
             0,
             0.0,
             0.0,
-            "705b253c-5b58-5cc3-a578-dda2c7d97ffa",
-            "2022-02-02 00:04:28",
-            "2022-02-02 00:04:28"
+            "537a58fc-e58e-5d88-9a67-c1d4836e53e8",
+            "2022-02-02 00:04:27",
+            "2022-02-02 00:04:27"
         ]
     },
     {
@@ -3993,24 +3975,24 @@
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
             "Mitchell, Gleason and Rippin",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
-            "537a58fc-e58e-5d88-9a67-c1d4836e53e8",
-            "2022-02-02 00:04:27",
-            "2022-02-02 00:04:30",
-            "2022-02-02 00:04:30"
+            "7487054c-59d2-576f-91a9-7a07ac335952",
+            "2022-02-02 00:04:26",
+            "2022-02-02 00:04:29",
+            "2022-02-02 00:04:29"
         ]
     },
     {
         "query": "insert into `customer_statuses` (`status_id`, `customer_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
-            "befd7445-b046-5044-aa2b-786047974f73",
+            "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
-            "2bd3fcdd-43b5-56bf-b89b-5fc4725c042d",
-            "2022-02-02 00:04:31",
-            "2022-02-02 00:04:31"
+            "705b253c-5b58-5cc3-a578-dda2c7d97ffa",
+            "2022-02-02 00:04:30",
+            "2022-02-02 00:04:30"
         ]
     },
     {
@@ -4022,19 +4004,19 @@
             "+19038259871",
             null,
             true,
-            "e182c31a-95c6-5fe2-86f2-24785d77032a",
-            "2022-02-02 00:04:32",
-            "2022-02-02 00:04:32"
+            "2bd3fcdd-43b5-56bf-b89b-5fc4725c042d",
+            "2022-02-02 00:04:31",
+            "2022-02-02 00:04:31"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "2bd3fcdd-43b5-56bf-b89b-5fc4725c042d",
             "e182c31a-95c6-5fe2-86f2-24785d77032a",
-            "fc196d04-3273-5221-b655-4b4f7b0aa7d0",
-            "2022-02-02 00:04:33",
-            "2022-02-02 00:04:33"
+            "2022-02-02 00:04:32",
+            "2022-02-02 00:04:32"
         ]
     },
     {
@@ -4046,40 +4028,40 @@
             null,
             "moen.jessy@kuhic.net",
             null,
-            "73e054ec-de68-509a-bea9-85311ce0f85b",
-            "2022-02-02 00:04:34",
-            "2022-02-02 00:04:34"
+            "fc196d04-3273-5221-b655-4b4f7b0aa7d0",
+            "2022-02-02 00:04:33",
+            "2022-02-02 00:04:33"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "fc196d04-3273-5221-b655-4b4f7b0aa7d0",
             "73e054ec-de68-509a-bea9-85311ce0f85b",
-            "5e5914b4-c9dc-5ce3-aae4-d929ba3e5e3b",
-            "2022-02-02 00:04:35",
-            "2022-02-02 00:04:35"
+            "2022-02-02 00:04:34",
+            "2022-02-02 00:04:34"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
+            "23e5a141-822c-533e-b3e3-daca22cd1b53",
             "dfc367c2-4e08-51ee-8c64-7958a71ec7d7",
-            "7487054c-59d2-576f-91a9-7a07ac335952",
-            "2022-02-02 00:04:36",
-            "2022-02-02 00:04:36"
+            "2022-02-02 00:04:35",
+            "2022-02-02 00:04:35"
         ]
     },
     {
         "query": "insert into `reseller_customers` (`created_at`, `customer_id`, `id`, `kpi_id`, `reseller_id`, `updated_at`) values (?, ?, ?, ?, ?, ?) on duplicate key update `updated_at` = values(`updated_at`), `kpi_id` = values(`kpi_id`)",
         "bindings": [
-            "2022-02-02 00:04:29",
+            "2022-02-02 00:04:28",
             "004d6d19-4a7d-4216-8bd5-55dbfb038e09",
-            "106de073-898b-5cc6-bde0-c3aff362367e",
-            "705b253c-5b58-5cc3-a578-dda2c7d97ffa",
+            "5e5914b4-c9dc-5ce3-aae4-d929ba3e5e3b",
+            "537a58fc-e58e-5d88-9a67-c1d4836e53e8",
             "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
-            "2022-02-02 00:04:29"
+            "2022-02-02 00:04:28"
         ]
     },
     {
@@ -4091,7 +4073,7 @@
     {
         "query": "select `cities`.* from `cities` where (`country_id` = ? and `key` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "new kaceymouth"
         ]
     },
@@ -4100,17 +4082,17 @@
         "bindings": [
             "New Kaceymouth",
             "New Kaceymouth",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "93a6eea5-822b-5777-aad7-502c1e28524a",
-            "2022-02-02 00:04:39",
-            "2022-02-02 00:04:39"
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
+            "106de073-898b-5cc6-bde0-c3aff362367e",
+            "2022-02-02 00:04:38",
+            "2022-02-02 00:04:38"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "93a6eea5-822b-5777-aad7-502c1e28524a",
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
+            "106de073-898b-5cc6-bde0-c3aff362367e",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
             "344 zelda shore",
             "58110-7144"
         ]
@@ -4118,8 +4100,8 @@
     {
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
-            "173087c2-7a4d-59e4-9dc9-a7e80f20003b",
-            "93a6eea5-822b-5777-aad7-502c1e28524a",
+            "415803cc-b49e-5033-a639-65bc0920bbb1",
+            "106de073-898b-5cc6-bde0-c3aff362367e",
             "58110-7144",
             "",
             "344 Zelda Shore",
@@ -4127,9 +4109,9 @@
             "-14.593945",
             "115.359697",
             "qt6hcp625g2x",
-            "83ea6898-55d0-5030-95a0-90acd1b4ef70",
-            "2022-02-02 00:04:40",
-            "2022-02-02 00:04:40"
+            "93a6eea5-822b-5777-aad7-502c1e28524a",
+            "2022-02-02 00:04:39",
+            "2022-02-02 00:04:39"
         ]
     },
     {
@@ -4161,9 +4143,9 @@
             0,
             0.0,
             0.0,
-            "7979fe0e-ae73-59ce-8435-e762f5171be2",
-            "2022-02-02 00:04:41",
-            "2022-02-02 00:04:41"
+            "284499c1-15b8-5d7d-a272-d95bf27920b2",
+            "2022-02-02 00:04:40",
+            "2022-02-02 00:04:40"
         ]
     },
     {
@@ -4177,14 +4159,14 @@
         "bindings": [
             "00511111-85e8-4b59-bd10-f35db86dbd6e",
             "Fisher Group",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
-            "7979fe0e-ae73-59ce-8435-e762f5171be2",
+            "284499c1-15b8-5d7d-a272-d95bf27920b2",
+            "2022-02-02 00:04:41",
             "2022-02-02 00:04:42",
-            "2022-02-02 00:04:43",
-            "2022-02-02 00:04:43"
+            "2022-02-02 00:04:42"
         ]
     },
     {
@@ -4192,9 +4174,9 @@
         "bindings": [
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "00511111-85e8-4b59-bd10-f35db86dbd6e",
-            "eb9c142e-b2cd-5f1a-80a3-c254ebcab5a0",
-            "2022-02-02 00:04:44",
-            "2022-02-02 00:04:44"
+            "7979fe0e-ae73-59ce-8435-e762f5171be2",
+            "2022-02-02 00:04:43",
+            "2022-02-02 00:04:43"
         ]
     },
     {
@@ -4206,29 +4188,29 @@
             "+19596942876",
             null,
             true,
-            "fc250a66-494b-5798-89bb-44c450a1771f",
-            "2022-02-02 00:04:45",
-            "2022-02-02 00:04:45"
+            "eb9c142e-b2cd-5f1a-80a3-c254ebcab5a0",
+            "2022-02-02 00:04:44",
+            "2022-02-02 00:04:44"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "eb9c142e-b2cd-5f1a-80a3-c254ebcab5a0",
             "fc250a66-494b-5798-89bb-44c450a1771f",
-            "ff99de58-ab69-5dfb-97a4-766a5f264ef3",
-            "2022-02-02 00:04:46",
-            "2022-02-02 00:04:46"
+            "2022-02-02 00:04:45",
+            "2022-02-02 00:04:45"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00511111-85e8-4b59-bd10-f35db86dbd6e",
+            "93a6eea5-822b-5777-aad7-502c1e28524a",
             "83ea6898-55d0-5030-95a0-90acd1b4ef70",
-            "284499c1-15b8-5d7d-a272-d95bf27920b2",
-            "2022-02-02 00:04:47",
-            "2022-02-02 00:04:47"
+            "2022-02-02 00:04:46",
+            "2022-02-02 00:04:46"
         ]
     },
     {
@@ -4250,15 +4232,15 @@
             "Alexandrostad",
             "Alexandrostad",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
-            "2022-02-02 00:04:49",
-            "2022-02-02 00:04:49"
+            "ff99de58-ab69-5dfb-97a4-766a5f264ef3",
+            "2022-02-02 00:04:48",
+            "2022-02-02 00:04:48"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
+            "ff99de58-ab69-5dfb-97a4-766a5f264ef3",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
             "22673 larkin vista",
             "11831"
@@ -4268,7 +4250,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
+            "ff99de58-ab69-5dfb-97a4-766a5f264ef3",
             "11831",
             "",
             "22673 Larkin Vista",
@@ -4276,9 +4258,9 @@
             "-2.096975",
             "-97.824613",
             "3zdkjfq21r98",
-            "d56cbb0a-fa9c-55c1-96a4-cf7fb3d5eed5",
-            "2022-02-02 00:04:50",
-            "2022-02-02 00:04:50"
+            "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
+            "2022-02-02 00:04:49",
+            "2022-02-02 00:04:49"
         ]
     },
     {
@@ -4310,9 +4292,9 @@
             0,
             0.0,
             0.0,
-            "5fad15b5-ed96-5666-b7b9-95e8210074f3",
-            "2022-02-02 00:04:51",
-            "2022-02-02 00:04:51"
+            "01b7c598-f5f6-5dd4-8e6a-536d53b59f29",
+            "2022-02-02 00:04:50",
+            "2022-02-02 00:04:50"
         ]
     },
     {
@@ -4326,14 +4308,14 @@
         "bindings": [
             "00595276-fd9a-4e7e-b4de-e2d19475170e",
             "McLaughlin, Hermann and Towne",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             2,
             1,
-            "5fad15b5-ed96-5666-b7b9-95e8210074f3",
+            "01b7c598-f5f6-5dd4-8e6a-536d53b59f29",
+            "2022-02-02 00:04:51",
             "2022-02-02 00:04:52",
-            "2022-02-02 00:04:53",
-            "2022-02-02 00:04:53"
+            "2022-02-02 00:04:52"
         ]
     },
     {
@@ -4341,9 +4323,9 @@
         "bindings": [
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "00595276-fd9a-4e7e-b4de-e2d19475170e",
-            "d8124d06-68e7-5b9a-a5e1-cbe3546ecb8a",
-            "2022-02-02 00:04:54",
-            "2022-02-02 00:04:54"
+            "5fad15b5-ed96-5666-b7b9-95e8210074f3",
+            "2022-02-02 00:04:53",
+            "2022-02-02 00:04:53"
         ]
     },
     {
@@ -4355,19 +4337,19 @@
             "+3934838557592",
             null,
             true,
-            "8452440d-8b87-5f9b-8930-84eafc288830",
-            "2022-02-02 00:04:55",
-            "2022-02-02 00:04:55"
+            "d8124d06-68e7-5b9a-a5e1-cbe3546ecb8a",
+            "2022-02-02 00:04:54",
+            "2022-02-02 00:04:54"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "d8124d06-68e7-5b9a-a5e1-cbe3546ecb8a",
             "8452440d-8b87-5f9b-8930-84eafc288830",
-            "6dbabc2d-7e06-515a-b207-4fe560bba76e",
-            "2022-02-02 00:04:56",
-            "2022-02-02 00:04:56"
+            "2022-02-02 00:04:55",
+            "2022-02-02 00:04:55"
         ]
     },
     {
@@ -4379,29 +4361,29 @@
             "+19315943057",
             null,
             true,
-            "e63bad69-667c-57dd-a045-c9fc6f65d336",
-            "2022-02-02 00:04:57",
-            "2022-02-02 00:04:57"
+            "6dbabc2d-7e06-515a-b207-4fe560bba76e",
+            "2022-02-02 00:04:56",
+            "2022-02-02 00:04:56"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "6dbabc2d-7e06-515a-b207-4fe560bba76e",
             "e63bad69-667c-57dd-a045-c9fc6f65d336",
-            "e05513a4-bce5-5cc7-b8f8-bd44c4ae8d71",
-            "2022-02-02 00:04:58",
-            "2022-02-02 00:04:58"
+            "2022-02-02 00:04:57",
+            "2022-02-02 00:04:57"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "00595276-fd9a-4e7e-b4de-e2d19475170e",
+            "159b502a-3f6d-58e2-bd66-9bea0d9105cb",
             "d56cbb0a-fa9c-55c1-96a4-cf7fb3d5eed5",
-            "01b7c598-f5f6-5dd4-8e6a-536d53b59f29",
-            "2022-02-02 00:04:59",
-            "2022-02-02 00:04:59"
+            "2022-02-02 00:04:58",
+            "2022-02-02 00:04:58"
         ]
     },
     {
@@ -4423,15 +4405,15 @@
             "South Beaulah",
             "South Beaulah",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "55a39cbd-ce57-59a7-8dee-1347170fa0c6",
-            "2022-02-02 00:05:01",
-            "2022-02-02 00:05:01"
+            "e05513a4-bce5-5cc7-b8f8-bd44c4ae8d71",
+            "2022-02-02 00:05:00",
+            "2022-02-02 00:05:00"
         ]
     },
     {
         "query": "select `locations`.* from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
-            "55a39cbd-ce57-59a7-8dee-1347170fa0c6",
+            "e05513a4-bce5-5cc7-b8f8-bd44c4ae8d71",
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
             "5887 molly via suite 191",
             "10299-5125"
@@ -4441,7 +4423,7 @@
         "query": "insert into `locations` (`country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `geohash`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "9789360b-af6b-5b3d-a707-2c5a29ad7995",
-            "55a39cbd-ce57-59a7-8dee-1347170fa0c6",
+            "e05513a4-bce5-5cc7-b8f8-bd44c4ae8d71",
             "10299-5125",
             "",
             "5887 Molly Via Suite 191",
@@ -4449,9 +4431,9 @@
             "-75.302894",
             "41.631483",
             "hftee7e0gg5s",
-            "3bdf965e-4aff-557c-b52d-f3ce123471f0",
-            "2022-02-02 00:05:02",
-            "2022-02-02 00:05:02"
+            "55a39cbd-ce57-59a7-8dee-1347170fa0c6",
+            "2022-02-02 00:05:01",
+            "2022-02-02 00:05:01"
         ]
     },
     {
@@ -4483,9 +4465,9 @@
             0,
             0.0,
             0.0,
-            "f0ac38ec-aecb-5994-91b2-42bf65f299b5",
-            "2022-02-02 00:05:03",
-            "2022-02-02 00:05:03"
+            "ca465e5f-f95a-56ce-b396-9c7414af39a1",
+            "2022-02-02 00:05:02",
+            "2022-02-02 00:05:02"
         ]
     },
     {
@@ -4499,14 +4481,14 @@
         "bindings": [
             "005c3314-ddec-4397-bbdc-940b6210805c",
             "Murray LLC",
-            "2022-07-07 02:58:56",
+            "2022-09-02 22:09:18",
             1,
             1,
             1,
-            "f0ac38ec-aecb-5994-91b2-42bf65f299b5",
+            "ca465e5f-f95a-56ce-b396-9c7414af39a1",
+            "2022-02-02 00:05:03",
             "2022-02-02 00:05:04",
-            "2022-02-02 00:05:05",
-            "2022-02-02 00:05:05"
+            "2022-02-02 00:05:04"
         ]
     },
     {
@@ -4514,9 +4496,9 @@
         "bindings": [
             "e4b6e52c-bc6d-57cc-a432-e88a9fdca967",
             "005c3314-ddec-4397-bbdc-940b6210805c",
-            "d7e24d11-cbbf-5a8e-826c-e5b9e0ae2f70",
-            "2022-02-02 00:05:06",
-            "2022-02-02 00:05:06"
+            "f0ac38ec-aecb-5994-91b2-42bf65f299b5",
+            "2022-02-02 00:05:05",
+            "2022-02-02 00:05:05"
         ]
     },
     {
@@ -4528,29 +4510,29 @@
             "+15515037858",
             null,
             true,
-            "1c16c459-940a-58e3-bb29-778a3e17a3df",
-            "2022-02-02 00:05:07",
-            "2022-02-02 00:05:07"
+            "d7e24d11-cbbf-5a8e-826c-e5b9e0ae2f70",
+            "2022-02-02 00:05:06",
+            "2022-02-02 00:05:06"
         ]
     },
     {
         "query": "insert into `contact_types` (`type_id`, `contact_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "65105391-c0a9-5fb6-ab22-f2494ebf490f",
+            "d7e24d11-cbbf-5a8e-826c-e5b9e0ae2f70",
             "1c16c459-940a-58e3-bb29-778a3e17a3df",
-            "180907a7-9713-5add-955a-346c4bba20cc",
-            "2022-02-02 00:05:08",
-            "2022-02-02 00:05:08"
+            "2022-02-02 00:05:07",
+            "2022-02-02 00:05:07"
         ]
     },
     {
         "query": "insert into `customer_locations` (`customer_id`, `location_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
         "bindings": [
             "005c3314-ddec-4397-bbdc-940b6210805c",
+            "55a39cbd-ce57-59a7-8dee-1347170fa0c6",
             "3bdf965e-4aff-557c-b52d-f3ce123471f0",
-            "ca465e5f-f95a-56ce-b396-9c7414af39a1",
-            "2022-02-02 00:05:09",
-            "2022-02-02 00:05:09"
+            "2022-02-02 00:05:08",
+            "2022-02-02 00:05:08"
         ]
     }
 ]

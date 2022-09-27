@@ -1,0 +1,126 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "0501ec0a-652e-4276-81fa-8e651a098b18"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "0501ec0a-652e-4276-81fa-8e651a098b18",
+                    "name": "Schaefer, Brown and Brekke",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1662156566177",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+13368519579",
+                            "name": "Cheyenne Kuvalis",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18205020418",
+                            "name": "Christiana McKenzie Jr.",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18459422200",
+                            "name": "Abraham Conn",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "41177-1014",
+                            "address": "44009 Katelin Estate Suite 863",
+                            "city": "Port Stephen",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-88.683198",
+                            "longitude": "-143.752696",
+                            "countryCode": "HN"
+                        },
+                        {
+                            "zip": "41177-1014",
+                            "address": "44009 Katelin Estate Suite 863",
+                            "city": "Port Stephen",
+                            "locationType": null,
+                            "country": "Bahrain",
+                            "latitude": "-88.683198",
+                            "longitude": "-143.752696",
+                            "countryCode": "HN"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 236,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 4,
+                        "activeContractTotalAmount": 18479.760000000002,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0.0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 3,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
+                            "totalAssets": 236,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 4,
+                            "activeContractTotalAmount": 18479.760000000002,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 0,
+                            "activeQuotesTotalAmount": 0.0,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 3,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

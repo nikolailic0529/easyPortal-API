@@ -39203,32 +39203,6 @@
         ]
     },
     {
-        "query": "select `resellers`.* from `resellers` where ((`resellers`.`id` = ?))",
-        "bindings": [
-            "372eb221-6f64-36fd-98e1-a08d3c534261"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "372eb221-6f64-36fd-98e1-a08d3c534261",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select `customers`.* from `customers` where ((`customers`.`id` = ?))",
-        "bindings": [
-            "21824b77-7668-3bdf-a524-d6a97faf4b92"
-        ]
-    },
-    {
-        "query": "select `contacts`.* from `contacts` where `contacts`.`object_id` in (?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "21824b77-7668-3bdf-a524-d6a97faf4b92",
-            "Customer"
-        ]
-    },
-    {
         "query": "update `documents` set `deleted_at` = ?, `documents`.`updated_at` = ? where `id` = ?",
         "bindings": [
             "2022-09-27 01:17:34",

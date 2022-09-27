@@ -13,7 +13,7 @@
                     "id": "0035d237-126d-4261-8a6d-43b959ae97a4",
                     "name": "Smitham-Auer",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162736523",
+                    "updatedAt": "1662156558576",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -84,7 +84,7 @@
                     "id": "0036993f-f08b-4bf2-8f4d-9214280374c3",
                     "name": "Kertzmann Ltd",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162736554",
+                    "updatedAt": "1662156558607",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -155,7 +155,7 @@
                     "id": "003bc70b-f740-4c1f-85f0-8003b3fd42e0",
                     "name": "Lynch Inc",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162736585",
+                    "updatedAt": "1662156558623",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -226,7 +226,7 @@
                     "id": "003c88f4-8523-4d02-8025-4101caddafa8",
                     "name": "Von, Pfannerstill and Hermann",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162736616",
+                    "updatedAt": "1662156558654",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -309,7 +309,7 @@
                     "id": "0046f7ea-120c-4ae5-bfa6-ac8bdd611aeb",
                     "name": "Streich Group",
                     "companyType": "CUSTOMER",
-                    "updatedAt": "1657162736648",
+                    "updatedAt": "1662156558685",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -345,8 +345,8 @@
                     ],
                     "companyKpis": {
                         "totalAssets": 49,
-                        "activeAssets": 49,
-                        "activeAssetsPercentage": 100.0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
                         "activeContracts": 1,
@@ -375,8 +375,8 @@
                         {
                             "resellerId": "0fd07b17-3314-40b5-ac32-7189051f773b",
                             "totalAssets": 49,
-                            "activeAssets": 49,
-                            "activeAssetsPercentage": 100.0,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
                             "activeCustomers": null,
                             "newActiveCustomers": null,
                             "activeContracts": 1,
@@ -403,7 +403,7 @@
                         }
                     ],
                     "status": [
-                        "ACTIVE"
+                        "INACTIVE"
                     ]
                 }
             ]

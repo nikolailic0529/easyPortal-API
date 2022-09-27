@@ -1,0 +1,128 @@
+{
+    "selector": "data.getCompanyById",
+    "query": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyType\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\ncompanyResellerKpis {\n    resellerId\n    totalAssets\nactiveAssets\nactiveAssetsPercentage\nactiveCustomers\nnewActiveCustomers\nactiveContracts\nactiveContractTotalAmount\nnewActiveContracts\nexpiringContracts\nactiveQuotes\nactiveQuotesTotalAmount\nnewActiveQuotes\nexpiringQuotes\nexpiredQuotes\nexpiredContracts\norderedQuotes\nacceptedQuotes\nrequestedQuotes\nreceivedQuotes\nrejectedQuotes\nawaitingQuotes\nactiveAssetsOnContract\nactiveAssetsOnWarranty\nactiveExposedAssets\nserviceRevenueTotalAmount\nserviceRevenueTotalAmountChange\n}\n    }\n}",
+    "variables": {
+        "id": "9f561198-8b1a-414e-a30b-2695d0dde25d"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "9f561198-8b1a-414e-a30b-2695d0dde25d",
+                    "name": "Hudson-Mertz",
+                    "companyType": "CUSTOMER",
+                    "updatedAt": "1662156833139",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19298833028",
+                            "name": "Liana Carter",
+                            "mail": "royce.marquardt@hotmail.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Elisabeth McGlynn",
+                            "mail": null,
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13613250682",
+                            "name": "Ludie Schowalter",
+                            "mail": "caterina.harvey@fahey.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+13174756798",
+                            "name": "Kaycee Schroeder MD",
+                            "mail": "caterina.harvey@fahey.com",
+                            "type": "Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+17438299073",
+                            "name": "Kadin Romaguera IV",
+                            "mail": null,
+                            "type": "Contact Person"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "42026",
+                            "address": "711 Kovacek Lane",
+                            "city": "Gusikowskihaven",
+                            "locationType": null,
+                            "country": "Ethiopia",
+                            "latitude": "45.278793",
+                            "longitude": "-82.697291",
+                            "countryCode": "KP"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 198,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0.0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 4,
+                        "activeContractTotalAmount": 3336.0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 1,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 19614.520000000008,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0,
+                        "expiredQuotes": 0,
+                        "expiredContracts": 1,
+                        "orderedQuotes": null,
+                        "acceptedQuotes": null,
+                        "requestedQuotes": null,
+                        "receivedQuotes": null,
+                        "rejectedQuotes": null,
+                        "awaitingQuotes": null,
+                        "activeAssetsOnContract": null,
+                        "activeAssetsOnWarranty": null,
+                        "activeExposedAssets": null,
+                        "serviceRevenueTotalAmount": null,
+                        "serviceRevenueTotalAmountChange": null
+                    },
+                    "companyResellerKpis": [
+                        {
+                            "resellerId": "594184e7-24d4-4614-8db4-fe132adb86f4",
+                            "totalAssets": 198,
+                            "activeAssets": 0,
+                            "activeAssetsPercentage": 0.0,
+                            "activeCustomers": null,
+                            "newActiveCustomers": null,
+                            "activeContracts": 4,
+                            "activeContractTotalAmount": 3336.0,
+                            "newActiveContracts": null,
+                            "expiringContracts": 1,
+                            "activeQuotes": 3,
+                            "activeQuotesTotalAmount": 19614.520000000008,
+                            "newActiveQuotes": 0,
+                            "expiringQuotes": 0,
+                            "expiredQuotes": 0,
+                            "expiredContracts": 1,
+                            "orderedQuotes": null,
+                            "acceptedQuotes": null,
+                            "requestedQuotes": null,
+                            "receivedQuotes": null,
+                            "rejectedQuotes": null,
+                            "awaitingQuotes": null,
+                            "activeAssetsOnContract": null,
+                            "activeAssetsOnWarranty": null,
+                            "activeExposedAssets": null,
+                            "serviceRevenueTotalAmount": null,
+                            "serviceRevenueTotalAmountChange": null
+                        }
+                    ],
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

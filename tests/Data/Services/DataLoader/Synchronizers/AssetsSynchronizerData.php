@@ -38,10 +38,16 @@ class AssetsSynchronizerData extends Data {
         $result = parent::restore($path, $context);
 
         Asset::factory()->create([
-            'id' => '00000000-0000-0000-0000-000000000000',
+            'id'          => '00000000-0000-0000-0000-000000000000',
+            'reseller_id' => null,
+            'customer_id' => null,
+            'oem_id'      => null,
+            'type_id'     => null,
+            'product_id'  => null,
+            'location_id' => null,
+            'status_id'   => null,
         ]);
 
         return $result;
     }
-
 }

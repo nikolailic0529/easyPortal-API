@@ -37,16 +37,14 @@ class CustomerLoaderData extends AssetsData {
             if (static::ASSET) {
                 try {
                     $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
-                        'id'          => '00000000-0000-0000-0000-000000000000',
-                        '--documents' => true,
+                        'id' => '00000000-0000-0000-0000-000000000000',
                     ]));
                 } catch (AssetNotFound) {
                     // expected, we just need a dump
                 }
 
                 $results[] = $this->kernel->call('ep:data-loader-asset-sync', $this->getOptions([
-                    'id'          => static::ASSET,
-                    '--documents' => true,
+                    'id' => static::ASSET,
                 ]));
             }
 

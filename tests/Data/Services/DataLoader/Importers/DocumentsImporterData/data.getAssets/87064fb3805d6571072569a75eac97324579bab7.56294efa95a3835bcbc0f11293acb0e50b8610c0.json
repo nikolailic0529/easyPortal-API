@@ -1,0 +1,254 @@
+{
+    "selector": "data.getAssets",
+    "query": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nassetSku\nassetSkuDescription\nassetTag\nassetType\nstatus\nvendor\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ncoverageStatusCheck {\n    coverageStatus\n    coverageStatusUpdatedAt\n    coverageEntries {\n        coverageStartDate\n        coverageEndDate\n        type\n        description\n        status\n        serviceSku\n    }\n}\n\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    serviceGroupSku\n    serviceGroupSkuDescription\n    serviceLevelSku\n    serviceLevelSkuDescription\n    serviceFullDescription\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "variables": {
+        "id": "0bcfe7de-5742-4a86-ab36-b5587e5c2d8d"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "0bcfe7de-5742-4a86-ab36-b5587e5c2d8d",
+                    "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                    "customerId": "1905a1d6-455b-4396-9238-447fa367533a",
+                    "serialNumber": "bc7a5f4c-8305-3361-bb86-f00585b9bb44",
+                    "assetSkuDescription": "HP 1/8 G2 LTO-5 3000 FC Autoloader",
+                    "assetTag": null,
+                    "assetType": null,
+                    "vendor": "HPE",
+                    "assetSku": "BL541A",
+                    "eolDate": null,
+                    "eosDate": null,
+                    "zip": "26782-3558",
+                    "city": "East Ceciliaside",
+                    "address": "2087 Bernhard Orchard Suite 654",
+                    "address2": null,
+                    "country": "Ethiopia",
+                    "latitude": "-40.185794",
+                    "longitude": "42.140015",
+                    "countryCode": "KP",
+                    "status": "ACTIVE",
+                    "updatedAt": "1662138908683",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "80",
+                    "assetDocument": [
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HE808AC",
+                            "serviceLevelSkuDescription": "HPE Mature Hardware Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "041fb218-eccc-3b72-853d-3bd1fedcf0dc",
+                            "document": {
+                                "id": "00258a69-ebd7-4f2a-a83b-29ceec199da3",
+                                "type": "Contract",
+                                "documentNumber": "041fb218-eccc-3b72-853d-3bd1fedcf0dc",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "1088",
+                                "languageCode": null,
+                                "updatedAt": "1657233029066",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "d8d2c1f4-f1f7-3206-87dd-3b3803ef6146",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Distributor Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Reseller Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12832682484",
+                                        "name": "Sofia Welch II",
+                                        "mail": "vherman@gleichner.com",
+                                        "type": "Hardware System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+12832682484",
+                                        "name": "Sofia Welch II",
+                                        "mail": "vherman@gleichner.com",
+                                        "type": "Software System Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+19149920548",
+                                        "name": "Mabelle Metz",
+                                        "mail": null,
+                                        "type": "System Manager Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "1905a1d6-455b-4396-9238-447fa367533a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "1905a1d6-455b-4396-9238-447fa367533a"
+                            }
+                        },
+                        {
+                            "serviceGroupSku": null,
+                            "serviceGroupSkuDescription": null,
+                            "serviceLevelSku": "HE808AC",
+                            "serviceLevelSkuDescription": "HPE Mature Hardware Onsite Support",
+                            "serviceFullDescription": null,
+                            "documentNumber": "4075372e-842e-3872-8a4f-72c5ffa9c8dd",
+                            "document": {
+                                "id": "10bc70ac-8d9c-4cb6-a8ef-458a9402b36d",
+                                "type": "Quote New Business",
+                                "documentNumber": "4075372e-842e-3872-8a4f-72c5ffa9c8dd",
+                                "startDate": "2022-01-01",
+                                "endDate": "2022-08-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "892.16",
+                                "languageCode": null,
+                                "updatedAt": "1654272002884",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": null,
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": [
+                                    {
+                                        "phoneNumber": "+19368049305",
+                                        "name": "Libbie Lemke",
+                                        "mail": "bahringer.arnoldo@beier.com",
+                                        "type": "Customer Contact"
+                                    },
+                                    {
+                                        "phoneNumber": "+15803172486",
+                                        "name": "Godfrey Grimes II",
+                                        "mail": "keichmann@sanford.net",
+                                        "type": "Renewal Contact"
+                                    },
+                                    {
+                                        "phoneNumber": null,
+                                        "name": null,
+                                        "mail": null,
+                                        "type": "EndUser Contact"
+                                    }
+                                ],
+                                "resellerId": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8",
+                                "customerId": "1905a1d6-455b-4396-9238-447fa367533a",
+                                "distributorId": "1af1c44e-8112-4e72-9654-b11c705e9372"
+                            },
+                            "startDate": null,
+                            "endDate": null,
+                            "reseller": {
+                                "id": "9d9e320d-4e44-4518-a4e6-6bfe7f1c7dd8"
+                            },
+                            "customer": {
+                                "id": "1905a1d6-455b-4396-9238-447fa367533a"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": null,
+                            "mail": null,
+                            "type": "EndUser Contact"
+                        },
+                        {
+                            "phoneNumber": "+15803172486",
+                            "name": "Godfrey Grimes II",
+                            "mail": "keichmann@sanford.net",
+                            "type": "Distributor Contact"
+                        },
+                        {
+                            "phoneNumber": "+19368049305",
+                            "name": "Libbie Lemke",
+                            "mail": "bahringer.arnoldo@beier.com",
+                            "type": "Reseller Contact"
+                        }
+                    ],
+                    "coverageStatusCheck": {
+                        "coverageStatus": "EXPOSED",
+                        "coverageStatusUpdatedAt": "1662138908683",
+                        "coverageEntries": [
+                            {
+                                "coverageStartDate": "2022-01-01",
+                                "coverageEndDate": "2022-08-31",
+                                "type": "Contract",
+                                "status": "Expiring",
+                                "description": "HE808AC-HPE Mature Hardware Onsite Support",
+                                "serviceSku": null
+                            },
+                            {
+                                "coverageStartDate": "2017-02-22",
+                                "coverageEndDate": "2018-02-21",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW PC NBD LTO Autoloader SVC",
+                                "serviceSku": "U1FA3PE"
+                            },
+                            {
+                                "coverageStartDate": "2012-05-11",
+                                "coverageEndDate": "2015-05-10",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HP 3y Nbd Parts Exchange LTO Autldr Supp",
+                                "serviceSku": "H2698E"
+                            },
+                            {
+                                "coverageStartDate": "2018-02-22",
+                                "coverageEndDate": "2019-02-21",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW PC NBD LTO Autoloader SVC",
+                                "serviceSku": "U1FA3PE"
+                            },
+                            {
+                                "coverageStartDate": "2020-03-17",
+                                "coverageEndDate": "2021-03-16",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW FC NBD LTO Autoloader SVC",
+                                "serviceSku": "U3AQ6PE"
+                            },
+                            {
+                                "coverageStartDate": "2019-02-22",
+                                "coverageEndDate": "2020-02-21",
+                                "type": "FixedSupportService",
+                                "status": "Expired",
+                                "description": "HPE 1Y PW PC NBD LTO Autoloader SVC",
+                                "serviceSku": "U1FA3PE"
+                            },
+                            {
+                                "coverageStartDate": "2015-08-03",
+                                "coverageEndDate": "2015-08-03",
+                                "type": "FactoryWarranty",
+                                "status": "Expired",
+                                "description": "",
+                                "serviceSku": null
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}

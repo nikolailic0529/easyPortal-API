@@ -38,7 +38,12 @@ class DocumentsSynchronizerData extends Data {
         $result = parent::restore($path, $context);
 
         Document::factory()->create([
-            'id' => '00000000-0000-0000-0000-000000000000',
+            'id'             => '00000000-0000-0000-0000-000000000000',
+            'distributor_id' => null,
+            'reseller_id'    => null,
+            'customer_id'    => null,
+            'oem_id'         => null,
+            'type_id'        => null,
         ]);
 
         return $result;
