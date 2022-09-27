@@ -139,36 +139,38 @@ abstract class CompositeProcessor extends Processor {
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
-     * @param TState $state
+     * @param TState|null $state
      *
      * @return array<array{name: string, current: bool, state: ?State}>
      */
     public function getOperationsState(CompositeState $state = null): array {
-        $operations = [];
-        $state      = $state ?? $this->getState() ?? $this->getDefaultState();
-        $store      = new class($state) extends CompositeStore {
-            protected int $key = 0;
+        return $this->call($state ?? $this->getDefaultState(), function () use ($state): array {
+            $operations = [];
+            $state      = $state ?? $this->getState() ?? $this->getDefaultState();
+            $store      = new class($state) extends CompositeStore {
+                protected int $key = 0;
 
-            public function getKey(): int {
-                return $this->key;
+                public function getKey(): int {
+                    return $this->key;
+                }
+
+                public function setKey(int $key): static {
+                    $this->key = $key;
+
+                    return $this;
+                }
+            };
+
+            foreach ($this->getOperations($state) as $key => $operation) {
+                $operations[] = [
+                    'name'    => $operation->getName(),
+                    'state'   => $operation->getProcessor($state)->setStore($store->setKey($key))->getState(),
+                    'current' => $operation->getName() === $state->getCurrentOperationName(),
+                ];
             }
 
-            public function setKey(int $key): static {
-                $this->key = $key;
-
-                return $this;
-            }
-        };
-
-        foreach ($this->getOperations($state) as $key => $operation) {
-            $operations[] = [
-                'name'    => $operation->getName(),
-                'state'   => $operation->getProcessor($state)->setStore($store->setKey($key))->getState(),
-                'current' => $operation->getName() === $state->getCurrentOperationName(),
-            ];
-        }
-
-        return $operations;
+            return $operations;
+        });
     }
     // </editor-fold>
 }

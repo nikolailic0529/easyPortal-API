@@ -601,7 +601,7 @@ abstract class Processor implements ProcessorContract, MixedProcessor {
      * @param TState       $state
      * @param Closure(): T $callback
      *
-     * @return T|null
+     * @return (T is void ? null : T)
      */
     protected function call(State $state, Closure $callback): mixed {
         $result = null;
