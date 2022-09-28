@@ -56,7 +56,7 @@ class XlsxAttachmentContent extends Response {
                 ]));
 
                 foreach ($sheet->getRowIterator() as $row) {
-                    $writer->addRow($row ?? Row::fromValues());
+                    $writer->addRow($row);
                 }
             }
         } finally {

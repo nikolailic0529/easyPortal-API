@@ -6446,18 +6446,8 @@ parameters:
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:206\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:72\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Elastic/SearchRequestFactoryTest\\.php\\:86\\> given\\.$#"
-			count: 1
+			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Builders\\\\UnionBuilder\\:\\:addModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, string given\\.$#"
+			count: 3
 			path: app/Services/Search/Elastic/SearchRequestFactoryTest.php
 
 		-
@@ -6891,13 +6881,8 @@ parameters:
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, class\\-string\\<class@anonymous/app/Services/Search/Processors/ModelProcessorTest\\.php\\:164\\> given\\.$#"
-			count: 1
-			path: app/Services/Search/Processors/ModelProcessorTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$model of method App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessor\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model,App\\\\Services\\\\Search\\\\Processors\\\\ModelProcessorState\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>\\>\\:\\:setModel\\(\\) expects class\\-string\\<App\\\\Services\\\\Search\\\\Eloquent\\\\Searchable&Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, string given\\.$#"
-			count: 3
+			count: 4
 			path: app/Services/Search/Processors/ModelProcessorTest.php
 
 		-

@@ -81,6 +81,9 @@ class LoadConfigurationTest extends TestCase {
      * @covers ::overwriteConfig
      */
     public function testOverwriteConfig(): void {
+        $spy        = Mockery::spy(static function (): void {
+            // empty
+        });
         $config     = [
             'test' => 'value',
         ];
@@ -88,13 +91,15 @@ class LoadConfigurationTest extends TestCase {
         $repository
             ->shouldReceive('set')
             ->with('test', 'value')
-            ->andReturns();
+            ->andReturnUsing(Closure::fromCallable($spy));
 
         $bootstrapper = Mockery::mock(LoadConfiguration::class);
         $bootstrapper->shouldAllowMockingProtectedMethods();
         $bootstrapper->makePartial();
 
         $bootstrapper->overwriteConfig($this->app, $repository, $config);
+
+        $spy->shouldHaveBeenCalled();
     }
 
     /**

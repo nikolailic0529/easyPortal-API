@@ -33,7 +33,7 @@ class Spreadsheet {
             foreach ($reader->getSheetIterator() as $sheet) {
                 foreach ($sheet->getRowIterator() as $index => $row) {
                     // Header?
-                    if (!$row || $index <= 1) {
+                    if ($index <= 1) {
                         continue;
                     }
 
