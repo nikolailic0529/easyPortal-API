@@ -213,6 +213,41 @@ input AggregatedGroupByClauseAuditsQuery {
 }
 
 """
+Group clause for `input ChangeRequestsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseChangeRequestsQuery {
+    """
+    Property clause.
+    """
+    from: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    message: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    subject: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Relationship clause.
+    """
+    user: [SortByClauseUsersSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    user_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input CompaniesQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseCompaniesQuery {
@@ -2500,6 +2535,65 @@ input SearchByConditionAuditsQuery {
     Property condition.
     """
     user_id: SearchByScalarString
+    @searchByProperty
+}
+
+"""
+Available conditions for `input ChangeRequestsQuery` (only one property allowed at a time).
+"""
+input SearchByConditionChangeRequestsQuery {
+    """
+    All of the conditions must be true.
+    """
+    allOf: [SearchByConditionChangeRequestsQuery!]
+    @searchByOperatorAllOf
+
+    """
+    Any of the conditions must be true.
+    """
+    anyOf: [SearchByConditionChangeRequestsQuery!]
+    @searchByOperatorAnyOf
+
+    """
+    Property condition.
+    """
+    from: SearchByScalarString
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    id: SearchByScalarID
+    @searchByProperty
+
+    """
+    Property condition.
+    """
+    message: SearchByScalarString
+    @searchByProperty
+
+    """
+    Not.
+    """
+    not: SearchByConditionChangeRequestsQuery
+    @searchByOperatorNot
+
+    """
+    Property condition.
+    """
+    subject: SearchByScalarString
+    @searchByProperty
+
+    """
+    Relationship condition.
+    """
+    user: SearchByComplexRelationUsersQuery
+    @searchByOperatorRelation
+
+    """
+    Property condition.
+    """
+    user_id: SearchByScalarID
     @searchByProperty
 }
 
@@ -5619,6 +5713,47 @@ input SortByClauseAuditsSort {
 }
 
 """
+Sort clause for input ChangeRequestsSort (only one property allowed at a time).
+"""
+input SortByClauseChangeRequestsSort {
+    """
+    Property clause.
+    """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    from: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    user: SortByClauseUsersSort
+    @sortByProperty
+
+    """
+    Property clause.
+    """
+    user_id: SortByTypeDirection
+    @sortByOperatorProperty
+}
+
+"""
 Sort clause for input CitiesSort (only one property allowed at a time).
 """
 input SortByClauseCitiesSort {
@@ -7276,6 +7411,39 @@ type Asset {
     changeRequest: ChangeRequest
     @relation
 
+    changeRequests(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseChangeRequestsSort!]
+        @sortBy
+
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): [ChangeRequest!]!
+    @relation
+    @paginatedRelation
+
+    changeRequestsAggregated(
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): ChangeRequestsAggregated
+    @aggregated(
+        relation: "changeRequests"
+    )
+
     changed_at: DateTime
 
     contacts(
@@ -7882,6 +8050,57 @@ type ChangeRequest {
     @relation
 
     user_id: ID!
+}
+
+"""
+Aggregated data for `type ChangeRequest`.
+"""
+type ChangeRequestsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseChangeRequestsQuery!
+        @aggregatedGroupBy(
+            order: "ChangeRequestsSort"
+            where: "ChangeRequestsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseChangeRequestsQuery!
+        @aggregatedGroupBy(
+            order: "ChangeRequestsSort"
+            where: "ChangeRequestsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type City {
