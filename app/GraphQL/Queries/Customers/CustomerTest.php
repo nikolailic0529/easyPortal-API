@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
+use App\Models\ChangeRequest;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
@@ -28,6 +29,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
@@ -974,6 +976,50 @@ class CustomerTest extends TestCase {
                     }
                 }
             ', ['id' => $customerId] + $params)
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryChangeRequests
+     *
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $customerFactory
+     */
+    public function testQueryChangeRequests(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        Closure $customerFactory = null,
+    ): void {
+        // Prepare
+        $org        = $this->setOrganization($orgFactory);
+        $user       = $this->setUser($userFactory, $org);
+        $customerId = $customerFactory
+            ? $customerFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query customer($id: ID!) {
+                    customer(id: $id) {
+                        changeRequests {
+                            id
+                            subject
+                            message
+                            from
+                            to
+                            cc
+                            bcc
+                            user_id
+                            files {
+                                name
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $customerId])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -3090,6 +3136,93 @@ class CustomerTest extends TestCase {
                 ],
             ]),
         ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryChangeRequests(): array {
+        return (new MergeDataProvider([
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('customer'),
+                new OrgUserDataProvider('customer', [
+                    'customers-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('customer'),
+                        static function (TestCase $test, Organization $org): Customer {
+                            return Customer::factory()->ownedBy($org)->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('customer'),
+                new OrgUserDataProvider(
+                    'customer',
+                    [
+                        'customers-view',
+                    ],
+                    '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                ),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('customer', [
+                            'changeRequests' => [
+                                [
+                                    'id'      => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'user_id' => '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                                    'subject' => 'Subject A',
+                                    'message' => 'Change Request A',
+                                    'from'    => 'user@example.com',
+                                    'to'      => ['test@example.com'],
+                                    'cc'      => ['cc@example.com'],
+                                    'bcc'     => ['bcc@example.com'],
+                                    'files'   => [
+                                        [
+                                            'name' => 'documents.csv',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        static function (TestCase $test, Organization $org, User $user): Customer {
+                            $organization = Organization::factory()->create();
+                            $customer     = Customer::factory()->ownedBy($org)->create();
+
+                            ChangeRequest::factory()
+                                ->ownedBy($organization)
+                                ->for($user)
+                                ->create([
+                                    'id'          => '681efbcf-0602-4356-ae3e-426d157ca489',
+                                    'object_id'   => $customer->getKey(),
+                                    'object_type' => $customer->getMorphClass(),
+                                ]);
+                            ChangeRequest::factory()
+                                ->ownedBy($org)
+                                ->for($user)
+                                ->hasFiles(1, [
+                                    'name' => 'documents.csv',
+                                ])
+                                ->create([
+                                    'id'          => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'object_id'   => $customer->getKey(),
+                                    'object_type' => $customer->getMorphClass(),
+                                    'message'     => 'Change Request A',
+                                    'subject'     => 'Subject A',
+                                    'from'        => 'user@example.com',
+                                    'to'          => ['test@example.com'],
+                                    'cc'          => ['cc@example.com'],
+                                    'bcc'         => ['bcc@example.com'],
+                                ]);
+
+                            return $customer;
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

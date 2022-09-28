@@ -1,0 +1,8 @@
+input ChangeRequestsQuery {
+    id: ID!
+    user_id: ID!
+    user: UsersQuery
+    subject: String!
+    message: String!
+    from: String!
+}

@@ -57,6 +57,14 @@ type Customer implements Company {
     @relation
     @paginatedRelation
 
+    # Change Requests
+    changeRequests(
+        where: ChangeRequestsQuery @searchBy
+        order: ChangeRequestsSort @sortBy
+    ): [ChangeRequest!]!
+    @relation
+    @paginatedRelation
+
     # Properties
     # ==========================================================================
     # empty

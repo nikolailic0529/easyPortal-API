@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\ChangeRequest;
 use App\Models\Currency;
 use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
@@ -167,16 +168,23 @@ class OrgTest extends TestCase {
      *
      * @dataProvider dataProviderOrganization
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
+     * @param OrganizationFactory                         $orgFactory
+     * @param UserFactory                                 $userFactory
+     * @param Closure(static, ?Organization, ?User): void $factory
      */
     public function testOrganization(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
+        Closure $factory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($orgFactory));
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+
+        if ($factory) {
+            $factory($this, $org, $user);
+        }
 
         // Test
         $this
@@ -187,6 +195,19 @@ class OrgTest extends TestCase {
                     org {
                         organization {
                             id
+                            changeRequests {
+                                id
+                                subject
+                                message
+                                from
+                                to
+                                cc
+                                bcc
+                                user_id
+                                files {
+                                    name
+                                }
+                            }
                         }
                     }
                 }
@@ -326,16 +347,56 @@ class OrgTest extends TestCase {
                     new OrganizationProvider('e0244b6d-35b0-4e15-9e38-6478a1e98eb1'),
                 ],
             ]),
-            new OrgUserDataProvider('org', [
-                'org-administer',
-            ]),
+            new OrgUserDataProvider(
+                'org',
+                [
+                    'org-administer',
+                ],
+                '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+            ),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('org', [
                         'organization' => [
-                            'id' => 'e0244b6d-35b0-4e15-9e38-6478a1e98eb1',
+                            'id'             => 'e0244b6d-35b0-4e15-9e38-6478a1e98eb1',
+                            'changeRequests' => [
+                                [
+                                    'id'      => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'user_id' => '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                                    'subject' => 'Subject A',
+                                    'message' => 'Change Request A',
+                                    'from'    => 'user@example.com',
+                                    'to'      => ['test@example.com'],
+                                    'cc'      => ['cc@example.com'],
+                                    'bcc'     => ['bcc@example.com'],
+                                    'files'   => [
+                                        [
+                                            'name' => 'documents.csv',
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ]),
+                    static function (TestCase $test, Organization $org, User $user): void {
+                        ChangeRequest::factory()
+                            ->ownedBy($org)
+                            ->for($user)
+                            ->hasFiles(1, [
+                                'name' => 'documents.csv',
+                            ])
+                            ->create([
+                                'id'          => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                'object_id'   => $org->getKey(),
+                                'object_type' => $org->getMorphClass(),
+                                'message'     => 'Change Request A',
+                                'subject'     => 'Subject A',
+                                'from'        => 'user@example.com',
+                                'to'          => ['test@example.com'],
+                                'cc'          => ['cc@example.com'],
+                                'bcc'         => ['bcc@example.com'],
+                            ]);
+                    },
                 ],
             ]),
         ))->getData();

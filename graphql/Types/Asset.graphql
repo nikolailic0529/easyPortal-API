@@ -29,7 +29,14 @@ type Asset {
     tags: [Tag!]! @relation
     data_quality: String
     quoteRequest: QuoteRequest @relation
-    changeRequest: ChangeRequest @relation
     changed_at: DateTime
     synced_at: DateTime!
+
+    changeRequest: ChangeRequest @relation
+    changeRequests(
+        where: ChangeRequestsQuery @searchBy
+        order: ChangeRequestsSort @sortBy
+    ): [ChangeRequest!]!
+    @relation
+    @paginatedRelation
 }

@@ -51,22 +51,23 @@ class AssetTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @param OrganizationFactory $orgFactory
-     * @param UserFactory         $userFactory
-     * @param SettingsFactory     $settingsFactory
+     * @param OrganizationFactory                               $orgFactory
+     * @param UserFactory                                       $userFactory
+     * @param SettingsFactory                                   $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Asset|null $assetFactory
      */
     public function testQuery(
         Response $expected,
         mixed $orgFactory,
         mixed $userFactory = null,
         mixed $settingsFactory = null,
-        Closure $assetsFactory = null,
+        Closure $assetFactory = null,
     ): void {
         // Prepare
         $org     = $this->setOrganization($orgFactory);
         $user    = $this->setUser($userFactory, $org);
-        $assetId = $assetsFactory
-            ? $assetsFactory($this, $org, $user)->getKey()
+        $assetId = $assetFactory
+            ? $assetFactory($this, $org, $user)->getKey()
             : $this->faker->uuid();
 
         $this->setSettings($settingsFactory);
@@ -365,6 +366,54 @@ class AssetTest extends TestCase {
                         }
                         changed_at
                         synced_at
+                    }
+                }
+            ', ['id' => $assetId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryChangeRequests
+     *
+     * @param OrganizationFactory                               $orgFactory
+     * @param UserFactory                                       $userFactory
+     * @param SettingsFactory                                   $settingsFactory
+     * @param Closure(static, ?Organization, ?User): Asset|null $assetFactory
+     */
+    public function testQueryChangeRequests(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        mixed $settingsFactory = null,
+        Closure $assetFactory = null,
+    ): void {
+        // Prepare
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $assetId = $assetFactory
+            ? $assetFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
+
+        $this->setSettings($settingsFactory);
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query asset($id: ID!) {
+                    asset(id: $id) {
+                        changeRequests {
+                            id
+                            subject
+                            message
+                            from
+                            to
+                            cc
+                            bcc
+                            user_id
+                            files {
+                                name
+                            }
+                        }
                     }
                 }
             ', ['id' => $assetId])
@@ -1018,6 +1067,97 @@ class AssetTest extends TestCase {
                                     'cc'          => ['cc@example.com'],
                                     'bcc'         => ['bcc@example.com'],
                                     'created_at'  => Date::now(),
+                                ]);
+
+                            return $asset;
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryChangeRequests(): array {
+        return (new MergeDataProvider([
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('asset'),
+                new OrgUserDataProvider('asset', [
+                    'assets-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('asset'),
+                        [],
+                        static function (TestCase $test, Organization $org): Asset {
+                            return Asset::factory()->ownedBy($org)->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('asset'),
+                new OrgUserDataProvider(
+                    'asset',
+                    [
+                        'assets-view',
+                    ],
+                    '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                ),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('asset', [
+                            'changeRequests' => [
+                                [
+                                    'id'      => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'user_id' => '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                                    'subject' => 'Subject A',
+                                    'message' => 'Change Request A',
+                                    'from'    => 'user@example.com',
+                                    'to'      => ['test@example.com'],
+                                    'cc'      => ['cc@example.com'],
+                                    'bcc'     => ['bcc@example.com'],
+                                    'files'   => [
+                                        [
+                                            'name' => 'documents.csv',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        [
+                            // empty
+                        ],
+                        static function (TestCase $test, Organization $org, User $user): Asset {
+                            $organization = Organization::factory()->create();
+                            $asset        = Asset::factory()->ownedBy($org)->create();
+
+                            ChangeRequest::factory()
+                                ->ownedBy($organization)
+                                ->for($user)
+                                ->create([
+                                    'id'          => '681efbcf-0602-4356-ae3e-426d157ca489',
+                                    'object_id'   => $asset->getKey(),
+                                    'object_type' => $asset->getMorphClass(),
+                                ]);
+                            ChangeRequest::factory()
+                                ->ownedBy($org)
+                                ->for($user)
+                                ->hasFiles(1, [
+                                    'name' => 'documents.csv',
+                                ])
+                                ->create([
+                                    'id'          => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'object_id'   => $asset->getKey(),
+                                    'object_type' => $asset->getMorphClass(),
+                                    'message'     => 'Change Request A',
+                                    'subject'     => 'Subject A',
+                                    'from'        => 'user@example.com',
+                                    'to'          => ['test@example.com'],
+                                    'cc'          => ['cc@example.com'],
+                                    'bcc'         => ['bcc@example.com'],
                                 ]);
 
                             return $asset;

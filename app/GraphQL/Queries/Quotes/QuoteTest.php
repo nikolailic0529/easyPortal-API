@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Asset;
+use App\Models\ChangeRequest;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
@@ -361,6 +362,57 @@ class QuoteTest extends TestCase {
                             }
                             groupsAggregated(groupBy: {user_id: asc}) {
                                 count
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $quoteId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryChangeRequests
+     *
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Document|null $quoteFactory
+     */
+    public function testQueryChangeRequests(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        Closure $quoteFactory = null,
+    ): void {
+        // Prepare
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $quoteId = $this->faker->uuid();
+
+        if ($quoteFactory) {
+            $quote   = $quoteFactory($this, $org, $user);
+            $quoteId = $quote->getKey();
+
+            $this->setSettings([
+                'ep.quote_types' => [$quote->type_id],
+            ]);
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query quote($id: ID!) {
+                    quote(id: $id) {
+                        changeRequests {
+                            id
+                            subject
+                            message
+                            from
+                            to
+                            cc
+                            bcc
+                            user_id
+                            files {
+                                name
                             }
                         }
                     }
@@ -1040,6 +1092,93 @@ class QuoteTest extends TestCase {
                                 ->ownedBy($organization)
                                 ->hasNotes(1)
                                 ->create();
+
+                            return $document;
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryChangeRequests(): array {
+        return (new MergeDataProvider([
+            'root'         => new CompositeDataProvider(
+                new OrgRootDataProvider('quote'),
+                new OrgUserDataProvider('quote', [
+                    'quotes-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('quote'),
+                        static function (TestCase $test, Organization $org): Document {
+                            return Document::factory()->ownedBy($org)->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization' => new CompositeDataProvider(
+                new AuthOrgDataProvider('quote'),
+                new OrgUserDataProvider(
+                    'quote',
+                    [
+                        'quotes-view',
+                    ],
+                    '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                ),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('quote', [
+                            'changeRequests' => [
+                                [
+                                    'id'      => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'user_id' => '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                                    'subject' => 'Subject A',
+                                    'message' => 'Change Request A',
+                                    'from'    => 'user@example.com',
+                                    'to'      => ['test@example.com'],
+                                    'cc'      => ['cc@example.com'],
+                                    'bcc'     => ['bcc@example.com'],
+                                    'files'   => [
+                                        [
+                                            'name' => 'documents.csv',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        static function (TestCase $test, Organization $org, User $user): Document {
+                            $organization = Organization::factory()->create();
+                            $document     = Document::factory()->ownedBy($org)->create();
+
+                            ChangeRequest::factory()
+                                ->ownedBy($organization)
+                                ->for($user)
+                                ->create([
+                                    'id'          => '681efbcf-0602-4356-ae3e-426d157ca489',
+                                    'object_id'   => $document->getKey(),
+                                    'object_type' => $document->getMorphClass(),
+                                ]);
+                            ChangeRequest::factory()
+                                ->ownedBy($org)
+                                ->for($user)
+                                ->hasFiles(1, [
+                                    'name' => 'documents.csv',
+                                ])
+                                ->create([
+                                    'id'          => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'object_id'   => $document->getKey(),
+                                    'object_type' => $document->getMorphClass(),
+                                    'message'     => 'Change Request A',
+                                    'subject'     => 'Subject A',
+                                    'from'        => 'user@example.com',
+                                    'to'          => ['test@example.com'],
+                                    'cc'          => ['cc@example.com'],
+                                    'bcc'         => ['bcc@example.com'],
+                                ]);
 
                             return $document;
                         },

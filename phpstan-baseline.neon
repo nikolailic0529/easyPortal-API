@@ -1796,11 +1796,6 @@ parameters:
 			path: app/GraphQL/Queries/Assets/AssetStatusesTest.php
 
 		-
-			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetTest\\:\\:testQuery\\(\\) has parameter \\$assetsFactory with no signature specified for Closure\\.$#"
-			count: 1
-			path: app/GraphQL/Queries/Assets/AssetTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Assets\\\\AssetTypes\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Queries/Assets/AssetTypes.php
