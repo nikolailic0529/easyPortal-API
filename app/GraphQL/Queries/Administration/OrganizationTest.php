@@ -2,7 +2,9 @@
 
 namespace App\GraphQL\Queries\Administration;
 
+use App\Models\ChangeRequest;
 use App\Models\Currency;
+use App\Models\Customer;
 use App\Models\Enums\OrganizationType;
 use App\Models\Kpi;
 use App\Models\Organization;
@@ -319,6 +321,50 @@ class OrganizationTest extends TestCase {
                     'id' => $id,
                 ],
             )
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryChangeRequests
+     *
+     * @param OrganizationFactory                                  $orgFactory
+     * @param UserFactory                                          $userFactory
+     * @param Closure(static, ?Organization, ?User): Customer|null $organizationFactory
+     */
+    public function testQueryChangeRequests(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory = null,
+        Closure $organizationFactory = null,
+    ): void {
+        // Prepare
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $organizationFactory
+            ? $organizationFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query organization($id: ID!) {
+                    organization(id: $id) {
+                        changeRequests {
+                            id
+                            subject
+                            message
+                            from
+                            to
+                            cc
+                            bcc
+                            user_id
+                            files {
+                                name
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $id])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -886,6 +932,68 @@ class OrganizationTest extends TestCase {
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                                 ]);
                             Organization::factory()->hasAudits(1)->create();
+
+                            return $organization;
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryChangeRequests(): array {
+        return (new MergeDataProvider([
+            'administer' => new CompositeDataProvider(
+                new AuthOrgRootDataProvider('organization'),
+                new OrgUserDataProvider(
+                    'organization',
+                    [
+                        'administer',
+                    ],
+                    '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                ),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', new JsonFragment('changeRequests', [
+                            [
+                                'id'      => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                'user_id' => '22ca602c-ae8c-41b0-83a0-c6a5e7cf3538',
+                                'subject' => 'Subject A',
+                                'message' => 'Change Request A',
+                                'from'    => 'user@example.com',
+                                'to'      => ['test@example.com'],
+                                'cc'      => ['cc@example.com'],
+                                'bcc'     => ['bcc@example.com'],
+                                'files'   => [
+                                    [
+                                        'name' => 'documents.csv',
+                                    ],
+                                ],
+                            ],
+                        ])),
+                        static function (TestCase $test, Organization $org, User $user): Organization {
+                            $organization = Organization::factory()->create();
+
+                            ChangeRequest::factory()
+                                ->ownedBy($org)
+                                ->for($user)
+                                ->hasFiles(1, [
+                                    'name' => 'documents.csv',
+                                ])
+                                ->create([
+                                    'id'          => '4acb3b3a-82b4-4ae4-8413-cb87c0fed513',
+                                    'object_id'   => $organization->getKey(),
+                                    'object_type' => $organization->getMorphClass(),
+                                    'message'     => 'Change Request A',
+                                    'subject'     => 'Subject A',
+                                    'from'        => 'user@example.com',
+                                    'to'          => ['test@example.com'],
+                                    'cc'          => ['cc@example.com'],
+                                    'bcc'         => ['bcc@example.com'],
+                                ]);
 
                             return $organization;
                         },

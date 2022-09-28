@@ -10503,6 +10503,51 @@ type Organization {
     )
 
     """
+    @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    changeRequests(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseChangeRequestsSort!]
+        @sortBy
+
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): [ChangeRequest!]!
+    @authMe(
+        permissions: ["administer", "org-administer"]
+    )
+    @relation
+    @paginatedRelation
+
+    """
+    @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+    """
+    changeRequestsAggregated(
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): ChangeRequestsAggregated
+    @authMe(
+        permissions: ["administer", "org-administer"]
+    )
+    @aggregated(
+        relation: "changeRequests"
+    )
+
+    """
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     company: Company

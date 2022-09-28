@@ -45,4 +45,12 @@ type Organization {
     @authMe(permissions: ["administer", "org-administer"])
     @relation
     @paginatedRelation
+
+    changeRequests(
+        where: ChangeRequestsQuery @searchBy
+        order: ChangeRequestsSort @sortBy
+    ): [ChangeRequest!]!
+    @authMe(permissions: ["administer", "org-administer"])
+    @relation
+    @paginatedRelation
 }
