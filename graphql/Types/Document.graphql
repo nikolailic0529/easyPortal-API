@@ -55,6 +55,13 @@ type Document {
     @relation
     @paginatedRelation
 
+    changeRequests(
+        where: ChangeRequestsQuery @searchBy
+        order: ChangeRequestsSort @sortBy
+    ): [ChangeRequest!]!
+    @relation
+    @paginatedRelation
+
     changed_at: DateTime
     synced_at: DateTime!
 }
