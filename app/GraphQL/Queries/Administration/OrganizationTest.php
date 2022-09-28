@@ -577,7 +577,7 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderUsers(): array {
         return (new MergeDataProvider([
-            'administer'     => new CompositeDataProvider(
+            'administer' => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('organization'),
                 new OrgUserDataProvider('organization', [
                     'administer',
@@ -631,60 +631,6 @@ class OrganizationTest extends TestCase {
                     ],
                 ]),
             ),
-            'org-administer' => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('organization'),
-                new OrgUserDataProvider('organization', [
-                    'administer',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('organization', [
-                            'users'           => [
-                                [
-                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                    'email'          => 'example@test.com',
-                                    'email_verified' => true,
-                                    'given_name'     => 'first',
-                                    'family_name'    => 'last',
-                                ],
-                            ],
-                            'usersAggregated' => [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'key'   => 'last',
-                                        'count' => 1,
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
-                        ]),
-                        static function (TestCase $test, Organization $organization): Organization {
-                            $organization = Organization::factory()->create();
-
-                            Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-
-                            User::factory()
-                                ->hasOrganizations(1, [
-                                    'organization_id' => $organization->getKey(),
-                                ])
-                                ->create([
-                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                    'email'          => 'example@test.com',
-                                    'email_verified' => true,
-                                    'given_name'     => 'first',
-                                    'family_name'    => 'last',
-                                ]);
-
-                            return $organization;
-                        },
-                    ],
-                ]),
-            ),
         ]))->getData();
     }
 
@@ -693,50 +639,7 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderRoles(): array {
         return (new MergeDataProvider([
-            'administer'     => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('organization'),
-                new OrgUserDataProvider('organization', [
-                    'administer',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('organization', new JsonFragment('roles', [
-                            [
-                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'name'        => 'role1',
-                                'permissions' => [
-                                    [
-                                        'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                                        'key'         => 'permission1',
-                                        'name'        => 'permission1',
-                                        'description' => 'permission1',
-                                    ],
-                                ],
-                            ],
-                        ])),
-                        static function (TestCase $test, Organization $org): Organization {
-                            if (!$org->keycloak_group_id) {
-                                $org->keycloak_group_id = $test->faker->uuid();
-                                $org->save();
-                            }
-
-                            Role::factory()
-                                ->hasPermissions(1, [
-                                    'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                                    'key' => 'permission1',
-                                ])
-                                ->create([
-                                    'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                    'name'            => 'role1',
-                                    'organization_id' => $org->getKey(),
-                                ]);
-
-                            return $org;
-                        },
-                    ],
-                ]),
-            ),
-            'org-administer' => new CompositeDataProvider(
+            'administer' => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('organization'),
                 new OrgUserDataProvider('organization', [
                     'administer',
@@ -787,7 +690,7 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderAudits(): array {
         return (new MergeDataProvider([
-            'administer'     => new CompositeDataProvider(
+            'administer' => new CompositeDataProvider(
                 new AuthOrgRootDataProvider('organization'),
                 new OrgUserDataProvider('organization', [
                     'administer',
@@ -858,78 +761,6 @@ class OrganizationTest extends TestCase {
                                 ])
                                 ->create([
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                                ]);
-                            Organization::factory()->hasAudits(1)->create();
-
-                            return $organization;
-                        },
-                    ],
-                ]),
-            ),
-            'org-administer' => new CompositeDataProvider(
-                new AuthOrgRootDataProvider('organization'),
-                new OrgUserDataProvider('organization', [
-                    'administer',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('organization', [
-                            'audits'           => [
-                                [
-                                    'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                    'object_type'     => 'User',
-                                    'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                    'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                    'context'         => json_encode([
-                                        'properties' => [
-                                            'email' => [
-                                                'value'    => 'test@gmail.com',
-                                                'pervious' => null,
-                                            ],
-                                        ],
-                                    ]),
-                                    'action'          => Action::exported(),
-                                    'created_at'      => '2021-01-01T00:00:00+00:00',
-                                ],
-                            ],
-                            'auditsAggregated' => [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'key'   => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                        'count' => 1,
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
-                        ]),
-                        static function (TestCase $test, Organization $organization): Organization {
-                            $user         = User::factory()->create([
-                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                'password' => 'pass',
-                            ]);
-                            $organization = Organization::factory()
-                                ->hasAudits(1, [
-                                    'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                    'object_type' => $user->getMorphClass(),
-                                    'object_id'   => $user->getKey(),
-                                    'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => [
-                                        'properties' => [
-                                            'email' => [
-                                                'value'    => 'test@gmail.com',
-                                                'pervious' => null,
-                                            ],
-                                        ],
-                                    ],
-                                    'action'      => Action::exported(),
-                                    'created_at'  => '2021-01-01 00:00:00',
-                                ])
-                                ->create([
-                                    'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                                 ]);
                             Organization::factory()->hasAudits(1)->create();
 
