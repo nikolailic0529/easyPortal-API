@@ -1131,7 +1131,7 @@ interface Constants {
     #[Service(ResellersSynchronizer::class, 'settings.outdated_limit')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_LIMIT = 50;
 
     /**
      * DateTime/DateInterval when Reseller become outdated.
@@ -1139,7 +1139,7 @@ interface Constants {
     #[Service(ResellersSynchronizer::class, 'settings.outdated_expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
+    public const EP_DATA_LOADER_RESELLERS_SYNCHRONIZER_OUTDATED_EXPIRE = 'P1W';
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_IMPORTER">
@@ -1263,7 +1263,7 @@ interface Constants {
     #[Service(CustomersSynchronizer::class, 'settings.outdated_limit')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_LIMIT = 75;
 
     /**
      * DateTime/DateInterval when Customer become outdated.
@@ -1271,7 +1271,7 @@ interface Constants {
     #[Service(CustomersSynchronizer::class, 'settings.outdated_expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
+    public const EP_DATA_LOADER_CUSTOMERS_SYNCHRONIZER_OUTDATED_EXPIRE = 'P1W';
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_ASSETS_IMPORTER">
@@ -1391,7 +1391,7 @@ interface Constants {
     #[Service(AssetsSynchronizer::class, 'settings.outdated_limit')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_LIMIT = 275;
 
     /**
      * DateTime/DateInterval when Asset become outdated.
@@ -1399,7 +1399,7 @@ interface Constants {
     #[Service(AssetsSynchronizer::class, 'settings.outdated_expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
+    public const EP_DATA_LOADER_ASSETS_SYNCHRONIZER_OUTDATED_EXPIRE = 'P1M';
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DISTRIBUTORS_IMPORTER">
@@ -1531,7 +1531,7 @@ interface Constants {
     #[Service(DistributorsSynchronizer::class, 'settings.outdated_expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
+    public const EP_DATA_LOADER_DISTRIBUTORS_SYNCHRONIZER_OUTDATED_EXPIRE = 'P1W';
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_DOCUMENTS_IMPORTER">
@@ -1651,7 +1651,7 @@ interface Constants {
     #[Service(DocumentsSynchronizer::class, 'settings.outdated_limit')]
     #[Group('data_loader')]
     #[Type(IntType::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_LIMIT = null;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_LIMIT = 50;
 
     /**
      * DateTime/DateInterval when Document become outdated.
@@ -1659,7 +1659,7 @@ interface Constants {
     #[Service(DocumentsSynchronizer::class, 'settings.outdated_expire')]
     #[Group('data_loader')]
     #[Type(Duration::class)]
-    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_EXPIRE = null;
+    public const EP_DATA_LOADER_DOCUMENTS_SYNCHRONIZER_OUTDATED_EXPIRE = 'P1M';
     // </editor-fold>
     // </editor-fold>
 
