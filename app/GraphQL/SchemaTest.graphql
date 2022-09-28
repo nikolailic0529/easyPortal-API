@@ -8321,6 +8321,39 @@ implements
     assets_count: Int!
     @orgProperty
 
+    changeRequests(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
+        order: [SortByClauseChangeRequestsSort!]
+        @sortBy
+
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): [ChangeRequest!]!
+    @relation
+    @paginatedRelation
+
+    changeRequestsAggregated(
+        where: SearchByConditionChangeRequestsQuery
+        @searchBy
+    ): ChangeRequestsAggregated
+    @aggregated(
+        relation: "changeRequests"
+    )
+
     changed_at: DateTime
 
     contacts(
