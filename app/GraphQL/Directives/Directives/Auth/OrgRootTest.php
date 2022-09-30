@@ -84,6 +84,50 @@ class OrgRootTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::resolveField
+     *
+     * @dataProvider dataProviderResolveField
+     *
+     * @param OrganizationFactory $orgFactory
+     * @param UserFactory         $userFactory
+     */
+    public function testResolveArg(
+        Response $expected,
+        mixed $orgFactory,
+        mixed $userFactory,
+        bool $isRootOrganization = false,
+    ): void {
+        $org = $this->setOrganization($orgFactory);
+
+        $this->setUser($userFactory, $org);
+
+        if ($isRootOrganization) {
+            $this->setRootOrganization($org);
+        }
+
+        $resolver = addslashes(EmptyResolver::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    value(arg: Boolean = true @authOrgRoot): String! @field(resolver: "{$resolver}")
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    value
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">

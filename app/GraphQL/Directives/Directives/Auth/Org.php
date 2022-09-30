@@ -6,14 +6,16 @@ use App\Services\Auth\Auth;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
 abstract class Org extends AuthDirective implements FieldMiddleware {
     public function __construct(
         Auth $auth,
+        DirectiveLocator $directives,
         protected CurrentOrganization $organization,
     ) {
-        parent::__construct($auth);
+        parent::__construct($auth, $directives);
     }
 
     public static function definition(): string {
@@ -21,7 +23,7 @@ abstract class Org extends AuthDirective implements FieldMiddleware {
             """
             Authenticated user must be a member of the current organization.
             """
-            directive @authOrg on FIELD_DEFINITION | OBJECT
+            directive @authOrg on FIELD_DEFINITION | OBJECT | ARGUMENT_DEFINITION
             GRAPHQL;
     }
 

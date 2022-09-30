@@ -532,6 +532,7 @@ directive @authMe(
     permissions: [String!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 

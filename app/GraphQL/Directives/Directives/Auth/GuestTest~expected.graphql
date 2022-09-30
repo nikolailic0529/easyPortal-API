@@ -2,8 +2,15 @@ type Query {
     """
     @require <authGuest> Current visitor must be a guest.
     """
-    value: Test!
+    a: Test!
     @authGuest
+    @mock
+
+    b(
+        arg: Boolean
+        @authGuest
+    ): Test!
+    @authAny
     @mock
 }
 
@@ -35,10 +42,20 @@ type Test
 }
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 Current visitor must be a guest.
 """
 directive @authGuest
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 

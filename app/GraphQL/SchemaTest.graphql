@@ -13233,6 +13233,7 @@ Current visitor must be a guest.
 """
 directive @authGuest
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13246,6 +13247,7 @@ directive @authMe(
     permissions: [String!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13254,6 +13256,7 @@ Authenticated user must be a member of the current organization.
 """
 directive @authOrg
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13263,6 +13266,7 @@ the organization must be a Reseller (or a root organization).
 """
 directive @authOrgReseller
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13272,6 +13276,7 @@ the organization must be a root organization.
 """
 directive @authOrgRoot
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13280,6 +13285,7 @@ Authenticated user must be a root.
 """
 directive @authRoot
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 

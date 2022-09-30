@@ -1,0 +1,16 @@
+type Query {
+    value(arg: Boolean @authAny): Test! @mock
+}
+
+"""
+Description.
+"""
+type Test @authAny {
+    one: String!
+
+    two: String! @authAny
+}
+
+extend type Test @authAny {
+    extension: String!
+}

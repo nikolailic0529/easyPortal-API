@@ -152,6 +152,38 @@ class MeTest extends TestCase {
     }
 
     /**
+     * @covers ::resolveField
+     *
+     * @dataProvider dataProviderResolveField
+     *
+     * @param UserFactory $userFactory
+     */
+    public function testResolveArg(Response $expected, mixed $userFactory): void {
+        $this->setUser($userFactory);
+
+        $resolver = addslashes(EmptyResolver::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    value(arg: Boolean = true @authMe): String! @field(resolver: "{$resolver}")
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    value
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
+
+    /**
      * @covers ::getRequirements
      */
     public function testGetRequirements(): void {
