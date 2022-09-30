@@ -27,6 +27,18 @@ enum SortByTypeDirection {
     desc
 }
 
+enum Trashed {
+    """
+    Trashed items will be returned too.
+    """
+    Include
+
+    """
+    Only trashed items will be returned.
+    """
+    Only
+}
+
 """
 Group clause for `input CustomerSearch` (only one property allowed at a time).
 """
@@ -178,9 +190,16 @@ type Customer {
 
         test: ID
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCustomerSearch
         @searchBy
     ): [CustomerLocation!]
+    @authAny
     @relation
     @paginatedRelation
 
@@ -229,7 +248,14 @@ type CustomerLocationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -321,6 +347,29 @@ on
     | FIELD_DEFINITION
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
+User must be authenticated.
+"""
+directive @authMe(
+    """
+    User must be authenticated and have any of these permissions.
+    """
+    permissions: [String!]
+)
+repeatable on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 Cache the resolved value of a field.
 """
 directive @cached(
@@ -368,6 +417,13 @@ Adds offset-based pagination for the relation.
 directive @paginatedRelation
 on
     | FIELD_DEFINITION
+
+"""
+Adds `withTrashed()` to the builder.
+"""
+directive @paginatedTrashed
+on
+    | ARGUMENT_DEFINITION
 
 """
 Eloquent relationship.

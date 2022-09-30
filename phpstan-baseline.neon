@@ -591,6 +591,21 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTest.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:onlyTrashed\\(\\)\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:withTrashed\\(\\)\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\PaginatedTrashed\\:\\:handleBuilder\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
+
+		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Relation\\:\\:makeBuilderDecorator\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Relation.php

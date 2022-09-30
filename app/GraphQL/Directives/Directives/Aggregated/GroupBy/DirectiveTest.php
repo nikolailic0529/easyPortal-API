@@ -222,6 +222,7 @@ class DirectiveTest extends TestCase {
                             'DateTime',
                             'ID',
                             'OrganizationType',
+                            'Trashed',
                         ]);
                 },
                 '~full.graphql',

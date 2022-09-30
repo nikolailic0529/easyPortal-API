@@ -7,12 +7,16 @@ use App\GraphQL\Directives\Definitions\AggregatedGroupByDirective;
 use App\GraphQL\Directives\Directives\Aggregated\Builder as AggregatedBuilder;
 use App\GraphQL\Directives\Directives\Aggregated\GroupBy\Types\Group;
 use App\GraphQL\Directives\Directives\Cached\Cached;
+use App\Utils\Eloquent\Model;
+use App\Utils\Eloquent\ModelHelper;
 use GraphQL\Language\AST\FieldDefinitionNode;
 use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\Parser;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\GraphQL\SearchBy\Definitions\SearchByDirective;
@@ -26,6 +30,7 @@ use Nuwave\Lighthouse\Scout\SearchDirective;
 use Nuwave\Lighthouse\Support\Contracts\ArgBuilderDirective;
 
 use function implode;
+use function is_a;
 use function json_encode;
 use function sprintf;
 use function str_ends_with;
@@ -55,9 +60,18 @@ class Manipulator extends BuilderManipulator {
             $parent->fields[] = $this->applyManipulators($aggregated, $parent);
         }
 
-        // Add limit/offset arguments
-        $field->arguments[] = $this->getLimitField();
-        $field->arguments[] = $this->getOffsetField();
+        // Arguments
+        $arguments = [
+            $this->getLimitField(),
+            $this->getOffsetField(),
+            $this->getTrashedField($field),
+        ];
+
+        foreach ($arguments as $argument) {
+            if ($argument) {
+                $field->arguments[] = $argument;
+            }
+        }
     }
 
     protected function getAggregatedField(
@@ -241,6 +255,39 @@ class Manipulator extends BuilderManipulator {
         return Parser::inputValueDefinition(
             <<<DEF
             limit: Int! {$value} @rules(apply: {$rules}) @paginatedLimit
+            DEF,
+        );
+    }
+
+    protected function getTrashedField(FieldDefinitionNode $field): ?InputValueDefinitionNode {
+        // SoftDelete?
+        $type      = $this->getNodeTypeName($field);
+        $model     = Relation::getMorphedModel($type);
+        $deletable = true;
+
+        if ($model && is_a($model, Model::class, true)) {
+            $deletable = (new ModelHelper($model))->isSoftDeletable();
+        }
+
+        if (!$deletable) {
+            return null;
+        }
+
+        // Scout?
+        $scout = Arr::first($field->arguments, function (InputValueDefinitionNode $arg): bool {
+            return $this->getNodeDirective($arg, SearchDirective::class) !== null;
+        });
+
+        if ($scout !== null) {
+            return null;
+        }
+
+        // Return
+        return Parser::inputValueDefinition(
+            <<<'DEF'
+            trashed: Trashed
+            @authMe(permissions: ["administer"])
+            @paginatedTrashed
             DEF,
         );
     }
