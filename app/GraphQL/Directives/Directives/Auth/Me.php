@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
 use InvalidArgumentException;
 use LengthException;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
 
 use function array_diff;
 use function array_filter;
@@ -24,9 +25,10 @@ use function sprintf;
 abstract class Me extends AuthDirective {
     public function __construct(
         Auth $auth,
+        DirectiveLocator $directives,
         protected Gate $gate,
     ) {
-        parent::__construct($auth);
+        parent::__construct($auth, $directives);
     }
 
     public static function definition(): string {
@@ -39,7 +41,7 @@ abstract class Me extends AuthDirective {
                 User must be authenticated and have any of these permissions.
                 """
                 permissions: [String!]
-            ) repeatable on FIELD_DEFINITION | OBJECT
+            ) repeatable on FIELD_DEFINITION | OBJECT | ARGUMENT_DEFINITION
             GRAPHQL;
     }
 

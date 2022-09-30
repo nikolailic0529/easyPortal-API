@@ -17,10 +17,14 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use InvalidArgumentException;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
+use Nuwave\Lighthouse\Execution\Arguments\ResolveNested;
 use Nuwave\Lighthouse\Schema\AST\ASTHelper;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
+use Nuwave\Lighthouse\Schema\DirectiveLocator;
 use Nuwave\Lighthouse\Schema\Directives\BaseDirective;
 use Nuwave\Lighthouse\Schema\Values\FieldValue;
+use Nuwave\Lighthouse\Support\Contracts\ArgManipulator;
+use Nuwave\Lighthouse\Support\Contracts\ArgResolver;
 use Nuwave\Lighthouse\Support\Contracts\FieldManipulator;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -35,12 +39,30 @@ abstract class AuthDirective extends BaseDirective implements
     FieldMiddleware,
     FieldManipulator,
     TypeManipulator,
-    TypeExtensionManipulator {
+    TypeExtensionManipulator,
+    ArgManipulator,
+    ArgResolver {
     public function __construct(
         protected Auth $auth,
+        protected DirectiveLocator $directives,
     ) {
         // empty
     }
+
+    // <editor-fold desc="ArgResolver">
+    // =========================================================================
+    public function __invoke(mixed $root, mixed $value): mixed {
+        if ($root instanceof FieldValue && $value instanceof Closure) {
+            $root = $this->handleField($root, $value);
+        } elseif (!$this->isAllowed($root)) {
+            throw $this->getAuthenticationException();
+        } else {
+            // empty
+        }
+
+        return $root;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Auth">
     // =========================================================================
@@ -58,7 +80,14 @@ abstract class AuthDirective extends BaseDirective implements
                 throw $this->getAuthenticationException();
             }
 
-            return $previous($root, $args, $context, $resolveInfo);
+            $resolve = new ResolveNested(
+                static function () use ($previous, $root, $args, $context, $resolveInfo): mixed {
+                    return $previous($root, $args, $context, $resolveInfo);
+                },
+            );
+            $result  = $resolve($root, $resolveInfo->argumentSet);
+
+            return $result;
         };
 
         return $next($fieldValue->setResolver($resolver));
@@ -115,6 +144,23 @@ abstract class AuthDirective extends BaseDirective implements
         ASTHelper::addDirectiveToFields($this->directiveNode, $typeExtension);
 
         $this->addRequirements($typeExtension);
+    }
+
+    public function manipulateArgDefinition(
+        DocumentAST &$documentAST,
+        InputValueDefinitionNode &$argDefinition,
+        FieldDefinitionNode &$parentField,
+        ObjectTypeDefinitionNode &$parentType,
+    ): void {
+        // Field directive is required for nested @auth directives -> we must
+        // add it if it does not exist.
+        $directives = $this->directives->associatedOfType($parentField, AuthDirective::class);
+
+        if ($directives->isEmpty()) {
+            $parentField->directives->splice(0, 0, [
+                Parser::directive('@authAny'),
+            ]);
+        }
     }
 
     protected function addRequirements(FieldDefinitionNode|TypeDefinitionNode|TypeExtensionNode $node): void {

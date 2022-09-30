@@ -7,6 +7,7 @@
  */
 
 use App\GraphQL\Directives\Directives\Cached\CachedMode;
+use App\GraphQL\Directives\Directives\Paginated\Trashed;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\Contains;
 use App\GraphQL\Extensions\LaraAsp\SearchBy\Operators\Comparison\EndsWith;
 use App\Models\Enums\OrganizationType;
@@ -59,6 +60,7 @@ return [
      * @see \LastDragon_ru\LaraASP\Eloquent\Enum
      */
     'enums'     => [
+        Trashed::class,
         CachedMode::class,
         OrganizationType::class,
     ],

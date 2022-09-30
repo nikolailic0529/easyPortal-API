@@ -35,6 +35,18 @@ enum SortByTypeDirection {
     desc
 }
 
+enum Trashed {
+    """
+    Trashed items will be returned too.
+    """
+    Include
+
+    """
+    Only trashed items will be returned.
+    """
+    Only
+}
+
 """
 Group clause for `input ApplicationLogsQuery` (only one property allowed at a time).
 """
@@ -7056,6 +7068,12 @@ type Application {
         order: [SortByClauseApplicationLogsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionApplicationLogsQuery
         @searchBy
     ): [ApplicationLog!]!
@@ -7234,7 +7252,14 @@ type ApplicationLogsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -7430,9 +7455,16 @@ type Asset {
         order: [SortByClauseChangeRequestsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): [ChangeRequest!]!
+    @authAny
     @relation
     @paginatedRelation
 
@@ -7682,7 +7714,14 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -7780,7 +7819,14 @@ type AuditsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -8083,7 +8129,14 @@ type ChangeRequestsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -8295,6 +8348,12 @@ implements
         order: [SortByClauseAssetsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): [Asset!]!
@@ -8340,9 +8399,16 @@ implements
         order: [SortByClauseChangeRequestsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): [ChangeRequest!]!
+    @authAny
     @relation
     @paginatedRelation
 
@@ -8388,6 +8454,12 @@ implements
 
         order: [SortByClauseDocumentsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionDocumentsQuery
         @searchBy
@@ -8456,6 +8528,12 @@ implements
 
         order: [SortByClauseDocumentsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionDocumentsQuery
         @searchBy
@@ -8591,7 +8669,14 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -8678,7 +8763,14 @@ type DistributorsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -8720,9 +8812,16 @@ type Document {
         order: [SortByClauseChangeRequestsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): [ChangeRequest!]!
+    @authAny
     @relation
     @paginatedRelation
 
@@ -8782,9 +8881,16 @@ type Document {
         order: [SortByClauseDocumentEntriesSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentEntriesQuery
         @searchBy
     ): [DocumentEntry!]!
+    @authAny
     @relation
     @paginatedRelation
 
@@ -8825,9 +8931,16 @@ type Document {
         order: [SortByClauseNotesSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionNotesQuery
         @searchBy
     ): [Note!]!
+    @authAny
     @relation
     @paginatedRelation
 
@@ -8887,6 +9000,9 @@ type DocumentEntriesAggregated {
         mode: Threshold
     )
 
+    """
+    @require <authAny> Everyone/Everything allowed.
+    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
         @aggregatedGroupBy(
@@ -8908,7 +9024,14 @@ type DocumentEntriesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -9059,6 +9182,9 @@ type DocumentsAggregated {
         mode: Threshold
     )
 
+    """
+    @require <authAny> Everyone/Everything allowed.
+    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
         @aggregatedGroupBy(
@@ -9080,7 +9206,14 @@ type DocumentsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -10023,7 +10156,14 @@ type NotesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -10086,7 +10226,14 @@ type OemGroupsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -10474,6 +10621,12 @@ type Organization {
         order: [SortByClauseAuditsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAuditsQuery
         @searchBy
     ): [Audit!]!
@@ -10523,6 +10676,12 @@ type Organization {
 
         order: [SortByClauseChangeRequestsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionChangeRequestsQuery
         @searchBy
@@ -10620,6 +10779,12 @@ type Organization {
 
         order: [SortByClauseUsersSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionUsersQuery
         @searchBy
@@ -10791,7 +10956,14 @@ type OrganizationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -10878,7 +11050,14 @@ type ProductsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -11016,6 +11195,12 @@ type Query {
         order: [SortByClauseAssetsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): [Asset!]!
@@ -11118,6 +11303,12 @@ type Query {
 
         order: [SortByClauseAuditsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionAuditsQuery
         @searchBy
@@ -11283,6 +11474,12 @@ type Query {
 
         order: [SortByClauseDocumentsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionDocumentsQuery
         @searchBy
@@ -11491,6 +11688,12 @@ type Query {
         order: [SortByClauseCompaniesSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): [Customer!]!
@@ -11593,6 +11796,12 @@ type Query {
 
         order: [SortByClauseDistributorsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionDistributorsQuery
         @searchBy
@@ -11723,6 +11932,12 @@ type Query {
         order: [SortByClauseOemGroupsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOemGroupsQuery
         @searchBy
     ): [OemGroup!]!
@@ -11814,6 +12029,12 @@ type Query {
         order: [SortByClauseOrganizationsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOrganizationsQuery
         @searchBy
     ): [Organization!]!
@@ -11880,6 +12101,12 @@ type Query {
 
         order: [SortByClauseProductsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionProductsQuery
         @searchBy
@@ -12002,6 +12229,12 @@ type Query {
         order: [SortByClauseDocumentsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): [Document!]!
@@ -12114,6 +12347,12 @@ type Query {
 
         order: [SortByClauseCompaniesSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionCompaniesQuery
         @searchBy
@@ -12347,6 +12586,12 @@ type Query {
         order: [SortByClauseUsersSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionUsersQuery
         @searchBy
     ): [User!]!
@@ -12576,6 +12821,12 @@ implements
         order: [SortByClauseAssetsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): [Asset!]!
@@ -12636,6 +12887,12 @@ implements
 
         order: [SortByClauseDocumentsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionDocumentsQuery
         @searchBy
@@ -12704,6 +12961,12 @@ implements
         order: [SortByClauseDocumentsSort!]
         @sortBy
 
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): [Document!]!
@@ -12764,7 +13027,14 @@ type ResellersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -13120,7 +13390,14 @@ type UsersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -13229,10 +13506,20 @@ on
     | FIELD_DEFINITION
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 Current visitor must be a guest.
 """
 directive @authGuest
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13246,6 +13533,7 @@ directive @authMe(
     permissions: [String!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13254,6 +13542,7 @@ Authenticated user must be a member of the current organization.
 """
 directive @authOrg
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13263,6 +13552,7 @@ the organization must be a Reseller (or a root organization).
 """
 directive @authOrgReseller
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13272,6 +13562,7 @@ the organization must be a root organization.
 """
 directive @authOrgRoot
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13280,6 +13571,7 @@ Authenticated user must be a root.
 """
 directive @authRoot
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -13654,6 +13946,13 @@ Adds offset-based pagination for the relation.
 directive @paginatedRelation
 on
     | FIELD_DEFINITION
+
+"""
+Adds `withTrashed()` to the builder.
+"""
+directive @paginatedTrashed
+on
+    | ARGUMENT_DEFINITION
 
 """
 Eloquent relationship.

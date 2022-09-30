@@ -3,12 +3,9 @@
 namespace App\GraphQL\Directives\Directives\Auth;
 
 use App\GraphQL\Resolvers\EmptyResolver;
-use App\Models\Enums\UserType;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\GraphQLUnauthenticated;
-use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 use Tests\WithUser;
@@ -17,11 +14,11 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Root
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Auth\Any
  *
  * @phpstan-import-type UserFactory from WithUser
  */
-class RootTest extends TestCase {
+class AnyTest extends TestCase {
     use WithGraphQLSchema;
 
     // <editor-fold desc="Tests">
@@ -56,7 +53,7 @@ class RootTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @authRoot @field(resolver: "{$resolver}")
+                    value: String! @authAny @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -88,7 +85,7 @@ class RootTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value(arg: Boolean = true @authRoot): String! @field(resolver: "{$resolver}")
+                    value(value: Boolean = true @authAny): String! @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
@@ -111,24 +108,16 @@ class RootTest extends TestCase {
      */
     public function dataProviderResolveField(): array {
         return [
-            'no settings - no user' => [
-                new GraphQLUnauthenticated('value'),
+            'any'  => [
+                new GraphQLSuccess('value'),
                 static function () {
                     return null;
                 },
             ],
-            'user is not root'      => [
-                new GraphQLUnauthorized('value'),
-                static function () {
-                    return User::factory()->make();
-                },
-            ],
-            'local user is root'    => [
+            'user' => [
                 new GraphQLSuccess('value'),
                 static function () {
-                    return User::factory()->make([
-                        'type' => UserType::local(),
-                    ]);
+                    return User::factory()->make();
                 },
             ],
         ];

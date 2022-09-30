@@ -12,7 +12,7 @@ abstract class OrgReseller extends Org {
             Authenticated user must be a member of the current organization, and
             the organization must be a Reseller (or a root organization).
             """
-            directive @authOrgReseller on FIELD_DEFINITION | OBJECT
+            directive @authOrgReseller on FIELD_DEFINITION | OBJECT | ARGUMENT_DEFINITION
             GRAPHQL;
     }
 

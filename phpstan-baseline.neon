@@ -281,12 +281,12 @@ parameters:
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:342 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:310\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:374 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:342\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:350 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:310\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$builder of class class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:382 constructor expects Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<Illuminate\\\\Database\\\\Eloquent\\\\Model\\>, Illuminate\\\\Database\\\\Eloquent\\\\Builder\\<class@anonymous/app/GraphQL/Directives/Directives/Auth/MeTest\\.php\\:342\\> given\\.$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Auth/MeTest.php
 
@@ -589,6 +589,21 @@ parameters:
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\PaginatedTest_Resolver\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
 			count: 1
 			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTest.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:onlyTrashed\\(\\)\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:withTrashed\\(\\)\\.$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
+
+		-
+			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Paginated\\\\PaginatedTrashed\\:\\:handleBuilder\\(\\) has parameter \\$builder with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder but does not specify its types\\: TModelClass$#"
+			count: 1
+			path: app/GraphQL/Directives/Directives/Paginated/PaginatedTrashed.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Directives\\\\Directives\\\\Relation\\:\\:makeBuilderDecorator\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"

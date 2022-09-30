@@ -85,6 +85,50 @@ class OrgResellerTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::resolveField
+     *
+     * @dataProvider dataProviderResolveField
+     *
+     * @param OrganizationFactory $organizationFactory
+     * @param UserFactory         $userFactory
+     */
+    public function testResolveArg(
+        Response $expected,
+        mixed $organizationFactory,
+        mixed $userFactory,
+        bool $isRootOrganization = false,
+    ): void {
+        $organization = $this->setOrganization($organizationFactory);
+
+        $this->setUser($userFactory, $organization);
+
+        if ($isRootOrganization) {
+            $this->setRootOrganization($organization);
+        }
+
+        $resolver = addslashes(EmptyResolver::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    value(arg: Boolean = true @authOrgReseller): String! @field(resolver: "{$resolver}")
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    value
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">

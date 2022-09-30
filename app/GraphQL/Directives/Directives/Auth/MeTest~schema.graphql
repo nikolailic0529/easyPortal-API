@@ -1,6 +1,8 @@
 type Query {
     value: String! @authMe @mock
 
+    valueWithArg(arg: Boolean @authMe): Test! @mock
+
     valueWithPermissions: Test!
     @authMe(
         permissions: ["a", "b", "c"]

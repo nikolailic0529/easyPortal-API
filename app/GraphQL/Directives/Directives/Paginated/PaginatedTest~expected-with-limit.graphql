@@ -27,6 +27,18 @@ enum SortByTypeDirection {
     desc
 }
 
+enum Trashed {
+    """
+    Trashed items will be returned too.
+    """
+    Include
+
+    """
+    Only trashed items will be returned.
+    """
+    Only
+}
+
 """
 Group clause for `type Asset` (only one property allowed at a time).
 """
@@ -187,6 +199,9 @@ type AssetsAggregated {
         mode: Threshold
     )
 
+    """
+    @require <authAny> Everyone/Everything allowed.
+    """
     groups(
         groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy(
@@ -208,7 +223,14 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -266,7 +288,14 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -313,7 +342,14 @@ type Query {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [Asset!]!
+    @authAny
     @paginated
 
     dataAggregated: AssetsAggregated
@@ -344,6 +380,12 @@ type Query {
         @sortBy
 
         test: ID
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionCustomerSearch
         @searchBy
@@ -413,7 +455,14 @@ type Query {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [Type!]!
+    @authAny
     @paginated
 
     typeAggregated: TypesAggregated
@@ -439,6 +488,9 @@ type TypesAggregated {
         mode: Threshold
     )
 
+    """
+    @require <authAny> Everyone/Everything allowed.
+    """
     groups(
         groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy(
@@ -460,7 +512,14 @@ type TypesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
+    @authAny
     @cached(
         mode: Threshold
     )
@@ -523,6 +582,15 @@ on
     | INPUT_FIELD_DEFINITION
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 User must be authenticated.
 """
 directive @authMe(
@@ -532,6 +600,7 @@ directive @authMe(
     permissions: [String!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
@@ -574,6 +643,13 @@ on
 Adds offset clause to the builder.
 """
 directive @paginatedOffset
+on
+    | ARGUMENT_DEFINITION
+
+"""
+Adds `withTrashed()` to the builder.
+"""
+directive @paginatedTrashed
 on
     | ARGUMENT_DEFINITION
 

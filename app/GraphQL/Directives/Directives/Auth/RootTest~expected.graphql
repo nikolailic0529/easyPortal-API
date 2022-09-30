@@ -2,8 +2,15 @@ type Query {
     """
     @require <authRoot> Authenticated user must be a root.
     """
-    value: Test!
+    a: Test!
     @authRoot
+    @mock
+
+    b(
+        arg: Boolean
+        @authRoot
+    ): Test!
+    @authAny
     @mock
 }
 
@@ -35,10 +42,20 @@ type Test
 }
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 Authenticated user must be a root.
 """
 directive @authRoot
 on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 

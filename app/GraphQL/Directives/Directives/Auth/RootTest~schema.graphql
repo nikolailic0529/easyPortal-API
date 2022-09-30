@@ -1,5 +1,6 @@
 type Query {
-    value: Test! @authRoot @mock
+    a: Test! @authRoot @mock
+    b(arg: Boolean @authRoot): Test! @mock
 }
 
 """

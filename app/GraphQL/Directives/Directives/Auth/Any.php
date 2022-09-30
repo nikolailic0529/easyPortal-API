@@ -3,20 +3,23 @@
 namespace App\GraphQL\Directives\Directives\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
-abstract class OrgRoot extends Org {
+abstract class Any extends AuthDirective implements FieldMiddleware {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
-            Authenticated user must be a member of the current organization, and
-            the organization must be a root organization.
+            Everyone/Everything allowed.
             """
-            directive @authOrgRoot on FIELD_DEFINITION | OBJECT | ARGUMENT_DEFINITION
+            directive @authAny on FIELD_DEFINITION | OBJECT | ARGUMENT_DEFINITION
             GRAPHQL;
     }
 
+    protected function isAuthenticated(Authenticatable|null $user): bool {
+        return true;
+    }
+
     protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
-        return parent::isAuthorized($user, $root)
-            && $this->organization->isRoot();
+        return true;
     }
 }

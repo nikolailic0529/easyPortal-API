@@ -6,6 +6,13 @@ type Query {
     @authMe
     @mock
 
+    valueWithArg(
+        arg: Boolean
+        @authMe
+    ): Test!
+    @authAny
+    @mock
+
     """
     @require <authMe(["a","b","c"])> User must be authenticated and have any of these permissions.
     """
@@ -85,6 +92,15 @@ type TestPermissions
 }
 
 """
+Everyone/Everything allowed.
+"""
+directive @authAny
+on
+    | ARGUMENT_DEFINITION
+    | FIELD_DEFINITION
+    | OBJECT
+
+"""
 User must be authenticated.
 """
 directive @authMe(
@@ -94,6 +110,7 @@ directive @authMe(
     permissions: [String!]
 )
 repeatable on
+    | ARGUMENT_DEFINITION
     | FIELD_DEFINITION
     | OBJECT
 
