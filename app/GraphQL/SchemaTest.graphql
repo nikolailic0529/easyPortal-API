@@ -555,7 +555,7 @@ input AggregatedGroupByClauseDocumentsQuery {
     """
     Relationship clause.
     """
-    oemGroup: [SortByClauseOemGroupsQuery!]
+    oemGroup: [SortByClauseOemGroupsSort!]
     @aggregatedGroupByOperatorRelation
 
     """
@@ -6439,7 +6439,7 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
-    oemGroup: SortByClauseOemGroupsQuery
+    oemGroup: SortByClauseOemGroupsSort
     @sortByProperty
 
     """
@@ -6610,29 +6610,6 @@ input SortByClauseNotesSort {
     Property clause.
     """
     user_id: SortByTypeDirection
-    @sortByOperatorProperty
-}
-
-"""
-Sort clause for input OemGroupsQuery (only one property allowed at a time).
-"""
-input SortByClauseOemGroupsQuery {
-    """
-    Property clause.
-    """
-    id: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    key: SortByTypeDirection
-    @sortByOperatorProperty
-
-    """
-    Property clause.
-    """
-    name: SortByTypeDirection
     @sortByOperatorProperty
 }
 
