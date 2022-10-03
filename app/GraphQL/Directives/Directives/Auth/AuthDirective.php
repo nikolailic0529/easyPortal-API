@@ -173,10 +173,16 @@ abstract class AuthDirective extends BaseDirective implements
             return;
         }
 
-        // Generate
-        $tag          = '@require';
-        $description  = $node->description->value ?? '';
+        // Requirements?
         $requirements = $this->getRequirements();
+
+        if (!$requirements) {
+            return;
+        }
+
+        // Generate
+        $tag         = '@require';
+        $description = $node->description->value ?? '';
 
         if ($description && !str_contains($description, $tag)) {
             $description = trim($description);

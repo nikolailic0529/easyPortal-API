@@ -9000,9 +9000,6 @@ type DocumentEntriesAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
         @aggregatedGroupBy(
@@ -9182,9 +9179,6 @@ type DocumentsAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
         @aggregatedGroupBy(

@@ -22,4 +22,11 @@ abstract class Any extends AuthDirective implements FieldMiddleware {
     protected function isAuthorized(Authenticatable|null $user, mixed $root): bool {
         return true;
     }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getRequirements(): array {
+        return [];
+    }
 }

@@ -199,9 +199,6 @@ type AssetsAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy(
@@ -488,9 +485,6 @@ type TypesAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy(
