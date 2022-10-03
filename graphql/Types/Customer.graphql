@@ -5,6 +5,9 @@ type Customer implements Company {
     name: String!
     changed_at: DateTime
     synced_at: DateTime!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
     statuses: [Status!]! @relation
     kpi: Kpi @orgRelation
 
@@ -15,7 +18,9 @@ type Customer implements Company {
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
 
     # Locations
     locations_count: Int!
@@ -24,6 +29,7 @@ type Customer implements Company {
         order: CompanyLocationsSort @sortBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
 
     headquarter: CompanyLocation @relation
 

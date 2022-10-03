@@ -199,9 +199,6 @@ type AssetsAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseAsset!
         @aggregatedGroupBy(
@@ -223,14 +220,7 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -288,14 +278,7 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -352,7 +335,14 @@ type Query {
     @authAny
     @paginated
 
-    dataAggregated: AssetsAggregated
+    dataAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+    ): AssetsAggregated
+    @authAny
     @aggregated(
         model: "App\\Models\\Asset"
     )
@@ -397,6 +387,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     queryAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCustomerSearch
         @searchBy
     ): CustomersAggregated
@@ -465,7 +461,14 @@ type Query {
     @authAny
     @paginated
 
-    typeAggregated: TypesAggregated
+    typeAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+    ): TypesAggregated
+    @authAny
     @aggregated(
         model: "App\\Models\\Type"
     )
@@ -488,9 +491,6 @@ type TypesAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseType!
         @aggregatedGroupBy(
@@ -512,14 +512,7 @@ type TypesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )

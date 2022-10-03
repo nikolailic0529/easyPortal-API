@@ -9,27 +9,16 @@ type Query {
 
 """
 Description.
-
-@require <authAny> Everyone/Everything allowed.
 """
 type Test
 @authAny
 {
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     extension: String!
     @authAny
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     one: String!
     @authAny
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     two: String!
     @authAny
 }

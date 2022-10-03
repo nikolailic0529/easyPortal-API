@@ -4,6 +4,7 @@ type Note {
     note: HtmlString!
     created_at: DateTime!
     updated_at: DateTime!
+    deleted_at: DateTime
     user_id: ID!
     user: User! @relation
     files: [File!]! @relation

@@ -2,6 +2,7 @@ input ChangeRequestsSort {
     id: ID!
     created_at: DateTime!
     updated_at: DateTime!
+    deleted_at: DateTime
     user_id: ID!
     user: UsersSort
     from: String!

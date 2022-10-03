@@ -10,4 +10,7 @@ type Location {
     city_id: ID!
     country: Country! @relation
     country_id: ID!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

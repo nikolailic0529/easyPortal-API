@@ -6,4 +6,7 @@ input CompaniesSort {
     quotes_count: Int! @orgProperty
     contracts_count: Int! @orgProperty
     headquarter: CompanyLocationsSort!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

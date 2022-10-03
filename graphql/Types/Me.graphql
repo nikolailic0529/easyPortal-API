@@ -38,4 +38,5 @@ type Me {
         order: MeSearchSort @sortBy
     ): [MeSearch!]!
     @relation
+    @paginatedRelation
 }

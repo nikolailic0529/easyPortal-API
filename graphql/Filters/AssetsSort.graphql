@@ -10,4 +10,7 @@ input AssetsSort {
     reseller: CompaniesSort!
     customer: CompaniesSort!
     status: StatusesSort!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }

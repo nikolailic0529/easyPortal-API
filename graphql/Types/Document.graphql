@@ -6,6 +6,9 @@ type Document {
     number: String
     start: Date
     end: Date
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 
     price: Float
     @field(
@@ -40,11 +43,15 @@ type Document {
     entries_count: Int!
     language_id: ID
     language: Language @relation
+
+    contacts_count: Int!
     contacts (
         where: ContactsQuery @searchBy
         order: ContactsSort @sortBy
-    ): [Contact!]! @relation
-    contacts_count: Int!
+    ): [Contact!]!
+    @relation
+    @paginatedRelation
+
     distributor_id: ID
     distributor: Distributor @relation
     assets_count: Int

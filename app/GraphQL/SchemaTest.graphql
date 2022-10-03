@@ -271,6 +271,34 @@ input AggregatedGroupByClauseCompaniesQuery {
 }
 
 """
+Group clause for `input CompanyLocationsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseCompanyLocationsQuery {
+    """
+    Relationship clause.
+    """
+    location: [SortByClauseLocationsSort!]
+    @aggregatedGroupByOperatorRelation
+
+    """
+    Property clause.
+    """
+    location_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `input ContactsQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseContactsQuery {
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
 Group clause for `input DistributorsQuery` (only one property allowed at a time).
 """
 input AggregatedGroupByClauseDistributorsQuery {
@@ -570,6 +598,23 @@ input AggregatedGroupByClauseDocumentsQuery {
     Property clause.
     """
     type_id: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+}
+
+"""
+Group clause for `input MeSearchQuery` (only one property allowed at a time).
+"""
+input AggregatedGroupByClauseMeSearchQuery {
+    """
+    Property clause.
+    """
+    key: AggregatedGroupByTypeDirection
+    @aggregatedGroupByOperatorAsString
+
+    """
+    Property clause.
+    """
+    name: AggregatedGroupByTypeDirection
     @aggregatedGroupByOperatorAsString
 }
 
@@ -5607,8 +5652,20 @@ input SortByClauseAssetsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     customer: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -5663,6 +5720,12 @@ input SortByClauseAssetsSort {
     """
     type: SortByClauseTypesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -5732,6 +5795,12 @@ input SortByClauseChangeRequestsSort {
     Property clause.
     """
     created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -5813,6 +5882,18 @@ input SortByClauseCompaniesSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     headquarter: SortByClauseCompanyLocationsSort
     @sortByProperty
 
@@ -5833,6 +5914,12 @@ input SortByClauseCompaniesSort {
     """
     quotes_count: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -5850,6 +5937,18 @@ input SortByClauseCompanyLocationsSort {
 Sort clause for input ContactsSort (only one property allowed at a time).
 """
 input SortByClauseContactsSort {
+    """
+    Property clause.
+    """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
     """
     Property clause.
     """
@@ -5872,6 +5971,12 @@ input SortByClauseContactsSort {
     Property clause.
     """
     phone_valid: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -5955,6 +6060,18 @@ input SortByClauseDistributorsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -5962,6 +6079,12 @@ input SortByClauseDistributorsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -5996,6 +6119,12 @@ input SortByClauseDocumentEntriesSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     currency: SortByClauseCurrenciesSort
     @sortByProperty
 
@@ -6003,6 +6132,12 @@ input SortByClauseDocumentEntriesSort {
     Property clause.
     """
     currency_id: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6160,6 +6295,12 @@ input SortByClauseDocumentEntriesSort {
     """
     start: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6249,6 +6390,12 @@ input SortByClauseDocumentsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     currency: SortByClauseCurrenciesSort
     @sortByProperty
 
@@ -6257,6 +6404,12 @@ input SortByClauseDocumentsSort {
     """
     customer: SortByClauseCompaniesSort
     @sortByProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
 
     """
     Property clause.
@@ -6317,6 +6470,12 @@ input SortByClauseDocumentsSort {
     """
     start: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6349,6 +6508,18 @@ input SortByClauseLocationsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     line_one: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6369,6 +6540,12 @@ input SortByClauseLocationsSort {
     """
     state: SortByTypeDirection
     @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
+    @sortByOperatorProperty
 }
 
 """
@@ -6384,6 +6561,12 @@ input SortByClauseMeSearchSort {
     """
     Property clause.
     """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     key: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6391,6 +6574,12 @@ input SortByClauseMeSearchSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6402,6 +6591,12 @@ input SortByClauseNotesSort {
     Property clause.
     """
     created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6459,6 +6654,18 @@ input SortByClauseOemGroupsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     id: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6472,6 +6679,12 @@ input SortByClauseOemGroupsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6505,6 +6718,18 @@ input SortByClauseOrganizationsSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     email: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6512,6 +6737,12 @@ input SortByClauseOrganizationsSort {
     Property clause.
     """
     name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 
     """
@@ -6717,6 +6948,18 @@ input SortByClauseUsersSort {
     """
     Property clause.
     """
+    created_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    deleted_at: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
     email: SortByTypeDirection
     @sortByOperatorProperty
 
@@ -6736,6 +6979,12 @@ input SortByClauseUsersSort {
     Property clause.
     """
     given_name: SortByTypeDirection
+    @sortByOperatorProperty
+
+    """
+    Property clause.
+    """
+    updated_at: SortByTypeDirection
     @sortByOperatorProperty
 }
 
@@ -6900,6 +7149,8 @@ input UserUpdateInput {
 
 interface Company {
     changed_at: DateTime
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
 
     kpi: Kpi
@@ -6911,6 +7162,7 @@ interface Company {
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 interface Payload {
@@ -7067,12 +7319,6 @@ type Application {
 
         order: [SortByClauseApplicationLogsSort!]
         @sortBy
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
 
         where: SearchByConditionApplicationLogsQuery
         @searchBy
@@ -7252,14 +7498,7 @@ type ApplicationLogsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -7469,9 +7708,16 @@ type Asset {
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -7479,13 +7725,51 @@ type Asset {
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -7493,12 +7777,14 @@ type Asset {
     @relation
 
     coverages_count: Int!
+    created_at: DateTime!
 
     customer: Customer
     @relation
 
     customer_id: ID
     data_quality: String
+    deleted_at: DateTime
     id: ID!
 
     location: Location
@@ -7539,6 +7825,7 @@ type Asset {
     @relation
 
     type_id: ID
+    updated_at: DateTime!
 
     warranties: [AssetWarranty!]!
     @relation(
@@ -7714,14 +8001,7 @@ type AssetsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -7819,14 +8099,7 @@ type AuditsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8081,6 +8354,7 @@ type ChangeRequest {
     bcc: [String!]
     cc: [String!]
     created_at: DateTime!
+    deleted_at: DateTime
 
     files: [File!]!
     @relation
@@ -8129,14 +8403,7 @@ type ChangeRequestsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8209,7 +8476,60 @@ type CompanyLocation {
     @relation
 }
 
+"""
+Aggregated data for `type CompanyLocation`.
+"""
+type CompanyLocationsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseCompanyLocationsQuery!
+        @aggregatedGroupBy(
+            order: "CompanyLocationsSort"
+            where: "CompanyLocationsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseCompanyLocationsQuery!
+        @aggregatedGroupBy(
+            order: "CompanyLocationsSort"
+            where: "CompanyLocationsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+}
+
 type Contact {
+    created_at: DateTime!
+    deleted_at: DateTime
     email: Email
     id: ID!
     name: String
@@ -8222,6 +8542,59 @@ type Contact {
 
     types: [Type]!
     @relation
+
+    updated_at: DateTime!
+}
+
+"""
+Aggregated data for `type Contact`.
+"""
+type ContactsAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseContactsQuery!
+        @aggregatedGroupBy(
+            order: "ContactsSort"
+            where: "ContactsQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseContactsQuery!
+        @aggregatedGroupBy(
+            order: "ContactsSort"
+            where: "ContactsQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type ContractChangeRequestCreatePayload
@@ -8367,6 +8740,12 @@ implements
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -8413,9 +8792,16 @@ implements
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -8423,13 +8809,51 @@ implements
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -8474,6 +8898,12 @@ implements
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -8487,6 +8917,9 @@ implements
     contracts_count: Int!
     @orgProperty
 
+    created_at: DateTime!
+    deleted_at: DateTime
+
     headquarter: CompanyLocation
     @relation
 
@@ -8496,6 +8929,21 @@ implements
     @orgRelation
 
     locations(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
@@ -8503,6 +8951,15 @@ implements
         @searchBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
+
+    locationsAggregated(
+        where: SearchByConditionCompanyLocationsQuery
+        @searchBy
+    ): CompanyLocationsAggregated
+    @aggregated(
+        relation: "locations"
+    )
 
     locations_count: Int!
     name: String!
@@ -8548,6 +9005,12 @@ implements
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -8565,6 +9028,7 @@ implements
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 type CustomerChangeRequestCreatePayload
@@ -8669,14 +9133,7 @@ type CustomersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8728,8 +9185,11 @@ type DispatchApplicationServicePayload {
 }
 
 type Distributor {
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     name: String!
+    updated_at: DateTime!
 }
 
 """
@@ -8763,14 +9223,7 @@ type DistributorsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -8826,9 +9279,16 @@ type Document {
     @paginatedRelation
 
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
+    @authAny
     @aggregated(
         relation: "changeRequests"
     )
@@ -8836,15 +9296,54 @@ type Document {
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
+    created_at: DateTime!
 
     currency: Currency
     @relation
@@ -8855,6 +9354,7 @@ type Document {
     @relation
 
     customer_id: ID
+    deleted_at: DateTime
 
     distributor: Distributor
     @relation
@@ -8895,9 +9395,16 @@ type Document {
     @paginatedRelation
 
     entriesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentEntriesQuery
         @searchBy
     ): DocumentEntriesAggregated
+    @authAny
     @aggregated(
         relation: "entries"
     )
@@ -8945,9 +9452,16 @@ type Document {
     @paginatedRelation
 
     notesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionNotesQuery
         @searchBy
     ): NotesAggregated
+    @authAny
     @aggregated(
         relation: "notes"
     )
@@ -8988,6 +9502,7 @@ type Document {
     @relation
 
     type_id: ID
+    updated_at: DateTime!
 }
 
 """
@@ -9000,9 +9515,6 @@ type DocumentEntriesAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentEntriesQuery!
         @aggregatedGroupBy(
@@ -9024,14 +9536,7 @@ type DocumentEntriesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -9090,11 +9595,13 @@ type DocumentEntry {
 
     asset_id: ID
     asset_type_id: ID
+    created_at: DateTime!
 
     currency: Currency
     @relation
 
     currency_id: ID
+    deleted_at: DateTime
     document_id: ID!
     end: Date
     environment_id: String
@@ -9170,6 +9677,7 @@ type DocumentEntry {
     service_group_id: ID
     service_level_id: ID
     start: Date
+    updated_at: DateTime!
 }
 
 """
@@ -9182,9 +9690,6 @@ type DocumentsAggregated {
         mode: Threshold
     )
 
-    """
-    @require <authAny> Everyone/Everything allowed.
-    """
     groups(
         groupBy: AggregatedGroupByClauseDocumentsQuery!
         @aggregatedGroupBy(
@@ -9206,14 +9711,7 @@ type DocumentsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -9410,6 +9908,8 @@ type Location {
     @relation
 
     country_id: ID!
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     latitude: Float
     line_one: String!
@@ -9417,6 +9917,7 @@ type Location {
     longitude: Float
     postcode: String!
     state: String!
+    updated_at: DateTime!
 }
 
 type Map {
@@ -9513,6 +10014,21 @@ type Me {
     )
 
     searches(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseMeSearchSort!]
         @sortBy
 
@@ -9520,6 +10036,15 @@ type Me {
         @searchBy
     ): [MeSearch!]!
     @relation
+    @paginatedRelation
+
+    searchesAggregated(
+        where: SearchByConditionMeSearchQuery
+        @searchBy
+    ): MeSearchesAggregated
+    @aggregated(
+        relation: "searches"
+    )
 
     team: Team
     @field(
@@ -9549,9 +10074,62 @@ type MeMutation {
 type MeSearch {
     conditions: String!
     created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     key: String!
     name: String!
+    updated_at: DateTime!
+}
+
+"""
+Aggregated data for `type MeSearch`.
+"""
+type MeSearchesAggregated {
+    count: Int!
+    @aggregatedCount
+    @cached(
+        mode: Threshold
+    )
+
+    groups(
+        groupBy: AggregatedGroupByClauseMeSearchQuery!
+        @aggregatedGroupBy(
+            order: "MeSearchSort"
+            where: "MeSearchQuery"
+        )
+
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+    ): [AggregatedGroupByTypeGroup!]!
+    @cached(
+        mode: Threshold
+    )
+    @paginated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
+
+    groupsAggregated(
+        groupBy: AggregatedGroupByClauseMeSearchQuery!
+        @aggregatedGroupBy(
+            order: "MeSearchSort"
+            where: "MeSearchQuery"
+        )
+    ): AggregatedGroupByTypeGroupsAggregated
+    @aggregated(
+        builder: "App\\GraphQL\\Directives\\Directives\\Aggregated\\Builder"
+    )
 }
 
 type MeUpdatePayload
@@ -10110,6 +10688,7 @@ type Mutation {
 
 type Note {
     created_at: DateTime!
+    deleted_at: DateTime
 
     files: [File!]!
     @relation
@@ -10156,14 +10735,7 @@ type NotesAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -10190,9 +10762,12 @@ type Oem {
 }
 
 type OemGroup {
+    created_at: DateTime!
+    deleted_at: DateTime
     id: ID!
     key: String!
     name: String!
+    updated_at: DateTime!
 }
 
 """
@@ -10226,14 +10801,7 @@ type OemGroupsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -10621,12 +11189,6 @@ type Organization {
         order: [SortByClauseAuditsSort!]
         @sortBy
 
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
-
         where: SearchByConditionAuditsQuery
         @searchBy
     ): [Audit!]!
@@ -10696,6 +11258,12 @@ type Organization {
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     changeRequestsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionChangeRequestsQuery
         @searchBy
     ): ChangeRequestsAggregated
@@ -10715,10 +11283,13 @@ type Organization {
     )
     @relation
 
+    created_at: DateTime!
+
     currency: Currency
     @relation
 
     currency_id: ID
+    deleted_at: DateTime
     email: Email
     id: ID!
 
@@ -10757,6 +11328,7 @@ type Organization {
 
     timezone: String
     type: OrganizationType!
+    updated_at: DateTime!
 
     """
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -10799,6 +11371,12 @@ type Organization {
     @require <authMe(["administer","org-administer"])> User must be authenticated and have any of these permissions.
     """
     usersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionUsersQuery
         @searchBy
     ): UsersAggregated
@@ -10956,14 +11534,7 @@ type OrganizationsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -11050,14 +11621,7 @@ type ProductsAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -11216,6 +11780,12 @@ type Query {
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -11303,12 +11873,6 @@ type Query {
 
         order: [SortByClauseAuditsSort!]
         @sortBy
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
 
         where: SearchByConditionAuditsQuery
         @searchBy
@@ -11499,6 +12063,12 @@ type Query {
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -11710,6 +12280,12 @@ type Query {
     @require <authMe(["customers-view"])> User must be authenticated and have any of these permissions.
     """
     customersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): CustomersAggregated
@@ -11818,6 +12394,12 @@ type Query {
     @require <authMe(["assets-view","contracts-view","quotes-view"])> User must be authenticated and have any of these permissions.
     """
     distributorsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDistributorsQuery
         @searchBy
     ): DistributorsAggregated
@@ -11951,6 +12533,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     oemGroupsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOemGroupsQuery
         @searchBy
     ): OemGroupsAggregated
@@ -12051,6 +12639,12 @@ type Query {
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     organizationsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionOrganizationsQuery
         @searchBy
     ): OrganizationsAggregated
@@ -12121,6 +12715,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     productsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionProductsQuery
         @searchBy
     ): ProductsAggregated
@@ -12253,6 +12853,12 @@ type Query {
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -12368,6 +12974,12 @@ type Query {
     @require <authMe> User must be authenticated.
     """
     resellersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionCompaniesQuery
         @searchBy
     ): ResellersAggregated
@@ -12611,6 +13223,12 @@ type Query {
     @require <authMe(["administer"])> User must be authenticated and have any of these permissions.
     """
     usersAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionUsersQuery
         @searchBy
     ): UsersAggregated
@@ -12840,6 +13458,12 @@ implements
     @require <authMe(["assets-view"])> User must be authenticated and have any of these permissions.
     """
     assetsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionAssetsQuery
         @searchBy
     ): AssetsAggregated
@@ -12856,13 +13480,51 @@ implements
     changed_at: DateTime
 
     contacts(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseContactsSort!]
         @sortBy
+
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
 
         where: SearchByConditionContactsQuery
         @searchBy
     ): [Contact!]!
+    @authAny
     @relation
+    @paginatedRelation
+
+    contactsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
+        where: SearchByConditionContactsQuery
+        @searchBy
+    ): ContactsAggregated
+    @authAny
+    @aggregated(
+        relation: "contacts"
+    )
 
     contacts_count: Int!
 
@@ -12907,6 +13569,12 @@ implements
     @require <authMe(["contracts-view"])> User must be authenticated and have any of these permissions.
     """
     contractsAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -12917,7 +13585,9 @@ implements
         relation: "contracts"
     )
 
+    created_at: DateTime!
     customers_count: Int!
+    deleted_at: DateTime
 
     headquarter: CompanyLocation
     @relation
@@ -12928,6 +13598,21 @@ implements
     @orgRelation
 
     locations(
+        limit: Int! = 25
+        @rules(
+            apply: [
+                "min:1"
+                "App\\GraphQL\\Directives\\Directives\\Paginated\\LimitRule"
+            ]
+        )
+        @paginatedLimit
+
+        offset: Int! = 0
+        @rules(
+            apply: ["min:0"]
+        )
+        @paginatedOffset
+
         order: [SortByClauseCompanyLocationsSort!]
         @sortBy
 
@@ -12935,6 +13620,15 @@ implements
         @searchBy
     ): [CompanyLocation!]!
     @relation
+    @paginatedRelation
+
+    locationsAggregated(
+        where: SearchByConditionCompanyLocationsQuery
+        @searchBy
+    ): CompanyLocationsAggregated
+    @aggregated(
+        relation: "locations"
+    )
 
     locations_count: Int!
     name: String!
@@ -12980,6 +13674,12 @@ implements
     @require <authMe(["quotes-view"])> User must be authenticated and have any of these permissions.
     """
     quotesAggregated(
+        trashed: Trashed
+        @authMe(
+            permissions: ["administer"]
+        )
+        @paginatedTrashed
+
         where: SearchByConditionDocumentsQuery
         @searchBy
     ): DocumentsAggregated
@@ -12994,6 +13694,7 @@ implements
     @relation
 
     synced_at: DateTime!
+    updated_at: DateTime!
 }
 
 """
@@ -13027,14 +13728,7 @@ type ResellersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )
@@ -13201,6 +13895,8 @@ type User {
     academic_title: String
     company: String
     contact_email: Email
+    created_at: DateTime!
+    deleted_at: DateTime
     email: Email!
     email_verified: Boolean!
     enabled: Boolean!
@@ -13269,6 +13965,7 @@ type User {
     photo: Url
     timezone: String
     title: String
+    updated_at: DateTime!
 }
 
 type UserMutation {
@@ -13390,14 +14087,7 @@ type UsersAggregated {
             apply: ["min:0"]
         )
         @paginatedOffset
-
-        trashed: Trashed
-        @authMe(
-            permissions: ["administer"]
-        )
-        @paginatedTrashed
     ): [AggregatedGroupByTypeGroup!]!
-    @authAny
     @cached(
         mode: Threshold
     )

@@ -138,6 +138,13 @@ class Manipulator extends BuilderManipulator {
 
         $aggregated->directives[] = $directive;
 
+        // Trashed
+        $trashed = $this->getTrashedField($field);
+
+        if ($trashed) {
+            $aggregated->arguments[] = $trashed;
+        }
+
         // Return
         return $aggregated;
     }
@@ -263,11 +270,9 @@ class Manipulator extends BuilderManipulator {
         // SoftDelete?
         $type      = $this->getNodeTypeName($field);
         $model     = Relation::getMorphedModel($type);
-        $deletable = true;
-
-        if ($model && is_a($model, Model::class, true)) {
-            $deletable = (new ModelHelper($model))->isSoftDeletable();
-        }
+        $deletable = $model
+            && is_a($model, Model::class, true)
+            && (new ModelHelper($model))->isSoftDeletable();
 
         if (!$deletable) {
             return null;
